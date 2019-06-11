@@ -41,18 +41,18 @@ public class Question {
     }
 
     @Override
-    public boolean equals(Object other){
-        if(other == null){
+    public boolean equals(Object otherObj){
+        if(otherObj == null){
             return false;
         }
-        if(!Question.class.isAssignableFrom(other.getClass())){
+        if(!Question.class.isAssignableFrom(otherObj.getClass())){
             return false;
         }
-        Question otherNode = (Question) other;
-        return this.getId().equals(otherNode.getId())
-                && this.getQuestionText().equals(otherNode.getQuestionText())
-                && this.getDifficulty() == (otherNode.getDifficulty())
-                && this.getCorrectAnswer().equals(otherNode.getCorrectAnswer())
-                && this.getAnswers().equals(otherNode.getAnswers());
+        Question other = (Question) otherObj;
+        return this.getId().equals(other.getId())
+                && this.getQuestionText().equals(other.getQuestionText())
+                && this.getDifficulty() == (other.getDifficulty())
+                && this.getCorrectAnswer().equals(other.getCorrectAnswer())
+                && this.getAnswers().equals(other.getAnswers());
     }
 }
