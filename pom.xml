@@ -16,6 +16,12 @@
 
 	<properties>
 		<java.version>12</java.version>
+
+		<junit.version>4.12</junit.version>
+		<junit.jupiter.version>5.0.0</junit.jupiter.version>
+		<junit.jupiter.version>5.0.0</junit.jupiter.version>
+		<junit.platform.version>1.0.0</junit.platform.version>
+
 	</properties>
 
 	<dependencies>
@@ -36,6 +42,28 @@
 			<scope>compile</scope>
 		</dependency>
 
+		<!-- junit  - https://howtoprogram.xyz/2016/09/09/junit-5-maven-example/ -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>${junit.jupiter.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- To run tests on IDE such as Eclipse, Intellij -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-runner</artifactId>
+			<version>${junit.platform.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- hamcrest for unit test matching -  https://mvnrepository.com/artifact/org.hamcrest/hamcrest-library -->
 		<dependency>
 			<groupId>org.hamcrest</groupId>
 			<artifactId>hamcrest</artifactId>
