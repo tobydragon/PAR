@@ -53,6 +53,6 @@ public class UserResponseSetTest {
         UserResponse response3 = new UserResponse("kandace", q3,"African r European?");
         respSet.addResponse(response3);
 
-        assertEquals(66.6666666,respSet.getScore(),OK_DOUBLE_MARGIN);
+        assertEquals(66.6666666,respSet.CalcScore(),OK_DOUBLE_MARGIN);
     }
 }
