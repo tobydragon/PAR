@@ -20,7 +20,7 @@ public class UserResponseSet {
         return userResponses.size();
     }
 
-    public double getScore(){
+    public double CalcScore(){
         double score=100;
         double quesWeight=100/(double)getUserResponsesSize();
 
