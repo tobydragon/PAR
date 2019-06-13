@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Horse</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+</head>
+
+<body>
+    <h1>Questions</h1>
+    <form action="#" method="post">
+
+        <script type="text/javascript" src="/js/Change.js"></script>
+
+        <b id="image">
+            <img src="../static/images/leg.jpg" width="1000" th:src="@{images/leg.jpg}" />
+        </b>
+
+        <img id="image2" src="../static/images/horse.jpg" width="1000" th:src="@{images/horse.jpg}" />
+        <script>
+            changeImage();
+        </script>
+
+        <b id="plane">
+            <p>What plane is this?</p>
+            <input type="radio" name="plane" value="Incorrect"> Lateral<br>
+            <input type="radio" name="plane" value="Correct"> Transverse<br>
+            <input type="radio" name="plane" value="Unsure"> I don't know<br>
+        </b>
+        <b id="planeCorrect"> </b>
+
+        <b id="structure0">
+            <p>What structure is in the near field?</p>
+            <input name="structures" list="structures" />
+            <datalist id="structures">
+                <option value="Bone" />
+                <option value="Tendon" />
+                <option value="Muscle" />
+                <option value="Blood vessel" />
+                <option value="Unsure" />
+            </datalist>
+        </b>
+        <b id="structure0Correct"> </b>
+
+        <b id="structure1"> </b>
+        <b id="structure1Correct"> </b>
+
+        <b id="structure2"> </b>
+        <b id="structure2Correct"> </b>
+
+        <b id="structure3"> </b>
+        <b id="structure3Correct"> </b>
+
+        <b id="attachment0">
+            <p>Whatis the structure's proximal attatchemnt?</p>
+            <input name="attachment0" list="structures2" />
+            <datalist id="structures2">
+                <option value="Bone" />
+                <option value="Tendon" />
+                <option value="Muscle" />
+                <option value="Blood vessel" />
+                <option value="Unsure" />
+            </datalist>
+        </b>
+        <b id="attachment0Correct"> </b>
+
+        <b id="attachment1">
+            <p>Whatis the structure's distal attatchemnt?</p>
+            <input name="attachment1" list="structures3" />
+            <datalist id="structures3">
+                <option value="Bone" />
+                <option value="Tendon" />
+                <option value="Muscle" />
+                <option value="Blood vessel" />
+                <option value="Unsure" />
+            </datalist>
+        </b>
+        <b id="attachment1Correct"> </b>
+
+        <b id="attachment2"> </b>
+        <b id="attachment2Correct"> </b>
+
+        <b id="attachment3"> </b>
+        <b id="attachment3Correct"> </b>
+
+        <b id="zone">
+            <p>What zone is this?</p>
+            <input type="radio" name="zone" value="Incorrect"> 1A<br>
+            <input type="radio" name="zone" value="Correct"> 1B<br>
+            <input type="radio" name="zone" value="Incorrect"> 2A<br>
+            <input type="radio" name="zone" value="Incorrect"> 2B<br>
+            <input type="radio" name="zone" value="Incorrect"> 3A<br>
+            <input type="radio" name="zone" value="Incorrect"> 3B<br>
+            <input type="radio" name="zone" value="Incorrect"> 3C<br>
+            <input type="radio" name="zone" value="Unsure"> I don't know<br>
+        </b>
+
+        <b id="zoneCorrect"> </b>
+
+        <br>
+
+        <b id="submitButton">
+            <button type="button" onclick="checkAnswers(form)">
+                Submit
+            </button>
+        </b>
+
+        <button type="button" onclick="changeQuestions()">
+            Next Question set
+        </button>
+
+    </form>
+</body></html>
