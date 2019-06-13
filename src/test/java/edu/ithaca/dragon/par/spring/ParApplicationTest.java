@@ -25,8 +25,8 @@ public class ParApplicationTest {
 	private MockMvc mvc;
 
 	@Test
-	public void getHelloTest() throws Exception {
-		mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.APPLICATION_JSON))
+	public void getDefaultApiResponseTest() throws Exception {
+		mvc.perform(MockMvcRequestBuilders.get("/api/").accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(content().string(equalTo("Greetings from PAR API!")));
 	}
