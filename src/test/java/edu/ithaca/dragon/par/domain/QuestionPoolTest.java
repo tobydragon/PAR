@@ -6,8 +6,5 @@ import java.io.IOException;
 import java.util.Arrays;
 
 public class QuestionPoolTest {
-    @Test
-    public void createSimpleQuestionPoolTest() {
 
-    }
 }
