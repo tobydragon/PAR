@@ -116,7 +116,7 @@ function changeQuestions() {
     changeImage();
     clearpage();
 
-    var question = readJson("/nextQuestion")
+    var question = readJson("api/nextQuestion")
     for (var i = 0; i < question.length; i++) readQuestion(question.get(i));
 
     reEnableSubmit();
