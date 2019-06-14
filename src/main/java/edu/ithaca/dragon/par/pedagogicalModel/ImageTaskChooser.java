@@ -6,13 +6,6 @@ import java.util.*;
 
 public class ImageTaskChooser {
 
-//
-//    public ImageTaskChooser(UserQuestionSet questionSetIn, int difficultyIn){
-//        this.questionSet = questionSetIn;
-//        this.difficulty = difficultyIn;
-//
-//    }
-
     public static Question nextImageTask(UserQuestionSet questionSet, int difficulty){
         List<Question> unseen = questionSet.getUnseenQuestions();
         List<Question> unseenSameDifficulty = new ArrayList<Question>();

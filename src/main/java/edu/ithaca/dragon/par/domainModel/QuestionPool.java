@@ -15,14 +15,6 @@ public class QuestionPool {
         allQuestions = datastore.loadQuestions();
     }
 
-    public void addQuestion(Question questionIn){
-        allQuestions.add(questionIn);
-    }
-
-    public void removeQuestion(Question questionIn){
-        allQuestions.remove(questionIn);
-    }
-
     public List<Question> getAllQuestions(){
         return allQuestions;
     }

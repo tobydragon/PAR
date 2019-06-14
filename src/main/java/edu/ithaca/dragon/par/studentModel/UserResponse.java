@@ -19,8 +19,12 @@ public class UserResponse {
      * @return true or false
      */
     public boolean checkResponse(){
-        if(responseText==question.getCorrectAnswer()) return true;
-        else return false;
+        if(responseText.equals(question.getCorrectAnswer())){
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     public String getUserId(){

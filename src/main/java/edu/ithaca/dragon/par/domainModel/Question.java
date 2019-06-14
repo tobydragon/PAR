@@ -8,7 +8,7 @@ public class Question {
     private int difficulty;
     private String questionText;
     private String correctAnswer;
-    private List<String> answers;
+    private List<String> possibleAnswers;
 
     public Question(){}
 
@@ -17,7 +17,7 @@ public class Question {
         this.questionText = questionTextIn;
         this.difficulty = difficultyIn;
         this.correctAnswer = correctAnswerIn;
-        this.answers = answersIn;
+        this.possibleAnswers = answersIn;
     }
 
     public String getId() {return id;}
@@ -32,8 +32,8 @@ public class Question {
     public String getCorrectAnswer() {return correctAnswer;}
     public void setCorrectAnswer(String correctAnswerIn) {correctAnswer = correctAnswerIn;}
 
-    public List<String> getAnswers() {return answers;}
-    public void setAnswers(List<String> answersIn) {answers = answersIn;}
+    public List<String> getPossibleAnswers() {return possibleAnswers;}
+    public void setPossibleAnswers(List<String> answersIn) { possibleAnswers = answersIn;}
 
     @Override
     public String toString() {
@@ -53,6 +53,6 @@ public class Question {
                 && this.getQuestionText().equals(other.getQuestionText())
                 && this.getDifficulty() == (other.getDifficulty())
                 && this.getCorrectAnswer().equals(other.getCorrectAnswer())
-                && this.getAnswers().equals(other.getAnswers());
+                && this.getPossibleAnswers().equals(other.getPossibleAnswers());
     }
 }
