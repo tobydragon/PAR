@@ -1,4 +1,4 @@
-package edu.ithaca.dragon.par.domain;
+package edu.ithaca.dragon.par.domainModel;
 
 import java.util.List;
 

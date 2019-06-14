@@ -1,5 +1,5 @@
 package edu.ithaca.dragon.par.studentModel;
-import edu.ithaca.dragon.par.domain.Question;
+import edu.ithaca.dragon.par.domainModel.Question;
 
 import org.junit.Test;
 import java.util.Arrays;

@@ -1,6 +1,6 @@
 package edu.ithaca.dragon.par;
 
-import edu.ithaca.dragon.par.domain.Question;
+import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.util.JsonUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

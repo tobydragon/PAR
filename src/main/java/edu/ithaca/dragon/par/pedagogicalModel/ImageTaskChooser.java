@@ -1,5 +1,5 @@
 package edu.ithaca.dragon.par.pedagogicalModel;
-import edu.ithaca.dragon.par.domain.Question;
+import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.studentModel.UserQuestionSet;
 
 import java.util.*;

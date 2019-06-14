@@ -1,7 +1,7 @@
 package edu.ithaca.dragon.par.spring;
 
 import edu.ithaca.dragon.par.ParServer;
-import edu.ithaca.dragon.par.domain.Question;
+import edu.ithaca.dragon.par.domainModel.Question;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
