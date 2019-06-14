@@ -1,0 +1,131 @@
+/*
+    stlye.css
+
+    This is the page that will have all the CSS for our project site.
+    Be sure to follow the order of the rules in this this file.
+*/
+
+/*Colors
+    Gallifrax Green: #007524
+    Gallifrax White: #FFFFFF
+    
+
+
+
+*/
+/* ========================================================= */
+/*  IMPORTS for fonts */
+
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Oswald|ZCOOL+QingKe+HuangYou');
+@import url('https://fonts.googleapis.com/css?family=Teko');
+
+
+/* ========================================================= */
+/*  Page Level Style Rules */
+header {
+    background-color: #007524;
+}
+
+header img {
+    width: 100%;
+}
+
+footer {
+    background-color: #D3D3D3;
+    font-family: 'Oswald', 'Raleway', monospace;
+}
+
+
+
+body {
+    font-family: 'Montserrat', monospace;
+}
+
+/* ========================================================= */
+/* Utility Text Style Rules */
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-family: 'Teko', 'Raleway', monospace;
+}
+
+#limegreen {
+    color: #32CD32;
+}
+
+.center {
+    text-align: center;
+}
+
+.imgCenter {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.left {
+    text-align: left;
+}
+
+.size30 {
+    font-size: 30px;
+}
+
+.size20 {
+    font-size: 20px;
+}
+
+.pad15 {
+    padding: 15px;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.margin10 {
+    margin: 10px;
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+/* ---------------------------------------*
+/* Add spacing to text elements */
+
+.text-spacing {
+    padding: 0.25em;
+}
+
+/* ========================================================= */
+/* Extending BS Stlye Rules */
+
+/* --------------------------------------------------------- */
+/* Row .border :: add borders to columns */
+
+.borders > [class*="col-"] {
+    border: 1px solid rgba(86, 61, 124, .2);
+}
+
+/* --------------------------------------------------------- */
+/* Tabs .borders :: Add borders to tab content */
+
+.tab-content.borders {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    border-radius: 0px 0px 5px 5px;
+    padding: 10px;
+}
+
+.nav-tabs {
+    margin-bottom: 0;
+}
