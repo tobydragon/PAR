@@ -135,22 +135,22 @@ function checkStructure(form) {
 }
 
 function checkDistal(form) {
-    if (form.distal.value == "Bone") return "Correct";
-    if (form.distal.value == "Unsure") return "Unsure";
+    if (form.attachment1.value == "Bone") return "Correct";
+    if (form.attachment1.value == "Unsure") return "Unsure";
     return "Incorrect";
 }
 
 function checkProximal(form) {
-    if (form.proximal.value == "Bone") return "Correct";
-    if (form.proximal.value == "Unsure") return "Unsure";
+    if (form.attachment0.value == "Bone") return "Correct";
+    if (form.attachment0.value == "Unsure") return "Unsure";
     return "Incorrect";
 }
 
 function checkAnswers(form) {
     document.getElementById('planeCorrect').innerHTML = displayCheck(form.plane.value);
-    document.getElementById('structureCorrect').innerHTML = displayCheck(checkStructure(form));
-    document.getElementById('proximalCorrect').innerHTML = displayCheck(checkProximal(form));
-    document.getElementById('distalCorrect').innerHTML = displayCheck(checkDistal(form));
+    document.getElementById('structure0Correct').innerHTML = displayCheck(checkStructure(form));
+    document.getElementById('attachment0Correct').innerHTML = displayCheck(checkProximal(form));
+    document.getElementById('attachment1Correct').innerHTML = displayCheck(checkDistal(form))
     document.getElementById('zoneCorrect').innerHTML = displayCheck(form.zone.value);
 
     document.getElementById('submitButton').innerHTML = remove();
