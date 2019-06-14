@@ -5,19 +5,15 @@ import edu.ithaca.dragon.par.studentModel.UserQuestionSet;
 import java.util.*;
 
 public class ImageTaskChooser {
-    UserQuestionSet questionSet;
 
-    //Will be type eventually
-    int difficulty;
+//
+//    public ImageTaskChooser(UserQuestionSet questionSetIn, int difficultyIn){
+//        this.questionSet = questionSetIn;
+//        this.difficulty = difficultyIn;
+//
+//    }
 
-
-    public ImageTaskChooser(UserQuestionSet questionSetIn, int difficultyIn){
-        this.questionSet = questionSetIn;
-        this.difficulty = difficultyIn;
-
-    }
-
-    public Question nextImageTask(){
+    public static Question nextImageTask(UserQuestionSet questionSet, int difficulty){
         List<Question> unseen = questionSet.getUnseenQuestions();
         List<Question> unseenSameDifficulty = new ArrayList<Question>();
         for (int i = 0; i<unseen.size(); i++){
