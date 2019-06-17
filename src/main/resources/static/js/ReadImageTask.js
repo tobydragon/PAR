@@ -4,7 +4,7 @@ var amountOfAttachments = 0;
 var QuestionTypes = [];
 var QuestionAnswers = [];
 
-var QuestionIDs= [];
+var QuestionIDs = [];
 
 function getQuestionTypes() {
     return QuestionTypes;
@@ -14,7 +14,7 @@ function getQuestionAnswers() {
     return QuestionAnswers;
 }
 
-function getQuestionIDs(){
+function getQuestionIDs() {
     return QuestionIDs;
 }
 
@@ -99,6 +99,15 @@ function displayImageURL(imageURL) {
 }
 
 function pageDisplay() {
+    var i;
     var imageTaskJSON = readJson("api/nextImageTask");
+    document.getElementById("image").innerHTML = displayImageURL(imageTaskJSON.imageURL);
+    for (i = 0; i < imageTaskJSON.length; i++) {
+        if (imageTaskJSON[i] == "taskQuestions") {
+            for (i = 0; i < imageTaskJSON.length; i++) {
+                if (imageTaskJSON[i] == imageTaskJSON.)
+            }
+        }
+    }
 
 }
