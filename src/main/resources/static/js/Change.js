@@ -99,19 +99,19 @@ function createFillIn(json) {
         '"/> <option value="' + json.answers[3] + '"/> </datalist>';
 }
 
-// function reEnableSubmit() {
-//     document.getElementById('submitButton').innerHTML = '<button type="button" onclick="checkAnswers(form)">\n' + 'Submit\n' + '</button>';
-// }
+function reEnableSubmit() {
+    document.getElementById('submitButton').innerHTML = '<button type="button" onclick="checkAnswers(form)">\n' + 'Submit\n' + '</button>';
+}
 
-// function changeImage() {
-//     var x = document.getElementById("image2");
-//
-//     if (x.style.display === "none") {
-//         x.style.display = "block";
-//     } else {
-//         x.style.display = "none";
-//     }
-// }
+function changeImage() {
+    var x = document.getElementById("image2");
+
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
 
 function changeQuestions() {
     // document.getElementById('image').innerHTML = remove();
@@ -124,36 +124,36 @@ function changeQuestions() {
     reEnableSubmit();
 }
 
-// function displayCheck(value) {
-//     if (value == "Correct") return '<font color=\"green\">Your answer is: ' + value + '</font>';
-//     if (value == "Incorrect") return '<font color=\"red\">Your answer is: ' + value + '</font>';
-//     if (value == "Unsure") return '<font color=\"#663399\">Your answer is: ' + value + '</font>';
-// }
-//
-// function checkStructure(form) {
-//     if (form.structures.value == "Bone") return "Correct";
-//     if (form.structures.value == "Unsure") return "Unsure";
-//     return "Incorrect";
-// }
-//
-// function checkDistal(form) {
-//     if (form.attachment1.value == "Bone") return "Correct";
-//     if (form.attachment1.value == "Unsure") return "Unsure";
-//     return "Incorrect";
-// }
-//
-// function checkProximal(form) {
-//     if (form.attachment0.value == "Bone") return "Correct";
-//     if (form.attachment0.value == "Unsure") return "Unsure";
-//     return "Incorrect";
-// }
-//
-// function checkAnswers(form) {
-//     document.getElementById('planeCorrect').innerHTML = displayCheck(form.plane.value);
-//     document.getElementById('structure0Correct').innerHTML = displayCheck(checkStructure(form));
-//     document.getElementById('attachment0Correct').innerHTML = displayCheck(checkProximal(form));
-//     document.getElementById('attachment1Correct').innerHTML = displayCheck(checkDistal(form))
-//     document.getElementById('zoneCorrect').innerHTML = displayCheck(form.zone.value);
-//
-//     document.getElementById('submitButton').innerHTML = remove();
-// }
+function displayCheck(value) {
+    if (value == "Correct") return '<font color=\"green\">Your answer is: ' + value + '</font>';
+    if (value == "Incorrect") return '<font color=\"red\">Your answer is: ' + value + '</font>';
+    if (value == "Unsure") return '<font color=\"#663399\">Your answer is: ' + value + '</font>';
+}
+
+function checkStructure(form) {
+    if (form.structures.value == "Bone") return "Correct";
+    if (form.structures.value == "Unsure") return "Unsure";
+    return "Incorrect";
+}
+
+function checkDistal(form) {
+    if (form.attachment1.value == "Bone") return "Correct";
+    if (form.attachment1.value == "Unsure") return "Unsure";
+    return "Incorrect";
+}
+
+function checkProximal(form) {
+    if (form.attachment0.value == "Bone") return "Correct";
+    if (form.attachment0.value == "Unsure") return "Unsure";
+    return "Incorrect";
+}
+
+function checkAnswers(form) {
+    document.getElementById('planeCorrect').innerHTML = displayCheck(form.plane.value);
+    document.getElementById('structure0Correct').innerHTML = displayCheck(checkStructure(form));
+    document.getElementById('attachment0Correct').innerHTML = displayCheck(checkProximal(form));
+    document.getElementById('attachment1Correct').innerHTML = displayCheck(checkDistal(form))
+    document.getElementById('zoneCorrect').innerHTML = displayCheck(form.zone.value);
+
+    document.getElementById('submitButton').innerHTML = remove();
+}
