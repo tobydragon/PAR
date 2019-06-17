@@ -28,7 +28,7 @@ public class ImageTask{
         if(otherObj == null){
             return false;
         }
-        if(!Question.class.isAssignableFrom(otherObj.getClass())){
+        if(!ImageTask.class.isAssignableFrom(otherObj.getClass())){
             return false;
         }
         ImageTask other = (ImageTask) otherObj;
