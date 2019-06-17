@@ -9,15 +9,17 @@ public class Question {
     private String questionText;
     private String correctAnswer;
     private List<String> possibleAnswers;
+    private String imageUrl;
 
     public Question(){}
 
-    public Question(String idIn, String questionTextIn, int difficultyIn, String correctAnswerIn, List<String> answersIn){
+    public Question(String idIn, String questionTextIn, int difficultyIn, String correctAnswerIn, List<String> answersIn, String imageUrlIn){
         this.id = idIn;
         this.questionText = questionTextIn;
         this.difficulty = difficultyIn;
         this.correctAnswer = correctAnswerIn;
         this.possibleAnswers = answersIn;
+        this.imageUrl = imageUrlIn;
     }
 
     public String getId() {return id;}
@@ -34,6 +36,9 @@ public class Question {
 
     public List<String> getPossibleAnswers() {return possibleAnswers;}
     public void setPossibleAnswers(List<String> answersIn) { possibleAnswers = answersIn;}
+
+    public String getImageUrl() {return imageUrl;}
+    public void setImageUrl(String imageUrlIn) {imageUrl =imageUrlIn; }
 
     @Override
     public String toString() {
@@ -53,6 +58,7 @@ public class Question {
                 && this.getQuestionText().equals(other.getQuestionText())
                 && this.getDifficulty() == (other.getDifficulty())
                 && this.getCorrectAnswer().equals(other.getCorrectAnswer())
-                && this.getPossibleAnswers().equals(other.getPossibleAnswers());
+                && this.getPossibleAnswers().equals(other.getPossibleAnswers())
+                && this.getImageUrl().equals(other.getImageUrl());
     }
 }
