@@ -9,7 +9,7 @@ public class UserResponseTest {
 
     @Test
     public void checkResponseTest(){
-        Question q1 = new Question("Test Q1", "What is your name?", 1, "King Arthur", Arrays.asList("Bob","Cindy","Damon","King Arthur"));
+        Question q1 = new Question("Test Q1", "What is your name?", 1, "King Arthur", Arrays.asList("Bob","Cindy","Damon","King Arthur"), "../static/images/equine02.jpg");
         UserResponse response=new UserResponse("kandace",q1,"hi");
         assertEquals(response.checkResponse(),false);
     }
