@@ -27,74 +27,65 @@
 <body id="topSection">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12 text-center">
-                <div class="show">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" onclick="validateCheck()">
-                        Submit
-                    </button>
-                    <button type="button" class="fas fa-arrow-circle-right btn btn-secondary" id="toggableButton1" onclick="changeQuestions()"></button>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <h1>Questions</h1>
-    <form action="#" method="post">
+            <div class="col-12">
+                <h1>Questions</h1>
+                <form action="#" method="post">
 
         <script type="text/javascript" src="/js/AnswerCheck.js"></script>
         <script type="text/javascript" src="/js/CreateResponse.js"></script>
         <script type="text/javascript" src="/js/ReadImageTask.js"></script>
 
-        Hello!
-        <b id="image"> </b>
+                    Hello!
+                    <b id="image"> </b>
 
-        <b id="plane"> </b>
-        <b id="planeCorrect"> </b>
-
-
-        <b id="structure0"> </b>
-        <b id="structure0Correct"> </b>
-
-        <b id="structure1"> </b>
-        <b id="structure1Correct"> </b>
-
-        <b id="structure2"> </b>
-        <b id="structure2Correct"> </b>
-
-        <b id="structure3"> </b>
-        <b id="structure3Correct"> </b>
+                    <b id="plane"> </b>
+                    <b id="planeCorrect"> </b>
 
 
-        <b id="attachment0"> </b>
-        <b id="attachment0Correct"> </b>
+                    <b id="structure0"> </b>
+                    <b id="structure0Correct"> </b>
 
-        <b id="attachment1"> </b>
-        <b id="attachment1Correct"> </b>
+                    <b id="structure1"> </b>
+                    <b id="structure1Correct"> </b>
 
-        <b id="attachment2"> </b>
-        <b id="attachment2Correct"> </b>
+                    <b id="structure2"> </b>
+                    <b id="structure2Correct"> </b>
 
-        <b id="attachment3"> </b>
-        <b id="attachment3Correct"> </b>
+                    <b id="structure3"> </b>
+                    <b id="structure3Correct"> </b>
 
 
-        <b id="zone"> </b>
-        <b id="zoneCorrect"> </b>
+                    <b id="attachment0"> </b>
+                    <b id="attachment0Correct"> </b>
 
+                    <b id="attachment1"> </b>
+                    <b id="attachment1Correct"> </b>
+
+                    <b id="attachment2"> </b>
+                    <b id="attachment2Correct"> </b>
+
+                    <b id="attachment3"> </b>
+                    <b id="attachment3Correct"> </b>
+
+
+                    <b id="zone"> </b>
+                    <b id="zoneCorrect"> </b>
+                </form>
+            </div>
+        </div>
         <br>
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="show">
+                    <button type="button" class="btn btn-outline-primary" id="submitButton" onclick="validateCheck()">
+                        Submit
+                    </button>
+                    <button type="button" class="fas fa-arrow-circle-right btn btn-outline-dark" id="nextQuestionButton" onclick="changeQuestions()"></button>
+                </div>
 
-        <b id="submitButton">
-            <button type="button" onclick="checkAnswers(form)">
-                Submit
-            </button>
-        </b>
-
-        <b id="nextQuestionButton">
-            <button type="button" onclick="changeQuestions()">
-                Next Question set
-            </button>
-        </b>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -105,6 +96,7 @@
 
 
 
-    </form>
+
 </body>
+
 </html>
