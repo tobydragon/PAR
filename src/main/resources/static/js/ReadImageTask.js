@@ -4,6 +4,7 @@ var amountOfAttachments = 0;
 var QuestionTypes = [];
 var QuestionAnswers = [];
 
+var QuestionIDs= [];
 
 function getQuestionTypes() {
     return QuestionTypes;
@@ -11,6 +12,10 @@ function getQuestionTypes() {
 
 function getQuestionAnswers() {
     return QuestionAnswers;
+}
+
+function getQuestionIDs(){
+    return QuestionIDs;
 }
 
 function readJson(url) {
@@ -22,6 +27,7 @@ function readJson(url) {
 }
 
 function readQuestion(question) {
+    QuestionIDs.push(question.id);
 
     if (question.difficulty == 1) {
         document.getElementById('plane').innerHTML = setPlane();

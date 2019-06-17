@@ -4,6 +4,14 @@ var responsesGivenCorrectness= [];
 var QuestionTypes= [];
 var QuestionAnswers= [];
 
+function getResponsesText(){
+    return responsesGivenText;
+}
+
+function getResponsesCorrectness(){
+    return responsesGivenCorrectness;
+}
+
 function setQuestionLists(){
     QuestionTypes= getQuestionTypes();
     QuestionAnswers= getQuestionAnswers();
