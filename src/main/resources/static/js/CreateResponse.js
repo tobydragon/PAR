@@ -10,7 +10,7 @@ function setVariables(){
 }
 
 function creasteResponseJson(){
-    
+
 }
 
 
