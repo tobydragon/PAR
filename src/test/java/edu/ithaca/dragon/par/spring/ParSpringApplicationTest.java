@@ -31,4 +31,12 @@ public class ParSpringApplicationTest {
 				.andExpect(content().string(equalTo("Greetings from PAR API!")));
 	}
 
+	@Test
+	public void nextQuestionTest() throws Exception{
+		//if this test fails, the nextQuestion mapping has changed. Update this test to reflect that
+		mvc.perform(MockMvcRequestBuilders.get("/api/nextQuestion").accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(content().string(equalTo("{\"id\":\"PlaneQ1\",\"difficulty\":1,\"questionText\":\"On which plane is the ultrasound taken?\",\"correctAnswer\":\"Lateral\",\"possibleAnswers\":[\"Transverse\",\"Lateral\",\"I don't know\"],\"imageUrl\":\"../static/images/demoEquine02.jpg\"}")));
+	}
+
 }
