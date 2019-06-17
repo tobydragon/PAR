@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">>
 
 <head>
 
@@ -22,12 +22,12 @@
     <!-- Font Awsome -->
     <script src="https://kit.fontawesome.com/f9199bcaa3.js"></script>
 
-
 </head>
 
 <body id="topSection">
     <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
     <!-- Main Content -->
+    <script type="text/javascript" src="../static/js/AnswerCheckControl.js" ></script>
     <div class="container-fluid">
         <br />
         <div class="row">
@@ -43,13 +43,13 @@
                 <form name="q1">
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="exampleRadios" id="q11" value="correct">
-                        <label class="form-check-label" for="option1radio">
+                        <label class="form-check-label">
                             Transverse
                         </label>
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="exampleRadios" id="q12" value="incorrect">
-                        <label class="form-check-label" for="option2radio">
+                        <label class="form-check-label" >
                             Longitudinal
                         </label>
                     </div>
@@ -63,13 +63,13 @@
                 <form name="q2">
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="exampleRadios" id="q21" value="correct">
-                        <label class="form-check-label" for="option1radio">
+                        <label class="form-check-label" >
                             Near
                         </label>
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="exampleRadios" id="q22" value="incorrect">
-                        <label class="form-check-label" for="option2radio">
+                        <label class="form-check-label" >
                             Far
                         </label>
                     </div>
@@ -83,43 +83,43 @@
                 <form name="q3">
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="exampleRadios" id="q31" value="incorrect">
-                        <label class="form-check-label" for="option1radio">
+                        <label class="form-check-label" >
                             1A
                         </label>
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="exampleRadios" id="q32" value="correct">
-                        <label class="form-check-label" for="option2radio">
+                        <label class="form-check-label" >
                             1B
                         </label>
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="exampleRadios" id="q33" value="incorrect">
-                        <label class="form-check-label" for="option3radio">
+                        <label class="form-check-label" >
                             2A
                         </label>
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="exampleRadios" id="q34" value="incorrect">
-                        <label class="form-check-label" for="option4radio">
+                        <label class="form-check-label" >
                             2B
                         </label>
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="exampleRadios" id="q35" value="incorrect">
-                        <label class="form-check-label" for="option5radio">
+                        <label class="form-check-label" >
                             3A
                         </label>
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="exampleRadios" id="q36" value="incorrect">
-                        <label class="form-check-label" for="option6radio">
+                        <label class="form-check-label" >
                             3B
                         </label>
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="exampleRadios" id="q37" value="incorrect">
-                        <label class="form-check-label" for="option7radio">
+                        <label class="form-check-label" >
                             3C
                         </label>
                     </div>
@@ -127,9 +127,6 @@
             </div>
         </div>
         <div class="row">
-
-
-            <script src="../static/js/AnswerCheckControl.js"></script>
 
             <!-- Button trigger modal -->
             <div class="col-12 text-center">
@@ -143,7 +140,7 @@
                     <button type="button" class="btn btn-primary" data-toggle="modal" onclick="alternateFeedbackGenerator(q11.checked,q21.checked,q32.checked)">
                         Submit
                     </button>
-                    <button type="button" class="fas fa-arrow-circle-right btn btn-secondary" id="toggableButton" href="ImageTaskCreationPage2Example.html"></button>
+                    <button type="button" class="fas fa-arrow-circle-right btn btn-secondary" id="toggableButton1" href="ImageTaskCreationPage2Example.html"></button>
                 </div>
             </div>
             <br />
@@ -183,7 +180,7 @@
 
     <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
     <!-- Extensions JS -->
-    <script src="js/extensions.js"></script>
+
 
 </body>
 
