@@ -37,6 +37,19 @@ function clearPage(){
     document.getElementById('zoneCorrect').innerHTML = remove();
 }
 
+function checkAndRecordAnswers(form){
+    for(var i=0; i<QuestionTypes.length; i++){
+        if(QuestionTypes[i]=="plane" ){
+            if(document.getElementById("plane")==QuestionAnswers[i]){
+                
+            }
+        }
+        if (QuestionTypes[i]=="zone"){
+
+        }
+    }
+}
+
 function validateCheck(responses) {
     var answerList = new Array(responses.length);
     var i;
@@ -71,5 +84,5 @@ function toggleShowState(element) {
 function checkAnswers(form){
     setQuestionLists();
     clearPage();
-
+    checkAndRecordAnswers(form);
 }

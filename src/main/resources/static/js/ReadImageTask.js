@@ -24,7 +24,7 @@ function readJson(url){
 function readQuestion(question){
 
     if(question.difficulty==1) {
-        document.getElementById('plane').innerHTML = setPlane(question.correctAnswer);
+        document.getElementById('plane').innerHTML = setPlane();
         QuestionTypes.push("plane")
         QuestionAnswers.push(question.correctAnswer)
     }
@@ -58,27 +58,16 @@ function readQuestion(question){
     }
 }
 
-function setPlane(type){
-    if(type=="Transverse") {
-        return '<p>What plane is this?</p> <input type="radio" name="plane" value="Incorrect"> Lateral<br> <input type="radio" name="plane" value="Correct"> Transverse<br> <input type="radio" name="plane" value="Unsure"> I do not know<br>';
-    } else {
-        return '<p>What plane is this?</p> <input type="radio" name="plane" value="Correct"> Lateral<br> <input type="radio" name="plane" value="Incorrect"> Transverse<br> <input type="radio" name="plane" value="Unsure"> I do not know<br>';
-    }
+function setPlane(){
+        return '<p>What plane is this?</p> <input type="radio" name="plane" value="Lateral"> Lateral<br> <input type="radio" name="plane" value="Transverse"> Transverse<br> <input type="radio" name="plane" value="Unsure"> I do not know<br>';
 }
 
 function createZoneQuestion(json) {
     var question= "<p> What zone is this? </p>";
     for(var i = 0; i < json.answers.length; i++){
-        question+='<br> <input type="radio" name="zone" value=';
-        if(json.answers[i]==json.correctAnswer){
-            question+="Correct";
-            question+= json.answers[i];
-        } else {
-            question+="Inorrect";
-            question+= json.answers[i];
-        }
+        question+='<br> <input type="radio" name="zone" value"';
+        question= question+ json.answers[i]+ '">'+json.answers[i]+'<br>';
     }
-    question+= '<br>'
     return question;
 }
 
