@@ -88,6 +88,10 @@ public class ImageTaskChooserTest {
         ImageTask im16 = new ImageTask("../static/images/demoEquine04.jpg", Arrays.asList(q8));
         assertTrue(im15.equals(im16));
 
+        ImageTask im17 = ImageTaskChooser.nextImageTask(q, 8);
+        Question q9 = new Question("ZoneQ5","In what zone is this ultrasound taken?",8, "2b", Arrays.asList("1a", "1b", "2a", "2b", "2c", "3a", "3b", "3c"), "../static/images/demoEquine10.jpg");
+        ImageTask im18 = new ImageTask("../static/images/demoEquine10.jpg", Arrays.asList(q9));
+        assertTrue(im17.equals(im18));
 
     }
 
