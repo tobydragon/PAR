@@ -2,14 +2,6 @@ function remove() {
     return " ";
 }
 
-function readJson(url) {
-    var request = new XMLHttpRequest();
-    request.open("GET", url, false);
-    request.send(null);
-
-    return JSON.parse(request.response);
-}
-
 function validateCheck(responses) {
     var answerList = new Array(responses.length);
     var i;
