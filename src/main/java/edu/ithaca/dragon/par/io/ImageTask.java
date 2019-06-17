@@ -8,19 +8,19 @@ import java.util.List;
 
 public class ImageTask{
 
-    public JsonUtil jsonUtil;
-    private String srcPath="/java/resources/QuestionToJSONFileTest1.txt";
+    private String imageUrl;
+    private List<Question> taskQuestions;
 
-
-    public List<Question> loadQuestions(){
-        List<Question> taskQuestions = new ArrayList<>();
-        jsonUtil= new JsonUtil();
-        try {
-            jsonUtil.toJsonFile(srcPath, taskQuestions);
-        }catch(Exception e){}
-        return taskQuestions;
+    public ImageTask(String imageUrlIn, List<Question> taskQuestionsIn){
+        imageUrl = imageUrlIn;
+        taskQuestions = taskQuestionsIn;
     }
 
+    public String getImageUrl() {return imageUrl;}
+    public void setImageUrl(String imageUrlIn) {imageUrl = imageUrlIn;}
+
+    public List<Question> getTaskQuestions() {return taskQuestions;}
+    public void setTaskQuestions(List<Question> taskQuestionsIn) {taskQuestions = taskQuestionsIn;}
 
 
 }
