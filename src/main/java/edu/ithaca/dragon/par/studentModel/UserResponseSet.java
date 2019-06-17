@@ -6,11 +6,13 @@ import java.util.List;
 public class UserResponseSet {
     private String userId;
     private List<UserResponse> userResponses;
-
+    private double score;
+//add get response
 
     public UserResponseSet(String userIdIn){
         this.userId=userIdIn;
         userResponses=new ArrayList<>();
+        this.score=100;
     }
 
     public void addResponse(UserResponse response){
@@ -20,8 +22,11 @@ public class UserResponseSet {
         return userResponses.size();
     }
 
+    public void setUserId(String userIdIn){this.userId=userIdIn;}
+    public String getUserId(){return userId;}
+
+
     public double CalcScore(){
-        double score=100;
         double quesWeight=100/(double)getUserResponsesSize();
 
         for(int i=0;i<getUserResponsesSize();i++){
@@ -31,5 +36,8 @@ public class UserResponseSet {
         }
         return score;
     }
+    public void setScore(double scoreIn){this.score=scoreIn;}
+    public double getScore(){return score;}
+
 
 }

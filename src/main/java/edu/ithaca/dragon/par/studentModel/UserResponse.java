@@ -27,11 +27,18 @@ public class UserResponse {
         }
     }
 
-    public String getUserId(){
-        return userId;
-    }
+    public void setQuestionId(String questionIdIn){this.questionId=questionIdIn;}
     public String getQuestionId(){
         return questionId;
     }
+
+    public void setUserId(String userIdIn){this.userId=userIdIn;}
+    public String getUserId(){
+        return userId;
+    }
+
+    public void setResponseText(String responseTextIn){this.responseText=responseTextIn;}
+    public String getResponseText(){return responseText;}
+
 }
 
