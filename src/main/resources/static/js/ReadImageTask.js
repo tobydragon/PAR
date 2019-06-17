@@ -80,7 +80,7 @@ function createFillIn(json, type) {
         question= question +'<option value="' +json.answers[0] + '"/>';
     }
     question+= '</datalist>';
-    
+
     return question;
 }
 
