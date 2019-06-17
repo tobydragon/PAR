@@ -3,6 +3,7 @@ package edu.ithaca.dragon.par.io;
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.util.JsonUtil;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,5 +23,16 @@ public class ImageTask{
     public List<Question> getTaskQuestions() {return taskQuestions;}
     public void setTaskQuestions(List<Question> taskQuestionsIn) {taskQuestions = taskQuestionsIn;}
 
-
+    @Override
+    public boolean equals(Object otherObj){
+        if(otherObj == null){
+            return false;
+        }
+        if(!Question.class.isAssignableFrom(otherObj.getClass())){
+            return false;
+        }
+        ImageTask other = (ImageTask) otherObj;
+        return this.getImageUrl().equals(other.getImageUrl())
+                && this.getTaskQuestions().equals(other.getTaskQuestions());
+    }
 }
