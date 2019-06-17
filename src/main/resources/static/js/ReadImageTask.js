@@ -5,6 +5,14 @@ var QuestionTypes= [];
 var QuestionAnswers= [];
 
 
+function getQuestionTypes(){
+    return QuestionTypes;
+}
+
+function getQuestionAnswers(){
+    return QuestionAnswers;
+}
+
 function readJson(url){
     var request = new XMLHttpRequest();
     request.open("GET", url, false);
