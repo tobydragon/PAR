@@ -80,7 +80,7 @@ public class UserQuestionSetTest {
         List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestions.json", Question.class);
         UserQuestionSet que = new UserQuestionSet("101", questionsFromFile);
         int seen1 = que.getTimesSeen("PlaneQ1");
-        assertEquals(-1, seen1);
+        assertEquals(0, seen1);
 
         que.givenQuestion("PlaneQ1");
         int seen2 = que.getTimesSeen("PlaneQ1");
@@ -99,13 +99,13 @@ public class UserQuestionSetTest {
         assertEquals(4, seen4);
 
         int seen5 = que.getTimesSeen("5");
-        assertEquals(-1, seen5);
+        assertEquals(0, seen5);
 
         int seen6 = que.getTimesSeen("6");
-        assertEquals(-1, seen6);
+        assertEquals(0, seen6);
 
         int seen42 = que.getTimesSeen("42");
-        assertEquals(-1, seen42);
+        assertEquals(0, seen42);
 
     }
 
@@ -152,21 +152,21 @@ public class UserQuestionSetTest {
         assertEquals(3, seen);
 
         seen = que.getTimesSeen("ZoneQ1");
-        assertEquals(-1, seen);
+        assertEquals(0, seen);
         que.increaseTimesSeen("ZoneQ1");
         seen = que.getTimesSeen("ZoneQ1");
-        assertEquals(-1, seen);
+        assertEquals(0, seen);
         seen = que.getTimesSeen("StructureQ1");
         assertEquals(3, seen);
 
         seen = que.getTimesSeen("2");
-        assertEquals(-1, seen);
+        assertEquals(0, seen);
 
         seen = que.getTimesSeen("7");
-        assertEquals(-1, seen);
+        assertEquals(0, seen);
 
         seen = que.getTimesSeen("4");
-        assertEquals(-1, seen);
+        assertEquals(0, seen);
 
         seen = que.getTimesSeen("StructureQ1");
         assertEquals(3, seen);
@@ -276,13 +276,20 @@ public class UserQuestionSetTest {
         List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestions.json", Question.class);
         UserQuestionSet que = new UserQuestionSet("14", questionsFromFile);
 
+        //checks all questions are unseen before tests start
         List<Question> seen = que.getSeenQuestions();
         List<Question> unseen = que.getUnseenQuestions();
         int unseenLen = unseen.size();
         int seenLen = seen.size();
         assertEquals(3, unseenLen);
         assertEquals(0, seenLen);
+        for (int i = 0; i <unseen.size(); i++){
+            int numSeen = que.getTimesSeen(unseen.get(i).getId());
+            assertEquals(0, numSeen);
+        }
 
+
+        //Time seen increase for PlaneQ1, length of seen and unseen list change
         que.givenQuestion("PlaneQ1");
         seen = que.getSeenQuestions();
         unseen = que.getUnseenQuestions();
@@ -290,7 +297,10 @@ public class UserQuestionSetTest {
         seenLen = seen.size();
         assertEquals(2, unseenLen);
         assertEquals(1, seenLen);
+        int ts = que.getTimesSeen("PlaneQ1");
+        assertEquals(1, ts);
 
+        //Time seen increase for ZoneQ1, length of seen and unseen list change
         que.givenQuestion("ZoneQ1");
         seen = que.getSeenQuestions();
         unseen = que.getUnseenQuestions();
@@ -298,7 +308,10 @@ public class UserQuestionSetTest {
         seenLen = seen.size();
         assertEquals(1, unseenLen);
         assertEquals(2, seenLen);
+        ts = que.getTimesSeen("ZoneQ1");
+        assertEquals(1, ts);
 
+        //Invalid Question ID, no values change
         que.givenQuestion("3");
         seen = que.getSeenQuestions();
         unseen = que.getUnseenQuestions();
@@ -306,7 +319,10 @@ public class UserQuestionSetTest {
         seenLen = seen.size();
         assertEquals(1, unseenLen);
         assertEquals(2, seenLen);
+        ts = que.getTimesSeen("3");
+        assertEquals(0, ts);
 
+        //already seen question, seen and unseen list lengths do not change, times seen increases
         que.givenQuestion("PlaneQ1");
         seen = que.getSeenQuestions();
         unseen = que.getUnseenQuestions();
@@ -314,7 +330,10 @@ public class UserQuestionSetTest {
         seenLen = seen.size();
         assertEquals(1, unseenLen);
         assertEquals(2, seenLen);
+        ts = que.getTimesSeen("PlaneQ1");
+        assertEquals(2, ts);
 
+        //new question, seen and unseen question lists change in length, times seen is 1
         que.givenQuestion("StructureQ1");
         seen = que.getSeenQuestions();
         unseen = que.getUnseenQuestions();
@@ -322,7 +341,10 @@ public class UserQuestionSetTest {
         seenLen = seen.size();
         assertEquals(0, unseenLen);
         assertEquals(3, seenLen);
+        ts = que.getTimesSeen("StructureQ1");
+        assertEquals(1, ts);
 
+        //invalid question ID, no values change
         que.givenQuestion("1");
         seen = que.getSeenQuestions();
         unseen = que.getUnseenQuestions();
@@ -330,7 +352,10 @@ public class UserQuestionSetTest {
         seenLen = seen.size();
         assertEquals(0, unseenLen);
         assertEquals(3, seenLen);
+        ts = que.getTimesSeen("1");
+        assertEquals(0, ts);
 
+        //already seen question, times seen increases, seen and unseen lists remain unchanged
         que.givenQuestion("ZoneQ1");
         seen = que.getSeenQuestions();
         unseen = que.getUnseenQuestions();
@@ -338,6 +363,88 @@ public class UserQuestionSetTest {
         seenLen = seen.size();
         assertEquals(0, unseenLen);
         assertEquals(3, seenLen);
+        ts = que.getTimesSeen("ZoneQ1");
+        assertEquals(2, ts);
+
+        //increase in times seen
+        que.givenQuestion("ZoneQ1");
+        ts = que.getTimesSeen("ZoneQ1");
+        assertEquals(3, ts);
+
+        //increase in times seen
+        que.givenQuestion("ZoneQ1");
+        ts = que.getTimesSeen("ZoneQ1");
+        assertEquals(4, ts);
+
+        //increase in times seen
+        que.givenQuestion("ZoneQ1");
+        ts = que.getTimesSeen("ZoneQ1");
+        assertEquals(5, ts);
+
+        //increase in times seen
+        que.givenQuestion("ZoneQ1");
+        ts = que.getTimesSeen("ZoneQ1");
+        assertEquals(6, ts);
+
+        //no change in times seen
+        ts = que.getTimesSeen("PlaneQ1");
+        assertEquals(2, ts);
+
+        //no change in times seen
+        ts = que.getTimesSeen("StructureQ1");
+        assertEquals(1, ts);
+
+        //no change in times seen
+        ts = que.getTimesSeen("ZoneQ1");
+        assertEquals(6, ts);
+
+        //increase in times seen
+        que.givenQuestion("PlaneQ1");
+        ts = que.getTimesSeen("PlaneQ1");
+        assertEquals(3, ts);
+
+
+        //new question set
+        List<Question> qFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestions.json", Question.class);
+        UserQuestionSet qSet = new UserQuestionSet("14", qFromFile);
+
+        //checks all questions have been seen 0 times
+        List<Question> unseenQ = qSet.getUnseenQuestions();
+        for (int i = 0; i <unseenQ.size(); i++){
+            int numSeen = qSet.getTimesSeen(unseenQ.get(i).getId());
+            assertEquals(0, numSeen);
+        }
+
+        //increase in times seen
+        qSet.givenQuestion("PlaneQ1");
+        qSet.givenQuestion("PlaneQ1");
+        ts = qSet.getTimesSeen("PlaneQ1");
+        assertEquals(2, ts);
+
+        //other question seen values have not been changed
+        ts = qSet.getTimesSeen("ZoneQ1");
+        assertEquals(0, ts);
+        ts = qSet.getTimesSeen("StructureQ1");
+        assertEquals(0, ts);
+
+        //increase in times seen
+        qSet.givenQuestion("ZoneQ1");
+        qSet.givenQuestion("ZoneQ1");
+        qSet.givenQuestion("ZoneQ1");
+        ts = qSet.getTimesSeen("ZoneQ1");
+        assertEquals(3, ts);
+
+        //other question seen values have not been changed
+        ts = qSet.getTimesSeen("PlaneQ1");
+        assertEquals(2, ts);
+        ts = qSet.getTimesSeen("StructureQ1");
+        assertEquals(0, ts);
+
+
+
+
+
+
 
 
     }
