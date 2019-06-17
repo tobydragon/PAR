@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-
     <title>Image Task Example</title>
     <meta charset="utf-8">
 
@@ -17,15 +16,67 @@
 
     <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
     <!-- My Project CSS -->
-    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
     <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
     <!-- Font Awsome -->
     <script src="https://kit.fontawesome.com/f9199bcaa3.js"></script>
-
 </head>
 
-<body id="topSection">
-    
+<body>
+    <h1>Questions</h1>
+    <form action="#" method="post">
+
+        <script type="text/javascript" src="/js/Change.js"></script>
+
+        Hello!
+        <b id="image"> </b>
+        
+        <b id="plane"> </b>
+        <b id="planeCorrect"> </b>
+
+        
+        <b id="structure0"> </b>
+        <b id="structure0Correct"> </b>
+
+        <b id="structure1"> </b>
+        <b id="structure1Correct"> </b>
+
+        <b id="structure2"> </b>
+        <b id="structure2Correct"> </b>
+
+        <b id="structure3"> </b>
+        <b id="structure3Correct"> </b>
+        
+        
+        <b id="attachment0"> </b>
+        <b id="attachment0Correct"> </b>
+
+        <b id="attachment1"> </b>
+        <b id="attachment1Correct"> </b>
+
+        <b id="attachment2"> </b>
+        <b id="attachment2Correct"> </b>
+
+        <b id="attachment3"> </b>
+        <b id="attachment3Correct"> </b>
+
+        
+        <b id="zone"> </b>
+        <b id="zoneCorrect"> </b>
+
+        <br>
+
+        <b id="submitButton">
+            <button type="button" onclick="checkAnswers(form)">
+                Submit
+            </button>
+        </b>
+
+        <b id="nextQuestionButton">
+            <button type="button" onclick="changeQuestions()">
+                Next Question set
+            </button>
+        </b>
     
     
 
@@ -34,10 +85,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-    <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
-    <!-- Extensions JS -->
+    
 
-
-</body>
-
-</html>
+    </form>
+</body></html>

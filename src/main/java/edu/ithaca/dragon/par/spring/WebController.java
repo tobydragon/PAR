@@ -10,6 +10,6 @@ public class WebController implements WebMvcConfigurer {
 
     @RequestMapping("/start")
     public String greetingForm() {
-        return "ImageTaskCreationExample";
+        return "ImageTaskTemplate";
     }
 }
