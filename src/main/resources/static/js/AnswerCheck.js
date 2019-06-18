@@ -1,15 +1,10 @@
 var responsesGivenText= [];
-var responsesGivenCorrectness= [];
 
 var QuestionTypes= [];
 var QuestionAnswers= [];
 
 function getResponsesText(){
     return responsesGivenText;
-}
-
-function getResponsesCorrectness(){
-    return responsesGivenCorrectness;
 }
 
 function setQuestionLists(){
@@ -59,7 +54,6 @@ function checkAndRecordAnswers(form){
                 isCorrect="Incorrect";
             }
             document.getElementById('planeCorrect').innerHTML= displayCheck(isCorrect);
-            responsesGivenCorrectness.push(isCorrect);
         }
         else if(currentType=="zone"){
             responsesGivenText.push(form.zone.value);
@@ -69,7 +63,6 @@ function checkAndRecordAnswers(form){
                 isCorrect="Incorrect";
             }
             document.getElementById('zoneCorrect').innerHTML= displayCheck(isCorrect);
-            responsesGivenCorrectness.push(isCorrect);
 
         } else if(currentType=="structure0"){
             responsesGivenText.push(form.structure0.value);
@@ -79,7 +72,6 @@ function checkAndRecordAnswers(form){
                 isCorrect="Incorrect";
             }
             document.getElementById('structure0Correct').innerHTML= displayCheck(isCorrect);
-            responsesGivenCorrectness.push(isCorrect);
 
         } else if(currentType=="structure1"){
             responsesGivenText.push(form.structure1.value);
@@ -89,7 +81,6 @@ function checkAndRecordAnswers(form){
                 isCorrect="Incorrect";
             }
             document.getElementById('structure1Correct').innerHTML= displayCheck(isCorrect);
-            responsesGivenCorrectness.push(isCorrect);
 
         } else if(currentType=="structure2"){
             responsesGivenText.push(form.structure2.value);
@@ -99,7 +90,6 @@ function checkAndRecordAnswers(form){
                 isCorrect="Incorrect";
             }
             document.getElementById('structure2Correct').innerHTML= displayCheck(isCorrect);
-            responsesGivenCorrectness.push(isCorrect);
 
         } else if(currentType=="structure3"){
             responsesGivenText.push(form.structure3.value);
@@ -109,7 +99,6 @@ function checkAndRecordAnswers(form){
                 isCorrect="Incorrect";
             }
             document.getElementById('structure3Correct').innerHTML= displayCheck(isCorrect);
-            responsesGivenCorrectness.push(isCorrect);
 
         } else if(currentType=="attachment0"){
             responsesGivenText.push(form.attachment0.value);
@@ -119,7 +108,6 @@ function checkAndRecordAnswers(form){
                 isCorrect="Incorrect";
             }
             document.getElementById('attachment0Correct').innerHTML= displayCheck(isCorrect);
-            responsesGivenCorrectness.push(isCorrect);
 
         } else if(currentType=="attachment1"){
             responsesGivenText.push(form.attachment1.value);
@@ -129,7 +117,6 @@ function checkAndRecordAnswers(form){
                 isCorrect="Incorrect";
             }
             document.getElementById('attachment1Correct').innerHTML= displayCheck(isCorrect);
-            responsesGivenCorrectness.push(isCorrect);
 
         } else if(currentType=="attachment2"){
             responsesGivenText.push(form.attachment2.value);
@@ -139,7 +126,6 @@ function checkAndRecordAnswers(form){
                 isCorrect="Incorrect";
             }
             document.getElementById('attachment2Correct').innerHTML= displayCheck(isCorrect);
-            responsesGivenCorrectness.push(isCorrect);
 
         } else if(currentType=="attachment3"){
             responsesGivenText.push(form.attachment3.value);
@@ -149,7 +135,6 @@ function checkAndRecordAnswers(form){
                 isCorrect="Incorrect";
             }
             document.getElementById('attachment3Correct').innerHTML= displayCheck(isCorrect);
-            responsesGivenCorrectness.push(isCorrect);
         }
     }
 }
@@ -174,4 +159,5 @@ function checkAnswers(form){
     setQuestionLists();
     clearPage();
     checkAndRecordAnswers(form);
+    generateResponseJSON();
 }
