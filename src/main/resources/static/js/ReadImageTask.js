@@ -76,17 +76,17 @@ function setPlane() {
 
 function createZoneQuestion(json) {
     var question = "<p> What zone is this? </p>";
-    for (var i = 0; i < json.answers.length; i++) {
-        question += '<br> <input type="radio" name="zone" value"';
-        question = question + json.answers[i] + '">' + json.answers[i] + '<br>';
+    for (var i = 0; i < json.possibleAnswers.length; i++) {
+        question += '<br> <input type="radio" name="zone" value="';
+        question = question + json.possibleAnswers[i] + '">' + json.possibleAnswers[i] + '<br>';
     }
     return question;
 }
 
 function createFillIn(json, type) {
     var question = "<p>" + json.questionText + '</p> <input name="' + type + '" list="' + type + '"/> <datalist id="' + type + '">';
-    for (var i = 0; i < json.answers.length; i++) {
-        question = question + '<option value="' + json.answers[i] + '"/>';
+    for (var i = 0; i < json.possibleAnswers.length; i++) {
+        question = question + '<option value="' + json.possibleAnswers[i] + '"/>';
     }
     question += '</datalist>';
 
