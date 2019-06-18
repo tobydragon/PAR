@@ -18,4 +18,12 @@ public class QuestionPool {
     public List<Question> getAllQuestions(){
         return allQuestions;
     }
+
+    public Question getQuestionFromId(String questionIdIn){
+        return null;
+    }
+
+    public Question getQuestionsFromUrl(String imageUrlIn){
+        return null;
+    }
 }
