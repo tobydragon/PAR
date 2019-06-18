@@ -21,4 +21,16 @@ public class QuestionPoolTest {
         List<Question> questionsFromUrl3 = qp.getQuestionsFromUrl("notAGoodUrl");
         assertTrue(questionsFromUrl3.size() == 0);
     }
+
+    @Test
+    public void getQuestionFromId() throws IOException {
+        QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestions2.json"));
+        Question questionFromId = qp.getQuestionFromId("PlaneQ3");
+        assertTrue(questionFromId.getQuestionText().equals("On which plane is the ultrasound taken?"));
+        assertTrue(questionFromId.getCorrectAnswer().equals("Lateral"));
+
+        Question questionFromId2 = qp.getQuestionFromId("StructureQ4");
+        assertTrue(questionFromId.getQuestionText().equals("On which plane is the ultrasound taken?"));
+        assertTrue(questionFromId.getCorrectAnswer().equals("Lateral"));
+    }
 }
