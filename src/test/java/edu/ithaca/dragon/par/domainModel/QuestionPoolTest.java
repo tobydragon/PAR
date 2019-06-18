@@ -11,8 +11,14 @@ import static junit.framework.TestCase.assertTrue;
 public class QuestionPoolTest {
     @Test
     public void getQuestionsFromUrlTest() throws IOException {
-        QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestions.json"));
+        QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestions2.json"));
         List<Question> questionsFromUrl = qp.getQuestionsFromUrl("../static/images/demoEquine04.jpg");
         assertTrue(questionsFromUrl.size() == 5);
+
+        List<Question> questionsFromUrl2 = qp.getQuestionsFromUrl("../static/images/demoEquine02.jpg");
+        assertTrue(questionsFromUrl2.size() == 2);
+
+        List<Question> questionsFromUrl3 = qp.getQuestionsFromUrl("notAGoodUrl");
+        assertTrue(questionsFromUrl3.size() == 0);
     }
 }
