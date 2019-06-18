@@ -23,7 +23,7 @@ public class QuestionPool {
         return null;
     }
 
-    public Question getQuestionsFromUrl(String imageUrlIn){
+    public List<Question> getQuestionsFromUrl(String imageUrlIn){
         return null;
     }
 }
