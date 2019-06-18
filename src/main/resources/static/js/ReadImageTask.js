@@ -8,7 +8,7 @@ var QuestionIDs = [];
 
 var UserID;
 
-function getUserID(){
+function getUserID() {
     return UserID;
 }
 
@@ -107,13 +107,12 @@ function displayImageURL(imageURL) {
 function pageDisplay() {
     var i;
     var imageTaskJSON = readJson("api/nextImageTask");
-    document.getElementById("image").innerHTML = displayImageURL(imageTaskJSON.imageURL);
-    for (i = 0; i < imageTaskJSON.length; i++) {
-        if (imageTaskJSON[i] == "taskQuestions") {
-            for (i = 0; i < imageTaskJSON.length; i++) {
-                if (imageTaskJSON[i] == imageTaskJSON.)
-            }
-        }
+    var qArray = new Array[imageTaskJSON.taskQuestions.length];
+    //Displays the image on the page at the appropriate tag
+    document.getElementById("image").innerHTML = displayImageURL(imageTaskJSON.taskQuestions[0].imageURL);
+    //Displays the questions at the tags
+    for (i = 0; i < imageTaskJSON.taskQuestions.length; i++) {
+        qArray.add(imageTaskJSON.taskQuestions[i]);
+        readQuestion(qArray[i]);
     }
-
 }
