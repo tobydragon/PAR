@@ -20,23 +20,29 @@
     <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
     <!-- Main JS Files -->
     <script src="/js/AnswerCheck.js"></script>
+    <script type="text/javascript" src="/js/CreateResponse.js"></script>
+    <script type="text/javascript" src="/js/ReadImageTask.js"></script>
     <!-- Font Awsome -->
     <script src="https://kit.fontawesome.com/f9199bcaa3.js"></script>
 </head>
 
 <body id="topSection">
+    <script>
+        pageDisplay();
+
+    </script>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12">
+            <div class="col-12 center">
                 <h1>Questions</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 center">
                 <form action="#" method="post">
-
-        <script type="text/javascript" src="/js/AnswerCheck.js"></script>
-        <script type="text/javascript" src="/js/CreateResponse.js"></script>
-        <script type="text/javascript" src="/js/ReadImageTask.js"></script>
-
                     Hello!
-                    <b id="image"> </b>
+
+                    <b id="image"></b>
 
                     <b id="plane"> </b>
                     <b id="planeCorrect"> </b>
@@ -73,17 +79,17 @@
                 </form>
             </div>
         </div>
-        <br>
-        <div class="row">
-            <div class="col-12 text-center">
-                <div class="show">
-                    <button type="button" class="btn btn-outline-primary" id="submitButton" onclick="checkAnswers(form)">
-                        Submit
-                    </button>
-                    <button type="button" class="fas fa-arrow-circle-right btn btn-outline-dark" id="nextQuestionButton" onclick="changeQuestions()"></button>
-                </div>
-
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-12 text-center">
+            <div class="show">
+                <button type="button" class="btn btn-outline-primary" id="submitButton" onclick="checkAnswers(form)">
+                    Submit
+                </button>
+                <button type="button" class="fas fa-arrow-circle-right btn btn-outline-dark" id="nextQuestionButton" onclick="changeQuestions()"></button>
             </div>
+
         </div>
     </div>
 
