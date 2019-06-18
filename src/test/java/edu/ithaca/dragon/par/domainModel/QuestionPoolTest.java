@@ -30,7 +30,7 @@ public class QuestionPoolTest {
         assertTrue(questionFromId.getCorrectAnswer().equals("Lateral"));
 
         Question questionFromId2 = qp.getQuestionFromId("StructureQ4");
-        assertTrue(questionFromId.getQuestionText().equals("On which plane is the ultrasound taken?"));
-        assertTrue(questionFromId.getCorrectAnswer().equals("Lateral"));
+        assertTrue(questionFromId2.getQuestionText().equals("What structure is in the near field?"));
+        assertTrue(questionFromId2.getCorrectAnswer().equals("bone"));
     }
 }

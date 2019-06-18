@@ -21,6 +21,10 @@ public class QuestionPool {
     }
 
     public Question getQuestionFromId(String questionIdIn){
+        for(int i = 0; i < allQuestions.size(); i++){
+            if(allQuestions.get(i).getId().equals(questionIdIn))
+                return allQuestions.get(i);
+        }
         return null;
     }
 
