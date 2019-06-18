@@ -36,37 +36,41 @@ function readQuestion(question) {
     QuestionIDs.push(question.id);
 
     if (question.difficulty == 1) {
-        document.getElementById('plane').innerHTML = setPlane();
         QuestionTypes.push("plane")
         QuestionAnswers.push(question.correctAnswer)
+        document.getElementById('plane').innerHTML = setPlane();
+
     }
 
     if (question.difficulty == 2) {
+        QuestionTypes.push('structure' + amountOfStructures)
+        QuestionAnswers.push(question.correctAnswer)
         if (amountOfStructures != 0) {
             document.getElementById('structure' + amountOfStructures).innerHTML = createFillIn(question, 'structure' + amountOfStructures);
         } else {
             document.getElementById('structure0').innerHTML = createFillIn(question, 'structure0');
         }
-        QuestionTypes.push('structure' + amountOfStructures)
-        QuestionAnswers.push(question.correctAnswer)
+
         amountOfStructures += 1;
     }
 
     if (question.difficulty == 3) {
+        QuestionTypes.push('attachment' + amountOfStructures)
+        QuestionAnswers.push(question.correctAnswer)
         if (amountOfAttachments != 0) {
             document.getElementById('attachment' + amountOfAttachments).innerHTML = createFillIn(question, 'attachment' + amountOfAttachments);
         } else {
             document.getElementById('attachment0').innerHTML = createFillIn(question, 'attachment0');
         }
-        QuestionTypes.push('attachment' + amountOfStructures)
-        QuestionAnswers.push(question.correctAnswer)
+
         amountOfAttachments += 1;
     }
 
     if (question.difficulty == 4) {
-        document.getElementById('zone').innerHTML = createZoneQuestion(question);
         QuestionTypes.push("zone")
         QuestionAnswers.push(question.correctAnswer)
+        document.getElementById('zone').innerHTML = createZoneQuestion(question);
+
     }
 }
 
