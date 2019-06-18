@@ -1,6 +1,8 @@
 package edu.ithaca.dragon.par.studentModel;
 
 import edu.ithaca.dragon.par.domainModel.Question;
+import edu.ithaca.dragon.par.domainModel.QuestionPool;
+import edu.ithaca.dragon.par.io.ImageTaskResponse;
 
 import java.util.List;
 
@@ -32,4 +34,11 @@ public class StudentModel {
         return userId;
     }
 
+    private static List<UserResponse> createUserResponseObj(ImageTaskResponse imageTaskResponses, QuestionPool questions){
+
+        return null;
+    }
+    public void imageTaskResponseSubmitted(ImageTaskResponse imageTaskResponses, QuestionPool questions){
+        userResponseSet.addAllResponses(createUserResponseObj(imageTaskResponses,questions));
+    }
 }

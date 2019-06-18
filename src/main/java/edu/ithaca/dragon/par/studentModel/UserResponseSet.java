@@ -20,6 +20,10 @@ public class UserResponseSet {
     public void addResponse(UserResponse response){
         userResponses.add(response);
     }
+    public void addAllResponses(List<UserResponse> allResponsesIn){
+        userResponses.addAll(allResponsesIn);
+
+    }
     public int getUserResponsesSize(){
         return userResponses.size();
     }
