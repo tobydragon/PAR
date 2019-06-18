@@ -46,14 +46,14 @@ public class UserQuestionSet {
 
     public int getTimesSeen (String questionId){
         if(getLenOfSeenQuestions()<1){
-            return -1;
+            return 0;
         }
         for (int i =0; i<seenQuestions.size(); i++){
             if (seenQuestions.get(i).getId().equals(questionId)){
                 return timesSeen.get(i);
             }
         }
-        return -1;
+        return 0;
     }
 
 
@@ -64,8 +64,7 @@ public class UserQuestionSet {
     public void increaseTimesSeen (String questionId){
         for (int i = 0; i < seenQuestions.size(); i++){
             if (seenQuestions.get(i).getId().equals(questionId)){
-                int newVal = timesSeen.get(i)+1;
-                timesSeen.set(i, newVal);
+                timesSeen.set(i, timesSeen.get(i)+1);
             }
         }
     }
@@ -79,13 +78,18 @@ public class UserQuestionSet {
     }
 
     public void givenQuestion(String questionId){
+        boolean found = false;
         for (int i = 0; i < unseenQuestions.size(); i++){
             if (unseenQuestions.get(i).getId().equals(questionId)){
                 seenQuestions.add(unseenQuestions.get(i));
                 unseenQuestions.remove(i);
                 timesSeen.add(1);
-
+                found = true;
             }
+        }
+        if (!found) {
+            //checks seen list, adds 1 to time seen if question is found
+            increaseTimesSeen(questionId);
         }
     }
 
