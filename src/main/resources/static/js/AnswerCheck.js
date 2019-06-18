@@ -153,14 +153,14 @@ function setQuestionLists() {
     }
 
     function toggleShowState(toggableElement) {
-        var changeElement = document.getElementById(toggableElement);
+        var changeElement = document.getElementById(toggableElement).classList;
 
-        if (changeElement.classList.contains("show") || changeElement.style.display == "block") {
-            changeElement.classList.remove("show");
-            changeElement.classList.add("hide");
-        } else if (changeElement.classList.contains("hide")) {
-            changeElement.classList.remove("hide");
-            changeElement.classList.add("show");
+        if (changeElement.contains("show") || changeElement.style.display == "block") {
+            changeElement.remove("show");
+            changeElement.add("hide");
+        } else if (changeElement.contains("hide")) {
+            changeElement.remove("hide");
+            changeElement.add("show");
         }
     }
 
