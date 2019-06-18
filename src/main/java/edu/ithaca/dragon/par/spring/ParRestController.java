@@ -48,4 +48,10 @@ public class ParRestController {
         }
     }
 
+    @GetMapping("/recordResponse")
+    public void recordResponse() {
+
+
+    }
+
 }

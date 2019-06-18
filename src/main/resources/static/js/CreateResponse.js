@@ -1,16 +1,20 @@
 var responsesGivenText= [];
-var responsesGivenCorrectness= [];
-
 var QuestionIDs= [];
+var UserID;
 
 function setVariables(){
     responsesGivenText= getResponsesText();
-    responsesGivenCorrectness= getResponsesCorrectness();
     QuestionIDs= getQuestionIDs();
+    UserID= getQuestionIDs();
 }
 
-function creasteResponseJson(){
-
+function createResponseJson(){
+    var newResponse= {
+        userId: UserID,
+        taskQuestionIds: QuestionIDs,
+        responseTexts: responsesGivenText
+    };
+    return newResponse
 }
 
 
