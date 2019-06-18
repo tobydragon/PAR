@@ -6,6 +6,12 @@ var QuestionAnswers = [];
 
 var QuestionIDs = [];
 
+var UserID;
+
+function getUserID(){
+    return UserID;
+}
+
 function getQuestionTypes() {
     return QuestionTypes;
 }

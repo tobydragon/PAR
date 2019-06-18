@@ -8,3 +8,13 @@ function setVariables(){
     responsesGivenCorrectness= getResponsesCorrectness();
     QuestionIDs= getQuestionIDs();
 }
+
+function creasteResponseJson(){
+
+}
+
+
+function generateResponseJSON(){
+    setVariables();
+    var object= createResponseJson();
+}
