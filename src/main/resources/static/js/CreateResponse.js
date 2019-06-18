@@ -8,6 +8,12 @@ function setVariables(){
     UserID= getQuestionIDs();
 }
 
+function testSetVariables(){
+    responsesGivenText= ["Lateral","ligament","Unsure"];
+    QuestionIDs= ["PlaneQ1","StructureQ1","ZoneQ1"];
+    UserID= "Hewwo123";
+}
+
 function createResponseJson(){
     var newResponse= {
         userId: UserID,
@@ -36,4 +42,9 @@ function generateResponseJSON(){
     setVariables();
     var object= createResponseJson();
     submitToAPI("/api/recordResponse", object);
+}
+
+function testGenerateReponseJSON(){
+    testSetVariables();
+    return createResponseJson();
 }
