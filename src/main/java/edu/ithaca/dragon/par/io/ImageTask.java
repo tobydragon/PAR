@@ -3,24 +3,36 @@ package edu.ithaca.dragon.par.io;
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.util.JsonUtil;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ImageTask{
 
-    public JsonUtil jsonUtil;
-    private String srcPath="/java/resources/QuestionToJSONFileTest1.txt";
+    private String imageUrl;
+    private List<Question> taskQuestions;
 
-
-    public List<Question> loadQuestions(){
-        List<Question> taskQuestions = new ArrayList<>();
-        jsonUtil= new JsonUtil();
-        try {
-            jsonUtil.toJsonFile(srcPath, taskQuestions);
-        }catch(Exception e){}
-        return taskQuestions;
+    public ImageTask(String imageUrlIn, List<Question> taskQuestionsIn){
+        imageUrl = imageUrlIn;
+        taskQuestions = taskQuestionsIn;
     }
 
+    public String getImageUrl() {return imageUrl;}
+    public void setImageUrl(String imageUrlIn) {imageUrl = imageUrlIn;}
 
+    public List<Question> getTaskQuestions() {return taskQuestions;}
+    public void setTaskQuestions(List<Question> taskQuestionsIn) {taskQuestions = taskQuestionsIn;}
 
+    @Override
+    public boolean equals(Object otherObj){
+        if(otherObj == null){
+            return false;
+        }
+        if(!ImageTask.class.isAssignableFrom(otherObj.getClass())){
+            return false;
+        }
+        ImageTask other = (ImageTask) otherObj;
+        return this.getImageUrl().equals(other.getImageUrl())
+                && this.getTaskQuestions().equals(other.getTaskQuestions());
+    }
 }

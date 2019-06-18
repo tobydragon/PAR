@@ -9,8 +9,9 @@ public class JsonDatastore implements Datastore{
 
     String filePath;
 
-    public JsonDatastore(String filePath) throws IOException{
+    public JsonDatastore(String filePath) {
         this.filePath = filePath;
+
     }
 
     @Override
