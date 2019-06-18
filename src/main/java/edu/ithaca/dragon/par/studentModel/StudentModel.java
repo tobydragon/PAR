@@ -35,16 +35,29 @@ public class StudentModel {
         return userId;
     }
 
+    /**
+     * Creates a list of UserResponse objects
+     * @param imageTaskResponses: response submitted by the user
+     * @param questions: QuestionPool object
+     * @param userId: user ID
+     * @return: List of UserResponse objects
+     */
     private static List<UserResponse> createUserResponseObj(ImageTaskResponse imageTaskResponses, QuestionPool questions,String userId){
         List<UserResponse> userResponses=new ArrayList<>();
         UserResponse response; Question ques;
         for(int i=0;i<imageTaskResponses.getTaskQuestionIds().size();i++){
-            ques=questions.getQuestionFromId(imageTaskResponses.getTaskQuestionIds().get(i));
-           response=new UserResponse(userId,ques,imageTaskResponses.getResponseTexts().get(i));
-           userResponses.add(response);
+            ques=questions.getQuestionFromId(imageTaskResponses.getTaskQuestionIds().get(i));//finds question in QuestionPool creates a question object
+            response=new UserResponse(userId,ques,imageTaskResponses.getResponseTexts().get(i));//creates new response object
+            userResponses.add(response);
         }
         return userResponses;
     }
+
+    /**
+     * Adds all responses from the imageTaskResponses to the UserResponseSet
+     * @param imageTaskResponses: response submitted by the user
+     * @param questions: QuestionPool object
+     */
     public void imageTaskResponseSubmitted(ImageTaskResponse imageTaskResponses, QuestionPool questions){
         userResponseSet.addAllResponses(createUserResponseObj(imageTaskResponses,questions,this.userId));
     }
