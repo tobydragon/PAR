@@ -17,8 +17,23 @@ function createResponseJson(){
     return newResponse
 }
 
+function submitToAPI(url, objectToSubmit) {
+    var request = new XMLHttpRequest();
+    request.open("POST", url);
+    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    request.send(JSON.stringify(objectToSubmit));
+    request.onreadystatechange = function() {
+        if (request.status === 200) {
+            window.alert("Submission Successful!");
+            window.location.reload(true);
+        } else {
+            window.location.replace("/error");
+        }
+    };
+}
 
 function generateResponseJSON(){
     setVariables();
     var object= createResponseJson();
+    submitToAPI("/api/recordResponse", object);
 }
