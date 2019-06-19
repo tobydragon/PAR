@@ -13,11 +13,18 @@ public class UserQuestionSet {
 
 
     public UserQuestionSet(String userIdIn, List<Question> unseenQuestionsIn){
-
+        //TODO: call the other constructor
         seenQuestions = new ArrayList<Question>();
         this.unseenQuestions = unseenQuestionsIn;
         timesSeen = new ArrayList<Integer>();
         this.userId=userIdIn;
+    }
+
+    public UserQuestionSet(String userIdIn, List<Question> unseenQuestionsIn, List<Question> seenQuestionsIn, List<Integer> timesSeenIn) {
+        seenQuestions = seenQuestionsIn;
+        unseenQuestions = unseenQuestionsIn;
+        timesSeen = timesSeenIn;
+        userId=userIdIn;
     }
 
     /**
@@ -91,6 +98,22 @@ public class UserQuestionSet {
             //checks seen list, adds 1 to time seen if question is found
             increaseTimesSeen(questionId);
         }
+    }
+
+    @Override
+    public boolean equals(Object otherObj){
+        if(otherObj == null){
+            return false;
+        }
+        if(!UserQuestionSet.class.isAssignableFrom(otherObj.getClass())){
+            return false;
+        }
+        UserQuestionSet other = (UserQuestionSet) otherObj;
+        return this.getUserId().equals(other.getUserId())
+                //TODO: does .equals() accurately compare these things?
+                && this.getSeenQuestions().equals(other.getSeenQuestions())
+                && this.getUnseenQuestions().equals(other.getUnseenQuestions())
+                && this.timesSeen.equals(other.timesSeen);
     }
 
 }

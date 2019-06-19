@@ -25,7 +25,7 @@ public class QuestionPool {
             if(allQuestions.get(i).getId().equals(questionIdIn))
                 return allQuestions.get(i);
         }
-        return null;
+        throw new RuntimeException("Question with id:" + questionIdIn + " does not exist");
     }
 
     public List<Question> getQuestionsFromUrl(String imageUrlIn){
@@ -34,6 +34,26 @@ public class QuestionPool {
             if(allQuestions.get(i).getImageUrl().equals(imageUrlIn))
                 toReturn.add(allQuestions.get(i));
         }
+        return toReturn;
+    }
+
+    public List<Question> getQuestionsFromIds(List<String> idsIn){
+        List<Question> toReturn = new ArrayList<>();
+        boolean validId;
+
+        //TODO: find a better algorithm?
+        for(String currId : idsIn){
+            validId = false;
+            for(Question currQuestion : allQuestions){
+                if(currQuestion.getId().equals(currId)){
+                    toReturn.add(currQuestion);
+                    validId = true;
+                }
+            }
+            if(!validId) //the id is invalid
+                throw new RuntimeException("Question with id:" + currId + " does not exist");
+        }
+
         return toReturn;
     }
 }
