@@ -9,6 +9,7 @@ import java.util.List;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class QuestionPoolTest {
     @Test
@@ -34,6 +35,15 @@ public class QuestionPoolTest {
         Question questionFromId2 = qp.getQuestionFromId("StructureQ4");
         assertTrue(questionFromId2.getQuestionText().equals("What structure is in the near field?"));
         assertTrue(questionFromId2.getCorrectAnswer().equals("bone"));
+
+        //throw exception when id is invalid
+        try{
+            Question questionFromId3 = qp.getQuestionFromId("NotAnId");
+            //qp should throw a RunTimeException
+            fail();
+        }catch(RuntimeException ee){
+
+        }
     }
 
     @Test
