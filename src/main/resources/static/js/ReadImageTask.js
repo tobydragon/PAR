@@ -1,8 +1,7 @@
 class ReadImageTask {
-    constructor(amountOfQuestions, QuestionTypes, QuestionAnswers, QuestionIDs, UserID) {
+    constructor(amountOfQuestions, QuestionAnswers, QuestionIDs, UserID) {
 
         this.amountOfQuestions = amountOfQuestions;
-        this.QuestionTypes = QuestionTypes;
         this.QuestionAnswers = QuestionAnswers;
         this.QuestionIDs = QuestionIDs;
         this.UserID = UserID;
@@ -16,8 +15,8 @@ function getUserID() {
     return this.UserID;
 }
 
-function getQuestionTypes() {
-    return this.QuestionTypes;
+function getNumberOfQuestions() {
+    return this.amountOfQuestions;
 }
 
 function getQuestionAnswers() {

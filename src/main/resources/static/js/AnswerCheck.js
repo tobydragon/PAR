@@ -1,7 +1,6 @@
 var responsesGivenText = [];
 
-
-var QuestionTypes = [];
+var numberOfQuestions;
 var QuestionAnswers = [];
 
 function getResponsesText() {
@@ -10,7 +9,7 @@ function getResponsesText() {
 
 
 function setQuestionLists() {
-    QuestionTypes = getQuestionTypes();
+    numberOfQuestions= getNumberOfQuestions();
     QuestionAnswers = getQuestionAnswers();
 }
 
@@ -43,104 +42,24 @@ function clearPage() {
     document.getElementById('zoneCorrect').innerHTML = remove();
 }
 
-function checkAndRecordAnswers(form) {
-    for (var i = 0; i < QuestionTypes.length; i++) {
-        var currentType = QuestionTypes[i];
+function checkAndRecordAnswers(form){
+    for(var i=0; i<numberOfQuestions; i++){
+        var currentName= "q"+i;
+        var currentAnswer= form[currentName].value;
+
+        responsesGivenText.push(currentAnswer);
+
         var isCorrect;
-
-        if (currentType == "plane") {
-            responsesGivenText.push(form.plane.value);
-            if (form.plane.value == QuestionAnswers[i]) {
-                isCorrect = "Correct";
-            } else {
-                isCorrect = "Incorrect";
-            }
-            document.getElementById('planeCorrect').innerHTML = displayCheck(isCorrect);
-        } else if (currentType == "zone") {
-            responsesGivenText.push(form.zone.value);
-            if (form.zone.value == QuestionAnswers[i]) {
-                isCorrect = "Correct";
-            } else {
-                isCorrect = "Incorrect";
-            }
-            document.getElementById('zoneCorrect').innerHTML = displayCheck(isCorrect);
-
-        } else if (currentType == "structure0") {
-            responsesGivenText.push(form.structure0.value);
-            if (form.structure0.value == QuestionAnswers[i]) {
-                isCorrect = "Correct";
-            } else {
-                isCorrect = "Incorrect";
-            }
-            document.getElementById('structure0Correct').innerHTML = displayCheck(isCorrect);
-
-        } else if (currentType == "structure1") {
-            responsesGivenText.push(form.structure1.value);
-            if (form.structure1.value == QuestionAnswers[i]) {
-                isCorrect = "Correct";
-            } else {
-                isCorrect = "Incorrect";
-            }
-            document.getElementById('structure1Correct').innerHTML = displayCheck(isCorrect);
-
-
-        } else if (currentType == "structure2") {
-            responsesGivenText.push(form.structure2.value);
-            if (form.structure2.value == QuestionAnswers[i]) {
-                isCorrect = "Correct";
-            } else {
-                isCorrect = "Incorrect";
-            }
-            document.getElementById('structure2Correct').innerHTML = displayCheck(isCorrect);
-
-        } else if (currentType == "structure3") {
-            responsesGivenText.push(form.structure3.value);
-            if (form.structure3.value == QuestionAnswers[i]) {
-                isCorrect = "Correct";
-            } else {
-                isCorrect = "Incorrect";
-            }
-            document.getElementById('structure3Correct').innerHTML = displayCheck(isCorrect);
-
-        } else if (currentType == "attachment0") {
-            responsesGivenText.push(form.attachment0.value);
-            if (form.attachment0.value == QuestionAnswers[i]) {
-                isCorrect = "Correct";
-            } else {
-                isCorrect = "Incorrect";
-            }
-            document.getElementById('attachment0Correct').innerHTML = displayCheck(isCorrect);
-
-
-        } else if (currentType == "attachment1") {
-            responsesGivenText.push(form.attachment1.value);
-            if (form.attachment1.value == QuestionAnswers[i]) {
-                isCorrect = "Correct";
-            } else {
-                isCorrect = "Incorrect";
-            }
-            document.getElementById('attachment1Correct').innerHTML = displayCheck(isCorrect);
-
-        } else if (currentType == "attachment2") {
-            responsesGivenText.push(form.attachment2.value);
-            if (form.attachment2.value == QuestionAnswers[i]) {
-                isCorrect = "Correct";
-            } else {
-                isCorrect = "Incorrect";
-            }
-            document.getElementById('attachment2Correct').innerHTML = displayCheck(isCorrect);
-
-        } else if (currentType == "attachment3") {
-            responsesGivenText.push(form.attachment3.value);
-            if (form.attachment3.value == QuestionAnswers[i]) {
-                isCorrect = "Correct";
-            } else {
-                isCorrect = "Incorrect";
-            }
-            document.getElementById('attachment3Correct').innerHTML = displayCheck(isCorrect);
+        if (currentAnswer == QuestionAnswers[i]) {
+            isCorrect = "Correct";
+        } else {
+            isCorrect = "Incorrect";
         }
+        var displayAreaName= "questionCorrect"+i;
+        document.getElementById(displayAreaName).innerHTML = displayCheck(isCorrect);
     }
 }
+
 
 function displayCheck(value) {
     if (value == "Correct") return '<font color=\"green\">Your answer is: ' + value + '</font>';
