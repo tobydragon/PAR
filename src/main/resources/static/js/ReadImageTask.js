@@ -36,49 +36,49 @@ function readJson(url) {
     return JSON.parse(request.response);
 }
 
-function generateQuestion(question) {
+function generateQuestions(question) {
     var readImageTaskObj = new ReadImageTask(0, [], [], [], 0);
     var difficultyStr;
     if (question.difficulty == 1) {
-        difficultyStr = setPlane();
+        difficultyStr = setPlane(readImageTaskObj);
+        readImageTaskObj.amountOfQuestions++;
     }
     if (question.difficulty == 2) {
-        difficultyStr = createFillIn(question);
+        difficultyStr = createFillIn(readImageTaskObj, question);
+        readImageTaskObj.amountOfQuestions++;
     }
     if (question.difficulty == 3) {
-        difficultyeStr = createFillIn(question);
+        difficultyeStr = createFillIn(readImageTaskObj, question);
+        readImageTaskObj.amountOfQuestions++;
     }
     if (question.difficulty == 4) {
-        difficultyStr = createZoneQuestion(question);
+        difficultyStr = createZoneQuestion(readImageTaskObj, question);
+        readImageTaskObj.amountOfQuestions++;
     }
-    displayQuestion(difficultyStr);
+    displayQuestions(difficultyStr);
 
 }
 
-function displayQuestion(displayHTML) {
+function displayQuestions(displayHTML) {
     document.getElementById("questionSet").innerHTML = displayHTML;
 }
 
-function setPlane() {
-    return '<p>What plane is this?</p> <input type="radio" name="' + "q" + (this.amountOfQuestions++) + '" value="Lateral"> Lateral<br> <input type="radio" name="' + (this.amountOfQuestions) + '" value="Transverse"> Transverse<br> <input type="radio" name="' + (this.amountOfQuestions) + '" value="Unsure"> I do not know<br> <i id="' + "questionCorrect" + (this.amountOfQuestions) + '"></i>';
-}
-
-function createZoneQuestion(json) {
-    var question = "<p> What zone is this? </p>";
+function createRadioQuestion(obj, json) {
+    var question = "<p>" + json.questionText + "</p>";
     for (var i = 0; i < json.possibleAnswers.length; i++) {
-        question += '<br> <input type="radio" name="' + (this.amountOfQuestions++) + '" value="';
-        question = question + json.possibleAnswers[i] + '">' + json.possibleAnswers[i] + '<br> <i id="' + "questionCorrect" + (this.amountOfQuestions) + '"></i>';
+        question += '<br> <input type="radio" name="' + ("q" + (obj.amountOfQuestions)) + '" value="';
+        question = question + json.possibleAnswers[i] + '">' + json.possibleAnswers[i] + '<br> <i id="' + "questionCorrect" + (obj.amountOfQuestions) + '"></i>';
     }
     return question;
 }
 
-function createFillIn(json) {
-    var question = "<p>" + json.questionText + '</p> <input name="' + (this.amountOfQuestions++) + '" list="' + this.amountOfQuestions + '"/> <datalist id="' + this.amountOfQuestions + '">';
+function createFillIn(obj, json) {
+    var question = "<p>" + json.questionText + '</p> <input name="' + ("q" + (obj.amountOfQuestions)) + '" list="' + ("list" + obj.amountOfQuestions) + '"/> <datalist id="' + ("list" + obj.amountOfQuestions) + '">';
     for (var i = 0; i < json.possibleAnswers.length; i++) {
         question = question + '<option value="' + json.possibleAnswers[i] + '"/>';
     }
     question += '</datalist>';
-    question += '<i id="' + "questionCorrect" + (this.amountOfQuestions) + '"></i>';
+    question += '<i id="' + "questionCorrect" + (obj.amountOfQuestions) + '"></i>';
 
     return question;
 }
@@ -87,7 +87,7 @@ function changeQuestions() {
     clearpage();
 
     var question = readJson("api/nextImageTask")
-    for (var i = 0; i < question.length; i++) readQuestion(question.get(i));
+    for (var i = 0; i < question.length; i++) displayQuestions(generateQuestions(question.get(i)));
 }
 
 function displayImageURL(imageURL) {
