@@ -9,15 +9,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Controller
 public class WebController implements WebMvcConfigurer {
 
-    @RequestMapping("/chooseMode")
-    public String chooseMode() {
-        return "ModeSelectPage";
-    }
+//    @RequestMapping("/chooseMode")
+//    public String chooseMode() {
+//        return "ModeSelectPage";
+//    }
+//    @RequestMapping(value = "/redirect", method = RequestMethod.GET)
+//    public String redirect() {
+//        return "redirect:finalPage";
+//    }
 
-    @RequestMapping(value = "/redirect", method = RequestMethod.GET)
-    public String redirect() {
-        return "redirect:finalPage";
-    }
     @RequestMapping(value = "/finalPage", method = RequestMethod.GET)
     public String finalPage() {
         return "ImageTaskTemplate";

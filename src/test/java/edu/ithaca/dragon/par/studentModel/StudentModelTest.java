@@ -1,6 +1,9 @@
 package edu.ithaca.dragon.par.studentModel;
 
 import edu.ithaca.dragon.par.domainModel.Question;
+import edu.ithaca.dragon.par.domainModel.QuestionPool;
+import edu.ithaca.dragon.par.io.ImageTaskResponse;
+import edu.ithaca.dragon.par.io.JsonDatastore;
 import edu.ithaca.dragon.util.JsonUtil;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,5 +35,12 @@ public class StudentModelTest {
         assertEquals(3, studentModel.getUnseenQuestionCount());
         assertEquals(0, studentModel.getSeenQuestionCount());
         assertEquals(0, studentModel.getResponseCount());
+    }
+    @Test
+    public void imageTaskResponseSubmittedTest() throws IOException{
+        QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestions.json"));
+        List<ImageTaskResponse> responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponse.class);
+        studentModel.imageTaskResponseSubmitted(responsesFromFile.get(0),qp);
+        assertEquals(studentModel.getResponseCount(), 3);
     }
 }

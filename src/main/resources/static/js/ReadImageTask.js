@@ -1,8 +1,7 @@
 class ReadImageTask {
-    constructor(amountOfQuestions, QuestionTypes, QuestionAnswers, QuestionIDs, UserID) {
+    constructor(amountOfQuestions, QuestionAnswers, QuestionIDs, UserID) {
 
         this.amountOfQuestions = amountOfQuestions;
-        this.QuestionTypes = QuestionTypes;
         this.QuestionAnswers = QuestionAnswers;
         this.QuestionIDs = QuestionIDs;
         this.UserID = UserID;
@@ -16,8 +15,8 @@ function getUserID() {
     return this.UserID;
 }
 
-function getQuestionTypes() {
-    return this.QuestionTypes;
+function getNumberOfQuestions() {
+    return this.amountOfQuestions;
 }
 
 function getQuestionAnswers() {
@@ -97,12 +96,15 @@ function displayImageURL(imageURL) {
 function pageDisplay() {
     var i;
     var imageTaskJSON = readJson("api/nextImageTask");
-    var qArray = new Array[imageTaskJSON.taskQuestions.length];
+
+    var qArray = [imageTaskJSON.taskQuestions.length];
+
     //Displays the image on the page at the appropriate tag
-    document.getElementById("image").innerHTML = displayImageURL(imageTaskJSON.taskQuestions[0].imageURL);
+    document.getElementById('image').innerHTML = displayImageURL(imageTaskJSON.taskQuestions[0].imageURL);
+
     //Displays the questions at the tags
     for (i = 0; i < imageTaskJSON.taskQuestions.length; i++) {
-        qArray.add(imageTaskJSON.taskQuestions[i]);
+        qArray.push(imageTaskJSON.taskQuestions[i]);
         readQuestion(qArray[i]);
     }
 }
