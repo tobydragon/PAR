@@ -1,27 +1,31 @@
-var amountOfStructures = 0;
-var amountOfAttachments = 0;
+class ReadImageTask {
+    constructor(amountOfQuestions, QuestionTypes, QuestionAnswers, QuestionIDs, UserID) {
 
-var QuestionTypes = [];
-var QuestionAnswers = [];
+        this.amountOfQuestions = amountOfQuestions;
+        this.QuestionTypes = QuestionTypes;
+        this.QuestionAnswers = QuestionAnswers;
+        this.QuestionIDs = QuestionIDs;
+        this.UserID = UserID;
 
-var QuestionIDs = [];
 
-var UserID;
+    }
+}
+
 
 function getUserID() {
-    return UserID;
+    return this.UserID;
 }
 
 function getQuestionTypes() {
-    return QuestionTypes;
+    return this.QuestionTypes;
 }
 
 function getQuestionAnswers() {
-    return QuestionAnswers;
+    return this.QuestionAnswers;
 }
 
 function getQuestionIDs() {
-    return QuestionIDs;
+    return this.QuestionIDs;
 }
 
 function readJson(url) {
@@ -32,67 +36,49 @@ function readJson(url) {
     return JSON.parse(request.response);
 }
 
-function readQuestion(question) {
-    QuestionIDs.push(question.id);
-
+function generateQuestion(question) {
+    var readImageTaskObj = new ReadImageTask(0, [], [], [], 0);
+    var difficultyStr;
     if (question.difficulty == 1) {
-        QuestionTypes.push("plane")
-        QuestionAnswers.push(question.correctAnswer)
-        document.getElementById('plane').innerHTML = setPlane();
-
+        difficultyStr = setPlane();
     }
-
     if (question.difficulty == 2) {
-        QuestionTypes.push('structure' + amountOfStructures)
-        QuestionAnswers.push(question.correctAnswer)
-        if (amountOfStructures != 0) {
-            document.getElementById('structure' + amountOfStructures).innerHTML = createFillIn(question, 'structure' + amountOfStructures);
-        } else {
-            document.getElementById('structure0').innerHTML = createFillIn(question, 'structure0');
-        }
-
-        amountOfStructures += 1;
+        difficultyStr = createFillIn(question);
     }
-
     if (question.difficulty == 3) {
-        QuestionTypes.push('attachment' + amountOfStructures)
-        QuestionAnswers.push(question.correctAnswer)
-        if (amountOfAttachments != 0) {
-            document.getElementById('attachment' + amountOfAttachments).innerHTML = createFillIn(question, 'attachment' + amountOfAttachments);
-        } else {
-            document.getElementById('attachment0').innerHTML = createFillIn(question, 'attachment0');
-        }
-
-        amountOfAttachments += 1;
+        difficultyeStr = createFillIn(question);
     }
-
     if (question.difficulty == 4) {
-        QuestionTypes.push("zone")
-        QuestionAnswers.push(question.correctAnswer)
-        document.getElementById('zone').innerHTML = createZoneQuestion(question);
-
+        difficultyStr = createZoneQuestion(question);
     }
+    displayQuestion(difficultyStr);
+
+}
+
+function displayQuestion(displayHTML) {
+    document.getElementById("questionSet").innerHTML = displayHTML;
 }
 
 function setPlane() {
-    return '<p>What plane is this?</p> <input type="radio" name="plane" value="Lateral"> Lateral<br> <input type="radio" name="plane" value="Transverse"> Transverse<br> <input type="radio" name="plane" value="Unsure"> I do not know<br>';
+    return '<p>What plane is this?</p> <input type="radio" name="' + "q" + (this.amountOfQuestions++) + '" value="Lateral"> Lateral<br> <input type="radio" name="' + (this.amountOfQuestions) + '" value="Transverse"> Transverse<br> <input type="radio" name="' + (this.amountOfQuestions) + '" value="Unsure"> I do not know<br> <i id="' + "questionCorrect" + (this.amountOfQuestions) + '"></i>';
 }
 
 function createZoneQuestion(json) {
     var question = "<p> What zone is this? </p>";
     for (var i = 0; i < json.possibleAnswers.length; i++) {
-        question += '<br> <input type="radio" name="zone" value="';
-        question = question + json.possibleAnswers[i] + '">' + json.possibleAnswers[i] + '<br>';
+        question += '<br> <input type="radio" name="' + (this.amountOfQuestions++) + '" value="';
+        question = question + json.possibleAnswers[i] + '">' + json.possibleAnswers[i] + '<br> <i id="' + "questionCorrect" + (this.amountOfQuestions) + '"></i>';
     }
     return question;
 }
 
-function createFillIn(json, type) {
-    var question = "<p>" + json.questionText + '</p> <input name="' + type + '" list="' + type + '"/> <datalist id="' + type + '">';
+function createFillIn(json) {
+    var question = "<p>" + json.questionText + '</p> <input name="' + (this.amountOfQuestions++) + '" list="' + this.amountOfQuestions + '"/> <datalist id="' + this.amountOfQuestions + '">';
     for (var i = 0; i < json.possibleAnswers.length; i++) {
         question = question + '<option value="' + json.possibleAnswers[i] + '"/>';
     }
     question += '</datalist>';
+    question += '<i id="' + "questionCorrect" + (this.amountOfQuestions) + '"></i>';
 
     return question;
 }
