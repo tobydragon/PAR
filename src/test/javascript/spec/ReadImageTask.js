@@ -45,7 +45,7 @@ describe("ReadImageTaskTest", function () {
         };
         expect(displayImageURL(test.imageURL)).toBe('<img class="imgCenter" src="../static/images/demoEquine02.jpg">');
     });
-    /**
+
     it("check readQuestion calls and records correct functions", function () {
         var testQuestion1 = {
             id: "ZoneQ1",
@@ -78,5 +78,5 @@ describe("ReadImageTaskTest", function () {
         expect(getQuestionAnswers).toContain("bone");
         expect(getQuestionAnswers).toContain("tendon");
     });
-    **/
+
 });
