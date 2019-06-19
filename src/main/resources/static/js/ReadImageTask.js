@@ -39,23 +39,18 @@ function generateQuestions(question) {
     var readImageTaskObj = new ReadImageTask(0, [], [], [], 0);
     var difficultyStr;
     if (question.difficulty == 1) {
-        difficultyStr = setPlane(readImageTaskObj);
-        readImageTaskObj.amountOfQuestions++;
+        difficultyStr = createRadioQuestion(readImageTaskObj, question);
     }
     if (question.difficulty == 2) {
         difficultyStr = createFillIn(readImageTaskObj, question);
-        readImageTaskObj.amountOfQuestions++;
     }
     if (question.difficulty == 3) {
         difficultyeStr = createFillIn(readImageTaskObj, question);
-        readImageTaskObj.amountOfQuestions++;
     }
     if (question.difficulty == 4) {
         difficultyStr = createZoneQuestion(readImageTaskObj, question);
-        readImageTaskObj.amountOfQuestions++;
     }
-    displayQuestions(difficultyStr);
-
+    readImageTaskObj.amountOfQuestions++;
 }
 
 function displayQuestions(displayHTML) {
