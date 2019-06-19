@@ -18,7 +18,12 @@ public class WebController implements WebMvcConfigurer {
 //        return "redirect:finalPage";
 //    }
 
-    @RequestMapping(value = "/finalPage", method = RequestMethod.GET)
+//    @RequestMapping(value = "/finalPage", method = RequestMethod.GET)
+//    public String finalPage() {
+//        return "ImageTaskTemplate";
+//    }
+
+    @RequestMapping("/start")
     public String finalPage() {
         return "ImageTaskTemplate";
     }

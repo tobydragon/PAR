@@ -7,39 +7,9 @@ function getResponsesText() {
     return responsesGivenText;
 }
 
-
 function setQuestionLists() {
     numberOfQuestions= getNumberOfQuestions();
     QuestionAnswers = getQuestionAnswers();
-}
-
-function remove() {
-    return " ";
-}
-
-function clearPage() {
-    document.getElementById('plane').innerHTML = remove();
-    document.getElementById('structure0').innerHTML = remove();
-    document.getElementById('structure1').innerHTML = remove();
-    document.getElementById('structure2').innerHTML = remove();
-    document.getElementById('structure3').innerHTML = remove();
-    document.getElementById('attachment0').innerHTML = remove();
-    document.getElementById('attachment1').innerHTML = remove();
-    document.getElementById('attachment2').innerHTML = remove();
-    document.getElementById('attachment3').innerHTML = remove();
-    document.getElementById('zone').innerHTML = remove();
-
-
-    document.getElementById('planeCorrect').innerHTML = remove();
-    document.getElementById('structure0Correct').innerHTML = remove();
-    document.getElementById('structure1Correct').innerHTML = remove();
-    document.getElementById('structure2Correct').innerHTML = remove();
-    document.getElementById('structure3Correct').innerHTML = remove();
-    document.getElementById('attachment0Correct').innerHTML = remove();
-    document.getElementById('attachment1Correct').innerHTML = remove();
-    document.getElementById('attachment2Correct').innerHTML = remove();
-    document.getElementById('attachment3Correct').innerHTML = remove();
-    document.getElementById('zoneCorrect').innerHTML = remove();
 }
 
 function checkAndRecordAnswers(form){

@@ -1,30 +1,24 @@
-class ReadImageTask {
-    constructor(amountOfQuestions, QuestionAnswers, QuestionIDs, UserID) {
 
-        this.amountOfQuestions = amountOfQuestions;
-        this.QuestionAnswers = QuestionAnswers;
-        this.QuestionIDs = QuestionIDs;
-        this.UserID = UserID;
+var amountOfQuestions=0;
+var QuestionAnswers = [];
+var QuestionIDs = [];
+var UserID;
 
-
-    }
-}
-
-
-function getUserID() {
-    return this.UserID;
-}
 
 function getNumberOfQuestions() {
-    return this.amountOfQuestions;
+    return amountOfQuestions;
 }
 
-function getQuestionAnswers() {
-    return this.QuestionAnswers;
+function  getQuestionAnswers() {
+    return QuestionAnswers;
 }
 
-function getQuestionIDs() {
-    return this.QuestionIDs;
+function  getQuestionIDs() {
+    return QuestionIDs;
+}
+
+function  getUserID() {
+    return UserID;
 }
 
 function readJson(url) {
@@ -36,23 +30,22 @@ function readJson(url) {
 }
 
 function generateQuestions(question) {
-    var readImageTaskObj = new ReadImageTask(0, [], [], [], 0);
     var difficultyStr;
     if (question.difficulty == 1) {
-        difficultyStr = setPlane(readImageTaskObj);
-        readImageTaskObj.amountOfQuestions++;
+        difficultyStr = createRadioQuestion(question);
+        amountOfQuestions++;
     }
     if (question.difficulty == 2) {
-        difficultyStr = createFillIn(readImageTaskObj, question);
-        readImageTaskObj.amountOfQuestions++;
+        difficultyStr = createFillIn(question);
+        amountOfQuestions++;
     }
     if (question.difficulty == 3) {
-        difficultyeStr = createFillIn(readImageTaskObj, question);
-        readImageTaskObj.amountOfQuestions++;
+        difficultyStr = createFillIn(question);
+        amountOfQuestions++;
     }
     if (question.difficulty == 4) {
-        difficultyStr = createZoneQuestion(readImageTaskObj, question);
-        readImageTaskObj.amountOfQuestions++;
+        difficultyStr = createRadioQuestion(question);
+        amountOfQuestions++;
     }
     displayQuestions(difficultyStr);
 
@@ -62,36 +55,39 @@ function displayQuestions(displayHTML) {
     document.getElementById("questionSet").innerHTML = displayHTML;
 }
 
-function createRadioQuestion(obj, json) {
+function createRadioQuestion(json) {
     var question = "<p>" + json.questionText + "</p>";
     for (var i = 0; i < json.possibleAnswers.length; i++) {
-        question += '<br> <input type="radio" name="' + ("q" + (obj.amountOfQuestions)) + '" value="';
-        question = question + json.possibleAnswers[i] + '">' + json.possibleAnswers[i] + '<br> <i id="' + "questionCorrect" + (obj.amountOfQuestions) + '"></i>';
+        question += '<br> <input type="radio" name="' + ("q" + (getNumberOfQuestions())) + '" value="';
+        question = question + json.possibleAnswers[i] + '">' + json.possibleAnswers[i] + '<br> <i id="' + "questionCorrect" + (getNumberOfQuestions()) + '"></i>';
     }
     return question;
 }
 
-function createFillIn(obj, json) {
-    var question = "<p>" + json.questionText + '</p> <input name="' + ("q" + (obj.amountOfQuestions)) + '" list="' + ("list" + obj.amountOfQuestions) + '"/> <datalist id="' + ("list" + obj.amountOfQuestions) + '">';
+function createFillIn(json) {
+    var question = "<p>" + json.questionText + '</p> <input name="' + ("q" + (getNumberOfQuestions())) + '" list="' + ("list" + getNumberOfQuestions()) + '"/> <datalist id="' + ("list" + getNumberOfQuestions()) + '">';
     for (var i = 0; i < json.possibleAnswers.length; i++) {
         question = question + '<option value="' + json.possibleAnswers[i] + '"/>';
     }
     question += '</datalist>';
-    question += '<i id="' + "questionCorrect" + (obj.amountOfQuestions) + '"></i>';
+    question += '<i id="' + "questionCorrect" + (amountOfQuestions) + '"></i>';
 
     return question;
 }
 
-function changeQuestions() {
-    clearpage();
+function clearPage(){
+    document.getElementById('questionSet').innerHTML = " ";
+}
 
-    var question = readJson("api/nextImageTask")
-    for (var i = 0; i < question.length; i++) displayQuestions(generateQuestions(question.get(i)));
+function changeQuestions() {
+    clearPage();
+    pageDisplay();
 }
 
 function displayImageURL(imageURL) {
     return '<img class="imgCenter" src="' + imageURL + '">';
 }
+
 
 function pageDisplay() {
     var i;
@@ -105,6 +101,6 @@ function pageDisplay() {
     //Displays the questions at the tags
     for (i = 0; i < imageTaskJSON.taskQuestions.length; i++) {
         qArray.push(imageTaskJSON.taskQuestions[i]);
-        readQuestion(qArray[i]);
+        generateQuestions(qArray[i]);
     }
 }
