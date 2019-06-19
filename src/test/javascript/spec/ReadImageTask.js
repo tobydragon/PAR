@@ -49,38 +49,15 @@ describe("ReadImageTaskTest", function () {
         };
         expect(displayImageURL(test.imageURL)).toBe('<img class="imgCenter" src="../static/images/demoEquine02.jpg">');
     });
-    /**
-        it("check readQuestion calls and records correct functions", function () {
-            var testQuestion1 = {
-                id: "ZoneQ1",
-                difficulty: 4,
-                questionText: "In what zone is this ultrasound taken?",
-                correctAnswer: "3C",
-                possibleAnswers: ["1A", "1B", "2A", "2B", "2C", "3A", "3B", "3C"],
-                imageUrl: "../static/images/demoEquine02.jpg"
-            };
-            var testQuestion2 = {
-                id: "structureQ1",
-                difficulty: 2,
-                questionText: "What structure is in the near field?",
-                correctAnswer: "bone",
-                possibleAnswers: ["bone", "ligament", "tumor", "tendon", "Unsure"],
-                imageUrl: "../static/images/demoEquine02.jpg"
-            };
-            var testQuestion3 = {
-                id: "attachmentQ1",
-                difficulty: 3,
-                questionText: "Based on this structure, what is the distal attachment?",
-                correctAnswer: "tendon",
-                possibleAnswers: ["bone", "ligament", "tumor", "tendon", "Unsure"],
-                imageUrl: "../static/images/demoEquine02.jpg"
-            };
-            readQuestion(testQuestion1);
-            readQuestion(testQuestion2);
-            readQuestion(testQuestion3);
-            expect(getQuestionAnswers).toContain("3C");
-            expect(getQuestionAnswers).toContain("bone");
-            expect(getQuestionAnswers).toContain("tendon");
-        });
-    **/
+
+    it("check generateQuestions to see if it makes correct function calls and the counter is correct", function () {
+        var test2 = {
+            id: "PlaneQ1",
+            difficulty: 1,
+            questionText: "What plane is this?",
+            possibleAnswers: ["Transverse", "Longitudinal"],
+            imageURL: "../static/images/demoEquine02.jpg"
+        };
+        expect(getNumberOfQuestions()).toBe(0);
+    });
 });
