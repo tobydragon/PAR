@@ -60,6 +60,51 @@ public class UserQuestionSetTest {
     }
 
     @Test
+    public void getLenUnseenTest() throws IOException {
+        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestions.json", Question.class);
+        UserQuestionSet que = new UserQuestionSet("99", questionsFromFile);
+
+        //checks all questions are seen
+        int len = que.getLenOfUnseenQuestions();
+        assertEquals(3, len);
+
+        //checks 2 questions are unseen
+        que.givenQuestion("PlaneQ1");
+        len = que.getLenOfUnseenQuestions();
+        assertEquals(2,len);
+
+        //checks 1 question is unseen
+        que.givenQuestion("StructureQ1");
+        len = que.getLenOfUnseenQuestions();
+        assertEquals(1,len);
+
+        //checks getLen does not change the length of seen list
+        len = que.getLenOfUnseenQuestions();
+        assertEquals(1,len);
+
+        //checks 0 questions are unseen
+        que.givenQuestion("ZoneQ1");
+        len = que.getLenOfUnseenQuestions();
+        assertEquals(0,len);
+
+        //checks length of unseen questions list remains the same for a repeat question
+        que.givenQuestion("ZoneQ1");
+        len = que.getLenOfUnseenQuestions();
+        assertEquals(0,len);
+
+        //checks length of unseen list does not change when invalid question ID is used
+        que.givenQuestion("4");
+        len = que.getLenOfUnseenQuestions();
+        assertEquals(0,len);
+
+        //checks length of unseen list does not change when invalid question ID is used
+        que.givenQuestion("1");
+        len = que.getLenOfUnseenQuestions();
+        assertEquals(0,len);
+
+    }
+
+    @Test
     public void getQTest() throws IOException{
         List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestions.json", Question.class);
         UserQuestionSet que = new UserQuestionSet("100", questionsFromFile);
