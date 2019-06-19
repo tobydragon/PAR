@@ -14,51 +14,63 @@ public class ImageTaskChooser {
      * @param difficulty
      * @return an image task with only one question
      */
-    public static ImageTask nextImageTask(UserQuestionSet questionSet, int difficulty){
-        List<Question> choose;
-        List<Question> sameDifficulty = new ArrayList<Question>();
+    public static ImageTask nextImageTaskSingle(UserQuestionSet questionSet, int difficulty){
+        List<Question> chooseSeen;
+        List<Question> chooseUnseen;
 
         //unseen questions
-        choose = questionSet.getUnseenQuestions();
-        //returns the first one found with the same difficulty
-        for (int i = 0; i<choose.size(); i++){
-            if(choose.get(i).getDifficulty()==difficulty){
-                Question q = choose.get(i);//updates seen vs unseen in the question set
-                questionSet.givenQuestion(choose.get(i).getId());
-                //returns image task with the first question of matching difficulty
-                ImageTask im = new ImageTask(q.getImageUrl(), Arrays.asList(q));
-                return im;
-            }
+        chooseUnseen = questionSet.getUnseenQuestions();    //unseen questions
+        List<Integer> indUnseenSameDiff = getIndexesOfSameDifficulty(chooseUnseen, difficulty); //indexes of all questions with the same difficulty
+        if(indUnseenSameDiff.size()>0) {   //if there's an unseen question matching difficulty
+            ImageTask im = makeTask(chooseUnseen, indUnseenSameDiff.get(0)); //makes image task with the first unseen question
+            questionSet.givenQuestion(questionSet.getUnseenQuestions().get(indUnseenSameDiff.get(0)).getId());  //switches question from seen to unseen
+            return im;
         }
-        //no unseen questions with same difficulty
-        choose = questionSet.getSeenQuestions();
-        //times seen array for questions of the same difficulty
-        List<Integer> ts = new ArrayList<Integer>();
-        //adds questions of same difficulty to array, adds corresponding times seen value to ts
-        for (int i = 0; i<choose.size(); i++){
-            if(choose.get(i).getDifficulty()==difficulty){
-                sameDifficulty.add(choose.get(i));
-                ts.add(questionSet.timesSeen.get(i));
-            }
-        }
-        //if there's any matching the same difficulty (there should be, else given difficulty is invalid)
-        if(sameDifficulty.size()>0){
-            int minTimesSeen = questionSet.getTimesSeen(sameDifficulty.get(0).getId());
-            int index = 0;
-            //stores the index of the question that's been seen the least
-            for(int i = 0; i < sameDifficulty.size(); i++){
-                if(ts.get(i)<minTimesSeen){
-                    minTimesSeen = ts.get(i);
-                    index = i;
-                }
-            }
-            Question q = sameDifficulty.get(index);
-            //updates seen vs unseen in the question set
-            questionSet.givenQuestion(q.getId());
-            //returns the question with the matching difficulty that has been seen the least
-            ImageTask im = new ImageTask(q.getImageUrl(), Arrays.asList(q));
+
+
+        //seen questions
+        chooseSeen = questionSet.getSeenQuestions();    //no unseen questions with same difficulty, must get seen question
+        List<Integer> indSeenSameDiff = getIndexesOfSameDifficulty(chooseSeen, difficulty);
+        if (indSeenSameDiff.size()>0){
+            int chooseInd = indexOfSeenLeast(questionSet, indSeenSameDiff);     //chooses index of the question with the same difficulty that has been seen the least
+            ImageTask im = makeTask(chooseSeen, chooseInd);     //makes image task with the seen question with the same difficulty that has been seen the least
+            questionSet.givenQuestion(questionSet.getSeenQuestions().get(chooseInd).getId());    //adds 1 to times seen
             return im;
         }
         return null;
     }
+
+    public static List<Integer> getIndexesOfSameDifficulty(List<Question> questions, int difficulty){
+        List<Integer> indexesSeen = new ArrayList<Integer>();
+        for(int i = 0; i<questions.size(); i++){
+            if (questions.get(i).getDifficulty()==difficulty){
+                indexesSeen.add(i);
+            }
+        }
+        return indexesSeen;
+    }
+
+    public static int indexOfSeenLeast(UserQuestionSet questionSet, List<Integer> matchingIndexes){
+        int minTimesSeen = questionSet.getTimesSeen(questionSet.getSeenQuestions().get(matchingIndexes.get(0)).getId());
+        int index = matchingIndexes.get(0);
+        for(int i = 0; i < matchingIndexes.size(); i++){
+            if(questionSet.getTimesSeen(questionSet.getSeenQuestions().get(matchingIndexes.get(i)).getId())<minTimesSeen){
+                minTimesSeen = questionSet.getTimesSeen(questionSet.getSeenQuestions().get(matchingIndexes.get(i)).getId());
+                index = matchingIndexes.get(i);
+            }
+        }
+        return index;
+    }
+
+    public static ImageTask makeTask (List<Question> choose, int index){
+        Question q = choose.get(index);
+        ImageTask im = new ImageTask(q.getImageUrl(), Arrays.asList(q));    //returns image task with the first question of matching difficulty
+        return im;
+    }
+
+
+//    public static ImageTask nextImageTask(UserQuestionSet questionSet, int difficulty, int numOfQuestions){
+//        List<Question> chosen;
+//
+//    }
 }
