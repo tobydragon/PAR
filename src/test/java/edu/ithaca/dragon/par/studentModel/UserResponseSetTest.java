@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 public class UserResponseSetTest {
 
     @Test
-    public void addAllResponsesTest()throws IOException{
+    public void getResponseSizeTest()throws IOException{
         List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestions.json", Question.class);
         List<ImageTaskResponse> responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponse.class);
         UserResponseSet respSet=new UserResponseSet(responsesFromFile.get(0).getUserId());
@@ -26,8 +26,6 @@ public class UserResponseSetTest {
         }
         respSet.addAllResponses(userResponses);
         assertEquals(respSet.getUserResponsesSize(),3);
-
-
     }
     public static double OK_DOUBLE_MARGIN = (double) 0.00001;
     @Test

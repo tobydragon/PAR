@@ -1,6 +1,9 @@
 var amountOfStructures=0;
 var amountOfAttachments=0;
 
+var QuestionTypes= [];
+var QuestionAnswers= [];
+
 
 function readJson(url){
     var request = new XMLHttpRequest();
@@ -14,6 +17,8 @@ function readQuestion(question){
 
     if(question.difficulty==1) {
         document.getElementById('plane').innerHTML = setPlane(question.correctAnswer);
+        QuestionTypes.push("plane")
+        QuestionAnswers.push(question.correctAnswer)
     }
 
     if(question.difficulty==2) {
@@ -22,6 +27,8 @@ function readQuestion(question){
         } else {
             document.getElementById('structure0').innerHTML = createFillIn(question);
         }
+        QuestionTypes.push('structure' + amountOfStructures)
+        QuestionAnswers.push(question.correctAnswer)
         amountOfStructures += 1;
     }
 
@@ -31,26 +38,20 @@ function readQuestion(question){
         } else {
             document.getElementById('attachment0').innerHTML = createFillIn(question);
         }
+        QuestionTypes.push('attachment' + amountOfStructures)
+        QuestionAnswers.push(question.correctAnswer)
         amountOfAttachments += 1;
     }
 
     if(question.difficulty==4) {
-        document.getElementById('zone').innerHTML = createMulti(question);
+        document.getElementById('zone').innerHTML = createZoneQuestion(question);
+        QuestionTypes.push("zone")
+        QuestionAnswers.push(question.correctAnswer)
     }
 }
 
 function remove() {
     return " ";
-}
-
-function makeQuestion(jsonQuestion) {
-    return '<b id="question">' + jsonQuestion.questionText + '</b><i id="' + jsonQuestion.id + '"> </i> <div class="form-check"> <input class="form-check-input" type="radio" name="exampleRadios" id="' + (jsonQuestion.id + "1") + '"value="correct"> <label class="form-check-label" for="option1radio">' + jsonQuestion.correctAnswer + '</label> </div> <div class="form-check"> <input class="form-check-input" type="radio" name="exampleRadios" id="' + (jsonQuestion.id + "2") + '" value="incorrect"> <label class="form-check-label" for="option1radio">' + jsonQuestion.answers[0] + '</label></div><div class="form-check"><input class="form-check-input" type="radio" name="exampleRadios" id="' + (jsonQuestion.id + "3") + '" value="incorrect"><label class="form-check-label" for="option1radio">' + jsonQuestion.answers[1] + '</label></div>'
-}
-
-function setPlane(type) {
-    if (type == "Transverse") {
-        return '<p>What plane is this?</p> <input type="radio" name="plane" value="Incorrect"> Lateral<br> <input type="radio" name="plane" value="Correct"> Transverse<br> <input type="radio" name="plane" value="Unsure"> I do not know<br>';
-    }
 }
 
 function clearpage(){
@@ -84,8 +85,9 @@ function setPlane(type){
 
 }
 
-function createMulti(json) {
-    return "<p>" + json.questionText + '</p> <input type="radio" th:field="*{plane}" value="Incorrect">' + json.answers[0] +
+function createZoneQuestion(json) {
+    var question= "<p> What zone is this? </p>";
+    return "<p>" + json.questionText + '</p> <input type="radio" value="Incorrect">' + json.answers[0] +
         '<br> <input type="radio" name="plane" value="Correct">' + json.answers[1] +
         '<br> <input type="radio" name="plane" value="Incorrect">' + json.answers[2] +
         '<br> <input type="radio" name="plane" value="Incorrect">' + json.answers[3] + '<br>';
@@ -112,8 +114,8 @@ function changeImage() {
 }
 
 function changeQuestions() {
-    document.getElementById('image').innerHTML = remove();
-    changeImage();
+    // document.getElementById('image').innerHTML = remove();
+    // changeImage();
     clearpage();
 
     var question = readJson("api/nextQuestion")

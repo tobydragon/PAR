@@ -12,6 +12,8 @@ public class ImageTask{
     private String imageUrl;
     private List<Question> taskQuestions;
 
+    public ImageTask(){};
+
     public ImageTask(String imageUrlIn, List<Question> taskQuestionsIn){
         imageUrl = imageUrlIn;
         taskQuestions = taskQuestionsIn;
