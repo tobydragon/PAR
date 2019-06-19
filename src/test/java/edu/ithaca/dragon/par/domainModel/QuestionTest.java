@@ -7,11 +7,39 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
+import edu.ithaca.dragon.par.io.JsonDatastore;
 import edu.ithaca.dragon.util.JsonUtil;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class QuestionTest {
+
+    public static boolean checkIfListsHaveSameQuestionObjects(List<Question> list1, List<Question> list2){
+        if(list1.size() != list2.size()){
+
+        }
+        return true;
+    }
+
+    @Test
+    public void checkIfListsHaveSameQuestionObjectsTest() throws IOException{
+        QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestions.json"));
+
+        //The Lists are exactly the same
+        List<Question> list1a = qp.allQuestions;
+        List<Question> list1b = qp.allQuestions;
+        assertEquals(true, checkIfListsHaveSameQuestionObjects(list1a,list1b));
+
+        //the Lists are different size
+        List<Question> list1c = qp.allQuestions;
+        list1c.add(new Question());
+        assertEquals(false, checkIfListsHaveSameQuestionObjects(list1a,list1c));
+
+        //The content of the Questions are the same, but they are different objects
+        QuestionPool qp2 = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestions.json"));
+        List<Question> list1d = qp2.allQuestions;
+        assertEquals(false, checkIfListsHaveSameQuestionObjects(list1a, list1d));
+    }
 
     @Test
     public void toJsonAndBackTest() throws IOException {
