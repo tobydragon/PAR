@@ -52,7 +52,7 @@ function generateQuestions(question) {
 }
 
 function displayQuestions(displayHTML) {
-    document.getElementById("questionSet").innerHTML = displayHTML;
+    document.getElementById("questionSet").innerHTML += displayHTML;
 }
 
 function createRadioQuestion(json) {
@@ -88,19 +88,14 @@ function displayImageURL(imageURL) {
     return '<img class="imgCenter" src="' + imageURL + '">';
 }
 
-
 function pageDisplay() {
-    var i;
     var imageTaskJSON = readJson("api/nextImageTask");
 
-    var qArray = [imageTaskJSON.taskQuestions.length];
-
     //Displays the image on the page at the appropriate tag
-    document.getElementById('image').innerHTML = displayImageURL(imageTaskJSON.taskQuestions[0].imageURL);
+    //displayImage(imageTaskJSON.imageURL);
 
     //Displays the questions at the tags
-    for (i = 0; i < imageTaskJSON.taskQuestions.length; i++) {
-        qArray.push(imageTaskJSON.taskQuestions[i]);
-        generateQuestions(qArray[i]);
+    for (var i = 0; i < imageTaskJSON.taskQuestions.length; i++) {
+        generateQuestions(imageTaskJSON.taskQuestions[i]);
     }
 }

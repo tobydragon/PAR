@@ -1,5 +1,5 @@
 {
-  "imageUrl" : "../static/images/equine02.jpg\"",
+  "imageUrl" : "../static/images/demoEquine02.jpg\"",
   "taskQuestions" : [ {
     "id" : "PlaneQ1",
     "difficulty" : 1,
@@ -13,7 +13,7 @@
     "questionText" : "What structure is in the near field?",
     "correctAnswer" : "bone",
     "possibleAnswers" : [ "bone", "ligament", "tumor", "tendon", "I don't know" ],
-    "imageUrl" : "../static/images/demoEquine04.jpg"
+    "imageUrl" : "../static/images/demoEquine02.jpg"
   }, {
     "id" : "ZoneQ1",
     "difficulty" : 4,

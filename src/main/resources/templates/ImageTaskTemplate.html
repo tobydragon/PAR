@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html >
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <title>Image Task Example</title>
@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="/css/style.css">
     <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
     <!-- Main JS Files -->
-    <script src="/js/AnswerCheck.js"></script>
+    <script type="text/javascript" src="/js/AnswerCheck.js"></script>
     <script type="text/javascript" src="/js/CreateResponse.js"></script>
     <script type="text/javascript" src="/js/ReadImageTask.js"></script>
     <!-- Font Awsome -->
@@ -30,7 +30,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-12 imgCenter">
-                <b id="image"> </b>
+                <img src="../static/images/demoEquine02.jpg" width="1000" th:src="@{images/demoEquine02.jpg}" />
             </div>
         </div>
         <div class="row">
@@ -39,7 +39,7 @@
             </div>
             <div class="col-12 center">
                 <form action="#" method="post">
-                    <i id="questionSet"></i>
+                    <i id="questionSet">  </i>
                 </form>
             </div>
         </div>
