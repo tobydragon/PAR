@@ -32,8 +32,17 @@ public class UserQuestionSetRecord {
     }
 
     public UserQuestionSet buildUserQuestionSet(QuestionPool questionPool) {
-        //use questionPool
-        return null;
+        List<Question> unseenQuestions = new ArrayList<>();
+        for(String currUnseenId : unseenQuestionIds){
+            unseenQuestions = questionPool.getQuestionsFromIds(unseenQuestionIds);
+        }
+
+        List<Question> seenQuestions = new ArrayList<>();
+        for(String currSeenId : seenQuestionIds){
+            seenQuestions = questionPool.getQuestionsFromIds(seenQuestionIds);
+        }
+
+        return new UserQuestionSet(userId, unseenQuestions, seenQuestions, timesSeen);
     }
 
     public String getUserId() {

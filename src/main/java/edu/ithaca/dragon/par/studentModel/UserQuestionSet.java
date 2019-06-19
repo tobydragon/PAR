@@ -100,5 +100,21 @@ public class UserQuestionSet {
         }
     }
 
+    @Override
+    public boolean equals(Object otherObj){
+        if(otherObj == null){
+            return false;
+        }
+        if(!UserQuestionSet.class.isAssignableFrom(otherObj.getClass())){
+            return false;
+        }
+        UserQuestionSet other = (UserQuestionSet) otherObj;
+        return this.getUserId().equals(other.getUserId())
+                //TODO: does .equals() accurately compare these things?
+                && this.getSeenQuestions().equals(other.getSeenQuestions())
+                && this.getUnseenQuestions().equals(other.getUnseenQuestions())
+                && this.timesSeen.equals(other.timesSeen);
+    }
+
 }
 
