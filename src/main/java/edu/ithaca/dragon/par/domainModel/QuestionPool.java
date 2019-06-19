@@ -25,7 +25,7 @@ public class QuestionPool {
             if(allQuestions.get(i).getId().equals(questionIdIn))
                 return allQuestions.get(i);
         }
-        return null;
+        throw new RuntimeException("Question with id:" + questionIdIn + " does not exist");
     }
 
     public List<Question> getQuestionsFromUrl(String imageUrlIn){
@@ -35,5 +35,9 @@ public class QuestionPool {
                 toReturn.add(allQuestions.get(i));
         }
         return toReturn;
+    }
+
+    public List<Question> getQuestionsFromIds(List<String> idsIn){
+        return null;
     }
 }

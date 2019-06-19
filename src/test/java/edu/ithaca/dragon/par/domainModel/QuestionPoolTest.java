@@ -4,9 +4,11 @@ import edu.ithaca.dragon.par.io.JsonDatastore;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 public class QuestionPoolTest {
     @Test
@@ -32,5 +34,27 @@ public class QuestionPoolTest {
         Question questionFromId2 = qp.getQuestionFromId("StructureQ4");
         assertTrue(questionFromId2.getQuestionText().equals("What structure is in the near field?"));
         assertTrue(questionFromId2.getCorrectAnswer().equals("bone"));
+    }
+
+    @Test
+    public void getQuestionsFromIdsTest() throws IOException {
+
+        //all question ids are good
+        QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestions2.json"));
+        List<String> questionIds1 = Arrays.asList("StructureQ3","StructureQ4","ZoneQ1");
+        List<Question> questionList1 = qp.getQuestionsFromIds(questionIds1);
+        assertEquals(questionList1.size(), 3);
+
+        //some question ids are invalid
+        QuestionPool qp2 = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestions2.json"));
+        List<String> questionIds2 = Arrays.asList("StructureQ3","StructureQ4","NotAnId", "AlsoNotAnId");
+        List<Question> questionList2 = qp2.getQuestionsFromIds(questionIds2);
+        assertEquals(questionList2.size(), 2);
+
+        //the order of ids does not match the order of the questions in the Json file
+        QuestionPool qp3 = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestions2.json"));
+        List<String> questionIds3 = Arrays.asList("ZoneQ4","StructureQ4","ZoneQ1", "PlaneQ1");
+        List<Question> questionList3 = qp3.getQuestionsFromIds(questionIds3);
+        assertEquals(questionList3.size(), 4);
     }
 }

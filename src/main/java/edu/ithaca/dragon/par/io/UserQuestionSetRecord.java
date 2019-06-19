@@ -1,6 +1,7 @@
 package edu.ithaca.dragon.par.io;
 
 import edu.ithaca.dragon.par.domainModel.Question;
+import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.studentModel.UserQuestionSet;
 
 import java.util.ArrayList;
@@ -28,6 +29,11 @@ public class UserQuestionSetRecord {
         for(Question question : userQuestionSet.getUnseenQuestions()){
             unseenQuestionIds.add(question.getId());
         }
+    }
+
+    public UserQuestionSet buildUserQuestionSet(QuestionPool questionPool) {
+        //use questionPool
+        return null;
     }
 
     public String getUserId() {
@@ -60,9 +66,5 @@ public class UserQuestionSetRecord {
 
     public void setTimesSeen(List<Integer> timesSeen) {
         this.timesSeen = timesSeen;
-    }
-
-    public UserQuestionSet buildUserQuestionSet() {
-        return null;
     }
 }

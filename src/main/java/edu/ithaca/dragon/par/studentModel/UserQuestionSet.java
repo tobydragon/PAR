@@ -13,11 +13,18 @@ public class UserQuestionSet {
 
 
     public UserQuestionSet(String userIdIn, List<Question> unseenQuestionsIn){
-
+        //TODO: call the other constructor
         seenQuestions = new ArrayList<Question>();
         this.unseenQuestions = unseenQuestionsIn;
         timesSeen = new ArrayList<Integer>();
         this.userId=userIdIn;
+    }
+
+    public UserQuestionSet(String userIdIn, List<Question> unseenQuestionsIn, List<Question> seenQuestionsIn, List<Integer> timesSeenIn) {
+        seenQuestions = seenQuestionsIn;
+        unseenQuestions = unseenQuestionsIn;
+        timesSeen = timesSeenIn;
+        userId=userIdIn;
     }
 
     /**
