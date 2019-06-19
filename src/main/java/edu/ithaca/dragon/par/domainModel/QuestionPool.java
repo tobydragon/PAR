@@ -38,6 +38,22 @@ public class QuestionPool {
     }
 
     public List<Question> getQuestionsFromIds(List<String> idsIn){
-        return null;
+        List<Question> toReturn = new ArrayList<>();
+        boolean validId;
+
+        //TODO: find a better algorithm?
+        for(String currId : idsIn){
+            validId = false;
+            for(Question currQuestion : allQuestions){
+                if(currQuestion.getId().equals(currId)){
+                    toReturn.add(currQuestion);
+                    validId = true;
+                }
+            }
+            if(!validId) //the id is invalid
+                throw new RuntimeException("Question with id:" + currId + " does not exist");
+        }
+
+        return toReturn;
     }
 }
