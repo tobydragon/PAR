@@ -15,7 +15,7 @@ public class ParServer {
     private QuestionPool questionPool;
     private Map<String, StudentModel> studentModelMap;
 
-    ParServer(QuestionPool questionPool){
+    public ParServer(QuestionPool questionPool){
         this.questionPool = questionPool;
         studentModelMap = new HashMap<>();
     }
