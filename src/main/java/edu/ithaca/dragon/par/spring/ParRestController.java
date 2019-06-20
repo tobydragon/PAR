@@ -17,11 +17,8 @@ import java.util.List;
 @RequestMapping("/api")
 public class ParRestController {
 
-    ParServer parServer;
-
     ParRestController(){
         super();
-        parServer = new ParServer();
     }
 
     @GetMapping("/")
