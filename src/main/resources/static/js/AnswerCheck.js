@@ -12,7 +12,8 @@ function setQuestionLists() {
     QuestionAnswers = getQuestionAnswers();
 }
 
-function checkAndRecordAnswers(form){
+function checkAndRecordAnswers(){
+    var form=document.getElementById("form1")
     for(var i=0; i<numberOfQuestions; i++){
         var currentName= "q"+i;
         var currentAnswer= form[currentName].value;
@@ -49,9 +50,8 @@ function toggleShowState(toggableElement) {
     }
 }
 
-function checkAnswers(form) {
+function checkAnswers() {
     setQuestionLists();
-    clearPage();
-    checkAndRecordAnswers(form);
+    checkAndRecordAnswers();
     generateResponseJSON();
 }

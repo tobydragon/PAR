@@ -74,15 +74,6 @@ function createFillIn(json) {
     return question;
 }
 
-function clearPage() {
-    document.getElementById('questionSet').innerHTML = " ";
-}
-
-function changeQuestions() {
-    clearPage();
-    pageDisplay();
-}
-
 function displayImageURL(imageURL) {
     return '<img class="imgCenter" src="' + imageURL + '">';
 }
@@ -97,4 +88,13 @@ function pageDisplay() {
     for (var i = 0; i < imageTaskJSON.taskQuestions.length; i++) {
         generateQuestions(imageTaskJSON.taskQuestions[i]);
     }
+}
+
+function clearPage() {
+    document.getElementById('questionSet').innerHTML = " ";
+}
+
+function changeQuestions() {
+    clearPage();
+    pageDisplay();
 }
