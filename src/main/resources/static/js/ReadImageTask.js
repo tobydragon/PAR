@@ -1,5 +1,4 @@
-
-var amountOfQuestions=0;
+var amountOfQuestions = 0;
 var QuestionAnswers = [];
 var QuestionIDs = [];
 var UserID;
@@ -9,15 +8,15 @@ function getNumberOfQuestions() {
     return amountOfQuestions;
 }
 
-function  getQuestionAnswers() {
+function getQuestionAnswers() {
     return QuestionAnswers;
 }
 
-function  getQuestionIDs() {
+function getQuestionIDs() {
     return QuestionIDs;
 }
 
-function  getUserID() {
+function getUserID() {
     return UserID;
 }
 
@@ -75,7 +74,7 @@ function createFillIn(json) {
     return question;
 }
 
-function clearPage(){
+function clearPage() {
     document.getElementById('questionSet').innerHTML = " ";
 }
 
@@ -93,7 +92,7 @@ function pageDisplay() {
 
     //Displays the image on the page at the appropriate tag
     //displayImage(imageTaskJSON.imageURL);
-
+    displayImageURL(imageTaskJSON.imageURL);
     //Displays the questions at the tags
     for (var i = 0; i < imageTaskJSON.taskQuestions.length; i++) {
         generateQuestions(imageTaskJSON.taskQuestions[i]);

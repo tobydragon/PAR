@@ -29,32 +29,28 @@
 <body id="topSection">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12 imgCenter">
+            <div class="col-6">
                 <img src="../static/images/demoEquine02.jpg" width="1000" th:src="@{images/demoEquine02.jpg}" />
             </div>
-        </div>
-        <div class="row">
-            <div class="col-12 center">
+            <div class="col-4 center">
+                <br />
                 <h1>Questions</h1>
-            </div>
-            <div class="col-12 center">
                 <form action="#" method="post">
-                    <i id="questionSet">  </i>
+                    <i id="questionSet"> </i>
                 </form>
             </div>
         </div>
-
-        <br>
-        <div class="row">
-            <div class="col-12 text-center">
-                <div class="show">
-                    <button type="button" class="btn btn-outline-primary" id="submitButton" onclick="checkAnswers(form)">
-                        Submit
-                    </button>
-                    <button type="button" class="fas fa-arrow-circle-right btn btn-outline-dark" id="nextQuestionButton" onclick="changeQuestions()"></button>
-                </div>
-
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-12 text-center">
+            <div class="show">
+                <button type="button" class="btn btn-outline-primary" id="submitButton" onclick="checkAnswers(form)">
+                    Submit
+                </button>
+                <button type="button" class="fas fa-arrow-circle-right btn btn-outline-dark" id="nextQuestionButton" onclick="changeQuestions()"></button>
             </div>
+
         </div>
     </div>
 
@@ -66,6 +62,7 @@
 
     <script>
         pageDisplay();
+
     </script>
 
 </body>
