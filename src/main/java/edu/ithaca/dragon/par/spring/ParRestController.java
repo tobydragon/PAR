@@ -2,8 +2,10 @@ package edu.ithaca.dragon.par.spring;
 
 import edu.ithaca.dragon.par.ParServer;
 import edu.ithaca.dragon.par.domainModel.Question;
+import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
+import edu.ithaca.dragon.par.io.JsonDatastore;
 import edu.ithaca.dragon.util.JsonUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,11 +19,16 @@ import java.util.List;
 @RequestMapping("/api")
 public class ParRestController {
 
-    ParServer parServer;
+    private ParServer parServer;
 
     ParRestController(){
         super();
-        parServer = new ParServer();
+        try {
+            parServer = new ParServer(new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionsSameDifficulty.json")));
+        }
+        catch(IOException e){
+            throw new RuntimeException("Server can't start without questionPool");
+        }
     }
 
     @GetMapping("/")
@@ -31,16 +38,7 @@ public class ParRestController {
 
     @GetMapping("/nextImageTask")
     public ImageTask nextImageTask() {
-        Logger logger = LogManager.getLogger(this.getClass());
-        try {
-            //current imageTask is a test and needs to be rerouted for final
-            ImageTask imageTaskFromFile = JsonUtil.fromJsonFile("src/test/resources/author/SampleImageTask.json", ImageTask.class);
-            return imageTaskFromFile;
-        }
-        catch (IOException e){
-            logger.error("ImageTask not built", e);
-            return null;
-        }
+            return parServer.nextImageTask("Student");
     }
 
     @PostMapping("/recordResponse")
