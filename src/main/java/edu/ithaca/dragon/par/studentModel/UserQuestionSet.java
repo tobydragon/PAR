@@ -108,7 +108,6 @@ public class UserQuestionSet {
         }
         UserQuestionSet other = (UserQuestionSet) otherObj;
         return this.getUserId().equals(other.getUserId())
-                //TODO: does .equals() accurately compare these things?
                 && this.getSeenQuestions().equals(other.getSeenQuestions())
                 && this.getUnseenQuestions().equals(other.getUnseenQuestions())
                 && this.timesSeen.equals(other.timesSeen);
