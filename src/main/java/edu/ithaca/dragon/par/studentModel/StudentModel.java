@@ -23,9 +23,6 @@ public class StudentModel {
         userQuestionSet.givenQuestion(questionId);
     }
 
-    public double calcScore(){
-        return userResponseSet.CalcScore();
-    }
 
     public int getSeenQuestionCount(){
         return userQuestionSet.getLenOfSeenQuestions();

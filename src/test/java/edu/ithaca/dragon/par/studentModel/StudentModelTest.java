@@ -54,7 +54,6 @@ public class StudentModelTest {
         studentModel.imageTaskResponseSubmitted(responsesFromFile.get(0),questionPool);
 
         assertEquals(6, studentModel.getResponseCount());
-        assertEquals(100, studentModel.calcScore(), DataUtil.OK_DOUBLE_MARGIN);
     }
 
     @Test
