@@ -43,13 +43,12 @@ describe("ReadImageTaskTest", function () {
         expect(createFillIn(test)).toBe('<p>Based on this structure, what is the distal attachment?</p> <input name="q0" list="list0"/> <datalist id="list0"><option value="bone"/><option value="ligament"/><option value="tumor"/><option value="tendon"/><option value="Unsure"/></datalist><i id="questionCorrect0"></i>');
     });
 
-    it("check displayImageURL to see if it outputs the right image", function () {
+    it("check generateImageURL generates the right source tag and thymeleaf source tag", function () {
         var test = {
             imageURL: "../static/images/demoEquine02.jpg"
         };
-        expect(displayImageURL(test.imageURL)).toBe('<img class="imgCenter" src="../static/images/demoEquine02.jpg">');
+        expect(generateImageURL(test.imageURL)).toBe('<img src="../static/images/demoEquine02.jpg" class="imgCenter" th:src="@{images/demoEquine02.jpg}">');
     });
-
     it("check generateQuestions to see if it makes correct function calls and the counter is correct", function () {
         var test2 = {
             id: "PlaneQ1",

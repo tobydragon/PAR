@@ -83,16 +83,25 @@ function changeQuestions() {
     pageDisplay();
 }
 
+function generateImageURL(imageURL) {
+    var displayURLThyme = imageURL.split('\\').pop().split('/').pop();
+    displayURLThyme = displayURLThyme.substr(0, displayURLThyme.length - 1);
+    imageURL = imageURL.substr(0, imageURL.length - 1);
+    var displayURL = '<img src="' + imageURL + '" class="imgCenter" th:src="@{images/' + displayURLThyme + '}">';
+    console.log(displayURL);
+    console.log(imageURL);
+    console.log(displayURLThyme);
+    return displayURL;
+}
+
 function displayImageURL(imageURL) {
-    return '<img class="imgCenter" src="' + imageURL + '">';
+    document.getElementById('image').innerHTML = imageURL;
 }
 
 function pageDisplay() {
     var imageTaskJSON = readJson("api/nextImageTask");
-
     //Displays the image on the page at the appropriate tag
-    //displayImage(imageTaskJSON.imageURL);
-    displayImageURL(imageTaskJSON.imageURL);
+    displayImageURL(generateImageURL(imageTaskJSON.imageUrl));
     //Displays the questions at the tags
     for (var i = 0; i < imageTaskJSON.taskQuestions.length; i++) {
         generateQuestions(imageTaskJSON.taskQuestions[i]);

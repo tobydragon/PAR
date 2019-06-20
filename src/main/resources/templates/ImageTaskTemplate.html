@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Image Task Example</title>
+    <title>Image Task</title>
     <meta charset="utf-8">
 
     <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
@@ -29,8 +29,13 @@
 <body id="topSection">
     <div class="container-fluid">
         <div class="row">
+            <div class="col-12">
+                <!--<img src="../static/images/demoEquine04.jpg" class="imgCenter" th:src="@{images/demoEquine04.jpg}"> -->
+            </div>
+        </div>
+        <div class="row">
             <div class="col-6">
-                <img src="../static/images/demoEquine02.jpg" width="1000" th:src="@{images/demoEquine02.jpg}" />
+                <i id="image"> </i>
             </div>
             <div class="col-4 center">
                 <br />
@@ -62,9 +67,6 @@
 
     <script>
         pageDisplay();
-
     </script>
 
-</body>
-
-</html>
+</body></html>
