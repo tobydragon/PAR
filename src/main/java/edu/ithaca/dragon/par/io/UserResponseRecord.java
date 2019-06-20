@@ -17,4 +17,29 @@ public class UserResponseRecord {
         responseText=userResponseIn.getResponseText();
     }
 
+
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getQuestionId() {
+        return questionId;
+    }
+
+    public void setQuestionId(String questionId) {
+        this.questionId = questionId;
+    }
+
+    public String getResponseText() {
+        return responseText;
+    }
+
+    public void setResponseText(String responseText) {
+        this.responseText = responseText;
+    }
 }
