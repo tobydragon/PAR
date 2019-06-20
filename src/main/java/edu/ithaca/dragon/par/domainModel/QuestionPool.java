@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QuestionPool {
-    List<Question> allQuestions;
-    Datastore datastore;
+    private List<Question> allQuestions;
+    private Datastore datastore;
 
 
     public QuestionPool(Datastore datastoreIn) throws IOException {
@@ -17,7 +17,7 @@ public class QuestionPool {
     }
 
     public List<Question> getAllQuestions(){
-        return allQuestions;
+        return new ArrayList<>(allQuestions);
     }
 
     public Question getQuestionFromId(String questionIdIn){
