@@ -1,6 +1,7 @@
 package edu.ithaca.dragon.par.io;
 
 import edu.ithaca.dragon.par.domainModel.Question;
+import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.studentModel.UserResponse;
 
 public class UserResponseRecord {
@@ -16,8 +17,10 @@ public class UserResponseRecord {
         questionId=userResponseIn.getQuestionId();
         responseText=userResponseIn.getResponseText();
     }
-
-
+     public UserResponse buildUserResponse(QuestionPool questionPool){
+        Question question =questionPool.getQuestionFromId(questionId);
+        return new UserResponse(userId,question,responseText);
+     }
 
     public String getUserId() {
         return userId;
