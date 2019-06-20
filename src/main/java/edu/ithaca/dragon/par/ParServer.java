@@ -35,7 +35,21 @@ public class ParServer {
         return null;
     }
 
-    public static StudentModel getOrCreateStudentModel(String userId){
-        return null;
+    //Side effect: if a new model is created, it is added to the given studentModelMap
+
+    /**
+     *
+     * @param studentModelMap
+     * @param userId
+     * @return a StudentModel corresponding to the given userId that is also in the studentModelMap
+     * @post if there was no corresponding StudentModel, a new on will be created and added to the map
+     */
+    public static StudentModel getOrCreateStudentModel(Map<String, StudentModel> studentModelMap, String userId, QuestionPool questionPool){
+        StudentModel studentModel = studentModelMap.get(userId);
+        if (studentModel == null){
+            studentModel = new StudentModel(userId, questionPool.getAllQuestions());
+            studentModelMap.put(userId, studentModel);
+        }
+        return studentModel;
     }
 }
