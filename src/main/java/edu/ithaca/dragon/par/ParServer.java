@@ -13,17 +13,22 @@ import java.util.Map;
 public class ParServer {
 
     private QuestionPool questionPool;
-    private ImageTaskChooser imageTaskChooser;
     private Map<String, StudentModel> studentModelMap;
 
-    ParServer(QuestionPool questionPool, ImageTaskChooser imageTaskChooser){
+    ParServer(QuestionPool questionPool){
         this.questionPool = questionPool;
-        this.imageTaskChooser = imageTaskChooser;
         studentModelMap = new HashMap<>();
     }
 
     public ImageTask nextImageTask(String userId){
-        return null;
+        StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, questionPool);
+        ImageTask imageTask =  ImageTaskChooser.nextImageTaskSingle(currentStudent.getUserQuestionSet(), 1);
+        if (imageTask != null){
+            return imageTask;
+        }
+        else {
+            throw new RuntimeException("No image task given for userId:" + userId);
+        }
     }
 
     public void imageTaskResponseSubmitted(ImageTaskResponse imageTaskResponse){

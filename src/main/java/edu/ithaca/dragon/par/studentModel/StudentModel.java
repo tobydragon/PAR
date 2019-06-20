@@ -19,6 +19,10 @@ public class StudentModel {
         this.userResponseSet = new UserResponseSet(userId);
     }
 
+    public UserQuestionSet getUserQuestionSet() {
+        return userQuestionSet;
+    }
+
     public void givenQuestion(String questionId){
         userQuestionSet.givenQuestion(questionId);
     }

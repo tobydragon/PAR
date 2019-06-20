@@ -2,6 +2,7 @@ package edu.ithaca.dragon.par;
 
 
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
+import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
 import edu.ithaca.dragon.par.io.JsonDatastore;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
@@ -12,8 +13,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ParServerTest {
 
@@ -62,8 +62,27 @@ public class ParServerTest {
     }
 
     @Test
-    public void nextImageTaskTest(){
-        fail("not implemented yet");
+    public void nextImageTaskTest() throws IOException{
+        QuestionPool questionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionsSameDifficulty.json"));
+        ParServer parServer = new ParServer(questionPool);
+        ImageTask nextTask = parServer.nextImageTask("s1");
+        ImageTask intendedFirstTask = JsonUtil.fromJsonFile("src/test/resources/author/SampleImageTaskSingleQuestion.json", ImageTask.class);
+        assertEquals(intendedFirstTask, nextTask);
+
+        nextTask = parServer.nextImageTask("s2");
+        assertEquals(intendedFirstTask, nextTask);
+
+        nextTask = parServer.nextImageTask("s1");
+        assertNotNull(nextTask);
+        nextTask = parServer.nextImageTask("s1");
+        ImageTask intendedLastTask = JsonUtil.fromJsonFile("src/test/resources/author/SampleImageTaskSingleQuestion3.json", ImageTask.class);
+        assertEquals(intendedLastTask, nextTask);
+
+        nextTask = parServer.nextImageTask("s2");
+        assertNotNull(nextTask);
+
+        nextTask = parServer.nextImageTask("s2");
+        assertEquals(intendedLastTask, nextTask);
     }
 
     @Test
