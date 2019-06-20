@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserQuestionSet {
-    public String userId;
-    public List<Question>unseenQuestions;
-    public List<Question>seenQuestions;
-    public List<Integer> timesSeen;
+    private String userId;
+    private List<Question>unseenQuestions;
+    private List<Question>seenQuestions;
+    private List<Integer> timesSeen;
 
 
     public UserQuestionSet(String userIdIn, List<Question> unseenQuestionsIn){

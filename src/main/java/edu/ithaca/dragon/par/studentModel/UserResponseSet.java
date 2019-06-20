@@ -6,14 +6,12 @@ import java.util.List;
 public class UserResponseSet {
     private String userId;
     private List<UserResponse> userResponses;
-    private double score;
 
 
 
     public UserResponseSet(String userIdIn){
         this.userId=userIdIn;
         userResponses=new ArrayList<>();
-        this.score=100;
     }
 
 
@@ -40,21 +38,7 @@ public class UserResponseSet {
     public void setUserId(String userIdIn){this.userId=userIdIn;}
     public String getUserId(){return userId;}
 
-
-    public void setScore(double scoreIn){this.score=scoreIn;}
-    public double getScore(){return score;}
-
     //TODO: shouldn't be capitalized, and there shouldn'be a a score property, or a getter or setter, let's talk about it.
-    public double CalcScore(){
-        double quesWeight=100/(double)getUserResponsesSize();
-
-        for(int i=0;i<getUserResponsesSize();i++){
-            if(userResponses.get(i).checkResponse()!=true){
-                score=score-quesWeight;
-            }
-        }
-        return score;
-    }
 
 
     @Override
@@ -67,7 +51,6 @@ public class UserResponseSet {
         }
         UserResponseSet other = (UserResponseSet) otherObj;
         return this.getUserResponsesSize()==(other.getUserResponsesSize())
-                && this.getScore() == (other.getScore())
                 && this.getUserId().equals(other.getUserId());
     }
 }
