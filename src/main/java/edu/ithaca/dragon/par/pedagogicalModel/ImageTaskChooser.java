@@ -3,7 +3,6 @@ import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.studentModel.UserQuestionSet;
 
-import java.util.Arrays;
 import java.util.*;
 
 public class ImageTaskChooser {
@@ -64,13 +63,97 @@ public class ImageTaskChooser {
 
     public static ImageTask makeTask (List<Question> choose, int index){
         Question q = choose.get(index);
-        ImageTask im = new ImageTask(q.getImageUrl(), Arrays.asList(q));    //returns image task with the first question of matching difficulty
+        List<Question> qList = new ArrayList<Question>();
+        qList.add(q);
+        ImageTask im = new ImageTask(q.getImageUrl(), qList);    //returns image task with the first question of matching difficulty
         return im;
     }
 
 
-//    public static ImageTask nextImageTask(UserQuestionSet questionSet, int difficulty, int numOfQuestions){
-//        List<Question> chosen;
-//
-//    }
+    public static ImageTask nextImageTask(UserQuestionSet questionSet, int difficulty, int numOfQuestions) {
+        ImageTask it = nextImageTaskSingle(questionSet, difficulty);
+        List<Question> sameUrlListUnseen = getSameUrlQuestionsUnseen(questionSet, it.getTaskQuestions().get(0));
+        List<Question> sameUrlListSeen = getSameUrlQuestionsSeen(questionSet, it.getTaskQuestions().get(0));
+        if (sameUrlListSeen.size()+sameUrlListUnseen.size()<=numOfQuestions-1){     //1 question is already in the image task
+            addAllQuestions(it, sameUrlListUnseen, sameUrlListSeen);
+            return it;
+        }
+
+        else{
+            if (it.getTaskQuestions().size()<numOfQuestions){
+                lessOrEqualDifficultyAdded(it, numOfQuestions, sameUrlListUnseen);
+                if (it.getTaskQuestions().size()<numOfQuestions){
+                    lessOrEqualDifficultyAdded(it, numOfQuestions, sameUrlListSeen);
+                }
+            }
+            if (it.getTaskQuestions().size()<numOfQuestions){
+                greaterDifficultyAdded(it, numOfQuestions, sameUrlListUnseen);
+                if (it.getTaskQuestions().size()<numOfQuestions){
+                    greaterDifficultyAdded(it, numOfQuestions, sameUrlListSeen);
+                }
+            }
+            return it;
+        }
+
+
+
+    }
+
+    public static void addAllQuestions(ImageTask it, List<Question> sameUrlListUnseen, List<Question> sameUrlListSeen){
+        for (int i = 0; i<sameUrlListUnseen.size(); i++){
+            if (sameUrlListUnseen.get(i).getId()!=it.getTaskQuestions().get(0).getId()) {
+                it.getTaskQuestions().add(sameUrlListUnseen.get(i));
+            }
+        }
+        for (int i = 0; i<sameUrlListSeen.size(); i++){
+            if (sameUrlListSeen.get(i).getId()!=it.getTaskQuestions().get(0).getId()) {
+                it.getTaskQuestions().add(sameUrlListSeen.get(i));
+            }
+        }
+
+    }
+
+    public static void lessOrEqualDifficultyAdded(ImageTask it, int numOfQuestions, List<Question> toBeAdded){
+        for (int i = 0; i<toBeAdded.size(); i++){
+            if ((toBeAdded.get(i).getDifficulty()<=it.getTaskQuestions().get(0).getDifficulty()) && (toBeAdded.get(i).getId()!=it.getTaskQuestions().get(0).getId())){
+                it.getTaskQuestions().add(toBeAdded.get(i));
+            }
+            if (it.getTaskQuestions().size()==numOfQuestions){
+                i=toBeAdded.size();
+            }
+        }
+    }
+
+    public static void greaterDifficultyAdded(ImageTask it, int numOfQuestions, List<Question> toBeAdded){
+        for (int i = 0; i<toBeAdded.size(); i++){
+            if ((toBeAdded.get(i).getDifficulty()>it.getTaskQuestions().get(0).getDifficulty()) && (toBeAdded.get(i).getId()!=it.getTaskQuestions().get(0).getId())){
+                it.getTaskQuestions().add(toBeAdded.get(i));
+            }
+            if (it.getTaskQuestions().size()==numOfQuestions){
+                i=toBeAdded.size();
+            }
+        }
+    }
+
+
+
+    public static List<Question> getSameUrlQuestionsUnseen(UserQuestionSet questionSet, Question picked){
+        List<Question> qList = new ArrayList<Question>();
+        for (int i = 0; i<questionSet.getUnseenQuestions().size(); i++){
+            if ((questionSet.getUnseenQuestions().get(i).getImageUrl().equals(picked.getImageUrl()) && (!questionSet.getUnseenQuestions().get(i).getId().equals(picked.getId())))){
+                qList.add(questionSet.getUnseenQuestions().get(i));
+            }
+        }
+        return qList;
+    }
+
+    public static List<Question> getSameUrlQuestionsSeen(UserQuestionSet questionSet, Question picked){
+        List<Question> qList = new ArrayList<Question>();
+        for (int i = 0; i<questionSet.getSeenQuestions().size(); i++){
+            if ((questionSet.getSeenQuestions().get(i).getImageUrl().equals(picked.getImageUrl()) && (!questionSet.getSeenQuestions().get(i).getId().equals(picked.getId())))){
+                qList.add(questionSet.getSeenQuestions().get(i));
+            }
+        }
+        return qList;
+    }
 }
