@@ -34,14 +34,11 @@ function canvasApp() {
     var images = [];
 
     // declare an array for image sources and assign the image sources
-    var imageSources = [
-        // background image
-        "./images/demoEquine02.jpg",
-        "./images/demoEquine04.jpg",
-        "./images/demoEquine05.jpg",
-        "./images/demoEquine09.jpg",
+    var imageSources = []; //imageSource
 
-    ]; //imageSource
+    var imageTaskJSON = readJson("api/nextImageTask");
+    var displayURLThyme = imageTaskJSON.imageUrl.split('\\').pop().split('/').pop();
+    imageSources.push("./images/"+displayURLThyme);
 
     // Image Location Variables
     var bgImageIndex = 0; //index of the BG image in the array
@@ -255,9 +252,11 @@ function displayImageURL(imageURL) {
 
 function pageDisplay() {
     var imageTaskJSON = readJson("api/nextImageTask");
+
     //Displays the image on the page at the appropriate tag
     //displayImageURL(generateImageURL(imageTaskJSON.imageUrl));
     //Displays the questions at the tags
+
     for (var i = 0; i < imageTaskJSON.taskQuestions.length; i++) {
         generateQuestions(imageTaskJSON.taskQuestions[i]);
     }

@@ -1,5 +1,5 @@
 {
-  "imageUrl" : "../static/images/demoEquine02.jpg\"",
+  "imageUrl" : "./images/demoEquine02.jpg\"",
   "taskQuestions" : [ {
     "id" : "PlaneQ1",
     "difficulty" : 1,
