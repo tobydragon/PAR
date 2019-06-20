@@ -14,6 +14,38 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class UserQuestionSetTest {
 
+    //two different questionSet objects that hold on to two different lists, but contain the same things
+    //.equals is checking if the contents of the lists are the same, NOT if they are they same memory address - test this!
+    @Test
+    public void userQuestionSetEqualsTest() throws IOException{
+
+        //compare two UserQuestionSets with different content (different Json files)
+        List<Question> questionsFromFile1a = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestions.json", Question.class);
+        List<Question> questionsFromFile2a = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestions2.json", Question.class);
+        UserQuestionSet UQS1a = new UserQuestionSet("99", questionsFromFile1a);
+        UserQuestionSet UQS2a = new UserQuestionSet("99", questionsFromFile2a);
+        assertFalse(UQS1a.equals(UQS2a));
+
+        //compare two UserQuestionSets with the same content, but different memory addresses
+        List<Question> questionsFromFile1 = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestions.json", Question.class);
+        List<Question> questionsFromFile2 = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestions.json", Question.class);
+        UserQuestionSet UQS1 = new UserQuestionSet("99", questionsFromFile1);
+        UserQuestionSet UQS2 = new UserQuestionSet("99", questionsFromFile2);
+        assertTrue(UQS1.equals(UQS2));
+
+        //give a question from a UserQuestionSet, then compare
+        UQS1.givenQuestion("StructureQ1");
+        assertFalse(UQS1.equals(UQS2));
+
+        //insure that the timesSeen of that question are different between UQS1 and UQS2
+        assertEquals(1, UQS1.getTimesSeen("StructureQ1"));
+        assertEquals(0, UQS2.getTimesSeen("StructureQ1"));
+
+        //give the same question from the other UserQuestionSet, then compare
+        UQS2.givenQuestion("StructureQ1");
+        assertTrue(UQS1.equals(UQS2));
+    }
+
     @Test
     public void getLenSeenTest() throws IOException {
         List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestions.json", Question.class);

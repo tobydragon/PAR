@@ -12,7 +12,8 @@ function setQuestionLists() {
     QuestionAnswers = getQuestionAnswers();
 }
 
-function checkAndRecordAnswers(form){
+function checkAndRecordAnswers(){
+    var form=document.getElementById("form1")
     for(var i=0; i<numberOfQuestions; i++){
         var currentName= "q"+i;
         var currentAnswer= form[currentName].value;
@@ -49,9 +50,11 @@ function toggleShowState(toggableElement) {
     }
 }
 
-function checkAnswers(form) {
+function checkAnswers() {
+    //get list of question answers and number of questions from readImageTask
     setQuestionLists();
-    clearPage();
-    checkAndRecordAnswers(form);
+    //check and report to the user what they got right or wrong as well as add to list responsesGivenText
+    checkAndRecordAnswers();
+    //call CreateResponse to send answers back to the server
     generateResponseJSON();
 }

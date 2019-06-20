@@ -107,3 +107,12 @@ function pageDisplay() {
         generateQuestions(imageTaskJSON.taskQuestions[i]);
     }
 }
+
+function clearPage() {
+    document.getElementById('questionSet').innerHTML = " ";
+}
+
+function changeQuestions() {
+    clearPage();
+    pageDisplay();
+}

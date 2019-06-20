@@ -31,12 +31,4 @@ public class ParSpringApplicationTest {
 				.andExpect(content().string(equalTo("Greetings from PAR API!")));
 	}
 
-	@Test
-	public void nextImageTask() throws Exception{
-		//if this test fails, the nextQuestion mapping has changed. Update this test to reflect that
-		mvc.perform(MockMvcRequestBuilders.get("/api/nextImageTask").accept(MediaType.APPLICATION_JSON))
-				.andExpect(status().isOk())
-				.andExpect(content().string(equalTo("{\"imageUrl\":\"../static/images/equine02.jpg\\\"\",\"taskQuestions\":[{\"id\":\"PlaneQ1\",\"difficulty\":1,\"questionText\":\"On which plane is the ultrasound taken?\",\"correctAnswer\":\"Lateral\",\"possibleAnswers\":[\"Transverse\",\"Lateral\",\"I don't know\"],\"imageUrl\":\"../static/images/demoEquine02.jpg\"},{\"id\":\"StructureQ1\",\"difficulty\":2,\"questionText\":\"What structure is in the near field?\",\"correctAnswer\":\"bone\",\"possibleAnswers\":[\"bone\",\"ligament\",\"tumor\",\"tendon\",\"I don't know\"],\"imageUrl\":\"../static/images/demoEquine04.jpg\"},{\"id\":\"ZoneQ1\",\"difficulty\":4,\"questionText\":\"In what zone is this ultrasound taken?\",\"correctAnswer\":\"3c\",\"possibleAnswers\":[\"1a\",\"1b\",\"2a\",\"2b\",\"2c\",\"3a\",\"3b\",\"3c\"],\"imageUrl\":\"../static/images/demoEquine02.jpg\"}]}")));
-	}
-
 }
