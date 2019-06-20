@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 
 <head>
     <title>Image Task</title>
@@ -22,12 +22,13 @@
     <script type="text/javascript" src="/js/AnswerCheck.js"></script>
     <script type="text/javascript" src="/js/CreateResponse.js"></script>
     <script type="text/javascript" src="/js/ReadImageTask.js"></script>
+    <script type="text/javascript" src="/js/Modernizr.js"></script>
     <!-- Font Awsome -->
     <script src="https://kit.fontawesome.com/f9199bcaa3.js"></script>
 </head>
 
 <body id="topSection">
-    <div class="container-fluid">
+<div class="container-fluid">
         <div class="row">
             <div class="col-12">
                 <!--<img src="../static/images/demoEquine04.jpg" class="imgCenter" th:src="@{images/demoEquine04.jpg}"> -->
@@ -35,7 +36,10 @@
         </div>
         <div class="row">
             <div class="col-6">
-                <i id="image"> </i>
+                <canvas id="myCanvas" width="900" height="600" class="center-block">
+                    Your browser doesn't support Canvas.
+                </canvas>
+
             </div>
             <div class="col-4 center">
                 <br />
