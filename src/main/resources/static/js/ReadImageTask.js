@@ -31,7 +31,7 @@ function readJson(url) {
 function generateQuestions(question) {
     var difficultyStr;
     if (question.difficulty == 1) {
-        difficultyStr = createRadioQuestion(question);
+        difficultyStr = createFillIn(question);
         amountOfQuestions++;
     }
     if (question.difficulty == 2) {
@@ -43,11 +43,12 @@ function generateQuestions(question) {
         amountOfQuestions++;
     }
     if (question.difficulty == 4) {
-        difficultyStr = createRadioQuestion(question);
+        difficultyStr = createFillIn(question);
         amountOfQuestions++;
     }
-    displayQuestions(difficultyStr);
 
+    QuestionAnswers.push(question.correctAnswer);
+    displayQuestions(difficultyStr);
 }
 
 function displayQuestions(displayHTML) {
