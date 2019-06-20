@@ -27,13 +27,7 @@ public class UserQuestionSet {
         userId=userIdIn;
     }
 
-    /**
-     *
-     * @param questionId
-     * @return question
-     * @throws
-     *
-     */
+    //TODO: should probably remove thie entirely
     public Question getQ(String questionId) {
         for (int i = 0; i < unseenQuestions.size(); i++){
             if (unseenQuestions.get(i).getId().equals(questionId)){
@@ -60,6 +54,7 @@ public class UserQuestionSet {
                 return timesSeen.get(i);
             }
         }
+        //TODO: should check unseen to confirm the question is part of the set, throw exception if not
         return 0;
     }
 
@@ -68,6 +63,7 @@ public class UserQuestionSet {
         return userId;
     }
 
+    //TODO: should return true or false as to whether the item was found
     public void increaseTimesSeen (String questionId){
         for (int i = 0; i < seenQuestions.size(); i++){
             if (seenQuestions.get(i).getId().equals(questionId)){
@@ -89,6 +85,7 @@ public class UserQuestionSet {
         for (int i = 0; i < unseenQuestions.size(); i++){
             if (unseenQuestions.get(i).getId().equals(questionId)){
                 seenQuestions.add(unseenQuestions.get(i));
+                //TODO: shouldn't remove in a loop over the list
                 unseenQuestions.remove(i);
                 timesSeen.add(1);
                 found = true;
@@ -97,6 +94,7 @@ public class UserQuestionSet {
         if (!found) {
             //checks seen list, adds 1 to time seen if question is found
             increaseTimesSeen(questionId);
+            //TODO: should check if the question was found in timesSeen, throw exception if not.
         }
     }
 

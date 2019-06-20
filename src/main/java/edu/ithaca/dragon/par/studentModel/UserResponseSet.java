@@ -43,6 +43,8 @@ public class UserResponseSet {
 
     public void setScore(double scoreIn){this.score=scoreIn;}
     public double getScore(){return score;}
+
+    //TODO: shouldn't be capitalized, and there shouldn'be a a score property, or a getter or setter, let's talk about it.
     public double CalcScore(){
         double quesWeight=100/(double)getUserResponsesSize();
 

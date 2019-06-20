@@ -17,7 +17,7 @@ public class QuestionPool {
     }
 
     public List<Question> getAllQuestions(){
-        return allQuestions;
+        return new ArrayList<>(allQuestions);
     }
 
     public Question getQuestionFromId(String questionIdIn){
