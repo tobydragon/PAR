@@ -84,12 +84,13 @@ function changeQuestions() {
 }
 
 function generateImageURL(imageURL) {
-    var displayURLThyme = imageURL.split('\\').pop().split('/').pop();
-    displayURLThyme = displayURLThyme.substr(0, displayURLThyme.length - 1);
-    imageURL = imageURL.substr(0, imageURL.length - 1);
-    var displayURL = '<img src="' + imageURL + '" class="imgCenter" th:src="@{images/' + displayURLThyme + '}">';
+    //var displayURLThyme = imageURL.split('\\').pop().split('/').pop();
+    //displayURLThyme = displayURLThyme.substr(0, displayURLThyme.length - 1);
+    var displayURLThyme = "images/demoEquine02.jpg";
+    //imageURL = imageURL.substr(0, imageURL.length - 1);
+    var displayURL = '<img th:src="@{' + displayURLThyme + '}" class="imgCenter"/>';
     console.log(displayURL);
-    console.log(imageURL);
+    //console.log(imageURL);
     console.log(displayURLThyme);
     return displayURL;
 }
