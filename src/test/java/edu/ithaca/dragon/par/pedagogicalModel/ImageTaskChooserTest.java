@@ -17,7 +17,7 @@ public class ImageTaskChooserTest {
 
 
     @Test
-    public void nextImageTaskTest() throws IOException {
+    public void nextImageTaskSingleTest() throws IOException {
         List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestions.json", Question.class);
         UserQuestionSet q = new UserQuestionSet("2", questionsFromFile);
         ImageTask im1 = ImageTaskChooser.nextImageTaskSingle(q, 1);
@@ -43,7 +43,7 @@ public class ImageTaskChooserTest {
     }
 
     @Test
-    public void nextImageTaskIT() throws IOException {
+    public void nextImageTaskSingleIT() throws IOException {
         List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestions2.json", Question.class);
         UserQuestionSet q = new UserQuestionSet("20", questionsFromFile);
 
@@ -181,10 +181,183 @@ public class ImageTaskChooserTest {
 
     }
 
+    @Test
+    public void nextImageTaskTest() throws IOException{
+        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/ImageTaskChooserTestsSampleQuestions.json", Question.class);
+        UserQuestionSet q = new UserQuestionSet("20", questionsFromFile);
+        ImageTask it = ImageTaskChooser.nextImageTask(q, 4, 6);
+        assertEquals(5, it.getTaskQuestions().size());
+
+        List<Question> questionsFromFile2 = JsonUtil.listFromJsonFile("src/test/resources/author/ImageTaskChooserTestsSampleQuestions.json", Question.class);
+        UserQuestionSet q2 = new UserQuestionSet("20", questionsFromFile2);
+        ImageTask it2 = ImageTaskChooser.nextImageTask(q2, 7, 3);
+        assertEquals(2, it2.getTaskQuestions().size());
+
+        List<Question> questionsFromFile3 = JsonUtil.listFromJsonFile("src/test/resources/author/ImageTaskChooserTestsSampleQuestions.json", Question.class);
+        UserQuestionSet q3 = new UserQuestionSet("20", questionsFromFile3);
+        ImageTask it3 = ImageTaskChooser.nextImageTask(q3, 5, 1);
+        assertEquals(1, it3.getTaskQuestions().size());
+
+        List<Question> questionsFromFile4 = JsonUtil.listFromJsonFile("src/test/resources/author/ImageTaskChooserTestsSampleQuestions.json", Question.class);
+        UserQuestionSet q4 = new UserQuestionSet("20", questionsFromFile4);
+        ImageTask it4 = ImageTaskChooser.nextImageTask(q4, 8, 4);
+        assertEquals(4, it4.getTaskQuestions().size());
+
+        List<Question> questionsFromFile5 = JsonUtil.listFromJsonFile("src/test/resources/author/ImageTaskChooserTestsSampleQuestions.json", Question.class);
+        UserQuestionSet q5 = new UserQuestionSet("20", questionsFromFile5);
+        ImageTask it5 = ImageTaskChooser.nextImageTask(q5, 8, 4);
+        assertEquals(4, it5.getTaskQuestions().size());
+    }
+
+    @Test
+    public void lessOrEqualDifficultyAddedTest() throws IOException{
+        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestions2.json", Question.class);
+        UserQuestionSet q = new UserQuestionSet("20", questionsFromFile);
+        ImageTask it = ImageTaskChooser.makeTask(q.getUnseenQuestions(), 0);
+        ImageTaskChooser.lessOrEqualDifficultyAdded(it, 3, q.getUnseenQuestions());
+        assertEquals(1, it.getTaskQuestions().size());
+
+        UserQuestionSet q2 = new UserQuestionSet("20", questionsFromFile);
+        ImageTask it2 = ImageTaskChooser.makeTask(q2.getUnseenQuestions(), 1);
+        ImageTaskChooser.lessOrEqualDifficultyAdded(it2, 7, q2.getUnseenQuestions());
+        assertEquals(5, it2.getTaskQuestions().size());
+
+        UserQuestionSet q3 = new UserQuestionSet("20", questionsFromFile);
+        ImageTask it3 = ImageTaskChooser.makeTask(q3.getUnseenQuestions(), 1);
+        ImageTaskChooser.lessOrEqualDifficultyAdded(it3, 2, q3.getUnseenQuestions());
+        assertEquals(2, it3.getTaskQuestions().size());
+
+        UserQuestionSet q4 = new UserQuestionSet("20", questionsFromFile);
+        ImageTask it4 = ImageTaskChooser.makeTask(q4.getUnseenQuestions(), 6);
+        ImageTaskChooser.lessOrEqualDifficultyAdded(it4, 3, q4.getUnseenQuestions());
+        assertEquals(3, it4.getTaskQuestions().size());
+
+        UserQuestionSet q5 = new UserQuestionSet("20", questionsFromFile);
+        ImageTask it5 = ImageTaskChooser.makeTask(q5.getUnseenQuestions(), 14);
+        ImageTaskChooser.lessOrEqualDifficultyAdded(it5, 15, q5.getUnseenQuestions());
+        assertEquals(15, it5.getTaskQuestions().size());
 
 
+    }
+
+    @Test
+    public void greaterDifficultyAddedTest() throws IOException{
+        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestions2.json", Question.class);
+        UserQuestionSet q = new UserQuestionSet("20", questionsFromFile);
+        ImageTask it = ImageTaskChooser.makeTask(q.getUnseenQuestions(), 0);
+        ImageTaskChooser.greaterDifficultyAdded(it, 3, q.getUnseenQuestions());
+        assertEquals(3, it.getTaskQuestions().size());
+
+        UserQuestionSet q2 = new UserQuestionSet("21", questionsFromFile);
+        ImageTask it2 = ImageTaskChooser.makeTask(q2.getUnseenQuestions(), 1);
+        ImageTaskChooser.greaterDifficultyAdded(it2, 7, q2.getUnseenQuestions());
+        assertEquals(7, it2.getTaskQuestions().size());
+
+        UserQuestionSet q3 = new UserQuestionSet("22", questionsFromFile);
+        ImageTask it3 = ImageTaskChooser.makeTask(q3.getUnseenQuestions(), 1);
+        ImageTaskChooser.greaterDifficultyAdded(it3, 2, q3.getUnseenQuestions());
+        assertEquals(2, it3.getTaskQuestions().size());
+
+        UserQuestionSet q4 = new UserQuestionSet("23", questionsFromFile);
+        ImageTask it4 = ImageTaskChooser.makeTask(q4.getUnseenQuestions(), 6);
+        ImageTaskChooser.greaterDifficultyAdded(it4, 3, q4.getUnseenQuestions());
+        assertEquals(3, it4.getTaskQuestions().size());
+
+        UserQuestionSet q5 = new UserQuestionSet("24", questionsFromFile);
+        ImageTask it5 = ImageTaskChooser.makeTask(q5.getUnseenQuestions(), 1);
+        ImageTaskChooser.greaterDifficultyAdded(it5, 15, q5.getUnseenQuestions());
+        assertEquals(11, it5.getTaskQuestions().size());
+
+        UserQuestionSet q6 = new UserQuestionSet("25", questionsFromFile);
+        ImageTask it6 = ImageTaskChooser.makeTask(q6.getUnseenQuestions(), 14);
+        ImageTaskChooser.greaterDifficultyAdded(it6, 14, q6.getUnseenQuestions());
+        assertEquals(1, it6.getTaskQuestions().size());
 
 
+    }
 
+    @Test
+    public void addAllQuestionsTest() throws IOException{
+        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestions2.json", Question.class);
+        UserQuestionSet q = new UserQuestionSet("20", questionsFromFile);
+        ImageTask it = ImageTaskChooser.makeTask(q.getUnseenQuestions(), 0);
+        ImageTaskChooser.addAllQuestions(it, q.getUnseenQuestions(), q.getSeenQuestions());
+        assertEquals(15, it.getTaskQuestions().size());
+
+        UserQuestionSet q2 = new UserQuestionSet("20", questionsFromFile);
+        ImageTask it2 = ImageTaskChooser.makeTask(q2.getUnseenQuestions(), 3);
+        ImageTaskChooser.addAllQuestions(it2, q.getUnseenQuestions(), q2.getSeenQuestions());
+        assertEquals(15, it2.getTaskQuestions().size());
+
+        UserQuestionSet q3 = new UserQuestionSet("20", questionsFromFile);
+        ImageTask it3 = ImageTaskChooser.makeTask(q.getUnseenQuestions(), 7);
+        ImageTaskChooser.addAllQuestions(it3, q.getUnseenQuestions(), q3.getSeenQuestions());
+        assertEquals(15, it3.getTaskQuestions().size());
+
+        UserQuestionSet q4 = new UserQuestionSet("20", questionsFromFile);
+        ImageTask it4 = ImageTaskChooser.makeTask(q.getUnseenQuestions(), 10);
+        ImageTaskChooser.addAllQuestions(it4, q4.getUnseenQuestions(), q4.getSeenQuestions());
+        assertEquals(15, it4.getTaskQuestions().size());
+
+        UserQuestionSet q5 = new UserQuestionSet("20", questionsFromFile);
+        ImageTask it5 = ImageTaskChooser.makeTask(q.getUnseenQuestions(), 14);
+        ImageTaskChooser.addAllQuestions(it5, q5.getUnseenQuestions(), q5.getSeenQuestions());
+        assertEquals(15, it5.getTaskQuestions().size());
+    }
+
+    @Test
+    public void getSameUrlQuestionsUnseenTest() throws IOException{
+        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestions2.json", Question.class);
+        UserQuestionSet q = new UserQuestionSet("20", questionsFromFile);
+        ImageTask it = ImageTaskChooser.makeTask(q.getUnseenQuestions(), 0);
+        List<Question> u1 = ImageTaskChooser.getSameUrlQuestionsUnseen(q, it.getTaskQuestions().get(0));
+        assertEquals(1, u1.size());
+
+        UserQuestionSet q2 = new UserQuestionSet("20", questionsFromFile);
+        ImageTask it2 = ImageTaskChooser.makeTask(q2.getUnseenQuestions(), 5);
+        List<Question> u2 = ImageTaskChooser.getSameUrlQuestionsUnseen(q2, it2.getTaskQuestions().get(0));
+        assertEquals(4, u2.size());
+
+        UserQuestionSet q3 = new UserQuestionSet("20", questionsFromFile);
+        ImageTask it3 = ImageTaskChooser.makeTask(q3.getUnseenQuestions(), 11);
+        List<Question> u3 = ImageTaskChooser.getSameUrlQuestionsUnseen(q3, it3.getTaskQuestions().get(0));
+        assertEquals(0, u3.size());
+
+    }
+
+    @Test
+    public void getSameUrlQuestionsSeenTest() throws IOException{
+        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestions2.json", Question.class);
+        UserQuestionSet q = new UserQuestionSet("20", questionsFromFile);
+        q.givenQuestion("PlaneQ1");
+        q.givenQuestion("PlaneQ2");
+        q.givenQuestion("PlaneQ3");
+        q.givenQuestion("PlaneQ4");
+        q.givenQuestion("PlaneQ5");
+        q.givenQuestion("StructureQ1");
+        q.givenQuestion("StructureQ2");
+        q.givenQuestion("StructureQ3");
+        q.givenQuestion("StructureQ4");
+        q.givenQuestion("StructureQ5");
+        q.givenQuestion("ZoneQ1");
+        q.givenQuestion("ZoneQ2");
+        q.givenQuestion("ZoneQ3");
+        q.givenQuestion("ZoneQ4");
+        q.givenQuestion("ZoneQ5");
+
+
+        ImageTask it = ImageTaskChooser.makeTask(q.getSeenQuestions(), 0);
+        List<Question> u1 = ImageTaskChooser.getSameUrlQuestionsSeen(q, it.getTaskQuestions().get(0));
+        assertEquals(1, u1.size());
+
+        ImageTask it2 = ImageTaskChooser.makeTask(q.getSeenQuestions(), 5);
+        List<Question> u2 = ImageTaskChooser.getSameUrlQuestionsSeen(q, it2.getTaskQuestions().get(0));
+        assertEquals(4, u2.size());
+
+        ImageTask it3 = ImageTaskChooser.makeTask(q.getSeenQuestions(), 11);
+        List<Question> u3 = ImageTaskChooser.getSameUrlQuestionsSeen(q, it3.getTaskQuestions().get(0));
+        assertEquals(0, u3.size());
+
+    }
 
 }
