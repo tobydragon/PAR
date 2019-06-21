@@ -360,4 +360,26 @@ public class ImageTaskChooserTest {
 
     }
 
+    @Test
+    public void markAllAsSeenTest() throws IOException{
+        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestions2.json", Question.class);
+        UserQuestionSet q = new UserQuestionSet("20", questionsFromFile);
+        ImageTask it = ImageTaskChooser.makeTask(q.getUnseenQuestions(), 1);
+        it.getTaskQuestions().add(q.getUnseenQuestions().get(5));
+        it.getTaskQuestions().add(q.getUnseenQuestions().get(7));
+        it.getTaskQuestions().add(q.getUnseenQuestions().get(8));
+        it.getTaskQuestions().add(q.getUnseenQuestions().get(9));
+        ImageTaskChooser.markAllAsSeen(it, q);
+        q.givenQuestion(it.getTaskQuestions().get(0).getId());
+        assertEquals(5, q.getSeenQuestions().size());
+
+        it.getTaskQuestions().add(q.getUnseenQuestions().get(5));
+        it.getTaskQuestions().add(q.getUnseenQuestions().get(2));
+        it.getTaskQuestions().add(q.getUnseenQuestions().get(4));
+        ImageTaskChooser.markAllAsSeen(it, q);
+        assertEquals(8, q.getSeenQuestions().size());
+        assertEquals(7, q.getUnseenQuestions().size());
+
+    }
+
 }

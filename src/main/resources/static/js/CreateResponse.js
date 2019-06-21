@@ -8,15 +8,10 @@ function setVariables(){
     UserID= getQuestionIDs();
 }
 
-function testSetVariables(){
-    responsesGivenText= ["Lateral","ligament","Unsure"];
-    QuestionIDs= ["PlaneQ1","StructureQ1","ZoneQ1"];
-    UserID= "Hewwo123";
-}
-
 function createResponseJson(){
+    //should change UserId when that is sent
     var newResponse= {
-        userId: UserID,
+        userId: "Student",
         taskQuestionIds: QuestionIDs,
         responseTexts: responsesGivenText
     };
@@ -30,8 +25,7 @@ function submitToAPI(url, objectToSubmit) {
     request.send(JSON.stringify(objectToSubmit));
     request.onreadystatechange = function() {
         if (request.status === 200) {
-            window.alert("Submission Successful!");
-            window.location.reload(true);
+
         } else {
             window.location.replace("/error");
         }
@@ -41,7 +35,14 @@ function submitToAPI(url, objectToSubmit) {
 function generateResponseJSON(){
     setVariables();
     var object= createResponseJson();
-    submitToAPI("/api/recordResponse", object);
+    submitToAPI("api/recordResponse", object);
+}
+
+//for testing purposes only
+function testSetVariables(){
+    responsesGivenText= ["Lateral","ligament","Unsure"];
+    QuestionIDs= ["PlaneQ1","StructureQ1","ZoneQ1"];
+    UserID= "Hewwo123";
 }
 
 function testGenerateReponseJSON(){

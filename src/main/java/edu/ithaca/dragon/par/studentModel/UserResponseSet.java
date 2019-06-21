@@ -38,8 +38,22 @@ public class UserResponseSet {
     public void setUserId(String userIdIn){this.userId=userIdIn;}
     public String getUserId(){return userId;}
 
-    //TODO: shouldn't be capitalized, and there shouldn'be a a score property, or a getter or setter, let's talk about it.
+    public double calcScore(){
+        if(userResponses.isEmpty()){
+            return -1;
+        }
+        else{
+        double score=100;
+        double quesWeight=100/(double)getUserResponsesSize();
 
+        for(int i=0;i<getUserResponsesSize();i++){
+            if(userResponses.get(i).checkResponse()!=true){
+                score=score-quesWeight;
+            }
+        }
+        return score;
+    }
+    }
 
     @Override
     public boolean equals(Object otherObj){
