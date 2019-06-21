@@ -16,6 +16,8 @@ function checkAndRecordAnswers() {
     var form = document.getElementById("form1")
     for (var i = 0; i < numberOfQuestions; i++) {
         var currentName = "q" + i;
+        console.log(currentName);
+        console.log(form[currentName].value);
         var currentAnswer = form[currentName].value;
 
         responsesGivenText.push(currentAnswer);

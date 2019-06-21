@@ -171,7 +171,6 @@ function createRadioQuestion(json) {
         question += '<br> <input type="radio" name="' + ("q" + (getNumberOfQuestions())) + '" value="';
         question = question + json.possibleAnswers[i] + '">' + json.possibleAnswers[i] + '<br> <i id="' + "questionCorrect" + (getNumberOfQuestions()) + '"></i>';
     }
-    console.log("rit: questionCorrect" + getNumberOfQuestions());
     return question;
 }
 
@@ -222,6 +221,7 @@ function pageDisplay(imageTaskJSON) {
 
 function clearPage() {
     document.getElementById('questionSet').innerHTML = " ";
+    amountOfQuestions = 0;
 }
 
 function changeQuestions() {
