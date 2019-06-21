@@ -2,10 +2,12 @@ package edu.ithaca.dragon.par;
 
 
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
+import edu.ithaca.dragon.par.io.Datastore;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
 import edu.ithaca.dragon.par.io.JsonDatastore;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
+import edu.ithaca.dragon.util.DataUtil;
 import edu.ithaca.dragon.util.JsonUtil;
 import org.junit.jupiter.api.Test;
 
@@ -109,11 +111,8 @@ public class ParServerTest {
 
     }
 
-
-
-    public static double OK_DOUBLE_MARGIN = (double) 0.00001;
     @Test
-    public void imageTaskResponseSubmittedTest() throws IOException {
+    public void imageTaskResponseSubmittedAndCalcScoreTest() throws IOException {
         QuestionPool questionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionsSameDifficulty.json"));
         ParServer parServer = new ParServer(questionPool);
         ImageTaskResponse responseSet2=new ImageTaskResponse("response1", Arrays.asList("PlaneQ1","StructureQ1","ZoneQ1"),Arrays.asList("Latera","bone","3c"));
@@ -124,25 +123,25 @@ public class ParServerTest {
         //star student
         for(int i=0;i<5;i++){
             parServer.imageTaskResponseSubmitted(responsesFromFile.get(0),"s1");
-        }   assertEquals(100.0,parServer.calcScore("s1"),OK_DOUBLE_MARGIN);
+        }   assertEquals(100.0,parServer.calcScore("s1"), DataUtil.OK_DOUBLE_MARGIN);
 
 
         //great student
         parServer.imageTaskResponseSubmitted(responseSet2,"s2");
-        assertEquals(66.666666,parServer.calcScore("s2"),OK_DOUBLE_MARGIN);
+        assertEquals(66.666666,parServer.calcScore("s2"),DataUtil.OK_DOUBLE_MARGIN);
         for(int i=0;i<4;i++){
             parServer.imageTaskResponseSubmitted(responsesFromFile.get(0),"s2");
 
-        }   assertEquals(93.3333333,parServer.calcScore("s2"),OK_DOUBLE_MARGIN);
+        }   assertEquals(93.3333333,parServer.calcScore("s2"), DataUtil.OK_DOUBLE_MARGIN);
 
 
         //terrible student
         parServer.imageTaskResponseSubmitted(responsesFromFile.get(0),"s3");
         parServer.imageTaskResponseSubmitted(responsesFromFile.get(0),"s3");
-        assertEquals(100.0,parServer.calcScore("s3"),OK_DOUBLE_MARGIN);
+        assertEquals(100.0,parServer.calcScore("s3"), DataUtil.OK_DOUBLE_MARGIN);
         for(int i=0;i<3;i++){
             parServer.imageTaskResponseSubmitted(responseSet3,"s3");
-        }    assertEquals(39.999999,parServer.calcScore("s3"),OK_DOUBLE_MARGIN);
+        }    assertEquals(39.999999,parServer.calcScore("s3"), DataUtil.OK_DOUBLE_MARGIN);
 
 
     }
