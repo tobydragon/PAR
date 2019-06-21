@@ -12,13 +12,6 @@ function setQuestionLists() {
     QuestionAnswers = getQuestionAnswers();
 }
 
-function clerOldAnswers(){
-    for(var i=0; i<numberOfQuestions; i++){
-        var displayAreaName= "questionCorrect"+i;
-        document.getElementById(displayAreaName).innerHTML = " ";
-    }
-}
-
 function checkAndRecordAnswers(){
     var form=document.getElementById("form1")
     for(var i=0; i<numberOfQuestions; i++){
@@ -60,8 +53,6 @@ function toggleShowState(toggableElement) {
 function checkAnswers() {
     //get list of question answers and number of questions from readImageTask
     setQuestionLists();
-    //clear any old answers
-    clerOldAnswers();
     //check and report to the user what they got right or wrong as well as add to list responsesGivenText
     checkAndRecordAnswers();
     //call CreateResponse to send answers back to the server
