@@ -113,7 +113,7 @@ public class ParServerTest {
 
     @Test
     public void imageTaskResponseSubmittedAndCalcScoreTest() throws IOException {
-        QuestionPool questionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionsSameDifficulty.json"));
+        QuestionPool questionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionsSameDifficulty2.json"));
         ParServer parServer = new ParServer(questionPool);
         ImageTaskResponse responseSet2=new ImageTaskResponse("response1", Arrays.asList("PlaneQ1","StructureQ1","ZoneQ1"),Arrays.asList("Latera","bone","3c"));
         ImageTaskResponse responseSet3=new ImageTaskResponse("response1", Arrays.asList("PlaneQ1","StructureQ1","ZoneQ1"),Arrays.asList("I'm","bad","student"));
