@@ -26,4 +26,5 @@ public class UserResponseSetTest {
         respSet.addAllResponses(userResponses);
         assertEquals(respSet.getUserResponsesSize(),3);
     }
+
 }

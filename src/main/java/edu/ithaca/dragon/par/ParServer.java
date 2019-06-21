@@ -31,8 +31,14 @@ public class ParServer {
         }
     }
 
-    public void imageTaskResponseSubmitted(ImageTaskResponse imageTaskResponse){
+    public void imageTaskResponseSubmitted(ImageTaskResponse imageTaskResponse, String userId){
+        StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, questionPool);
+        currentStudent.imageTaskResponseSubmitted(imageTaskResponse,questionPool);
+    }
 
+    public double calcScore(String userId){
+        StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, questionPool);
+        return  currentStudent.calcScore();
     }
 
     public static String sendNewImageTaskResponse(ImageTaskResponse response) throws IOException{
