@@ -19,44 +19,34 @@ function canvasSupport() {
 //canvasApp()
 //The function where ALL our canvas code will go
 function canvasApp() {
-
     /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
     /* Canvas Support */
     /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-
     //-----------------------------------------------------------
     //Check to see if the canvas has a context
     if (!canvasSupport()) {
         return; //Canvas not supported so exit the function
     }
 
-
     var images = [];
-
     // declare an array for image sources and assign the image sources
     var imageSources = []; //imageSource
-
-    var imageTaskJSON = readJson("api/nextImageTask");
-    var displayURLThyme = imageTaskJSON.imageUrl.split('\\').pop().split('/').pop();
-    imageSources.push("./images/" + displayURLThyme);
-
-    // Image Location Variables
-    var bgImageIndex = 0; //index of the BG image in the array
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     // create and load image objects into an array
     // based on an image source array
     function loadImages(images, imageSources, callback) {
-        var loadedImages = 0;
+        var imageTaskJSON = readJson("api/nextImageTask");
+        var displayURLThyme = imageTaskJSON.imageUrl.split('\\').pop().split('/').pop();
+        imageSources.push("./images/" + displayURLThyme);
 
+        var loadedImages = 0;
         //- - - - - - - - - - - - - - - - - - - - -
         // for each imageSource
         for (var src = 0; src < imageSources.length; src++) {
-
             //- - - - - - - - - - - - - - - - - - - - -
             //create a new image object
             images[src] = new Image();
-
             //- - - - - - - - - - - - - - - - - - - - -
             //load the image
             images[src].onload = function () {
@@ -64,19 +54,15 @@ function canvasApp() {
                     callback(images);
                 }; //if
             } //onload()
-
             //- - - - - - - - - - - - - - - - - - - - -
             //set the image source
             images[src].src = imageSources[src];
-
         } //for
-
     } //loadimages()
 
     /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
     /* Canvas Variables */
     /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-
     //-----------------------------------------------------------
     //Setup the canvas object
     var theCanvas = document.getElementById("myCanvas"); //get the canvas element
@@ -85,63 +71,40 @@ function canvasApp() {
     var canvasWidth = theCanvas.width; //get the width of the canvas
     var canvasColor = "white"; // set the default canvas bg color
 
-    function toggleBackground() {
-        if (bgImageIndex < 7) {
-            bgImageIndex += 1
-        } else if (bgImageIndex = 7) {
-            bgImageIndex = 0
-        }
-
-    } //toggleBackground()
 
     function drawBGImage() {
-
         //draw the bg image to fill the canvas
-        context.drawImage(images[bgImageIndex], 0, 0, canvasWidth, canvasHeight);
-
-
+        context.drawImage(images[0], 0, 0, canvasWidth, canvasHeight);
     } //drawBGImage
 
     function clearCanvas(canvasColor) {
-
         // set a fill style of white
         context.fillStyle = canvasColor;
-
         // fill the while canvas with the fill style
         context.fillRect(0, 0, canvasWidth, canvasHeight);
-
     }
 
     function drawCanvas() {
         //--------------------------------------------
         //1. clear and setup the canvas
-
         //clear the canvas
         clearCanvas(canvasColor);
-
         //draw the bg image
         drawBGImage();
-
         //write the frame counter
         //writeFrameCounter(frameCounter);
-
     } //drawCanvas()
 
     function gameLoop() {
-
         //get the next animation frame
         requestAnimationFrame(gameLoop);
-
         //draw the canvas
         drawCanvas();
-
     } //gameLoop()
 
     loadImages(images, imageSources, function (images) {
-
         //call game loop
         gameLoop();
-
     });
 
 }
@@ -266,6 +229,7 @@ function clearPage() {
 }
 
 function changeQuestions() {
+    canvasApp();
     clearPage();
     pageDisplay();
 }
