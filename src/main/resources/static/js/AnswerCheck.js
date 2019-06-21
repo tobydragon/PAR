@@ -8,15 +8,15 @@ function getResponsesText() {
 }
 
 function setQuestionLists() {
-    numberOfQuestions= getNumberOfQuestions();
+    numberOfQuestions = getNumberOfQuestions();
     QuestionAnswers = getQuestionAnswers();
 }
 
-function checkAndRecordAnswers(){
-    var form=document.getElementById("form1")
-    for(var i=0; i<numberOfQuestions; i++){
-        var currentName= "q"+i;
-        var currentAnswer= form[currentName].value;
+function checkAndRecordAnswers() {
+    var form = document.getElementById("form1")
+    for (var i = 0; i < numberOfQuestions; i++) {
+        var currentName = "q" + i;
+        var currentAnswer = form[currentName].value;
 
         responsesGivenText.push(currentAnswer);
 
@@ -26,7 +26,7 @@ function checkAndRecordAnswers(){
         } else {
             isCorrect = "Incorrect";
         }
-        var displayAreaName= "questionCorrect"+i;
+        var displayAreaName = "questionCorrect" + i;
         document.getElementById(displayAreaName).innerHTML = displayCheck(isCorrect);
     }
 }
