@@ -22,6 +22,17 @@ public class ParServer {
 
     public ImageTask nextImageTask(String userId){
         StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, questionPool);
+        ImageTask imageTask =  ImageTaskChooser.nextImageTask(currentStudent.getUserQuestionSet(), 1, 3);
+        if (imageTask != null){
+            return imageTask;
+        }
+        else {
+            throw new RuntimeException("No image task given for userId:" + userId);
+        }
+    }
+
+    public ImageTask nextImageTaskSingle(String userId){
+        StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, questionPool);
         ImageTask imageTask =  ImageTaskChooser.nextImageTaskSingle(currentStudent.getUserQuestionSet(), 1);
         if (imageTask != null){
             return imageTask;
@@ -30,6 +41,7 @@ public class ParServer {
             throw new RuntimeException("No image task given for userId:" + userId);
         }
     }
+
 
     public void imageTaskResponseSubmitted(ImageTaskResponse imageTaskResponse){
 

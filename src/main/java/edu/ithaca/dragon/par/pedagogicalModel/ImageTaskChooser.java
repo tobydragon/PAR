@@ -76,6 +76,9 @@ public class ImageTaskChooser {
         List<Question> sameUrlListSeen = getSameUrlQuestionsSeen(questionSet, it.getTaskQuestions().get(0));
         if (sameUrlListSeen.size()+sameUrlListUnseen.size()<=numOfQuestions-1){     //1 question is already in the image task
             addAllQuestions(it, sameUrlListUnseen, sameUrlListSeen);
+            if(it.getTaskQuestions().size()>1) {
+                markAllAsSeen(it, questionSet);
+            }
             return it;
         }
 
@@ -92,11 +95,11 @@ public class ImageTaskChooser {
                     greaterDifficultyAdded(it, numOfQuestions, sameUrlListSeen);
                 }
             }
+            if(it.getTaskQuestions().size()>1) {
+                markAllAsSeen(it, questionSet);
+            }
             return it;
         }
-
-
-
     }
 
     public static void addAllQuestions(ImageTask it, List<Question> sameUrlListUnseen, List<Question> sameUrlListSeen){
@@ -155,5 +158,12 @@ public class ImageTaskChooser {
             }
         }
         return qList;
+    }
+
+
+    public static void markAllAsSeen(ImageTask it, UserQuestionSet questionSet){     //skips first question, as that is covered in nextImageTaskSingle
+        for (int i = 1; i<it.getTaskQuestions().size(); i++){
+            questionSet.givenQuestion(it.getTaskQuestions().get(i).getId());
+        }
     }
 }
