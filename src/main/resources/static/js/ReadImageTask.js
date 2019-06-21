@@ -37,6 +37,7 @@ function canvasApp() {
     // based on an image source array
     function loadImages(images, imageSources, callback) {
         var imageTaskJSON = readJson("api/nextImageTask");
+        pageDisplay(imageTaskJSON);
         var displayURLThyme = imageTaskJSON.imageUrl.split('\\').pop().split('/').pop();
         imageSources.push("./images/" + displayURLThyme);
 
@@ -209,9 +210,7 @@ function displayImageURL(imageURL) {
     document.getElementById('image').innerHTML = imageURL;
 }
 
-function pageDisplay() {
-    var imageTaskJSON = readJson("api/nextImageTask");
-
+function pageDisplay(imageTaskJSON) {
     //Displays the image on the page at the appropriate tag
     //displayImageURL(generateImageURL(imageTaskJSON.imageUrl));
     //Displays the questions at the tags
@@ -226,7 +225,6 @@ function clearPage() {
 }
 
 function changeQuestions() {
-    canvasApp();
     clearPage();
-    pageDisplay();
+    canvasApp();
 }

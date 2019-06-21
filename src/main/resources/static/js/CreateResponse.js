@@ -4,7 +4,7 @@ var UserID;
 
 function getUserIdfromUser(){
     UserID= document.getElementById("inputId").value;
-    document.getElementById("userId").innerText= UserID;
+    document.getElementById("userID").innerText= UserID;
 }
 
 function sendUserId() {
