@@ -113,7 +113,7 @@ function canvasApp() {
 var amountOfQuestions = 0;
 var QuestionAnswers = [];
 var QuestionIDs = [];
-var UserID;
+
 
 
 function getNumberOfQuestions() {
@@ -128,9 +128,6 @@ function getQuestionIDs() {
     return QuestionIDs;
 }
 
-function getUserID() {
-    return UserID;
-}
 
 function readJson(url) {
     var request = new XMLHttpRequest();

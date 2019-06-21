@@ -2,6 +2,18 @@ var responsesGivenText= [];
 var QuestionIDs= [];
 var UserID;
 
+function getUserIdfromUser(){
+    UserID= document.getElementById("inputId").value;
+}
+
+function sendUserId(){
+    if(UserID==null){
+        return "Student"
+    } else {
+        return UserID;
+    }
+}
+
 function setVariables(){
     responsesGivenText= getResponsesText();
     QuestionIDs= getQuestionIDs();
@@ -9,12 +21,20 @@ function setVariables(){
 }
 
 function createResponseJson(){
-    //should change UserId when that is sent
-    var newResponse= {
-        userId: "Student",
-        taskQuestionIds: QuestionIDs,
-        responseTexts: responsesGivenText
-    };
+    var newResponse;
+    if(UserID==null){
+        newResponse = {
+            userId: "Student",
+            taskQuestionIds: QuestionIDs,
+            responseTexts: responsesGivenText
+        };
+    } else {
+        newResponse = {
+            userId: UserID,
+            taskQuestionIds: QuestionIDs,
+            responseTexts: responsesGivenText
+        };
+    }
     return newResponse
 }
 
