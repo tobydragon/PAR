@@ -22,20 +22,11 @@ function setVariables() {
 }
 
 function createResponseJson() {
-    var newResponse;
-    if (UserID == null) {
-        newResponse = {
-            userId: "Student",
-            taskQuestionIds: QuestionIDs,
-            responseTexts: responsesGivenText
-        };
-    } else {
-        newResponse = {
-            userId: UserID,
-            taskQuestionIds: QuestionIDs,
-            responseTexts: responsesGivenText
-        };
-    }
+    var newResponse = {
+        userId: "Student",
+        taskQuestionIds: QuestionIDs,
+        responseTexts: responsesGivenText
+    };
     return newResponse
 }
 

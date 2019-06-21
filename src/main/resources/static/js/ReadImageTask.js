@@ -116,7 +116,6 @@ var QuestionAnswers = [];
 var QuestionIDs = [];
 
 
-
 function getNumberOfQuestions() {
     return amountOfQuestions;
 }
@@ -158,6 +157,7 @@ function generateQuestions(question) {
     }
 
     QuestionAnswers.push(question.correctAnswer);
+    QuestionIDs.push(question.id);
     displayQuestions(difficultyStr);
 }
 
