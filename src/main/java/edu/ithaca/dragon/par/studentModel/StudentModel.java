@@ -3,6 +3,7 @@ package edu.ithaca.dragon.par.studentModel;
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
+import edu.ithaca.dragon.par.io.StudentModelRecord;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,14 +20,23 @@ public class StudentModel {
         this.userResponseSet = new UserResponseSet(userId);
     }
 
+    public StudentModel(String userId, UserQuestionSet userQuestionSet, UserResponseSet userResponseSet){
+        this.userId = userId;
+        this.userQuestionSet = userQuestionSet;
+        this.userResponseSet = userResponseSet;
+    }
+
     public UserQuestionSet getUserQuestionSet() {
         return userQuestionSet;
+    }
+
+    public UserResponseSet getUserResponseSet() {
+        return userResponseSet;
     }
 
     public void givenQuestion(String questionId){
         userQuestionSet.givenQuestion(questionId);
     }
-
 
     public int getSeenQuestionCount(){
         return userQuestionSet.getLenOfSeenQuestions();
@@ -73,5 +83,17 @@ public class StudentModel {
      */
     public void imageTaskResponseSubmitted(ImageTaskResponse imageTaskResponses, QuestionPool questions){
         userResponseSet.addAllResponses(createUserResponseObj(imageTaskResponses,questions,this.userId));
+    }
+
+    @Override
+    public boolean equals(Object otherObj){
+        if(otherObj == null)
+            return false;
+        if(!StudentModel.class.isAssignableFrom(otherObj.getClass()))
+            return false;
+        StudentModel other = (StudentModel) otherObj;
+        return this.getUserId().equals(other.getUserId())
+                && this.getUserQuestionSet().equals(other.getUserQuestionSet())
+                && this.getUserResponseSet().equals(other.getUserResponseSet());
     }
 }
