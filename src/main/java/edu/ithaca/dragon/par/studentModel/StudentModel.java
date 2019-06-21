@@ -54,6 +54,10 @@ public class StudentModel {
         return userId;
     }
 
+    public double calcScore(){
+        return userResponseSet.calcScore();
+    }
+
     /**
      * Creates a list of UserResponse objects
      * @param imageTaskResponses: response submitted by the user
