@@ -30,31 +30,27 @@
 <body id="topSection">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12">
-                <!--<img th:src="@{images/demoEquine04.jpg}" class="imgCenter">-->
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-6">
-                <canvas id="myCanvas" width="580%" height="550%%" class="center-block">
+            <div class="col-1"></div>
+            <div class="col-6 imgCenter">
+                <canvas id="myCanvas" width="700%" height="550%" class="center-block">
                     Your browser doesn't support Canvas.
                 </canvas>
 
             </div>
-            <div class="col-4 center">
+            <div class="col-4 text-center">
                 <br />
-                <h1>Questions</h1>
+                <h1 class="underline">Question Set</h1>
                 <form action="#" method="post" id="form1">
                     <i id="questionSet"> </i>
                 </form>
             </div>
+            <div class="col-1"></div>
         </div>
-
         <br>
         <div class="row">
             <div class="col-12 text-center">
                 <div class="show">
-                    <button type="button" class="btn btn-outline-primary" id="submitButton" onclick="checkAnswers()">
+                    <button type="button" class="btn btn-primary" id="submitButton" onclick="checkAnswers()">
                         Submit
                     </button>
                     <button type="button" class="fas fa-arrow-circle-right btn btn-outline-dark" id="nextQuestionButton" onclick="changeQuestions()"></button>
