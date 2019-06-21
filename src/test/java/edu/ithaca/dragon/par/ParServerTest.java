@@ -86,8 +86,10 @@ public class ParServerTest {
         nextTask = parServer.nextImageTask("s2");
         assertEquals(intendedLastTask, nextTask);
     }
-    public static double OK_DOUBLE_MARGIN = (double) 0.00001;
 
+
+
+    public static double OK_DOUBLE_MARGIN = (double) 0.00001;
     @Test
     public void imageTaskResponseSubmittedTest() throws IOException {
         QuestionPool questionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionsSameDifficulty.json"));
