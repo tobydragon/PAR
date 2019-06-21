@@ -17,14 +17,15 @@ public class WebController implements WebMvcConfigurer {
 //    public String redirect() {
 //        return "redirect:finalPage";
 //    }
-
+//
 //    @RequestMapping(value = "/finalPage", method = RequestMethod.GET)
-//    public String finalPage() {
-//        return "ImageTaskTemplate";
-//    }
+////    public String finalPage() {
+////        return "ImageTaskTemplate";
+////    }
 
     @RequestMapping("/start")
     public String finalPage() {
         return "ImageTaskTemplate";
     }
+
 }
