@@ -40,6 +40,12 @@ function displayCheck(value) {
     if (value == "Unsure") return '<font color=\"#663399\">Your answer is: ' + value + '</font>';
 }
 
+function clearQuestionAnswers(){
+    for(var i=0; i<responsesGivenText.length; i++){
+        responsesGivenText.pop();
+    }
+}
+
 function toggleShowState(toggableElement) {
     var changeElement = document.getElementById(toggableElement).classList;
 
@@ -59,4 +65,6 @@ function checkAnswers() {
     checkAndRecordAnswers();
     //call CreateResponse to send answers back to the server
     generateResponseJSON();
+    clearQuestionAnswers();
+    clearQuestionIDs();
 }

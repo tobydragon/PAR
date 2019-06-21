@@ -219,6 +219,12 @@ function pageDisplay(imageTaskJSON) {
     }
 }
 
+function clearQuestionIDs(){
+    for(var i=0; i<QuestionIDs.length; i++){
+        QuestionIDs.pop();
+    }
+}
+
 function clearPage() {
     document.getElementById('questionSet').innerHTML = " ";
     amountOfQuestions = 0;
