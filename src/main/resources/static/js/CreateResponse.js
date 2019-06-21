@@ -1,28 +1,28 @@
-var responsesGivenText= [];
-var QuestionIDs= [];
+var responsesGivenText = [];
+var QuestionIDs = [];
 var UserID;
 
-function getUserIdfromUser(){
-    UserID= document.getElementById("inputId").value;
+function getUserIdFromUser() {
+    UserID = document.getElementById("inputId").value;
 }
 
-function sendUserId(){
-    if(UserID==null){
+function sendUserId() {
+    if (UserID == null) {
         return "Student"
     } else {
         return UserID;
     }
 }
 
-function setVariables(){
-    responsesGivenText= getResponsesText();
-    QuestionIDs= getQuestionIDs();
-    UserID= getQuestionIDs();
+function setVariables() {
+    responsesGivenText = getResponsesText();
+    QuestionIDs = getQuestionIDs();
+    UserID = getQuestionIDs();
 }
 
-function createResponseJson(){
+function createResponseJson() {
     var newResponse;
-    if(UserID==null){
+    if (UserID == null) {
         newResponse = {
             userId: "Student",
             taskQuestionIds: QuestionIDs,
@@ -43,7 +43,7 @@ function submitToAPI(url, objectToSubmit) {
     request.open("POST", url);
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     request.send(JSON.stringify(objectToSubmit));
-    request.onreadystatechange = function() {
+    request.onreadystatechange = function () {
         if (request.status === 200) {
 
         } else {
@@ -52,20 +52,20 @@ function submitToAPI(url, objectToSubmit) {
     };
 }
 
-function generateResponseJSON(){
+function generateResponseJSON() {
     setVariables();
-    var object= createResponseJson();
+    var object = createResponseJson();
     submitToAPI("api/recordResponse", object);
 }
 
 //for testing purposes only
-function testSetVariables(){
-    responsesGivenText= ["Lateral","ligament","Unsure"];
-    QuestionIDs= ["PlaneQ1","StructureQ1","ZoneQ1"];
-    UserID= "Hewwo123";
+function testSetVariables() {
+    responsesGivenText = ["Lateral", "ligament", "Unsure"];
+    QuestionIDs = ["PlaneQ1", "StructureQ1", "ZoneQ1"];
+    UserID = "Hewwo123";
 }
 
-function testGenerateReponseJSON(){
+function testGenerateReponseJSON() {
     testSetVariables();
     return createResponseJson();
 }

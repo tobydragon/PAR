@@ -89,6 +89,11 @@ h5 {
     display: block;
 }
 
+.colVertCenter {
+    display: flex;
+    align-items: center;
+}
+
 /* ---------------------------------------*
 /* Add spacing to text elements */
 
