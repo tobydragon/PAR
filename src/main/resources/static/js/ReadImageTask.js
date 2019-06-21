@@ -38,7 +38,7 @@ function canvasApp() {
 
     var imageTaskJSON = readJson("api/nextImageTask");
     var displayURLThyme = imageTaskJSON.imageUrl.split('\\').pop().split('/').pop();
-    imageSources.push("./images/"+displayURLThyme);
+    imageSources.push("./images/" + displayURLThyme);
 
     // Image Location Variables
     var bgImageIndex = 0; //index of the BG image in the array
@@ -85,16 +85,14 @@ function canvasApp() {
     var canvasWidth = theCanvas.width; //get the width of the canvas
     var canvasColor = "white"; // set the default canvas bg color
 
-    function toggleBackground(){
-        if (bgImageIndex < 7){
+    function toggleBackground() {
+        if (bgImageIndex < 7) {
             bgImageIndex += 1
-        }
-
-        else if (bgImageIndex=7) {
+        } else if (bgImageIndex = 7) {
             bgImageIndex = 0
         }
 
-    }//toggleBackground()
+    } //toggleBackground()
 
     function drawBGImage() {
 
@@ -139,7 +137,7 @@ function canvasApp() {
 
     } //gameLoop()
 
-    loadImages(images, imageSources, function (images){
+    loadImages(images, imageSources, function (images) {
 
         //call game loop
         gameLoop();
@@ -212,6 +210,7 @@ function createRadioQuestion(json) {
         question += '<br> <input type="radio" name="' + ("q" + (getNumberOfQuestions())) + '" value="';
         question = question + json.possibleAnswers[i] + '">' + json.possibleAnswers[i] + '<br> <i id="' + "questionCorrect" + (getNumberOfQuestions()) + '"></i>';
     }
+    console.log("rit: questionCorrect" + getNumberOfQuestions());
     return question;
 }
 
@@ -222,7 +221,6 @@ function createFillIn(json) {
     }
     question += '</datalist>';
     question += '<i id="' + "questionCorrect" + (amountOfQuestions) + '"></i>';
-
     return question;
 }
 
