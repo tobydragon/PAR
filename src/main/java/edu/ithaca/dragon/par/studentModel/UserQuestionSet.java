@@ -13,12 +13,7 @@ public class UserQuestionSet {
 
 
     public UserQuestionSet(String userIdIn, List<Question> unseenQuestionsIn){
-        //TODO: call the other constructor
-        //???
-        seenQuestions = new ArrayList<Question>();
-        this.unseenQuestions = unseenQuestionsIn;
-        timesSeen = new ArrayList<Integer>();
-        this.userId=userIdIn;
+        this(userIdIn, unseenQuestionsIn, new ArrayList<Question>(), new ArrayList<Integer>());
     }
 
     public UserQuestionSet(String userIdIn, List<Question> unseenQuestionsIn, List<Question> seenQuestionsIn, List<Integer> timesSeenIn) {
@@ -27,9 +22,6 @@ public class UserQuestionSet {
         timesSeen = timesSeenIn;
         userId=userIdIn;
     }
-
-    //TODO: should probably remove thie entirely
-    //removed
 
     public int getLenOfSeenQuestions(){
         return seenQuestions.size();
@@ -54,9 +46,7 @@ public class UserQuestionSet {
             }
         }
 
-        //TODO: should check unseen to confirm the question is part of the set, throw exception if not
-        //done, check with toby about assertThrows.
-        throw new RuntimeException();
+        throw new RuntimeException("questionId not found: "+questionId);
     }
 
 
@@ -64,8 +54,6 @@ public class UserQuestionSet {
         return userId;
     }
 
-    //TODO: should return true or false as to whether the item was found
-    //done.
     public boolean increaseTimesSeen (String questionId){
         for (int i = 0; i < seenQuestions.size(); i++){
             if (seenQuestions.get(i).getId().equals(questionId)){
@@ -90,8 +78,6 @@ public class UserQuestionSet {
         for (int i = 0; i < unseenQuestions.size(); i++){
             if (unseenQuestions.get(i).getId().equals(questionId)){
                 seenQuestions.add(unseenQuestions.get(i));
-                //TODO: shouldn't remove in a loop over the list
-                //done, see following if statement
                 index = i;
                 timesSeen.add(1);
                 found = true;
@@ -109,10 +95,9 @@ public class UserQuestionSet {
                 }
             }
             if(!found){
-                throw new RuntimeException();
+                throw new RuntimeException("questionId not found: "+questionId);
             }
-            //TODO: should check if the question was found in timesSeen, throw exception if not.
-            //done, check junit assertThrows
+
         }
     }
 
