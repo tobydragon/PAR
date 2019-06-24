@@ -13,11 +13,7 @@ public class UserQuestionSet {
 
 
     public UserQuestionSet(String userIdIn, List<Question> unseenQuestionsIn){
-        //TODO: call the other constructor
-        seenQuestions = new ArrayList<Question>();
-        this.unseenQuestions = unseenQuestionsIn;
-        timesSeen = new ArrayList<Integer>();
-        this.userId=userIdIn;
+        this(userIdIn, unseenQuestionsIn, new ArrayList<Question>(), new ArrayList<Integer>());
     }
 
     public UserQuestionSet(String userIdIn, List<Question> unseenQuestionsIn, List<Question> seenQuestionsIn, List<Integer> timesSeenIn) {
@@ -25,16 +21,6 @@ public class UserQuestionSet {
         unseenQuestions = unseenQuestionsIn;
         timesSeen = timesSeenIn;
         userId=userIdIn;
-    }
-
-    //TODO: should probably remove thie entirely
-    public Question getQ(String questionId) {
-        for (int i = 0; i < unseenQuestions.size(); i++){
-            if (unseenQuestions.get(i).getId().equals(questionId)){
-                return unseenQuestions.get(i);
-            }
-        }
-        return null;
     }
 
     public int getLenOfSeenQuestions(){
@@ -54,8 +40,13 @@ public class UserQuestionSet {
                 return timesSeen.get(i);
             }
         }
-        //TODO: should check unseen to confirm the question is part of the set, throw exception if not
-        return 0;
+        for (int i =0; i<unseenQuestions.size(); i++) {
+            if (unseenQuestions.get(i).getId().equals(questionId)) {
+                return 0;
+            }
+        }
+
+        throw new RuntimeException("questionId not found: "+questionId);
     }
 
 
@@ -63,13 +54,14 @@ public class UserQuestionSet {
         return userId;
     }
 
-    //TODO: should return true or false as to whether the item was found
-    public void increaseTimesSeen (String questionId){
+    public boolean increaseTimesSeen (String questionId){
         for (int i = 0; i < seenQuestions.size(); i++){
             if (seenQuestions.get(i).getId().equals(questionId)){
                 timesSeen.set(i, timesSeen.get(i)+1);
+                return true;
             }
         }
+        return false;
     }
 
     public List<Question> getUnseenQuestions(){
@@ -82,19 +74,30 @@ public class UserQuestionSet {
 
     public void givenQuestion(String questionId){
         boolean found = false;
+        int index = -1;
         for (int i = 0; i < unseenQuestions.size(); i++){
             if (unseenQuestions.get(i).getId().equals(questionId)){
                 seenQuestions.add(unseenQuestions.get(i));
-                //TODO: shouldn't remove in a loop over the list
-                unseenQuestions.remove(i);
+                index = i;
                 timesSeen.add(1);
                 found = true;
             }
         }
+        if(found){
+            unseenQuestions.remove(index);
+        }
         if (!found) {
             //checks seen list, adds 1 to time seen if question is found
-            increaseTimesSeen(questionId);
-            //TODO: should check if the question was found in timesSeen, throw exception if not.
+            for(int i = 0; i < seenQuestions.size(); i++){
+                if (seenQuestions.get(i).getId().equals(questionId)){
+                    found = true;
+                    increaseTimesSeen(questionId);
+                }
+            }
+            if(!found){
+                throw new RuntimeException("questionId not found: "+questionId);
+            }
+
         }
     }
 
