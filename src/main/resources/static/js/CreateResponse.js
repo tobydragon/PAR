@@ -22,6 +22,8 @@ function createResponseJson() {
             taskQuestionIds: QuestionIDs,
             responseTexts: responsesGivenText
         };
+        console.log(QuestionIDs);
+        console.log(responsesGivenText);
     } else {
         newResponse = {
             userId: "Student",
@@ -39,7 +41,7 @@ function submitToAPI(url, objectToSubmit) {
     request.send(JSON.stringify(objectToSubmit));
     request.onreadystatechange = function () {
         if (request.status === 200) {
-
+            setCurrentScore();
         } else {
             window.location.replace("/error");
         }
@@ -50,6 +52,8 @@ function generateResponseJSON() {
     setVariables();
     var object = createResponseJson();
     submitToAPI("api/recordResponse", object);
+    console.log("Response Sent to "+ UserID);
+
 }
 
 

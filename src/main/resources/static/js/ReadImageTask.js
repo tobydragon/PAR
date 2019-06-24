@@ -207,19 +207,25 @@ function displayImageURL(imageURL) {
 }
 **/
 function setCurrentScore(){
-    var url= "api/calcScore?userId=Student";
+    var url= "api/calcScore?userId="+sendUserId();
     var request = new XMLHttpRequest();
     request.open("GET", url, false);
     request.send(null);
-    console.log(request.response);
-    document.getElementById("score").innerHTML= request.response;
-    console.log("Hello?");
+
+    //can be -1 currently if User is new
+    var score=request.response;
+    console.log(score);
+    if(score==-1) {
+        document.getElementById("score").innerHTML = "0";
+    } else {
+        document.getElementById("score").innerHTML = score;
+    }
 }
 
 //Calls generateQuestion on the JSON object for the question at ith index
 function pageDisplay(imageTaskJSON) {
+    clearQuestionIDs();
     setCurrentScore();
-
     //Displays the questions at the tags
     for (var i = 0; i < imageTaskJSON.taskQuestions.length; i++) {
         generateQuestion(imageTaskJSON.taskQuestions[i]);

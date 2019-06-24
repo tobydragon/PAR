@@ -66,7 +66,5 @@ function checkAnswers() {
     //call CreateResponse to send answers back to the server
     generateResponseJSON();
     clearQuestionAnswers();
-    clearQuestionIDs();
 
-    setCurrentScore();
 }
