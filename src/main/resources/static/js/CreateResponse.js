@@ -5,20 +5,13 @@ var UserID;
 function getUserIdfromUser() {
     UserID = document.getElementById("inputId").value;
     document.getElementById("userID").innerText = UserID;
-}
-
-function sendUserId() {
-    if (UserID != null) {
-        return UserID;
-    } else {
-        return "Student";
-    }
+    changeUserID(UserID);
 }
 
 function setVariables() {
     responsesGivenText = getResponsesText();
     QuestionIDs = getQuestionIDs();
-    UserID = getQuestionIDs();
+    UserID = sendUserId();
 }
 
 function createResponseJson() {

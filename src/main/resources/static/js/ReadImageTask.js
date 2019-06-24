@@ -36,7 +36,7 @@ function canvasApp() {
     // create and load image objects into an array
     // based on an image source array
     function loadImages(images, imageSources, callback) {
-        var imageTaskJSON = readJson("api/nextImageTask", sendUserId());
+        var imageTaskJSON = readJson("api/nextImageTask");
         pageDisplay(imageTaskJSON);
         var displayURLThyme = imageTaskJSON.imageUrl.split('\\').pop().split('/').pop();
         imageSources.push("./images/" + displayURLThyme);
@@ -114,7 +114,19 @@ function canvasApp() {
 var amountOfQuestions = 0;
 var QuestionAnswers = [];
 var QuestionIDs = [];
+var UserID= null;
 
+function sendUserId() {
+    if (UserID != null) {
+        return UserID;
+    } else {
+        return "Student";
+    }
+}
+
+function changeUserID(newID){
+    UserID=newID;
+}
 
 function getNumberOfQuestions() {
     return amountOfQuestions;
@@ -194,21 +206,28 @@ function displayImageURL(imageURL) {
     document.getElementById('image').innerHTML = imageURL;
 }
 **/
+function setCurrentScore(){
+    var url= "api/calcScore?userId=Student";
+    var request = new XMLHttpRequest();
+    request.open("GET", url, false);
+    request.send(null);
+    console.log(request.response);
+    document.getElementById("score").innerHTML= request.response;
+    console.log("Hello?");
+}
+
 //Calls generateQuestion on the JSON object for the question at ith index
 function pageDisplay(imageTaskJSON) {
-    //Displays the image on the page at the appropriate tag
-    //displayImageURL(generateImageURL(imageTaskJSON.imageUrl));
-    //Displays the questions at the tags
+    setCurrentScore();
 
+    //Displays the questions at the tags
     for (var i = 0; i < imageTaskJSON.taskQuestions.length; i++) {
         generateQuestion(imageTaskJSON.taskQuestions[i]);
     }
 }
 //Clears question IDs from working image task.
 function clearQuestionIDs() {
-    for (var i = 0; i < QuestionIDs.length; i++) {
-        QuestionIDs.pop();
-    }
+    QuestionIDs= [];
 }
 //Removes all text from the screen at id questionSet to prep for next image task.
 function clearPage() {

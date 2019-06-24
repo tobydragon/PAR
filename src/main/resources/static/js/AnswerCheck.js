@@ -42,9 +42,7 @@ function displayCheck(value) {
 }
 //Clears the answers from the page.
 function clearQuestionAnswers() {
-    for (var i = 0; i < responsesGivenText.length; i++) {
-        responsesGivenText.pop();
-    }
+    responsesGivenText= [];
 }
 /** not needed right now, so commented out, but shows the toggable state of an element on a page.
 function toggleShowState(toggableElement) {
@@ -69,4 +67,6 @@ function checkAnswers() {
     generateResponseJSON();
     clearQuestionAnswers();
     clearQuestionIDs();
+
+    setCurrentScore();
 }

@@ -36,8 +36,8 @@ public class ParRestController {
     }
 
     @GetMapping("/nextImageTask")
-    public ImageTask nextImageTask(@RequestBody String userId) {
-            return parServer.nextImageTask(userId);
+    public ImageTask nextImageTask() {
+            return parServer.nextImageTask("Student");
     }
 
     @PostMapping("/recordResponse")
