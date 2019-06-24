@@ -1,4 +1,4 @@
-package edu.ithaca.dragon.par.domain;
+package edu.ithaca.dragon.par.domainModel;
 
 import java.util.List;
 
@@ -8,16 +8,18 @@ public class Question {
     private int difficulty;
     private String questionText;
     private String correctAnswer;
-    private List<String> answers;
+    private List<String> possibleAnswers;
+    private String imageUrl;
 
     public Question(){}
 
-    public Question(String idIn, String questionTextIn, int difficultyIn, String correctAnswerIn, List<String> answersIn){
+    public Question(String idIn, String questionTextIn, int difficultyIn, String correctAnswerIn, List<String> answersIn, String imageUrlIn){
         this.id = idIn;
         this.questionText = questionTextIn;
         this.difficulty = difficultyIn;
         this.correctAnswer = correctAnswerIn;
-        this.answers = answersIn;
+        this.possibleAnswers = answersIn;
+        this.imageUrl = imageUrlIn;
     }
 
     public String getId() {return id;}
@@ -32,8 +34,11 @@ public class Question {
     public String getCorrectAnswer() {return correctAnswer;}
     public void setCorrectAnswer(String correctAnswerIn) {correctAnswer = correctAnswerIn;}
 
-    public List<String> getAnswers() {return answers;}
-    public void setAnswers(List<String> answersIn) {answers = answersIn;}
+    public List<String> getPossibleAnswers() {return possibleAnswers;}
+    public void setPossibleAnswers(List<String> answersIn) { possibleAnswers = answersIn;}
+
+    public String getImageUrl() {return imageUrl;}
+    public void setImageUrl(String imageUrlIn) {imageUrl =imageUrlIn; }
 
     @Override
     public String toString() {
@@ -53,6 +58,7 @@ public class Question {
                 && this.getQuestionText().equals(other.getQuestionText())
                 && this.getDifficulty() == (other.getDifficulty())
                 && this.getCorrectAnswer().equals(other.getCorrectAnswer())
-                && this.getAnswers().equals(other.getAnswers());
+                && this.getPossibleAnswers().equals(other.getPossibleAnswers())
+                && this.getImageUrl().equals(other.getImageUrl());
     }
 }

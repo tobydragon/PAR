@@ -1,77 +1,36 @@
 package edu.ithaca.dragon.par.studentModel;
 
-import edu.ithaca.dragon.par.domain.Question;
+import edu.ithaca.dragon.par.domainModel.Question;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserQuestionSet {
-    public String userId;
-    public List<Question>unseenQuestions;
-    public List<Question>seenQuestions;
-    public List<Integer> timesSeen;
+    private String userId;
+    private List<Question>unseenQuestions;
+    private List<Question>seenQuestions;
+    private List<Integer> timesSeen;
 
 
-    public UserQuestionSet(String userIdIn){
-
-        unseenQuestions = new ArrayList<Question>();
+    public UserQuestionSet(String userIdIn, List<Question> unseenQuestionsIn){
+        //TODO: call the other constructor
         seenQuestions = new ArrayList<Question>();
+        this.unseenQuestions = unseenQuestionsIn;
         timesSeen = new ArrayList<Integer>();
         this.userId=userIdIn;
-
-        List<String > eyeA = new ArrayList<String>();
-        eyeA.add("purple");
-        eyeA.add("blue");
-        eyeA.add("green");
-        eyeA.add("brown");
-        Question q1 = new Question("1", "What is your eye color?", 1, "purple", eyeA);
-        unseenQuestions.add(q1);
-
-        List<String > colorA = new ArrayList<String>();
-        colorA.add("purple");
-        colorA.add("blue");
-        colorA.add("green");
-        colorA.add("brown");
-        Question q2 = new Question("2", "What is your favorite color?", 2, "brown", colorA);
-        unseenQuestions.add(q2);
-
-        List<String > skyA = new ArrayList<String>();
-        skyA.add("purple");
-        skyA.add("blue");
-        skyA.add("green");
-        skyA.add("brown");
-        Question q3 = new Question("3", "What color is the sky?", 3, "blue", skyA);
-        unseenQuestions.add(q3);
-
-
-        List<String > grassA = new ArrayList<String>();
-        grassA.add("purple");
-        grassA.add("blue");
-        grassA.add("green");
-        grassA.add("brown");
-        Question q4 = new Question("4", "What color is the grass?", 1, "green", grassA);
-        unseenQuestions.add(q4);
-
-        List<String > ounceA = new ArrayList<String>();
-        ounceA.add("4");
-        ounceA.add("8");
-        ounceA.add("16");
-        ounceA.add("12");
-        Question q5 = new Question("5", "How many ounces are in a pound?", 3, "16", ounceA);
-        unseenQuestions.add(q5);
-
     }
 
-    /**
-     *
-     * @param questionId
-     * @return question
-     * @throws
-     *
-     */
+    public UserQuestionSet(String userIdIn, List<Question> unseenQuestionsIn, List<Question> seenQuestionsIn, List<Integer> timesSeenIn) {
+        seenQuestions = seenQuestionsIn;
+        unseenQuestions = unseenQuestionsIn;
+        timesSeen = timesSeenIn;
+        userId=userIdIn;
+    }
+
+    //TODO: should probably remove thie entirely
     public Question getQ(String questionId) {
         for (int i = 0; i < unseenQuestions.size(); i++){
-            if (unseenQuestions.get(i).getId()==questionId){
+            if (unseenQuestions.get(i).getId().equals(questionId)){
                 return unseenQuestions.get(i);
             }
         }
@@ -88,14 +47,15 @@ public class UserQuestionSet {
 
     public int getTimesSeen (String questionId){
         if(getLenOfSeenQuestions()<1){
-            return -1;
+            return 0;
         }
         for (int i =0; i<seenQuestions.size(); i++){
-            if (seenQuestions.get(i).getId()==questionId){
+            if (seenQuestions.get(i).getId().equals(questionId)){
                 return timesSeen.get(i);
             }
         }
-        return -1;
+        //TODO: should check unseen to confirm the question is part of the set, throw exception if not
+        return 0;
     }
 
 
@@ -103,11 +63,11 @@ public class UserQuestionSet {
         return userId;
     }
 
+    //TODO: should return true or false as to whether the item was found
     public void increaseTimesSeen (String questionId){
         for (int i = 0; i < seenQuestions.size(); i++){
-            if (seenQuestions.get(i).getId()==questionId){
-                int newVal = timesSeen.get(i)+1;
-                timesSeen.set(i, newVal);
+            if (seenQuestions.get(i).getId().equals(questionId)){
+                timesSeen.set(i, timesSeen.get(i)+1);
             }
         }
     }
@@ -121,14 +81,36 @@ public class UserQuestionSet {
     }
 
     public void givenQuestion(String questionId){
+        boolean found = false;
         for (int i = 0; i < unseenQuestions.size(); i++){
-            if (unseenQuestions.get(i).getId()==questionId){
+            if (unseenQuestions.get(i).getId().equals(questionId)){
                 seenQuestions.add(unseenQuestions.get(i));
+                //TODO: shouldn't remove in a loop over the list
                 unseenQuestions.remove(i);
-                timesSeen.add(0);
-
+                timesSeen.add(1);
+                found = true;
             }
         }
+        if (!found) {
+            //checks seen list, adds 1 to time seen if question is found
+            increaseTimesSeen(questionId);
+            //TODO: should check if the question was found in timesSeen, throw exception if not.
+        }
+    }
+
+    @Override
+    public boolean equals(Object otherObj){
+        if(otherObj == null){
+            return false;
+        }
+        if(!UserQuestionSet.class.isAssignableFrom(otherObj.getClass())){
+            return false;
+        }
+        UserQuestionSet other = (UserQuestionSet) otherObj;
+        return this.getUserId().equals(other.getUserId())
+                && this.getSeenQuestions().equals(other.getSeenQuestions())
+                && this.getUnseenQuestions().equals(other.getUnseenQuestions())
+                && this.timesSeen.equals(other.timesSeen);
     }
 
 }

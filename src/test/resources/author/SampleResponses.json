@@ -1,0 +1,5 @@
+[ {
+  "userId" : "response1",
+  "taskQuestionIds" : [ "PlaneQ1", "StructureQ1", "ZoneQ1" ],
+  "responseTexts" : [ "Lateral", "bone", "3c" ]
+} ]

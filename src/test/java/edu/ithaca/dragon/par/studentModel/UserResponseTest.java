@@ -1,17 +1,24 @@
 package edu.ithaca.dragon.par.studentModel;
 
-import edu.ithaca.dragon.par.domain.Question;
+import edu.ithaca.dragon.par.domainModel.Question;
+import edu.ithaca.dragon.par.io.ImageTaskResponse;
+import edu.ithaca.dragon.util.JsonUtil;
 import org.junit.Test;
+
+import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 public class UserResponseTest {
 
     @Test
-    public void checkResponseTest(){
-        Question q1 = new Question("Test Q1", "What is your name?", 1, "King Arthur", Arrays.asList("Bob","Cindy","Damon","King Arthur"));
-        UserResponse response=new UserResponse("kandace",q1,"hi");
-        assertEquals(response.checkResponse(),false);
+    public void checkResponseTest() throws IOException {
+        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestions.json", Question.class);
+        List<ImageTaskResponse> responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponse.class);
+        UserResponse response = new UserResponse("user1", questionsFromFile.get(0), responsesFromFile.get(0).getResponseTexts().get(0));
+        assertEquals(response.checkResponse(), true);
     }
 
 }
