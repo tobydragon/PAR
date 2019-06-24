@@ -36,7 +36,7 @@ function canvasApp() {
     // create and load image objects into an array
     // based on an image source array
     function loadImages(images, imageSources, callback) {
-        var imageTaskJSON = readJson("api/nextImageTask");
+        var imageTaskJSON = readJson("api/nextImageTask?userId="+sendUserId());
         pageDisplay(imageTaskJSON);
         var displayURLThyme = imageTaskJSON.imageUrl.split('\\').pop().split('/').pop();
         imageSources.push("./images/" + displayURLThyme);
