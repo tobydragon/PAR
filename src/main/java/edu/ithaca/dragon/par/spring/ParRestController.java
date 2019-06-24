@@ -23,10 +23,11 @@ public class ParRestController {
     ParRestController(){
         super();
         try {
-            parServer = new ParServer(new QuestionPool(new JsonDatastore("src/main/resources/author/SampleQuestionsSameDifficulty2.json")));
+            parServer = new ParServer(new JsonDatastore("src/main/resources/author/SampleQuestionsSameDifficulty2.json",
+                    "src/main/resources/author/SampleStudentModelBusy.json"));
         }
         catch(IOException e){
-            throw new RuntimeException("Server can't start without questionPool");
+            throw new RuntimeException("Server can't start without questionPool or studentRecord");
         }
     }
 
