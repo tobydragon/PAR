@@ -192,7 +192,7 @@ function changeQuestions() {
     clearPage();
     pageDisplay();
 }
-
+/**
 function generateImageURL(imageURL) {
     //var displayURLThyme = imageURL.split('\\').pop().split('/').pop();
     //displayURLThyme = displayURLThyme.substr(0, displayURLThyme.length - 1);
@@ -208,7 +208,7 @@ function generateImageURL(imageURL) {
 function displayImageURL(imageURL) {
     document.getElementById('image').innerHTML = imageURL;
 }
-
+**/
 function pageDisplay(imageTaskJSON) {
     //Displays the image on the page at the appropriate tag
     //displayImageURL(generateImageURL(imageTaskJSON.imageUrl));
@@ -219,8 +219,8 @@ function pageDisplay(imageTaskJSON) {
     }
 }
 
-function clearQuestionIDs(){
-    for(var i=0; i<QuestionIDs.length; i++){
+function clearQuestionIDs() {
+    for (var i = 0; i < QuestionIDs.length; i++) {
         QuestionIDs.pop();
     }
 }
