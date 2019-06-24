@@ -192,7 +192,7 @@ function changeQuestions() {
     clearPage();
     pageDisplay();
 }
-/**
+/** might be needed later, commented out rather than deleted.
 function generateImageURL(imageURL) {
     //var displayURLThyme = imageURL.split('\\').pop().split('/').pop();
     //displayURLThyme = displayURLThyme.substr(0, displayURLThyme.length - 1);

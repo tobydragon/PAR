@@ -2,9 +2,9 @@ var responsesGivenText = [];
 var QuestionIDs = [];
 var UserID;
 
-function getUserIdfromUser(){
-    UserID= document.getElementById("inputId").value;
-    document.getElementById("userID").innerText= UserID;
+function getUserIdfromUser() {
+    UserID = document.getElementById("inputId").value;
+    document.getElementById("userID").innerText = UserID;
 }
 
 function sendUserId() {
@@ -27,7 +27,7 @@ function createResponseJson() {
         taskQuestionIds: QuestionIDs,
         responseTexts: responsesGivenText
     };
-    return newResponse
+    return newResponse;
 }
 
 function submitToAPI(url, objectToSubmit) {
@@ -35,7 +35,7 @@ function submitToAPI(url, objectToSubmit) {
     request.open("POST", url);
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     request.send(JSON.stringify(objectToSubmit));
-    request.onreadystatechange = function() {
+    request.onreadystatechange = function () {
         if (request.status === 200) {
 
         } else {
