@@ -128,7 +128,7 @@ function getQuestionIDs() {
     return QuestionIDs;
 }
 
-
+//Gets JSON, reads it, and returns it
 function readJson(url) {
     var request = new XMLHttpRequest();
     request.open("GET", url, false);
@@ -136,35 +136,22 @@ function readJson(url) {
 
     return JSON.parse(request.response);
 }
-
-function generateQuestions(question) {
-    var difficultyStr;
-    if (question.difficulty == 1) {
-        difficultyStr = createFillIn(question);
-        amountOfQuestions++;
-    }
-    if (question.difficulty == 2) {
-        difficultyStr = createFillIn(question);
-        amountOfQuestions++;
-    }
-    if (question.difficulty == 3) {
-        difficultyStr = createFillIn(question);
-        amountOfQuestions++;
-    }
-    if (question.difficulty == 4) {
-        difficultyStr = createFillIn(question);
-        amountOfQuestions++;
-    }
+//generates question for html based on the question given (the JSON)
+function generateQuestion(question) {
+    var difficultyStr = createFillIn(question);
+    amountOfQuestions++;
 
     QuestionAnswers.push(question.correctAnswer);
     QuestionIDs.push(question.id);
-    displayQuestions(difficultyStr);
+    displayQuestion(difficultyStr);
 }
 
-function displayQuestions(displayHTML) {
+//display function for showing previously generated HTML of questions onscreen.
+function displayQuestion(displayHTML) {
     document.getElementById("questionSet").innerHTML += displayHTML;
 }
 
+//Creates radio question based on question given and difficulty for the html.
 function createRadioQuestion(json) {
     var question = "<p>" + json.questionText + "</p>";
     for (var i = 0; i < json.possibleAnswers.length; i++) {
@@ -174,6 +161,7 @@ function createRadioQuestion(json) {
     return question;
 }
 
+//Creates fill in question based on question given and difficulty for the html.
 function createFillIn(json) {
     var question = "<p>" + json.questionText + '</p> <input name="' + ("q" + (getNumberOfQuestions())) + '" list="' + ("list" + getNumberOfQuestions()) + '"/> <datalist id="' + ("list" + getNumberOfQuestions()) + '">';
     for (var i = 0; i < json.possibleAnswers.length; i++) {
@@ -184,13 +172,11 @@ function createFillIn(json) {
     return question;
 }
 
-function clearPage() {
-    document.getElementById('questionSet').innerHTML = " ";
-}
-
+//caller function for changing the questions (and image task).
 function changeQuestions() {
     clearPage();
     pageDisplay();
+    canvasApp();
 }
 /** might be needed later, commented out rather than deleted.
 function generateImageURL(imageURL) {
@@ -209,28 +195,24 @@ function displayImageURL(imageURL) {
     document.getElementById('image').innerHTML = imageURL;
 }
 **/
+//Calls generateQuestion on the JSON object for the question at ith index
 function pageDisplay(imageTaskJSON) {
     //Displays the image on the page at the appropriate tag
     //displayImageURL(generateImageURL(imageTaskJSON.imageUrl));
     //Displays the questions at the tags
 
     for (var i = 0; i < imageTaskJSON.taskQuestions.length; i++) {
-        generateQuestions(imageTaskJSON.taskQuestions[i]);
+        generateQuestion(imageTaskJSON.taskQuestions[i]);
     }
 }
-
+//Clears question IDs from working image task.
 function clearQuestionIDs() {
     for (var i = 0; i < QuestionIDs.length; i++) {
         QuestionIDs.pop();
     }
 }
-
+//Removes all text from the screen at id questionSet to prep for next image task.
 function clearPage() {
     document.getElementById('questionSet').innerHTML = " ";
     amountOfQuestions = 0;
-}
-
-function changeQuestions() {
-    clearPage();
-    canvasApp();
 }
