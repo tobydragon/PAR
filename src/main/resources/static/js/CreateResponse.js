@@ -8,10 +8,10 @@ function getUserIdfromUser() {
 }
 
 function sendUserId() {
-    if (UserID == null) {
-        return "Student"
-    } else {
+    if (UserID != null) {
         return UserID;
+    } else {
+        return "Student";
     }
 }
 
@@ -22,11 +22,20 @@ function setVariables() {
 }
 
 function createResponseJson() {
-    var newResponse = {
-        userId: "Student",
-        taskQuestionIds: QuestionIDs,
-        responseTexts: responsesGivenText
-    };
+    var newResponse;
+    if (UserID != null) {
+        newResponse = {
+            userId: UserID,
+            taskQuestionIds: QuestionIDs,
+            responseTexts: responsesGivenText
+        };
+    } else {
+        newResponse = {
+            userId: "Student",
+            taskQuestionIds: QuestionIDs,
+            responseTexts: responsesGivenText
+        };
+    }
     return newResponse;
 }
 
@@ -49,6 +58,7 @@ function generateResponseJSON() {
     var object = createResponseJson();
     submitToAPI("api/recordResponse", object);
 }
+
 
 //for testing purposes only
 function testSetVariables() {
