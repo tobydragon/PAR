@@ -37,6 +37,7 @@ function canvasApp() {
     // based on an image source array
     function loadImages(images, imageSources, callback) {
         var imageTaskJSON = readJson("api/nextImageTask");
+        pageDisplay(imageTaskJSON);
         var displayURLThyme = imageTaskJSON.imageUrl.split('\\').pop().split('/').pop();
         imageSources.push("./images/" + displayURLThyme);
 
@@ -113,7 +114,6 @@ function canvasApp() {
 var amountOfQuestions = 0;
 var QuestionAnswers = [];
 var QuestionIDs = [];
-var UserID;
 
 
 function getNumberOfQuestions() {
@@ -128,9 +128,6 @@ function getQuestionIDs() {
     return QuestionIDs;
 }
 
-function getUserID() {
-    return UserID;
-}
 
 function readJson(url) {
     var request = new XMLHttpRequest();
@@ -160,6 +157,7 @@ function generateQuestions(question) {
     }
 
     QuestionAnswers.push(question.correctAnswer);
+    QuestionIDs.push(question.id);
     displayQuestions(difficultyStr);
 }
 
@@ -173,7 +171,6 @@ function createRadioQuestion(json) {
         question += '<br> <input type="radio" name="' + ("q" + (getNumberOfQuestions())) + '" value="';
         question = question + json.possibleAnswers[i] + '">' + json.possibleAnswers[i] + '<br> <i id="' + "questionCorrect" + (getNumberOfQuestions()) + '"></i>';
     }
-    console.log("rit: questionCorrect" + getNumberOfQuestions());
     return question;
 }
 
@@ -212,9 +209,7 @@ function displayImageURL(imageURL) {
     document.getElementById('image').innerHTML = imageURL;
 }
 
-function pageDisplay() {
-    var imageTaskJSON = readJson("api/nextImageTask");
-
+function pageDisplay(imageTaskJSON) {
     //Displays the image on the page at the appropriate tag
     //displayImageURL(generateImageURL(imageTaskJSON.imageUrl));
     //Displays the questions at the tags
@@ -224,12 +219,18 @@ function pageDisplay() {
     }
 }
 
+function clearQuestionIDs(){
+    for(var i=0; i<QuestionIDs.length; i++){
+        QuestionIDs.pop();
+    }
+}
+
 function clearPage() {
     document.getElementById('questionSet').innerHTML = " ";
+    amountOfQuestions = 0;
 }
 
 function changeQuestions() {
-    canvasApp();
     clearPage();
-    pageDisplay();
+    canvasApp();
 }

@@ -1,16 +1,28 @@
-var responsesGivenText= [];
-var QuestionIDs= [];
+var responsesGivenText = [];
+var QuestionIDs = [];
 var UserID;
 
-function setVariables(){
-    responsesGivenText= getResponsesText();
-    QuestionIDs= getQuestionIDs();
-    UserID= getQuestionIDs();
+function getUserIdfromUser(){
+    UserID= document.getElementById("inputId").value;
+    document.getElementById("userID").innerText= UserID;
 }
 
-function createResponseJson(){
-    //should change UserId when that is sent
-    var newResponse= {
+function sendUserId() {
+    if (UserID == null) {
+        return "Student"
+    } else {
+        return UserID;
+    }
+}
+
+function setVariables() {
+    responsesGivenText = getResponsesText();
+    QuestionIDs = getQuestionIDs();
+    UserID = getQuestionIDs();
+}
+
+function createResponseJson() {
+    var newResponse = {
         userId: "Student",
         taskQuestionIds: QuestionIDs,
         responseTexts: responsesGivenText
@@ -32,20 +44,20 @@ function submitToAPI(url, objectToSubmit) {
     };
 }
 
-function generateResponseJSON(){
+function generateResponseJSON() {
     setVariables();
-    var object= createResponseJson();
+    var object = createResponseJson();
     submitToAPI("api/recordResponse", object);
 }
 
 //for testing purposes only
-function testSetVariables(){
-    responsesGivenText= ["Lateral","ligament","Unsure"];
-    QuestionIDs= ["PlaneQ1","StructureQ1","ZoneQ1"];
-    UserID= "Hewwo123";
+function testSetVariables() {
+    responsesGivenText = ["Lateral", "ligament", "Unsure"];
+    QuestionIDs = ["PlaneQ1", "StructureQ1", "ZoneQ1"];
+    UserID = "Hewwo123";
 }
 
-function testGenerateReponseJSON(){
+function testGenerateReponseJSON() {
     testSetVariables();
     return createResponseJson();
 }

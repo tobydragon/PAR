@@ -16,6 +16,8 @@ function checkAndRecordAnswers() {
     var form = document.getElementById("form1")
     for (var i = 0; i < numberOfQuestions; i++) {
         var currentName = "q" + i;
+        console.log(currentName);
+        console.log(form[currentName].value);
         var currentAnswer = form[currentName].value;
 
         responsesGivenText.push(currentAnswer);
@@ -38,6 +40,12 @@ function displayCheck(value) {
     if (value == "Unsure") return '<font color=\"#663399\">Your answer is: ' + value + '</font>';
 }
 
+function clearQuestionAnswers(){
+    for(var i=0; i<responsesGivenText.length; i++){
+        responsesGivenText.pop();
+    }
+}
+
 function toggleShowState(toggableElement) {
     var changeElement = document.getElementById(toggableElement).classList;
 
@@ -57,4 +65,6 @@ function checkAnswers() {
     checkAndRecordAnswers();
     //call CreateResponse to send answers back to the server
     generateResponseJSON();
+    clearQuestionAnswers();
+    clearQuestionIDs();
 }

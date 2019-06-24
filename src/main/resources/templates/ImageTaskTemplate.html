@@ -31,6 +31,29 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-1"></div>
+            <div class="col-4">
+                <form name="userIDinput">
+                    <div class="form-group">
+                        <label for="userID">User ID</label>
+                        <input type="userId" class="form-control" id="inputId" aria-describedby="idHelp" placeholder="Enter user ID">
+                        <small id="idHelp" class="form-text text-muted">A PAR Employee will never ask for your password.</small>
+                    </div>
+                </form>
+            </div>
+            <div class="col-1 colVertCenter">
+                <button type="button" class="btn btn-primary" onclick="getUserIdfromUser()">Login</button>
+            </div>
+            <div class="col-3 colVertCenter">
+                <b>Score: </b>
+                <i id="score"></i>
+            </div>
+            <div class="col-3 colVertCenter">
+                <b>User ID:  </b>
+                <i id="userID"> </i>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-1"></div>
             <div class="col-6 imgCenter">
                 <canvas id="myCanvas" width="700%" height="550%" class="center-block">
                     Your browser doesn't support Canvas.

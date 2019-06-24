@@ -1,6 +1,7 @@
 package edu.ithaca.dragon.par;
 
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
+import edu.ithaca.dragon.par.io.Datastore;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
 import edu.ithaca.dragon.par.pedagogicalModel.ImageTaskChooser;
@@ -8,6 +9,7 @@ import edu.ithaca.dragon.par.studentModel.StudentModel;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ParServer {
@@ -18,6 +20,13 @@ public class ParServer {
     public ParServer(QuestionPool questionPool){
         this.questionPool = questionPool;
         studentModelMap = new HashMap<>();
+    }
+
+    public ParServer(Datastore datastore) throws IOException{
+        this(new QuestionPool(datastore));
+        for (StudentModel studentModel : datastore.loadStudentModels()){
+            studentModelMap.put(studentModel.getUserId(), studentModel);
+        }
     }
 
     public ImageTask nextImageTask(String userId){
