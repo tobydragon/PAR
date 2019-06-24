@@ -175,7 +175,6 @@ function createFillIn(json) {
 //caller function for changing the questions (and image task).
 function changeQuestions() {
     clearPage();
-    pageDisplay();
     canvasApp();
 }
 /** might be needed later, commented out rather than deleted.

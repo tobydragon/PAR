@@ -12,6 +12,7 @@ function setQuestionLists() {
     QuestionAnswers = getQuestionAnswers();
 }
 
+//Checks the answers given in the questions against the record of what is correct/incorrect.
 function checkAndRecordAnswers() {
     var form = document.getElementById("form1")
     for (var i = 0; i < numberOfQuestions; i++) {
@@ -33,19 +34,19 @@ function checkAndRecordAnswers() {
     }
 }
 
-
+//Displays the value of right/wrong based on the previous function's input value.
 function displayCheck(value) {
     if (value == "Correct") return '<font color=\"green\">Your answer is: ' + value + '</font>';
     if (value == "Incorrect") return '<font color=\"red\">Your answer is: ' + value + '</font>';
     if (value == "Unsure") return '<font color=\"#663399\">Your answer is: ' + value + '</font>';
 }
-
-function clearQuestionAnswers(){
-    for(var i=0; i<responsesGivenText.length; i++){
+//Clears the answers from the page.
+function clearQuestionAnswers() {
+    for (var i = 0; i < responsesGivenText.length; i++) {
         responsesGivenText.pop();
     }
 }
-
+/** not needed right now, so commented out, but shows the toggable state of an element on a page.
 function toggleShowState(toggableElement) {
     var changeElement = document.getElementById(toggableElement).classList;
 
@@ -57,6 +58,7 @@ function toggleShowState(toggableElement) {
         changeElement.add("show");
     }
 }
+**/
 
 function checkAnswers() {
     //get list of question answers and number of questions from readImageTask
