@@ -3,7 +3,8 @@ import edu.ithaca.dragon.par.domainModel.Question;
 
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
 import edu.ithaca.dragon.util.JsonUtil;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
