@@ -16,4 +16,4 @@ The goal is to create a system that can generate and display complete imageTasks
 # Sprint 2
 The goal of this sprint is to have a usable system in a example practice instance, with architecture decisions on the front end.
 
-### [Sequence Diagram] (https://drive.google.com/file/d/1ZpLw_vbLu6KnSWsBCviQYmpIlEqpbHq-/view)
+### [Sequence Diagram](https://drive.google.com/file/d/1ZpLw_vbLu6KnSWsBCviQYmpIlEqpbHq-/view)
