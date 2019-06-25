@@ -14,21 +14,6 @@
 
 /* ========================================================= */
 /*  Page Level Style Rules */
-header {
-    background-color: #007524;
-}
-
-header img {
-    width: 100%;
-}
-
-footer {
-    background-color: #D3D3D3;
-    font-family: 'PT Sans', 'Nanum Gothic', sans-serif;
-}
-
-
-
 body {
     font-family: 'PT Sans', 'Source Sans Pro', sans-serif;
 }
@@ -43,10 +28,6 @@ h5 {
     font-family: 'Nanum Gothic', sans-serif;
 }
 
-#limegreen {
-    color: #32CD32;
-}
-
 .center {
     text-align: center;
 }
@@ -57,28 +38,8 @@ h5 {
     margin-right: auto;
 }
 
-.left {
-    text-align: left;
-}
-
-.size30 {
-    font-size: 30px;
-}
-
-.size20 {
-    font-size: 20px;
-}
-
-.pad15 {
-    padding: 15px;
-}
-
 .underline {
     text-decoration: underline;
-}
-
-.margin10 {
-    margin: 10px;
 }
 
 .hide {

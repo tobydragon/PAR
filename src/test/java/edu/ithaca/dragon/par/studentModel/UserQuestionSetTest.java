@@ -80,12 +80,12 @@ public class UserQuestionSetTest {
         assertEquals(3,len);
 
         //checks length of seen list does not change when invalid question ID is used
-        que.givenQuestion("4");
+        assertThrows(RuntimeException.class, () -> { que.givenQuestion("4");});
         len = que.getLenOfSeenQuestions();
         assertEquals(3,len);
 
         //checks length of seen list does not change when invalid question ID is used
-        que.givenQuestion("1");
+        assertThrows(RuntimeException.class, () -> { que.givenQuestion("1");});
         len = que.getLenOfSeenQuestions();
         assertEquals(3,len);
 
@@ -125,46 +125,14 @@ public class UserQuestionSetTest {
         assertEquals(0,len);
 
         //checks length of unseen list does not change when invalid question ID is used
-        que.givenQuestion("4");
+        assertThrows(RuntimeException.class, () -> { que.givenQuestion("4");});
         len = que.getLenOfUnseenQuestions();
         assertEquals(0,len);
 
         //checks length of unseen list does not change when invalid question ID is used
-        que.givenQuestion("1");
+        assertThrows(RuntimeException.class, () -> { que.givenQuestion("1");});
         len = que.getLenOfUnseenQuestions();
         assertEquals(0,len);
-
-    }
-
-    @Test
-    public void getQTest() throws IOException{
-        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestions.json", Question.class);
-        UserQuestionSet que = new UserQuestionSet("100", questionsFromFile);
-
-        //checks correct question is returned
-        Question q = que.getQ("PlaneQ1");
-        assertEquals("On which plane is the ultrasound taken?", q.getQuestionText());
-
-        //checks correct question is returned
-        q = que.getQ("StructureQ1");
-        assertEquals("What structure is in the near field?", q.getQuestionText());
-
-        //checks correct question is returned
-        q = que.getQ("ZoneQ1");
-        assertEquals("In what zone is this ultrasound taken?", q.getQuestionText());
-
-        //checks correct question is returned when repeating question ID
-        q = que.getQ("ZoneQ1");
-        assertEquals("In what zone is this ultrasound taken?", q.getQuestionText());
-
-        //checks no question is returned
-        q = que.getQ("5");
-        assertNull(q);
-
-        //checks no question is returned
-        q = que.getQ("4");
-        assertNull(q);
-
 
     }
 
@@ -197,16 +165,13 @@ public class UserQuestionSetTest {
         assertEquals(4, seen4);
 
         //checks with invalid question ID
-        int seen5 = que.getTimesSeen("5");
-        assertEquals(0, seen5);
+        assertThrows(RuntimeException.class, () -> { que.getTimesSeen("5");});
 
         //checks with invalid question ID
-        int seen6 = que.getTimesSeen("6");
-        assertEquals(0, seen6);
+        assertThrows(RuntimeException.class, () -> { que.getTimesSeen("6");});
 
         //checks with invalid question ID
-        int seen42 = que.getTimesSeen("42");
-        assertEquals(0, seen42);
+        assertThrows(RuntimeException.class, () -> { que.getTimesSeen("42");});
 
     }
 
@@ -254,7 +219,8 @@ public class UserQuestionSetTest {
         que.givenQuestion("PlaneQ1");
         int seen = que.getTimesSeen("PlaneQ1");
         assertEquals(1, seen);
-        que.increaseTimesSeen("PlaneQ1");
+        boolean found = que.increaseTimesSeen("PlaneQ1");
+        assertTrue(found);
         seen = que.getTimesSeen("PlaneQ1");
         assertEquals(2, seen);
 
@@ -262,8 +228,10 @@ public class UserQuestionSetTest {
         que.givenQuestion("StructureQ1");
         seen = que.getTimesSeen("StructureQ1");
         assertEquals(1, seen);
-        que.increaseTimesSeen("StructureQ1");
-        que.increaseTimesSeen("StructureQ1");
+        found = que.increaseTimesSeen("StructureQ1");
+        assertTrue(found);
+        found = que.increaseTimesSeen("StructureQ1");
+        assertTrue(found);
         seen = que.getTimesSeen("StructureQ1");
         assertEquals(3, seen);
 
@@ -277,17 +245,17 @@ public class UserQuestionSetTest {
         seen = que.getTimesSeen("StructureQ1");
         assertEquals(3, seen);
 
-        //invalid question ID
-        seen = que.getTimesSeen("2");
-        assertEquals(0, seen);
+        found = que.increaseTimesSeen("hey hey hey :)");
+        assertFalse(found);
 
         //invalid question ID
-        seen = que.getTimesSeen("7");
-        assertEquals(0, seen);
+        assertThrows(RuntimeException.class, () -> { que.getTimesSeen("2");});
 
         //invalid question ID
-        seen = que.getTimesSeen("4");
-        assertEquals(0, seen);
+        assertThrows(RuntimeException.class, () -> { que.getTimesSeen("7");});
+
+        //invalid question ID
+        assertThrows(RuntimeException.class, () -> { que.getTimesSeen("4");});
 
         //checks question has no increase in times seen
         seen = que.getTimesSeen("StructureQ1");
@@ -324,13 +292,13 @@ public class UserQuestionSetTest {
         assertEquals(1, len);
 
         //invalid question ID
-        que.givenQuestion("6");
+        assertThrows(RuntimeException.class, () -> { que.givenQuestion("6");});
         unseenList = que.getUnseenQuestions();
         len = unseenList.size();
         assertEquals(1, len);
 
         //invalid question ID
-        que.givenQuestion("5");
+        assertThrows(RuntimeException.class, () -> { que.givenQuestion("5");});
         unseenList = que.getUnseenQuestions();
         len = unseenList.size();
         assertEquals(1, len);
@@ -383,13 +351,13 @@ public class UserQuestionSetTest {
         assertEquals(2, len);
 
         //invalid question ID
-        que.givenQuestion("6");
+        assertThrows(RuntimeException.class, () -> { que.givenQuestion("6");});
         seenList = que.getSeenQuestions();
         len = seenList.size();
         assertEquals(2, len);
 
         //invalid question ID
-        que.givenQuestion("5");
+        assertThrows(RuntimeException.class, () -> { que.givenQuestion("5");});
         seenList = que.getSeenQuestions();
         len = seenList.size();
         assertEquals(2, len);
@@ -454,15 +422,14 @@ public class UserQuestionSetTest {
         assertEquals(1, ts);
 
         //Invalid Question ID, no values change
-        que.givenQuestion("3");
+        assertThrows(RuntimeException.class, () -> { que.givenQuestion("3");});
         seen = que.getSeenQuestions();
         unseen = que.getUnseenQuestions();
         unseenLen = unseen.size();
         seenLen = seen.size();
         assertEquals(1, unseenLen);
         assertEquals(2, seenLen);
-        ts = que.getTimesSeen("3");
-        assertEquals(0, ts);
+        assertThrows(RuntimeException.class, () -> { que.getTimesSeen("3");});
 
         //already seen question, seen and unseen list lengths do not change, times seen increases
         que.givenQuestion("PlaneQ1");
@@ -487,15 +454,14 @@ public class UserQuestionSetTest {
         assertEquals(1, ts);
 
         //invalid question ID, no values change
-        que.givenQuestion("1");
+        assertThrows(RuntimeException.class, () -> { que.givenQuestion("1");});
         seen = que.getSeenQuestions();
         unseen = que.getUnseenQuestions();
         unseenLen = unseen.size();
         seenLen = seen.size();
         assertEquals(0, unseenLen);
         assertEquals(3, seenLen);
-        ts = que.getTimesSeen("1");
-        assertEquals(0, ts);
+        assertThrows(RuntimeException.class, () -> { que.getTimesSeen("1");});
 
         //already seen question, times seen increases, seen and unseen lists remain unchanged
         que.givenQuestion("ZoneQ1");

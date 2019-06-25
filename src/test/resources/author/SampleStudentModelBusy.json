@@ -1,10 +1,10 @@
-[{
+{
   "userId" : "TestUser1",
   "userQuestionSetRecord" : {
     "userId" : "TestUser1",
-    "unseenQuestionIds" : [ ],
-    "seenQuestionIds" : [ "PlaneQ1", "StructureQ1", "ZoneQ1"],
-    "timesSeen" : [5, 5, 5]
+    "unseenQuestionIds" : [ "PlaneQ1", "StructureQ1", "ZoneQ1" ],
+    "seenQuestionIds" : [ ],
+    "timesSeen" : [ ]
   },
   "userResponseSetRecord" : {
     "userId" : "TestUser1",
@@ -70,4 +70,4 @@
       "responseText" : "student"
     } ]
   }
-}]
+}

@@ -2,32 +2,36 @@ var responsesGivenText = [];
 var QuestionIDs = [];
 var UserID;
 
-function getUserIdfromUser(){
-    UserID= document.getElementById("inputId").value;
-    document.getElementById("userID").innerText= UserID;
-}
-
-function sendUserId() {
-    if (UserID == null) {
-        return "Student"
-    } else {
-        return UserID;
-    }
+function getUserIdfromUser() {
+    UserID = document.getElementById("inputId").value;
+    document.getElementById("userID").innerText = UserID;
+    changeUserID(UserID);
 }
 
 function setVariables() {
     responsesGivenText = getResponsesText();
     QuestionIDs = getQuestionIDs();
-    UserID = getQuestionIDs();
+    UserID = sendUserId();
 }
 
 function createResponseJson() {
-    var newResponse = {
-        userId: "Student",
-        taskQuestionIds: QuestionIDs,
-        responseTexts: responsesGivenText
-    };
-    return newResponse
+    var newResponse;
+    if (UserID != null) {
+        newResponse = {
+            userId: UserID,
+            taskQuestionIds: QuestionIDs,
+            responseTexts: responsesGivenText
+        };
+        console.log(QuestionIDs);
+        console.log(responsesGivenText);
+    } else {
+        newResponse = {
+            userId: "Student",
+            taskQuestionIds: QuestionIDs,
+            responseTexts: responsesGivenText
+        };
+    }
+    return newResponse;
 }
 
 function submitToAPI(url, objectToSubmit) {
@@ -35,9 +39,9 @@ function submitToAPI(url, objectToSubmit) {
     request.open("POST", url);
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     request.send(JSON.stringify(objectToSubmit));
-    request.onreadystatechange = function() {
+    request.onreadystatechange = function () {
         if (request.status === 200) {
-
+            setCurrentScore();
         } else {
             window.location.replace("/error");
         }
@@ -48,7 +52,10 @@ function generateResponseJSON() {
     setVariables();
     var object = createResponseJson();
     submitToAPI("api/recordResponse", object);
+    console.log("Response Sent to "+ UserID);
+
 }
+
 
 //for testing purposes only
 function testSetVariables() {
