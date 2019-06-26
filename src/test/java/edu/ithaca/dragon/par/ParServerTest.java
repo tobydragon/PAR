@@ -67,7 +67,7 @@ public class ParServerTest {
 
     @Test
     public void nextImageTaskSingleTest() throws IOException{
-        QuestionPool questionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionsSameDifficulty.json"));
+        QuestionPool questionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));
         ParServer parServer = new ParServer(questionPool);
         ImageTask nextTask = parServer.nextImageTaskSingle("s1");
         ImageTask intendedFirstTask = JsonUtil.fromJsonFile("src/test/resources/author/SampleImageTaskSingleQuestion.json", ImageTask.class);
