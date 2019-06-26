@@ -14,14 +14,16 @@ function canvasApp() {
     var imageSource;
 
     function loadImages(images, imageSources, callback) {
-        var imageTaskJSON = readJson("api/nextImageTask?userId="+sendUserId());
+        var imageTaskJSON = readJson("api/nextImageTask?userId=" + sendUserId());
         pageDisplay(imageTaskJSON);
         var displayURLThyme = imageTaskJSON.imageUrl.split('\\').pop().split('/').pop();
-        imageSource= "./images/" + displayURLThyme;
+        imageSource = "./images/" + displayURLThyme;
 
 
         image = new Image();
-        image.onload = function() {callback()};
+        image.onload = function () {
+            callback()
+        };
         image.src = imageSource;
 
     }
@@ -87,8 +89,8 @@ function createRadioQuestion(json) {
         question += '<br> <input type="radio" name="' + ("q" + amountOfQuestions) + '" value="';
         question = question + json.possibleAnswers[i] + '">' + json.possibleAnswers[i];
     }
-    question+='<br> <input type="radio" name="I do not know" value="Unsure"';
-    question+='<br> <i id="questionCorrect"' + (amountOfQuestions) + '></i>';
+    question += '<br> <input type="radio" name="I do not know" value="Unsure"';
+    question += '<br> <i id="questionCorrect"' + (amountOfQuestions) + '></i>';
     return question;
 }
 
@@ -98,27 +100,30 @@ function createFillIn(json) {
     for (var i = 0; i < json.possibleAnswers.length; i++) {
         question = question + '<option value="' + json.possibleAnswers[i] + '"/>';
     }
-    question+= '<option value="Unsure"/>';
+    question += '<option value="Unsure"/>';
     question += '</datalist>';
     question += '<i id="' + "questionCorrect" + (amountOfQuestions) + '"></i>';
     return question;
 }
 
-function setCurrentScore(){
-    var url= "api/calcScore?userId="+sendUserId();
+function setCurrentScore() {
+    var url = "api/calcScore?userId=" + sendUserId();
     var request = new XMLHttpRequest();
     request.open("GET", url, false);
     request.send(null);
 
     //can be -1 currently if User is new
-    var score=request.response;
-    if(score==-1) {
-        document.getElementById("score").innerHTML = "0";
+    var score = request.response;
+    if (score == -1) {
+        document.getElementById("score").innerHTML = "&nbsp" + "0";
     } else {
-        document.getElementById("score").innerHTML = score;
+        document.getElementById("score").innerHTML = "&nbsp" + score;
     }
 }
 
+function setUserId() {
+    document.getElementById("UserId").innerHTML = "&nbsp" + sendUserId();
+}
 //Calls generateQuestion on the JSON object for the question at ith index
 function pageDisplay(imageTaskJSON) {
     clearQuestionIDs();
@@ -130,7 +135,7 @@ function pageDisplay(imageTaskJSON) {
 }
 //Clears question IDs from working image task.
 function clearQuestionIDs() {
-    QuestionIDs= [];
+    QuestionIDs = [];
 }
 //Removes all text from the screen at id questionSet to prep for next image task.
 function clearPage() {
@@ -150,8 +155,8 @@ function checkAndRecordAnswers() {
         var isCorrect;
         if (currentAnswer == QuestionAnswers[i]) {
             isCorrect = "Correct";
-        } else if(currentAnswer=="Unsure"){
-            isCorrect ="Unsure";
+        } else if (currentAnswer == "Unsure") {
+            isCorrect = "Unsure";
         } else {
             isCorrect = "Incorrect";
         }
@@ -164,11 +169,11 @@ function checkAndRecordAnswers() {
 function displayCheck(value, rightAnwser) {
     if (value == "Correct") return '<font color=\"green\">Your answer is: ' + value + '</font>';
     if (value == "Incorrect") return '<font color=\"red\">Your answer is: ' + value + '</font>';
-    if (value == "Unsure") return '<font color=\"#663399\">Your answer is: ' + value + '</font>'+",     " +'<font color=\"green\">The answer is ' + rightAnwser + '</font>';
+    if (value == "Unsure") return '<font color=\"#663399\">Your answer is: ' + value + ".    " + 'The answer is ' + rightAnwser + '</font>';
 }
 //Clears the answers from the page.
 function clearQuestionAnswers() {
-    responsesGivenText= [];
+    responsesGivenText = [];
 }
 /** not needed right now, so commented out, but shows the toggable state of an element on a page.
  function toggleShowState(toggableElement) {
@@ -217,8 +222,8 @@ function submitToAPI(url, objectToSubmit) {
     };
 }
 
-function logout(){
-    UserID=null;
+function logout() {
+    UserID = null;
     return location.replace('/login');
 }
 

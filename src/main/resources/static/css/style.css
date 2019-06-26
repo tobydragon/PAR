@@ -55,6 +55,10 @@ h5 {
     align-items: center;
 }
 
+.size20 {
+    font-size: 1.25em;
+}
+
 /* ---------------------------------------*
 /* Add spacing to text elements */
 

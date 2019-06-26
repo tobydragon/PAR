@@ -25,14 +25,32 @@
     <script src="https://kit.fontawesome.com/f9199bcaa3.js"></script>
 </head>
 
-<body id="topSection">
+<body>
+    <!-- Nav Bar -->
     <div class="container-fluid">
-        <div class="row">
+        <div class="row bg-light">
+            <div class="col-1"></div>
+            <div class="col-2">
+                <img src="/images/ParLogo.png" height="90%" width="70%" class="imgCenter" alt="PAR_logo">
+            </div>
             <div class="col-3 colVertCenter">
-                <b>Score: </b>
-                <i id="score"> </i>
+                <b class="size20">Score: </b>
+                <i id="score" class="size20"> </i>
+            </div>
+            <div class="col-3 colVertCenter">
+                <b class="size20">User ID: </b>
+                <i id="UserId" class="size20"> </i>
+            </div>
+            <div class="col-1"></div>
+            <div class="col-2 colVertCenter">
+                <button type="button" class="btn btn-primary" id="logoutButton" onclick="logout()">
+                    Logout
+                </button>
             </div>
         </div>
+    </div>
+    <!-- Image Task -->
+    <div class="container-fluid">
         <div class="row">
             <div class="col-1"></div>
             <div class="col-6 imgCenter">
@@ -64,12 +82,10 @@
         </div>
     </div>
 
-    <button type="button" class="btn btn-primary" id="logoutButton" onclick="logout()">
-        Logout
-    </button>
-
-    <script >
+    <script>
         UserID = "[[${User}]]";
+        setUserId();
+
     </script>
 
     <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
