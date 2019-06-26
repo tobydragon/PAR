@@ -28,9 +28,14 @@ public class WebController implements WebMvcConfigurer {
         return "ImageTaskTemplate";
     }
 
-//    @RequestMapping("/error")
-//    public String errorPage() {
-//        return "ErrorPage";
-//    }
+    @RequestMapping("/badUrl")
+    public String errorPageURl() {
+        return "ErrorPageBadUrl";
+    }
+
+    @RequestMapping("/serverError")
+    public String errorPageServer() {
+        return "ErrorPageServer";
+    }
 
 }
