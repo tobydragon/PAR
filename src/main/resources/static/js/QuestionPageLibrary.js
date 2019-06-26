@@ -199,7 +199,7 @@ function createResponseJson() {
             responseTexts: responsesGivenText
         };
     }
-    console.log(UserID);
+    
     return newResponse;
 }
 
