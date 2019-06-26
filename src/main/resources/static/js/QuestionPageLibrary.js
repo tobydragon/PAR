@@ -184,11 +184,6 @@ function clearQuestionAnswers() {
 }
  **/
 
-function getUserIdfromUser() {
-    UserID = document.getElementById("inputId").value;
-    document.getElementById("userID").innerText = UserID;
-}
-
 function createResponseJson() {
     var newResponse;
     if (UserID != null) {
@@ -204,6 +199,7 @@ function createResponseJson() {
             responseTexts: responsesGivenText
         };
     }
+    console.log(UserID);
     return newResponse;
 }
 
