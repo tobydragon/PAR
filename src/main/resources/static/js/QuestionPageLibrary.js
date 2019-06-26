@@ -199,7 +199,7 @@ function createResponseJson() {
             responseTexts: responsesGivenText
         };
     }
-    
+
     return newResponse;
 }
 
@@ -215,6 +215,11 @@ function submitToAPI(url, objectToSubmit) {
             window.location.replace("/serverError");
         }
     };
+}
+
+function logout(){
+    UserID=null;
+    return location.replace('/login');
 }
 
 //for testing purposes only
