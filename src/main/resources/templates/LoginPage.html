@@ -18,56 +18,48 @@
     <link rel="stylesheet" href="/css/style.css">
     <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
     <!-- Main JS Files -->
-    <script type="text/javascript" src="/js/AnswerCheck.js"></script>
-    <script type="text/javascript" src="/js/CreateResponse.js"></script>
-    <script type="text/javascript" src="/js/ReadImageTask.js"></script>
-    <script type="text/javascript" src="/js/Modernizr.js"></script>
-    <!-- Font Awsome -->
-    <script src="https://kit.fontawesome.com/f9199bcaa3.js"></script>
+    <script type="type/javascript" src="/js/Login.js"></script>
 </head>
 
-<body id="topSection">
+<body>
     <div class="container-fluid">
+        <br />
         <div class="row">
-            <div class="col-3 colVertCenter">
-                <b>Score: </b>
-                <i id="score"> </i>
+            <div class="col-12 center underline">
+                <h2>Welcome to the P.A.R. System!</h2>
             </div>
-            <div class="col-3 colVertCenter">
-                <b>User ID: </b>
-                <i id="userID"> </i>
+            <div class="col-12">
+                <img src="#" class="imgCenter" alt="PAR_logo">
             </div>
-        </div>
-        <div class="row">
-            <div class="col-1"></div>
-            <div class="col-6 imgCenter">
-                <canvas id="myCanvas" width="700%" height="550%" class="center-block">
-                    Your browser doesn't support Canvas.
-                </canvas>
 
-            </div>
-            <div class="col-4 text-center">
-                <br />
-                <h1 class="underline">Question Set</h1>
-                <form action="#" method="post" id="form1">
-                    <i id="questionSet"> </i>
+        </div>
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4">
+                <form name="userIDinput">
+                    <div class="form-group">
+                        <label for="userID">User ID</label>
+                        <input type="userId" class="form-control" id="inputId" aria-describedby="idHelp" placeholder="Enter User ID">
+                        <small id="idHelp" class="form-text text-muted">A PAR Employee will never ask for your password.</small>
+                    </div>
                 </form>
             </div>
-            <div class="col-1"></div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-12 text-center">
-                <div class="show">
-                    <button type="button" class="btn btn-primary" id="submitButton" onclick="checkAnswers()">
-                        Submit
-                    </button>
-                    <button type="button" class="fas fa-arrow-circle-right btn btn-outline-dark" id="nextQuestionButton" onclick="changeQuestions()"></button>
-                </div>
+            <div class="col-1 colVertCenter">
+                <script>
 
+                </script>
+                <form method="GET" action="/imageTaskView" +login()>
+                    <input class="btn btn-primary" type="submit" value="Login" />
+                </form>
             </div>
         </div>
     </div>
+
+
+
+
 
     <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
