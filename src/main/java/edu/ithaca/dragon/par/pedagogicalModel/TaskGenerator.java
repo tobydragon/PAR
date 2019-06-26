@@ -15,13 +15,18 @@ public class TaskGenerator {
             //make and return an imageTask with the first question from the studentModels.unseenQuestions
             Question firstQuestionFromUnseen = studentModel.getUserQuestionSet().getUnseenQuestions().get(0);
             ImageTask imageTask = new ImageTask(firstQuestionFromUnseen.getImageUrl(), Arrays.asList(firstQuestionFromUnseen));
+
+            //let userQuestionSet know the question has been seen
+            studentModel.getUserQuestionSet().givenQuestion(firstQuestionFromUnseen.getId());
+
             return imageTask;
         }
 
         //the student has seen every question, get a question that they have already seen
-        //TODO: because this takes the first question from seenQuestions, will it always take the first question? Maybe this should be random to stop repetition?
+        //TODO: because this takes the first question from seenQuestions, will it always take the same question? Maybe this should be random to avoid repetition?
         Question firstQuestionFromSeen = studentModel.getUserQuestionSet().getSeenQuestions().get(0);
         ImageTask imageTask = new ImageTask(firstQuestionFromSeen.getImageUrl(), Arrays.asList(firstQuestionFromSeen));
+
         return imageTask;
     }
 }
