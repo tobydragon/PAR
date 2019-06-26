@@ -6,6 +6,7 @@ import edu.ithaca.dragon.par.io.JsonDatastore;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 import org.junit.jupiter.api.Test;
 
+import java.awt.*;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -34,5 +35,22 @@ public class TaskGeneratorTest {
         assertEquals("../static/images/demoEquine02.jpg", task1.getImageUrl());
         assertEquals(1, task1.getTaskQuestions().size());
         System.out.println(task2.getImageUrl());
+    }
+
+    @Test
+    public void makeTaskTest() throws IOException{
+        //set up questionPool and studentModel, create an imageTask with the studentModel
+        QuestionPool questionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));
+        StudentModel studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
+
+        //make an imageTask and check aspects of it
+        ImageTask task1 = TaskGenerator.makeTask(studentModel);
+        assertEquals("../static/images/demoEquine02.jpg", task1.getImageUrl());
+        assertEquals(4, task1.getTaskQuestions().size());
+
+        //make a new imageTask and check aspects of it
+        ImageTask task2 = TaskGenerator.makeTask(studentModel);
+        assertEquals("../static/images/demoEquine04.jpg", task2.getImageUrl());
+        assertEquals(5, task2.getTaskQuestions().size());
     }
 }
