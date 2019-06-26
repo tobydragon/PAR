@@ -21,12 +21,12 @@ public class ImageTaskChooserTest {
         List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
         UserQuestionSet q = new UserQuestionSet("2", questionsFromFile);
         ImageTask im1 = ImageTaskChooser.nextImageTaskSingle(q, 1);
-        assertEquals(1, im1.getTaskQuestions().get(0).getDifficulty());
+        assertEquals(1, im1.getTaskQuestions().get(0).getType());
         int len = q.getLenOfSeenQuestions();
         assertEquals(1, len);
 
         ImageTask im2 = ImageTaskChooser.nextImageTaskSingle(q, 2);
-        assertEquals(2, im2.getTaskQuestions().get(0).getDifficulty());
+        assertEquals(2, im2.getTaskQuestions().get(0).getType());
         len = q.getLenOfSeenQuestions();
         assertEquals(2, len);
 
@@ -36,7 +36,7 @@ public class ImageTaskChooserTest {
         assertEquals(2, len);
 
         ImageTask im4 = ImageTaskChooser.nextImageTaskSingle(q, 4);
-        assertEquals(4, im4.getTaskQuestions().get(0).getDifficulty());
+        assertEquals(4, im4.getTaskQuestions().get(0).getType());
         len = q.getLenOfSeenQuestions();
         assertEquals(3, len);
 

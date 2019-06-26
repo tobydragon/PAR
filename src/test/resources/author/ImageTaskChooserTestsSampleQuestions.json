@@ -1,104 +1,104 @@
 [ {
   "id" : "PlaneQ1",
-  "difficulty" : 1,
+  "type" : "Plane",
   "questionText" : "On which plane is the ultrasound taken?",
   "correctAnswer" : "Lateral",
   "possibleAnswers" : [ "Transverse", "Lateral", "I don't know"],
   "imageUrl" : "../static/images/demoEquine02.jpg"
 }, {
   "id" : "PlaneQ2",
-  "difficulty" : 2,
+  "type" : "Plane",
   "questionText" : "On which plane is the ultrasound taken?",
   "correctAnswer" : "Transverse",
   "possibleAnswers" : [ "Transverse", "Lateral", "I don't know"],
   "imageUrl" : "../static/images/demoEquine04.jpg"
 }, {
   "id" : "PlaneQ3",
-  "difficulty" : 2,
+  "type" : "Plane",
   "questionText" : "On which plane is the ultrasound taken?",
   "correctAnswer" : "Lateral",
   "possibleAnswers" : [ "Transverse", "Lateral", "I don't know"],
   "imageUrl" : "../static/images/demoEquine05.jpg"
 }, {
   "id" : "PlaneQ4",
-  "difficulty" : 2,
+  "type" : "Plane",
   "questionText" : "On which plane is the ultrasound taken?",
   "correctAnswer" : "Lateral",
   "possibleAnswers" : [ "Transverse", "Lateral", "I don't know"],
   "imageUrl" : "../static/images/demoEquine09.jpg"
 }, {
   "id" : "PlaneQ5",
-  "difficulty" : 2,
+  "type" : "Plane",
   "questionText" : "On which plane is the ultrasound taken?",
   "correctAnswer" : "Transverse",
   "possibleAnswers" : [ "Transverse", "Lateral", "I don't know"],
   "imageUrl" : "../static/images/demoEquine05.jpg"
 }, {
   "id" : "StructureQ1",
-  "difficulty" : 4,
+  "type" : "Structure",
   "questionText" : "What structure is in the near field?",
   "correctAnswer" : "bone",
   "possibleAnswers" : [ "bone", "ligament", "tumor", "tendon", "I don't know" ],
   "imageUrl" : "../static/images/demoEquine04.jpg"
 }, {
   "id" : "StructureQ2",
-  "difficulty" : 5,
+  "type" : "Structure",
   "questionText" : "What structure is in the near field?",
   "correctAnswer" : "ligament",
   "possibleAnswers" : [ "bone", "ligament", "tumor", "tendon", "I don't know" ],
   "imageUrl" : "../static/images/demoEquine09.jpg"
 }, {
   "id" : "StructureQ3",
-  "difficulty" : 4,
+  "type" : "Structure",
   "questionText" : "What structure is in the near field?",
   "correctAnswer" : "tendon",
   "possibleAnswers" : [ "bone", "ligament", "tumor", "tendon", "I don't know" ],
   "imageUrl" : "../static/images/demoEquine04.jpg"
 }, {
   "id" : "StructureQ4",
-  "difficulty" : 3,
+  "type" : "Structure",
   "questionText" : "What structure is in the near field?",
   "correctAnswer" : "bone",
   "possibleAnswers" : [ "bone", "ligament", "tumor", "tendon", "I don't know" ],
   "imageUrl" : "../static/images/demoEquine04.jpg"
 }, {
   "id" : "StructureQ5",
-  "difficulty" : 4,
+  "type" : "Structure",
   "questionText" : "What structure is in the near field?",
   "correctAnswer" : "tumor",
   "possibleAnswers" : [ "bone", "ligament", "tumor", "tendon", "I don't know" ],
   "imageUrl" : "../static/images/demoEquine04.jpg"
 }, {
   "id" : "ZoneQ1",
-  "difficulty" : 7,
+  "type" : "Zone",
   "questionText" : "In what zone is this ultrasound taken?",
   "correctAnswer" : "3c",
   "possibleAnswers" : [ "1a", "1b", "2a", "2b", "2c", "3a", "3b", "3c" ],
   "imageUrl" : "../static/images/demoEquine02.jpg"
 }, {
   "id" : "ZoneQ2",
-  "difficulty" : 7,
+  "type" : "Zone",
   "questionText" : "In what zone is this ultrasound taken?",
   "correctAnswer" : "1b",
   "possibleAnswers" : [ "1a", "1b", "2a", "2b", "2c", "3a", "3b", "3c" ],
   "imageUrl" : "../static/images/demoEquine05.jpg"
 }, {
   "id" : "ZoneQ3",
-  "difficulty" : 7,
+  "type" : "Zone",
   "questionText" : "In what zone is this ultrasound taken?",
   "correctAnswer" : "3c",
   "possibleAnswers" : [ "1a", "1b", "2a", "2b", "2c", "3a", "3b", "3c" ],
   "imageUrl" : "../static/images/demoEquine05.jpg"
 }, {
   "id" : "ZoneQ4",
-  "difficulty" : 7,
+  "type" : "Zone",
   "questionText" : "In what zone is this ultrasound taken?",
   "correctAnswer" : "2a",
   "possibleAnswers" : [ "1a", "1b", "2a", "2b", "2c", "3a", "3b", "3c" ],
   "imageUrl" : "../static/images/demoEquine05.jpg"
 }, {
   "id" : "ZoneQ5",
-  "difficulty" : 8,
+  "type" : "Zone",
   "questionText" : "In what zone is this ultrasound taken?",
   "correctAnswer" : "2b",
   "possibleAnswers" : [ "1a", "1b", "2a", "2b", "2c", "3a", "3b", "3c" ],

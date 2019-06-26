@@ -42,7 +42,7 @@ public class ImageTaskChooser {
     public static List<Integer> getIndexesOfSameDifficulty(List<Question> questions, int difficulty){
         List<Integer> indexesSeen = new ArrayList<Integer>();
         for(int i = 0; i<questions.size(); i++){
-            if (questions.get(i).getDifficulty()==difficulty){
+            if (questions.get(i).getType()==difficulty){
                 indexesSeen.add(i);
             }
         }
@@ -118,7 +118,7 @@ public class ImageTaskChooser {
 
     public static void lessOrEqualDifficultyAdded(ImageTask it, int numOfQuestions, List<Question> toBeAdded){
         for (int i = 0; i<toBeAdded.size(); i++){
-            if ((toBeAdded.get(i).getDifficulty()<=it.getTaskQuestions().get(0).getDifficulty()) && (toBeAdded.get(i).getId()!=it.getTaskQuestions().get(0).getId())){
+            if ((toBeAdded.get(i).getType()<=it.getTaskQuestions().get(0).getType()) && (toBeAdded.get(i).getId()!=it.getTaskQuestions().get(0).getId())){
                 it.getTaskQuestions().add(toBeAdded.get(i));
             }
             if (it.getTaskQuestions().size()==numOfQuestions){
@@ -129,7 +129,7 @@ public class ImageTaskChooser {
 
     public static void greaterDifficultyAdded(ImageTask it, int numOfQuestions, List<Question> toBeAdded){
         for (int i = 0; i<toBeAdded.size(); i++){
-            if ((toBeAdded.get(i).getDifficulty()>it.getTaskQuestions().get(0).getDifficulty()) && (toBeAdded.get(i).getId()!=it.getTaskQuestions().get(0).getId())){
+            if ((toBeAdded.get(i).getType()>it.getTaskQuestions().get(0).getType()) && (toBeAdded.get(i).getId()!=it.getTaskQuestions().get(0).getId())){
                 it.getTaskQuestions().add(toBeAdded.get(i));
             }
             if (it.getTaskQuestions().size()==numOfQuestions){

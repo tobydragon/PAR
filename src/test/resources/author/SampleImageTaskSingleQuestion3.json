@@ -2,7 +2,7 @@
   "imageUrl" : "../static/images/demoEquine05.jpg",
   "taskQuestions" : [ {
     "id" : "PlaneQ3",
-    "difficulty" : 1,
+    "type" : "Plane",
     "questionText" : "On which plane is the ultrasound taken?",
     "correctAnswer" : "Lateral",
     "possibleAnswers" : [ "Transverse", "Lateral", "I don't know"],
