@@ -28,7 +28,7 @@ public class QuestionTest {
 
     @Test
     public void checkIfListsHaveSameQuestionObjectsTest() throws IOException{
-        QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestions.json"));
+        QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));
 
         //The Lists are exactly the same
         List<Question> list1a = qp.getAllQuestions();
@@ -38,13 +38,13 @@ public class QuestionTest {
         System.out.println(list1a.size());
 
         //the Lists are different size
-        QuestionPool qp2 = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestions.json"));
+        QuestionPool qp2 = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));
         List<Question> list1c = qp2.getAllQuestions();
         System.out.println(list1a.size() + " " + list1c.size());
         assertEquals(false, checkIfListsHaveSameQuestionObjects(list1a,list1c));
 
         //The content of the Questions are the same, but they are different objects
-        QuestionPool qp3 = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestions.json"));
+        QuestionPool qp3 = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));
         List<Question> list1d = qp3.getAllQuestions();
         assertEquals(false, checkIfListsHaveSameQuestionObjects(list1a, list1d));
     }

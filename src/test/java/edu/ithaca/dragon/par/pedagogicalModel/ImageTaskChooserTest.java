@@ -18,7 +18,7 @@ public class ImageTaskChooserTest {
 
     @Test
     public void nextImageTaskSingleTest() throws IOException {
-        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestions.json", Question.class);
+        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
         UserQuestionSet q = new UserQuestionSet("2", questionsFromFile);
         ImageTask im1 = ImageTaskChooser.nextImageTaskSingle(q, 1);
         assertEquals(1, im1.getTaskQuestions().get(0).getDifficulty());
@@ -30,7 +30,7 @@ public class ImageTaskChooserTest {
         len = q.getLenOfSeenQuestions();
         assertEquals(2, len);
 
-        ImageTask im3 = ImageTaskChooser.nextImageTaskSingle(q, 3);
+        ImageTask im3 = ImageTaskChooser.nextImageTaskSingle(q, 9);
         assertNull(im3);
         len = q.getLenOfSeenQuestions();
         assertEquals(2, len);

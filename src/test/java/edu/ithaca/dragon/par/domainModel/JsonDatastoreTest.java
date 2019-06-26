@@ -25,16 +25,16 @@ public class JsonDatastoreTest {
     @Test
     public void createQuestionPoolTest() throws IOException{
         //create QuestionPool with JsonDatastore
-        QuestionPool myQP = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestions.json"));
+        QuestionPool myQP = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));
         //get all questions and check them
         List<Question> myQPList = myQP.getAllQuestions();
-        assertTrue(myQPList.size() == 3);
+        assertTrue(myQPList.size() == 15);
     }
 
     @Test
     public void loadAndSaveStudentModelTest() throws IOException{
         //throws exception when Datastore does not have a studentModelFilePath
-        Datastore datastoreA = new JsonDatastore("src/test/resources/author/SampleQuestions.json");
+        Datastore datastoreA = new JsonDatastore("src/test/resources/author/SampleQuestionPool.json");
         try{
             datastoreA.loadStudentModels();
             fail();
