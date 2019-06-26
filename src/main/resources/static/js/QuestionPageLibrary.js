@@ -112,7 +112,6 @@ function setCurrentScore(){
 
     //can be -1 currently if User is new
     var score=request.response;
-    console.log(score);
     if(score==-1) {
         document.getElementById("score").innerHTML = "0";
     } else {
@@ -144,8 +143,6 @@ function checkAndRecordAnswers() {
     var form = document.getElementById("form1")
     for (var i = 0; i < amountOfQuestions; i++) {
         var currentName = "q" + i;
-        console.log(currentName);
-        console.log(form[currentName].value);
         var currentAnswer = form[currentName].value;
 
         responsesGivenText.push(currentAnswer);
@@ -153,19 +150,21 @@ function checkAndRecordAnswers() {
         var isCorrect;
         if (currentAnswer == QuestionAnswers[i]) {
             isCorrect = "Correct";
+        } else if(currentAnswer=="Unsure"){
+            isCorrect ="Unsure";
         } else {
             isCorrect = "Incorrect";
         }
         var displayAreaName = "questionCorrect" + i;
-        document.getElementById(displayAreaName).innerHTML = displayCheck(isCorrect);
+        document.getElementById(displayAreaName).innerHTML = displayCheck(isCorrect, QuestionAnswers[i]);
     }
 }
 
 //Displays the value of right/wrong based on the previous function's input value.
-function displayCheck(value) {
+function displayCheck(value, rightAnwser) {
     if (value == "Correct") return '<font color=\"green\">Your answer is: ' + value + '</font>';
     if (value == "Incorrect") return '<font color=\"red\">Your answer is: ' + value + '</font>';
-    if (value == "Unsure") return '<font color=\"#663399\">Your answer is: ' + value + '</font>';
+    if (value == "Unsure") return '<font color=\"#663399\">Your answer is: ' + value + '</font>'+",     " +'<font color=\"green\">The answer is ' + rightAnwser + '</font>';
 }
 //Clears the answers from the page.
 function clearQuestionAnswers() {
@@ -198,8 +197,6 @@ function createResponseJson() {
             taskQuestionIds: QuestionIDs,
             responseTexts: responsesGivenText
         };
-        console.log(QuestionIDs);
-        console.log(responsesGivenText);
     } else {
         newResponse = {
             userId: "Student",
