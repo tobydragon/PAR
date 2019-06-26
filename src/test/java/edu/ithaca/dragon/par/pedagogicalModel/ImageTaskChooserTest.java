@@ -44,80 +44,80 @@ public class ImageTaskChooserTest {
 
     @Test
     public void nextImageTaskSingleIT() throws IOException {
-        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestions2.json", Question.class);
+        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
         UserQuestionSet q = new UserQuestionSet("20", questionsFromFile);
 
 
         ImageTask im1 = ImageTaskChooser.nextImageTaskSingle(q, 2);
-        Question q1 = new Question("PlaneQ2","On which plane is the ultrasound taken?",2, "Transverse", Arrays.asList("Transverse", "Lateral", "I don't know"), "../static/images/demoEquine04.jpg");
-        ImageTask im2 = new ImageTask("../static/images/demoEquine04.jpg", Arrays.asList(q1));
+        Question q1 = new Question("PlaneQ4","On which plane is the ultrasound taken?",2, "Lateral", Arrays.asList("Transverse", "Lateral", "I don't know"), "../static/images/demoEquine09.jpg");
+        ImageTask im2 = new ImageTask("../static/images/demoEquine09.jpg", Arrays.asList(q1));
         assertTrue(im1.equals(im2));
 
         ImageTask im3 = ImageTaskChooser.nextImageTaskSingle(q, 2);
-        Question q2 = new Question("PlaneQ3","On which plane is the ultrasound taken?",2, "Lateral", Arrays.asList("Transverse", "Lateral", "I don't know"), "../static/images/demoEquine05.jpg");
+        Question q2 = new Question("PlaneQ5","On which plane is the ultrasound taken?",2, "Transverse", Arrays.asList("Transverse", "Lateral", "I don't know"), "../static/images/demoEquine05.jpg");
         ImageTask im4 = new ImageTask("../static/images/demoEquine05.jpg", Arrays.asList(q2));
         assertTrue(im3.equals(im4));
 
         ImageTask im5 = ImageTaskChooser.nextImageTaskSingle(q, 4);
-        Question q3 = new Question("StructureQ1","What structure is in the near field?",4, "bone", Arrays.asList("bone", "ligament", "tumor", "tendon", "I don't know"), "../static/images/demoEquine04.jpg");
-        ImageTask im6 = new ImageTask("../static/images/demoEquine04.jpg", Arrays.asList(q3));
+        Question q3 = new Question("StructureQ2","What structure is in the near field?",4, "ligament", Arrays.asList("bone", "ligament", "tumor", "tendon", "I don't know"), "../static/images/demoEquine09.jpg");
+        ImageTask im6 = new ImageTask("../static/images/demoEquine09.jpg", Arrays.asList(q3));
         assertTrue(im5.equals(im6));
 
         ImageTask im7 = ImageTaskChooser.nextImageTaskSingle(q, 4);
-        Question q4 = new Question("StructureQ3","What structure is in the near field?",4, "tendon", Arrays.asList("bone", "ligament", "tumor", "tendon", "I don't know"), "../static/images/demoEquine04.jpg");
+        Question q4 = new Question("StructureQ4","What structure is in the near field?",4, "bone", Arrays.asList("bone", "ligament", "tumor", "tendon", "I don't know"), "../static/images/demoEquine04.jpg");
         ImageTask im8 = new ImageTask("../static/images/demoEquine04.jpg", Arrays.asList(q4));
         assertTrue(im7.equals(im8));
 
         ImageTask im9 = ImageTaskChooser.nextImageTaskSingle(q, 4);
-        Question q5 = new Question("StructureQ5","What structure is in the near field?",4, "tumor", Arrays.asList("bone", "ligament", "tumor", "tendon", "I don't know"), "../static/images/demoEquine04.jpg");
-        ImageTask im10 = new ImageTask("../static/images/demoEquine04.jpg", Arrays.asList(q5));
+        Question q5 = new Question("StructureQ2","What structure is in the near field?",4, "ligament", Arrays.asList("bone", "ligament", "tumor", "tendon", "I don't know"), "../static/images/demoEquine09.jpg");
+        ImageTask im10 = new ImageTask("../static/images/demoEquine09.jpg", Arrays.asList(q5));
         assertTrue(im9.equals(im10));
 
         ImageTask im11 = ImageTaskChooser.nextImageTaskSingle(q, 4);
-        Question q6 = new Question("StructureQ1","What structure is in the near field?",4, "bone", Arrays.asList("bone", "ligament", "tumor", "tendon", "I don't know"), "../static/images/demoEquine04.jpg");
+        Question q6 = new Question("StructureQ4","What structure is in the near field?",4, "bone", Arrays.asList("bone", "ligament", "tumor", "tendon", "I don't know"), "../static/images/demoEquine04.jpg");
         ImageTask im12 = new ImageTask("../static/images/demoEquine04.jpg", Arrays.asList(q6));
         assertTrue(im11.equals(im12));
 
         ImageTask im13 = ImageTaskChooser.nextImageTaskSingle(q, 4);
-        Question q7 = new Question("StructureQ3","What structure is in the near field?",4, "tendon", Arrays.asList("bone", "ligament", "tumor", "tendon", "I don't know"), "../static/images/demoEquine04.jpg");
-        ImageTask im14 = new ImageTask("../static/images/demoEquine04.jpg", Arrays.asList(q7));
+        Question q7 = new Question("StructureQ2","What structure is in the near field?",4, "ligament", Arrays.asList("bone", "ligament", "tumor", "tendon", "I don't know"), "../static/images/demoEquine09.jpg");
+        ImageTask im14 = new ImageTask("../static/images/demoEquine09.jpg", Arrays.asList(q7));
         assertTrue(im13.equals(im14));
 
         ImageTask im15 = ImageTaskChooser.nextImageTaskSingle(q, 4);
-        Question q8 = new Question("StructureQ5","What structure is in the near field?",4, "tumor", Arrays.asList("bone", "ligament", "tumor", "tendon", "I don't know"), "../static/images/demoEquine04.jpg");
+        Question q8 = new Question("StructureQ4","What structure is in the near field?",4, "bone", Arrays.asList("bone", "ligament", "tumor", "tendon", "I don't know"), "../static/images/demoEquine04.jpg");
         ImageTask im16 = new ImageTask("../static/images/demoEquine04.jpg", Arrays.asList(q8));
         assertTrue(im15.equals(im16));
 
         ImageTask im17 = ImageTaskChooser.nextImageTaskSingle(q, 8);
-        Question q9 = new Question("ZoneQ5","In what zone is this ultrasound taken?",8, "2b", Arrays.asList("1a", "1b", "2a", "2b", "2c", "3a", "3b", "3c"), "../static/images/demoEquine10.jpg");
-        ImageTask im18 = new ImageTask("../static/images/demoEquine10.jpg", Arrays.asList(q9));
+        Question q9 = new Question("ZoneQ5","In what zone is this ultrasound taken?",8, "2b", Arrays.asList("1a", "1b", "2a", "2b", "2c", "3a", "3b", "3c"), "../static/images/demoEquine02.jpg");
+        ImageTask im18 = new ImageTask("../static/images/demoEquine02.jpg", Arrays.asList(q9));
         assertTrue(im17.equals(im18));
 
     }
 
     @Test
     public void getIndexesOfSameDifficultyTest() throws IOException{
-        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestions2.json", Question.class);
+        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
         List<Integer> sameDiffIndexes = ImageTaskChooser.getIndexesOfSameDifficulty(questionsFromFile, 1);
-        assertEquals(1, sameDiffIndexes.size());
+        assertEquals(3, sameDiffIndexes.size());
 
         sameDiffIndexes = ImageTaskChooser.getIndexesOfSameDifficulty(questionsFromFile, 2);
-        assertEquals(4, sameDiffIndexes.size());
+        assertEquals(2, sameDiffIndexes.size());
 
         sameDiffIndexes = ImageTaskChooser.getIndexesOfSameDifficulty(questionsFromFile, 3);
-        assertEquals(1, sameDiffIndexes.size());
+        assertEquals(2, sameDiffIndexes.size());
 
         sameDiffIndexes = ImageTaskChooser.getIndexesOfSameDifficulty(questionsFromFile, 4);
-        assertEquals(3, sameDiffIndexes.size());
+        assertEquals(2, sameDiffIndexes.size());
 
         sameDiffIndexes = ImageTaskChooser.getIndexesOfSameDifficulty(questionsFromFile, 5);
         assertEquals(1, sameDiffIndexes.size());
 
         sameDiffIndexes = ImageTaskChooser.getIndexesOfSameDifficulty(questionsFromFile, 6);
-        assertEquals(0, sameDiffIndexes.size());
+        assertEquals(2, sameDiffIndexes.size());
 
         sameDiffIndexes = ImageTaskChooser.getIndexesOfSameDifficulty(questionsFromFile, 7);
-        assertEquals(4, sameDiffIndexes.size());
+        assertEquals(2, sameDiffIndexes.size());
 
         sameDiffIndexes = ImageTaskChooser.getIndexesOfSameDifficulty(questionsFromFile, 8);
         assertEquals(1, sameDiffIndexes.size());
@@ -129,7 +129,7 @@ public class ImageTaskChooserTest {
 
     @Test
     public void indexOfSeenLeastTest() throws IOException{
-        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestions2.json", Question.class);
+        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
         UserQuestionSet q = new UserQuestionSet("20", questionsFromFile);
         q.givenQuestion("StructureQ1");
         q.givenQuestion("StructureQ5");
@@ -211,16 +211,16 @@ public class ImageTaskChooserTest {
 
     @Test
     public void lessOrEqualDifficultyAddedTest() throws IOException{
-        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestions2.json", Question.class);
+        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
         UserQuestionSet q = new UserQuestionSet("20", questionsFromFile);
         ImageTask it = ImageTaskChooser.makeTask(q.getUnseenQuestions(), 0);
         ImageTaskChooser.lessOrEqualDifficultyAdded(it, 3, q.getUnseenQuestions());
-        assertEquals(1, it.getTaskQuestions().size());
+        assertEquals(3, it.getTaskQuestions().size());
 
         UserQuestionSet q2 = new UserQuestionSet("20", questionsFromFile);
         ImageTask it2 = ImageTaskChooser.makeTask(q2.getUnseenQuestions(), 1);
         ImageTaskChooser.lessOrEqualDifficultyAdded(it2, 7, q2.getUnseenQuestions());
-        assertEquals(5, it2.getTaskQuestions().size());
+        assertEquals(3, it2.getTaskQuestions().size());
 
         UserQuestionSet q3 = new UserQuestionSet("20", questionsFromFile);
         ImageTask it3 = ImageTaskChooser.makeTask(q3.getUnseenQuestions(), 1);
@@ -242,7 +242,7 @@ public class ImageTaskChooserTest {
 
     @Test
     public void greaterDifficultyAddedTest() throws IOException{
-        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestions2.json", Question.class);
+        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
         UserQuestionSet q = new UserQuestionSet("20", questionsFromFile);
         ImageTask it = ImageTaskChooser.makeTask(q.getUnseenQuestions(), 0);
         ImageTaskChooser.greaterDifficultyAdded(it, 3, q.getUnseenQuestions());
@@ -266,7 +266,7 @@ public class ImageTaskChooserTest {
         UserQuestionSet q5 = new UserQuestionSet("24", questionsFromFile);
         ImageTask it5 = ImageTaskChooser.makeTask(q5.getUnseenQuestions(), 1);
         ImageTaskChooser.greaterDifficultyAdded(it5, 15, q5.getUnseenQuestions());
-        assertEquals(11, it5.getTaskQuestions().size());
+        assertEquals(13, it5.getTaskQuestions().size());
 
         UserQuestionSet q6 = new UserQuestionSet("25", questionsFromFile);
         ImageTask it6 = ImageTaskChooser.makeTask(q6.getUnseenQuestions(), 14);
@@ -278,7 +278,7 @@ public class ImageTaskChooserTest {
 
     @Test
     public void addAllQuestionsTest() throws IOException{
-        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestions2.json", Question.class);
+        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
         UserQuestionSet q = new UserQuestionSet("20", questionsFromFile);
         ImageTask it = ImageTaskChooser.makeTask(q.getUnseenQuestions(), 0);
         ImageTaskChooser.addAllQuestions(it, q.getUnseenQuestions(), q.getSeenQuestions());
@@ -307,11 +307,11 @@ public class ImageTaskChooserTest {
 
     @Test
     public void getSameUrlQuestionsUnseenTest() throws IOException{
-        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestions2.json", Question.class);
+        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
         UserQuestionSet q = new UserQuestionSet("20", questionsFromFile);
         ImageTask it = ImageTaskChooser.makeTask(q.getUnseenQuestions(), 0);
         List<Question> u1 = ImageTaskChooser.getSameUrlQuestionsUnseen(q, it.getTaskQuestions().get(0));
-        assertEquals(1, u1.size());
+        assertEquals(3, u1.size());
 
         UserQuestionSet q2 = new UserQuestionSet("20", questionsFromFile);
         ImageTask it2 = ImageTaskChooser.makeTask(q2.getUnseenQuestions(), 5);
@@ -321,13 +321,13 @@ public class ImageTaskChooserTest {
         UserQuestionSet q3 = new UserQuestionSet("20", questionsFromFile);
         ImageTask it3 = ImageTaskChooser.makeTask(q3.getUnseenQuestions(), 11);
         List<Question> u3 = ImageTaskChooser.getSameUrlQuestionsUnseen(q3, it3.getTaskQuestions().get(0));
-        assertEquals(0, u3.size());
+        assertEquals(3, u3.size());
 
     }
 
     @Test
     public void getSameUrlQuestionsSeenTest() throws IOException{
-        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestions2.json", Question.class);
+        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
         UserQuestionSet q = new UserQuestionSet("20", questionsFromFile);
         q.givenQuestion("PlaneQ1");
         q.givenQuestion("PlaneQ2");
@@ -348,7 +348,7 @@ public class ImageTaskChooserTest {
 
         ImageTask it = ImageTaskChooser.makeTask(q.getSeenQuestions(), 0);
         List<Question> u1 = ImageTaskChooser.getSameUrlQuestionsSeen(q, it.getTaskQuestions().get(0));
-        assertEquals(1, u1.size());
+        assertEquals(3, u1.size());
 
         ImageTask it2 = ImageTaskChooser.makeTask(q.getSeenQuestions(), 5);
         List<Question> u2 = ImageTaskChooser.getSameUrlQuestionsSeen(q, it2.getTaskQuestions().get(0));
@@ -356,13 +356,13 @@ public class ImageTaskChooserTest {
 
         ImageTask it3 = ImageTaskChooser.makeTask(q.getSeenQuestions(), 11);
         List<Question> u3 = ImageTaskChooser.getSameUrlQuestionsSeen(q, it3.getTaskQuestions().get(0));
-        assertEquals(0, u3.size());
+        assertEquals(3, u3.size());
 
     }
 
     @Test
     public void markAllAsSeenTest() throws IOException{
-        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestions2.json", Question.class);
+        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
         UserQuestionSet q = new UserQuestionSet("20", questionsFromFile);
         ImageTask it = ImageTaskChooser.makeTask(q.getUnseenQuestions(), 1);
         it.getTaskQuestions().add(q.getUnseenQuestions().get(5));

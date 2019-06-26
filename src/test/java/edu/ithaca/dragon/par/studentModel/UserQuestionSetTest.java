@@ -21,7 +21,7 @@ public class UserQuestionSetTest {
 
         //compare two UserQuestionSets with different content (different Json files)
         List<Question> questionsFromFile1a = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
-        List<Question> questionsFromFile2a = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestions2.json", Question.class);
+        List<Question> questionsFromFile2a = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool2.json", Question.class);
         UserQuestionSet UQS1a = new UserQuestionSet("99", questionsFromFile1a);
         UserQuestionSet UQS2a = new UserQuestionSet("99", questionsFromFile2a);
         assertFalse(UQS1a.equals(UQS2a));

@@ -22,7 +22,7 @@ public class StudentModelRecordTest {
 
     @Test
     public void toAndFromJsonTest() throws IOException {
-        QuestionPool questionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestions2.json"));
+        QuestionPool questionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));
         StudentModel studentModel = new StudentModel("TestUser100", questionPool.getAllQuestions());
 
         //write to Json
