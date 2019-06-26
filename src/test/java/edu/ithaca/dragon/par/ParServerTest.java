@@ -111,7 +111,7 @@ public class ParServerTest {
 
     }
 
-    @Test
+    @Test//TODO:REDO KNOWLEDGE TEST
     public void imageTaskResponseSubmittedAndCalcScoreTest() throws IOException {
         QuestionPool questionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionsSameDifficulty2.json"));
         ParServer parServer = new ParServer(questionPool);

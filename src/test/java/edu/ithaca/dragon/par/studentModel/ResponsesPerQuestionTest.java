@@ -11,14 +11,21 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class UserResponseTest {
+public class ResponsesPerQuestionTest {
 
     @Test
-    public void checkResponseTest() throws IOException {
+    public void knowledgeCalcTest() throws IOException {
+
+    }
+
+    @Test
+    public void allResponseTextSizeTest() throws IOException{
         List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestions.json", Question.class);
         List<ImageTaskResponse> responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponse.class);
-        UserResponse response = new UserResponse("user1", questionsFromFile.get(0), responsesFromFile.get(0).getResponseTexts().get(0));
-        assertEquals(response.checkResponse(), true);
+        ResponsesPerQuestion responsesPerQuestion=new ResponsesPerQuestion(responsesFromFile.get(0).getUserId(),questionsFromFile.get(0),responsesFromFile.get(0).getResponseTexts().get(0));
+        assertEquals(1,responsesPerQuestion.allResponseTextSize());
+        responsesPerQuestion.addNewResponse("answer2");
+        assertEquals(2,responsesPerQuestion.allResponseTextSize());
     }
 
 }

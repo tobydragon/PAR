@@ -2,7 +2,7 @@ package edu.ithaca.dragon.par.io;
 
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
-import edu.ithaca.dragon.par.studentModel.UserResponse;
+import edu.ithaca.dragon.par.studentModel.ResponsesPerQuestion;
 
 public class UserResponseRecord {
     private String userId;
@@ -12,14 +12,14 @@ public class UserResponseRecord {
 
     public UserResponseRecord(){ }
 
-    public UserResponseRecord(UserResponse userResponseIn){
-        userId=userResponseIn.getUserId();
-        questionId=userResponseIn.getQuestionId();
-        responseText=userResponseIn.getResponseText();
+    public UserResponseRecord(ResponsesPerQuestion responsesPerQuestionIn){
+        userId= responsesPerQuestionIn.getUserId();
+        questionId= responsesPerQuestionIn.getQuestionId();
+        responseText= responsesPerQuestionIn.getResponseText();
     }
-     public UserResponse buildUserResponse(QuestionPool questionPool){
+     public ResponsesPerQuestion buildUserResponse(QuestionPool questionPool){
         Question question =questionPool.getQuestionFromId(questionId);
-        return new UserResponse(userId,question,responseText);
+        return new ResponsesPerQuestion(userId,question,responseText);
      }
 
     public String getUserId() {

@@ -1,7 +1,7 @@
 package edu.ithaca.dragon.par.io;
 
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
-import edu.ithaca.dragon.par.studentModel.UserResponse;
+import edu.ithaca.dragon.par.studentModel.ResponsesPerQuestion;
 import edu.ithaca.dragon.par.studentModel.UserResponseSet;
 
 import java.util.ArrayList;
@@ -18,13 +18,13 @@ public class UserResponseSetRecord {
         this();
         userId=userResponseSet.getUserId();
 
-        for(UserResponse currUserResponse : userResponseSet.getUserResponses()){
-            userResponseRecords.add(new UserResponseRecord(currUserResponse));
+        for(ResponsesPerQuestion currResponsesPerQuestion : userResponseSet.getUserResponse()){
+            userResponseRecords.add(new UserResponseRecord(currResponsesPerQuestion));
         }
     }
 
     public UserResponseSet buildUserResponseSet(QuestionPool questionPool){
-        List<UserResponse> responses=new ArrayList<>();
+        List<ResponsesPerQuestion> responses=new ArrayList<>();
         for(UserResponseRecord currURR : userResponseRecords){
             responses.add(currURR.buildUserResponse(questionPool));
         }
