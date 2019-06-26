@@ -1,3 +1,9 @@
+window.addEventListener("load", canvasApp, false);
+
+function canvasSupport() {
+    return Modernizr.canvas;
+}
+
 function canvasApp() {
     //Check to see if the canvas has a context
     if (!canvasSupport()) {
@@ -78,27 +84,21 @@ function displayQuestion(displayHTML) {
 function createRadioQuestion(json) {
     var question = "<p>" + json.questionText + "</p>";
     for (var i = 0; i < json.possibleAnswers.length; i++) {
-        question += '<br> <input type="radio" name="' + ("q" + (getNumberOfQuestions())) + '" value="';
-        question = question + json.possibleAnswers[i] + '">' + json.possibleAnswers[i] + '<br> <i id="' + "questionCorrect" + (getNumberOfQuestions()) + '"></i>';
+        question += '<br> <input type="radio" name="' + ("q" + amountOfQuestions) + '" value="';
+        question = question + json.possibleAnswers[i] + '">' + json.possibleAnswers[i] + '<br> <i id="' + "questionCorrect" + (amountOfQuestions) + '"></i>';
     }
     return question;
 }
 
 //Creates fill in question based on question given and difficulty for the html.
 function createFillIn(json) {
-    var question = "<p>" + json.questionText + '</p> <input name="' + ("q" + (getNumberOfQuestions())) + '" list="' + ("list" + getNumberOfQuestions()) + '"/> <datalist id="' + ("list" + getNumberOfQuestions()) + '">';
+    var question = "<p>" + json.questionText + '</p> <input name="' + ("q" + (amountOfQuestions)) + '" list="' + ("list" + amountOfQuestions) + '"/> <datalist id="' + ("list" + amountOfQuestions) + '">';
     for (var i = 0; i < json.possibleAnswers.length; i++) {
         question = question + '<option value="' + json.possibleAnswers[i] + '"/>';
     }
     question += '</datalist>';
     question += '<i id="' + "questionCorrect" + (amountOfQuestions) + '"></i>';
     return question;
-}
-
-//caller function for changing the questions (and image task).
-function changeQuestions() {
-    clearPage();
-    canvasApp();
 }
 
 function setCurrentScore(){
@@ -139,7 +139,7 @@ function clearPage() {
 //Checks the answers given in the questions against the record of what is correct/incorrect.
 function checkAndRecordAnswers() {
     var form = document.getElementById("form1")
-    for (var i = 0; i < numberOfQuestions; i++) {
+    for (var i = 0; i < amountOfQuestions; i++) {
         var currentName = "q" + i;
         console.log(currentName);
         console.log(form[currentName].value);
@@ -185,7 +185,6 @@ function clearQuestionAnswers() {
 function getUserIdfromUser() {
     UserID = document.getElementById("inputId").value;
     document.getElementById("userID").innerText = UserID;
-    changeUserID(UserID);
 }
 
 function createResponseJson() {
