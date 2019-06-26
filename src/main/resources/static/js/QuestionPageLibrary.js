@@ -1,4 +1,3 @@
-//When the page has fully loaded, execute the canvasApp
 window.addEventListener("load", canvasApp, false);
 
 function canvasSupport() {
@@ -50,34 +49,12 @@ function canvasApp() {
 
 }
 
-
-var amountOfQuestions = 0;
-var QuestionAnswers = [];
-var QuestionIDs = [];
-var UserID= null;
-
 function sendUserId() {
     if (UserID != null) {
         return UserID;
     } else {
         return "Student";
     }
-}
-
-function changeUserID(newID){
-    UserID=newID;
-}
-
-function getNumberOfQuestions() {
-    return amountOfQuestions;
-}
-
-function getQuestionAnswers() {
-    return QuestionAnswers;
-}
-
-function getQuestionIDs() {
-    return QuestionIDs;
 }
 
 //Gets JSON, reads it, and returns it
@@ -107,45 +84,26 @@ function displayQuestion(displayHTML) {
 function createRadioQuestion(json) {
     var question = "<p>" + json.questionText + "</p>";
     for (var i = 0; i < json.possibleAnswers.length; i++) {
-        question += '<br> <input type="radio" name="' + ("q" + (getNumberOfQuestions())) + '" value="';
-        question = question + json.possibleAnswers[i] + '">' + json.possibleAnswers[i] + '<br> <i id="' + "questionCorrect" + (getNumberOfQuestions()) + '"></i>';
+        question += '<br> <input type="radio" name="' + ("q" + amountOfQuestions) + '" value="';
+        question = question + json.possibleAnswers[i] + '">' + json.possibleAnswers[i];
     }
+    question+='<br> <input type="radio" name="I do not know" value="Unsure"';
+    question+='<br> <i id="questionCorrect"' + (amountOfQuestions) + '></i>';
     return question;
 }
 
 //Creates fill in question based on question given and difficulty for the html.
 function createFillIn(json) {
-    var question = "<p>" + json.questionText + '</p> <input name="' + ("q" + (getNumberOfQuestions())) + '" list="' + ("list" + getNumberOfQuestions()) + '"/> <datalist id="' + ("list" + getNumberOfQuestions()) + '">';
+    var question = "<p>" + json.questionText + '</p> <input name="' + ("q" + (amountOfQuestions)) + '" list="' + ("list" + amountOfQuestions) + '"/> <datalist id="' + ("list" + amountOfQuestions) + '">';
     for (var i = 0; i < json.possibleAnswers.length; i++) {
         question = question + '<option value="' + json.possibleAnswers[i] + '"/>';
     }
+    question+= '<option value="Unsure"/>';
     question += '</datalist>';
     question += '<i id="' + "questionCorrect" + (amountOfQuestions) + '"></i>';
     return question;
 }
 
-//caller function for changing the questions (and image task).
-function changeQuestions() {
-    clearPage();
-    canvasApp();
-}
-/** might be needed later, commented out rather than deleted.
-function generateImageURL(imageURL) {
-    //var displayURLThyme = imageURL.split('\\').pop().split('/').pop();
-    //displayURLThyme = displayURLThyme.substr(0, displayURLThyme.length - 1);
-    var displayURLThyme = "images/demoEquine02.jpg";
-    //imageURL = imageURL.substr(0, imageURL.length - 1);
-    var displayURL = '<img th:src="@{' + displayURLThyme + '}" class="imgCenter"/>';
-    console.log(displayURL);
-    //console.log(imageURL);
-    console.log(displayURLThyme);
-    return displayURL;
-}
-
-function displayImageURL(imageURL) {
-    document.getElementById('image').innerHTML = imageURL;
-}
-**/
 function setCurrentScore(){
     var url= "api/calcScore?userId="+sendUserId();
     var request = new XMLHttpRequest();
@@ -154,7 +112,6 @@ function setCurrentScore(){
 
     //can be -1 currently if User is new
     var score=request.response;
-    console.log(score);
     if(score==-1) {
         document.getElementById("score").innerHTML = "0";
     } else {
@@ -179,4 +136,100 @@ function clearQuestionIDs() {
 function clearPage() {
     document.getElementById('questionSet').innerHTML = " ";
     amountOfQuestions = 0;
+}
+
+//Checks the answers given in the questions against the record of what is correct/incorrect.
+function checkAndRecordAnswers() {
+    var form = document.getElementById("form1")
+    for (var i = 0; i < amountOfQuestions; i++) {
+        var currentName = "q" + i;
+        var currentAnswer = form[currentName].value;
+
+        responsesGivenText.push(currentAnswer);
+
+        var isCorrect;
+        if (currentAnswer == QuestionAnswers[i]) {
+            isCorrect = "Correct";
+        } else if(currentAnswer=="Unsure"){
+            isCorrect ="Unsure";
+        } else {
+            isCorrect = "Incorrect";
+        }
+        var displayAreaName = "questionCorrect" + i;
+        document.getElementById(displayAreaName).innerHTML = displayCheck(isCorrect, QuestionAnswers[i]);
+    }
+}
+
+//Displays the value of right/wrong based on the previous function's input value.
+function displayCheck(value, rightAnwser) {
+    if (value == "Correct") return '<font color=\"green\">Your answer is: ' + value + '</font>';
+    if (value == "Incorrect") return '<font color=\"red\">Your answer is: ' + value + '</font>';
+    if (value == "Unsure") return '<font color=\"#663399\">Your answer is: ' + value + '</font>'+",     " +'<font color=\"green\">The answer is ' + rightAnwser + '</font>';
+}
+//Clears the answers from the page.
+function clearQuestionAnswers() {
+    responsesGivenText= [];
+}
+/** not needed right now, so commented out, but shows the toggable state of an element on a page.
+ function toggleShowState(toggableElement) {
+    var changeElement = document.getElementById(toggableElement).classList;
+
+    if (changeElement.contains("show") || changeElement.style.display == "block") {
+        changeElement.remove("show");
+        changeElement.add("hide");
+    } else if (changeElement.contains("hide")) {
+        changeElement.remove("hide");
+        changeElement.add("show");
+    }
+}
+ **/
+
+function createResponseJson() {
+    var newResponse;
+    if (UserID != null) {
+        newResponse = {
+            userId: UserID,
+            taskQuestionIds: QuestionIDs,
+            responseTexts: responsesGivenText
+        };
+    } else {
+        newResponse = {
+            userId: "Student",
+            taskQuestionIds: QuestionIDs,
+            responseTexts: responsesGivenText
+        };
+    }
+
+    return newResponse;
+}
+
+function submitToAPI(url, objectToSubmit) {
+    var request = new XMLHttpRequest();
+    request.open("POST", url);
+    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    request.send(JSON.stringify(objectToSubmit));
+    request.onreadystatechange = function () {
+        if (request.status === 200) {
+            setCurrentScore();
+        } else {
+            window.location.replace("/serverError");
+        }
+    };
+}
+
+function logout(){
+    UserID=null;
+    return location.replace('/login');
+}
+
+//for testing purposes only
+function testSetVariables() {
+    responsesGivenText = ["Lateral", "ligament", "Unsure"];
+    QuestionIDs = ["PlaneQ1", "StructureQ1", "ZoneQ1"];
+    UserID = "Hewwo123";
+}
+
+function testGenerateReponseJSON() {
+    testSetVariables();
+    return createResponseJson();
 }

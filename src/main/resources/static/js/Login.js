@@ -1,9 +1,12 @@
-function getUserId() {
-    UserID = document.getElementById("inputId").value;
-    return UserID;
+var User;
+
+function setUserId() {
+    User = document.getElementById("inputId").value;
+    console.log(User);
+    return User;
 }
 
-function login() {
-    console.log('/imageTaskView?userId=' + getUserId());
-    return location.replace('/imageTaskView?userId=' + getUserId());
+function change() {
+    setUserId();
+    return location.replace('/imageTaskView?userId=' + User);
 }

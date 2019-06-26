@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="/css/style.css">
     <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
     <!-- Main JS Files -->
-    <script type="type/javascript" src="/js/Login.js"></script>
+    <script type="text/javascript" src="/js/Login.js"></script>
 </head>
 
 <body>
@@ -40,19 +40,16 @@
             <div class="col-4">
                 <form name="userIDinput">
                     <div class="form-group">
-                        <label for="userID">User ID</label>
+                        <label>User ID</label>
                         <input type="userId" class="form-control" id="inputId" aria-describedby="idHelp" placeholder="Enter User ID">
                         <small id="idHelp" class="form-text text-muted">A PAR Employee will never ask for your password.</small>
                     </div>
                 </form>
             </div>
             <div class="col-1 colVertCenter">
-                <script>
-
-                </script>
-                <form method="GET" action="/imageTaskView" +login()>
-                    <input class="btn btn-primary" type="submit" value="Login" />
-                </form>
+                <button type="button" class="btn btn-primary" id="submitButton" onclick="change()">
+                    Login
+                </button>
             </div>
         </div>
     </div>
