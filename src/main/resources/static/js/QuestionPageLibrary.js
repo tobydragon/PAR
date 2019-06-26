@@ -85,8 +85,10 @@ function createRadioQuestion(json) {
     var question = "<p>" + json.questionText + "</p>";
     for (var i = 0; i < json.possibleAnswers.length; i++) {
         question += '<br> <input type="radio" name="' + ("q" + amountOfQuestions) + '" value="';
-        question = question + json.possibleAnswers[i] + '">' + json.possibleAnswers[i] + '<br> <i id="' + "questionCorrect" + (amountOfQuestions) + '"></i>';
+        question = question + json.possibleAnswers[i] + '">' + json.possibleAnswers[i];
     }
+    question+='<br> <input type="radio" name="I do not know" value="Unsure"';
+    question+='<br> <i id="questionCorrect"' + (amountOfQuestions) + '></i>';
     return question;
 }
 
@@ -96,6 +98,7 @@ function createFillIn(json) {
     for (var i = 0; i < json.possibleAnswers.length; i++) {
         question = question + '<option value="' + json.possibleAnswers[i] + '"/>';
     }
+    question+= '<option value="Unsure"/>';
     question += '</datalist>';
     question += '<i id="' + "questionCorrect" + (amountOfQuestions) + '"></i>';
     return question;
