@@ -28,13 +28,13 @@ public class TaskGeneratorTest {
         //make an imageTask and check aspects of it
         Question task1Question = TaskGenerator.getInitialQuestionForTask(studentModel);
         ImageTask task1 = new ImageTask(task1Question.getImageUrl(), Arrays.asList(task1Question));
-        assertEquals("../static/images/demoEquine02.jpg", task1.getImageUrl());
+        assertEquals("./images/demoEquine02.jpg", task1.getImageUrl());
         assertEquals(1, task1.getTaskQuestions().size());
 
         //make a new imageTask and check aspects of it
         Question task2Question = TaskGenerator.getInitialQuestionForTask(studentModel);
         ImageTask task2 = new ImageTask(task2Question.getImageUrl(), Arrays.asList(task1Question));
-        assertEquals("../static/images/demoEquine02.jpg", task1.getImageUrl());
+        assertEquals("./images/demoEquine02.jpg", task1.getImageUrl());
         assertEquals(1, task2.getTaskQuestions().size());
         System.out.println(task2.getImageUrl());
     }
@@ -47,12 +47,12 @@ public class TaskGeneratorTest {
 
         //make an imageTask and check aspects of it
         ImageTask task1 = TaskGenerator.makeTask(studentModel);
-        assertEquals("../static/images/demoEquine02.jpg", task1.getImageUrl());
+        assertEquals("./images/demoEquine02.jpg", task1.getImageUrl());
         assertEquals(4, task1.getTaskQuestions().size());
 
         //make a new imageTask and check aspects of it
         ImageTask task2 = TaskGenerator.makeTask(studentModel);
-        assertEquals("../static/images/demoEquine04.jpg", task2.getImageUrl());
+        assertEquals("./images/demoEquine04.jpg", task2.getImageUrl());
         assertEquals(5, task2.getTaskQuestions().size());
     }
 
