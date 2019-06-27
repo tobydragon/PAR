@@ -16,7 +16,7 @@ public class ImageTask{
 
     public ImageTask(String imageUrlIn, List<Question> taskQuestionsIn){
         imageUrl = imageUrlIn;
-        taskQuestions = taskQuestionsIn;
+        taskQuestions = new ArrayList<>(taskQuestionsIn);
     }
 
     public String getImageUrl() {return imageUrl;}
@@ -24,6 +24,10 @@ public class ImageTask{
 
     public List<Question> getTaskQuestions() {return taskQuestions;}
     public void setTaskQuestions(List<Question> taskQuestionsIn) {taskQuestions = taskQuestionsIn;}
+
+    public void addQuestion(Question questionToAdd){
+        taskQuestions.add(questionToAdd);
+    }
 
     @Override
     public boolean equals(Object otherObj){

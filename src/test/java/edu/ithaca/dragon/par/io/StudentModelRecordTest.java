@@ -22,7 +22,7 @@ public class StudentModelRecordTest {
 
     @Test
     public void toAndFromJsonTest() throws IOException {
-        QuestionPool questionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestions2.json"));
+        QuestionPool questionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));
         StudentModel studentModel = new StudentModel("TestUser100", questionPool.getAllQuestions());
 
         //write to Json
@@ -42,7 +42,7 @@ public class StudentModelRecordTest {
 
     @Test
     public void busyModelToFile() throws IOException {
-        QuestionPool questionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestions.json"));
+        QuestionPool questionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));
         StudentModel studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
         List<ImageTaskResponse> responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponse.class);
         ImageTaskResponse responseSet3=new ImageTaskResponse("response1", Arrays.asList("PlaneQ1","StructureQ1","ZoneQ1"),Arrays.asList("I'm","bad","student"));

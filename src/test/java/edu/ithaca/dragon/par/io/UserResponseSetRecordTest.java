@@ -20,7 +20,7 @@ public class UserResponseSetRecordTest {
     public void toJsonAndBackTest() throws IOException {
         List<ImageTaskResponse> responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponse.class);
         UserResponseSet que=new UserResponseSet(responsesFromFile.get(0).getUserId());
-        QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestions2.json"));
+        QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));
 
 
         UserResponseSetRecord myURSR=new UserResponseSetRecord(que);
