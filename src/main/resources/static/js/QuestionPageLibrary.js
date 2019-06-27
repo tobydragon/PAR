@@ -158,8 +158,6 @@ function generateScoreBreakdown() {
     }
     displayScoreBreakdown(breakdownString);
 
-
-
 }
 
 function displayScoreBreakdown(breakdownString) {
