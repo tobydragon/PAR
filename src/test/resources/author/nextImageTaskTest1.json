@@ -1,27 +1,32 @@
 {
-  "imageUrl": "../static/images/demoEquine02.jpg",
-  "taskQuestions": [
-    {
-      "id" : "PlaneQ1",
-      "type" : "Plane",
-      "questionText" : "On which plane is the ultrasound taken?",
-      "correctAnswer" : "Lateral",
-      "possibleAnswers" : [ "Transverse", "Lateral", "I don't know"],
-      "imageUrl" : "../static/images/demoEquine02.jpg"
-    }, {
-      "id" : "ZoneQ1",
-      "type" : "Zone",
-      "questionText" : "In what zone is this ultrasound taken?",
-      "correctAnswer" : "3c",
-      "possibleAnswers" : [ "1a", "1b", "2a", "2b", "2c", "3a", "3b", "3c" ],
-      "imageUrl" : "../static/images/demoEquine02.jpg"
-    }, {
-      "id" : "ZoneQ3",
-      "Type" : "Zone",
-      "questionText" : "In what zone is this ultrasound taken?",
-      "correctAnswer" : "3c",
-      "possibleAnswers" : [ "1a", "1b", "2a", "2b", "2c", "3a", "3b", "3c" ],
-      "imageUrl" : "../static/images/demoEquine02.jpg"
-    }
-  ]
+  "imageUrl" : "../static/images/demoEquine02.jpg",
+  "taskQuestions" : [ {
+    "id" : "PlaneQ1",
+    "type" : "Plane",
+    "questionText" : "On which plane is the ultrasound taken?",
+    "correctAnswer" : "Lateral",
+    "possibleAnswers" : [ "Transverse", "Lateral", "I don't know" ],
+    "imageUrl" : "../static/images/demoEquine02.jpg"
+  }, {
+    "id" : "ZoneQ1",
+    "type" : "Zone",
+    "questionText" : "In what zone is this ultrasound taken?",
+    "correctAnswer" : "3c",
+    "possibleAnswers" : [ "1a", "1b", "2a", "2b", "2c", "3a", "3b", "3c" ],
+    "imageUrl" : "../static/images/demoEquine02.jpg"
+  }, {
+    "id" : "ZoneQ3",
+    "type" : "Zone",
+    "questionText" : "In what zone is this ultrasound taken?",
+    "correctAnswer" : "3c",
+    "possibleAnswers" : [ "1a", "1b", "2a", "2b", "2c", "3a", "3b", "3c" ],
+    "imageUrl" : "../static/images/demoEquine02.jpg"
+  }, {
+    "id" : "ZoneQ5",
+    "type" : "Zone",
+    "questionText" : "In what zone is this ultrasound taken?",
+    "correctAnswer" : "2b",
+    "possibleAnswers" : [ "1a", "1b", "2a", "2b", "2c", "3a", "3b", "3c" ],
+    "imageUrl" : "../static/images/demoEquine02.jpg"
+  } ]
 }

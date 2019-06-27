@@ -42,9 +42,9 @@ public class ImageTaskChooser {
     public static List<Integer> getIndexesOfSameDifficulty(List<Question> questions, int difficulty){
         List<Integer> indexesSeen = new ArrayList<Integer>();
         for(int i = 0; i<questions.size(); i++){
-            if (questions.get(i).getType()==difficulty){
-                indexesSeen.add(i);
-            }
+//            if (questions.get(i).getType()==difficulty){
+//                indexesSeen.add(i);
+//            }
         }
         return indexesSeen;
     }
@@ -113,29 +113,28 @@ public class ImageTaskChooser {
                 it.getTaskQuestions().add(sameUrlListSeen.get(i));
             }
         }
-
     }
 
     public static void lessOrEqualDifficultyAdded(ImageTask it, int numOfQuestions, List<Question> toBeAdded){
-        for (int i = 0; i<toBeAdded.size(); i++){
-            if ((toBeAdded.get(i).getType()<=it.getTaskQuestions().get(0).getType()) && (toBeAdded.get(i).getId()!=it.getTaskQuestions().get(0).getId())){
-                it.getTaskQuestions().add(toBeAdded.get(i));
-            }
-            if (it.getTaskQuestions().size()==numOfQuestions){
-                i=toBeAdded.size();
-            }
-        }
+//        for (int i = 0; i<toBeAdded.size(); i++){
+//            if ((toBeAdded.get(i).getType()<=it.getTaskQuestions().get(0).getType()) && (toBeAdded.get(i).getId()!=it.getTaskQuestions().get(0).getId())){
+//                it.getTaskQuestions().add(toBeAdded.get(i));
+//            }
+//            if (it.getTaskQuestions().size()==numOfQuestions){
+//                i=toBeAdded.size();
+//            }
+//        }
     }
 
     public static void greaterDifficultyAdded(ImageTask it, int numOfQuestions, List<Question> toBeAdded){
-        for (int i = 0; i<toBeAdded.size(); i++){
-            if ((toBeAdded.get(i).getType()>it.getTaskQuestions().get(0).getType()) && (toBeAdded.get(i).getId()!=it.getTaskQuestions().get(0).getId())){
-                it.getTaskQuestions().add(toBeAdded.get(i));
-            }
-            if (it.getTaskQuestions().size()==numOfQuestions){
-                i=toBeAdded.size();
-            }
-        }
+//        for (int i = 0; i<toBeAdded.size(); i++){
+//            if ((toBeAdded.get(i).getType()>it.getTaskQuestions().get(0).getType()) && (toBeAdded.get(i).getId()!=it.getTaskQuestions().get(0).getId())){
+//                it.getTaskQuestions().add(toBeAdded.get(i));
+//            }
+//            if (it.getTaskQuestions().size()==numOfQuestions){
+//                i=toBeAdded.size();
+//            }
+//        }
     }
 
 

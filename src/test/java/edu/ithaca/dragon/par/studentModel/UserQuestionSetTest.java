@@ -31,7 +31,7 @@ public class UserQuestionSetTest {
         List<Question> questionsFromFile2 = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
         UserQuestionSet UQS1 = new UserQuestionSet("99", questionsFromFile1);
         UserQuestionSet UQS2 = new UserQuestionSet("99", questionsFromFile2);
-        assertTrue(UQS1.equals(UQS2));
+        assertEquals(UQS1, UQS2);
 
         //give a question from a UserQuestionSet, then compare
         UQS1.givenQuestion("StructureQ1");

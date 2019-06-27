@@ -4,7 +4,7 @@ import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.io.Datastore;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
-import edu.ithaca.dragon.par.pedagogicalModel.ImageTaskChooser;
+import edu.ithaca.dragon.par.pedagogicalModel.TaskGenerator;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 
 import java.io.IOException;
@@ -31,7 +31,7 @@ public class ParServer {
 
     public ImageTask nextImageTask(String userId){
         StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, questionPool);
-        ImageTask imageTask =  ImageTaskChooser.nextImageTask(currentStudent.getUserQuestionSet(), 1, 3);
+        ImageTask imageTask =  TaskGenerator.makeTask(currentStudent);
         if (imageTask != null){
             return imageTask;
         }
@@ -42,7 +42,7 @@ public class ParServer {
 
     public ImageTask nextImageTaskSingle(String userId){
         StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, questionPool);
-        ImageTask imageTask =  ImageTaskChooser.nextImageTaskSingle(currentStudent.getUserQuestionSet(), 1);
+        ImageTask imageTask =  TaskGenerator.makeTaskWithSingleQuestion(currentStudent);
         if (imageTask != null){
             return imageTask;
         }
