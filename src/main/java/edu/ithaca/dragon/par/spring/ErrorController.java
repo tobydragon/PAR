@@ -31,18 +31,21 @@ class ErrorController implements org.springframework.boot.web.servlet.error.Erro
 
         switch (httpErrorCode) {
             case 400: {
-                errorMsg = "Http Error Code: 400. Bad Request";
+                errorMsg = "Http Error Code: 400. Bad Request ";
+                errorMsg+= getErrorMessage(httpRequest);
                 break;
             }
             case 401: {
-                errorMsg = "Http Error Code: 401. Unauthorized";
+                errorMsg = "Http Error Code: 401. Unauthorized ";
+                errorMsg+= getErrorMessage(httpRequest);
                 break;
             }
             case 404: {
                 return "Error";
             }
             case 500: {
-                errorMsg = "Http Error Code: 500. Internal Server Error";
+                errorMsg = "Http Error Code: 500. Internal Server Error ";
+                errorMsg+= getErrorMessage(httpRequest);
                 break;
             }
         }
@@ -53,5 +56,10 @@ class ErrorController implements org.springframework.boot.web.servlet.error.Erro
     private int getErrorCode(HttpServletRequest httpRequest) {
         return (Integer) httpRequest
                 .getAttribute("javax.servlet.error.status_code");
+    }
+
+    private String getErrorMessage(HttpServletRequest httpRequest) {
+        return (String) httpRequest
+                .getAttribute("javax.servlet.error.message");
     }
 }
