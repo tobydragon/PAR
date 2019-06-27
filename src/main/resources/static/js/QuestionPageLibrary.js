@@ -134,7 +134,7 @@ function generateScoreBreakdown() {
             },
             {
                 "type": "struct",
-                "num": 80
+                "num": 30
             },
             {
                 "type": "attach",
