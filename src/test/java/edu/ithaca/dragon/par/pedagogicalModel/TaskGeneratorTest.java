@@ -1,5 +1,6 @@
 package edu.ithaca.dragon.par.pedagogicalModel;
 
+import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.JsonDatastore;
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 import java.io.IOException;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -23,17 +25,16 @@ public class TaskGeneratorTest {
         assertEquals(15, studentModel.getUnseenQuestionCount());
 
         //make an imageTask and check aspects of it
-        ImageTask task1 = TaskGenerator.makeTaskWithSingleQuestion(studentModel);
+        Question task1Question = TaskGenerator.getInitialQuestionForTask(studentModel);
+        ImageTask task1 = new ImageTask(task1Question.getImageUrl(), Arrays.asList(task1Question));
         assertEquals("../static/images/demoEquine02.jpg", task1.getImageUrl());
         assertEquals(1, task1.getTaskQuestions().size());
-
-        //one question has been seen
-        assertEquals(14, studentModel.getUnseenQuestionCount());
 
         //make a new imageTask and check aspects of it
-        ImageTask task2 = TaskGenerator.makeTaskWithSingleQuestion(studentModel);
+        Question task2Question = TaskGenerator.getInitialQuestionForTask(studentModel);
+        ImageTask task2 = new ImageTask(task2Question.getImageUrl(), Arrays.asList(task1Question));
         assertEquals("../static/images/demoEquine02.jpg", task1.getImageUrl());
-        assertEquals(1, task1.getTaskQuestions().size());
+        assertEquals(1, task2.getTaskQuestions().size());
         System.out.println(task2.getImageUrl());
     }
 

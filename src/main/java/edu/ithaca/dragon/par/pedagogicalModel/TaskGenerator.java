@@ -16,26 +16,21 @@ public class TaskGenerator {
      * @param studentModel
      * @return
      */
-    public static ImageTask makeTaskWithSingleQuestion(StudentModel studentModel){
+    public static Question getInitialQuestionForTask(StudentModel studentModel){
 
         //there are questions the student has not seen
         if(studentModel.getUnseenQuestionCount()>0){
             //make and return an imageTask with the first question from the studentModels.unseenQuestions
             Question firstQuestionFromUnseen = studentModel.getUserQuestionSet().getUnseenQuestions().get(0);
-            ImageTask imageTask = new ImageTask(firstQuestionFromUnseen.getImageUrl(), Arrays.asList(firstQuestionFromUnseen));
 
-            //let userQuestionSet know the question has been seen
-            studentModel.getUserQuestionSet().givenQuestion(firstQuestionFromUnseen.getId());
-
-            return imageTask;
+            return firstQuestionFromUnseen;
         }
 
         //the student has seen every question, get a question that they have already seen
         //TODO: because this takes the first question from seenQuestions, will it always take the same question? Maybe this should be random to avoid repetition?
         Question firstQuestionFromSeen = studentModel.getUserQuestionSet().getSeenQuestions().get(0);
-        ImageTask imageTask = new ImageTask(firstQuestionFromSeen.getImageUrl(), Arrays.asList(firstQuestionFromSeen));
 
-        return imageTask;
+        return firstQuestionFromSeen;
     }
 
     /**
@@ -45,13 +40,18 @@ public class TaskGenerator {
      * @return
      */
     public static ImageTask makeTask(StudentModel studentModel){
-        //create an ImageTask with a single Question
-        ImageTask imageTask = TaskGenerator.makeTaskWithSingleQuestion(studentModel);
+        //get an initial question url
+        Question initialQuestion = TaskGenerator.getInitialQuestionForTask(studentModel);
 
-        //add unseenQuestions and seenQuestions
-        List<Question> unseenQuestionsWithCorrectUrl = TaskGenerator.getQuestionsWithUrl(studentModel.getUserQuestionSet().getUnseenQuestions(), imageTask.getImageUrl());
-        List<Question> seenQuestionsWithCorrectUrl = TaskGenerator.getQuestionsWithUrl(studentModel.getUserQuestionSet().getSeenQuestions(), imageTask.getImageUrl());
-        addAllQuestions(imageTask, unseenQuestionsWithCorrectUrl, seenQuestionsWithCorrectUrl);
+        //put initialQuestion, unseenQuestions and seenQuestions all in a list
+        List<Question> unseenQuestionsWithCorrectUrl = TaskGenerator.getQuestionsWithUrl(studentModel.getUserQuestionSet().getUnseenQuestions(), initialQuestion.getImageUrl());
+        List<Question> seenQuestionsWithCorrectUrl = TaskGenerator.getQuestionsWithUrl(studentModel.getUserQuestionSet().getSeenQuestions(), initialQuestion.getImageUrl());
+        List<Question> questionList = new ArrayList<>();
+        questionList.addAll(unseenQuestionsWithCorrectUrl);
+        questionList.addAll(seenQuestionsWithCorrectUrl);
+
+
+        ImageTask imageTask = new ImageTask(initialQuestion.getImageUrl(), questionList);
 
         //let studentModel know that unseen questions are seen
         for(Question currUnseenQuestion : unseenQuestionsWithCorrectUrl){
