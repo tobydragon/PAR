@@ -5,6 +5,7 @@ import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.util.JsonUtil;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -34,9 +35,26 @@ public class JsonDatastore implements Datastore{
 
     @Override
     public List<StudentModel> loadStudentModels() throws IOException {
+        //TODO: This currently loads in every file in the studentModelFilePath package. Change it so it takes a userID and only load that studentModel
+
+        //check if filepath is exists
         if(studentModelFilePath == null)
             throw new IOException("studentModelFilePath is null");
-        List<StudentModelRecord> studentModelRecords = JsonUtil.listFromJsonFile(studentModelFilePath, StudentModelRecord.class);
+
+        //make a list of studentModelRecords from every file in the filepath
+        List<StudentModelRecord> studentModelRecords = new ArrayList<>();
+        File studentModelFolder = new File(studentModelFilePath);
+        File[] listOfStudentModelFiles = studentModelFolder.listFiles();
+
+        for(File file : listOfStudentModelFiles){
+            if(file.isFile()){
+                String fullFileName = studentModelFilePath + "/" + file.getName();
+                StudentModelRecord newSMR = JsonUtil.fromJsonFile(fullFileName, StudentModelRecord.class);
+                studentModelRecords.add(newSMR);
+            }
+        }
+
+        //create studentModels from the studentModelRecords
         List<StudentModel> studentModels = new ArrayList<>();
         for(StudentModelRecord currSMR : studentModelRecords){
             studentModels.add(currSMR.buildStudentModel(questionPool));
@@ -49,8 +67,9 @@ public class JsonDatastore implements Datastore{
         if(studentModelFilePath == null)
             throw new IOException("studentModelFilePath is null");
         List<StudentModelRecord> studentModelRecords = new ArrayList<>();
-        for(StudentModel currStudentModel : studentModelsIn)
+        for(StudentModel currStudentModel : studentModelsIn){
             studentModelRecords.add(new StudentModelRecord(currStudentModel));
+        }
         JsonUtil.toJsonFile(studentModelFilePath, studentModelRecords);
     }
 
