@@ -217,7 +217,7 @@ function submitToAPI(url, objectToSubmit) {
         if (request.status === 200) {
             setCurrentScore();
         } else {
-            window.location.replace("/serverError");
+            window.location.replace("/error");
         }
     };
 }
