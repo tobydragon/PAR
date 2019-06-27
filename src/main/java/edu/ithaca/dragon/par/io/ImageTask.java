@@ -16,9 +16,7 @@ public class ImageTask{
 
     public ImageTask(String imageUrlIn, List<Question> taskQuestionsIn){
         imageUrl = imageUrlIn;
-        taskQuestions = new ArrayList<>();
-        for(Question currQ : taskQuestionsIn)
-            taskQuestions.add(currQ);
+        taskQuestions = new ArrayList<>(taskQuestionsIn);
     }
 
     public String getImageUrl() {return imageUrl;}
