@@ -1,4 +1,4 @@
-describe("ReadImageTaskTest", function () {
+describe("QuestionPageLibraryTest", function () {
     it("checks to make sure a radio button zone question is created", function () {
         var test = {
             id: "ZoneQ1",
@@ -42,29 +42,9 @@ describe("ReadImageTaskTest", function () {
         };
         expect(createFillIn(test)).toBe('<p>Based on this structure, what is the distal attachment?</p> <input name="q0" list="list0"/> <datalist id="list0"><option value="bone"/><option value="ligament"/><option value="tumor"/><option value="tendon"/><option value="Unsure"/></datalist><i id="questionCorrect0"></i>');
     });
-    /**
-    it("check displayURL that it displays the right image", function () {
-        var test = {
-            imageURL: "../static/images/demoEquine02.jpg"
-        };
-        expect(displayImageURL(generateImageURL(test.imageURL))).toBe('<img th:src="@{images/demoEquine02.jpg}" class="imgCenter"/>');
-    });
-
-    it("check generateImageURL generates the right source tag and thymeleaf source tag", function () {
-        var test = {
-            imageURL: "../static/images/demoEquine02.jpg"
-        };
-        expect(generateImageURL(test.imageURL)).toBe('<img th:src="@{images/demoEquine02.jpg}" class="imgCenter"/>');
-    });
-    **/
-    it("check generateQuestions to see if it makes correct function calls and the counter is correct", function () {
-        var test2 = {
-            id: "PlaneQ1",
-            difficulty: 1,
-            questionText: "What plane is this?",
-            possibleAnswers: ["Transverse", "Longitudinal"],
-            imageURL: "../static/images/demoEquine02.jpg"
-        };
-        expect(getNumberOfQuestions()).toBe(0);
+    it("displayCheck to return correct feedback given a value", function () {
+        expect(displayCheck("Correct")).toBe("<font color=\"green\">Your answer is: Correct</font>");
+        expect(displayCheck("Incorrect")).toBe("<font color=\"red\">Your answer is: Incorrect</font>");
+        expect(displayCheck("Unsure")).toBe("<font color=\"#663399\">Your answer is: Unsure</font>");
     });
 });
