@@ -1,24 +1,4 @@
 describe("QuestionPageLibraryTest", function () {
-    it("checks to make sure a radio button zone question is created", function () {
-        var test = {
-            id: "ZoneQ1",
-            difficulty: 4,
-            questionText: "In what zone is this ultrasound taken?",
-            correctAnswer: "3C",
-            possibleAnswers: ["1A", "1B", "2A", "2B", "2C", "3A", "3B", "3C"],
-            imageUrl: "../static/images/demoEquine02.jpg"
-        };
-        var test2 = {
-            id: "PlaneQ1",
-            difficulty: 1,
-            questionText: "What plane is this?",
-            possibleAnswers: ["Transverse", "Longitudinal"],
-            imageURL: "../static/images/demoEquine02.jpg"
-        }
-        expect(createRadioQuestion(test)).toBe('<p>In what zone is this ultrasound taken?</p><br> <input type="radio" name="q0" value="1A">1A<br> <i id="questionCorrect0"></i><br> <input type="radio" name="q0" value="1B">1B<br> <i id="questionCorrect0"></i><br> <input type="radio" name="q0" value="2A">2A<br> <i id="questionCorrect0"></i><br> <input type="radio" name="q0" value="2B">2B<br> <i id="questionCorrect0"></i><br> <input type="radio" name="q0" value="2C">2C<br> <i id="questionCorrect0"></i><br> <input type="radio" name="q0" value="3A">3A<br> <i id="questionCorrect0"></i><br> <input type="radio" name="q0" value="3B">3B<br> <i id="questionCorrect0"></i><br> <input type="radio" name="q0" value="3C">3C<br> <i id="questionCorrect0"></i>');
-        expect(createRadioQuestion(test2)).toBe('<p>What plane is this?</p><br> <input type="radio" name="q0" value="Transverse">Transverse<br> <i id="questionCorrect0"></i><br> <input type="radio" name="q0" value="Longitudinal">Longitudinal<br> <i id="questionCorrect0"></i>');
-    });
-
     it("check to make sure createFillin makes a good structure question", function () {
         var test = {
             id: "structureQ1",
@@ -28,7 +8,7 @@ describe("QuestionPageLibraryTest", function () {
             possibleAnswers: ["bone", "ligament", "tumor", "tendon", "Unsure"],
             imageUrl: "../static/images/demoEquine02.jpg"
         };
-        expect(createFillIn(test)).toBe('<p>What structure is in the near field?</p> <input name="q0" list="list0"/> <datalist id="list0"><option value="bone"/><option value="ligament"/><option value="tumor"/><option value="tendon"/><option value="Unsure"/></datalist><i id="questionCorrect0"></i>');
+        expect(createFillIn(test)).toBe('<p>What structure is in the near field?</p> <input name="q0" list="list0"/> <datalist id="list0"><option value="bone"/><option value="ligament"/><option value="tumor"/><option value="tendon"/><option value="Unsure"/><option value="Unsure"/></datalist><i id="questionCorrect0"></i>');
     });
 
     it("check to make sure createFillin makes a good attachment question", function () {
@@ -40,11 +20,11 @@ describe("QuestionPageLibraryTest", function () {
             possibleAnswers: ["bone", "ligament", "tumor", "tendon", "Unsure"],
             imageUrl: "../static/images/demoEquine02.jpg"
         };
-        expect(createFillIn(test)).toBe('<p>Based on this structure, what is the distal attachment?</p> <input name="q0" list="list0"/> <datalist id="list0"><option value="bone"/><option value="ligament"/><option value="tumor"/><option value="tendon"/><option value="Unsure"/></datalist><i id="questionCorrect0"></i>');
+        expect(createFillIn(test)).toBe('<p>Based on this structure, what is the distal attachment?</p> <input name="q0" list="list0"/> <datalist id="list0"><option value="bone"/><option value="ligament"/><option value="tumor"/><option value="tendon"/><option value="Unsure"/><option value="Unsure"/></datalist><i id="questionCorrect0"></i>');
     });
     it("displayCheck to return correct feedback given a value", function () {
         expect(displayCheck("Correct")).toBe("<font color=\"green\">Your answer is: Correct</font>");
         expect(displayCheck("Incorrect")).toBe("<font color=\"red\">Your answer is: Incorrect</font>");
-        expect(displayCheck("Unsure")).toBe("<font color=\"#663399\">Your answer is: Unsure</font>");
+        expect(displayCheck("Unsure")).toBe('<font color="#663399">Your answer is: Unsure.    The answer is undefined</font>');
     });
 });
