@@ -16,22 +16,20 @@ function canvasApp() {
     function loadImages(images, imageSources, callback) {
         try {
             var imageTaskJSON = readJson("api/nextImageTask?userId="+UserID);
+
+            pageDisplay(imageTaskJSON);
+            imageSource = imageTaskJSON.imageUrl;
+
+            image = new Image();
+            image.onload = function () {
+                callback()
+            };
+            image.src = imageSource;
         } catch(Exception ) {
             window.onerror = function (msg) {
                 location.replace('/error?message='+msg);
             }
         }
-
-        pageDisplay(imageTaskJSON);
-        var displayURLThyme = imageTaskJSON.imageUrl.split('\\').pop().split('/').pop();
-        imageSource = "./images/" + displayURLThyme;
-
-
-        image = new Image();
-        image.onload = function () {
-            callback()
-        };
-        image.src = imageSource;
 
     }
 
