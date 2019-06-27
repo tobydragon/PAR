@@ -8,7 +8,7 @@ function setUserId() {
 function change() {
     setUserId();
     try{
-    return location.replace('/imageTaskView?userId=' + User);
+        return location.replace('/imageTaskView?userId=' + User);
     } catch(Exception ) {
         window.onerror = function (msg) {
             location.replace('/error?message='+msg);
