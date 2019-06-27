@@ -24,10 +24,13 @@
     <p> It broke! ⊙︿⊙ </p>
     <p> You may start sobbing uncontrollably now (´;︵;`)</p>
 
+    <p><i id="errorNum"> </i></p>
     <p><i id="errorMSG"> </i></p>
 
     <script >
+        errorN = "[[${errorNum}]]";
         errorM = "[[${errorMsg}]]";
+        document.getElementById("errorNum").innerHTML = errorN;
         document.getElementById("errorMSG").innerHTML = errorM;
     </script>
 

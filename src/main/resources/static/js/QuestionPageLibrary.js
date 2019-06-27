@@ -14,7 +14,14 @@ function canvasApp() {
     var imageSource;
 
     function loadImages(images, imageSources, callback) {
-        var imageTaskJSON = readJson("api/nextImageTask?userId=" + sendUserId());
+        try {
+            var imageTaskJSON = readJson("api/nextImageTask?userId="+UserID);
+        } catch(Exception ) {
+            window.onerror = function (msg) {
+                location.replace('/error?message='+msg);
+            }
+        }
+
         pageDisplay(imageTaskJSON);
         var displayURLThyme = imageTaskJSON.imageUrl.split('\\').pop().split('/').pop();
         imageSource = "./images/" + displayURLThyme;
@@ -217,7 +224,9 @@ function submitToAPI(url, objectToSubmit) {
         if (request.status === 200) {
             setCurrentScore();
         } else {
-            window.location.replace("/error");
+            window.onerror = function (msg) {
+                location.replace('/error?message='+msg);
+            }
         }
     };
 }

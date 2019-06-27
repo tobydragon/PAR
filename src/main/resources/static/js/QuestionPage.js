@@ -17,6 +17,7 @@ function checkAnswers(){
     clearQuestionAnswers();
 }
 
+
 function createResponses(){
     var object = createResponseJson();
     submitToAPI("api/recordResponse", object);
