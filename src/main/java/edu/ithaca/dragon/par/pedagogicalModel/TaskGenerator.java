@@ -22,7 +22,6 @@ public class TaskGenerator {
         if(studentModel.getUnseenQuestionCount()>0){
             //make and return an imageTask with the first question from the studentModels.unseenQuestions
             Question firstQuestionFromUnseen = studentModel.getUserQuestionSet().getUnseenQuestions().get(0);
-
             return firstQuestionFromUnseen;
         }
 
