@@ -1,5 +1,6 @@
 package edu.ithaca.dragon.par;
 
+import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.io.Datastore;
 import edu.ithaca.dragon.par.io.ImageTask;
@@ -8,6 +9,7 @@ import edu.ithaca.dragon.par.pedagogicalModel.TaskGenerator;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,7 +44,8 @@ public class ParServer {
 
     public ImageTask nextImageTaskSingle(String userId){
         StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, questionPool);
-        ImageTask imageTask =  TaskGenerator.makeTaskWithSingleQuestion(currentStudent);
+        Question initialQuestion = TaskGenerator.getInitialQuestionForTask(currentStudent);
+        ImageTask imageTask =  new ImageTask(initialQuestion.getImageUrl(), Arrays.asList(initialQuestion));
         if (imageTask != null){
             return imageTask;
         }
