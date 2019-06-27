@@ -134,7 +134,7 @@ function generateScoreBreakdown() {
             },
             {
                 "type": "struct",
-                "num": 70
+                "num": 80
             },
             {
                 "type": "attach",
@@ -148,11 +148,11 @@ function generateScoreBreakdown() {
     }
     for (var i = 0; i < scoreJson.scores.length; i++) {
         if (scoreJson.scores[i].num >= 80) {
-            breakdownString += scoreJson.scores[i].type + ": <i class=green>" + scoreJson.scores[i].num + +"</i>";
+            breakdownString += "<i class=black>" + scoreJson.scores[i].type + ":</i> <i class=green>" + scoreJson.scores[i].num + "</i>";
         } else if (scoreJson.scores[i].num <= 79 && scoreJson.scores[i].num >= 50) {
-            breakdownString += scoreJson.scores[i].type + ": <i class=orange>" + scoreJson.scores[i].num + +"</i>";
+            breakdownString += "<i class=black>" + scoreJson.scores[i].type + ":</i> <i class=orange>" + scoreJson.scores[i].num + "</i>";
         } else if (scoreJson.scores[i].num <= 49) {
-            breakdownString += scoreJson.scores[i].type + ": <i class=red>" + scoreJson.scores[i].num + +"</i>";
+            breakdownString += "<i class=black>" + scoreJson.scores[i].type + ":</i> <i class=red>" + scoreJson.scores[i].num + "</i>";
         }
         breakdownString += "<br />";
     }
@@ -163,7 +163,7 @@ function generateScoreBreakdown() {
 }
 
 function displayScoreBreakdown(breakdownString) {
-    document.getElementById("score").innerHTML = breakdownString;
+    document.getElementById("score").innerHTML = " " + breakdownString;
 }
 
 function setUserId() {
