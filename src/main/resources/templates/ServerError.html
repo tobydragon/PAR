@@ -20,17 +20,16 @@
 </head>
 
 <body>
-    <h1>PAR 404 Error: URL not found </h1>
-    <p> Nothing here but us chickens </p>
-    <pre>
-           __//
-         /.__.\
-         \ \/ /
-      '__/    \
-       \-      |
-        \_____/
-     _____|_|____
-    </pre>
+    <h1>PAR Server Error </h1>
+    <p> It broke! ⊙︿⊙ </p>
+    <p> You may start sobbing uncontrollably now (´;︵;`)</p>
+
+    <p><i id="errorMSG"> </i></p>
+
+    <script >
+        errorM = "[[${errorMsg}]]";
+        document.getElementById("errorMSG").innerHTML = errorM;
+    </script>
 
     <button type="button" class="btn btn-primary" id="logoutButton" onclick="logout()">
         Return to Login

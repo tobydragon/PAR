@@ -1,7 +1,10 @@
 package edu.ithaca.dragon.par.spring;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 class ErrorController implements org.springframework.boot.web.servlet.error.ErrorController {
@@ -11,11 +14,6 @@ class ErrorController implements org.springframework.boot.web.servlet.error.Erro
         super();
     }
 
-    @RequestMapping(PATH)
-    public String redirect404() {
-        return "Error";
-    }
-
     @RequestMapping("")
     public String redirectLanding() {
         return "Login";
@@ -23,5 +21,37 @@ class ErrorController implements org.springframework.boot.web.servlet.error.Erro
 
     public String getErrorPath() {
         return PATH;
+    }
+
+    @RequestMapping(PATH)
+    public String renderErrorPage(HttpServletRequest httpRequest, Model model) {
+
+        String errorMsg = "";
+        int httpErrorCode = getErrorCode(httpRequest);
+
+        switch (httpErrorCode) {
+            case 400: {
+                errorMsg = "Http Error Code: 400. Bad Request";
+                break;
+            }
+            case 401: {
+                errorMsg = "Http Error Code: 401. Unauthorized";
+                break;
+            }
+            case 404: {
+                return "Error";
+            }
+            case 500: {
+                errorMsg = "Http Error Code: 500. Internal Server Error";
+                break;
+            }
+        }
+        model.addAttribute("errorMsg", errorMsg);
+        return "ServerError";
+    }
+
+    private int getErrorCode(HttpServletRequest httpRequest) {
+        return (Integer) httpRequest
+                .getAttribute("javax.servlet.error.status_code");
     }
 }
