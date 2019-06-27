@@ -5,35 +5,35 @@
     "type" : "Plane",
     "questionText" : "On which plane is the ultrasound taken?",
     "correctAnswer" : "Transverse",
-    "possibleAnswers" : [ "Transverse", "Lateral", "I don't know" ],
+    "possibleAnswers" : [ "Transverse", "Lateral" ],
     "imageUrl" : "../static/images/demoEquine04.jpg"
   }, {
     "id" : "StructureQ1",
     "type" : "Structure",
     "questionText" : "What structure is in the near field?",
     "correctAnswer" : "bone",
-    "possibleAnswers" : [ "bone", "ligament", "tumor", "tendon", "I don't know" ],
+    "possibleAnswers" : [ "bone", "ligament", "tumor", "tendon" ],
     "imageUrl" : "../static/images/demoEquine04.jpg"
   }, {
     "id" : "StructureQ3",
     "type" : "Structure",
     "questionText" : "What structure is in the near field?",
     "correctAnswer" : "tendon",
-    "possibleAnswers" : [ "bone", "ligament", "tumor", "tendon", "I don't know" ],
+    "possibleAnswers" : [ "bone", "ligament", "tumor", "tendon" ],
     "imageUrl" : "../static/images/demoEquine04.jpg"
   }, {
     "id" : "StructureQ4",
     "type" : "Structure",
     "questionText" : "What structure is in the near field?",
     "correctAnswer" : "bone",
-    "possibleAnswers" : [ "bone", "ligament", "tumor", "tendon", "I don't know" ],
+    "possibleAnswers" : [ "bone", "ligament", "tumor", "tendon" ],
     "imageUrl" : "../static/images/demoEquine04.jpg"
   }, {
     "id" : "StructureQ5",
     "type" : "Structure",
     "questionText" : "What structure is in the near field?",
     "correctAnswer" : "tumor",
-    "possibleAnswers" : [ "bone", "ligament", "tumor", "tendon", "I don't know" ],
+    "possibleAnswers" : [ "bone", "ligament", "tumor", "tendon" ],
     "imageUrl" : "../static/images/demoEquine04.jpg"
   } ]
 }
