@@ -121,6 +121,51 @@ function setCurrentScore() {
     }
 }
 
+function generateScoreBreakdown() {
+    //80-100 green
+    //79-50 orange
+    //49-0 red
+    var breakdownString = "";
+    var scoreJson = {
+        "scores": [
+            {
+                "type": "plane",
+                "num": 90
+            },
+            {
+                "type": "struct",
+                "num": 70
+            },
+            {
+                "type": "attach",
+                "num": 40
+            },
+            {
+                "type": "zone",
+                "num": 72
+            }
+        ]
+    }
+    for (var i = 0; i < scoreJson.scores.length; i++) {
+        if (scoreJson.scores[i].num >= 80) {
+            breakdownString += scoreJson.scores[i].type + ": <i class=green>" + scoreJson.scores[i].num + +"</i>";
+        } else if (scoreJson.scores[i].num <= 79 && scoreJson.scores[i].num >= 50) {
+            breakdownString += scoreJson.scores[i].type + ": <i class=orange>" + scoreJson.scores[i].num + +"</i>";
+        } else if (scoreJson.scores[i].num <= 49) {
+            breakdownString += scoreJson.scores[i].type + ": <i class=red>" + scoreJson.scores[i].num + +"</i>";
+        }
+        breakdownString += "<br />";
+    }
+    displayScoreBreakdown(breakdownString);
+
+
+
+}
+
+function displayScoreBreakdown(breakdownString) {
+    document.getElementById("score").innerHTML = breakdownString;
+}
+
 function setUserId() {
     document.getElementById("UserId").innerHTML = "&nbsp" + sendUserId();
 }
@@ -215,7 +260,8 @@ function submitToAPI(url, objectToSubmit) {
     request.send(JSON.stringify(objectToSubmit));
     request.onreadystatechange = function () {
         if (request.status === 200) {
-            setCurrentScore();
+            //setCurrentScore();
+            generateScoreBreakdown();
         } else {
             window.location.replace("/serverError");
         }
