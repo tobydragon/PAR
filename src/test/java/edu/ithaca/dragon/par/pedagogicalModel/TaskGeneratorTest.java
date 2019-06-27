@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class TaskGeneratorTest {
 
@@ -53,5 +54,27 @@ public class TaskGeneratorTest {
         ImageTask task2 = TaskGenerator.makeTask(studentModel);
         assertEquals("../static/images/demoEquine04.jpg", task2.getImageUrl());
         assertEquals(5, task2.getTaskQuestions().size());
+    }
+
+    @Test
+    public void studentModelWithNoQuestionsTest() throws IOException{
+        QuestionPool emptyQP = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionsEmpty.json"));
+        StudentModel studentModel = new StudentModel("TestUser1", emptyQP.getAllQuestions());
+
+        //try to make a single Question
+        try{
+            Question newQ = TaskGenerator.getInitialQuestionForTask(studentModel);
+            fail();
+        }catch(Exception ee){
+
+        }
+
+        //try to make a task
+        try{
+            ImageTask imageTask = TaskGenerator.makeTask(studentModel);
+            fail();
+        }catch(Exception ee){
+
+        }
     }
 }
