@@ -38,7 +38,7 @@ public class StudentModelRecordTest {
         Assertions.assertTrue(Files.deleteIfExists(path));
     }
 
-    @Test
+    //TODO: CONVERT TO TEST READ AND WRITE
     public void busyModelToFile() throws IOException {
         QuestionPool questionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestions.json"));
         StudentModel studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
@@ -50,6 +50,6 @@ public class StudentModelRecordTest {
         for(int i=0;i<3;i++){
             studentModel.imageTaskResponseSubmitted(responseSet3,questionPool);
         }
-        JsonUtil.toJsonFile("src/test/resources/author/SampleStudentModelBusy.json", new StudentModelRecord(studentModel));
+        JsonUtil.toJsonFile("src/test/resources/author/SampleStudentModelBusy.json", Arrays.asList(new StudentModelRecord(studentModel)));
     }
 }

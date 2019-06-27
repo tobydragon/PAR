@@ -9,24 +9,26 @@ import java.util.List;
 
 public class UserResponseSetRecord {
     private String userId;
-    private List<UserResponseRecord> userResponseRecords;
+    private List<ResponsesPerQuestionRecord> responsesPerQuestionRecords;
 
     public UserResponseSetRecord(){
-        userResponseRecords=new ArrayList<>();
+        responsesPerQuestionRecords =new ArrayList<>();
     }
+
+
     public UserResponseSetRecord(UserResponseSet userResponseSet){
         this();
         userId=userResponseSet.getUserId();
 
         for(ResponsesPerQuestion currResponsesPerQuestion : userResponseSet.getUserResponse()){
-            userResponseRecords.add(new UserResponseRecord(currResponsesPerQuestion));
+            responsesPerQuestionRecords.add(new ResponsesPerQuestionRecord(currResponsesPerQuestion));
         }
     }
 
     public UserResponseSet buildUserResponseSet(QuestionPool questionPool){
         List<ResponsesPerQuestion> responses=new ArrayList<>();
-        for(UserResponseRecord currURR : userResponseRecords){
-            responses.add(currURR.buildUserResponse(questionPool));
+        for(ResponsesPerQuestionRecord currURR : responsesPerQuestionRecords){
+            responses.add(currURR.buildResponsesPerQuestionRecord(questionPool));
         }
         UserResponseSet URS=new UserResponseSet(userId);
         URS.addAllResponses(responses);
@@ -42,12 +44,12 @@ public class UserResponseSetRecord {
         this.userId = userId;
     }
 
-    public List<UserResponseRecord> getUserResponseRecords() {
-        return userResponseRecords;
+    public List<ResponsesPerQuestionRecord> getResponsesPerQuestionRecords() {
+        return responsesPerQuestionRecords;
     }
 
-    public void setUserResponseRecords(List<UserResponseRecord> userResponseRecords) {
-        this.userResponseRecords = userResponseRecords;
+    public void setResponsesPerQuestionRecords(List<ResponsesPerQuestionRecord> responsesPerQuestionRecords) {
+        this.responsesPerQuestionRecords = responsesPerQuestionRecords;
     }
 
 

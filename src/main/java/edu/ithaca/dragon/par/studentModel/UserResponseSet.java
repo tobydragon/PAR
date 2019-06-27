@@ -22,42 +22,32 @@ public class UserResponseSet {
 
         else userResponse.get(index).addNewResponse(response.getResponseText());
     }
-    private int sameResponseCheck(ResponsesPerQuestion response){
-        if(userResponse.isEmpty()){
-            return -1;
-        }
-        else {
-            for (int i = 0; i < userResponse.size(); i++) {
-                if (userResponse.get(i).getQuestionId() == response.getQuestionId()) {
-                    return i;
-                }
-            }
-        }
-        return -1;
-    }
-
     public void addAllResponses(List<ResponsesPerQuestion> allResponsesIn){
-        int index=sameResponseListCheck(allResponsesIn);
-
+        int index = 0;
+        for(int i=0;i<allResponsesIn.size();i++) {
+            index= sameResponseCheck(allResponsesIn.get(i));
+            if(index>-1) break;
+        }
         if(index==-1) userResponse.addAll(allResponsesIn);
 
         else{
-            for(int i = index; i< userResponse.size(); i++){
+            for(int i = 0; i< userResponse.size(); i++){
                 for(int k=0;k<allResponsesIn.size();k++){
-                    if(userResponse.get(i).getQuestionId()==allResponsesIn.get(k).getQuestionId()){
+                    if(userResponse.get(i).getQuestionId().equals(allResponsesIn.get(k).getQuestionId())){
                         userResponse.get(i).addNewResponse(allResponsesIn.get(k).getResponseText());
                     }
                 }
             }
         }
     }
-    private int sameResponseListCheck(List<ResponsesPerQuestion> allResponsesIn){
+
+    private int sameResponseCheck(ResponsesPerQuestion response){
         if(userResponse.isEmpty()){
             return -1;
         }
-        for(int i = 0; i< userResponse.size(); i++){
-            for(int k=0;k<allResponsesIn.size();i++){
-                if(userResponse.get(i).getQuestionId()==allResponsesIn.get(k).getQuestionId()){
+        else {
+            for (int i = 0; i < userResponse.size(); i++) {
+                if (userResponse.get(i).getQuestionId().equals(response.getQuestionId())) {
                     return i;
                 }
             }
@@ -78,9 +68,19 @@ public class UserResponseSet {
 
     public void setUserId(String userIdIn){this.userId=userIdIn;}
     public String getUserId(){return userId;}
+//TODO: HAVE SCORE WORK WITH TYPE
+    public List<Double> knowledgeCalc(){
+        List<Double> scoresPerQuestion=new ArrayList<>();
+        if(userResponse.isEmpty()){
+           return scoresPerQuestion;
+       }
+       else{
+           for(int i=0;i<getUserResponsesSize();i++){
+               scoresPerQuestion.add(userResponse.get(i).knowledgeCalc());
 
-    public double knowledgeCalc(){
-       return 0;
+           }
+       }
+       return scoresPerQuestion;
     }
 
     @Override

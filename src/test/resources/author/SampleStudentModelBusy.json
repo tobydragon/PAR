@@ -1,4 +1,4 @@
-{
+[ {
   "userId" : "TestUser1",
   "userQuestionSetRecord" : {
     "userId" : "TestUser1",
@@ -8,18 +8,21 @@
   },
   "userResponseSetRecord" : {
     "userId" : "TestUser1",
-    "userResponseRecords" : [ {
+    "responsesPerQuestionRecords" : [ {
       "userId" : "TestUser1",
       "questionId" : "PlaneQ1",
-      "responseText" : "Lateral"
+      "responseText" : "Lateral",
+      "allResponseTexts" : [ "Lateral", "Lateral", "I'm", "I'm", "I'm" ]
     }, {
       "userId" : "TestUser1",
       "questionId" : "StructureQ1",
-      "responseText" : "bone"
+      "responseText" : "bone",
+      "allResponseTexts" : [ "bone", "bone", "bad", "bad", "bad" ]
     }, {
       "userId" : "TestUser1",
       "questionId" : "ZoneQ1",
-      "responseText" : "3c"
+      "responseText" : "3c",
+      "allResponseTexts" : [ "3c", "3c", "student", "student", "student" ]
     } ]
   }
-}
+} ]

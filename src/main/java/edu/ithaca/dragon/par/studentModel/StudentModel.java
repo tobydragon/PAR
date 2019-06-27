@@ -52,8 +52,8 @@ public class StudentModel {
     public String getUserId(){
         return userId;
     }
-
-    public double calcScore(){
+//TODO:HAVE SCORE WORK WITH TYPE
+    public List<Double> calcScore(){
         return userResponseSet.knowledgeCalc();
     }
 

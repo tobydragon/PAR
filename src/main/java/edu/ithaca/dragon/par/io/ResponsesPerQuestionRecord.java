@@ -4,22 +4,35 @@ import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.studentModel.ResponsesPerQuestion;
 
-public class UserResponseRecord {
+import java.util.ArrayList;
+import java.util.List;
+
+public class ResponsesPerQuestionRecord {
     private String userId;
     private String questionId;
     private String responseText;
+    private List<String> allResponseTexts;
     //private Question question;
 
-    public UserResponseRecord(){ }
+    public ResponsesPerQuestionRecord(){
+        allResponseTexts=new ArrayList<>();
+    }
 
-    public UserResponseRecord(ResponsesPerQuestion responsesPerQuestionIn){
+
+    public ResponsesPerQuestionRecord(ResponsesPerQuestion responsesPerQuestionIn){
+        this();
         userId= responsesPerQuestionIn.getUserId();
         questionId= responsesPerQuestionIn.getQuestionId();
         responseText= responsesPerQuestionIn.getResponseText();
+        for(int i =0;i<responsesPerQuestionIn.allResponseTextSize();i++){
+            allResponseTexts.add(responsesPerQuestionIn.getAllResponseTexts().get(i));
+        }
     }
-     public ResponsesPerQuestion buildUserResponse(QuestionPool questionPool){
+     public ResponsesPerQuestion buildResponsesPerQuestionRecord(QuestionPool questionPool){
         Question question =questionPool.getQuestionFromId(questionId);
-        return new ResponsesPerQuestion(userId,question,responseText);
+        ResponsesPerQuestion responsesPerQuestion=new ResponsesPerQuestion(userId,question,responseText);
+        responsesPerQuestion.setAllResponseTexts(allResponseTexts);
+        return responsesPerQuestion;
      }
 
     public String getUserId() {
@@ -44,5 +57,12 @@ public class UserResponseRecord {
 
     public void setResponseText(String responseText) {
         this.responseText = responseText;
+    }
+    public List<String> getAllResponseTexts() {
+        return allResponseTexts;
+    }
+
+    public void setAllResponseTexts(List<String> allResponseTexts) {
+        this.allResponseTexts = allResponseTexts;
     }
 }

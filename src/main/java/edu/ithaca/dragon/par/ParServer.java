@@ -57,10 +57,10 @@ public class ParServer {
         currentStudent.imageTaskResponseSubmitted(imageTaskResponse,questionPool);
     }
 
-
+//TODO: CHANGE TO KNOWLEDGE SCORE AND MAKE WORK WITH TYPE
     public double calcScore(String userId){
         StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, questionPool);
-        return  currentStudent.calcScore();
+        return 0;//currentStudent.calcScore();
     }
 
     public static String sendNewImageTaskResponse(ImageTaskResponse response) throws IOException{

@@ -22,7 +22,14 @@ public class ResponsesPerQuestion {
     }
 //TODO: WRITE A KNOWLEDGE CALCULATOR
     public double knowledgeCalc(){
-       return 0;
+        double score=0;
+        double increment=100/allResponseTextSize();
+        for(int i =0;i<allResponseTextSize();i++){
+            if(allResponseTexts.get(i).equals(question.getCorrectAnswer())){
+                score=score+increment;
+            }
+        }
+        return score;
     }
 
     public void addNewResponse(String newResponse){
