@@ -5,7 +5,7 @@ import java.util.List;
 public class Question {
 
     private String id;
-    private int difficulty;
+    private String type;
     private String questionText;
     private String correctAnswer;
     private List<String> possibleAnswers;
@@ -13,10 +13,10 @@ public class Question {
 
     public Question(){}
 
-    public Question(String idIn, String questionTextIn, int difficultyIn, String correctAnswerIn, List<String> answersIn, String imageUrlIn){
+    public Question(String idIn, String questionTextIn, String typeIn, String correctAnswerIn, List<String> answersIn, String imageUrlIn){
         this.id = idIn;
         this.questionText = questionTextIn;
-        this.difficulty = difficultyIn;
+        this.type = typeIn;
         this.correctAnswer = correctAnswerIn;
         this.possibleAnswers = answersIn;
         this.imageUrl = imageUrlIn;
@@ -28,8 +28,8 @@ public class Question {
     public String getQuestionText() { return questionText; }
     public void setQuestionText(String textIn) {questionText = textIn;}
 
-    public int getDifficulty() { return difficulty; }
-    public void setDifficulty(int difficultyIn) { difficulty = difficultyIn;}
+    public String getType() { return type; }
+    public void setType(String typeIn) { type = typeIn;}
 
     public String getCorrectAnswer() {return correctAnswer;}
     public void setCorrectAnswer(String correctAnswerIn) {correctAnswer = correctAnswerIn;}
@@ -42,7 +42,7 @@ public class Question {
 
     @Override
     public String toString() {
-        return "Question [id=" + id + ", text=" + questionText + ", difficulty=" + difficulty + "]";
+        return "Question [id=" + id + ", text=" + questionText + ", difficulty=" + type + "]";
     }
 
     @Override
@@ -56,7 +56,7 @@ public class Question {
         Question other = (Question) otherObj;
         return this.getId().equals(other.getId())
                 && this.getQuestionText().equals(other.getQuestionText())
-                && this.getDifficulty() == (other.getDifficulty())
+                && this.getType().equals(other.getType())
                 && this.getCorrectAnswer().equals(other.getCorrectAnswer())
                 && this.getPossibleAnswers().equals(other.getPossibleAnswers())
                 && this.getImageUrl().equals(other.getImageUrl());
