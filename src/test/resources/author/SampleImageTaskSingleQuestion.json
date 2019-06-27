@@ -1,11 +1,11 @@
 {
-  "imageUrl" : "../static/images/demoEquine02.jpg",
+  "imageUrl" : "./images/demoEquine02.jpg",
   "taskQuestions" : [ {
     "id" : "PlaneQ1",
-    "difficulty" : 1,
+    "type" : "Plane",
     "questionText" : "On which plane is the ultrasound taken?",
     "correctAnswer" : "Lateral",
-    "possibleAnswers" : [ "Transverse", "Lateral", "I don't know" ],
-    "imageUrl" : "../static/images/demoEquine02.jpg"
+    "possibleAnswers" : [ "Transverse", "Lateral" ],
+    "imageUrl" : "./images/demoEquine02.jpg"
   } ]
 }

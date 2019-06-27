@@ -16,7 +16,7 @@ public class UserResponseSetTest {
 
     @Test
     public void getResponseSizeTest()throws IOException{
-        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestions.json", Question.class);
+        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
         List<ImageTaskResponse> responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponse.class);
         UserResponseSet respSet=new UserResponseSet(responsesFromFile.get(0).getUserId());
         List<ResponsesPerQuestion> userResponse =new ArrayList<>();
@@ -25,13 +25,13 @@ public class UserResponseSetTest {
             userResponse.add(response);
         }
         respSet.addAllResponses(userResponse);
-        respSet.addAllResponses(userResponse);
-        assertEquals(respSet.getUserResponsesSize(),3);
+        assertEquals(respSet.getUserResponsesSize(),15);
+
     }
 
     @Test
     public void addToResponsesPerQuestionTest() throws IOException{
-        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestions.json", Question.class);
+        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
         List<ImageTaskResponse> responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponse.class);
         UserResponseSet respSet=new UserResponseSet(responsesFromFile.get(0).getUserId());
 
@@ -53,7 +53,7 @@ public class UserResponseSetTest {
         UserResponseSet repSet=new UserResponseSet("HI");
        // assertEquals(-1.000,repSet.knowledgeCalc(),OK_DOUBLE_MARGIN);
 
-        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestions.json", Question.class);
+        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
         List<ImageTaskResponse> responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponse.class);
         UserResponseSet respSet2=new UserResponseSet(responsesFromFile.get(0).getUserId());
         List<ResponsesPerQuestion> userRespons =new ArrayList<>();
@@ -67,14 +67,27 @@ public class UserResponseSetTest {
         //decrement
         ResponsesPerQuestion response1 = new ResponsesPerQuestion(responsesFromFile.get(0).getUserId(), questionsFromFile.get(0),"hi");
         respSet2.addResponse(response1);
+
        // assertEquals(75.00,respSet2.knowledgeCalc(),OK_DOUBLE_MARGIN);
         respSet2.addResponse(response1);
       //  assertEquals(60.00,respSet2.knowledgeCalc(),OK_DOUBLE_MARGIN);
 
+        // 15/16 = 93.75
+      //  assertEquals(93.75,respSet2.calcScore(),OK_DOUBLE_MARGIN);
+        respSet2.addResponse(response1);
+        // 15/17
+       // assertEquals(88.23529411764707,respSet2.calcScore(),OK_DOUBLE_MARGIN);
+
+
         //increment
         ResponsesPerQuestion response2 = new ResponsesPerQuestion(responsesFromFile.get(0).getUserId(), questionsFromFile.get(0),responsesFromFile.get(0).getResponseTexts().get(0));
         respSet2.addResponse(response2);
+
       //  assertEquals(66.666666,respSet2.knowledgeCalc(),OK_DOUBLE_MARGIN);
+
+        // 16/18
+      //  assertEquals(88.88888888888889,respSet2.calcScore(),OK_DOUBLE_MARGIN);
+
 
 
     }
