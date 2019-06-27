@@ -28,7 +28,7 @@ public class QuestionTest {
 
     @Test
     public void checkIfListsHaveSameQuestionObjectsTest() throws IOException{
-        QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestions.json"));
+        QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));
 
         //The Lists are exactly the same
         List<Question> list1a = qp.getAllQuestions();
@@ -38,24 +38,24 @@ public class QuestionTest {
         System.out.println(list1a.size());
 
         //the Lists are different size
-        QuestionPool qp2 = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestions.json"));
+        QuestionPool qp2 = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));
         List<Question> list1c = qp2.getAllQuestions();
         System.out.println(list1a.size() + " " + list1c.size());
         assertEquals(false, checkIfListsHaveSameQuestionObjects(list1a,list1c));
 
         //The content of the Questions are the same, but they are different objects
-        QuestionPool qp3 = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestions.json"));
+        QuestionPool qp3 = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));
         List<Question> list1d = qp3.getAllQuestions();
         assertEquals(false, checkIfListsHaveSameQuestionObjects(list1a, list1d));
     }
 
     @Test
     public void toJsonAndBackTest() throws IOException {
-        Question planeQ = new Question("PlaneQ1", "On which plane is the ultrasound taken?", 1,
+        Question planeQ = new Question("PlaneQ1", "On which plane is the ultrasound taken?", "Plane",
                 "Lateral", Arrays.asList("Transverse", "Lateral", "I don't know"), "../static/images/equine02.jpg");
-        Question structureQ = new Question("StructureQ1", "What structure is in the near field?", 2,
+        Question structureQ = new Question("StructureQ1", "What structure is in the near field?", "Structure",
                 "bone", Arrays.asList("bone", "ligament", "tumor", "tendon", "I don't know"), "../static/images/equine02.jpg");
-        Question zoneQ = new Question("ZoneQ1", "In what zone is this ultrasound taken?", 4,
+        Question zoneQ = new Question("ZoneQ1", "In what zone is this ultrasound taken?", "Zone",
                 "3c", Arrays.asList("1a", "1b", "2a", "2b", "2c", "3a", "3b", "3c"), "../static/images/equine02.jpg");
         List<Question> questionsToFile = Arrays.asList(planeQ, structureQ, zoneQ);
 
@@ -72,16 +72,16 @@ public class QuestionTest {
 
     @Test
     public void equalsTest(){
-        Question planeQ = new Question("PlaneQ1", "On which plane is the ultrasound taken?", 1,
+        Question planeQ = new Question("PlaneQ1", "On which plane is the ultrasound taken?", "Plane",
                 "Lateral", Arrays.asList("Transverse", "Lateral", "I don't know"), "../static/images/equine02.jpg");
         assertEquals(planeQ, planeQ);
         assertNotEquals(planeQ, "Hello");
 
-        Question planeQsame = new Question("PlaneQ1", "On which plane is the ultrasound taken?", 1,
+        Question planeQsame = new Question("PlaneQ1", "On which plane is the ultrasound taken?", "Plane",
                 "Lateral", Arrays.asList("Transverse", "Lateral", "I don't know"), "../static/images/equine02.jpg");
         assertEquals(planeQ, planeQsame);
 
-        Question planeQdiffAns = new Question("PlaneQ1", "On which plane is the ultrasound taken?", 1,
+        Question planeQdiffAns = new Question("PlaneQ1", "On which plane is the ultrasound taken?", "Plane",
                 "Lateral", Arrays.asList("Transverse", "Lateral", "I don't know too much"), "../static/images/equine02.jpg");
         assertNotEquals(planeQ, planeQdiffAns);
     }

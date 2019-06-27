@@ -23,7 +23,7 @@ public class StudentModelTest {
 
     @BeforeEach
     public void setUp() throws IOException{
-        questionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestions.json"));
+        questionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));
         studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
         responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponse.class);
 
@@ -38,7 +38,7 @@ public class StudentModelTest {
     @Test
     public void constructorTest() throws IOException {
         assertEquals("TestUser1", studentModel.getUserId());
-        assertEquals(3, studentModel.getUnseenQuestionCount());
+        assertEquals(15, studentModel.getUnseenQuestionCount());
         assertEquals(0, studentModel.getSeenQuestionCount());
         assertEquals(0, studentModel.getResponseCount());
     }
@@ -49,17 +49,17 @@ public class StudentModelTest {
         studentModel.givenQuestion("PlaneQ1");
         studentModel.givenQuestion("ZoneQ1");
         assertEquals(2, studentModel.getSeenQuestionCount());
-        assertEquals(1, studentModel.getUnseenQuestionCount());
+        assertEquals(13, studentModel.getUnseenQuestionCount());
 
         studentModel.imageTaskResponseSubmitted(responsesFromFile.get(0),questionPool);
         studentModel.imageTaskResponseSubmitted(responsesFromFile.get(0),questionPool);
 
-        assertEquals(6, studentModel.getResponseCount());
+        assertEquals(30, studentModel.getResponseCount());
     }
 
     @Test
     public void imageTaskResponseSubmittedTest() throws IOException{
         studentModel.imageTaskResponseSubmitted(responsesFromFile.get(0),questionPool);
-        assertEquals(studentModel.getResponseCount(), 3);
+        assertEquals(studentModel.getResponseCount(), 15);
     }
 }

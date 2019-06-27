@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class UserResponseRecordTest {
      @Test
     public void toJsonAndBackTest() throws IOException{
-         QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestions2.json"));
+         QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));
          UserResponse response=new UserResponse("kandace",qp.getQuestionFromId("StructureQ2"),"hi");
 
          UserResponseRecord responseRecord=new UserResponseRecord(response);

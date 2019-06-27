@@ -14,12 +14,12 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class QuestionPoolTest {
     @Test
     public void getQuestionsFromUrlTest() throws IOException {
-        QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestions2.json"));
+        QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));
         List<Question> questionsFromUrl = qp.getQuestionsFromUrl("../static/images/demoEquine04.jpg");
         assertTrue(questionsFromUrl.size() == 5);
 
         List<Question> questionsFromUrl2 = qp.getQuestionsFromUrl("../static/images/demoEquine02.jpg");
-        assertTrue(questionsFromUrl2.size() == 2);
+        assertTrue(questionsFromUrl2.size() == 4);
 
         List<Question> questionsFromUrl3 = qp.getQuestionsFromUrl("notAGoodUrl");
         assertTrue(questionsFromUrl3.size() == 0);
@@ -27,7 +27,7 @@ public class QuestionPoolTest {
 
     @Test
     public void getQuestionFromId() throws IOException {
-        QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestions2.json"));
+        QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));
         Question questionFromId = qp.getQuestionFromId("PlaneQ3");
         assertTrue(questionFromId.getQuestionText().equals("On which plane is the ultrasound taken?"));
         assertTrue(questionFromId.getCorrectAnswer().equals("Lateral"));
@@ -50,7 +50,7 @@ public class QuestionPoolTest {
     public void getQuestionsFromIdsTest() throws IOException {
 
         //all question ids are good
-        QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestions2.json"));
+        QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));
         List<String> questionIds1 = Arrays.asList("StructureQ3","StructureQ4","ZoneQ1");
         List<Question> questionList1 = qp.getQuestionsFromIds(questionIds1);
         assertEquals(questionList1.size(), 3);
@@ -58,7 +58,7 @@ public class QuestionPoolTest {
         //some question ids are invalid
         //TODO: is this try catch structure correct for this test?
         try{
-            QuestionPool qp2 = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestions2.json"));
+            QuestionPool qp2 = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));
             List<String> questionIds2 = Arrays.asList("StructureQ3","StructureQ4","NotAnId", "AlsoNotAnId");
             List<Question> questionList2 = qp2.getQuestionsFromIds(questionIds2);
             assertEquals(questionList2.size(), 2);
@@ -67,7 +67,7 @@ public class QuestionPoolTest {
         }
 
         //the order of ids does not match the order of the questions in the Json file
-        QuestionPool qp3 = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestions2.json"));
+        QuestionPool qp3 = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));
         List<String> questionIds3 = Arrays.asList("ZoneQ4","StructureQ4","ZoneQ1", "PlaneQ1");
         List<Question> questionList3 = qp3.getQuestionsFromIds(questionIds3);
         assertEquals(questionList3.size(), 4);
