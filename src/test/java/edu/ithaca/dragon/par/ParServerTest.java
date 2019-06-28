@@ -67,8 +67,8 @@ public class ParServerTest {
 
     @Test
     public void nextImageTaskSingleTest() throws IOException{
-        QuestionPool questionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));
-        ParServer parServer = new ParServer(questionPool);
+        Datastore datastore = new JsonDatastore("src/test/resources/author/SampleQuestionPool.json");
+        ParServer parServer = new ParServer(datastore);
         ImageTask nextTask = parServer.nextImageTaskSingle("s1");
         ImageTask intendedFirstTask = JsonUtil.fromJsonFile("src/test/resources/author/SampleImageTaskSingleQuestion.json", ImageTask.class);
         assertEquals(intendedFirstTask, nextTask);
@@ -91,8 +91,8 @@ public class ParServerTest {
 
     @Test
     public void nextImageTaskTest() throws IOException{
-        QuestionPool questionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));
-        ParServer parServer = new ParServer(questionPool);
+        Datastore datastore = new JsonDatastore("src/test/resources/author/SampleQuestionPool.json");
+        ParServer parServer = new ParServer(datastore);
         ImageTask nextTask = parServer.nextImageTask("s1");
         ImageTask intendedFirstTask = JsonUtil.fromJsonFile("src/test/resources/author/nextImageTaskTest1.json", ImageTask.class);
         assertEquals(intendedFirstTask, nextTask);
@@ -113,8 +113,8 @@ public class ParServerTest {
 
     @Test
     public void imageTaskResponseSubmittedAndCalcScoreTest() throws IOException {
-        QuestionPool questionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));
-        ParServer parServer = new ParServer(questionPool);
+        Datastore datastore = new JsonDatastore("src/test/resources/author/SampleQuestionPool.json");
+        ParServer parServer = new ParServer(datastore);
         ImageTaskResponse responseSet2=new ImageTaskResponse("response1", Arrays.asList("PlaneQ1", "PlaneQ2", "PlaneQ3", "PlaneQ4", "PlaneQ5", "StructureQ1", "StructureQ2", "StructureQ3", "StructureQ4", "StructureQ5", "ZoneQ1", "ZoneQ2", "ZoneQ3", "ZoneQ4", "ZoneQ5"),Arrays.asList("Latera", "Transvers", "Latera", "Latera", "Transvers", "bone", "ligament", "tendon", "bone", "tumor", "3c", "1b", "3c", "2a", "2b"));
         ImageTaskResponse responseSet3=new ImageTaskResponse("response1", Arrays.asList("PlaneQ1", "PlaneQ2", "PlaneQ3", "PlaneQ4", "PlaneQ5", "StructureQ1", "StructureQ2", "StructureQ3", "StructureQ4", "StructureQ5", "ZoneQ1", "ZoneQ2", "ZoneQ3", "ZoneQ4", "ZoneQ5"),Arrays.asList("I'm","bad","student","I'm","bad","student","I'm","bad","student","I'm","bad","student","I'm","bad","student"));
         List<ImageTaskResponse> responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponse.class);

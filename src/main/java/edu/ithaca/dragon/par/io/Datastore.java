@@ -18,4 +18,6 @@ public interface Datastore {
     void setStudentModelFilePath(String newStudentModelFilePath);
 
     void setQuestionFilePath(String newQuestionFilePath);
+
+    void saveStudentModel(StudentModel studentModel) throws IOException;
 }

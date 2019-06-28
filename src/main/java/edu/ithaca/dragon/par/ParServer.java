@@ -8,6 +8,7 @@ import edu.ithaca.dragon.par.io.ImageTaskResponse;
 import edu.ithaca.dragon.par.pedagogicalModel.TaskGenerator;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 
+import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -18,17 +19,12 @@ public class ParServer {
 
     private QuestionPool questionPool;
     private Map<String, StudentModel> studentModelMap;
-
-    public ParServer(QuestionPool questionPool){
-        this.questionPool = questionPool;
-        studentModelMap = new HashMap<>();
-    }
+    private Datastore datastore;
 
     public ParServer(Datastore datastore) throws IOException{
-        this(new QuestionPool(datastore));
-        for (StudentModel studentModel : datastore.loadStudentModels()){
-            studentModelMap.put(studentModel.getUserId(), studentModel);
-        }
+        this.questionPool = new QuestionPool(datastore);
+        this.datastore = datastore;
+        studentModelMap = new HashMap<>();
     }
 
     public ImageTask nextImageTask(String userId){
@@ -55,9 +51,10 @@ public class ParServer {
     }
 
 
-    public void imageTaskResponseSubmitted(ImageTaskResponse imageTaskResponse, String userId){
+    public void imageTaskResponseSubmitted(ImageTaskResponse imageTaskResponse, String userId) throws IOException{
         StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, questionPool);
         currentStudent.imageTaskResponseSubmitted(imageTaskResponse,questionPool);
+        datastore.saveStudentModel(studentModelMap.get(userId));
     }
 
 

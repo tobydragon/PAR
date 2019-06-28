@@ -7,6 +7,8 @@ import edu.ithaca.dragon.util.JsonUtil;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -62,6 +64,20 @@ public class JsonDatastore implements Datastore{
         return studentModels;
     }
 
+    public StudentModel loadStudentModel(String userId) throws IOException{
+        String fullFileName = studentModelFilePath + "/" + userId + ".json";
+        Path path = Paths.get(fullFileName);
+
+        //check if file exists, return null if it doesn't
+        File checkFile = new File("c:/temp/temp.txt");
+        if(!checkFile.exists()){
+            return null;
+        }
+
+        StudentModelRecord SMR = JsonUtil.fromJsonFile(fullFileName, StudentModelRecord.class);
+        return SMR.buildStudentModel(questionPool);
+    }
+
     @Override
     public void saveStudentModels(Collection<StudentModel> studentModelsIn) throws IOException {
         if(studentModelFilePath == null)
@@ -71,6 +87,7 @@ public class JsonDatastore implements Datastore{
         }
     }
 
+    @Override
     public void saveStudentModel(StudentModel studentModel) throws IOException{
         if(studentModelFilePath == null)
             throw new IOException("studentModelFilePath is null");
