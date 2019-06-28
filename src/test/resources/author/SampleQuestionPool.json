@@ -4,14 +4,14 @@
   "questionText" : "On which plane is the ultrasound taken?",
   "correctAnswer" : "Lateral",
   "possibleAnswers" : [ "Transverse", "Lateral"],
-  "imageUrl" : "./images/demoEquine02.jpg"
+  "imageUrl" : "./images/demoEquine04.jpg"
 }, {
   "id" : "PlaneQ2",
   "type" : "Plane",
   "questionText" : "On which plane is the ultrasound taken?",
   "correctAnswer" : "Transverse",
   "possibleAnswers" : [ "Transverse", "Lateral"],
-  "imageUrl" : "./images/demoEquine04.jpg"
+  "imageUrl" : "./images/demoEquine02.jpg"
 }, {
   "id" : "PlaneQ3",
   "type" : "Plane",
@@ -32,7 +32,7 @@
   "questionText" : "On which plane is the ultrasound taken?",
   "correctAnswer" : "Transverse",
   "possibleAnswers" : [ "Transverse", "Lateral"],
-  "imageUrl" : "./images/demoEquine05.jpg"
+  "imageUrl" : "./images/demoEquine10.jpg"
 }, {
   "id" : "StructureQ1",
   "type" : "Structure",
@@ -60,14 +60,14 @@
   "questionText" : "What structure is in the near field?",
   "correctAnswer" : "bone",
   "possibleAnswers" : [ "bone", "ligament", "tumor", "tendon" ],
-  "imageUrl" : "./images/demoEquine04.jpg"
+  "imageUrl" : "./images/demoEquine05.jpg"
 }, {
   "id" : "StructureQ5",
   "type" : "Structure",
   "questionText" : "What structure is in the near field?",
   "correctAnswer" : "tumor",
   "possibleAnswers" : [ "bone", "ligament", "tumor", "tendon" ],
-  "imageUrl" : "./images/demoEquine04.jpg"
+  "imageUrl" : "./images/demoEquine05.jpg"
 }, {
   "id" : "ZoneQ1",
   "type" : "Zone",
@@ -88,20 +88,21 @@
   "questionText" : "In what zone is this ultrasound taken?",
   "correctAnswer" : "3c",
   "possibleAnswers" : [ "1a", "1b", "2a", "2b", "2c", "3a", "3b", "3c" ],
-  "imageUrl" : "./images/demoEquine02.jpg"
+  "imageUrl" : "./images/demoEquine09.jpg"
 }, {
   "id" : "ZoneQ4",
   "type" : "Zone",
   "questionText" : "In what zone is this ultrasound taken?",
   "correctAnswer" : "2a",
   "possibleAnswers" : [ "1a", "1b", "2a", "2b", "2c", "3a", "3b", "3c" ],
-  "imageUrl" : "./images/demoEquine05.jpg"
+  "imageUrl" : "./images/demoEquine11.jpg"
 }, {
   "id" : "ZoneQ5",
   "type" : "Zone",
   "questionText" : "In what zone is this ultrasound taken?",
   "correctAnswer" : "2b",
   "possibleAnswers" : [ "1a", "1b", "2a", "2b", "2c", "3a", "3b", "3c" ],
-  "imageUrl" : "./images/demoEquine02.jpg"
+  "imageUrl" : "./images/demoEquine10.jpg"
 } ]
+
 
