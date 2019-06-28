@@ -66,11 +66,25 @@ public class JsonDatastore implements Datastore{
     public void saveStudentModels(Collection<StudentModel> studentModelsIn) throws IOException {
         if(studentModelFilePath == null)
             throw new IOException("studentModelFilePath is null");
-        List<StudentModelRecord> studentModelRecords = new ArrayList<>();
         for(StudentModel currStudentModel : studentModelsIn){
-            studentModelRecords.add(new StudentModelRecord(currStudentModel));
+            saveStudentModel(currStudentModel);
         }
-        JsonUtil.toJsonFile(studentModelFilePath, studentModelRecords);
     }
 
+    public void saveStudentModel(StudentModel studentModel) throws IOException{
+        if(studentModelFilePath == null)
+            throw new IOException("studentModelFilePath is null");
+        String fullFilePath = studentModelFilePath + "/" +  studentModel.getUserId() + ".json";
+        JsonUtil.toJsonFile(fullFilePath, new StudentModelRecord(studentModel));
+    }
+
+    @Override
+    public void setStudentModelFilePath(String newStudentModelFilePath){
+        studentModelFilePath = newStudentModelFilePath;
+    }
+
+    @Override
+    public void setQuestionFilePath(String newQuestionFilePath){
+        questionFilePath = newQuestionFilePath;
+    }
 }

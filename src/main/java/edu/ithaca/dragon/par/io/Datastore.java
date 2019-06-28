@@ -15,4 +15,7 @@ public interface Datastore {
 
     void saveStudentModels(Collection<StudentModel> studentModelsIn) throws IOException;
 
+    void setStudentModelFilePath(String newStudentModelFilePath);
+
+    void setQuestionFilePath(String newQuestionFilePath);
 }
