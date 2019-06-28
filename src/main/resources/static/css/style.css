@@ -59,6 +59,22 @@ h5 {
     font-size: 1.25em;
 }
 
+.red {
+    color: red;
+}
+
+.orange {
+    color: orange;
+}
+
+.green {
+    color: darkgreen;
+}
+
+.black {
+    color: black;
+}
+
 /* ---------------------------------------*
 /* Add spacing to text elements */
 
