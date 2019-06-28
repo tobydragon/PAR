@@ -3,6 +3,7 @@ var QuestionAnswers = [];
 var UserID= null;
 var responsesGivenText = [];
 var QuestionIDs = [];
+var QuestionTypes= [];
 
 function nextQuestionSet(){
     clearPage();

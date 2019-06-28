@@ -39,7 +39,7 @@ class ErrorController implements org.springframework.boot.web.servlet.error.Erro
                 break;
             }
             case 404: {
-                return "Error";
+                return "UrlError";
             }
             case 500: {
                 errorMsg = "Http Error Code: 500. Internal Server Error ";
