@@ -5,11 +5,14 @@ import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.JsonDatastore;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
+import edu.ithaca.dragon.util.JsonUtil;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -48,12 +51,12 @@ public class TaskGeneratorTest {
         //make an imageTask and check aspects of it
         ImageTask task1 = TaskGenerator.makeTask(studentModel);
         assertEquals("../static/images/demoEquine02.jpg", task1.getImageUrl());
-        assertEquals(4, task1.getTaskQuestions().size());
+        assertEquals(3, task1.getTaskQuestions().size());
 
         //make a new imageTask and check aspects of it
         ImageTask task2 = TaskGenerator.makeTask(studentModel);
         assertEquals("../static/images/demoEquine04.jpg", task2.getImageUrl());
-        assertEquals(5, task2.getTaskQuestions().size());
+        assertEquals(4, task2.getTaskQuestions().size());
     }
 
     @Test
@@ -76,5 +79,32 @@ public class TaskGeneratorTest {
         }catch(Exception ee){
 
         }
+    }
+
+    @Test
+    public void setTypeTest(){
+        //this test will be written once StudentModel has individual scores for each question and TaskGenerator
+        //can use those to determine level
+        assertEquals(4,4);
+    }
+
+    @Test
+    public void removeTypeTest() throws IOException{
+        List<Question> questions= JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
+        questions = TaskGenerator.removeType(questions, "Plane");
+        assertEquals(10, questions.size());
+        questions = TaskGenerator.removeType(questions, "Structure");
+        assertEquals(5, questions.size());
+        questions = TaskGenerator.removeType(questions, "Zone");
+        assertEquals(0, questions.size());
+
+        questions = TaskGenerator.removeType(questions, "Plane");
+        assertEquals(0, questions.size());
+        questions = TaskGenerator.removeType(questions, "Structure");
+        assertEquals(0, questions.size());
+        questions = TaskGenerator.removeType(questions, "Zone");
+        assertEquals(0, questions.size());
+
+
     }
 }
