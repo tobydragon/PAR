@@ -27,8 +27,6 @@ public class UserResponseSetTest {
         }
         respSet.addAllResponses(userResponse);
         assertEquals(respSet.getUserResponsesSize(),15);
-      //  respSet.splitResponsesByType(userResponse);
-        //respSet.knowledgeScoreByType();
 
     }
 
