@@ -218,7 +218,13 @@ function checkAndRecordAnswers() {
 function displayCheck(value, rightAnwser) {
     if (value == "Correct") return '<font color=\"green\">Your answer is: ' + value + '</font>';
     if (value == "Incorrect") return '<font color=\"red\">Your answer is: ' + value + '</font>';
-    if (value == "Unsure") return '<font color=\"#663399\">Your answer is: ' + value + ".    " + 'The answer is ' + rightAnwser + '</font>';
+    if (value == "Unsure") {
+        if (unsureShowsCorrectAnswer== true) {
+            return '<font color=\"#663399\">Your answer is: ' + value + ".    " + 'The answer is ' + rightAnwser + '</font>';
+        } else {
+            return '<font color=\"#663399\">Your answer is: ' + value +'</font>';
+        }
+    }
 }
 //Clears the answers from the page.
 function clearQuestionAnswers() {
@@ -289,11 +295,11 @@ function getSettings(){
         }
     }
 
-    // unsureShowsCorrectAnswer= settings.unsureShowsCorrectAnswer;
-    // feedbackByType= settings.feedbackByType;
-    // ableToResubmitAnswers= settings.ableToResubmitAnswers
-    // scoreType= settings.scoreType;
-    // showScore= settings.showScore;
+    unsureShowsCorrectAnswer= settings.unsureShowsCorrectAnswer;
+    feedbackByType= settings.feedbackByType;
+    ableToResubmitAnswers= settings.ableToResubmitAnswers
+    scoreType= settings.scoreType;
+    showScore= settings.showScore;
 }
 
 //for testing purposes only

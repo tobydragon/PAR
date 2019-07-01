@@ -1,5 +1,5 @@
 {
-    "unsureShowsCorrectAnswer": "True",
+    "unsureShowsCorrectAnswer": "False",
     "feedbackByType": {"plane": "Look at chapter 12",
       "struct": "Read page 394",
       "attach": "Rewatch the video: ",

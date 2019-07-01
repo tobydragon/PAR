@@ -5,11 +5,11 @@ var responsesGivenText = [];
 var QuestionIDs = [];
 
 
-var UnsureShowsCorrectAnswer;
-var FeedbackByType;
-var ableToResumbitAnswers;
-var ScoreType;
-var ShowScore;
+var unsureShowsCorrectAnswer;
+var feedbackByType;
+var ableToResubmitAnswers;
+var scoreType;
+var showScore;
 
 function nextQuestionSet(){
     clearPage();
