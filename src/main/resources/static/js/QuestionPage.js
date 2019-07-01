@@ -3,7 +3,8 @@ var QuestionAnswers = [];
 var UserID= null;
 var responsesGivenText = [];
 var QuestionIDs = [];
-
+var questionTypes = [];
+var typesSeenForFeedback= [];
 
 var unsureShowsCorrectAnswer;
 var feedbackByType;

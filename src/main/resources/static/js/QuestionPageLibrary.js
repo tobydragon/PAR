@@ -80,6 +80,7 @@ function generateQuestion(question) {
 
     QuestionAnswers.push(question.correctAnswer);
     QuestionIDs.push(question.id);
+    questionTypes.push(question.type);
     displayQuestion(difficultyStr);
 }
 
@@ -208,16 +209,30 @@ function checkAndRecordAnswers() {
             isCorrect = "Unsure";
         } else {
             isCorrect = "Incorrect";
+            generatefeedback(questionTypes[i]);
         }
         var displayAreaName = "questionCorrect" + i;
         document.getElementById(displayAreaName).innerHTML = displayCheck(isCorrect, QuestionAnswers[i]);
     }
 }
 
+function generatefeedback(type){
+    if(!typesSeenForFeedback.includes(type)) {
+        typesSeenForFeedback.push(type);
+        var response = feedbackByType[type];
+        response += ", ";
+        document.getElementById("helpfulFeedback").innerHTML += response;
+    }
+}
+
 //Displays the value of right/wrong based on the previous function's input value.
 function displayCheck(value, rightAnwser) {
     if (value == "Correct") return '<font color=\"green\">Your answer is: ' + value + '</font>';
-    if (value == "Incorrect") return '<font color=\"red\">Your answer is: ' + value + '</font>';
+
+    if (value == "Incorrect"){
+        return '<font color=\"red\">Your answer is: ' + value + '</font>';
+    }
+
     if (value == "Unsure") {
         if (unsureShowsCorrectAnswer== true) {
             return '<font color=\"#663399\">Your answer is: ' + value + ".    " + 'The answer is ' + rightAnwser + '</font>';
