@@ -41,6 +41,10 @@ public class ParSpringApplicationTest {
 		mvc.perform(MockMvcRequestBuilders.get("/api/calcScore?userId=Student").accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(content().contentType("application/json;charset=UTF-8"));
+
+		mvc.perform(MockMvcRequestBuilders.get("/api/getSettings").accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(content().contentType("application/json;charset=UTF-8"));
 	}
 
 	@Test

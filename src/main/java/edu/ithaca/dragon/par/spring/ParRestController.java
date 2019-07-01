@@ -5,7 +5,9 @@ import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
 import edu.ithaca.dragon.par.io.JsonDatastore;
+import edu.ithaca.dragon.par.pedagogicalModel.Settings;
 import edu.ithaca.dragon.util.DataUtil;
+import edu.ithaca.dragon.util.JsonUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +38,11 @@ public class ParRestController {
     @GetMapping("/")
     public String index() {
         return "Greetings from PAR API!";
+    }
+
+    @GetMapping("/getSettings")
+    public Settings getSettings() throws IOException  {
+        return JsonUtil.fromJsonFile("src/main/resources/author/SettingsExample.json", Settings.class);
     }
 
     @GetMapping("/nextImageTask")

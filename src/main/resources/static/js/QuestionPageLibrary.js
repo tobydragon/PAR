@@ -263,6 +263,23 @@ function logout() {
     return location.replace('/login');
 }
 
+function getSettings(){
+    try {
+        var settings = readJson("api/getSettings");
+
+    } catch(Exception ) {
+        window.onerror = function (msg) {
+            location.replace('/error?message='+msg);
+        }
+    }
+
+    // unsureShowsCorrectAnswer= settings.unsureShowsCorrectAnswer;
+    // feedbackByType= settings.feedbackByType;
+    // ableToResubmitAnswers= settings.ableToResubmitAnswers
+    // scoreType= settings.scoreType;
+    // showScore= settings.showScore;
+}
+
 //for testing purposes only
 function testSetVariables() {
     responsesGivenText = ["Lateral", "ligament", "Unsure"];
@@ -274,3 +291,5 @@ function testGenerateReponseJSON() {
     testSetVariables();
     return createResponseJson();
 }
+
+

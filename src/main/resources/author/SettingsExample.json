@@ -1,0 +1,10 @@
+{
+    "unsureShowsCorrectAnswer": "True",
+    "feedbackByType": {"plane": "Look at chapter 12",
+      "struct": "Read page 394",
+      "attach": "Rewatch the video: ",
+      "zone": "View notes from 9/25"},
+    "ableToResubmitAnswers": "True",
+    "scoreType": "ByType",
+    "showScore": "True"
+  }

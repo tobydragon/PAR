@@ -3,7 +3,13 @@ var QuestionAnswers = [];
 var UserID= null;
 var responsesGivenText = [];
 var QuestionIDs = [];
-var QuestionTypes= [];
+
+
+var UnsureShowsCorrectAnswer;
+var FeedbackByType;
+var ableToResumbitAnswers;
+var ScoreType;
+var ShowScore;
 
 function nextQuestionSet(){
     clearPage();
