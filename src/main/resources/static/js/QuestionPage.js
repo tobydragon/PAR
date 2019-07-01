@@ -15,6 +15,9 @@ var showScore;
 function nextQuestionSet(){
     clearPage();
     canvasApp();
+    if(!ableToResubmitAnswers){
+        reEnableSubmit();
+    }
 }
 
 function checkAnswers() {

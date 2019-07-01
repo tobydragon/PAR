@@ -232,6 +232,12 @@ function clearQuestionAnswers() {
     responsesGivenText = [];
 }
 
+function reEnableSubmit(){
+    document.getElementById("submitButtonTag").innerHTML=" <button type=\"button\" class=\"btn btn-primary\" id=\"submitButton\" onclick=\"checkAnswers()\">\n" +
+        "                            Submit\n" +
+        "                        </button>";
+}
+
 function disableSubmit(){
     document.getElementById("submitButtonTag").innerHTML=" ";
 }
