@@ -8,6 +8,6 @@
   },
   "userResponseSetRecord" : {
     "userId" : "TestUser101",
-    "userResponseRecords" : [ ]
+    "responsesPerQuestionRecords" : [ ]
   }
 }

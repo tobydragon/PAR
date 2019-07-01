@@ -1,7 +1,7 @@
 package edu.ithaca.dragon.par.io;
 
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
-import edu.ithaca.dragon.par.studentModel.UserResponse;
+import edu.ithaca.dragon.par.studentModel.ResponsesPerQuestion;
 import edu.ithaca.dragon.par.studentModel.UserResponseSet;
 
 import java.util.ArrayList;
@@ -9,24 +9,26 @@ import java.util.List;
 
 public class UserResponseSetRecord {
     private String userId;
-    private List<UserResponseRecord> userResponseRecords;
+    private List<ResponsesPerQuestionRecord> responsesPerQuestionRecords;
 
     public UserResponseSetRecord(){
-        userResponseRecords=new ArrayList<>();
+        responsesPerQuestionRecords =new ArrayList<>();
     }
+
+
     public UserResponseSetRecord(UserResponseSet userResponseSet){
         this();
         userId=userResponseSet.getUserId();
 
-        for(UserResponse currUserResponse : userResponseSet.getUserResponses()){
-            userResponseRecords.add(new UserResponseRecord(currUserResponse));
+        for(ResponsesPerQuestion currResponsesPerQuestion : userResponseSet.getUserResponse()){
+            responsesPerQuestionRecords.add(new ResponsesPerQuestionRecord(currResponsesPerQuestion));
         }
     }
 
     public UserResponseSet buildUserResponseSet(QuestionPool questionPool){
-        List<UserResponse> responses=new ArrayList<>();
-        for(UserResponseRecord currURR : userResponseRecords){
-            responses.add(currURR.buildUserResponse(questionPool));
+        List<ResponsesPerQuestion> responses=new ArrayList<>();
+        for(ResponsesPerQuestionRecord currURR : responsesPerQuestionRecords){
+            responses.add(currURR.buildResponsesPerQuestionRecord(questionPool));
         }
         UserResponseSet URS=new UserResponseSet(userId);
         URS.addAllResponses(responses);
@@ -42,12 +44,12 @@ public class UserResponseSetRecord {
         this.userId = userId;
     }
 
-    public List<UserResponseRecord> getUserResponseRecords() {
-        return userResponseRecords;
+    public List<ResponsesPerQuestionRecord> getResponsesPerQuestionRecords() {
+        return responsesPerQuestionRecords;
     }
 
-    public void setUserResponseRecords(List<UserResponseRecord> userResponseRecords) {
-        this.userResponseRecords = userResponseRecords;
+    public void setResponsesPerQuestionRecords(List<ResponsesPerQuestionRecord> responsesPerQuestionRecords) {
+        this.responsesPerQuestionRecords = responsesPerQuestionRecords;
     }
 
 

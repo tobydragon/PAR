@@ -2,9 +2,7 @@ package edu.ithaca.dragon.par.io;
 
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
-import edu.ithaca.dragon.par.studentModel.UserResponse;
 import edu.ithaca.dragon.util.JsonUtil;
-import junit.framework.TestCase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -40,7 +38,7 @@ public class StudentModelRecordTest {
         Assertions.assertTrue(Files.deleteIfExists(path));
     }
 
-    @Test
+    //TODO: CONVERT TO TEST READ AND WRITE
     public void busyModelToFile() throws IOException {
         QuestionPool questionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));
         StudentModel studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
@@ -52,6 +50,6 @@ public class StudentModelRecordTest {
         for(int i=0;i<3;i++){
             studentModel.imageTaskResponseSubmitted(responseSet3,questionPool);
         }
-        JsonUtil.toJsonFile("src/test/resources/author/SampleStudentModelBusy.json", new StudentModelRecord(studentModel));
+        JsonUtil.toJsonFile("src/test/resources/author/SampleStudentModelBusy.json", Arrays.asList(new StudentModelRecord(studentModel)));
     }
 }

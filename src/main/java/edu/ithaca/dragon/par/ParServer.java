@@ -58,10 +58,9 @@ public class ParServer {
         datastore.saveStudentModel(studentModelMap.get(userId));
     }
 
-
     public double calcScore(String userId) throws IOException{
         StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, datastore);
-        return  currentStudent.calcScore();
+        return currentStudent.knowledgeScore();
     }
 
     public static String sendNewImageTaskResponse(ImageTaskResponse response) throws IOException{
