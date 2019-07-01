@@ -89,6 +89,10 @@ public class StudentModel {
         userResponseSet.addAllResponses(createUserResponseObj(imageTaskResponses,questions,this.userId));
     }
 
+    public static float calcScore(Map<String, Double> scoresPerType){
+        return -1;
+    }
+
     @Override
     public boolean equals(Object otherObj){
         if(otherObj == null)

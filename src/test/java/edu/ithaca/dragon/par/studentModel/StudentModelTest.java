@@ -11,10 +11,12 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class StudentModelTest {
 
@@ -77,5 +79,15 @@ public class StudentModelTest {
     public void imageTaskResponseSubmittedTest() throws IOException{
         studentModel.imageTaskResponseSubmitted(responsesFromFile.get(0),questionPool);
         assertEquals(studentModel.getResponseCount(), 15);
+    }
+
+    @Test
+    public void calcScoreTest(){
+        //throws exception when the types are invalid
+        Map<String, Double> m1 = new HashMap<>();
+        m1.put("Plane", 1.1);
+        m1.put("NotAValidKey", -1.0);
+
+        fail("Finish tests, then implement calcScore");
     }
 }
