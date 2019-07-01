@@ -152,7 +152,9 @@ function generateScoreBreakdown() {
 }
 
 function displayScoreBreakdown(breakdownString) {
-    document.getElementById("score").innerHTML = " " + breakdownString;
+    if(showScore) {
+        document.getElementById("score").innerHTML = " " + breakdownString;
+    }
 }
 
 function setUserId() {
@@ -229,7 +231,11 @@ function displayCheck(value, rightAnwser) {
 function clearQuestionAnswers() {
     responsesGivenText = [];
 }
-/** not needed right now, so commented out, but shows the toggable state of an element on a page.
+
+function disableSubmit(){
+    document.getElementById("submitButtonTag").innerHTML=" ";
+}
+
  function toggleShowState(toggableElement) {
     var changeElement = document.getElementById(toggableElement).classList;
 
@@ -241,7 +247,7 @@ function clearQuestionAnswers() {
         changeElement.add("show");
     }
 }
- **/
+
 
 function createResponseJson() {
     var newResponse;

@@ -17,12 +17,15 @@ function nextQuestionSet(){
     canvasApp();
 }
 
-function checkAnswers(){
+function checkAnswers() {
     //check and report to the user what they got right or wrong as well as add to list responsesGivenText
     checkAndRecordAnswers();
     //call CreateResponse to send answers back to the server
     createResponses();
     clearQuestionAnswers();
+    if (!ableToResubmitAnswers) {
+        disableSubmit();
+    }
 }
 
 
