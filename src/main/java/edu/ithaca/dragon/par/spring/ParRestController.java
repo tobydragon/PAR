@@ -24,7 +24,7 @@ public class ParRestController {
         super();
         try {
             parServer = new ParServer(new JsonDatastore("src/main/resources/author/SampleQuestionsSameDifficulty2.json",
-                    "src/main/resources/author/SampleStudentModelBusy.json"));
+                    "src/main/resources/students"));
         }
         catch(IOException e){
             throw new RuntimeException("Server can't start without questionPool or studentRecord");
@@ -37,14 +37,14 @@ public class ParRestController {
     }
 
     @GetMapping("/nextImageTask")
-    public ImageTask nextImageTask(@RequestParam String userId) {
+    public ImageTask nextImageTask(@RequestParam String userId) throws IOException {
             return parServer.nextImageTask(userId);
     }
 
     @PostMapping("/recordResponse")
     public ResponseEntity<String> recordResponse(@RequestBody ImageTaskResponse response) {
         try {
-            System.out.println("response recieved: " + response.getUserId() + "  " + response.getResponseTexts());
+            System.out.println("response received: " + response.getUserId() + "  " + response.getResponseTexts());
             parServer.imageTaskResponseSubmitted(response, response.getUserId());
             return ResponseEntity.ok().body("ok");
         } catch (Exception e){
@@ -53,8 +53,13 @@ public class ParRestController {
         }
     }
 
+    @PostMapping("/logout")
+    public void logout(@RequestParam String userId){
+        parServer.logout(userId);
+    }
+
     @GetMapping("/calcScore")
-    public String calcScore(@RequestParam String userId){
+    public String calcScore(@RequestParam String userId) throws IOException {
         return DataUtil.format(parServer.calcScore(userId));
     }
 
