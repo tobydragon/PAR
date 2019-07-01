@@ -37,9 +37,7 @@ public class JsonDatastore implements Datastore{
 
     @Override
     public List<StudentModel> loadStudentModels() throws IOException {
-        //TODO: This currently loads in every file in the studentModelFilePath package. Change it so it takes a userID and only load that studentModel
-
-        //check if filepath is exists
+         //check if filepath exists
         if(studentModelFilePath == null)
             throw new IOException("studentModelFilePath is null");
 

@@ -53,6 +53,11 @@ public class ParRestController {
         }
     }
 
+    @PostMapping("/logout")
+    public void logout(@RequestParam String userId){
+        parServer.logout(userId);
+    }
+
     @GetMapping("/calcScore")
     public String calcScore(@RequestParam String userId) throws IOException {
         return DataUtil.format(parServer.calcScore(userId));

@@ -105,4 +105,8 @@ public class ParServer {
 
         return studentModel;
     }
+
+    public void logout(String userId){
+        studentModelMap.remove(userId);
+    }
 }
