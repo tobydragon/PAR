@@ -15,17 +15,12 @@ public class WebController implements WebMvcConfigurer {
     public String login(){
         return "LoginPage";
     }
+
     @GetMapping(value = "/imageTaskView")
     public String redirect(@RequestParam String userId, Model model) {
         model.addAttribute("User", userId);
         return "ImageTaskTemplate";
     }
 
-//    @RequestMapping("/start")
-//    public String finalPage() {
-//        return "ImageTaskTemplate";
-//    }
-//    @RequestMapping("/login")
-//    public String loginPage() {return "LoginPage";}
 
 }

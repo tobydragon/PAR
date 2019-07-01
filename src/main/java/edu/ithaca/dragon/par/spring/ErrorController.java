@@ -54,8 +54,4 @@ class ErrorController implements org.springframework.boot.web.servlet.error.Erro
     private int getErrorCode(HttpServletRequest httpRequest) {
         return (Integer) httpRequest.getAttribute("javax.servlet.error.status_code");
     }
-
-    private String getErrorMessage(HttpServletRequest httpRequest) {
-        return (String) httpRequest.getAttribute("javax.servlet.error.message");
-    }
 }

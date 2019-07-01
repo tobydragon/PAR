@@ -41,8 +41,8 @@
                 <form name="userIDinput">
                     <div class="form-group">
                         <label>User ID</label>
-                        <input type="userId" class="form-control" id="inputId" aria-describedby="idHelp" placeholder="Enter User ID">
-                        <small id="idHelp" class="form-text text-muted">Ready... Set... PAR!</small>
+                        <input type="userId" class="form-control" id="inputId" aria-describedby="idHelp" placeholder="Enter User ID" onkeypress="return tableInputKeyPress(event)">
+                        <small id="idHelp" class="form-text text-muted">  </small>
                     </div>
                 </form>
             </div>
@@ -55,7 +55,9 @@
     </div>
 
 
-
+    <script>
+        setBottomText();
+    </script>
 
 
     <!-- - - - - - - - - - - - - - - - - - - - - - - - -->

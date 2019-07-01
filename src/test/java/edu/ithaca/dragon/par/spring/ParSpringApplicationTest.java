@@ -31,4 +31,27 @@ public class ParSpringApplicationTest {
 				.andExpect(content().string(equalTo("Greetings from PAR API!")));
 	}
 
+	@Test
+	public void apiFurtherTesting() throws Exception {
+		mvc.perform(MockMvcRequestBuilders.get("/api/nextImageTask?userId=Student").accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(content().contentType("application/json;charset=UTF-8"));
+
+
+		mvc.perform(MockMvcRequestBuilders.get("/api/calcScore?userId=Student").accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(content().contentType("application/json;charset=UTF-8"));
+	}
+
+	@Test
+	public void webControllerTest() throws Exception {
+		mvc.perform(MockMvcRequestBuilders.get("/login").accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(content().contentType("text/html;charset=UTF-8"));
+
+		mvc.perform(MockMvcRequestBuilders.get("/imageTaskView?userId=Student").accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(content().contentType("text/html;charset=UTF-8"));
+	}
+
 }
