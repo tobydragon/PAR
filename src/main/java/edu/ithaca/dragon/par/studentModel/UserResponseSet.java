@@ -1,7 +1,6 @@
 package edu.ithaca.dragon.par.studentModel;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class UserResponseSet {
     private String userId;
@@ -68,21 +67,24 @@ public class UserResponseSet {
 
     public void setUserId(String userIdIn){this.userId=userIdIn;}
     public String getUserId(){return userId;}
-//TODO: HAVE SCORE WORK WITH TYPE
-    public double knowledgeCalc(){
+
+    public  double knowledgeCalc(){
+        return knowledgeCalc(userResponse);
+    }
+    public static double knowledgeCalc(List<ResponsesPerQuestion> allResponses){
         double score=0;
         List<Double> scoresPerQuestion=new ArrayList<>();
-        if(userResponse.isEmpty()){
+        if(allResponses.isEmpty()){
            return -1;
        }
        else{
-           for(int i=0;i<getUserResponsesSize();i++){
-               scoresPerQuestion.add(userResponse.get(i).knowledgeCalc());
+           for(int i=0;i<allResponses.size();i++){
+               scoresPerQuestion.add(allResponses.get(i).knowledgeCalc());
            }
-            for(int i=0;i<getUserResponsesSize();i++){
+            for(int i=0;i<allResponses.size();i++){
                 score=score+scoresPerQuestion.get(i);
             }
-            score=score/getUserResponsesSize();
+            score=score/allResponses.size();
        }
        return score;
     }
@@ -98,5 +100,30 @@ public class UserResponseSet {
         UserResponseSet other = (UserResponseSet) otherObj;
         return this.getUserResponse().equals(other.getUserResponse())
                 && this.getUserId().equals(other.getUserId());
+    }
+
+    public Map<String, Double> knowledgeScoreByType() {
+        Map<String,List<ResponsesPerQuestion>> responseByType = splitResponsesByType(userResponse);
+        Map<String,Double> responseByTypeDouble = new HashMap<>();
+        for(String quesType  : responseByType.keySet() ){
+            List<ResponsesPerQuestion> quesList=responseByType.get(quesType);
+            responseByTypeDouble.put(quesType,knowledgeCalc(quesList));
+        }
+        return responseByTypeDouble;
+    }
+
+    private static Map<String,List<ResponsesPerQuestion>> splitResponsesByType(List<ResponsesPerQuestion> responsesPerQuestions){
+        Map<String,List<ResponsesPerQuestion>> responseByType = new HashMap<>();
+        for(int i=0;i<responsesPerQuestions.size();i++){
+           if(responseByType.get(responsesPerQuestions.get(i).getQuestionType()) ==null){
+               List<ResponsesPerQuestion> responsesPerQuestions1=new ArrayList<>();
+               responsesPerQuestions1.add(responsesPerQuestions.get(i));
+               responseByType.put(responsesPerQuestions.get(i).getQuestionType(),responsesPerQuestions1);
+            }
+           else{
+               responseByType.get(responsesPerQuestions.get(i).getQuestionType()).add(responsesPerQuestions.get(i));
+           }
+        }
+        return responseByType;
     }
 }
