@@ -1,0 +1,13 @@
+{
+  "userId" : "TestUser101",
+  "userQuestionSetRecord" : {
+    "userId" : "TestUser101",
+    "unseenQuestionIds" : [ "PlaneQ1", "PlaneQ2", "PlaneQ3", "PlaneQ4", "PlaneQ5", "StructureQ1", "StructureQ2", "StructureQ3", "StructureQ4", "StructureQ5", "ZoneQ1", "ZoneQ2", "ZoneQ3", "ZoneQ4", "ZoneQ5" ],
+    "seenQuestionIds" : [ ],
+    "timesSeen" : [ ]
+  },
+  "userResponseSetRecord" : {
+    "userId" : "TestUser101",
+    "responsesPerQuestionRecords" : [ ]
+  }
+}
