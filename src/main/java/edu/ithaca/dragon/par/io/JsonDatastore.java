@@ -37,9 +37,14 @@ public class JsonDatastore implements Datastore{
 
     @Override
     public List<StudentModel> loadStudentModels() throws IOException {
-         //check if filepath exists
+         //check if studentModelFilePath is not null
         if(studentModelFilePath == null)
             throw new IOException("studentModelFilePath is null");
+
+        //check if studentModelFilePath exists
+        File tmpDir = new File(studentModelFilePath);
+        if(!tmpDir.exists())
+            throw new IOException("StudentModelFilePath " + studentModelFilePath + " cannot be found");
 
         //make a list of studentModelRecords from every file in the filepath
         List<StudentModelRecord> studentModelRecords = new ArrayList<>();

@@ -8,11 +8,9 @@ import edu.ithaca.dragon.par.io.ImageTaskResponse;
 import edu.ithaca.dragon.par.pedagogicalModel.TaskGenerator;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 
-import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class ParServer {
@@ -30,12 +28,6 @@ public class ParServer {
     public ImageTask nextImageTask(String userId) throws IOException{
         StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, datastore);
         ImageTask imageTask =  TaskGenerator.makeTask(currentStudent);
-
-        //TODO: delete this
-        System.out.println("printing all logged in students:");
-        for(String currId : studentModelMap.keySet()){
-            System.out.println(currId);
-        }
 
         if (imageTask != null){
             return imageTask;

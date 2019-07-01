@@ -50,8 +50,17 @@ public class JsonDatastoreTest {
 
         }
 
+        //throws exception when the given studentModelFilePath does not exist
+        Datastore datastoreB = new JsonDatastore("src/test/resources/author/SampleQuestionPool.json", "ThisDoesNotExist.json");
+        try{
+            datastoreB.loadStudentModels();
+            fail();
+        } catch(Exception e1){
+
+        }
+
         //load in student models
-        Datastore datastore = new JsonDatastore("src/test/resources/author/SampleQuestionPool.json", "src/test/resources/students");
+        Datastore datastore = new JsonDatastore("src/test/resources/author/SampleQuestionPool.json", "src/test/resources/author/students");
         List<StudentModel> studentModelList = datastore.loadStudentModels();
 
         //check out the studentModels
@@ -86,7 +95,7 @@ public class JsonDatastoreTest {
 
     @Test
     public void loadIndividualStudentTest() throws IOException{
-        Datastore datastore = new JsonDatastore("src/test/resources/author/SampleQuestionPool.json", "src/test/resources/students");
+        Datastore datastore = new JsonDatastore("src/test/resources/author/SampleQuestionPool.json", "src/test/resources/author/students");
 
         //load an existing file and make sure it exists
         StudentModel testUser100 = datastore.loadStudentModel("TestUser100");
