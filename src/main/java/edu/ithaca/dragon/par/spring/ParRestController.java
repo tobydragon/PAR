@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -58,4 +60,13 @@ public class ParRestController {
         return DataUtil.format(parServer.calcScore(userId));
     }
 
+    @GetMapping("/calcScoreByType")
+    public Map<String, Double> calcScoreByType(@RequestParam String userId){
+        Map<String,Double> scoreMap= new HashMap<>();
+        scoreMap.put("plane",90.0);
+        scoreMap.put("structure",70.0);
+        scoreMap.put("zone",40.0);
+
+        return scoreMap;
+    }
 }
