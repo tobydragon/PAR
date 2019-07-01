@@ -132,7 +132,7 @@ public class ParServerTest {
         for(int i=0;i<4;i++){
             parServer.imageTaskResponseSubmitted(responsesFromFile.get(0),"s2");
 
-        }   assertEquals(93.3333333,parServer.calcScore("s2"), DataUtil.OK_DOUBLE_MARGIN);
+        }   assertEquals(83.3333333,parServer.calcScore("s2"), DataUtil.OK_DOUBLE_MARGIN);
 
 
         //terrible student
@@ -141,7 +141,7 @@ public class ParServerTest {
         assertEquals(100.0,parServer.calcScore("s3"), DataUtil.OK_DOUBLE_MARGIN);
         for(int i=0;i<3;i++){
             parServer.imageTaskResponseSubmitted(responseSet3,"s3");
-        }    assertEquals(39.999999,parServer.calcScore("s3"), DataUtil.OK_DOUBLE_MARGIN);
+        }    assertEquals(50.0,parServer.calcScore("s3"), DataUtil.OK_DOUBLE_MARGIN);
 
 
     }

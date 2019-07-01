@@ -63,7 +63,7 @@ public class ParServer {
 //TODO: CHANGE TO KNOWLEDGE SCORE AND MAKE WORK WITH TYPE
     public double calcScore(String userId){
         StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, questionPool);
-        return 0;//currentStudent.calcScore();
+        return currentStudent.knowledgeScore();
     }
 
     public static String sendNewImageTaskResponse(ImageTaskResponse response) throws IOException{

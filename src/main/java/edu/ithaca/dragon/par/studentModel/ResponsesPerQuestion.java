@@ -23,14 +23,19 @@ public class ResponsesPerQuestion {
 //TODO: WRITE A KNOWLEDGE CALCULATOR
     public double knowledgeCalc(){
         double score=0;
-        double increment=100/allResponseTextSize();
-        for(int i =0;i<allResponseTextSize();i++){
-            if(allResponseTexts.get(i).equals(question.getCorrectAnswer())){
-                score=score+increment;
+        if(responseText.equals(question.getCorrectAnswer())) score = 100;
+
+        else score = 0;
+
+        if(allResponseTextSize()>1) {
+            for (int i = 1; i < allResponseTextSize(); i++) {
+                if (!allResponseTexts.get(i).equals(question.getCorrectAnswer()) && score==100) score = 50;
+
+                else if(allResponseTexts.get(i).equals(question.getCorrectAnswer()) && score==0) score = 50;
             }
         }
         return score;
-    }
+}
 
     public void addNewResponse(String newResponse){
         allResponseTexts.add(newResponse);

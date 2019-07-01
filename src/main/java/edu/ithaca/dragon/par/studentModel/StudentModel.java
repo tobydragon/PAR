@@ -52,8 +52,8 @@ public class StudentModel {
     public String getUserId(){
         return userId;
     }
-//TODO:HAVE SCORE WORK WITH TYPE
-    public List<Double> calcScore(){
+
+    public double knowledgeScore(){
         return userResponseSet.knowledgeCalc();
     }
 
@@ -65,14 +65,14 @@ public class StudentModel {
      * @return: List of ResponsesPerQuestion objects
      */
     private static List<ResponsesPerQuestion> createUserResponseObj(ImageTaskResponse imageTaskResponses, QuestionPool questions, String userId){
-        List<ResponsesPerQuestion> userRespons =new ArrayList<>();
+        List<ResponsesPerQuestion> userResponse =new ArrayList<>();
         ResponsesPerQuestion response; Question ques;
         for(int i=0;i<imageTaskResponses.getTaskQuestionIds().size();i++){
             ques=questions.getQuestionFromId(imageTaskResponses.getTaskQuestionIds().get(i));//finds question in QuestionPool creates a question object
             response=new ResponsesPerQuestion(userId,ques,imageTaskResponses.getResponseTexts().get(i));//creates new response object
-            userRespons.add(response);
+            userResponse.add(response);
         }
-        return userRespons;
+        return userResponse;
     }
 
     /**

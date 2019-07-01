@@ -69,18 +69,22 @@ public class UserResponseSet {
     public void setUserId(String userIdIn){this.userId=userIdIn;}
     public String getUserId(){return userId;}
 //TODO: HAVE SCORE WORK WITH TYPE
-    public List<Double> knowledgeCalc(){
+    public double knowledgeCalc(){
+        double score=0;
         List<Double> scoresPerQuestion=new ArrayList<>();
         if(userResponse.isEmpty()){
-           return scoresPerQuestion;
+           return -1;
        }
        else{
            for(int i=0;i<getUserResponsesSize();i++){
                scoresPerQuestion.add(userResponse.get(i).knowledgeCalc());
-
            }
+            for(int i=0;i<getUserResponsesSize();i++){
+                score=score+scoresPerQuestion.get(i);
+            }
+            score=score/getUserResponsesSize();
        }
-       return scoresPerQuestion;
+       return score;
     }
 
     @Override

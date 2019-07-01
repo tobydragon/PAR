@@ -53,8 +53,8 @@ public class StudentModelTest {
 
         studentModel.imageTaskResponseSubmitted(responsesFromFile.get(0),questionPool);
         studentModel.imageTaskResponseSubmitted(responsesFromFile.get(0),questionPool);
-//TODO:CHECK IF RESPONSE COUNT IS 15 NOT 30
-        assertEquals(30, studentModel.getResponseCount());
+
+        assertEquals(15, studentModel.getResponseCount());
     }
 
     @Test
