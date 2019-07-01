@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -55,6 +56,21 @@ public class StudentModelTest {
         studentModel.imageTaskResponseSubmitted(responsesFromFile.get(0),questionPool);
 
         assertEquals(15, studentModel.getResponseCount());
+    }
+
+    @Test
+    public void knowledgeScoreByTypeTest(){
+        Map<String,Double> resp=studentModel.knowledgeScoreByType();
+        assertEquals(0,resp.size());
+
+        studentModel.imageTaskResponseSubmitted(responsesFromFile.get(1),questionPool);
+
+        Map<String,Double> resp1=studentModel.knowledgeScoreByType();
+        assertEquals(3,resp1.size());
+        assertEquals(40.0,resp1.get("Plane"),DataUtil.OK_DOUBLE_MARGIN);
+        assertEquals(100.0,resp1.get("Structure"),DataUtil.OK_DOUBLE_MARGIN);
+        assertEquals(0,resp1.get("Zone"),DataUtil.OK_DOUBLE_MARGIN);
+
     }
 
     @Test
