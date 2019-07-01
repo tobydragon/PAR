@@ -31,11 +31,11 @@ class ErrorController implements org.springframework.boot.web.servlet.error.Erro
 
         switch (httpErrorCode) {
             case 400: {
-                errorMsg = "Http Error Code: 400. Bad Request \n";
+                errorMsg = "Http Error Code: 400. Bad Request";
                 break;
             }
             case 401: {
-                errorMsg = "Http Error Code: 401. Unauthorized \n";
+                errorMsg = "Http Error Code: 401. Unauthorized";
                 break;
             }
             case 404: {
