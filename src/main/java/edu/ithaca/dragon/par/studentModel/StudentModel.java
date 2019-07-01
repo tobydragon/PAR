@@ -4,8 +4,7 @@ import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class StudentModel {
 
@@ -56,6 +55,12 @@ public class StudentModel {
     public double knowledgeScore(){
         return userResponseSet.knowledgeCalc();
     }
+
+    public Map<String,Double> knowledgeScoreByType(){
+        return userResponseSet.knowledgeScoreByType();
+    }
+
+
 
     /**
      * Creates a list of ResponsesPerQuestion objects

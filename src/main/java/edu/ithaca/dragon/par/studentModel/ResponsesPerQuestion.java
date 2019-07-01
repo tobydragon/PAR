@@ -10,17 +10,21 @@ public class ResponsesPerQuestion {
     private String userId;
     private Question question;
     private String responseText;
+    private String questionType;
     private List<String> allResponseTexts;
+
+
 
     public ResponsesPerQuestion(String userIdIn, Question questionIn, String responseIn){
         this.userId=userIdIn;
         this.question=questionIn;
         this.questionId=questionIn.getId();
+        this.questionType=questionIn.getType();
         responseText=responseIn;
         allResponseTexts=new ArrayList<>();
         allResponseTexts.add(responseIn);
     }
-//TODO: WRITE A KNOWLEDGE CALCULATOR
+
     public double knowledgeCalc(){
         double score=0;
         if(responseText.equals(question.getCorrectAnswer())) score = 100;
@@ -65,6 +69,7 @@ public class ResponsesPerQuestion {
     public List<String> getAllResponseTexts() {
         return allResponseTexts;
     }
+
     public void setAllResponseTexts(List<String> allResponseTexts) {
         this.allResponseTexts = allResponseTexts;
     }
@@ -72,7 +77,12 @@ public class ResponsesPerQuestion {
     public void setResponseText(String responseTextIn){this.responseText=responseTextIn;}
     public String getResponseText(){return responseText;}
 
-
+    public String getQuestionType() {
+        return questionType;
+    }
+    public void setQuestionType(String questionType) {
+        this.questionType = questionType;
+    }
 
     @Override
     public boolean equals(Object otherObj){
