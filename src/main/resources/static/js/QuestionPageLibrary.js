@@ -133,36 +133,20 @@ function generateScoreBreakdown() {
     //79-50 orange
     //49-0 red
     var breakdownString = "";
-    var scoreJson = new Map();
-    scoreJson = readJson("api/calcScoreByType?userId=" + sendUserId());
-    console.log("read json");
-
-    for (const [key, value] of scoreJson.entries()) {
-        if (value >= 80) {
-            breakdownString += "<i class=black>" + key + ":</i> <i class=green>" + value + "<i>";
-        } else if (value <= 79 && value >= 50) {
-            breakdownString += "<i class=black>" + key + ":</i> <i class=orange>" + value + "<i>";
-        } else if (value <= 49) {
-            breakdownString += "<i class=black>" + key + ":</i> <i class=red>" + value + "<i>";
+    var scoreJson = readJson("api/calcScoreByType?userId=" + sendUserId());
+    for (var key in scoreJson) {
+        if (scoreJson.hasOwnProperty(key)) {
+            let value = scoreJson[key];
+            if (value >= 80) {
+                breakdownString += "<i class=black>" + key + ":</i> <i class=green>" + value + "<i>";
+            } else if (value <= 79 && value >= 50) {
+                breakdownString += "<i class=black>" + key + ":</i> <i class=orange>" + value + "<i>";
+            } else if (value <= 49) {
+                breakdownString += "<i class=black>" + key + ":</i> <i class=red>" + value + "<i>";
+            }
         }
         breakdownString += "<br />";
     }
-
-
-
-
-
-    /** for (var i = 0; i < scoreJson; i++) {
-         if (scoreJson.scores[i].num >= 80) {
-             breakdownString += "<i class=black>" + scoreJson.scores[i].type + ":</i> <i class=green>" + scoreJson.scores[i].num + "</i>";
-         } else if (scoreJson.scores[i].num <= 79 && scoreJson.scores[i].num >= 50) {
-             breakdownString += "<i class=black>" + scoreJson.scores[i].type + ":</i> <i class=orange>" + scoreJson.scores[i].num + "</i>";
-         } else if (scoreJson.scores[i].num <= 49) {
-             breakdownString += "<i class=black>" + scoreJson.scores[i].type + ":</i> <i class=red>" + scoreJson.scores[i].num + "</i>";
-         }
-         breakdownString += "<br />";
-     } **/
-    console.log(breakdownString);
     displayScoreBreakdown(breakdownString);
 
 }
