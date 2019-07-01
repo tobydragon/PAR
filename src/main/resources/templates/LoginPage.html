@@ -41,13 +41,13 @@
                 <form name="userIDinput">
                     <div class="form-group">
                         <label>User ID</label>
-                        <input type="userId" class="form-control" id="inputId" aria-describedby="idHelp" placeholder="Enter User ID" onkeypress="return tableInputKeyPress(event)">
-                        <small id="idHelp" class="form-text text-muted">  </small>
+                        <input type="userId" class="form-control" id="inputId" aria-describedby="idHelp" placeholder="Enter User ID" onkeydown="enterSubmit()">
+                        <small id="idHelp" class="form-text text-muted">Ready... Set... PAR!</small>
                     </div>
                 </form>
             </div>
             <div class="col-1 colVertCenter">
-                <button type="button" class="btn btn-primary" id="submitButton" onclick="change()">
+                <button type="button" class="btn btn-primary" id="submitButton" onclick="login()">
                     Login
                 </button>
             </div>

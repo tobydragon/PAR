@@ -1,4 +1,4 @@
-[{
+{
   "userId" : "TestUser100",
   "userQuestionSetRecord" : {
     "userId" : "TestUser100",
@@ -8,6 +8,6 @@
   },
   "userResponseSetRecord" : {
     "userId" : "TestUser100",
-    "userResponseRecords" : [ ]
+    "responsesPerQuestionRecords" : [ ]
   }
-}]
+}

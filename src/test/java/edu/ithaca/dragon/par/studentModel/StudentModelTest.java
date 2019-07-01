@@ -43,7 +43,7 @@ public class StudentModelTest {
         assertEquals(0, studentModel.getResponseCount());
     }
 
-    @Test
+    @Test//make a card TODO:CHANGE TEST NAME AND STUDENT MODEL .getResponseCount
     public void testPickingQuestionsAndReceivingResponses(){
         studentModel.givenQuestion("PlaneQ1");
         studentModel.givenQuestion("PlaneQ1");
@@ -54,7 +54,7 @@ public class StudentModelTest {
         studentModel.imageTaskResponseSubmitted(responsesFromFile.get(0),questionPool);
         studentModel.imageTaskResponseSubmitted(responsesFromFile.get(0),questionPool);
 
-        assertEquals(30, studentModel.getResponseCount());
+        assertEquals(15, studentModel.getResponseCount());
     }
 
     @Test

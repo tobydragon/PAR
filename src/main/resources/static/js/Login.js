@@ -18,7 +18,7 @@ function setUserId() {
     return User;
 }
 
-function change() {
+function login() {
     setUserId();
     try {
         return location.replace('/imageTaskView?userId=' + User);
@@ -26,5 +26,17 @@ function change() {
         window.onerror = function (msg) {
             location.replace('/error?message=' + msg);
         }
+    }
+}
+
+function enterSubmit() {
+    document.getElementById('inputId').onkeydown = function (e) {
+        //13 is enter key code
+        if (e.keyCode == 13) {
+            //preventDevault() cancells current action, in this case the page refreshing and allows the login function to be called
+            e.preventDefault();
+            login();
+        }
+
     }
 }

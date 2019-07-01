@@ -2,6 +2,7 @@ package edu.ithaca.dragon.par.studentModel;
 import edu.ithaca.dragon.par.domainModel.Question;
 
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
+import edu.ithaca.dragon.util.DataUtil;
 import edu.ithaca.dragon.util.JsonUtil;
 import org.junit.jupiter.api.Test;
 
@@ -19,49 +20,71 @@ public class UserResponseSetTest {
         List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
         List<ImageTaskResponse> responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponse.class);
         UserResponseSet respSet=new UserResponseSet(responsesFromFile.get(0).getUserId());
-        List<UserResponse> userResponses=new ArrayList<>();
+        List<ResponsesPerQuestion> userResponse =new ArrayList<>();
         for(int i=0;i<questionsFromFile.size();i++){
-            UserResponse response = new UserResponse(responsesFromFile.get(0).getUserId(), questionsFromFile.get(i),responsesFromFile.get(0).getResponseTexts().get(i));
-            userResponses.add(response);
+            ResponsesPerQuestion response = new ResponsesPerQuestion(responsesFromFile.get(0).getUserId(), questionsFromFile.get(i),responsesFromFile.get(0).getResponseTexts().get(i));
+            userResponse.add(response);
         }
-        respSet.addAllResponses(userResponses);
+        respSet.addAllResponses(userResponse);
         assertEquals(respSet.getUserResponsesSize(),15);
+
+    }
+
+    @Test
+    public void addToResponsesPerQuestionTest() throws IOException{
+        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
+        List<ImageTaskResponse> responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponse.class);
+        UserResponseSet respSet=new UserResponseSet(responsesFromFile.get(0).getUserId());
+
+        ResponsesPerQuestion response1 = new ResponsesPerQuestion(responsesFromFile.get(0).getUserId(), questionsFromFile.get(0),responsesFromFile.get(0).getResponseTexts().get(0));
+        ResponsesPerQuestion response2 = new ResponsesPerQuestion(responsesFromFile.get(0).getUserId(), questionsFromFile.get(1),responsesFromFile.get(0).getResponseTexts().get(1));
+        respSet.addResponse(response1);respSet.addResponse(response1);respSet.addResponse(response2);
+
+        assertEquals(2,response1.allResponseTextSize());
+        assertEquals(1,response2.allResponseTextSize());
+
     }
 
 
-
-    public static double OK_DOUBLE_MARGIN = (double) 0.00001;
     @Test
-    public void calcScoreTest() throws IOException{
-        //For empty list returns -1
-        UserResponseSet repSet=new UserResponseSet("HI");
-        assertEquals(-1.000,repSet.calcScore(),OK_DOUBLE_MARGIN);
-
+    public void knowledgeCalcTest() throws IOException{
         List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
         List<ImageTaskResponse> responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponse.class);
-        UserResponseSet respSet2=new UserResponseSet(responsesFromFile.get(0).getUserId());
-        List<UserResponse> userResponses=new ArrayList<>();
+        //For empty list returns -1
+        UserResponseSet responseSet=new UserResponseSet(responsesFromFile.get(0).getUserId());
+        assertEquals(-1.000,responseSet.knowledgeCalc(), DataUtil.OK_DOUBLE_MARGIN);
+
         for(int i=0;i<questionsFromFile.size();i++){
-            UserResponse response = new UserResponse(responsesFromFile.get(0).getUserId(), questionsFromFile.get(i),responsesFromFile.get(0).getResponseTexts().get(i));
-            userResponses.add(response);
-        }
-        respSet2.addAllResponses(userResponses);
-        assertEquals(100.00,respSet2.calcScore(),OK_DOUBLE_MARGIN);
+            ResponsesPerQuestion response = new ResponsesPerQuestion(responsesFromFile.get(0).getUserId(), questionsFromFile.get(i),responsesFromFile.get(0).getResponseTexts().get(i));
+            responseSet.addResponse(response);
+        }       assertEquals(100.00,responseSet.knowledgeCalc(),DataUtil.OK_DOUBLE_MARGIN);
 
-        //decrement
-        UserResponse response1 = new UserResponse(responsesFromFile.get(0).getUserId(), questionsFromFile.get(0),"hi");
-        respSet2.addResponse(response1);
-        // 15/16 = 93.75
-        assertEquals(93.75,respSet2.calcScore(),OK_DOUBLE_MARGIN);
-        respSet2.addResponse(response1);
-        // 15/17
-        assertEquals(88.23529411764707,respSet2.calcScore(),OK_DOUBLE_MARGIN);
+        for(int i=11;i<questionsFromFile.size();i++){
+            ResponsesPerQuestion response = new ResponsesPerQuestion(responsesFromFile.get(0).getUserId(), questionsFromFile.get(i),"wrongAnswer");
+            responseSet.addResponse(response);
+        }       assertEquals(86.66666666666667,responseSet.knowledgeCalc(),DataUtil.OK_DOUBLE_MARGIN);
 
-        //increment
-        UserResponse response2 = new UserResponse(responsesFromFile.get(0).getUserId(), questionsFromFile.get(0),responsesFromFile.get(0).getResponseTexts().get(0));
-        respSet2.addResponse(response2);
-        // 16/18
-        assertEquals(88.88888888888889,respSet2.calcScore(),OK_DOUBLE_MARGIN);
+        for(int i=6;i<questionsFromFile.size();i++){
+            ResponsesPerQuestion response = new ResponsesPerQuestion(responsesFromFile.get(0).getUserId(), questionsFromFile.get(i),"wrongAnswer");
+            responseSet.addResponse(response);
+        }       assertEquals(70.0,responseSet.knowledgeCalc(),DataUtil.OK_DOUBLE_MARGIN);
+
+        for(int i=2;i<questionsFromFile.size();i++){
+            ResponsesPerQuestion response = new ResponsesPerQuestion(responsesFromFile.get(0).getUserId(), questionsFromFile.get(i),"wrongAnswer");
+            responseSet.addResponse(response);
+        }       assertEquals(56.666666666666664,responseSet.knowledgeCalc(),DataUtil.OK_DOUBLE_MARGIN);
+
+        for(int i=0;i<questionsFromFile.size();i++){
+            ResponsesPerQuestion response = new ResponsesPerQuestion(responsesFromFile.get(0).getUserId(), questionsFromFile.get(i),"wrongAnswer");
+            responseSet.addResponse(response);
+        }       assertEquals(50.0,responseSet.knowledgeCalc(),DataUtil.OK_DOUBLE_MARGIN);
+
+        UserResponseSet responseSet1=new UserResponseSet("badStudent");
+        for(int i=0;i<questionsFromFile.size();i++){
+            ResponsesPerQuestion response = new ResponsesPerQuestion("badStudent", questionsFromFile.get(i),"hi");
+            responseSet1.addResponse(response);
+        }   assertEquals(0.0,responseSet1.knowledgeCalc(),DataUtil.OK_DOUBLE_MARGIN);
+
 
 
     }
