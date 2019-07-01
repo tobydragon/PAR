@@ -64,12 +64,12 @@ public class JsonDatastore implements Datastore{
         return studentModels;
     }
 
+    @Override
     public StudentModel loadStudentModel(String userId) throws IOException{
         String fullFileName = studentModelFilePath + "/" + userId + ".json";
-        Path path = Paths.get(fullFileName);
 
         //check if file exists, return null if it doesn't
-        File checkFile = new File("c:/temp/temp.txt");
+        File checkFile = new File(fullFileName);
         if(!checkFile.exists()){
             return null;
         }

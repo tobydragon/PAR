@@ -13,6 +13,8 @@ public interface Datastore {
 
     List<StudentModel> loadStudentModels() throws IOException;
 
+    StudentModel loadStudentModel(String userId) throws IOException;
+
     void saveStudentModels(Collection<StudentModel> studentModelsIn) throws IOException;
 
     void setStudentModelFilePath(String newStudentModelFilePath);

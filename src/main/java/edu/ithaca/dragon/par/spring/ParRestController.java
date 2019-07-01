@@ -37,7 +37,7 @@ public class ParRestController {
     }
 
     @GetMapping("/nextImageTask")
-    public ImageTask nextImageTask(@RequestParam String userId) {
+    public ImageTask nextImageTask(@RequestParam String userId) throws IOException {
             return parServer.nextImageTask(userId);
     }
 
@@ -54,7 +54,7 @@ public class ParRestController {
     }
 
     @GetMapping("/calcScore")
-    public String calcScore(@RequestParam String userId){
+    public String calcScore(@RequestParam String userId) throws IOException {
         return DataUtil.format(parServer.calcScore(userId));
     }
 
