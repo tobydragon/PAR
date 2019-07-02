@@ -34,12 +34,12 @@
                 <img src="/images/ParLogo.png" height="90%" width="70%" class="imgCenter" alt="PAR_logo">
             </div>
             <div class="col-3 colVertCenter">
-                <b class="size20">Knowledge Base: </b>
+                <i id="scoreTag"> </i>
                 <i id="score"> </i>
             </div>
             <div class="col-3 colVertCenter">
                 <b class="size20">User ID: </b>
-                <i id="UserId" class="size20"> </i>
+                <div id="UserId" class="size20"> </div>
             </div>
             <div class="col-1"></div>
             <div class="col-2 colVertCenter">
@@ -65,12 +65,11 @@
                 <form action="#" method="post" id="form1">
                     <i id="questionSet"> </i>
                 </form>
+                <br>
+                <i id="helpfulFeedback"> </i>
             </div>
             <div class="col-1"></div>
         </div>
-        <br>
-        <i id="helpfulFeedback">Feedback: </i>
-        <br>
         <div class="row">
             <div class="col-12 text-center">
                 <div class="show">
@@ -80,6 +79,7 @@
                         </button>
                     </i>
                     <button type="button" class="fas fa-arrow-circle-right btn btn-outline-dark" id="nextQuestionButton" onclick="nextQuestionSet()"></button>
+                    <i id="errorFeedback"> </i>
                 </div>
 
             </div>
@@ -87,9 +87,10 @@
     </div>
 
     <script>
-        UserID = "[[${User}]]";
+        userID = "[[${User}]]";
         setUserId();
         getSettings();
+
     </script>
 
     <!-- - - - - - - - - - - - - - - - - - - - - - - - -->

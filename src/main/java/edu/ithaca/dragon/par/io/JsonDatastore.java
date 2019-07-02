@@ -3,12 +3,11 @@ package edu.ithaca.dragon.par.io;
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
+import edu.ithaca.dragon.util.FileSystemUtil;
 import edu.ithaca.dragon.util.JsonUtil;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -37,32 +36,10 @@ public class JsonDatastore implements Datastore{
 
     @Override
     public List<StudentModel> loadStudentModels() throws IOException {
-         //check if studentModelFilePath is not null
-        if(studentModelFilePath == null)
-            throw new IOException("studentModelFilePath is null");
-
-        //check if studentModelFilePath exists
-        File tmpDir = new File(studentModelFilePath);
-        if(!tmpDir.exists())
-            throw new IOException("StudentModelFilePath " + studentModelFilePath + " cannot be found");
-
-        //make a list of studentModelRecords from every file in the filepath
-        List<StudentModelRecord> studentModelRecords = new ArrayList<>();
-        File studentModelFolder = new File(studentModelFilePath);
-        File[] listOfStudentModelFiles = studentModelFolder.listFiles();
-
-        for(File file : listOfStudentModelFiles){
-            if(file.isFile()){
-                String fullFileName = studentModelFilePath + "/" + file.getName();
-                StudentModelRecord newSMR = JsonUtil.fromJsonFile(fullFileName, StudentModelRecord.class);
-                studentModelRecords.add(newSMR);
-            }
-        }
-
-        //create studentModels from the studentModelRecords
         List<StudentModel> studentModels = new ArrayList<>();
-        for(StudentModelRecord currSMR : studentModelRecords){
-            studentModels.add(currSMR.buildStudentModel(questionPool));
+        for(String filePath : FileSystemUtil.addPathToFilenames(studentModelFilePath, FileSystemUtil.findAllFileNamesInDir(studentModelFilePath, "json"))){
+            StudentModelRecord newSMR = JsonUtil.fromJsonFile(filePath, StudentModelRecord.class);
+            studentModels.add(newSMR.buildStudentModel(questionPool));
         }
         return studentModels;
     }

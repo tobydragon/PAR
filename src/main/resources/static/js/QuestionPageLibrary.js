@@ -58,8 +58,8 @@ function canvasApp() {
 }
 
 function sendUserId() {
-    if (UserID != null) {
-        return UserID;
+    if (userID != null) {
+        return userID;
     } else {
         return "Student";
     }
@@ -78,8 +78,8 @@ function generateQuestion(question) {
     var difficultyStr = createFillIn(question);
     amountOfQuestions++;
 
-    QuestionAnswers.push(question.correctAnswer);
-    QuestionIDs.push(question.id);
+    questionAnswers.push(question.correctAnswer);
+    questionIDs.push(question.id);
     questionTypes.push(question.type);
     displayQuestion(difficultyStr);
 }
@@ -113,7 +113,11 @@ function createFillIn(json) {
     return question;
 }
 
-function setCurrentScore() {
+function generateScoreLevel(){
+
+}
+
+function generateSinglescore(){
     var url = "api/calcScore?userId=" + sendUserId();
     var request = new XMLHttpRequest();
     request.open("GET", url, false);
@@ -128,11 +132,21 @@ function setCurrentScore() {
     }
 }
 
-function generateScoreBreakdown() {
+function setCurrentScore() {
+    if(scoreType== "ByType"){
+        generateScoreByType();
+    } else if (scoreType== "SingleScore"){
+        generateSinglescore();
+    } else if(scoreType== "Level"){
+        generateScoreLevel();
+    }
+}
+
+function generateScoreByType() {
     //80-100 green
     //79-50 orange
     //49-0 red
-    var breakdownString = "";
+    var breakdownString = " ";
     var scoreJson = readJson("api/calcScoreByType?userId=" + sendUserId());
     for (var key in scoreJson) {
         if (scoreJson.hasOwnProperty(key)) {
@@ -152,7 +166,7 @@ function generateScoreBreakdown() {
 }
 
 function displayScoreBreakdown(breakdownString) {
-    if(showScore) {
+    if (showScore) {
         document.getElementById("score").innerHTML = " " + breakdownString;
     }
 }
@@ -163,7 +177,10 @@ function setUserId() {
 //Calls generateQuestion on the JSON object for the question at ith index
 function pageDisplay(imageTaskJSON) {
     clearQuestionIDs();
-    setCurrentScore();
+    if(showScore) {
+        document.getElementById("scoreTag").innerHTML ="<b class=\"size20\">Knowledge Base: </b>";
+        setCurrentScore();
+    }
     //Displays the questions at the tags
     for (var i = 0; i < imageTaskJSON.taskQuestions.length; i++) {
         generateQuestion(imageTaskJSON.taskQuestions[i]);
@@ -171,7 +188,7 @@ function pageDisplay(imageTaskJSON) {
 }
 //Clears question IDs from working image task.
 function clearQuestionIDs() {
-    QuestionIDs = [];
+    questionIDs = [];
 }
 //Removes all text from the screen at id questionSet to prep for next image task.
 function clearPage() {
@@ -181,7 +198,7 @@ function clearPage() {
 
 //Checks the answers given in the questions against the record of what is correct/incorrect.
 function checkAndRecordAnswers() {
-    var form = document.getElementById("form1")
+    var form = document.getElementById("form1");
     for (var i = 0; i < amountOfQuestions; i++) {
         var currentName = "q" + i;
         var currentAnswer = form[currentName].value;
@@ -189,41 +206,66 @@ function checkAndRecordAnswers() {
         responsesGivenText.push(currentAnswer);
 
         var isCorrect;
-        if (currentAnswer == QuestionAnswers[i]) {
+        if (currentAnswer == questionAnswers[i]) {
             isCorrect = "Correct";
         } else if (currentAnswer == "Unsure") {
             isCorrect = "Unsure";
+        } else if(currentAnswer==""){
+            if(!canGiveNoAnswer){
+                responsesGivenText.pop();
+            } else {
+                isCorrect = "Incorrect";
+                addToTypesSeenForFeedback(questionTypes[i]);
+            }
         } else {
             isCorrect = "Incorrect";
-            generatefeedback(questionTypes[i]);
+            addToTypesSeenForFeedback(questionTypes[i]);
         }
         var displayAreaName = "questionCorrect" + i;
-        document.getElementById(displayAreaName).innerHTML = displayCheck(isCorrect, QuestionAnswers[i]);
+        document.getElementById(displayAreaName).innerHTML = displayCheck(isCorrect, questionAnswers[i],unsureShowsCorrectAnswer);
+    }
+    generateFeedback();
+}
+
+function addToTypesSeenForFeedback(type){
+    if (!typesSeenForFeedback.includes(type)) {
+        typesSeenForFeedback.push(type);
     }
 }
 
-function generatefeedback(type){
-    if(!typesSeenForFeedback.includes(type)) {
-        typesSeenForFeedback.push(type);
+function generateFeedback() {
+    if(typesSeenForFeedback.length>0){
+        document.getElementById("helpfulFeedback").innerHTML = "Feedback: ";
+    }
+    for(var i=0; i<typesSeenForFeedback.length; i++) {
+        var type = typesSeenForFeedback[i];
         var response = feedbackByType[type];
-        response += ", ";
+        if (i < typesSeenForFeedback.length-1) {
+            response += ", ";
+        }
         document.getElementById("helpfulFeedback").innerHTML += response;
     }
 }
 
-//Displays the value of right/wrong based on the previous function's input value.
-function displayCheck(value, rightAnwser) {
-    if (value == "Correct") return '<font color=\"green\">Your answer is: ' + value + '</font>';
+function clearFeedback(){
+    document.getElementById("helpfulFeedback").innerHTML = " ";
+}
 
-    if (value == "Incorrect"){
+//Displays the value of right/wrong based on the previous function's input value.
+function displayCheck(value, rightAnwser, unsureShowsCorrectAnswerHere) {
+    if (value == "Correct") {
+        return '<font color=\"green\">Your answer is: ' + value + '</font>';
+    }
+
+    if (value == "Incorrect") {
         return '<font color=\"red\">Your answer is: ' + value + '</font>';
     }
 
     if (value == "Unsure") {
-        if (unsureShowsCorrectAnswer== true) {
+        if (unsureShowsCorrectAnswerHere == true) {
             return '<font color=\"#663399\">Your answer is: ' + value + ".    " + 'The answer is ' + rightAnwser + '</font>';
         } else {
-            return '<font color=\"#663399\">Your answer is: ' + value +'</font>';
+            return '<font color=\"#663399\">Your answer is: ' + value + '</font>';
         }
     }
 }
@@ -233,40 +275,39 @@ function clearQuestionAnswers() {
 }
 
 function reEnableSubmit(){
-    document.getElementById("submitButtonTag").innerHTML=" <button type=\"button\" class=\"btn btn-primary\" id=\"submitButton\" onclick=\"checkAnswers()\">\n" +
-        "                            Submit\n" +
-        "                        </button>";
+    document.getElementById("submitButtonTag").innerHTML=" <button type=\"button\" class=\"btn btn-primary\" id=\"submitButton\" onclick=\"checkAnswers()\">" +
+        "Submit" + "</button>";
 }
 
-function disableSubmit(){
-    document.getElementById("submitButtonTag").innerHTML=" ";
+function disableSubmit() {
+    document.getElementById("submitButtonTag").innerHTML = " ";
 }
 
- function toggleShowState(toggableElement) {
-    var changeElement = document.getElementById(toggableElement).classList;
-
-    if (changeElement.contains("show") || changeElement.style.display == "block") {
-        changeElement.remove("show");
-        changeElement.add("hide");
-    } else if (changeElement.contains("hide")) {
-        changeElement.remove("hide");
-        changeElement.add("show");
-    }
-}
+//  function toggleShowState(toggableElement) {
+//     var changeElement = document.getElementById(toggableElement).classList;
+//
+//     if (changeElement.contains("show") || changeElement.style.display == "block") {
+//         changeElement.remove("show");
+//         changeElement.add("hide");
+//     } else if (changeElement.contains("hide")) {
+//         changeElement.remove("hide");
+//         changeElement.add("show");
+//     }
+// }
 
 
 function createResponseJson() {
     var newResponse;
-    if (UserID != null) {
+    if (userID != null) {
         newResponse = {
-            userId: UserID,
-            taskQuestionIds: QuestionIDs,
+            userId: userID,
+            taskQuestionIds: questionIDs,
             responseTexts: responsesGivenText
         };
     } else {
         newResponse = {
             userId: "Student",
-            taskQuestionIds: QuestionIDs,
+            taskQuestionIds: questionIDs,
             responseTexts: responsesGivenText
         };
     }
@@ -281,8 +322,7 @@ function submitToAPI(url, objectToSubmit) {
     request.send(JSON.stringify(objectToSubmit));
     request.onreadystatechange = function () {
         if (request.status === 200) {
-            //setCurrentScore();
-            generateScoreBreakdown();
+            setCurrentScore();
         } else {
             window.onerror = function (msg) {
                 location.replace('/error?message=' + msg);
@@ -291,38 +331,55 @@ function submitToAPI(url, objectToSubmit) {
     };
 }
 
+function clearQuestionCorrectnessResponses(){
+    for (var i = 0; i < amountOfQuestions; i++) {
+        var displayAreaName = "questionCorrect" + i;
+        document.getElementById(displayAreaName).innerHTML = " ";
+    }
+
+}
+
+function checkForAnswers(){
+    if(numberOfQuestionsAnswered==amountOfQuestions){
+        return true;
+    } else {
+        document.getElementById("errorFeedback").innerHTML = '<font color=red>Must submit answers to continue</font>';
+        return false;
+    }
+}
+
 function logout() {
-    UserID = null;
+    userID = null;
     return location.replace('/login');
 }
 
-function getSettings(){
+function getSettings() {
     try {
         var settings = readJson("api/getSettings");
 
-    } catch(Exception ) {
+    } catch (Exception) {
         window.onerror = function (msg) {
-            location.replace('/error?message='+msg);
+            location.replace('/error?message=' + msg);
         }
     }
 
     unsureShowsCorrectAnswer= settings.unsureShowsCorrectAnswer;
     feedbackByType= settings.feedbackByType;
-    ableToResubmitAnswers= settings.ableToResubmitAnswers
+    ableToResubmitAnswers= settings.ableToResubmitAnswers;
     scoreType= settings.scoreType;
     showScore= settings.showScore;
+    mustSubmitAnswersToContinue= settings.mustSubmitAnswersToContinue;
+    canGiveNoAnswer= settings.canGiveNoAnswer;
 }
 
 //for testing purposes only
 function testSetVariables() {
     responsesGivenText = ["Lateral", "ligament", "Unsure"];
-    QuestionIDs = ["PlaneQ1", "StructureQ1", "ZoneQ1"];
-    UserID = "Hewwo123";
+    questionIDs = ["PlaneQ1", "StructureQ1", "ZoneQ1"];
+    userID = "Hewwo123";
 }
 
 function testGenerateReponseJSON() {
     testSetVariables();
     return createResponseJson();
 }
-
-

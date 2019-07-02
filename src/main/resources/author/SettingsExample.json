@@ -4,7 +4,9 @@
       "Structure": "Rewatch the video: https://www.youtube.com/watch?v=dQw4w9WgXcQ",
       "Attachment": "Read Page 394",
       "Zone": "View notes from 9/25"},
-    "ableToResubmitAnswers": "False",
+    "ableToResubmitAnswers": "True",
     "scoreType": "ByType",
-    "showScore": "True"
+    "showScore": "True",
+    "mustSubmitAnswersToContinue": "False",
+    "canGiveNoAnswer": "True"
   }
