@@ -12,6 +12,8 @@ var ableToResubmitAnswers;
 var scoreType;
 var showScore;
 var mustSubmitAnswersToContinue;
+var numberOfQuestionsAnswered=0;
+var canGiveNoAnswer;
 
 function nextQuestionSet(){
     var canContinue= true;
@@ -25,6 +27,7 @@ function nextQuestionSet(){
         if (!ableToResubmitAnswers) {
             reEnableSubmit();
         }
+        document.getElementById("errorFeedback").innerHTML =" ";
     }
 }
 
@@ -32,7 +35,11 @@ function checkAnswers() {
     //check and report to the user what they got right or wrong as well as add to list responsesGivenText
     checkAndRecordAnswers();
     //call CreateResponse to send answers back to the server
+
     createResponses();
+
+    numberOfQuestionsAnswered= responsesGivenText.length;
+
     clearQuestionAnswers();
     if (!ableToResubmitAnswers) {
         disableSubmit();

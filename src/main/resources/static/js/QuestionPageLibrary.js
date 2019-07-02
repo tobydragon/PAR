@@ -315,7 +315,6 @@ function submitToAPI(url, objectToSubmit) {
     request.send(JSON.stringify(objectToSubmit));
     request.onreadystatechange = function () {
         if (request.status === 200) {
-            //setCurrentScore();
             setCurrentScore();
         } else {
             window.onerror = function (msg) {
@@ -326,10 +325,10 @@ function submitToAPI(url, objectToSubmit) {
 }
 
 function checkForAnswers(){
-    if(responsesGivenText.length==amountOfQuestions){
+    if(numberOfQuestionsAnswered==amountOfQuestions){
         return true;
     } else {
-        document.getElementById("errorFeedback").innerHTML = '<font color=red>Must submit answers to all questions to continue</font>';
+        document.getElementById("errorFeedback").innerHTML = '<font color=red>Must submit answers to continue</font>';
         return false;
     }
 }
@@ -355,6 +354,7 @@ function getSettings() {
     scoreType= settings.scoreType;
     showScore= settings.showScore;
     mustSubmitAnswersToContinue= settings.mustSubmitAnswersToContinue;
+    canGiveNoAnswer= settings.canGiveNoAnswer;
 }
 
 //for testing purposes only

@@ -9,6 +9,7 @@ public class Settings {
      private String scoreType;
      private Boolean showScore;
      private Boolean mustSubmitAnswersToContinue;
+     private Boolean canGiveNoAnswer;
 
 
      public boolean getUnsureShowsCorrectAnswer(){
@@ -28,6 +29,8 @@ public class Settings {
      public boolean getShowScore(){ return showScore; }
 
      public boolean getMustSubmitAnswersToContinue(){ return mustSubmitAnswersToContinue; }
+
+    public boolean getCanGiveNoAnswer(){ return canGiveNoAnswer; }
 
 
     public void setUnsureShowsCorrectAnswer(boolean setNew){
@@ -52,5 +55,9 @@ public class Settings {
 
     public void setMustSubmitAnswersToContinue(boolean setNew){
         mustSubmitAnswersToContinue= setNew;
+    }
+
+    public void setCanGiveNoAnswer(boolean setNew){
+        canGiveNoAnswer= setNew;
     }
 }
