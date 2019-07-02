@@ -89,7 +89,7 @@ public class StudentModel {
         userResponseSet.addAllResponses(createUserResponseObj(imageTaskResponses,questions,this.userId));
     }
 
-    public static float calcScore(Map<String, Double> scoresPerType){
+    public static float calcLevel(Map<String, Double> scoresPerType){
         return -1;
     }
 

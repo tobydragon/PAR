@@ -10,7 +10,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -82,7 +81,7 @@ public class StudentModelTest {
     }
 
     @Test
-    public void calcScoreTest(){
+    public void calcLevelTest(){
         //throws exception when the types are invalid
         Map<String, Double> m1 = new HashMap<>();
         m1.put("Plane", 1.1);
@@ -95,7 +94,7 @@ public class StudentModelTest {
         m2.put("Structure", 0.0);
         m2.put("Attachment", 0.0);
         m2.put("Zone", 0.0);
-        assertEquals(1,StudentModel.calcScore(m2));
+        assertEquals(1,StudentModel.calcLevel(m2));
 
         //Student knows alot about upper level topics, still should be level 1
         Map<String, Double> m3 = new HashMap<>();
@@ -103,7 +102,7 @@ public class StudentModelTest {
         m3.put("Structure", 0.0);
         m3.put("Attachment", 90.0);
         m3.put("Zone", 100.0);
-        assertEquals(1,StudentModel.calcScore(m3));
+        assertEquals(1,StudentModel.calcLevel(m3));
 
         //Student knows Plane but nothing else
         Map<String, Double> m4 = new HashMap<>();
@@ -111,7 +110,7 @@ public class StudentModelTest {
         m4.put("Structure", 20.0);
         m4.put("Attachment", 30.0);
         m4.put("Zone", 10.0);
-        assertEquals(2,StudentModel.calcScore(m4));
+        assertEquals(2,StudentModel.calcLevel(m4));
 
         //Student knows Plane and Structure
         Map<String, Double> m5 = new HashMap<>();
@@ -119,6 +118,6 @@ public class StudentModelTest {
         m5.put("Structure", 20.0);
         m5.put("Attachment", 30.0);
         m5.put("Zone", 10.0);
-        assertEquals(2,StudentModel.calcScore(m5));
+        assertEquals(2,StudentModel.calcLevel(m5));
     }
 }
