@@ -14,11 +14,17 @@ var showScore;
 var mustSubmitAnswersToContinue;
 
 function nextQuestionSet(){
-    clearPage();
-    clearFeedback();
-    canvasApp();
-    if(!ableToResubmitAnswers){
-        reEnableSubmit();
+    var canContinue= true;
+    if(mustSubmitAnswersToContinue){
+        canContinue= checkForAnswers();
+    }
+    if(canContinue) {
+        clearPage();
+        clearFeedback();
+        canvasApp();
+        if (!ableToResubmitAnswers) {
+            reEnableSubmit();
+        }
     }
 }
 

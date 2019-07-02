@@ -293,7 +293,7 @@ function createResponseJson() {
     var newResponse;
     if (userID != null) {
         newResponse = {
-            userId: UserID,
+            userId: userID,
             taskQuestionIds: questionIDs,
             responseTexts: responsesGivenText
         };
@@ -323,6 +323,15 @@ function submitToAPI(url, objectToSubmit) {
             }
         }
     };
+}
+
+function checkForAnswers(){
+    if(responsesGivenText.length==amountOfQuestions){
+        return true;
+    } else {
+        document.getElementById("errorFeedback").innerHTML = '<font color=red>Must submit answers to all questions to continue</font>';
+        return false;
+    }
 }
 
 function logout() {
