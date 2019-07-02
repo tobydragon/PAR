@@ -1,6 +1,8 @@
 package edu.ithaca.dragon.par.domainModel.equineUltrasound;
 
 import edu.ithaca.dragon.par.domainModel.Question;
+import edu.ithaca.dragon.util.FileSystemUtil;
+import edu.ithaca.dragon.util.JsonUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,7 +13,7 @@ public class EquineQuestionTemplateCreator {
     public static final List<String> planeResponses = Arrays.asList("transverse", "longitudinal");
 
     public static final List<String> structureQuestions = Arrays.asList(
-            "What is the the hyperechooic structure?",
+            "What is the the hyperechoic structure?",
             "What is the the hypoechoic structure?",
             "What is the structure in the near field?",
             "What is the in the far field?");
@@ -32,7 +34,7 @@ public class EquineQuestionTemplateCreator {
             "Palmar vessels (medial/lateral)",
             "Palmar metacarpal vessels (medial/lateral)");
 
-    public static final List<String> zoneResponses = Arrays.asList("1A", "1B", "2A", "2B", "3A", "3B", "3C");
+    public static final List<String> zoneResponses = Arrays.asList("1", "1A", "1B", "2", "2A", "2B", "3", "3A", "3B", "3C");
 
     public static List<Question> createQuestionsForImage(String imagePath){
        List<Question> questions = new ArrayList<>();
@@ -46,4 +48,31 @@ public class EquineQuestionTemplateCreator {
                 EquineQuestionTypes.zone.toString(), null, zoneResponses, imagePath));
        return questions;
     }
+
+    public static List<Question> createQuestionsForImageList(List<String> imagePathList) {
+        List<Question> questions = new ArrayList<>();
+        for (String imagePath: imagePathList){
+            questions.addAll(createQuestionsForImage(imagePath));
+        }
+        return questions;
+    }
+
+    public static void main(String[] args){
+        String imageFilePath = "src/main/resources/static/images";
+        String imagePathForJavascript = "./images";
+        String questionFileToCreate = "src/main/resources/author/generatedQuestions.json";
+
+        try {
+            List<String> imageFilePaths = FileSystemUtil.addPathToFilenames(imagePathForJavascript,
+                    FileSystemUtil.findAllFileNamesInDir(imageFilePath, ".jpg"));
+            List<Question> generatedQuestions = createQuestionsForImageList(imageFilePaths);
+            JsonUtil.toJsonFile(questionFileToCreate, generatedQuestions);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+
 }
