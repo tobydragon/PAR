@@ -12,22 +12,22 @@
       "userId" : "test",
       "questionId" : "PlaneQ1",
       "responseText" : "",
-      "allResponseTexts" : [ "", "", "Lateral", "Lateral", "Lateral", "", "", "", "", "", "" ]
+      "allResponseTexts" : [ "", "", "Lateral", "Lateral", "", "", "", "Lateral", "Lateral", "" ]
     }, {
       "userId" : "test",
       "questionId" : "ZoneQ1",
       "responseText" : "",
-      "allResponseTexts" : [ "", "", "2b", "2a", "", "", "", "", "", "", "" ]
+      "allResponseTexts" : [ "", "", "2b", "2a", "", "", "", "", "2a", "" ]
     }, {
       "userId" : "test",
       "questionId" : "ZoneQ3",
       "responseText" : "",
-      "allResponseTexts" : [ "", "", "1b", "2a", "", "", "", "", "", "", "" ]
+      "allResponseTexts" : [ "", "", "1b", "2a", "", "", "", "", "1b", "" ]
     }, {
       "userId" : "test",
       "questionId" : "ZoneQ5",
       "responseText" : "",
-      "allResponseTexts" : [ "", "", "2a", "2a", "", "", "", "", "", "", "" ]
+      "allResponseTexts" : [ "", "", "2a", "2a", "", "", "", "", "2c", "" ]
     }, {
       "userId" : "test",
       "questionId" : "PlaneQ2",
