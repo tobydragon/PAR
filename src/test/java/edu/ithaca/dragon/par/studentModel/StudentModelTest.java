@@ -88,6 +88,37 @@ public class StudentModelTest {
         m1.put("Plane", 1.1);
         m1.put("NotAValidKey", -1.0);
 
-        fail("Finish tests, then implement calcScore");
+        
+        //Student doesn't know about anything
+        Map<String, Double> m2 = new HashMap<>();
+        m2.put("Plane", 0.0);
+        m2.put("Structure", 0.0);
+        m2.put("Attachment", 0.0);
+        m2.put("Zone", 0.0);
+        assertEquals(1,StudentModel.calcScore(m2));
+
+        //Student knows alot about upper level topics, still should be level 1
+        Map<String, Double> m3 = new HashMap<>();
+        m3.put("Plane", 0.0);
+        m3.put("Structure", 0.0);
+        m3.put("Attachment", 90.0);
+        m3.put("Zone", 100.0);
+        assertEquals(1,StudentModel.calcScore(m3));
+
+        //Student knows Plane but nothing else
+        Map<String, Double> m4 = new HashMap<>();
+        m4.put("Plane", 90.0);
+        m4.put("Structure", 20.0);
+        m4.put("Attachment", 30.0);
+        m4.put("Zone", 10.0);
+        assertEquals(2,StudentModel.calcScore(m4));
+
+        //Student knows Plane and Structure
+        Map<String, Double> m5 = new HashMap<>();
+        m5.put("Plane", 90.0);
+        m5.put("Structure", 20.0);
+        m5.put("Attachment", 30.0);
+        m5.put("Zone", 10.0);
+        assertEquals(2,StudentModel.calcScore(m5));
     }
 }
