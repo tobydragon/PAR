@@ -1,9 +1,9 @@
 {
     "unsureShowsCorrectAnswer": "True",
     "feedbackByType": {"Plane": "Look at chapter 12",
-      "Structure": "Rewatch the video: https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      "Structure": "View notes from 9/25",
       "Attachment": "Read Page 394",
-      "Zone": "View notes from 9/25"},
+      "Zone": "Rewatch <a href=https://www.youtube.com/watch?v=dQw4w9WgXcQ> this video </a>"},
     "ableToResubmitAnswers": "True",
     "scoreType": "ByType",
     "showScore": "True",
