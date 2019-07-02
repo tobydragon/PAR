@@ -196,21 +196,36 @@ function checkAndRecordAnswers() {
             isCorrect = "Unsure";
         } else {
             isCorrect = "Incorrect";
-            generatefeedback(questionTypes[i]);
+            addToTypesSeenForFeedback(questionTypes[i]);
         }
         var displayAreaName = "questionCorrect" + i;
         document.getElementById(displayAreaName).innerHTML = displayCheck(isCorrect, QuestionAnswers[i]);
     }
+    generateFeedback();
 }
 
-function generatefeedback(type) {
+function addToTypesSeenForFeedback(type){
     if (!typesSeenForFeedback.includes(type)) {
         typesSeenForFeedback.push(type);
-        var response = feedbackByType[type];
-        response += ", ";
+    }
+}
 
+function generateFeedback() {
+    if(typesSeenForFeedback.length>0){
+        document.getElementById("helpfulFeedback").innerHTML = "Feedback: ";
+    }
+    for(var i=0; i<typesSeenForFeedback.length; i++) {
+        var type = typesSeenForFeedback[i];
+        var response = feedbackByType[type];
+        if (i < typesSeenForFeedback.length-1) {
+            response += ", ";
+        }
         document.getElementById("helpfulFeedback").innerHTML += response;
     }
+}
+
+function clearFeedback(){
+    document.getElementById("helpfulFeedback").innerHTML = " ";
 }
 
 //Displays the value of right/wrong based on the previous function's input value.
