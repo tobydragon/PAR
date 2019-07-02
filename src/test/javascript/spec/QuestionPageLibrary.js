@@ -25,6 +25,7 @@ describe("QuestionPageLibraryTest", function () {
     it("displayCheck to return correct feedback given a value", function () {
         expect(displayCheck("Correct")).toBe("<font color=\"green\">Your answer is: Correct</font>");
         expect(displayCheck("Incorrect")).toBe("<font color=\"red\">Your answer is: Incorrect</font>");
-        expect(displayCheck("Unsure")).toBe('<font color="#663399">Your answer is: Unsure.    The answer is undefined</font>');
+        expect(displayCheck("Unsure", "something" , false)).toBe('<font color="#663399">Your answer is: Unsure</font>');
+        expect(displayCheck("Unsure", "something", true)).toBe('<font color="#663399">Your answer is: Unsure.    The answer is something</font>');
     });
 });

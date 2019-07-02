@@ -8,10 +8,9 @@ public class Settings {
      private boolean ableToResubmitAnswers;
      private String scoreType;
      private Boolean showScore;
+     private Boolean mustSubmitAnswersToContinue;
+     private Boolean canGiveNoAnswer;
 
-     public Settings(){
-
-     }
 
      public boolean getUnsureShowsCorrectAnswer(){
          return unsureShowsCorrectAnswer;
@@ -21,17 +20,18 @@ public class Settings {
         return feedbackByType;
      }
 
-    public boolean getableToResubmitAnswers(){
-        return ableToResubmitAnswers;
-    }
+     public boolean getableToResubmitAnswers(){ return ableToResubmitAnswers; }
 
      public String getScoreType(){
         return scoreType;
      }
 
-     public boolean getShowScore(){
-        return showScore;
-     }
+     public boolean getShowScore(){ return showScore; }
+
+     public boolean getMustSubmitAnswersToContinue(){ return mustSubmitAnswersToContinue; }
+
+    public boolean getCanGiveNoAnswer(){ return canGiveNoAnswer; }
+
 
     public void setUnsureShowsCorrectAnswer(boolean setNew){
         unsureShowsCorrectAnswer= setNew;
@@ -51,5 +51,13 @@ public class Settings {
 
     public void setShowScore(boolean setNew){
         showScore= setNew;
+    }
+
+    public void setMustSubmitAnswersToContinue(boolean setNew){
+        mustSubmitAnswersToContinue= setNew;
+    }
+
+    public void setCanGiveNoAnswer(boolean setNew){
+        canGiveNoAnswer= setNew;
     }
 }
