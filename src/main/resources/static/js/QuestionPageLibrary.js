@@ -146,7 +146,7 @@ function generateScoreByType() {
     //80-100 green
     //79-50 orange
     //49-0 red
-    var breakdownString = "";
+    var breakdownString = " ";
     var scoreJson = readJson("api/calcScoreByType?userId=" + sendUserId());
     for (var key in scoreJson) {
         if (scoreJson.hasOwnProperty(key)) {
@@ -166,7 +166,7 @@ function generateScoreByType() {
 }
 
 function displayScoreBreakdown(breakdownString) {
-    if(showScore) {
+    if (showScore) {
         document.getElementById("score").innerHTML = " " + breakdownString;
     }
 }
@@ -211,35 +211,53 @@ function checkAndRecordAnswers() {
             isCorrect = "Unsure";
         } else {
             isCorrect = "Incorrect";
-            generateFeedback(questionTypes[i]);
+            addToTypesSeenForFeedback(questionTypes[i]);
         }
         var displayAreaName = "questionCorrect" + i;
         document.getElementById(displayAreaName).innerHTML = displayCheck(isCorrect, questionAnswers[i]);
     }
+    generateFeedback();
 }
 
-function generateFeedback(type){
-    if(!typesSeenForFeedback.includes(type)) {
+function addToTypesSeenForFeedback(type){
+    if (!typesSeenForFeedback.includes(type)) {
         typesSeenForFeedback.push(type);
+    }
+}
+
+function generateFeedback() {
+    if(typesSeenForFeedback.length>0){
+        document.getElementById("helpfulFeedback").innerHTML = "Feedback: ";
+    }
+    for(var i=0; i<typesSeenForFeedback.length; i++) {
+        var type = typesSeenForFeedback[i];
         var response = feedbackByType[type];
-        response += ", ";
+        if (i < typesSeenForFeedback.length-1) {
+            response += ", ";
+        }
         document.getElementById("helpfulFeedback").innerHTML += response;
     }
 }
 
+function clearFeedback(){
+    document.getElementById("helpfulFeedback").innerHTML = " ";
+}
+
 //Displays the value of right/wrong based on the previous function's input value.
 function displayCheck(value, rightAnwser) {
-    if (value == "Correct") return '<font color=\"green\">Your answer is: ' + value + '</font>';
+    if (value == "Correct") {
+        return '<font color=\"green\">Your answer is: ' + value + '</font>';
+    }
 
-    if (value == "Incorrect"){
+    if (value == "Incorrect") {
         return '<font color=\"red\">Your answer is: ' + value + '</font>';
     }
 
     if (value == "Unsure") {
-        if (unsureShowsCorrectAnswer== true) {
+        if (unsureShowsCorrectAnswer == true) {
             return '<font color=\"#663399\">Your answer is: ' + value + ".    " + 'The answer is ' + rightAnwser + '</font>';
         } else {
-            return '<font color=\"#663399\">Your answer is: ' + value +'</font>';
+            return '<font color=\"#663399\">Your answer is: ' + value + '</font>';
         }
     }
 }
@@ -253,8 +271,8 @@ function reEnableSubmit(){
         "Submit" + "</button>";
 }
 
-function disableSubmit(){
-    document.getElementById("submitButtonTag").innerHTML=" ";
+function disableSubmit() {
+    document.getElementById("submitButtonTag").innerHTML = " ";
 }
 
 //  function toggleShowState(toggableElement) {
@@ -311,13 +329,13 @@ function logout() {
     return location.replace('/login');
 }
 
-function getSettings(){
+function getSettings() {
     try {
         var settings = readJson("api/getSettings");
 
-    } catch(Exception ) {
+    } catch (Exception) {
         window.onerror = function (msg) {
-            location.replace('/error?message='+msg);
+            location.replace('/error?message=' + msg);
         }
     }
 
@@ -339,5 +357,3 @@ function testGenerateReponseJSON() {
     testSetVariables();
     return createResponseJson();
 }
-
-

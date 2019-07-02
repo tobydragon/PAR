@@ -1,0 +1,88 @@
+{
+  "userId" : "test",
+  "userQuestionSetRecord" : {
+    "userId" : "test",
+    "unseenQuestionIds" : [ ],
+    "seenQuestionIds" : [ "PlaneQ1", "ZoneQ1", "ZoneQ3", "ZoneQ5", "PlaneQ2", "StructureQ1", "StructureQ3", "StructureQ4", "StructureQ5", "PlaneQ3", "PlaneQ5", "ZoneQ2", "ZoneQ4", "PlaneQ4", "StructureQ2" ],
+    "timesSeen" : [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ]
+  },
+  "userResponseSetRecord" : {
+    "userId" : "test",
+    "responsesPerQuestionRecords" : [ {
+      "userId" : "test",
+      "questionId" : "PlaneQ1",
+      "responseText" : "",
+      "allResponseTexts" : [ "", "", "Lateral", "Lateral", "Lateral", "", "", "", "", "", "" ]
+    }, {
+      "userId" : "test",
+      "questionId" : "ZoneQ1",
+      "responseText" : "",
+      "allResponseTexts" : [ "", "", "2b", "2a", "", "", "", "", "", "", "" ]
+    }, {
+      "userId" : "test",
+      "questionId" : "ZoneQ3",
+      "responseText" : "",
+      "allResponseTexts" : [ "", "", "1b", "2a", "", "", "", "", "", "", "" ]
+    }, {
+      "userId" : "test",
+      "questionId" : "ZoneQ5",
+      "responseText" : "",
+      "allResponseTexts" : [ "", "", "2a", "2a", "", "", "", "", "", "", "" ]
+    }, {
+      "userId" : "test",
+      "questionId" : "PlaneQ2",
+      "responseText" : "",
+      "allResponseTexts" : [ "" ]
+    }, {
+      "userId" : "test",
+      "questionId" : "StructureQ1",
+      "responseText" : "",
+      "allResponseTexts" : [ "" ]
+    }, {
+      "userId" : "test",
+      "questionId" : "StructureQ3",
+      "responseText" : "",
+      "allResponseTexts" : [ "" ]
+    }, {
+      "userId" : "test",
+      "questionId" : "StructureQ4",
+      "responseText" : "",
+      "allResponseTexts" : [ "" ]
+    }, {
+      "userId" : "test",
+      "questionId" : "StructureQ5",
+      "responseText" : "",
+      "allResponseTexts" : [ "" ]
+    }, {
+      "userId" : "test",
+      "questionId" : "PlaneQ3",
+      "responseText" : "",
+      "allResponseTexts" : [ "" ]
+    }, {
+      "userId" : "test",
+      "questionId" : "PlaneQ5",
+      "responseText" : "",
+      "allResponseTexts" : [ "" ]
+    }, {
+      "userId" : "test",
+      "questionId" : "ZoneQ2",
+      "responseText" : "",
+      "allResponseTexts" : [ "" ]
+    }, {
+      "userId" : "test",
+      "questionId" : "ZoneQ4",
+      "responseText" : "",
+      "allResponseTexts" : [ "" ]
+    }, {
+      "userId" : "test",
+      "questionId" : "PlaneQ4",
+      "responseText" : "",
+      "allResponseTexts" : [ "" ]
+    }, {
+      "userId" : "test",
+      "questionId" : "StructureQ2",
+      "responseText" : "",
+      "allResponseTexts" : [ "" ]
+    } ]
+  }
+}
