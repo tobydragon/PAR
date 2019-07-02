@@ -210,6 +210,13 @@ function checkAndRecordAnswers() {
             isCorrect = "Correct";
         } else if (currentAnswer == "Unsure") {
             isCorrect = "Unsure";
+        } else if(currentAnswer==""){
+            if(!canGiveNoAnswer){
+                responsesGivenText.pop();
+            } else {
+                isCorrect = "Incorrect";
+                addToTypesSeenForFeedback(questionTypes[i]);
+            }
         } else {
             isCorrect = "Incorrect";
             addToTypesSeenForFeedback(questionTypes[i]);

@@ -7,6 +7,6 @@
     "ableToResubmitAnswers": "True",
     "scoreType": "ByType",
     "showScore": "True",
-    "mustSubmitAnswersToContinue": "True",
+    "mustSubmitAnswersToContinue": "False",
     "canGiveNoAnswer": "True"
   }
