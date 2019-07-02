@@ -11,6 +11,7 @@ var feedbackByType;
 var ableToResubmitAnswers;
 var scoreType;
 var showScore;
+var mustSubmitAnswersToContinue;
 
 function nextQuestionSet(){
     clearPage();

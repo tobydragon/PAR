@@ -178,6 +178,7 @@ function setUserId() {
 function pageDisplay(imageTaskJSON) {
     clearQuestionIDs();
     if(showScore) {
+        document.getElementById("scoreTag").innerHTML ="<b class=\"size20\">Knowledge Base: </b>";
         setCurrentScore();
     }
     //Displays the questions at the tags
@@ -344,6 +345,7 @@ function getSettings() {
     ableToResubmitAnswers= settings.ableToResubmitAnswers;
     scoreType= settings.scoreType;
     showScore= settings.showScore;
+    mustSubmitAnswersToContinue= settings.mustSubmitAnswersToContinue;
 }
 
 //for testing purposes only

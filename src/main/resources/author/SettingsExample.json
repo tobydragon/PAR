@@ -6,5 +6,6 @@
       "Zone": "View notes from 9/25"},
     "ableToResubmitAnswers": "True",
     "scoreType": "ByType",
-    "showScore": "True"
+    "showScore": "True",
+    "mustSubmitAnswersToContinue": "False"
   }
