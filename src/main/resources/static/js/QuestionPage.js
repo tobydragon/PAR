@@ -1,8 +1,8 @@
 var amountOfQuestions = 0;
-var QuestionAnswers = [];
-var UserID= null;
+var questionAnswers = [];
+var userID= null;
 var responsesGivenText = [];
-var QuestionIDs = [];
+var questionIDs = [];
 var questionTypes = [];
 var typesSeenForFeedback= [];
 
