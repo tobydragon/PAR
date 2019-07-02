@@ -104,4 +104,9 @@ public class ParServer {
     public void logout(String userId){
         studentModelMap.remove(userId);
     }
+
+    public Map<String, Double> calcScoreByType(String userId) throws IOException {
+        StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, datastore);
+        return currentStudent.knowledgeScoreByType();
+    }
 }

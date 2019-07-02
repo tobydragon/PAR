@@ -73,12 +73,7 @@ public class ParRestController {
     }
 
     @GetMapping("/calcScoreByType")
-    public Map<String, Double> calcScoreByType(@RequestParam String userId){
-        Map<String,Double> scoreMap= new HashMap<>();
-        scoreMap.put("plane",90.0);
-        scoreMap.put("structure",70.0);
-        scoreMap.put("zone",40.0);
-
-        return scoreMap;
+    public Map<String, Double> calcScoreByType(@RequestParam String userId) throws IOException{
+        return parServer.calcScoreByType(userId);
     }
 }

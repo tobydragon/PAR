@@ -1,10 +1,12 @@
 {
     "unsureShowsCorrectAnswer": "True",
     "feedbackByType": {"Plane": "Look at chapter 12",
-      "Structure": "Read page 394",
-      "Attachment": "Rewatch the video: ",
-      "Zone": "View notes from 9/25"},
+      "Structure": "View notes from 9/25",
+      "Attachment": "Read Page 394",
+      "Zone": "Rewatch <a href=https://www.youtube.com/watch?v=dQw4w9WgXcQ> this video </a>"},
     "ableToResubmitAnswers": "True",
     "scoreType": "ByType",
-    "showScore": "True"
+    "showScore": "True",
+    "mustSubmitAnswersToContinue": "False",
+    "canGiveNoAnswer": "True"
   }

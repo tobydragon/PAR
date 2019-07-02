@@ -34,8 +34,8 @@
                 <img src="/images/ParLogo.png" height="90%" width="70%" class="imgCenter" alt="PAR_logo">
             </div>
             <div class="col-3 colVertCenter">
-                <b class="size20">Knowledge Base: </b>
-                <div id="score"> </div>
+                <i id="scoreTag"> </i>
+                <i id="score"> </i>
             </div>
             <div class="col-3 colVertCenter">
                 <b class="size20">User ID: </b>
@@ -79,6 +79,7 @@
                         </button>
                     </i>
                     <button type="button" class="fas fa-arrow-circle-right btn btn-outline-dark" id="nextQuestionButton" onclick="nextQuestionSet()"></button>
+                    <i id="errorFeedback"> </i>
                 </div>
 
             </div>
@@ -86,7 +87,7 @@
     </div>
 
     <script>
-        UserID = "[[${User}]]";
+        userID = "[[${User}]]";
         setUserId();
         getSettings();
 
