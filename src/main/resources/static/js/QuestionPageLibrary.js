@@ -331,6 +331,14 @@ function submitToAPI(url, objectToSubmit) {
     };
 }
 
+function clearQuestionCorrectnessResponses(){
+    for (var i = 0; i < amountOfQuestions; i++) {
+        var displayAreaName = "questionCorrect" + i;
+        document.getElementById(displayAreaName).innerHTML = " ";
+    }
+
+}
+
 function checkForAnswers(){
     if(numberOfQuestionsAnswered==amountOfQuestions){
         return true;

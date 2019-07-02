@@ -43,6 +43,7 @@ function checkAnswers() {
         createResponses();
     } else {
         document.getElementById("errorFeedback").innerHTML ="<font color=red>No response was recorded because you did not answer all the questions</font>";
+        clearQuestionCorrectnessResponses();
     }
 
     clearQuestionAnswers();
