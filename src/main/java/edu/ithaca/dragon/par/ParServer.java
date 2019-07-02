@@ -25,6 +25,10 @@ public class ParServer {
         studentModelMap = new HashMap<>();
     }
 
+    //side effects: generating an image task will  mark previously unseen questions as seen as well as
+    //increase the number of times seen for already seen questions. marking unseen questions as seen involves
+    //moving an unseen question from an unseen list to a seen list as well as adding an integer (1) to the times
+    //seen arraylist.
     public ImageTask nextImageTask(String userId) throws IOException{
         StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, datastore);
         ImageTask imageTask =  TaskGenerator.makeTask(currentStudent);
