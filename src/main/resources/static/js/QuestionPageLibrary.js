@@ -132,7 +132,7 @@ function generateScoreBreakdown() {
     //80-100 green
     //79-50 orange
     //49-0 red
-    var breakdownString = "";
+    var breakdownString = " ";
     var scoreJson = readJson("api/calcScoreByType?userId=" + sendUserId());
     for (var key in scoreJson) {
         if (scoreJson.hasOwnProperty(key)) {
@@ -152,7 +152,7 @@ function generateScoreBreakdown() {
 }
 
 function displayScoreBreakdown(breakdownString) {
-    if(showScore) {
+    if (showScore) {
         document.getElementById("score").innerHTML = " " + breakdownString;
     }
 }
@@ -163,7 +163,7 @@ function setUserId() {
 //Calls generateQuestion on the JSON object for the question at ith index
 function pageDisplay(imageTaskJSON) {
     clearQuestionIDs();
-    setCurrentScore();
+    generateScoreBreakdown();
     //Displays the questions at the tags
     for (var i = 0; i < imageTaskJSON.taskQuestions.length; i++) {
         generateQuestion(imageTaskJSON.taskQuestions[i]);
@@ -202,28 +202,31 @@ function checkAndRecordAnswers() {
     }
 }
 
-function generatefeedback(type){
-    if(!typesSeenForFeedback.includes(type)) {
+function generatefeedback(type) {
+    if (!typesSeenForFeedback.includes(type)) {
         typesSeenForFeedback.push(type);
         var response = feedbackByType[type];
         response += ", ";
+
         document.getElementById("helpfulFeedback").innerHTML += response;
     }
 }
 
 //Displays the value of right/wrong based on the previous function's input value.
 function displayCheck(value, rightAnwser) {
-    if (value == "Correct") return '<font color=\"green\">Your answer is: ' + value + '</font>';
+    if (value == "Correct") {
+        return '<font color=\"green\">Your answer is: ' + value + '</font>';
+    }
 
-    if (value == "Incorrect"){
+    if (value == "Incorrect") {
         return '<font color=\"red\">Your answer is: ' + value + '</font>';
     }
 
     if (value == "Unsure") {
-        if (unsureShowsCorrectAnswer== true) {
+        if (unsureShowsCorrectAnswer == true) {
             return '<font color=\"#663399\">Your answer is: ' + value + ".    " + 'The answer is ' + rightAnwser + '</font>';
         } else {
-            return '<font color=\"#663399\">Your answer is: ' + value +'</font>';
+            return '<font color=\"#663399\">Your answer is: ' + value + '</font>';
         }
     }
 }
@@ -232,17 +235,17 @@ function clearQuestionAnswers() {
     responsesGivenText = [];
 }
 
-function reEnableSubmit(){
-    document.getElementById("submitButtonTag").innerHTML=" <button type=\"button\" class=\"btn btn-primary\" id=\"submitButton\" onclick=\"checkAnswers()\">\n" +
+function reEnableSubmit() {
+    document.getElementById("submitButtonTag").innerHTML = " <button type=\"button\" class=\"btn btn-primary\" id=\"submitButton\" onclick=\"checkAnswers()\">\n" +
         "                            Submit\n" +
         "                        </button>";
 }
 
-function disableSubmit(){
-    document.getElementById("submitButtonTag").innerHTML=" ";
+function disableSubmit() {
+    document.getElementById("submitButtonTag").innerHTML = " ";
 }
 
- function toggleShowState(toggableElement) {
+function toggleShowState(toggableElement) {
     var changeElement = document.getElementById(toggableElement).classList;
 
     if (changeElement.contains("show") || changeElement.style.display == "block") {
@@ -296,21 +299,21 @@ function logout() {
     return location.replace('/login');
 }
 
-function getSettings(){
+function getSettings() {
     try {
         var settings = readJson("api/getSettings");
 
-    } catch(Exception ) {
+    } catch (Exception) {
         window.onerror = function (msg) {
-            location.replace('/error?message='+msg);
+            location.replace('/error?message=' + msg);
         }
     }
 
-    unsureShowsCorrectAnswer= settings.unsureShowsCorrectAnswer;
-    feedbackByType= settings.feedbackByType;
-    ableToResubmitAnswers= settings.ableToResubmitAnswers
-    scoreType= settings.scoreType;
-    showScore= settings.showScore;
+    unsureShowsCorrectAnswer = settings.unsureShowsCorrectAnswer;
+    feedbackByType = settings.feedbackByType;
+    ableToResubmitAnswers = settings.ableToResubmitAnswers
+    scoreType = settings.scoreType;
+    showScore = settings.showScore;
 }
 
 //for testing purposes only
@@ -324,5 +327,3 @@ function testGenerateReponseJSON() {
     testSetVariables();
     return createResponseJson();
 }
-
-
