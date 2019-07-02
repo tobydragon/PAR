@@ -273,6 +273,7 @@ function displayCheck(value, rightAnwser, unsureShowsCorrectAnswerHere) {
 //Clears the answers from the page.
 function clearQuestionAnswers() {
     responsesGivenText = [];
+    questionAnswers= [];
 }
 
 function reEnableSubmit() {
@@ -312,6 +313,8 @@ function createResponseJson() {
             responseTexts: responsesGivenText
         };
     }
+
+    console.log(questionIDs);
 
     return newResponse;
 }
