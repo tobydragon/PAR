@@ -1,19 +1,31 @@
 package edu.ithaca.dragon.par.spring;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-public class ErrorController {
+class ErrorController implements org.springframework.boot.web.servlet.error.ErrorController {
+    private static final String PATH = "/error";
 
-    @RequestMapping(value = "errors", method = RequestMethod.GET)
-    public ModelAndView renderErrorPage(HttpServletRequest httpRequest) {
+    public ErrorController() {
+        super();
+    }
 
-        ModelAndView errorPage = new ModelAndView("errorPage");
+    @RequestMapping("")
+    public String redirectLanding() {
+        return "Login";
+    }
+
+    public String getErrorPath() {
+        return PATH;
+    }
+
+    @RequestMapping(PATH)
+    public String renderErrorPage(HttpServletRequest httpRequest, Model model, String message) {
+
         String errorMsg = "";
         int httpErrorCode = getErrorCode(httpRequest);
 
@@ -27,20 +39,19 @@ public class ErrorController {
                 break;
             }
             case 404: {
-                errorMsg = "Http Error Code: 404. Resource not found";
-                break;
+                return "UrlError";
             }
             case 500: {
-                errorMsg = "Http Error Code: 500. Internal Server Error";
+                errorMsg = "Http Error Code: 500. Internal Server Error ";
                 break;
             }
         }
-        errorPage.addObject("errorMsg", errorMsg);
-        return errorPage;
+        model.addAttribute("errorNum", errorMsg);
+        model.addAttribute("errorMsg", message);
+        return "ServerError";
     }
 
     private int getErrorCode(HttpServletRequest httpRequest) {
-        return (Integer) httpRequest
-                .getAttribute("javax.servlet.error.status_code");
+        return (Integer) httpRequest.getAttribute("javax.servlet.error.status_code");
     }
 }

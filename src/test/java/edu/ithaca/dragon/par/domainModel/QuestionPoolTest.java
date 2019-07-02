@@ -15,11 +15,11 @@ public class QuestionPoolTest {
     @Test
     public void getQuestionsFromUrlTest() throws IOException {
         QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));
-        List<Question> questionsFromUrl = qp.getQuestionsFromUrl("../static/images/demoEquine04.jpg");
-        assertTrue(questionsFromUrl.size() == 5);
+        List<Question> questionsFromUrl = qp.getQuestionsFromUrl("./images/demoEquine04.jpg");
+        assertTrue(questionsFromUrl.size() == 3);
 
-        List<Question> questionsFromUrl2 = qp.getQuestionsFromUrl("../static/images/demoEquine02.jpg");
-        assertTrue(questionsFromUrl2.size() == 4);
+        List<Question> questionsFromUrl2 = qp.getQuestionsFromUrl("./images/demoEquine02.jpg");
+        assertTrue(questionsFromUrl2.size() == 2);
 
         List<Question> questionsFromUrl3 = qp.getQuestionsFromUrl("notAGoodUrl");
         assertTrue(questionsFromUrl3.size() == 0);

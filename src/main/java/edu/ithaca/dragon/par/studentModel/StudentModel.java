@@ -3,10 +3,8 @@ package edu.ithaca.dragon.par.studentModel;
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
-import edu.ithaca.dragon.par.io.StudentModelRecord;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class StudentModel {
 
@@ -54,26 +52,32 @@ public class StudentModel {
         return userId;
     }
 
-    public double calcScore(){
-        return userResponseSet.calcScore();
+    public double knowledgeScore(){
+        return userResponseSet.knowledgeCalc();
     }
 
+    public Map<String,Double> knowledgeScoreByType(){
+        return userResponseSet.knowledgeScoreByType();
+    }
+
+
+
     /**
-     * Creates a list of UserResponse objects
+     * Creates a list of ResponsesPerQuestion objects
      * @param imageTaskResponses: response submitted by the user
      * @param questions: QuestionPool object
      * @param userId: user ID
-     * @return: List of UserResponse objects
+     * @return: List of ResponsesPerQuestion objects
      */
-    private static List<UserResponse> createUserResponseObj(ImageTaskResponse imageTaskResponses, QuestionPool questions,String userId){
-        List<UserResponse> userResponses=new ArrayList<>();
-        UserResponse response; Question ques;
+    private static List<ResponsesPerQuestion> createUserResponseObj(ImageTaskResponse imageTaskResponses, QuestionPool questions, String userId){
+        List<ResponsesPerQuestion> userResponse =new ArrayList<>();
+        ResponsesPerQuestion response; Question ques;
         for(int i=0;i<imageTaskResponses.getTaskQuestionIds().size();i++){
             ques=questions.getQuestionFromId(imageTaskResponses.getTaskQuestionIds().get(i));//finds question in QuestionPool creates a question object
-            response=new UserResponse(userId,ques,imageTaskResponses.getResponseTexts().get(i));//creates new response object
-            userResponses.add(response);
+            response=new ResponsesPerQuestion(userId,ques,imageTaskResponses.getResponseTexts().get(i));//creates new response object
+            userResponse.add(response);
         }
-        return userResponses;
+        return userResponse;
     }
 
     /**

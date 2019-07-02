@@ -1,32 +1,11 @@
 {
-  "imageUrl" : "../static/images/demoEquine04.jpg",
+  "imageUrl" : "./images/demoEquine02.jpg",
   "taskQuestions" : [ {
-    "id" : "StructureQ1",
-    "type" : "Structure",
-    "questionText" : "What structure is in the near field?",
-    "correctAnswer" : "bone",
-    "possibleAnswers" : [ "bone", "ligament", "tumor", "tendon", "I don't know" ],
-    "imageUrl" : "../static/images/demoEquine04.jpg"
-  }, {
-    "id" : "StructureQ3",
-    "type" : "Structure",
-    "questionText" : "What structure is in the near field?",
-    "correctAnswer" : "tendon",
-    "possibleAnswers" : [ "bone", "ligament", "tumor", "tendon", "I don't know" ],
-    "imageUrl" : "../static/images/demoEquine04.jpg"
-  }, {
-    "id" : "StructureQ4",
-    "type" : "Structure",
-    "questionText" : "What structure is in the near field?",
-    "correctAnswer" : "bone",
-    "possibleAnswers" : [ "bone", "ligament", "tumor", "tendon", "I don't know" ],
-    "imageUrl" : "../static/images/demoEquine04.jpg"
-  }, {
-    "id" : "StructureQ5",
-    "type" : "Structure",
-    "questionText" : "What structure is in the near field?",
-    "correctAnswer" : "tumor",
-    "possibleAnswers" : [ "bone", "ligament", "tumor", "tendon", "I don't know" ],
-    "imageUrl" : "../static/images/demoEquine04.jpg"
+    "id" : "ZoneQ1",
+    "type" : "Zone",
+    "questionText" : "In what zone is this ultrasound taken?",
+    "correctAnswer" : "3c",
+    "possibleAnswers" : [ "1a", "1b", "2a", "2b", "2c", "3a", "3b", "3c" ],
+    "imageUrl" : "./images/demoEquine02.jpg"
   } ]
 }

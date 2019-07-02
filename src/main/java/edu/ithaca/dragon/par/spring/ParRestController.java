@@ -5,13 +5,17 @@ import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
 import edu.ithaca.dragon.par.io.JsonDatastore;
+import edu.ithaca.dragon.par.pedagogicalModel.Settings;
 import edu.ithaca.dragon.util.DataUtil;
+import edu.ithaca.dragon.util.JsonUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -24,7 +28,7 @@ public class ParRestController {
         super();
         try {
             parServer = new ParServer(new JsonDatastore("src/main/resources/author/SampleQuestionsSameDifficulty2.json",
-                    "src/main/resources/author/SampleStudentModelBusy.json"));
+                    "src/main/resources/students"));
         }
         catch(IOException e){
             throw new RuntimeException("Server can't start without questionPool or studentRecord");
@@ -36,15 +40,20 @@ public class ParRestController {
         return "Greetings from PAR API!";
     }
 
+    @GetMapping("/getSettings")
+    public Settings getSettings() throws IOException  {
+        return JsonUtil.fromJsonFile("src/main/resources/author/SettingsExample.json", Settings.class);
+    }
+
     @GetMapping("/nextImageTask")
-    public ImageTask nextImageTask(@RequestParam String userId) {
+    public ImageTask nextImageTask(@RequestParam String userId) throws IOException {
             return parServer.nextImageTask(userId);
     }
 
     @PostMapping("/recordResponse")
     public ResponseEntity<String> recordResponse(@RequestBody ImageTaskResponse response) {
         try {
-            System.out.println("response recieved: " + response.getUserId() + "  " + response.getResponseTexts());
+            System.out.println("response received: " + response.getUserId() + "  " + response.getResponseTexts());
             parServer.imageTaskResponseSubmitted(response, response.getUserId());
             return ResponseEntity.ok().body("ok");
         } catch (Exception e){
@@ -53,9 +62,23 @@ public class ParRestController {
         }
     }
 
+    @PostMapping("/logout")
+    public void logout(@RequestParam String userId){
+        parServer.logout(userId);
+    }
+
     @GetMapping("/calcScore")
-    public String calcScore(@RequestParam String userId){
+    public String calcScore(@RequestParam String userId) throws IOException {
         return DataUtil.format(parServer.calcScore(userId));
     }
 
+    @GetMapping("/calcScoreByType")
+    public Map<String, Double> calcScoreByType(@RequestParam String userId){
+        Map<String,Double> scoreMap= new HashMap<>();
+        scoreMap.put("plane",90.0);
+        scoreMap.put("structure",70.0);
+        scoreMap.put("zone",40.0);
+
+        return scoreMap;
+    }
 }

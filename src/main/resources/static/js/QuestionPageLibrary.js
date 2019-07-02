@@ -14,11 +14,17 @@ function canvasApp() {
     var imageSource;
 
     function loadImages(images, imageSources, callback) {
-        var imageTaskJSON = readJson("api/nextImageTask?userId=" + sendUserId());
-        pageDisplay(imageTaskJSON);
-        var displayURLThyme = imageTaskJSON.imageUrl.split('\\').pop().split('/').pop();
-        imageSource = "./images/" + displayURLThyme;
+        try {
+            var imageTaskJSON = readJson("api/nextImageTask?userId=" + sendUserId());
 
+        } catch (Exception) {
+            window.onerror = function (msg) {
+                location.replace('/error?message=' + msg);
+            }
+        }
+
+        pageDisplay(imageTaskJSON);
+        imageSource = imageTaskJSON.imageUrl;
 
         image = new Image();
         image.onload = function () {
@@ -74,6 +80,7 @@ function generateQuestion(question) {
 
     QuestionAnswers.push(question.correctAnswer);
     QuestionIDs.push(question.id);
+    questionTypes.push(question.type);
     displayQuestion(difficultyStr);
 }
 
@@ -121,6 +128,35 @@ function setCurrentScore() {
     }
 }
 
+function generateScoreBreakdown() {
+    //80-100 green
+    //79-50 orange
+    //49-0 red
+    var breakdownString = "";
+    var scoreJson = readJson("api/calcScoreByType?userId=" + sendUserId());
+    for (var key in scoreJson) {
+        if (scoreJson.hasOwnProperty(key)) {
+            let value = scoreJson[key];
+            if (value >= 80) {
+                breakdownString += "<i class=black>" + key + ":</i> <i class=green>" + value + "<i>";
+            } else if (value <= 79 && value >= 50) {
+                breakdownString += "<i class=black>" + key + ":</i> <i class=orange>" + value + "<i>";
+            } else if (value <= 49) {
+                breakdownString += "<i class=black>" + key + ":</i> <i class=red>" + value + "<i>";
+            }
+        }
+        breakdownString += "<br />";
+    }
+    displayScoreBreakdown(breakdownString);
+
+}
+
+function displayScoreBreakdown(breakdownString) {
+    if(showScore) {
+        document.getElementById("score").innerHTML = " " + breakdownString;
+    }
+}
+
 function setUserId() {
     document.getElementById("UserId").innerHTML = "&nbsp" + sendUserId();
 }
@@ -159,23 +195,53 @@ function checkAndRecordAnswers() {
             isCorrect = "Unsure";
         } else {
             isCorrect = "Incorrect";
+            generatefeedback(questionTypes[i]);
         }
         var displayAreaName = "questionCorrect" + i;
         document.getElementById(displayAreaName).innerHTML = displayCheck(isCorrect, QuestionAnswers[i]);
     }
 }
 
+function generatefeedback(type){
+    if(!typesSeenForFeedback.includes(type)) {
+        typesSeenForFeedback.push(type);
+        var response = feedbackByType[type];
+        response += ", ";
+        document.getElementById("helpfulFeedback").innerHTML += response;
+    }
+}
+
 //Displays the value of right/wrong based on the previous function's input value.
 function displayCheck(value, rightAnwser) {
     if (value == "Correct") return '<font color=\"green\">Your answer is: ' + value + '</font>';
-    if (value == "Incorrect") return '<font color=\"red\">Your answer is: ' + value + '</font>';
-    if (value == "Unsure") return '<font color=\"#663399\">Your answer is: ' + value + ".    " + 'The answer is ' + rightAnwser + '</font>';
+
+    if (value == "Incorrect"){
+        return '<font color=\"red\">Your answer is: ' + value + '</font>';
+    }
+
+    if (value == "Unsure") {
+        if (unsureShowsCorrectAnswer== true) {
+            return '<font color=\"#663399\">Your answer is: ' + value + ".    " + 'The answer is ' + rightAnwser + '</font>';
+        } else {
+            return '<font color=\"#663399\">Your answer is: ' + value +'</font>';
+        }
+    }
 }
 //Clears the answers from the page.
 function clearQuestionAnswers() {
     responsesGivenText = [];
 }
-/** not needed right now, so commented out, but shows the toggable state of an element on a page.
+
+function reEnableSubmit(){
+    document.getElementById("submitButtonTag").innerHTML=" <button type=\"button\" class=\"btn btn-primary\" id=\"submitButton\" onclick=\"checkAnswers()\">\n" +
+        "                            Submit\n" +
+        "                        </button>";
+}
+
+function disableSubmit(){
+    document.getElementById("submitButtonTag").innerHTML=" ";
+}
+
  function toggleShowState(toggableElement) {
     var changeElement = document.getElementById(toggableElement).classList;
 
@@ -187,7 +253,7 @@ function clearQuestionAnswers() {
         changeElement.add("show");
     }
 }
- **/
+
 
 function createResponseJson() {
     var newResponse;
@@ -215,9 +281,12 @@ function submitToAPI(url, objectToSubmit) {
     request.send(JSON.stringify(objectToSubmit));
     request.onreadystatechange = function () {
         if (request.status === 200) {
-            setCurrentScore();
+            //setCurrentScore();
+            generateScoreBreakdown();
         } else {
-            window.location.replace("/serverError");
+            window.onerror = function (msg) {
+                location.replace('/error?message=' + msg);
+            }
         }
     };
 }
@@ -225,6 +294,23 @@ function submitToAPI(url, objectToSubmit) {
 function logout() {
     UserID = null;
     return location.replace('/login');
+}
+
+function getSettings(){
+    try {
+        var settings = readJson("api/getSettings");
+
+    } catch(Exception ) {
+        window.onerror = function (msg) {
+            location.replace('/error?message='+msg);
+        }
+    }
+
+    unsureShowsCorrectAnswer= settings.unsureShowsCorrectAnswer;
+    feedbackByType= settings.feedbackByType;
+    ableToResubmitAnswers= settings.ableToResubmitAnswers
+    scoreType= settings.scoreType;
+    showScore= settings.showScore;
 }
 
 //for testing purposes only
@@ -238,3 +324,5 @@ function testGenerateReponseJSON() {
     testSetVariables();
     return createResponseJson();
 }
+
+
