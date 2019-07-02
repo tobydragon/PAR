@@ -18,7 +18,7 @@ public class TaskGenerator {
      * @return
      */
     public static Question getInitialQuestionForTask(StudentModel studentModel){
-        checkStudentModel(studentModel);
+               checkStudentModel(studentModel);
 
         //there are questions the student has not seen
         if(studentModel.getUnseenQuestionCount()>0){
@@ -78,8 +78,8 @@ public class TaskGenerator {
         ImageTask imageTask = new ImageTask(initialQuestion.getImageUrl(), questionList);
 
         //let studentModel know that unseen questions are seen
-        for(Question currUnseenQuestion : unseenQuestionsWithCorrectUrl){
-            studentModel.getUserQuestionSet().givenQuestion(currUnseenQuestion.getId());
+        for(Question currQuestion : questionList){
+            studentModel.getUserQuestionSet().givenQuestion(currQuestion.getId());
         }
 
         return imageTask;
