@@ -6,6 +6,7 @@ import edu.ithaca.dragon.par.studentModel.StudentModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 public class TaskGenerator {
@@ -39,6 +40,9 @@ public class TaskGenerator {
      * @return
      */
     public static ImageTask makeTask(StudentModel studentModel){
+        //call set level function
+        int level = setLevel(studentModel);
+
         checkStudentModel(studentModel);
 
         //get an initial question url
@@ -51,6 +55,25 @@ public class TaskGenerator {
         questionList.addAll(unseenQuestionsWithCorrectUrl);
         questionList.addAll(seenQuestionsWithCorrectUrl);
 
+        //only levels 1 and 2 have plane questions
+        if(level==3 || level==4 || level==5 || level==6){
+            questionList = removeType(questionList, "Plane");
+        }
+
+        //only levels 2, 3, 4, and 5 have structure questions
+        if(level==1 || level==6){
+            questionList = removeType(questionList, "Structure");
+        }
+
+        //only levels 4 and 5 have attachment questions
+        if(level==1 || level==2 || level==3 || level==6){
+            questionList = removeType(questionList, "Attachment");
+        }
+
+        //only levels 5 and 6 have zone questions
+        if(level==1 || level==2 || level==3 || level==4){
+            questionList = removeType(questionList, "Zone");
+        }
 
         ImageTask imageTask = new ImageTask(initialQuestion.getImageUrl(), questionList);
 
@@ -60,6 +83,22 @@ public class TaskGenerator {
         }
 
         return imageTask;
+    }
+
+    public static int setLevel(StudentModel studentModel){
+        //this will eventually use the scores in student model to decide what level the student is at.
+        //for now it will return a hardcoded level
+        return 5;
+    }
+
+    public static List<Question> removeType(List<Question> questions, String type){
+        List<Question> newList = new ArrayList<Question>();
+        for(Question currQuestion: questions){
+            if(!currQuestion.getType().equals(type)){
+                newList.add(currQuestion);
+            }
+        }
+        return newList;
     }
 
     /**
