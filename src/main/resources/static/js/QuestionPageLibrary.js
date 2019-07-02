@@ -222,7 +222,7 @@ function checkAndRecordAnswers() {
             addToTypesSeenForFeedback(questionTypes[i]);
         }
         var displayAreaName = "questionCorrect" + i;
-        document.getElementById(displayAreaName).innerHTML = displayCheck(isCorrect, questionAnswers[i]);
+        document.getElementById(displayAreaName).innerHTML = displayCheck(isCorrect, questionAnswers[i],unsureShowsCorrectAnswer);
     }
     generateFeedback();
 }
@@ -252,7 +252,7 @@ function clearFeedback(){
 }
 
 //Displays the value of right/wrong based on the previous function's input value.
-function displayCheck(value, rightAnwser) {
+function displayCheck(value, rightAnwser, unsureShowsCorrectAnswerHere) {
     if (value == "Correct") {
         return '<font color=\"green\">Your answer is: ' + value + '</font>';
     }
@@ -262,7 +262,7 @@ function displayCheck(value, rightAnwser) {
     }
 
     if (value == "Unsure") {
-        if (unsureShowsCorrectAnswer == true) {
+        if (unsureShowsCorrectAnswerHere == true) {
             return '<font color=\"#663399\">Your answer is: ' + value + ".    " + 'The answer is ' + rightAnwser + '</font>';
         } else {
             return '<font color=\"#663399\">Your answer is: ' + value + '</font>';
