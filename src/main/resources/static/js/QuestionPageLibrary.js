@@ -163,6 +163,7 @@ function setUserId() {
 //Calls generateQuestion on the JSON object for the question at ith index
 function pageDisplay(imageTaskJSON) {
     clearQuestionIDs();
+    //setCurrentScore();
     generateScoreBreakdown();
     //Displays the questions at the tags
     for (var i = 0; i < imageTaskJSON.taskQuestions.length; i++) {
