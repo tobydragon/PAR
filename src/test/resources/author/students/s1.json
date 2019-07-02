@@ -1,0 +1,88 @@
+{
+  "userId" : "s1",
+  "userQuestionSetRecord" : {
+    "userId" : "s1",
+    "unseenQuestionIds" : [ "PlaneQ1", "PlaneQ2", "PlaneQ3", "PlaneQ4", "PlaneQ5", "StructureQ1", "StructureQ2", "StructureQ3", "StructureQ4", "StructureQ5", "ZoneQ1", "ZoneQ2", "ZoneQ3", "ZoneQ4", "ZoneQ5" ],
+    "seenQuestionIds" : [ ],
+    "timesSeen" : [ ]
+  },
+  "userResponseSetRecord" : {
+    "userId" : "s1",
+    "responsesPerQuestionRecords" : [ {
+      "userId" : "s1",
+      "questionId" : "PlaneQ1",
+      "responseText" : "Lateral",
+      "allResponseTexts" : [ "Lateral", "Lateral", "Lateral", "Lateral", "Lateral" ]
+    }, {
+      "userId" : "s1",
+      "questionId" : "PlaneQ2",
+      "responseText" : "Transverse",
+      "allResponseTexts" : [ "Transverse", "Transverse", "Transverse", "Transverse", "Transverse" ]
+    }, {
+      "userId" : "s1",
+      "questionId" : "PlaneQ3",
+      "responseText" : "Lateral",
+      "allResponseTexts" : [ "Lateral", "Lateral", "Lateral", "Lateral", "Lateral" ]
+    }, {
+      "userId" : "s1",
+      "questionId" : "PlaneQ4",
+      "responseText" : "Lateral",
+      "allResponseTexts" : [ "Lateral", "Lateral", "Lateral", "Lateral", "Lateral" ]
+    }, {
+      "userId" : "s1",
+      "questionId" : "PlaneQ5",
+      "responseText" : "Transverse",
+      "allResponseTexts" : [ "Transverse", "Transverse", "Transverse", "Transverse", "Transverse" ]
+    }, {
+      "userId" : "s1",
+      "questionId" : "StructureQ1",
+      "responseText" : "bone",
+      "allResponseTexts" : [ "bone", "bone", "bone", "bone", "bone" ]
+    }, {
+      "userId" : "s1",
+      "questionId" : "StructureQ2",
+      "responseText" : "ligament",
+      "allResponseTexts" : [ "ligament", "ligament", "ligament", "ligament", "ligament" ]
+    }, {
+      "userId" : "s1",
+      "questionId" : "StructureQ3",
+      "responseText" : "tendon",
+      "allResponseTexts" : [ "tendon", "tendon", "tendon", "tendon", "tendon" ]
+    }, {
+      "userId" : "s1",
+      "questionId" : "StructureQ4",
+      "responseText" : "bone",
+      "allResponseTexts" : [ "bone", "bone", "bone", "bone", "bone" ]
+    }, {
+      "userId" : "s1",
+      "questionId" : "StructureQ5",
+      "responseText" : "tumor",
+      "allResponseTexts" : [ "tumor", "tumor", "tumor", "tumor", "tumor" ]
+    }, {
+      "userId" : "s1",
+      "questionId" : "ZoneQ1",
+      "responseText" : "3c",
+      "allResponseTexts" : [ "3c", "3c", "3c", "3c", "3c" ]
+    }, {
+      "userId" : "s1",
+      "questionId" : "ZoneQ2",
+      "responseText" : "1b",
+      "allResponseTexts" : [ "1b", "1b", "1b", "1b", "1b" ]
+    }, {
+      "userId" : "s1",
+      "questionId" : "ZoneQ3",
+      "responseText" : "3c",
+      "allResponseTexts" : [ "3c", "3c", "3c", "3c", "3c" ]
+    }, {
+      "userId" : "s1",
+      "questionId" : "ZoneQ4",
+      "responseText" : "2a",
+      "allResponseTexts" : [ "2a", "2a", "2a", "2a", "2a" ]
+    }, {
+      "userId" : "s1",
+      "questionId" : "ZoneQ5",
+      "responseText" : "2b",
+      "allResponseTexts" : [ "2b", "2b", "2b", "2b", "2b" ]
+    } ]
+  }
+}
