@@ -22,21 +22,8 @@ public class UserResponseSet {
     }
 
     public void addAllResponses(List<ResponsesPerQuestion> allResponsesIn) {
-        int index = 0;
-        for (int i = 0; i < allResponsesIn.size(); i++) {
-            index = sameResponseCheck(allResponsesIn.get(i));
-            if (index > -1) break;
-        }
-        if (index == -1) userResponse.addAll(allResponsesIn);
-
-        else {
-            for (int i = 0; i < userResponse.size(); i++) {
-                for (int k = 0; k < allResponsesIn.size(); k++) {
-                    if (userResponse.get(i).getQuestionId().equals(allResponsesIn.get(k).getQuestionId())) {
-                        userResponse.get(i).addNewResponse(allResponsesIn.get(k).getResponseText());
-                    }
-                }
-            }
+        for (int i=0;i<allResponsesIn.size();i++) {
+            addResponse(allResponsesIn.get(i));
         }
     }
 
@@ -52,9 +39,17 @@ public class UserResponseSet {
         }
         return -1;
     }
-
+//get question answered
     public int getUserResponsesSize() {
         return userResponse.size();
+    }
+
+    public int countTotalResponses(){
+        int count=0;
+        for(ResponsesPerQuestion responses: userResponse){
+            count=count+responses.allResponseTextSize();
+        }
+        return count;
     }
 
     public void setUserResponse(List<ResponsesPerQuestion> userResponsesIn) {
@@ -73,14 +68,14 @@ public class UserResponseSet {
         return userId;
     }
 
+
+    public double knowledgeCalc() {
+        return knowledgeCalc(userResponse, 12);
+    }
     /**
      * @param responsesToConsider how many responses should the algorithm look back on to calculate the recent average?
      * @return
      */
-    public double knowledgeCalc() {
-        return knowledgeCalc(userResponse, 12);
-    }
-
     public double knowledgeCalc(int responsesToConsider) {
         return knowledgeCalc(userResponse, responsesToConsider);
     }
@@ -99,17 +94,12 @@ public class UserResponseSet {
         double scoreBeforeDivision = 0;
         for(int i = allResponses.size()-1, j = 0; j < responsesToConsider; i--, j++){
 
-            if(i >= 0){ //if there are still responses, get one and contribute it to the running score
-                //check if the response is correct
-                if(allResponses.get(i).getResponseText().equals(allResponses.get(i).getQuestion().getCorrectAnswer())){
-                    scoreBeforeDivision++;
-                }
-            }
-            else { //there are no responses left
+            if(i >= 0){
+                scoreBeforeDivision+=allResponses.get(i).knowledgeCalc();
 
             }
         }
-        return (scoreBeforeDivision / responsesToConsider) * 100;
+        return (scoreBeforeDivision / responsesToConsider);
     }
 
     @Override

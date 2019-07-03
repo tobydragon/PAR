@@ -26,7 +26,7 @@ public class ResponsesPerQuestion {
     }
 
     public double knowledgeCalc(){
-        double score=0;
+        double score;
         if(responseText.equals(question.getCorrectAnswer())) score = 100;
 
         else score = 0;

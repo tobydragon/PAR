@@ -1,7 +1,9 @@
 package edu.ithaca.dragon.par.studentModel;
 import edu.ithaca.dragon.par.domainModel.Question;
 
+import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
+import edu.ithaca.dragon.par.io.JsonDatastore;
 import edu.ithaca.dragon.util.DataUtil;
 import edu.ithaca.dragon.util.JsonUtil;
 import org.junit.jupiter.api.Test;
@@ -42,6 +44,27 @@ public class UserResponseSetTest {
 
         assertEquals(2,response1.allResponseTextSize());
         assertEquals(1,response2.allResponseTextSize());
+    }
+
+    @Test
+    public void addAllResponseTest()throws IOException{
+        QuestionPool questionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));
+        List<ImageTaskResponse> responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponse.class);
+        List<ResponsesPerQuestion> responsesPerQuestions=StudentModel.createUserResponseObj(responsesFromFile.get(0),questionPool,"s1");
+        UserResponseSet respSet=new UserResponseSet(responsesFromFile.get(0).getUserId());
+        respSet.addAllResponses(responsesPerQuestions.subList(0,10));
+        assertEquals(10,respSet.getUserResponsesSize());
+        assertEquals(10,respSet.countTotalResponses());
+        respSet.addAllResponses(responsesPerQuestions.subList(0,10));
+        assertEquals(10,respSet.getUserResponsesSize());
+        assertEquals(20,respSet.countTotalResponses());
+       // responsesPerQuestions=StudentModel.createUserResponseObj(responsesFromFile.get(2),questionPool,"s1");
+        respSet.addAllResponses(responsesPerQuestions.subList(5,15));
+        assertEquals(15,respSet.getUserResponsesSize());
+        assertEquals(30,respSet.countTotalResponses());
+
+
+
 
     }
 

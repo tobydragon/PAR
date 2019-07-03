@@ -70,7 +70,7 @@ public class StudentModel {
      * @param userId: user ID
      * @return: List of ResponsesPerQuestion objects
      */
-    private static List<ResponsesPerQuestion> createUserResponseObj(ImageTaskResponse imageTaskResponses, QuestionPool questions, String userId){
+    public static List<ResponsesPerQuestion> createUserResponseObj(ImageTaskResponse imageTaskResponses, QuestionPool questions, String userId){
         List<ResponsesPerQuestion> userResponse =new ArrayList<>();
         ResponsesPerQuestion response; Question ques;
         for(int i=0;i<imageTaskResponses.getTaskQuestionIds().size();i++){
