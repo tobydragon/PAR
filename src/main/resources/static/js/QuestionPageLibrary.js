@@ -113,11 +113,11 @@ function createFillIn(json) {
     return question;
 }
 
-function generateScoreLevel(){
+function generateScoreLevel() {
 
 }
 
-function generateSinglescore(){
+function generateSinglescore() {
     var url = "api/calcScore?userId=" + sendUserId();
     var request = new XMLHttpRequest();
     request.open("GET", url, false);
@@ -133,11 +133,11 @@ function generateSinglescore(){
 }
 
 function setCurrentScore() {
-    if(scoreType== "ByType"){
+    if (scoreType == "ByType") {
         generateScoreByType();
-    } else if (scoreType== "SingleScore"){
+    } else if (scoreType == "SingleScore") {
         generateSinglescore();
-    } else if(scoreType== "Level"){
+    } else if (scoreType == "Level") {
         generateScoreLevel();
     }
 }
@@ -177,14 +177,15 @@ function setUserId() {
 //Calls generateQuestion on the JSON object for the question at ith index
 function pageDisplay(imageTaskJSON) {
     clearQuestionIDs();
-    if(showScore) {
-        document.getElementById("scoreTag").innerHTML ="<b class=\"size20\">Knowledge Base: </b>";
+    if (showScore) {
+        document.getElementById("scoreTag").innerHTML = "<b class=\"size20\">Knowledge Base: </b>";
         setCurrentScore();
     }
     //Displays the questions at the tags
     for (var i = 0; i < imageTaskJSON.taskQuestions.length; i++) {
         generateQuestion(imageTaskJSON.taskQuestions[i]);
     }
+    document.getElementById("Ids").innerHTML = questionIDs.toString();
 }
 //Clears question IDs from working image task.
 function clearQuestionIDs() {
@@ -210,8 +211,8 @@ function checkAndRecordAnswers() {
             isCorrect = "Correct";
         } else if (currentAnswer == "Unsure") {
             isCorrect = "Unsure";
-        } else if(currentAnswer==""){
-            if(!canGiveNoAnswer){
+        } else if (currentAnswer == "") {
+            if (!canGiveNoAnswer) {
                 responsesGivenText.pop();
             } else {
                 isCorrect = "Incorrect";
@@ -222,32 +223,32 @@ function checkAndRecordAnswers() {
             addToTypesSeenForFeedback(questionTypes[i]);
         }
         var displayAreaName = "questionCorrect" + i;
-        document.getElementById(displayAreaName).innerHTML = displayCheck(isCorrect, questionAnswers[i],unsureShowsCorrectAnswer);
+        document.getElementById(displayAreaName).innerHTML = displayCheck(isCorrect, questionAnswers[i], unsureShowsCorrectAnswer);
     }
     generateFeedback();
 }
 
-function addToTypesSeenForFeedback(type){
+function addToTypesSeenForFeedback(type) {
     if (!typesSeenForFeedback.includes(type)) {
         typesSeenForFeedback.push(type);
     }
 }
 
 function generateFeedback() {
-    if(typesSeenForFeedback.length>0){
+    if (typesSeenForFeedback.length > 0) {
         document.getElementById("helpfulFeedback").innerHTML = "Feedback: ";
     }
-    for(var i=0; i<typesSeenForFeedback.length; i++) {
+    for (var i = 0; i < typesSeenForFeedback.length; i++) {
         var type = typesSeenForFeedback[i];
         var response = feedbackByType[type];
-        if (i < typesSeenForFeedback.length-1) {
+        if (i < typesSeenForFeedback.length - 1) {
             response += ", ";
         }
         document.getElementById("helpfulFeedback").innerHTML += response;
     }
 }
 
-function clearFeedback(){
+function clearFeedback() {
     document.getElementById("helpfulFeedback").innerHTML = " ";
 }
 
@@ -272,10 +273,11 @@ function displayCheck(value, rightAnwser, unsureShowsCorrectAnswerHere) {
 //Clears the answers from the page.
 function clearQuestionAnswers() {
     responsesGivenText = [];
+    questionAnswers= [];
 }
 
-function reEnableSubmit(){
-    document.getElementById("submitButtonTag").innerHTML=" <button type=\"button\" class=\"btn btn-primary\" id=\"submitButton\" onclick=\"checkAnswers()\">" +
+function reEnableSubmit() {
+    document.getElementById("submitButtonTag").innerHTML = " <button type=\"button\" class=\"btn btn-primary\" id=\"submitButton\" onclick=\"checkAnswers()\">" +
         "Submit" + "</button>";
 }
 
@@ -311,7 +313,6 @@ function createResponseJson() {
             responseTexts: responsesGivenText
         };
     }
-
     return newResponse;
 }
 
@@ -331,7 +332,7 @@ function submitToAPI(url, objectToSubmit) {
     };
 }
 
-function clearQuestionCorrectnessResponses(){
+function clearQuestionCorrectnessResponses() {
     for (var i = 0; i < amountOfQuestions; i++) {
         var displayAreaName = "questionCorrect" + i;
         document.getElementById(displayAreaName).innerHTML = " ";
@@ -339,8 +340,8 @@ function clearQuestionCorrectnessResponses(){
 
 }
 
-function checkForAnswers(){
-    if(numberOfQuestionsAnswered==amountOfQuestions){
+function checkForAnswers() {
+    if (numberOfQuestionsAnswered == amountOfQuestions) {
         return true;
     } else {
         document.getElementById("errorFeedback").innerHTML = '<font color=red>Must submit answers to continue</font>';
@@ -363,13 +364,13 @@ function getSettings() {
         }
     }
 
-    unsureShowsCorrectAnswer= settings.unsureShowsCorrectAnswer;
-    feedbackByType= settings.feedbackByType;
-    ableToResubmitAnswers= settings.ableToResubmitAnswers;
-    scoreType= settings.scoreType;
-    showScore= settings.showScore;
-    mustSubmitAnswersToContinue= settings.mustSubmitAnswersToContinue;
-    canGiveNoAnswer= settings.canGiveNoAnswer;
+    unsureShowsCorrectAnswer = settings.unsureShowsCorrectAnswer;
+    feedbackByType = settings.feedbackByType;
+    ableToResubmitAnswers = settings.ableToResubmitAnswers;
+    scoreType = settings.scoreType;
+    showScore = settings.showScore;
+    mustSubmitAnswersToContinue = settings.mustSubmitAnswersToContinue;
+    canGiveNoAnswer = settings.canGiveNoAnswer;
 }
 
 //for testing purposes only

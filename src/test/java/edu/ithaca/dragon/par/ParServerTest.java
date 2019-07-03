@@ -82,30 +82,6 @@ public class ParServerTest {
     }
 
     @Test
-    public void nextImageTaskSingleTest() throws IOException{
-        Datastore datastore = new JsonDatastore("src/test/resources/author/SampleQuestionPool.json");
-        ParServer parServer = new ParServer(datastore);
-        ImageTask nextTask = parServer.nextImageTaskSingle("s1");
-        ImageTask intendedFirstTask = JsonUtil.fromJsonFile("src/test/resources/author/SampleImageTaskSingleQuestion.json", ImageTask.class);
-        assertEquals(intendedFirstTask, nextTask);
-
-        nextTask = parServer.nextImageTaskSingle("s2");
-        assertEquals(intendedFirstTask, nextTask);
-
-        nextTask = parServer.nextImageTaskSingle("s1");
-        assertNotNull(nextTask);
-        nextTask = parServer.nextImageTaskSingle("s1");
-        ImageTask intendedLastTask = JsonUtil.fromJsonFile("src/test/resources/author/SampleImageTaskSingleQuestion3.json", ImageTask.class);
-        assertEquals(intendedLastTask, nextTask);
-
-        nextTask = parServer.nextImageTaskSingle("s2");
-        assertNotNull(nextTask);
-
-        nextTask = parServer.nextImageTaskSingle("s2");
-        assertEquals(intendedLastTask, nextTask);
-    }
-
-    @Test
     public void nextImageTaskTest() throws IOException{
         Datastore datastore = new JsonDatastore("src/test/resources/author/SampleQuestionPool.json");
         ParServer parServer = new ParServer(datastore);
@@ -117,6 +93,7 @@ public class ParServerTest {
         assertEquals(intendedFirstTask, nextTask);
 
         nextTask = parServer.nextImageTask("s1");
+
         assertNotNull(nextTask);
         ImageTask intendedLastTask = JsonUtil.fromJsonFile("src/test/resources/author/nextImageTaskTest2.json", ImageTask.class);
         assertEquals(intendedLastTask, nextTask);

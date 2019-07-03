@@ -41,19 +41,6 @@ public class ParServer {
         }
     }
 
-    public ImageTask nextImageTaskSingle(String userId) throws IOException{
-        StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, datastore);
-        Question initialQuestion = TaskGenerator.getInitialQuestionForTask(currentStudent);
-        ImageTask imageTask =  new ImageTask(initialQuestion.getImageUrl(), Arrays.asList(initialQuestion));
-        if (imageTask != null){
-            return imageTask;
-        }
-        else {
-            throw new RuntimeException("No image task given for userId:" + userId);
-        }
-    }
-
-
     public void imageTaskResponseSubmitted(ImageTaskResponse imageTaskResponse, String userId) throws IOException{
         StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, datastore);
         currentStudent.imageTaskResponseSubmitted(imageTaskResponse,questionPool);
