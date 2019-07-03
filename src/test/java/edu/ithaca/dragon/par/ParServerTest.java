@@ -127,8 +127,8 @@ public class ParServerTest {
 
     }
 
-    @Test//TODO:REDO KNOWLEDGE TEST
-    public void imageTaskResponseSubmittedAndCalcScoreTest() throws IOException {
+    @Test
+    public void imageTaskResponseSubmittedAndCalcScoreTest() throws IOException{
 
         new File("src/test/resources/author/students2").mkdirs();
         Datastore datastore = new JsonDatastore("src/test/resources/author/SampleQuestionPool.json", "src/test/resources/author/students2");
@@ -146,20 +146,11 @@ public class ParServerTest {
 
         //great student
         parServer.imageTaskResponseSubmitted(responseSet2,"s2");
-        assertEquals(66.666666,parServer.calcScore("s2"),DataUtil.OK_DOUBLE_MARGIN);
+        assertEquals(83.33333333,parServer.calcScore("s2"),DataUtil.OK_DOUBLE_MARGIN);
         for(int i=0;i<4;i++){
             parServer.imageTaskResponseSubmitted(responsesFromFile.get(0),"s2");
 
         }   assertEquals(83.3333333,parServer.calcScore("s2"), DataUtil.OK_DOUBLE_MARGIN);
-
-
-        //terrible student
-        parServer.imageTaskResponseSubmitted(responsesFromFile.get(0),"s3");
-        parServer.imageTaskResponseSubmitted(responsesFromFile.get(0),"s3");
-        assertEquals(100.0,parServer.calcScore("s3"), DataUtil.OK_DOUBLE_MARGIN);
-        for(int i=0;i<3;i++){
-            parServer.imageTaskResponseSubmitted(responseSet3,"s3");
-        }    assertEquals(50.0,parServer.calcScore("s3"), DataUtil.OK_DOUBLE_MARGIN);
 
     }
 }
