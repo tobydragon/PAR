@@ -2,14 +2,14 @@
   "imageUrl" : "./images/demoEquine04.jpg",
   "taskQuestions" : [ {
     "id" : "StructureQ1",
-    "type" : "Structure",
+    "type" : "structure",
     "questionText" : "What structure is in the near field?",
     "correctAnswer" : "bone",
     "possibleAnswers" : [ "bone", "ligament", "tumor", "tendon" ],
     "imageUrl" : "./images/demoEquine04.jpg"
   }, {
     "id" : "StructureQ3",
-    "type" : "Structure",
+    "type" : "structure",
     "questionText" : "What structure is in the near field?",
     "correctAnswer" : "tendon",
     "possibleAnswers" : [ "bone", "ligament", "tumor", "tendon" ],

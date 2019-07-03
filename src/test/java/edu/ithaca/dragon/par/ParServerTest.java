@@ -81,7 +81,7 @@ public class ParServerTest {
         Assertions.assertTrue(Files.deleteIfExists(path));
     }
 
-    @Test
+    @Test //This test relies on ParServer.ne
     public void nextImageTaskSingleTest() throws IOException{
         Datastore datastore = new JsonDatastore("src/test/resources/author/SampleQuestionPool.json");
         ParServer parServer = new ParServer(datastore);
@@ -117,6 +117,7 @@ public class ParServerTest {
         assertEquals(intendedFirstTask, nextTask);
 
         nextTask = parServer.nextImageTask("s1");
+
         assertNotNull(nextTask);
         ImageTask intendedLastTask = JsonUtil.fromJsonFile("src/test/resources/author/nextImageTaskTest2.json", ImageTask.class);
         assertEquals(intendedLastTask, nextTask);

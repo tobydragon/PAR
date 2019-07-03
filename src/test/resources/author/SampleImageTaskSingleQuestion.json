@@ -1,11 +1,11 @@
 {
   "imageUrl" : "./images/demoEquine04.jpg",
   "taskQuestions" : [ {
-    "id" : "PlaneQ1",
-    "type" : "Plane",
-    "questionText" : "On which plane is the ultrasound taken?",
-    "correctAnswer" : "Lateral",
-    "possibleAnswers" : [ "Transverse", "Lateral" ],
+    "id" : "StructureQ1",
+    "type" : "structure",
+    "questionText" : "What structure is in the near field?",
+    "correctAnswer" : "bone",
+    "possibleAnswers" : [ "bone", "ligament", "tumor", "tendon" ],
     "imageUrl" : "./images/demoEquine04.jpg"
   } ]
 }

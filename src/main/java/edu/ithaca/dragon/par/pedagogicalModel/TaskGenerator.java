@@ -17,20 +17,131 @@ public class TaskGenerator {
      * @param studentModel
      * @return
      */
-    public static Question getInitialQuestionForTask(StudentModel studentModel){
-               checkStudentModel(studentModel);
+    public static Question getInitialQuestionForTask(StudentModel studentModel, int level){
+        checkStudentModel(studentModel);
 
-        //there are questions the student has not seen
-        if(studentModel.getUnseenQuestionCount()>0){
-            //make and return an imageTask with the first question from the studentModels.unseenQuestions
-            Question firstQuestionFromUnseen = studentModel.getUserQuestionSet().getUnseenQuestions().get(0);
-            return firstQuestionFromUnseen;
+        switch(level){
+            case 1:
+                if(studentModel.getUnseenQuestionCount()>0){
+                    //make and return an imageTask with the first question from the studentModels.unseenQuestions that matches the level
+                    List<Question> unseen = studentModel.getUserQuestionSet().getUnseenQuestions();
+                    for (int i = 0; i< unseen.size(); i++){
+                        if(unseen.get(i).getType().equals("plane")){
+                            return unseen.get(i);
+                        }
+                    }
+
+                    List<Question> seen = studentModel.getUserQuestionSet().getSeenQuestions();
+                    for (int i = 0; i< seen.size(); i++){
+                        if(seen.get(i).getType().equals("plane")){
+                            return seen.get(i);
+                        }
+                    }
+                }
+
+                break;
+            case 2:
+                if(studentModel.getUnseenQuestionCount()>0){
+                    //make and return an imageTask with the first question from the studentModels.unseenQuestions that matches the level
+                    List<Question> unseen = studentModel.getUserQuestionSet().getUnseenQuestions();
+                    for (int i = 0; i< unseen.size(); i++){
+                        if(unseen.get(i).getType().equals("plane") || unseen.get(i).getType().equals("structure")){
+                            return unseen.get(i);
+                        }
+                    }
+
+                    List<Question> seen = studentModel.getUserQuestionSet().getSeenQuestions();
+                    for (int i = 0; i< seen.size(); i++){
+                        if(seen.get(i).getType().equals("plane") || seen.get(i).getType().equals("structure")){
+                            return seen.get(i);
+                        }
+                    }
+                }
+
+                break;
+            case 3:
+                if(studentModel.getUnseenQuestionCount()>0){
+                    //make and return an imageTask with the first question from the studentModels.unseenQuestions that matches the level
+                    List<Question> unseen = studentModel.getUserQuestionSet().getUnseenQuestions();
+                    for (int i = 0; i< unseen.size(); i++){
+                        if(unseen.get(i).getType().equals("structure")){
+                            return unseen.get(i);
+                        }
+                    }
+
+                    List<Question> seen = studentModel.getUserQuestionSet().getSeenQuestions();
+                    for (int i = 0; i< seen.size(); i++){
+                        if(seen.get(i).getType().equals("structure")){
+                            return seen.get(i);
+                        }
+                    }
+                }
+
+                break;
+            case 4:
+                if(studentModel.getUnseenQuestionCount()>0){
+                    //make and return an imageTask with the first question from the studentModels.unseenQuestions that matches the level
+                    List<Question> unseen = studentModel.getUserQuestionSet().getUnseenQuestions();
+                    for (int i = 0; i< unseen.size(); i++){
+                        if(unseen.get(i).getType().equals("attachment") || unseen.get(i).getType().equals("structure")){
+                            return unseen.get(i);
+                        }
+                    }
+
+                    List<Question> seen = studentModel.getUserQuestionSet().getSeenQuestions();
+                    for (int i = 0; i< seen.size(); i++){
+                        if(seen.get(i).getType().equals("attachment") || seen.get(i).getType().equals("structure")){
+                            return seen.get(i);
+                        }
+                    }
+                }
+
+                break;
+
+            case 5:
+                if(studentModel.getUnseenQuestionCount()>0){
+                    //make and return an imageTask with the first question from the studentModels.unseenQuestions that matches the level
+                    List<Question> unseen = studentModel.getUserQuestionSet().getUnseenQuestions();
+                    for (int i = 0; i< unseen.size(); i++){
+                        if(unseen.get(i).getType().equals("attachment") || unseen.get(i).getType().equals("structure") || unseen.get(i).getType().equals("zone")){
+                            return unseen.get(i);
+                        }
+                    }
+
+                    List<Question> seen = studentModel.getUserQuestionSet().getSeenQuestions();
+                    for (int i = 0; i< seen.size(); i++){
+                        if(seen.get(i).getType().equals("attachment") || seen.get(i).getType().equals("structure") || unseen.get(i).getType().equals("zone")){
+                            return seen.get(i);
+                        }
+                    }
+                }
+
+                break;
+            case 6:
+                if(studentModel.getUnseenQuestionCount()>0){
+                    //make and return an imageTask with the first question from the studentModels.unseenQuestions that matches the level
+                    List<Question> unseen = studentModel.getUserQuestionSet().getUnseenQuestions();
+                    for (int i = 0; i< unseen.size(); i++){
+                        if(unseen.get(i).getType().equals("zone")){
+                            return unseen.get(i);
+                        }
+                    }
+
+                    List<Question> seen = studentModel.getUserQuestionSet().getSeenQuestions();
+                    for (int i = 0; i< seen.size(); i++){
+                        if(seen.get(i).getType().equals("zone")){
+                            return seen.get(i);
+                        }
+                    }
+                }
+
+
+                break;
+            default:
+                throw new RuntimeException("Level "+level+" is not valid");
         }
 
-        //the student has seen every question, get a question that they have already seen
-        Question leastSeenQuestion = getLeastSeenQuestion(studentModel);
-
-        return leastSeenQuestion;
+        throw new RuntimeException("Level "+level+" is not valid");
     }
 
     /**
@@ -46,34 +157,12 @@ public class TaskGenerator {
         checkStudentModel(studentModel);
 
         //get an initial question url
-        Question initialQuestion = TaskGenerator.getInitialQuestionForTask(studentModel);
+        Question initialQuestion = TaskGenerator.getInitialQuestionForTask(studentModel, level);
 
-        //put initialQuestion, unseenQuestions and seenQuestions all in a list
-        List<Question> unseenQuestionsWithCorrectUrl = TaskGenerator.getQuestionsWithUrl(studentModel.getUserQuestionSet().getUnseenQuestions(), initialQuestion.getImageUrl());
-        List<Question> seenQuestionsWithCorrectUrl = TaskGenerator.getQuestionsWithUrl(studentModel.getUserQuestionSet().getSeenQuestions(), initialQuestion.getImageUrl());
-        List<Question> questionList = new ArrayList<>();
-        questionList.addAll(unseenQuestionsWithCorrectUrl);
-        questionList.addAll(seenQuestionsWithCorrectUrl);
+        //
+        List<Question> questionList = TaskGenerator.addAllQuestions(studentModel, initialQuestion);
 
-        //only levels 1 and 2 have plane questions
-        if(level==3 || level==4 || level==5 || level==6){
-            questionList = removeType(questionList, "Plane");
-        }
-
-        //only levels 2, 3, 4, and 5 have structure questions
-        if(level==1 || level==6){
-            questionList = removeType(questionList, "Structure");
-        }
-
-        //only levels 4 and 5 have attachment questions
-        if(level==1 || level==2 || level==3 || level==6){
-            questionList = removeType(questionList, "Attachment");
-        }
-
-        //only levels 5 and 6 have zone questions
-        if(level==1 || level==2 || level==3 || level==4){
-            questionList = removeType(questionList, "Zone");
-        }
+        questionList = TaskGenerator.filterQuestions(level, questionList);
 
         ImageTask imageTask = new ImageTask(initialQuestion.getImageUrl(), questionList);
 
@@ -83,6 +172,29 @@ public class TaskGenerator {
         }
 
         return imageTask;
+    }
+
+    public static List<Question> filterQuestions(int level, List<Question> questionList){
+        //only levels 1 and 2 have plane questions
+        if(level==3 || level==4 || level==5 || level==6){
+            questionList = removeType(questionList, "plane");
+        }
+
+        //only levels 2, 3, 4, and 5 have structure questions
+        if(level==1 || level==6){
+            questionList = removeType(questionList, "structure");
+        }
+
+        //only levels 4 and 5 have attachment questions
+        if(level==1 || level==2 || level==3 || level==6){
+            questionList = removeType(questionList, "attachment");
+        }
+
+        //only levels 5 and 6 have zone questions
+        if(level==1 || level==2 || level==3 || level==4){
+            questionList = removeType(questionList, "zone");
+        }
+        return questionList;
     }
 
     public static int setLevel(StudentModel studentModel){
@@ -113,17 +225,15 @@ public class TaskGenerator {
         return toReturn;
     }
 
-    public static void addAllQuestions(ImageTask it, List<Question> sameUrlListUnseen, List<Question> sameUrlListSeen){
-        for (int i = 0; i<sameUrlListUnseen.size(); i++){
-            if (!sameUrlListUnseen.get(i).getId().equals(it.getTaskQuestions().get(0).getId())) {
-                it.addQuestion(sameUrlListUnseen.get(i));
-            }
-        }
-        for (int i = 0; i<sameUrlListSeen.size(); i++){
-            if (!sameUrlListSeen.get(i).getId().equals(it.getTaskQuestions().get(0).getId())) {
-                it.addQuestion(sameUrlListSeen.get(i));
-            }
-        }
+    public static List<Question> addAllQuestions(StudentModel studentModel, Question initialQuestion){
+        //put initialQuestion, unseenQuestions and seenQuestions all in a list
+        List<Question> unseenQuestionsWithCorrectUrl = TaskGenerator.getQuestionsWithUrl(studentModel.getUserQuestionSet().getUnseenQuestions(), initialQuestion.getImageUrl());
+        List<Question> seenQuestionsWithCorrectUrl = TaskGenerator.getQuestionsWithUrl(studentModel.getUserQuestionSet().getSeenQuestions(), initialQuestion.getImageUrl());
+        List<Question> questionList = new ArrayList<>();
+        questionList.addAll(unseenQuestionsWithCorrectUrl);
+        questionList.addAll(seenQuestionsWithCorrectUrl);
+
+        return questionList;
     }
 
     public static void checkStudentModel(StudentModel studentModel){
@@ -149,4 +259,5 @@ public class TaskGenerator {
         }
         return seenQuestions.get(index);
     }
+
 }

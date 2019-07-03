@@ -43,7 +43,7 @@ public class ParServer {
 
     public ImageTask nextImageTaskSingle(String userId) throws IOException{
         StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, datastore);
-        Question initialQuestion = TaskGenerator.getInitialQuestionForTask(currentStudent);
+        Question initialQuestion = TaskGenerator.getInitialQuestionForTask(currentStudent, 5);
         ImageTask imageTask =  new ImageTask(initialQuestion.getImageUrl(), Arrays.asList(initialQuestion));
         if (imageTask != null){
             return imageTask;
