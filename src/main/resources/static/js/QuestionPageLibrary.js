@@ -185,6 +185,7 @@ function pageDisplay(imageTaskJSON) {
     for (var i = 0; i < imageTaskJSON.taskQuestions.length; i++) {
         generateQuestion(imageTaskJSON.taskQuestions[i]);
     }
+    document.getElementById("Ids").innerHTML = questionIDs.toString();
 }
 //Clears question IDs from working image task.
 function clearQuestionIDs() {
