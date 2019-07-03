@@ -81,7 +81,7 @@ public class ParServerTest {
         Assertions.assertTrue(Files.deleteIfExists(path));
     }
 
-    @Test
+    @Test //This test relies on ParServer.ne
     public void nextImageTaskSingleTest() throws IOException{
         Datastore datastore = new JsonDatastore("src/test/resources/author/SampleQuestionPool.json");
         ParServer parServer = new ParServer(datastore);
