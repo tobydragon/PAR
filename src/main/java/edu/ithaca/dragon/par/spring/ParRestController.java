@@ -27,7 +27,7 @@ public class ParRestController {
     ParRestController(){
         super();
         try {
-            parServer = new ParServer(new JsonDatastore("src/main/resources/author/SampleQuestionsSameDifficulty2.json",
+            parServer = new ParServer(new JsonDatastore("src/main/resources/author/DemoQuestionPool.json",
                     "src/main/resources/students"));
         }
         catch(IOException e){

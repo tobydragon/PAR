@@ -41,4 +41,5 @@ public class ImageTask{
         return this.getImageUrl().equals(other.getImageUrl())
                 && this.getTaskQuestions().equals(other.getTaskQuestions());
     }
+
 }
