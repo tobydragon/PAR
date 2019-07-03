@@ -43,12 +43,20 @@ function checkAnswers() {
         createResponses();
     } else {
         document.getElementById("errorFeedback").innerHTML ="<font color=red>No response was recorded because you did not answer all the questions</font>";
+        clearFeedback();
         clearQuestionCorrectnessResponses();
     }
-    clearQuestionAnswers();
-    if (!ableToResubmitAnswers) {
+
+    if (!ableToResubmitAnswers ) {
         disableSubmit();
     }
+
+    if(!canGiveNoAnswer && numberOfQuestionsAnswered!=amountOfQuestions){
+        reEnableSubmit();
+        console.log("what?");
+    }
+
+    clearQuestionAnswers();
 }
 
 
