@@ -17,6 +17,7 @@ var canGiveNoAnswer;
 
 
 function nextQuestionSet(){
+    typesSeenForFeedback=[];
     clearQuestionAnswers();
     var canContinue= true;
     if(mustSubmitAnswersToContinue){
