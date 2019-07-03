@@ -31,12 +31,8 @@ public class TaskGenerator {
                         }
                     }
 
-                    List<Question> seen = studentModel.getUserQuestionSet().getSeenQuestions();
-                    for (int i = 0; i< seen.size(); i++){
-                        if(seen.get(i).getType().equals("plane")){
-                            return seen.get(i);
-                        }
-                    }
+                    Question initial = getLeastSeenQuestion(studentModel, "plane");
+                    return initial;
                 }
 
                 break;
@@ -50,12 +46,8 @@ public class TaskGenerator {
                         }
                     }
 
-                    List<Question> seen = studentModel.getUserQuestionSet().getSeenQuestions();
-                    for (int i = 0; i< seen.size(); i++){
-                        if(seen.get(i).getType().equals("plane") || seen.get(i).getType().equals("structure")){
-                            return seen.get(i);
-                        }
-                    }
+                    Question initial = getLeastSeenQuestion(studentModel, "plane");
+                    return initial;
                 }
 
                 break;
@@ -69,12 +61,8 @@ public class TaskGenerator {
                         }
                     }
 
-                    List<Question> seen = studentModel.getUserQuestionSet().getSeenQuestions();
-                    for (int i = 0; i< seen.size(); i++){
-                        if(seen.get(i).getType().equals("structure")){
-                            return seen.get(i);
-                        }
-                    }
+                    Question initial = getLeastSeenQuestion(studentModel, "structure");
+                    return initial;
                 }
 
                 break;
@@ -88,12 +76,8 @@ public class TaskGenerator {
                         }
                     }
 
-                    List<Question> seen = studentModel.getUserQuestionSet().getSeenQuestions();
-                    for (int i = 0; i< seen.size(); i++){
-                        if(seen.get(i).getType().equals("attachment") || seen.get(i).getType().equals("structure")){
-                            return seen.get(i);
-                        }
-                    }
+                    Question initial = getLeastSeenQuestion(studentModel, "structure");
+                    return initial;
                 }
 
                 break;
@@ -108,12 +92,8 @@ public class TaskGenerator {
                         }
                     }
 
-                    List<Question> seen = studentModel.getUserQuestionSet().getSeenQuestions();
-                    for (int i = 0; i< seen.size(); i++){
-                        if(seen.get(i).getType().equals("attachment") || seen.get(i).getType().equals("structure") || unseen.get(i).getType().equals("zone")){
-                            return seen.get(i);
-                        }
-                    }
+                    Question initial = getLeastSeenQuestion(studentModel, "structure");
+                    return initial;
                 }
 
                 break;
@@ -127,12 +107,8 @@ public class TaskGenerator {
                         }
                     }
 
-                    List<Question> seen = studentModel.getUserQuestionSet().getSeenQuestions();
-                    for (int i = 0; i< seen.size(); i++){
-                        if(seen.get(i).getType().equals("zone")){
-                            return seen.get(i);
-                        }
-                    }
+                    Question initial = getLeastSeenQuestion(studentModel, "zone");
+                    return initial;
                 }
 
 
@@ -242,7 +218,7 @@ public class TaskGenerator {
         }
     }
 
-    public static Question getLeastSeenQuestion(StudentModel studentModel){
+    public static Question getLeastSeenQuestion(StudentModel studentModel, String type){
         //TODO check if there are unseen questions?
 
         List<Question> seenQuestions = studentModel.getUserQuestionSet().getSeenQuestions();
@@ -253,7 +229,7 @@ public class TaskGenerator {
 
         int index = 0;
         for(int i = 0; i<seenQuestions.size(); i++){
-            if(studentModel.getUserQuestionSet().getTimesSeen(seenQuestions.get(i).getId()) < studentModel.getUserQuestionSet().getTimesSeen(seenQuestions.get(index).getId())){
+            if( (studentModel.getUserQuestionSet().getSeenQuestions().get(i).getType().equals(type)) && (studentModel.getUserQuestionSet().getTimesSeen(seenQuestions.get(i).getId()) < studentModel.getUserQuestionSet().getTimesSeen(seenQuestions.get(index).getId()))){
                 index = i;
             }
         }
