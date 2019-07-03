@@ -94,18 +94,18 @@ public class TaskGeneratorTest {
     @Test
     public void removeTypeTest() throws IOException{
         List<Question> questions= JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
-        questions = TaskGenerator.removeType(questions, "Plane");
+        questions = TaskGenerator.removeType(questions, "plane");
         assertEquals(10, questions.size());
-        questions = TaskGenerator.removeType(questions, "Structure");
+        questions = TaskGenerator.removeType(questions, "structure");
         assertEquals(5, questions.size());
-        questions = TaskGenerator.removeType(questions, "Zone");
+        questions = TaskGenerator.removeType(questions, "zone");
         assertEquals(0, questions.size());
 
-        questions = TaskGenerator.removeType(questions, "Plane");
+        questions = TaskGenerator.removeType(questions, "plane");
         assertEquals(0, questions.size());
-        questions = TaskGenerator.removeType(questions, "Structure");
+        questions = TaskGenerator.removeType(questions, "structure");
         assertEquals(0, questions.size());
-        questions = TaskGenerator.removeType(questions, "Zone");
+        questions = TaskGenerator.removeType(questions, "zone");
         assertEquals(0, questions.size());
 
 
