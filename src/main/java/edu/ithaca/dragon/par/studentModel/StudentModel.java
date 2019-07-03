@@ -2,6 +2,7 @@ package edu.ithaca.dragon.par.studentModel;
 
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
+import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
 
 import java.util.*;
@@ -87,6 +88,49 @@ public class StudentModel {
      */
     public void imageTaskResponseSubmitted(ImageTaskResponse imageTaskResponses, QuestionPool questions){
         userResponseSet.addAllResponses(createUserResponseObj(imageTaskResponses,questions,this.userId));
+    }
+
+    private static List<Double> orderedScores(Map<String, Double> scoresPerType){
+        List<Double> orderedScores=new ArrayList<>();
+        for(EquineQuestionTypes quesType: EquineQuestionTypes.values()){
+            if(scoresPerType.get(quesType.toString())==null){
+                throw new RuntimeException("Type doesn't exist");
+            }
+            orderedScores.add(scoresPerType.get(quesType.toString()));
+        }
+
+        return orderedScores;
+    }
+
+    public static float calcLevel(Map<String, Double> scoresPerType){
+        List<Double> orderedScores=orderedScores(scoresPerType);
+        float level=1;
+
+        if(orderedScores.get(0)<75){
+            return level;
+        }
+        else{
+            for(int i = 0; i < orderedScores.size(); i++) {
+                if(orderedScores.get(i)>74 && orderedScores.get(i)<100){
+                    level=level+1;
+                    if(level==4){
+                        level=level+1;
+                        return level;
+                    }
+                    else {
+                        return level;
+                    }
+                }
+                else if(orderedScores.get(i)==100){
+                    level=level+1;
+                    if(level==4)level=level+1;
+                }
+            }
+        }
+        if(orderedScores.get(orderedScores.size()-1)==100){
+            level=level+1;
+        }
+        return level;
     }
 
     @Override
