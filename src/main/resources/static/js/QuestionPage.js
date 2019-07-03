@@ -17,6 +17,7 @@ var canGiveNoAnswer;
 
 
 function nextQuestionSet(){
+    clearQuestionAnswers();
     var canContinue= true;
     if(mustSubmitAnswersToContinue){
         canContinue= checkForAnswers();
@@ -33,12 +34,12 @@ function nextQuestionSet(){
 }
 
 function checkAnswers() {
+    console.log(questionAnswers);
     document.getElementById("errorFeedback").innerHTML =" ";
     //check and report to the user what they got right or wrong as well as add to list responsesGivenText
     checkAndRecordAnswers();
     //call CreateResponse to send answers back to the server
     numberOfQuestionsAnswered= responsesGivenText.length;
-
     if(numberOfQuestionsAnswered==amountOfQuestions) {
         createResponses();
     } else {
@@ -46,16 +47,13 @@ function checkAnswers() {
         clearFeedback();
         clearQuestionCorrectnessResponses();
     }
-
     if (!ableToResubmitAnswers ) {
         disableSubmit();
     }
-
     if(!canGiveNoAnswer && numberOfQuestionsAnswered!=amountOfQuestions){
         reEnableSubmit();
     }
-
-    clearQuestionAnswers();
+    clearResponses();
 }
 
 

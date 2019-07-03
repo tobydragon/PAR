@@ -272,8 +272,11 @@ function displayCheck(value, rightAnwser, unsureShowsCorrectAnswerHere) {
 }
 //Clears the answers from the page.
 function clearQuestionAnswers() {
-    responsesGivenText = [];
     questionAnswers= [];
+}
+
+function clearResponses(){
+    responsesGivenText = [];
 }
 
 function reEnableSubmit() {
