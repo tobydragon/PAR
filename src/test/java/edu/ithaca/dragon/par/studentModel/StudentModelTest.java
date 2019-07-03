@@ -69,9 +69,11 @@ public class StudentModelTest {
 
         Map<String,Double> resp1=studentModel.knowledgeScoreByType();
         assertEquals(3,resp1.size());
-        assertEquals(40.0,resp1.get(EquineQuestionTypes.plane.toString()),DataUtil.OK_DOUBLE_MARGIN);
+
+        assertEquals(50.0,resp1.get(EquineQuestionTypes.plane.toString()),DataUtil.OK_DOUBLE_MARGIN);
         assertEquals(100.0,resp1.get(EquineQuestionTypes.structure.toString()),DataUtil.OK_DOUBLE_MARGIN);
         assertEquals(0,resp1.get(EquineQuestionTypes.zone.toString()),DataUtil.OK_DOUBLE_MARGIN);
+
 
     }
 
