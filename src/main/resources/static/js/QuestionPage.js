@@ -30,6 +30,7 @@ function nextQuestionSet(){
         }
         document.getElementById("errorFeedback").innerHTML =" ";
     }
+    clearQuestionAnswers();
 }
 
 function checkAnswers() {
@@ -55,7 +56,7 @@ function checkAnswers() {
         reEnableSubmit();
     }
 
-    clearQuestionAnswers();
+    clearResponses();
 }
 
 
