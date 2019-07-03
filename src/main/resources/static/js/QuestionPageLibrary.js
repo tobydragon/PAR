@@ -206,7 +206,6 @@ function checkAndRecordAnswers() {
         responsesGivenText.push(currentAnswer);
 
         var isCorrect;
-        console.log("Answer " + i + " " + questionAnswers[i]);
         if (currentAnswer == questionAnswers[i]) {
             isCorrect = "Correct";
         } else if (currentAnswer == "Unsure") {
@@ -313,9 +312,6 @@ function createResponseJson() {
             responseTexts: responsesGivenText
         };
     }
-
-    console.log(questionIDs);
-
     return newResponse;
 }
 

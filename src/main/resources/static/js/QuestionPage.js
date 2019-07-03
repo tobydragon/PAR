@@ -53,7 +53,6 @@ function checkAnswers() {
 
     if(!canGiveNoAnswer && numberOfQuestionsAnswered!=amountOfQuestions){
         reEnableSubmit();
-        console.log("what?");
     }
 
     clearQuestionAnswers();
