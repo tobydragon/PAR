@@ -127,17 +127,12 @@ public class TaskGenerator {
      * @return
      */
     public static ImageTask makeTask(StudentModel studentModel){
-        //call set level function
-        int level = setLevel(studentModel);
-
         checkStudentModel(studentModel);
 
-        //get an initial question url
+        int level = StudentModel.calcLevel(studentModel.knowledgeScoreByType());
+
         Question initialQuestion = TaskGenerator.getInitialQuestionForTask(studentModel, level);
-
-        //
         List<Question> questionList = TaskGenerator.addAllQuestions(studentModel, initialQuestion);
-
         questionList = TaskGenerator.filterQuestions(level, questionList);
 
         ImageTask imageTask = new ImageTask(initialQuestion.getImageUrl(), questionList);
@@ -146,7 +141,6 @@ public class TaskGenerator {
         for(Question currQuestion : questionList){
             studentModel.getUserQuestionSet().givenQuestion(currQuestion.getId());
         }
-
         return imageTask;
     }
 
@@ -171,12 +165,6 @@ public class TaskGenerator {
             questionList = removeType(questionList, "zone");
         }
         return questionList;
-    }
-
-    public static int setLevel(StudentModel studentModel){
-        //this will eventually use the scores in student model to decide what level the student is at.
-        //for now it will return a hardcoded level
-        return 5;
     }
 
     public static List<Question> removeType(List<Question> questions, String type){

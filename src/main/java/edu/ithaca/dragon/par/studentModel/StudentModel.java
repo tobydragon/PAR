@@ -94,7 +94,7 @@ public class StudentModel {
         List<Double> orderedScores=new ArrayList<>();
         for(EquineQuestionTypes quesType: EquineQuestionTypes.values()){
             if(scoresPerType.get(quesType.toString())==null){
-                throw new RuntimeException("Type doesn't exist");
+                orderedScores.add(-1.0);
             }
             orderedScores.add(scoresPerType.get(quesType.toString()));
         }
@@ -102,9 +102,9 @@ public class StudentModel {
         return orderedScores;
     }
 
-    public static float calcLevel(Map<String, Double> scoresPerType){
+    public static int calcLevel(Map<String, Double> scoresPerType){
         List<Double> orderedScores=orderedScores(scoresPerType);
-        float level=1;
+        int level=1;
 
         if(orderedScores.get(0)<75){
             return level;
