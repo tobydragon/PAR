@@ -209,8 +209,6 @@ function checkAndRecordAnswers() {
         var isCorrect;
         if (currentAnswer == questionAnswers[i]) {
             isCorrect = "Correct";
-        } else if (currentAnswer == "Unsure") {
-            isCorrect = "Unsure";
         } else if (currentAnswer == "") {
             if (!canGiveNoAnswer) {
                 responsesGivenText.pop();
@@ -218,8 +216,12 @@ function checkAndRecordAnswers() {
                 isCorrect = "Incorrect";
                 addToTypesSeenForFeedback(questionTypes[i]);
             }
-        } else {
-            isCorrect = "Incorrect";
+        } else if (currentAnswer != questionAnswers[i]) {
+            if(currentAnswer == "Unsure"){
+                isCorrect = "Unsure";
+            } else {
+                isCorrect = "Incorrect";
+            }
             addToTypesSeenForFeedback(questionTypes[i]);
         }
         var displayAreaName = "questionCorrect" + i;
@@ -264,9 +266,7 @@ function displayCheck(value, rightAnwser, unsureShowsCorrectAnswerHere) {
 
     if (value == "Unsure") {
         if (unsureShowsCorrectAnswerHere == true) {
-            return '<font color=\"#663399\">Your answer is: ' + value + ".    " + 'The answer is ' + rightAnwser + '</font>';
-        } else {
-            return '<font color=\"#663399\">Your answer is: ' + value + '</font>';
+            return '<font color=\"#663399\">' + "The right answer is" + rightAnwser + '</font>';
         }
     }
 }
