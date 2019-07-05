@@ -104,36 +104,35 @@ public class StudentModel {
         return orderedScores;
     }
 
-    public static int calcLevel(Map<String, Double> scoresPerType){
-        List<Double> orderedScores=orderedScores(scoresPerType);
-        int level=1;
+    public static int calcLevel(Map<String, Double> scoresPerType) {
+        List<Double> orderedScores = orderedScores(scoresPerType);
+        int level = 1;//sets score to one
 
-        if(orderedScores.get(0)<75){
+        if (orderedScores.get(0) < 75) {//if user has score less than 75 on plane , returns level 1
             return level;
-        }
-        else{
-            for(int i = 0; i < orderedScores.size(); i++) {
-                if(orderedScores.get(i)>74 && orderedScores.get(i)<100){
-                    level=level+1;
-                    if(level==4){
-                        level=level+1;
+        } else {
+            for(int i = 0; i < orderedScores.size()-1; i++) {
+                if (orderedScores.get(i) > 74 && orderedScores.get(i) < 100) {//if score is less than 100 and greater than 74, adds a level
+                    level = level + 1;
+                    if (level == 4) {//no level 4 yet, skips
+                        level = level + 1;
                         return level;
                     }
-                    else {
-                        return level;
-                    }
-                }
-                else if(orderedScores.get(i)==100){
-                    level=level+1;
-                    if(level==4)level=level+1;
+                    return level;//returns level in this case
+
+                } else if (orderedScores.get(i) == 100) {//if score is 100, adds 2 to level/skips a level
+                    level = level + 2;
+                    if (level == 4) level = level + 1;//no level 4 yet, skips
                 }
             }
+            if(orderedScores.get(orderedScores.size()-2)==100){//if second to last score is a 100, then adds level/level 6
+                level=level+1;
+            }
+
+            return level;
         }
-        if(orderedScores.get(orderedScores.size()-1)==100){
-            level=level+1;
-        }
-        return level;
     }
+
 
     @Override
     public boolean equals(Object otherObj){
