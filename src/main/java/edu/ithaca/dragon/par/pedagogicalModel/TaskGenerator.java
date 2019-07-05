@@ -31,8 +31,7 @@ public class TaskGenerator {
                         }
                     }
 
-                    Question initial = getLeastSeenQuestion(studentModel, "plane");
-                    return initial;
+                    return getLeastSeenQuestion(studentModel, "plane");
                 }
 
                 break;
@@ -41,13 +40,16 @@ public class TaskGenerator {
                     //make and return an imageTask with the first question from the studentModels.unseenQuestions that matches the level
                     List<Question> unseen = studentModel.getUserQuestionSet().getUnseenQuestions();
                     for (int i = 0; i< unseen.size(); i++){
-                        if(unseen.get(i).getType().equals("plane") || unseen.get(i).getType().equals("structure")){
+                        if(unseen.get(i).getType().equals("plane")){
                             return unseen.get(i);
                         }
                     }
-
-                    Question initial = getLeastSeenQuestion(studentModel, "structure");
-                    return initial;
+                    for (int i = 0; i< unseen.size(); i++){
+                        if(unseen.get(i).getType().equals("structure")){
+                            return unseen.get(i);
+                        }
+                    }
+                    return getLeastSeenQuestion(studentModel, "plane");
                 }
 
                 break;
@@ -61,8 +63,7 @@ public class TaskGenerator {
                         }
                     }
 
-                    Question initial = getLeastSeenQuestion(studentModel, "structure");
-                    return initial;
+                    return getLeastSeenQuestion(studentModel, "structure");
                 }
 
                 break;
@@ -71,13 +72,17 @@ public class TaskGenerator {
                     //make and return an imageTask with the first question from the studentModels.unseenQuestions that matches the level
                     List<Question> unseen = studentModel.getUserQuestionSet().getUnseenQuestions();
                     for (int i = 0; i< unseen.size(); i++){
-                        if(unseen.get(i).getType().equals("attachment") || unseen.get(i).getType().equals("structure")){
+                        if(unseen.get(i).getType().equals("structure")){
+                            return unseen.get(i);
+                        }
+                    }
+                    for (int i = 0; i< unseen.size(); i++){
+                        if(unseen.get(i).getType().equals("attachment")){
                             return unseen.get(i);
                         }
                     }
 
-                    Question initial = getLeastSeenQuestion(studentModel, "structure");
-                    return initial;
+                    return getLeastSeenQuestion(studentModel, "structure");
                 }
 
                 break;
@@ -87,13 +92,22 @@ public class TaskGenerator {
                     //make and return an imageTask with the first question from the studentModels.unseenQuestions that matches the level
                     List<Question> unseen = studentModel.getUserQuestionSet().getUnseenQuestions();
                     for (int i = 0; i< unseen.size(); i++){
-                        if(unseen.get(i).getType().equals("attachment") || unseen.get(i).getType().equals("structure") || unseen.get(i).getType().equals("zone")){
+                        if(unseen.get(i).getType().equals("structure")){
+                            return unseen.get(i);
+                        }
+                    }
+                    for (int i = 0; i< unseen.size(); i++){
+                        if(unseen.get(i).getType().equals("attachment")){
+                            return unseen.get(i);
+                        }
+                    }
+                    for (int i = 0; i< unseen.size(); i++){
+                        if(unseen.get(i).getType().equals("zone")){
                             return unseen.get(i);
                         }
                     }
 
-                    Question initial = getLeastSeenQuestion(studentModel, "zone");
-                    return initial;
+                    return getLeastSeenQuestion(studentModel, "structure");
                 }
 
                 break;
@@ -107,8 +121,7 @@ public class TaskGenerator {
                         }
                     }
 
-                    Question initial = getLeastSeenQuestion(studentModel, "zone");
-                    return initial;
+                    return getLeastSeenQuestion(studentModel, "zone");
                 }
 
 
