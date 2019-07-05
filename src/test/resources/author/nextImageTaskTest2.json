@@ -1,18 +1,11 @@
 {
-  "imageUrl" : "./images/demoEquine09.jpg",
+  "imageUrl" : "./images/demoEquine02.jpg",
   "taskQuestions" : [ {
-    "id" : "StructureQ2",
-    "type" : "structure",
-    "questionText" : "What structure is in the near field?",
-    "correctAnswer" : "ligament",
-    "possibleAnswers" : [ "bone", "ligament", "tumor", "tendon" ],
-    "imageUrl" : "./images/demoEquine09.jpg"
-  }, {
-    "id" : "ZoneQ3",
-    "type" : "zone",
-    "questionText" : "In what zone is this ultrasound taken?",
-    "correctAnswer" : "3c",
-    "possibleAnswers" : [ "1a", "1b", "2a", "2b", "2c", "3a", "3b", "3c" ],
-    "imageUrl" : "./images/demoEquine09.jpg"
+    "id" : "PlaneQ2",
+    "type" : "plane",
+    "questionText" : "On which plane is the ultrasound taken?",
+    "correctAnswer" : "Transverse",
+    "possibleAnswers" : [ "Transverse", "Lateral"],
+    "imageUrl" : "./images/demoEquine02.jpg"
   } ]
 }

@@ -53,13 +53,14 @@ public class TaskGeneratorTest {
 
         assertEquals("./images/demoEquine14.jpg", task1.getImageUrl());
 
-        assertEquals(4, task1.getTaskQuestions().size());
+        assertEquals(1, task1.getTaskQuestions().size());
 
         //make a new imageTask and check aspects of it
         ImageTask task2 = TaskGenerator.makeTask(studentModel);
         assertEquals("./images/demoEquine02.jpg", task2.getImageUrl());
-        assertEquals(5, task2.getTaskQuestions().size());
+        assertEquals(1, task2.getTaskQuestions().size());
 
+        assertEquals(5,4);
     }
 
     @Test
