@@ -4,6 +4,7 @@ import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
 import edu.ithaca.dragon.par.io.JsonDatastore;
+import edu.ithaca.dragon.par.io.StudentModelRecord;
 import edu.ithaca.dragon.util.DataUtil;
 import edu.ithaca.dragon.util.JsonUtil;
 import org.junit.jupiter.api.AfterEach;
@@ -207,5 +208,13 @@ public class StudentModelTest {
         assertEquals(6, StudentModel.calcLevel(m9));
 
 
+    }
+
+    @Test
+    public void calcLevelRealProblemTest() throws IOException{
+        QuestionPool realisticQuestionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/DemoQuestionPool.json"));
+        StudentModel studentModel = JsonUtil.fromJsonFile("src/test/resources/author/students/checkLevelBug.json", StudentModelRecord.class).buildStudentModel(realisticQuestionPool);
+        Map<String, Double> scoresPerType = studentModel.knowledgeScoreByType();
+        assertEquals(6, StudentModel.calcLevel(scoresPerType));
     }
 }
