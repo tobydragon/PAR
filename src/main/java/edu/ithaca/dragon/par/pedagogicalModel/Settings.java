@@ -10,6 +10,7 @@ public class Settings {
      private Boolean showScore;
      private Boolean mustSubmitAnswersToContinue;
      private Boolean canGiveNoAnswer;
+     private Boolean willDisplayFeedback;
 
 
      public boolean getUnsureShowsCorrectAnswer(){
@@ -30,7 +31,9 @@ public class Settings {
 
      public boolean getMustSubmitAnswersToContinue(){ return mustSubmitAnswersToContinue; }
 
-    public boolean getCanGiveNoAnswer(){ return canGiveNoAnswer; }
+     public boolean getCanGiveNoAnswer(){ return canGiveNoAnswer; }
+
+    public boolean getWillDisplayFeedback(){ return willDisplayFeedback; }
 
 
     public void setUnsureShowsCorrectAnswer(boolean setNew){
@@ -59,5 +62,9 @@ public class Settings {
 
     public void setCanGiveNoAnswer(boolean setNew){
         canGiveNoAnswer= setNew;
+    }
+
+    public void setWillDisplayFeedback(boolean setNew){
+        willDisplayFeedback= setNew;
     }
 }

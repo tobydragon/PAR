@@ -8,5 +8,6 @@
     "scoreType": "ByType",
     "showScore": "True",
     "mustSubmitAnswersToContinue": "False",
-    "canGiveNoAnswer": "True"
+    "canGiveNoAnswer": "True",
+    "willDisplayFeedback": "True"
   }

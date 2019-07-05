@@ -217,7 +217,7 @@ function checkAndRecordAnswers() {
                 addToTypesSeenForFeedback(questionTypes[i]);
             }
         } else if (currentAnswer != questionAnswers[i]) {
-            if(currentAnswer == "Unsure"){
+            if (currentAnswer == "Unsure") {
                 isCorrect = "Unsure";
             } else {
                 isCorrect = "Incorrect";
@@ -227,7 +227,9 @@ function checkAndRecordAnswers() {
         var displayAreaName = "questionCorrect" + i;
         document.getElementById(displayAreaName).innerHTML = displayCheck(isCorrect, questionAnswers[i], unsureShowsCorrectAnswer);
     }
-    generateFeedback();
+    if (willDisplayFeedback) {
+        generateFeedback();
+    }
 }
 
 function addToTypesSeenForFeedback(type) {
@@ -374,6 +376,7 @@ function getSettings() {
     showScore = settings.showScore;
     mustSubmitAnswersToContinue = settings.mustSubmitAnswersToContinue;
     canGiveNoAnswer = settings.canGiveNoAnswer;
+    willDisplayFeedback= settings.willDisplayFeedback;
 }
 
 //for testing purposes only

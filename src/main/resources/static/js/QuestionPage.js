@@ -14,6 +14,7 @@ var showScore;
 var mustSubmitAnswersToContinue;
 var numberOfQuestionsAnswered=0;
 var canGiveNoAnswer;
+var willDisplayFeedback;
 
 
 function nextQuestionSet(){
