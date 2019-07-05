@@ -96,7 +96,9 @@ public class StudentModel {
             if(scoresPerType.get(quesType.toString())==null){
                 orderedScores.add(-1.0);
             }
-            orderedScores.add(scoresPerType.get(quesType.toString()));
+            else {
+                orderedScores.add(scoresPerType.get(quesType.toString()));
+            }
         }
 
         return orderedScores;
