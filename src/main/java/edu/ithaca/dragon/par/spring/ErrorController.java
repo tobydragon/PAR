@@ -25,9 +25,14 @@ class ErrorController implements org.springframework.boot.web.servlet.error.Erro
 
     @RequestMapping(PATH)
     public String renderErrorPage(HttpServletRequest httpRequest, Model model, String message) {
-
+        int httpErrorCode;
         String errorMsg = "";
-        int httpErrorCode = getErrorCode(httpRequest);
+
+        if(httpRequest!=null) {
+            httpErrorCode = getErrorCode(httpRequest);
+        } else {
+            httpErrorCode= 500;
+        }
 
         switch (httpErrorCode) {
             case 400: {
