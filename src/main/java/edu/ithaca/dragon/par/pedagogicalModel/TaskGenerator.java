@@ -46,7 +46,7 @@ public class TaskGenerator {
                         }
                     }
 
-                    Question initial = getLeastSeenQuestion(studentModel, "plane");
+                    Question initial = getLeastSeenQuestion(studentModel, "structure");
                     return initial;
                 }
 
@@ -92,7 +92,7 @@ public class TaskGenerator {
                         }
                     }
 
-                    Question initial = getLeastSeenQuestion(studentModel, "structure");
+                    Question initial = getLeastSeenQuestion(studentModel, "zone");
                     return initial;
                 }
 
