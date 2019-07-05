@@ -1,3 +1,6 @@
+//
+//Canvas functions
+//
 window.addEventListener("load", canvasApp, false);
 
 function canvasSupport() {
@@ -57,12 +60,27 @@ function canvasApp() {
 
 }
 
-function sendUserId() {
-    if (userID != null) {
-        return userID;
-    } else {
-        return "Student";
+
+
+//
+//functions to create the questions
+//
+//Calls generateQuestion on the JSON object for the question at ith index
+function pageDisplay(imageTaskJSON) {
+    clearQuestionIDs();
+    if (showScore) {
+        document.getElementById("scoreTag").innerHTML = "<b class=\"size20\">Knowledge Base: </b>";
+        setCurrentScore();
     }
+    //Displays the questions at the tags
+    for (var i = 0; i < imageTaskJSON.taskQuestions.length; i++) {
+        generateQuestion(imageTaskJSON.taskQuestions[i]);
+    }
+    document.getElementById("Ids").innerHTML = questionIDs.toString();
+}
+
+function setUserId() {
+    document.getElementById("UserId").innerHTML = "&nbsp" + sendUserId();
 }
 
 //Gets JSON, reads it, and returns it
@@ -73,16 +91,6 @@ function readJson(url) {
 
     return JSON.parse(request.response);
 }
-//generates question for html based on the question given (the JSON)
-function generateQuestion(question) {
-    var difficultyStr = createFillIn(question);
-    amountOfQuestions++;
-
-    questionAnswers.push(question.correctAnswer);
-    questionIDs.push(question.id);
-    questionTypes.push(question.type);
-    displayQuestion(difficultyStr);
-}
 
 //display function for showing previously generated HTML of questions onscreen.
 function displayQuestion(displayHTML) {
@@ -90,29 +98,34 @@ function displayQuestion(displayHTML) {
 }
 
 //Creates radio question based on question given and difficulty for the html.
-function createRadioQuestion(json) {
+function createRadioQuestion(json, currentAmountOfQuestions) {
     var question = "<p>" + json.questionText + "</p>";
     for (var i = 0; i < json.possibleAnswers.length; i++) {
-        question += '<br> <input type="radio" name="' + ("q" + amountOfQuestions) + '" value="';
+        question += '<br> <input type="radio" name="' + ("q" + currentAmountOfQuestions) + '" value="';
         question = question + json.possibleAnswers[i] + '">' + json.possibleAnswers[i];
     }
     question += '<br> <input type="radio" name="I do not know" value="Unsure"';
-    question += '<br> <i id="questionCorrect"' + (amountOfQuestions) + '></i>';
+    question += '<br> <i id="questionCorrect"' + (currentAmountOfQuestions) + '></i>';
     return question;
 }
 
 //Creates fill in question based on question given and difficulty for the html.
-function createFillIn(json) {
-    var question = "<p>" + json.questionText + '</p> <input name="' + ("q" + (amountOfQuestions)) + '" list="' + ("list" + amountOfQuestions) + '"/> <datalist id="' + ("list" + amountOfQuestions) + '">';
+function createFillIn(json, currentAmountOfQuestions) {
+    var question = "<p>" + json.questionText + '</p> <input name="' + ("q" + (currentAmountOfQuestions)) + '" list="' + ("list" + currentAmountOfQuestions) + '"/> <datalist id="' + ("list" + currentAmountOfQuestions) + '">';
     for (var i = 0; i < json.possibleAnswers.length; i++) {
         question = question + '<option value="' + json.possibleAnswers[i] + '"/>';
     }
     question += '<option value="Unsure"/>';
     question += '</datalist>';
-    question += '<i id="' + "questionCorrect" + (amountOfQuestions) + '"></i>';
+    question += '<i id="' + "questionCorrect" + (currentAmountOfQuestions) + '"></i>';
     return question;
 }
 
+
+
+//
+//score functions
+//
 function generateScoreLevel() {
 
 }
@@ -171,73 +184,11 @@ function displayScoreBreakdown(breakdownString) {
     }
 }
 
-function setUserId() {
-    document.getElementById("UserId").innerHTML = "&nbsp" + sendUserId();
-}
-//Calls generateQuestion on the JSON object for the question at ith index
-function pageDisplay(imageTaskJSON) {
-    clearQuestionIDs();
-    if (showScore) {
-        document.getElementById("scoreTag").innerHTML = "<b class=\"size20\">Knowledge Base: </b>";
-        setCurrentScore();
-    }
-    //Displays the questions at the tags
-    for (var i = 0; i < imageTaskJSON.taskQuestions.length; i++) {
-        generateQuestion(imageTaskJSON.taskQuestions[i]);
-    }
-    document.getElementById("Ids").innerHTML = questionIDs.toString();
-}
-//Clears question IDs from working image task.
-function clearQuestionIDs() {
-    questionIDs = [];
-}
-//Removes all text from the screen at id questionSet to prep for next image task.
-function clearPage() {
-    document.getElementById('questionSet').innerHTML = " ";
-    amountOfQuestions = 0;
-}
 
-//Checks the answers given in the questions against the record of what is correct/incorrect.
-function checkAndRecordAnswers() {
-    var form = document.getElementById("form1");
-    for (var i = 0; i < amountOfQuestions; i++) {
-        var currentName = "q" + i;
-        var currentAnswer = form[currentName].value;
 
-        responsesGivenText.push(currentAnswer);
-
-        var isCorrect;
-        if (currentAnswer == questionAnswers[i]) {
-            isCorrect = "Correct";
-        } else if (currentAnswer == "") {
-            if (!canGiveNoAnswer) {
-                responsesGivenText.pop();
-            } else {
-                isCorrect = "Incorrect";
-                addToTypesSeenForFeedback(questionTypes[i]);
-            }
-        } else if (currentAnswer != questionAnswers[i]) {
-            if (currentAnswer == "Unsure") {
-                isCorrect = "Unsure";
-            } else {
-                isCorrect = "Incorrect";
-            }
-            addToTypesSeenForFeedback(questionTypes[i]);
-        }
-        var displayAreaName = "questionCorrect" + i;
-        document.getElementById(displayAreaName).innerHTML = displayCheck(isCorrect, questionAnswers[i], unsureShowsCorrectAnswer);
-    }
-    if (willDisplayFeedback) {
-        generateFeedback();
-    }
-}
-
-function addToTypesSeenForFeedback(type) {
-    if (!typesSeenForFeedback.includes(type)) {
-        typesSeenForFeedback.push(type);
-    }
-}
-
+//
+//Answering questions and feedback functions
+//
 function generateFeedback() {
     if (typesSeenForFeedback.length > 0) {
         document.getElementById("helpfulFeedback").innerHTML = "Feedback: ";
@@ -272,13 +223,22 @@ function displayCheck(value, rightAnwser, unsureShowsCorrectAnswerHere) {
         }
     }
 }
-//Clears the answers from the page.
-function clearQuestionAnswers() {
-    questionAnswers= [];
+
+function clearQuestionCorrectnessResponses() {
+    for (var i = 0; i < amountOfQuestions; i++) {
+        var displayAreaName = "questionCorrect" + i;
+        document.getElementById(displayAreaName).innerHTML = " ";
+    }
+
 }
 
-function clearResponses(){
-    responsesGivenText = [];
+function checkForAnswers() {
+    if (numberOfQuestionsAnswered == amountOfQuestions) {
+        return true;
+    } else {
+        document.getElementById("errorFeedback").innerHTML = '<font color=red>Must submit answers to continue</font>';
+        return false;
+    }
 }
 
 function reEnableSubmit() {
@@ -290,19 +250,11 @@ function disableSubmit() {
     document.getElementById("submitButtonTag").innerHTML = " ";
 }
 
-//  function toggleShowState(toggableElement) {
-//     var changeElement = document.getElementById(toggableElement).classList;
+
+
 //
-//     if (changeElement.contains("show") || changeElement.style.display == "block") {
-//         changeElement.remove("show");
-//         changeElement.add("hide");
-//     } else if (changeElement.contains("hide")) {
-//         changeElement.remove("hide");
-//         changeElement.add("show");
-//     }
-// }
-
-
+//Response functions
+//
 function createResponseJson() {
     var newResponse;
     if (userID != null) {
@@ -337,49 +289,17 @@ function submitToAPI(url, objectToSubmit) {
     };
 }
 
-function clearQuestionCorrectnessResponses() {
-    for (var i = 0; i < amountOfQuestions; i++) {
-        var displayAreaName = "questionCorrect" + i;
-        document.getElementById(displayAreaName).innerHTML = " ";
-    }
-
+function createResponses(){
+    var object = createResponseJson();
+    submitToAPI("api/recordResponse", object);
 }
 
-function checkForAnswers() {
-    if (numberOfQuestionsAnswered == amountOfQuestions) {
-        return true;
-    } else {
-        document.getElementById("errorFeedback").innerHTML = '<font color=red>Must submit answers to continue</font>';
-        return false;
-    }
-}
 
-function logout() {
-    userID = null;
-    return location.replace('/login');
-}
 
-function getSettings() {
-    try {
-        var settings = readJson("api/getSettings");
 
-    } catch (Exception) {
-        window.onerror = function (msg) {
-            location.replace('/error?message=' + msg);
-        }
-    }
-
-    unsureShowsCorrectAnswer = settings.unsureShowsCorrectAnswer;
-    feedbackByType = settings.feedbackByType;
-    ableToResubmitAnswers = settings.ableToResubmitAnswers;
-    scoreType = settings.scoreType;
-    showScore = settings.showScore;
-    mustSubmitAnswersToContinue = settings.mustSubmitAnswersToContinue;
-    canGiveNoAnswer = settings.canGiveNoAnswer;
-    willDisplayFeedback= settings.willDisplayFeedback;
-}
-
+//
 //for testing purposes only
+//
 function testSetVariables() {
     responsesGivenText = ["Lateral", "ligament", "Unsure"];
     questionIDs = ["PlaneQ1", "StructureQ1", "ZoneQ1"];
