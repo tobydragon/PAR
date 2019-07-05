@@ -16,7 +16,7 @@ public class EquineQuestionTemplateCreator {
             "What is the the hyperechoic structure?",
             "What is the the hypoechoic structure?",
             "What is the structure in the near field?",
-            "What is the in the far field?");
+            "What is the structure in the far field?");
 
     public static final List<String> structureResponses = Arrays.asList(
             "Superficial digital flexor tendon",

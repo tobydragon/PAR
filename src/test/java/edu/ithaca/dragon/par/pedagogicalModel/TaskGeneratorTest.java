@@ -59,8 +59,6 @@ public class TaskGeneratorTest {
         ImageTask task2 = TaskGenerator.makeTask(studentModel);
         assertEquals("./images/demoEquine02.jpg", task2.getImageUrl());
         assertEquals(1, task2.getTaskQuestions().size());
-
-        assertEquals(5,4);
     }
 
     @Test
