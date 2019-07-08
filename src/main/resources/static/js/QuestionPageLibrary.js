@@ -219,7 +219,7 @@ function displayCheck(value, rightAnwser, unsureShowsCorrectAnswerHere) {
 
     if (value == "Unsure") {
         if (unsureShowsCorrectAnswerHere == true) {
-            return '<font color=\"#663399\">' + "The right answer is" + rightAnwser + '</font>';
+            return '<font color=\"#663399\">' + "The right answer is " + rightAnwser + '</font>';
         }
     }
 }
@@ -289,7 +289,7 @@ function submitToAPI(url, objectToSubmit) {
     };
 }
 
-function createResponses(){
+function createResponses() {
     var object = createResponseJson();
     submitToAPI("api/recordResponse", object);
 }
