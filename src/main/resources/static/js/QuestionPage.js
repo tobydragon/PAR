@@ -101,13 +101,13 @@ function checkAnswers() {
     displayCheckAndRecordAnswers();
     //call CreateResponse to send answers back to the server
     numberOfQuestionsAnswered = responsesGivenText.length;
-    if (numberOfQuestionsAnswered == amountOfQuestions) {
-        createResponses();
-    } else {
-        document.getElementById("errorFeedback").innerHTML = "<font color=red>No response was recorded because you did not answer all the questions</font>";
-        clearFeedback();
-        clearQuestionCorrectnessResponses();
-    }
+    //if (numberOfQuestionsAnswered == amountOfQuestions) {
+    createResponses();
+    //} else {
+    //    document.getElementById("errorFeedback").innerHTML = "<font color=red>No response was recorded because you did not answer all the questions</font>";
+    //    clearFeedback();
+    //    clearQuestionCorrectnessResponses();
+    //}
     if (!ableToResubmitAnswers) {
         disableSubmit();
     }
@@ -129,17 +129,13 @@ function displayCheckAndRecordAnswers() {
         var isCorrect;
         if (currentAnswer == "Unsure") {
             console.log(currentAnswer);
-            disableField('optionUnsure', 'list0');
+            disableField('optionUnsure', currentName);
         }
         if (currentAnswer == questionAnswers[i]) {
             isCorrect = "Correct";
         } else if (currentAnswer == "") {
-            if (!canGiveNoAnswer) {
-                responsesGivenText.pop();
-            } else {
-                isCorrect = "Incorrect";
-                addToTypesSeenForFeedback(questionTypes[i]);
-            }
+            responsesGivenText.pop();
+            isCorrect = "blank";
         } else if (currentAnswer != questionAnswers[i]) {
             if (currentAnswer == "Unsure") {
                 isCorrect = "Unsure";

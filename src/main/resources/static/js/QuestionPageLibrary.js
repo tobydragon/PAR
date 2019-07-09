@@ -112,12 +112,21 @@ function createRadioQuestion(json, currentAmountOfQuestions) {
 //Creates fill in question based on question given and difficulty for the html.
 function createFillIn(json, currentAmountOfQuestions) {
     var i;
-    var question = "<p>" + json.questionText + '</p> <input name="' + ("q" + (currentAmountOfQuestions)) + '" list="' + ("list" + currentAmountOfQuestions) + '"/> <datalist id="' + ("list" + currentAmountOfQuestions) + '">';
+    /**    var question = "<p>" + json.questionText + '</p> <input name="' + ("q" + (currentAmountOfQuestions)) + '" list="' + ("list" + currentAmountOfQuestions) + '"/> <datalist id="' + ("list" + currentAmountOfQuestions) + '">';
+        for (i = 0; i < json.possibleAnswers.length; i++) {
+            question = question + '<option id= "option' + i + '" value="' + json.possibleAnswers[i] + '"/>';
+        }
+        question += '<option id= "optionUnsure" value="Unsure"/>';
+        question += '</datalist>';
+        question += '<i id="' + "questionCorrect" + (currentAmountOfQuestions) + '"></i>';
+        return question;
+        **/
+    var question = "<p>" + json.questionText + '</p> <select id="' + ("q" + (currentAmountOfQuestions)) + '">';
     for (i = 0; i < json.possibleAnswers.length; i++) {
-        question = question + '<option id= "option' + i + '" value="' + json.possibleAnswers[i] + '"/>';
+        question = question + '<option id="option' + i + '">' + json.possibleAnswers[i] + '</option>';
     }
-    question += '<option id= "optionUnsure" value="Unsure"/>';
-    question += '</datalist>';
+    question += '<option id="optionUnsure">Unsure</option>';
+    question += '</select>';
     question += '<i id="' + "questionCorrect" + (currentAmountOfQuestions) + '"></i>';
     return question;
 }
@@ -223,6 +232,9 @@ function displayCheck(value, rightAnwser, unsureShowsCorrectAnswerHere) {
             return '<font color=\"#663399\">' + "The right answer is " + rightAnwser + '</font>';
         }
     }
+    if (value == "blank") {
+        return "";
+    }
 }
 
 function clearQuestionCorrectnessResponses() {
@@ -296,7 +308,7 @@ function createResponses() {
 }
 
 function disableField(elementToCheck, elementToToggle) {
-    console.log("3 " + elementToToggle);
+    console.log("1 " + elementToToggle);
     console.log("2 " + document.getElementById(elementToCheck).value);
     if (document.getElementById(elementToCheck).value == "Unsure") {
         document.getElementById(elementToToggle).disabled = true;
