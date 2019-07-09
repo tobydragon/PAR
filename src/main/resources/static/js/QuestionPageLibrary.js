@@ -230,6 +230,8 @@ function displayCheck(value, rightAnwser, unsureShowsCorrectAnswerHere) {
     if (value == "Unsure") {
         if (unsureShowsCorrectAnswerHere == true) {
             return '<font color=\"#663399\">' + "The right answer is " + rightAnwser + '</font>';
+        } else {
+            return '<font color="#663399">Your answer is: Unsure</font>';
         }
     }
     if (value == "blank") {
