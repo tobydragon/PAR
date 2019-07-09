@@ -31,7 +31,7 @@ describe("QuestionPageLibraryTest", function () {
     it("toggleEnableState to correctly enable or disable class field of element", function () {
         var testElementDiv = document.createElement("input");
         var testElement = testElementDiv.id = "testing";
-        expect(disableClass(testElement, true)).toBe((testElement.disabled = true));
-        expect(disableClass(testElement, true)).toBe((testElement.disabled = false));
+        expect(disableField(testElement)).toBe((testElement.disabled = true));
+        expect(disableField(testElement)).toBe((testElement.disabled = false));
     });
 });

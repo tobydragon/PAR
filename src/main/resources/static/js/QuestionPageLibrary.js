@@ -111,11 +111,12 @@ function createRadioQuestion(json, currentAmountOfQuestions) {
 
 //Creates fill in question based on question given and difficulty for the html.
 function createFillIn(json, currentAmountOfQuestions) {
+    var i;
     var question = "<p>" + json.questionText + '</p> <input name="' + ("q" + (currentAmountOfQuestions)) + '" list="' + ("list" + currentAmountOfQuestions) + '"/> <datalist id="' + ("list" + currentAmountOfQuestions) + '">';
-    for (var i = 0; i < json.possibleAnswers.length; i++) {
-        question = question + '<option value="' + json.possibleAnswers[i] + '"/>';
+    for (i = 0; i < json.possibleAnswers.length; i++) {
+        question = question + '<option id= "option' + i + '" value="' + json.possibleAnswers[i] + '"/>';
     }
-    question += '<option value="Unsure"/>';
+    question += '<option id= "optionUnsure" value="Unsure"/>';
     question += '</datalist>';
     question += '<i id="' + "questionCorrect" + (currentAmountOfQuestions) + '"></i>';
     return question;
@@ -294,9 +295,13 @@ function createResponses() {
     submitToAPI("api/recordResponse", object);
 }
 
-function disableClass(elementToToggle, shouldToggle) {
-    if (shouldToggle) {
+function disableField(elementToCheck, shouldToggle) {
+    console.log("1 " + shouldToggle);
+    console.log("3 " + elementToCheck);
+    console.log("2 " + document.getElementById(elementToCheck).value);
+    if (shouldToggle && document.getElementById(elementToCheck).value == "Unsure") {
         document.getElementById(elementToToggle).disabled = true;
+        console.log("disabled it");
     } else {
         document.getElementById(elementToToggle).disabled = false;
     }

@@ -127,6 +127,10 @@ function displayCheckAndRecordAnswers() {
         responsesGivenText.push(currentAnswer);
 
         var isCorrect;
+        if (currentAnswer == "Unsure") {
+            console.log(currentAnswer);
+            disableField('optionUnsure', 'list0');
+        }
         if (currentAnswer == questionAnswers[i]) {
             isCorrect = "Correct";
         } else if (currentAnswer == "") {
