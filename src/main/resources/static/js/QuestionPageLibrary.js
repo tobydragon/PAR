@@ -294,7 +294,13 @@ function createResponses() {
     submitToAPI("api/recordResponse", object);
 }
 
-
+function disableClass(elementToToggle, shouldToggle) {
+    if (shouldToggle) {
+        document.getElementById(elementToToggle).disabled = true;
+    } else {
+        document.getElementById(elementToToggle).disabled = false;
+    }
+}
 
 
 //

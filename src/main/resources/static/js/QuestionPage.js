@@ -1,10 +1,10 @@
 var amountOfQuestions = 0;
 var questionAnswers = [];
-var userID= null;
+var userID = null;
 var responsesGivenText = [];
 var questionIDs = [];
 var questionTypes = [];
-var typesSeenForFeedback= [];
+var typesSeenForFeedback = [];
 
 var unsureShowsCorrectAnswer;
 var feedbackByType;
@@ -12,7 +12,7 @@ var ableToResubmitAnswers;
 var scoreType;
 var showScore;
 var mustSubmitAnswersToContinue;
-var numberOfQuestionsAnswered=0;
+var numberOfQuestionsAnswered = 0;
 var canGiveNoAnswer;
 var willDisplayFeedback;
 
@@ -40,10 +40,10 @@ function clearPage() {
 
 //Clears the answers from the page.
 function clearQuestionAnswers() {
-    questionAnswers= [];
+    questionAnswers = [];
 }
 
-function clearResponses(){
+function clearResponses() {
     responsesGivenText = [];
 }
 
@@ -69,11 +69,11 @@ function getSettings() {
     showScore = settings.showScore;
     mustSubmitAnswersToContinue = settings.mustSubmitAnswersToContinue;
     canGiveNoAnswer = settings.canGiveNoAnswer;
-    willDisplayFeedback= settings.willDisplayFeedback;
+    willDisplayFeedback = settings.willDisplayFeedback;
 }
 
-function addToTypesSeenForFeedback(type){
-    if(!typesSeenForFeedback.includes(type)){
+function addToTypesSeenForFeedback(type) {
+    if (!typesSeenForFeedback.includes(type)) {
         typesSeenForFeedback.push(type);
     }
 }
@@ -96,22 +96,22 @@ function generateQuestion(question) {
 
 function checkAnswers() {
     console.log(questionAnswers);
-    document.getElementById("errorFeedback").innerHTML =" ";
+    document.getElementById("errorFeedback").innerHTML = " ";
     //check and report to the user what they got right or wrong as well as add to list responsesGivenText
     displayCheckAndRecordAnswers();
     //call CreateResponse to send answers back to the server
-    numberOfQuestionsAnswered= responsesGivenText.length;
-    if(numberOfQuestionsAnswered==amountOfQuestions) {
+    numberOfQuestionsAnswered = responsesGivenText.length;
+    if (numberOfQuestionsAnswered == amountOfQuestions) {
         createResponses();
     } else {
-        document.getElementById("errorFeedback").innerHTML ="<font color=red>No response was recorded because you did not answer all the questions</font>";
+        document.getElementById("errorFeedback").innerHTML = "<font color=red>No response was recorded because you did not answer all the questions</font>";
         clearFeedback();
         clearQuestionCorrectnessResponses();
     }
-    if (!ableToResubmitAnswers ) {
+    if (!ableToResubmitAnswers) {
         disableSubmit();
     }
-    if(!canGiveNoAnswer && numberOfQuestionsAnswered!=amountOfQuestions){
+    if (!canGiveNoAnswer && numberOfQuestionsAnswered != amountOfQuestions) {
         reEnableSubmit();
     }
     clearResponses();
@@ -152,24 +152,20 @@ function displayCheckAndRecordAnswers() {
     }
 }
 
-function nextQuestionSet(){
-    typesSeenForFeedback=[];
+function nextQuestionSet() {
+    typesSeenForFeedback = [];
     clearQuestionAnswers();
-    var canContinue= true;
-    if(mustSubmitAnswersToContinue){
-        canContinue= checkForAnswers();
+    var canContinue = true;
+    if (mustSubmitAnswersToContinue) {
+        canContinue = checkForAnswers();
     }
-    if(canContinue) {
+    if (canContinue) {
         clearPage();
         clearFeedback();
         canvasApp();
         if (!ableToResubmitAnswers) {
             reEnableSubmit();
         }
-        document.getElementById("errorFeedback").innerHTML =" ";
+        document.getElementById("errorFeedback").innerHTML = " ";
     }
 }
-
-
-
-
