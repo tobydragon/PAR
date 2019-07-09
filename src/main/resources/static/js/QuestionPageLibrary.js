@@ -295,11 +295,10 @@ function createResponses() {
     submitToAPI("api/recordResponse", object);
 }
 
-function disableField(elementToCheck, shouldToggle) {
-    console.log("1 " + shouldToggle);
-    console.log("3 " + elementToCheck);
+function disableField(elementToCheck, elementToToggle) {
+    console.log("3 " + elementToToggle);
     console.log("2 " + document.getElementById(elementToCheck).value);
-    if (shouldToggle && document.getElementById(elementToCheck).value == "Unsure") {
+    if (document.getElementById(elementToCheck).value == "Unsure") {
         document.getElementById(elementToToggle).disabled = true;
         console.log("disabled it");
     } else {
