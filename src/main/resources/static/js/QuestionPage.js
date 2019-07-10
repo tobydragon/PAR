@@ -85,7 +85,7 @@ function addToTypesSeenForFeedback(type) {
 
 //generates question for html based on the question given (the JSON)
 function generateQuestion(question) {
-    var difficultyStr = createFillIn(question, amountOfQuestions);
+    var difficultyStr = createDatalistDropdown(question, amountOfQuestions);
     amountOfQuestions++;
 
     questionAnswers.push(question.correctAnswer);
@@ -119,7 +119,7 @@ function checkAnswers() {
 
 //Checks the answers given in the questions against the record of what is correct/incorrect.
 function displayCheckAndRecordAnswers() {
-    var form = document.getElementById("form1");
+    var form = document.getElementById("questionSetForm");
     for (var i = 0; i < amountOfQuestions; i++) {
         var currentName = "q" + i;
         var currentAnswer = form[currentName].value;

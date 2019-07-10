@@ -8,7 +8,7 @@ describe("QuestionPageLibraryTest", function () {
             "possibleAnswers": ["testAnswer1", "testAnswer2"],
             "imageUrl": "./images/demoTest01.jpg"
         };
-        expect(createFillIn(test)).toBe('<p>What is the the square root of -1?</p> <select id="q0"><option id="option0">testAnswer1</option><option id="option1">testAnswer2</option><option id="optionUnsure">Unsure</option></select><i id="questionCorrect0"></i>');
+        expect(createFillIn(test, 0)).toBe('<p>What is the the square root of -1?</p> <select id="q0"><option id="option0">testAnswer1</option><option id="option1">testAnswer2</option><option id="optionUnsure">Unsure</option></select><i id="questionCorrect0"></i>');
     });
     /**
         it("check to make sure createFillin makes a good attachment question", function () {
@@ -26,12 +26,15 @@ describe("QuestionPageLibraryTest", function () {
         expect(displayCheck("Correct")).toBe("<font color=\"green\">Your answer is: Correct</font>");
         expect(displayCheck("Incorrect")).toBe("<font color=\"red\">Your answer is: Incorrect</font>");
         expect(displayCheck("Unsure", "something", false)).toBe('<font color="#663399">Your answer is: Unsure</font>');
-        expect(displayCheck("Unsure", "something", true)).toBe('<font color="#663399">The right answer is something</font>');
+        expect(displayCheck("Unsure", "something", true)).toBe('<font color="#663399">The correct answer is something</font>');
     });
     it("disableField to correctly enable or disable class field of element", function () {
         var testElementDiv = document.createElement("input");
-        var testElement = testElementDiv.id = "testing";
-        expect(disableField(testElement)).toBe((testElement.disabled = true));
-        expect(disableField(testElement)).toBe((testElement.disabled = false));
+        var testElementId = testElementDiv.id = "testing";
+        var testElementValue = testElementDiv.value = "Unsure";
+
+        expect(disableField(testElementValue, testElementDiv)).toBe((testElementDiv.disabled = true));
+        testElementValue = "otherWords";
+        expect(disableField(testElementValue, testElementDiv)).toBe((testElementDiv.disabled = false));
     });
 });

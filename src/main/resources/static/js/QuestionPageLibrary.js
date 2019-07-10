@@ -109,18 +109,20 @@ function createRadioQuestion(json, currentAmountOfQuestions) {
     return question;
 }
 
-//Creates fill in question based on question given and difficulty for the html.
-function createFillIn(json, currentAmountOfQuestions) {
+//Creates datalist dropdown based on a question given for the html.
+function createDatalistDropdown(json, currentAmountOfQuestions) {
     var i;
-    /**    var question = "<p>" + json.questionText + '</p> <input name="' + ("q" + (currentAmountOfQuestions)) + '" list="' + ("list" + currentAmountOfQuestions) + '"/> <datalist id="' + ("list" + currentAmountOfQuestions) + '">';
-        for (i = 0; i < json.possibleAnswers.length; i++) {
-            question = question + '<option id= "option' + i + '" value="' + json.possibleAnswers[i] + '"/>';
-        }
-        question += '<option id= "optionUnsure" value="Unsure"/>';
-        question += '</datalist>';
-        question += '<i id="' + "questionCorrect" + (currentAmountOfQuestions) + '"></i>';
-        return question;
-        **/
+    var question = "<p>" + json.questionText + '</p> <input id="' + ("q" + (currentAmountOfQuestions)) + '" list="' + ("list" + currentAmountOfQuestions) + '"/> <datalist id="' + ("list" + currentAmountOfQuestions) + '">';
+    for (i = 0; i < json.possibleAnswers.length; i++) {
+        question = question + '<option id= "option' + i + '" value="' + json.possibleAnswers[i] + '"/>';
+    }
+    question += '<option id= "optionUnsure" value="Unsure"/>';
+    question += '</datalist>';
+    question += '<i id="' + "questionCorrect" + (currentAmountOfQuestions) + '"></i>';
+    return question;
+}
+//Creates select dropdown based on a question given for the html.
+function createSelectDropdown(json, currentAmountOfQuestions) {
     var question = "<p>" + json.questionText + '</p> <select id="' + ("q" + (currentAmountOfQuestions)) + '">';
     for (i = 0; i < json.possibleAnswers.length; i++) {
         question = question + '<option id="option' + i + '">' + json.possibleAnswers[i] + '</option>';
@@ -130,7 +132,6 @@ function createFillIn(json, currentAmountOfQuestions) {
     question += '<i id="' + "questionCorrect" + (currentAmountOfQuestions) + '"></i>';
     return question;
 }
-
 
 
 //
@@ -229,7 +230,7 @@ function displayCheck(value, rightAnwser, unsureShowsCorrectAnswerHere) {
 
     if (value == "Unsure") {
         if (unsureShowsCorrectAnswerHere == true) {
-            return '<font color=\"#663399\">' + "The right answer is " + rightAnwser + '</font>';
+            return '<font color=\"#663399\">' + "The correct answer is " + rightAnwser + '</font>';
         } else {
             return '<font color="#663399">Your answer is: Unsure</font>';
         }
@@ -310,11 +311,8 @@ function createResponses() {
 }
 
 function disableField(elementToCheck, elementToToggle) {
-    console.log("1 " + elementToToggle);
-    console.log("2 " + document.getElementById(elementToCheck).value);
     if (document.getElementById(elementToCheck).value == "Unsure") {
         document.getElementById(elementToToggle).disabled = true;
-        console.log("disabled it");
     } else {
         document.getElementById(elementToToggle).disabled = false;
     }
