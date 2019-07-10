@@ -1,0 +1,511 @@
+[ {
+  "id" : "plane./images/demoEquine14.jpg",
+  "type" : "plane",
+  "questionText" : "On which plane is the ultrasound taken?",
+  "correctAnswer" : "longitudinal",
+  "possibleAnswers" : [ "transverse", "longitudinal" ],
+  "imageUrl" : "./images/demoEquine14.jpg",
+  "followupQuestions" : null
+}, {
+  "id" : "structure0./images/demoEquine14.jpg",
+  "type" : "structure",
+  "questionText" : "What is the the hyperechoic structure?",
+  "correctAnswer" : "Palmar metacarpal vessels (medial/lateral)",
+  "possibleAnswers" : [ "Superficial digital flexor endon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (We use Accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/demoEquine14.jpg",
+  "followupQuestions" : [ {
+    "id" : "AttachQ1",
+    "type" : "Attachment",
+    "questionText" : "Which attachment is this?",
+    "correctAnswer" : "Type1",
+    "possibleAnswers" : [ "Type1", "Type2", "Type3" ],
+    "imageUrl" : "./images/demoEquine14.jpg",
+    "followupQuestions" : null
+  }, {
+    "id" : "AttachQ2",
+    "type" : "Attachment",
+    "questionText" : "Which attachment is this?",
+    "correctAnswer" : "Type3",
+    "possibleAnswers" : [ "Type1", "Type2", "Type3" ],
+    "imageUrl" : "./images/demoEquine14.jpg",
+    "followupQuestions" : null
+  }, {
+    "id" : "AttachQ3",
+    "type" : "Attachment",
+    "questionText" : "Which attachment is this?",
+    "correctAnswer" : "Type2",
+    "possibleAnswers" : [ "Type1", "Type2", "Type3" ],
+    "imageUrl" : "./images/demoEquine14.jpg",
+    "followupQuestions" : [ {
+      "id" : "BonusQ1",
+      "type" : "Plane",
+      "questionText" : "This is a followup to a followup question!",
+      "correctAnswer" : "Sweet!",
+      "possibleAnswers" : [ "Nice!", "Sweet!", "Cool!" ],
+      "imageUrl" : "./images/demoEquine14.jpg",
+      "followupQuestions" : null
+    } ]
+  } ]
+},  {
+  "id" : "structure2./images/demoEquine14.jpg",
+  "type" : "structure",
+  "questionText" : "What is the structure in the near field?",
+  "correctAnswer" : "Suspensory ligament (branches)",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (We use Accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/demoEquine14.jpg",
+  "followupQuestions" : null
+}, {
+  "id" : "structure3./images/demoEquine14.jpg",
+  "type" : "structure",
+  "questionText" : "What is the in the far field?",
+  "correctAnswer" : "Metacarpus bone 3 (Third metacarpal bone)",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (We use Accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/demoEquine14.jpg",
+  "followupQuestions" : null
+}, {
+  "id" : "zone./images/demoEquine14.jpg",
+  "type" : "zone",
+  "questionText" : "in which zone is the ultrasound taken?",
+  "correctAnswer" : "1A",
+  "possibleAnswers" : [ "1", "1A", "1B", "2", "2A", "2B", "3", "3A", "3B", "3C" ],
+  "imageUrl" : "./images/demoEquine14.jpg",
+  "followupQuestions" : null
+}, {
+  "id" : "plane./images/demoEquine02.jpg",
+  "type" : "plane",
+  "questionText" : "On which plane is the ultrasound taken?",
+  "correctAnswer" : "longitudinal",
+  "possibleAnswers" : [ "transverse", "longitudinal" ],
+  "imageUrl" : "./images/demoEquine02.jpg",
+  "followupQuestions" : null
+}, {
+  "id" : "structure0./images/demoEquine02.jpg",
+  "type" : "structure",
+  "questionText" : "What is the the hyperechoic structure?",
+  "correctAnswer" : "Superficial digital flexor tendon",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (We use Accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/demoEquine02.jpg",
+  "followupQuestions" : null
+}, {
+  "id" : "structure1./images/demoEquine02.jpg",
+  "type" : "structure",
+  "questionText" : "What is the the hypoechoic structure?",
+  "correctAnswer" : "Suspensory ligament (branches)",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (We use Accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/demoEquine02.jpg",
+  "followupQuestions" : [{
+    "id" : "AttachQ4",
+    "type" : "Attachment",
+    "questionText" : "Which attachment is this?",
+    "correctAnswer" : "Type2",
+    "possibleAnswers" : [ "Type1", "Type2", "Type3" ],
+    "imageUrl" : "./images/demoEquine02.jpg",
+    "followupQuestions" : [ {
+      "id" : "BonusQ2",
+      "type" : "Plane",
+      "questionText" : "This is a followup to a followup question!",
+      "correctAnswer" : "Cool!",
+      "possibleAnswers" : [ "Nice!", "Sweet!", "Cool!" ],
+      "imageUrl" : "./images/demoEquine02.jpg",
+      "followupQuestions" : null
+    } ]
+  } ]
+}, {
+  "id" : "structure2./images/demoEquine02.jpg",
+  "type" : "structure",
+  "questionText" : "What is the structure in the near field?",
+  "correctAnswer" : "Distal check ligament (We use Accessory ligament of the deep digital flexor tendon)",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (We use Accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/demoEquine02.jpg",
+  "followupQuestions" : null
+}, {
+  "id" : "structure3./images/demoEquine02.jpg",
+  "type" : "structure",
+  "questionText" : "What is the in the far field?",
+  "correctAnswer" : "Metacarpus bone 3 (Third metacarpal bone)",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (We use Accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/demoEquine02.jpg",
+  "followupQuestions" : null
+}, {
+  "id" : "zone./images/demoEquine02.jpg",
+  "type" : "zone",
+  "questionText" : "in which zone is the ultrasound taken?",
+  "correctAnswer" : "3",
+  "possibleAnswers" : [ "1", "1A", "1B", "2", "2A", "2B", "3", "3A", "3B", "3C" ],
+  "imageUrl" : "./images/demoEquine02.jpg",
+  "followupQuestions" : null
+}, {
+  "id" : "plane./images/demoEquine13.jpg",
+  "type" : "plane",
+  "questionText" : "On which plane is the ultrasound taken?",
+  "correctAnswer" : "transverse",
+  "possibleAnswers" : [ "transverse", "longitudinal" ],
+  "imageUrl" : "./images/demoEquine13.jpg",
+  "followupQuestions" : null
+}, {
+  "id" : "structure0./images/demoEquine13.jpg",
+  "type" : "structure",
+  "questionText" : "What is the the hyperechoic structure?",
+  "correctAnswer" : "Palmar annular ligament",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (We use Accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/demoEquine13.jpg",
+  "followupQuestions" : null
+},  {
+  "id" : "structure3./images/demoEquine13.jpg",
+  "type" : "structure",
+  "questionText" : "What is the in the far field?",
+  "correctAnswer" : "Suspensory ligament (body)",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (We use Accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/demoEquine13.jpg",
+  "followupQuestions" : null
+}, {
+  "id" : "zone./images/demoEquine13.jpg",
+  "type" : "zone",
+  "questionText" : "in which zone is the ultrasound taken?",
+  "correctAnswer" : "3B",
+  "possibleAnswers" : [ "1", "1A", "1B", "2", "2A", "2B", "3", "3A", "3B", "3C" ],
+  "imageUrl" : "./images/demoEquine13.jpg",
+  "followupQuestions" : null
+}, {
+  "id" : "plane./images/demoEquine04.jpg",
+  "type" : "plane",
+  "questionText" : "On which plane is the ultrasound taken?",
+  "correctAnswer" : "longitudinal",
+  "possibleAnswers" : [ "transverse", "longitudinal" ],
+  "imageUrl" : "./images/demoEquine04.jpg",
+  "followupQuestions" : null
+}, {
+  "id" : "structure0./images/demoEquine04.jpg",
+  "type" : "structure",
+  "questionText" : "What is the the hyperechoic structure?",
+  "correctAnswer" : "Palmar ligament",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (We use Accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/demoEquine04.jpg",
+  "followupQuestions" : [ {
+      "id": "AttachQ5",
+      "type": "Attachment",
+      "questionText": "Which attachment is this?",
+      "correctAnswer": "Type3",
+      "possibleAnswers": [
+        "Type1",
+        "Type2",
+        "Type3"
+      ],
+      "imageUrl": "./images/demoEquine04.jpg",
+      "followupQuestions": null
+    } ]
+  },  {
+  "id" : "zone./images/demoEquine04.jpg",
+  "type" : "zone",
+  "questionText" : "in which zone is the ultrasound taken?",
+  "correctAnswer" : "1",
+  "possibleAnswers" : [ "1", "1A", "1B", "2", "2A", "2B", "3", "3A", "3B", "3C" ],
+  "imageUrl" : "./images/demoEquine04.jpg",
+  "followupQuestions" : null
+}, {
+  "id" : "plane./images/demoEquine10.jpg",
+  "type" : "plane",
+  "questionText" : "On which plane is the ultrasound taken?",
+  "correctAnswer" : "transverse",
+  "possibleAnswers" : [ "transverse", "longitudinal" ],
+  "imageUrl" : "./images/demoEquine10.jpg",
+  "followupQuestions" : null
+}, {
+  "id" : "structure0./images/demoEquine10.jpg",
+  "type" : "structure",
+  "questionText" : "What is the the hyperechoic structure?",
+  "correctAnswer" : "Superficial digital flexor tendon",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (We use Accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/demoEquine10.jpg",
+  "followupQuestions" : null
+}, {
+  "id" : "structure1./images/demoEquine10.jpg",
+  "type" : "structure",
+  "questionText" : "What is the the hypoechoic structure?",
+  "correctAnswer" : "Deep digital flexor tendon",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (We use Accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/demoEquine10.jpg",
+  "followupQuestions" : null
+}, {
+  "id" : "structure2./images/demoEquine10.jpg",
+  "type" : "structure",
+  "questionText" : "What is the structure in the near field?",
+  "correctAnswer" : "Suspensory ligament (branches)",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (We use Accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/demoEquine10.jpg",
+  "followupQuestions" : null
+}, {
+  "id" : "structure3./images/demoEquine10.jpg",
+  "type" : "structure",
+  "questionText" : "What is the in the far field?",
+  "correctAnswer" : "Suspensory ligament (body)",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (We use Accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/demoEquine10.jpg",
+  "followupQuestions" : [ {
+    "id" : "AttachQ6",
+    "type" : "Attachment",
+    "questionText" : "Which attachment is this?",
+    "correctAnswer" : "Type1",
+    "possibleAnswers" : [ "Type1", "Type2", "Type3" ],
+    "imageUrl" : "./images/demoEquine10.jpg",
+    "followupQuestions" : null
+  }, {
+    "id" : "AttachQ7",
+    "type" : "Attachment",
+    "questionText" : "Which attachment is this?",
+    "correctAnswer" : "Type3",
+    "possibleAnswers" : [ "Type1", "Type2", "Type3" ],
+    "imageUrl" : "./images/demoEquine10.jpg",
+    "followupQuestions" : null
+  }]
+}, {
+  "id" : "zone./images/demoEquine10.jpg",
+  "type" : "zone",
+  "questionText" : "in which zone is the ultrasound taken?",
+  "correctAnswer" : "1B",
+  "possibleAnswers" : [ "1", "1A", "1B", "2", "2A", "2B", "3", "3A", "3B", "3C" ],
+  "imageUrl" : "./images/demoEquine10.jpg",
+  "followupQuestions" : null
+}, {
+  "id" : "plane./images/demoEquine11.jpg",
+  "type" : "plane",
+  "questionText" : "On which plane is the ultrasound taken?",
+  "correctAnswer" : "longitudinal",
+  "possibleAnswers" : [ "transverse", "longitudinal" ],
+  "imageUrl" : "./images/demoEquine11.jpg",
+  "followupQuestions" : null
+}, {
+  "id" : "structure0./images/demoEquine11.jpg",
+  "type" : "structure",
+  "questionText" : "What is the the hyperechoic structure?",
+  "correctAnswer" : "Distal check ligament (We use Accessory ligament of the deep digital flexor tendon)",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (We use Accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/demoEquine11.jpg",
+  "followupQuestions" : null
+}, {
+  "id" : "structure3./images/demoEquine11.jpg",
+  "type" : "structure",
+  "questionText" : "What is the in the far field?",
+  "correctAnswer" : "Deep digital flexor tendon",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (We use Accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/demoEquine11.jpg",
+  "followupQuestions" : null
+}, {
+  "id" : "zone./images/demoEquine11.jpg",
+  "type" : "zone",
+  "questionText" : "in which zone is the ultrasound taken?",
+  "correctAnswer" : "3",
+  "possibleAnswers" : [ "1", "1A", "1B", "2", "2A", "2B", "3", "3A", "3B", "3C" ],
+  "imageUrl" : "./images/demoEquine11.jpg",
+  "followupQuestions" : null
+}, {
+  "id" : "plane./images/demoEquine05.jpg",
+  "type" : "plane",
+  "questionText" : "On which plane is the ultrasound taken?",
+  "correctAnswer" : "transverse",
+  "possibleAnswers" : [ "transverse", "longitudinal" ],
+  "imageUrl" : "./images/demoEquine05.jpg",
+  "followupQuestions" : null
+}, {
+  "id" : "structure0./images/demoEquine05.jpg",
+  "type" : "structure",
+  "questionText" : "What is the the hyperechoic structure?",
+  "correctAnswer" : "P1 (First phalanx)",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (We use Accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/demoEquine05.jpg",
+  "followupQuestions" : null
+}, {
+  "id" : "structure1./images/demoEquine05.jpg",
+  "type" : "structure",
+  "questionText" : "What is the the hypoechoic structure?",
+  "correctAnswer" : "Superficial digital flexor tendon",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (We use Accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/demoEquine05.jpg",
+  "followupQuestions" : null
+}, {
+  "id" : "structure2./images/demoEquine05.jpg",
+  "type" : "structure",
+  "questionText" : "What is the structure in the near field?",
+  "correctAnswer" : "Palmar metacarpal vessels (medial/lateral)",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (We use Accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/demoEquine05.jpg",
+  "followupQuestions" : null
+}, {
+  "id" : "zone./images/demoEquine05.jpg",
+  "type" : "zone",
+  "questionText" : "in which zone is the ultrasound taken?",
+  "correctAnswer" : "2B",
+  "possibleAnswers" : [ "1", "1A", "1B", "2", "2A", "2B", "3", "3A", "3B", "3C" ],
+  "imageUrl" : "./images/demoEquine05.jpg",
+  "followupQuestions" : null
+}, {
+  "id" : "plane./images/demoEquine09.jpg",
+  "type" : "plane",
+  "questionText" : "On which plane is the ultrasound taken?",
+  "correctAnswer" : "longitudinal",
+  "possibleAnswers" : [ "transverse", "longitudinal" ],
+  "imageUrl" : "./images/demoEquine09.jpg",
+  "followupQuestions" : null
+}, {
+  "id" : "structure0./images/demoEquine09.jpg",
+  "type" : "structure",
+  "questionText" : "What is the the hyperechoic structure?",
+  "correctAnswer" : "Suspensory ligament (branches)",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (We use Accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/demoEquine09.jpg",
+  "followupQuestions" : [{
+    "id" : "AttachQ8",
+    "type" : "Attachment",
+    "questionText" : "Which attachment is this?",
+    "correctAnswer" : "Type2",
+    "possibleAnswers" : [ "Type1", "Type2", "Type3" ],
+    "imageUrl" : "./images/demoEquine09.jpg",
+    "followupQuestions" : [ {
+      "id" : "BonusQ3",
+      "type" : "Plane",
+      "questionText" : "This is a followup to a followup question!",
+      "correctAnswer" : "Nice!",
+      "possibleAnswers" : [ "Nice!", "Sweet!", "Cool!" ],
+      "imageUrl" : "./images/demoEquine09.jpg",
+      "followupQuestions" : null
+    } ]
+}, {
+  "id" : "structure1./images/demoEquine09.jpg",
+  "type" : "structure",
+  "questionText" : "What is the the hypoechoic structure?",
+  "correctAnswer" : "Metacarpus bone 3 (Third metacarpal bone)",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (We use Accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/demoEquine09.jpg",
+  "followupQuestions" : null
+},  {
+  "id" : "structure3./images/demoEquine09.jpg",
+  "type" : "structure",
+  "questionText" : "What is the in the far field?",
+  "correctAnswer" : "Palmar vessels (medial/lateral)",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (We use Accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/demoEquine09.jpg",
+  "followupQuestions" : null
+}, {
+  "id" : "zone./images/demoEquine09.jpg",
+  "type" : "zone",
+  "questionText" : "in which zone is the ultrasound taken?",
+  "correctAnswer" : "2",
+  "possibleAnswers" : [ "1", "1A", "1B", "2", "2A", "2B", "3", "3A", "3B", "3C" ],
+  "imageUrl" : "./images/demoEquine09.jpg",
+  "followupQuestions" : null
+}, {
+  "id" : "plane./images/demoEquine37.jpg",
+  "type" : "plane",
+  "questionText" : "On which plane is the ultrasound taken?",
+  "correctAnswer" : "transverse",
+  "possibleAnswers" : [ "transverse", "longitudinal" ],
+  "imageUrl" : "./images/demoEquine37.jpg",
+  "followupQuestions" : null
+}, {
+  "id" : "structure0./images/demoEquine37.jpg",
+  "type" : "structure",
+  "questionText" : "What is the the hyperechoic structure?",
+  "correctAnswer" : "Proximal sesamoid bones",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (We use Accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/demoEquine37.jpg",
+  "followupQuestions" : null
+},  {
+  "id" : "zone./images/demoEquine37.jpg",
+  "type" : "zone",
+  "questionText" : "in which zone is the ultrasound taken?",
+  "correctAnswer" : "3C",
+  "possibleAnswers" : [ "1", "1A", "1B", "2", "2A", "2B", "3", "3A", "3B", "3C" ],
+  "imageUrl" : "./images/demoEquine37.jpg",
+  "followupQuestions" : null
+}, {
+  "id" : "plane./images/demoEquine32.jpg",
+  "type" : "plane",
+  "questionText" : "On which plane is the ultrasound taken?",
+  "correctAnswer" : "transverse",
+  "possibleAnswers" : [ "transverse", "longitudinal" ],
+  "imageUrl" : "./images/demoEquine32.jpg",
+  "followupQuestions" : null
+}, {
+  "id" : "structure0./images/demoEquine32.jpg",
+  "type" : "structure",
+  "questionText" : "What is the the hyperechoic structure?",
+  "correctAnswer" : "Palmar ligament",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (We use Accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/demoEquine32.jpg",
+  "followupQuestions" : [{
+    "id" : "AttachQ9",
+    "type" : "Attachment",
+    "questionText" : "Which attachment is this?",
+    "correctAnswer" : "Type3",
+    "possibleAnswers" : [ "Type1", "Type2", "Type3" ],
+    "imageUrl" : "./images/demoEquine32.jpg",
+    "followupQuestions" : [ {
+      "id" : "BonusQ4",
+      "type" : "Plane",
+      "questionText" : "This is a followup to a followup question!",
+      "correctAnswer" : "Cool!",
+      "possibleAnswers" : [ "Nice!", "Sweet!", "Cool!" ],
+      "imageUrl" : "./images/demoEquine32.jpg",
+      "followupQuestions" : null
+    } ]
+}, {
+  "id" : "structure1./images/demoEquine32.jpg",
+  "type" : "structure",
+  "questionText" : "What is the the hypoechoic structure?",
+  "correctAnswer" : "Palmar metacarpal vessels (medial/lateral)",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (We use Accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/demoEquine32.jpg",
+  "followupQuestions" : null
+}, {
+  "id" : "structure2./images/demoEquine32.jpg",
+  "type" : "structure",
+  "questionText" : "What is the structure in the near field?",
+  "correctAnswer" : "distal sesamoidean ligaments – straight and oblique)",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (We use Accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/demoEquine32.jpg",
+  "followupQuestions" : [{
+    "id" : "AttachQ10",
+    "type" : "Attachment",
+    "questionText" : "Which attachment is this?",
+    "correctAnswer" : "Type1",
+    "possibleAnswers" : [ "Type1", "Type2", "Type3" ],
+    "imageUrl" : "./images/demoEquine32.jpg",
+    "followupQuestions" : [ {
+      "id" : "BonusQ5",
+      "type" : "Plane",
+      "questionText" : "This is a followup to a followup question!",
+      "correctAnswer" : "Sweet!",
+      "possibleAnswers" : [ "Nice!", "Sweet!", "Cool!" ],
+      "imageUrl" : "./images/demoEquine32.jpgv",
+      "followupQuestions" : null
+    } ]
+}, {
+  "id" : "structure3./images/demoEquine32.jpg",
+  "type" : "structure",
+  "questionText" : "What is the in the far field?",
+  "correctAnswer" : "Suspensory ligament (branches)",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (We use Accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/demoEquine32.jpg",
+  "followupQuestions" : [
+    {
+      "id": "AttachQ11",
+      "type": "Attachment",
+      "questionText": "Which attachment is this?",
+      "correctAnswer": "Type2",
+      "possibleAnswers": [
+        "Type1",
+        "Type2",
+        "Type3"
+      ],
+      "imageUrl": "./images/demoEquine32.jpg",
+      "followupQuestions": null
+    }]
+}, {
+  "id" : "zone./images/demoEquine32.jpg",
+  "type" : "zone",
+  "questionText" : "in which zone is the ultrasound taken?",
+  "correctAnswer" : "3A",
+  "possibleAnswers" : [ "1", "1A", "1B", "2", "2A", "2B", "3", "3A", "3B", "3C" ],
+  "imageUrl" : "./images/demoEquine32.jpg",
+  "followupQuestions" : null
+} ]
