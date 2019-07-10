@@ -10,6 +10,7 @@ public class Question {
     private String correctAnswer;
     private List<String> possibleAnswers;
     private String imageUrl;
+    private List<Question> followupQuestions;
 
     public Question(){}
 
@@ -20,6 +21,11 @@ public class Question {
         this.correctAnswer = correctAnswerIn;
         this.possibleAnswers = answersIn;
         this.imageUrl = imageUrlIn;
+    }
+
+    public Question(String idIn, String questionTextIn, String typeIn, String correctAnswerIn, List<String> answersIn, String imageUrlIn, List<Question> followupQuestionsIn) {
+        this(idIn, questionTextIn, typeIn, correctAnswerIn, answersIn, imageUrlIn);
+        this.followupQuestions = followupQuestionsIn;
     }
 
     public String getId() {return id;}
@@ -39,6 +45,9 @@ public class Question {
 
     public String getImageUrl() {return imageUrl;}
     public void setImageUrl(String imageUrlIn) {imageUrl =imageUrlIn; }
+
+    public List<Question> getFollowupQuestions() {return followupQuestions;}
+    public void setFollowupQuestions(List<Question> followupQuestionsIn) {followupQuestions = followupQuestionsIn; }
 
     @Override
     public String toString() {
