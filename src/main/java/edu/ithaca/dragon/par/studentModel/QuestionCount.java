@@ -24,6 +24,16 @@ public class QuestionCount {
         return question;
     }
 
-
+    public boolean equals(Object otherObj){
+        if(otherObj == null){
+            return false;
+        }
+        if(!QuestionCount.class.isAssignableFrom(otherObj.getClass())){
+            return false;
+        }
+        QuestionCount other = (QuestionCount) otherObj;
+        return this.getQuestion().equals(other.getQuestion())
+                && this.getTimesSeen()==(other.getTimesSeen());
+    }
 
 }
