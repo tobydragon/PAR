@@ -7,6 +7,10 @@ public class QuestionResponse {
     private String responseText;
     private long millSeconds;
 
+    public QuestionResponse(){
+
+    }
+
     public QuestionResponse(String responseTextIn){
         this.responseText=responseTextIn;
         Date date=new Date();
@@ -25,7 +29,21 @@ public class QuestionResponse {
         return millSeconds;
     }
 
-    public void setMillSeconds(int seconds) {
+    public void setMillSeconds(long seconds) {
         this.millSeconds = seconds;
+    }
+
+    @Override
+    public boolean equals(Object otherObj){
+        if(otherObj == null){
+            return false;
+        }
+        if(!QuestionResponse.class.isAssignableFrom(otherObj.getClass())){
+            return false;
+        }
+        QuestionResponse other = (QuestionResponse) otherObj;
+        return this.getMillSeconds()==(other.getMillSeconds())
+                && this.getResponseText().equals(other.getResponseText());
+
     }
 }

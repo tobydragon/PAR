@@ -12,18 +12,19 @@ public class ResponsesPerQuestion {
     private Question question;
     private String responseText;
     private String questionType;
-    private List<String> allResponseTexts;
+    private List<QuestionResponse> allResponseTexts;
 //change allResponseTexts to list of objects (QuestionResponse)
 
 //TODO: MAKE NEW CLASS WITH TIMESTAMPS FOR EACH QUESTION
     public ResponsesPerQuestion(String userIdIn, Question questionIn, String responseIn){
+        QuestionResponse questionResponse=new QuestionResponse(responseIn);
         this.userId=userIdIn;
         this.question=questionIn;
         this.questionId=questionIn.getId();
         this.questionType=questionIn.getType();
         responseText=responseIn;
         allResponseTexts=new ArrayList<>();
-        allResponseTexts.add(responseIn);
+        allResponseTexts.add(questionResponse);
     }
 //TODO: CHANGE KNOWLEDGE CALC TO BE BASED ON TIME STAMP INFORMATION
     //IF RESPONSE IS GIVEN WITH 35(CAN CHANGE) SECONDS WITHIN THE SAME QUESTION,
@@ -36,16 +37,17 @@ public class ResponsesPerQuestion {
 
         if(allResponseTextSize()>1) {
             for (int i = 1; i < allResponseTextSize(); i++) {
-                if (!allResponseTexts.get(i).equals(question.getCorrectAnswer()) && score==100) score = 50;
+                if (!allResponseTexts.get(i).getResponseText().equals(question.getCorrectAnswer()) && score==100) score = 50;
 
-                else if(allResponseTexts.get(i).equals(question.getCorrectAnswer()) && score==0) score = 50;
+                else if(allResponseTexts.get(i).getResponseText().equals(question.getCorrectAnswer()) && score==0) score = 50;
             }
         }
         return score;
 }
 
     public void addNewResponse(String newResponse){
-        allResponseTexts.add(newResponse);
+        QuestionResponse questionResponse=new QuestionResponse(newResponse);
+        allResponseTexts.add(questionResponse);
     }
 
     public int allResponseTextSize(){
@@ -69,11 +71,11 @@ public class ResponsesPerQuestion {
         this.question = question;
     }
 
-    public List<String> getAllResponseTexts() {
+    public List<QuestionResponse> getAllResponseTexts(){
         return allResponseTexts;
     }
 
-    public void setAllResponseTexts(List<String> allResponseTexts) {
+    public void setAllResponseTexts(List<QuestionResponse> allResponseTexts) {
         this.allResponseTexts = allResponseTexts;
     }
 
