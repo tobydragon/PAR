@@ -76,4 +76,9 @@ public class ParRestController {
     public Map<String, Double> calcScoreByType(@RequestParam String userId) throws IOException{
         return parServer.calcScoreByType(userId);
     }
+
+    @GetMapping("/getScoreStringByType")
+    public Map<String,String> getScoreStringByType(@RequestParam String userId) throws IOException{
+        return parServer.getScoreStringByType(userId);
+    }
 }

@@ -96,4 +96,11 @@ public class ParServer {
         StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, datastore);
         return currentStudent.knowledgeScoreByType();
     }
+    public Map<String,String> getScoreStringByType(String userId) throws IOException{
+        Map<String,String> testMap= new HashMap<>();
+        testMap.put("plane","XOOX");
+        testMap.put("struct","O___");
+        testMap.put("zone","____");
+        return testMap;
+    }
 }

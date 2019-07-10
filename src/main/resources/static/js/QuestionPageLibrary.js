@@ -158,7 +158,8 @@ function generateSinglescore() {
 
 function setCurrentScore() {
     if (scoreType == "ByType") {
-        generateScoreByType();
+        //generateScoreByType();
+        generateScoreStringByType();
     } else if (scoreType == "SingleScore") {
         generateSinglescore();
     } else if (scoreType == "Level") {
@@ -188,6 +189,37 @@ function generateScoreByType() {
     displayScoreBreakdown(breakdownString);
 
 }
+
+function generateScoreStringByType() {
+    var visString = " ";
+    var visJSON = readJson("api/getScoreStringByType?userId=" + sendUserId());
+    for (var key in visJSON) { //key search
+        if (visJSON.hasOwnProperty(key)) {
+            let value = visJSON[key];
+            visString += "<i class=black>" + key + ": </i>";
+            for (let i = 0; i < value.length; i++) { //value search on string
+                if (value[i] == "O") {
+                    visString += '<i class="fas fa-check-circle"></i>';
+                } else if (value[i] == "X") {
+                    visString += '<i class="fas fa-times-circle"></i>';
+                } else if (value[i] == "_") {
+                    visString += '<i class="fas fa-circle"></i>';
+                } else {
+                    visString += '~';
+                }
+            }
+            visString += '<br />';
+        }
+    }
+    displayScoreBreakdownByVisualization(visString);
+}
+
+function displayScoreBreakdownByVisualization(visualizationString) {
+    if (showScore) {
+        document.getElementById("score").innerHTML = visualizationString;
+    }
+}
+
 
 function displayScoreBreakdown(breakdownString) {
     if (showScore) {
