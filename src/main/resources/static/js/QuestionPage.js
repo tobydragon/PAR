@@ -123,6 +123,7 @@ function displayCheckAndRecordAnswers() {
     for (var i = 0; i < amountOfQuestions; i++) {
         var currentName = "q" + i;
         var currentAnswer = form[currentName].value;
+        currentAnswer = currentAnswer.toLowerCase();
 
         responsesGivenText.push(currentAnswer);
 
