@@ -96,7 +96,6 @@ public class UserResponseSet {
 
             if(i >= 0){
                 scoreBeforeDivision+=allResponses.get(i).knowledgeCalc();
-
             }
         }
         return (scoreBeforeDivision / responsesToConsider);

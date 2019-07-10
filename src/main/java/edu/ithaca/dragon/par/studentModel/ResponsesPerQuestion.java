@@ -3,6 +3,7 @@ import edu.ithaca.dragon.par.domainModel.Question;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ResponsesPerQuestion {
@@ -12,9 +13,9 @@ public class ResponsesPerQuestion {
     private String responseText;
     private String questionType;
     private List<String> allResponseTexts;
+//change allResponseTexts to list of objects (QuestionResponse)
 
-
-
+//TODO: MAKE NEW CLASS WITH TIMESTAMPS FOR EACH QUESTION
     public ResponsesPerQuestion(String userIdIn, Question questionIn, String responseIn){
         this.userId=userIdIn;
         this.question=questionIn;
@@ -24,7 +25,9 @@ public class ResponsesPerQuestion {
         allResponseTexts=new ArrayList<>();
         allResponseTexts.add(responseIn);
     }
-
+//TODO: CHANGE KNOWLEDGE CALC TO BE BASED ON TIME STAMP INFORMATION
+    //IF RESPONSE IS GIVEN WITH 35(CAN CHANGE) SECONDS WITHIN THE SAME QUESTION,
+// THEN DONT COUNT THE NEWEST RESPONSE
     public double knowledgeCalc(){
         double score;
         if(responseText.equals(question.getCorrectAnswer())) score = 100;

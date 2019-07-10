@@ -91,7 +91,7 @@ public class StudentModel {
     }
 
     private static List<Double> orderedScores(Map<String, Double> scoresPerType){
-        List<Double> orderedScores=new ArrayList<>();
+        List<Double> orderedScores=new ArrayList<>();//ordered list of scores
         for(EquineQuestionTypes quesType: EquineQuestionTypes.values()){
             if(scoresPerType.get(quesType.toString())==null){
                 orderedScores.add(-1.0);
