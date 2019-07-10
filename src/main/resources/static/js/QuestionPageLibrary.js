@@ -311,7 +311,8 @@ function createResponses() {
 }
 
 function disableField(elementToCheck, elementToToggle) {
-    if (document.getElementById(elementToCheck).value == "Unsure") {
+
+    if (document.getElementById(elementToCheck).value == "unsure" || document.getElementById(elementToCheck).value == "Unsure") {
         document.getElementById(elementToToggle).disabled = true;
     } else {
         document.getElementById(elementToToggle).disabled = false;

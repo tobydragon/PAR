@@ -40,12 +40,20 @@ describe("QuestionPageLibraryTest", function () {
         expect(displayCheck("Unsure", "something", true)).toBe('<font color="#663399">The correct answer is something</font>');
     });
     it("disableField to correctly enable or disable class field of element", function () {
-        var testElementDiv = document.createElement("input");
-        var testElementId = testElementDiv.id = "testing";
-        var testElementValue = testElementDiv.value = "Unsure";
+        var test = {
+            "id": "testType0./images/demoTest01.jpg",
+            "type": "testType",
+            "questionText": "What is the the square root of -1?",
+            "correctAnswer": "testAnswer2",
+            "possibleAnswers": ["testAnswer1", "testAnswer2"],
+            "imageUrl": "./images/demoTest01.jpg"
+        };
+        var questionString = createDatalistDropdown(test, 0);
+        var testElementToCheck = 'Unsure';
+        var testElementToToggle = 'q0';
 
-        expect(disableField(testElementValue, testElementDiv)).toBe((testElementDiv.disabled = true));
+        expect(disableField(testElementToCheck, testElementToToggle)).toBe((questionString.disabled = true));
         testElementValue = "otherWords";
-        expect(disableField(testElementValue, testElementDiv)).toBe((testElementDiv.disabled = false));
+        expect(disableField(testElementValue, testElementDiv)).toBe((questionString.disabled = false));
     });
 });
