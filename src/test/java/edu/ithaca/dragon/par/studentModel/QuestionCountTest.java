@@ -43,4 +43,25 @@ public class QuestionCountTest {
         assertEquals(q1, qc1.getQuestion());
         assertEquals(q2, qc2.getQuestion());
     }
+
+    @Test
+    public void equalsTest(){
+        Question q1 = new Question("1","what plane?", "plane", "transverse", Arrays.asList("transverse", "longitudinal"), "/imageURL");
+        QuestionCount qc1 = new QuestionCount(q1);
+
+        Question q2 = new Question("2","what plane?", "plane", "longitudinal", Arrays.asList("transverse", "longitudinal"), "/imageURL2");
+        QuestionCount qc2 = new QuestionCount(q2);
+
+        assertEquals(qc1, qc1);
+        assertNotEquals(qc1, qc2);
+
+        Question q3 = new Question("1","what plane?", "plane", "transverse", Arrays.asList("transverse", "longitudinal"), "/imageURL");
+        QuestionCount qc3 = new QuestionCount(q3);
+        assertEquals(qc1, qc3);
+        qc3.increaseTimesSeen();
+        assertNotEquals(qc1, qc3);
+
+
+
+    }
 }
