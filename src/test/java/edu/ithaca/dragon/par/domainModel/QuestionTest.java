@@ -115,7 +115,7 @@ public class QuestionTest {
         Question questionWithFollowups = questionsFromFile.get(0);
         assertEquals(3, questionWithFollowups.getFollowupQuestions().size());
         Question questionWithoutFollowups = questionsFromFile.get(1);
-        assertEquals(null, questionWithoutFollowups.getFollowupQuestions());
+        assertEquals(0, questionWithoutFollowups.getFollowupQuestions().size());
 
     }
 
