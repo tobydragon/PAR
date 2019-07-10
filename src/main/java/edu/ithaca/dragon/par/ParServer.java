@@ -99,7 +99,7 @@ public class ParServer {
     public Map<String,String> getScoreStringByType(String userId) throws IOException{
         Map<String,String> testMap= new HashMap<>();
         testMap.put("plane","XOOX");
-        testMap.put("struct","O___");
+        testMap.put("struct","O~~_");
         testMap.put("zone","____");
         return testMap;
     }

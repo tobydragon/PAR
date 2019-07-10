@@ -199,13 +199,13 @@ function generateScoreStringByType() {
             visString += "<i class=black>" + key + ": </i>";
             for (let i = 0; i < value.length; i++) { //value search on string
                 if (value[i] == "O") {
-                    visString += '<i class="fas fa-check-circle"></i>';
+                    visString += '<i class="fas fa-check-circle green"></i>';
                 } else if (value[i] == "X") {
-                    visString += '<i class="fas fa-times-circle"></i>';
+                    visString += '<i class="fas fa-times-circle red"></i>';
                 } else if (value[i] == "_") {
                     visString += '<i class="fas fa-circle"></i>';
                 } else {
-                    visString += '~';
+                    visString += '<i class="fas fa-minus-circle yellow"></i>';
                 }
             }
             visString += '<br />';
