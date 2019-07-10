@@ -4,12 +4,13 @@ import edu.ithaca.dragon.par.io.JsonDatastore;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.security.InvalidParameterException;
 import java.util.Arrays;
 import java.util.List;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class QuestionPoolTest {
     @Test
@@ -82,5 +83,17 @@ public class QuestionPoolTest {
 
         }
 
+    }
+
+    @Test
+    public void checkWindowSizeForTypeTest() throws IOException{
+        QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));
+        qp.getAllQuestions().add(new Question("StructureQ6", "What structure is this?", "Structure", "AAA", Arrays.asList("AAA", "BBB", "CCC"), "exImgUrl"));
+        //This qp has 5 plane and zone questions, and 6 structure questions
+
+        assertFalse(qp.checkWindowSize(0));
+        assertFalse(qp.checkWindowSize(5));
+        assertTrue(qp.checkWindowSize(6));
+        assertTrue(qp.checkWindowSize(10));
     }
 }

@@ -56,4 +56,8 @@ public class QuestionPool {
 
         return toReturn;
     }
+
+    public boolean checkWindowSize(int desiredWindowSize){
+        return false;
+    }
 }
