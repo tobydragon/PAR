@@ -15,7 +15,7 @@ public class UserQuestionSet2 {
         questions = questionToQuestionCount(questionsIn);
     }
 
-    public List<QuestionCount> questionToQuestionCount(List<Question> questions){
+    public static List<QuestionCount> questionToQuestionCount(List<Question> questions){
         List<QuestionCount> questionCountList = new ArrayList<QuestionCount>();
         for (int i = 0; i<questions.size(); i++){
             QuestionCount qc = new QuestionCount(questions.get(i));

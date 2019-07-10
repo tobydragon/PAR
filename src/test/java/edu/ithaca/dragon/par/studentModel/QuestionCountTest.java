@@ -61,7 +61,5 @@ public class QuestionCountTest {
         qc3.increaseTimesSeen();
         assertNotEquals(qc1, qc3);
 
-
-
     }
 }
