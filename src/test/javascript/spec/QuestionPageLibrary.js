@@ -1,5 +1,5 @@
 describe("QuestionPageLibraryTest", function () {
-    it("check to make sure createFillin makes a good structure question", function () {
+    it("check to make sure createDatalistDropdown creates a functioning datalist dropdown question", function () {
         var test = {
             "id": "testType0./images/demoTest01.jpg",
             "type": "testType",
@@ -8,7 +8,18 @@ describe("QuestionPageLibraryTest", function () {
             "possibleAnswers": ["testAnswer1", "testAnswer2"],
             "imageUrl": "./images/demoTest01.jpg"
         };
-        expect(createFillIn(test, 0)).toBe('<p>What is the the square root of -1?</p> <select id="q0"><option id="option0">testAnswer1</option><option id="option1">testAnswer2</option><option id="optionUnsure">Unsure</option></select><i id="questionCorrect0"></i>');
+        expect(createDatalistDropdown(test, 0)).toBe('<p>What is the the square root of -1?</p> <input id="q0" list="list0"/> <datalist id="list0"><option id= "option0" value="testAnswer1"/><option id= "option1" value="testAnswer2"/><option id= "optionUnsure" value="Unsure"/></datalist><i id="questionCorrect0"></i>');
+    });
+    it("check to make sure createSelectDropdown creates a functioning select dropdown question", function () {
+        var test = {
+            "id": "testType0./images/demoTest01.jpg",
+            "type": "testType",
+            "questionText": "What is the the square root of -1?",
+            "correctAnswer": "testAnswer2",
+            "possibleAnswers": ["testAnswer1", "testAnswer2"],
+            "imageUrl": "./images/demoTest01.jpg"
+        };
+        expect(createSelectDropdown(test, 0)).toBe('<p>What is the the square root of -1?</p> <select id="q0"><option id="option0">testAnswer1</option><option id="option1">testAnswer2</option><option id="optionUnsure">Unsure</option></select><i id="questionCorrect0"></i>');
     });
     /**
         it("check to make sure createFillin makes a good attachment question", function () {
