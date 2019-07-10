@@ -86,14 +86,23 @@ public class QuestionPoolTest {
     }
 
     @Test
-    public void checkWindowSizeForTypeTest() throws IOException{
+    public void checkWindowSizeTest() throws IOException{
         QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));
-        qp.getAllQuestions().add(new Question("StructureQ6", "What structure is this?", "Structure", "AAA", Arrays.asList("AAA", "BBB", "CCC"), "exImgUrl"));
-        //This qp has 5 plane and zone questions, and 6 structure questions
+        //This qp has 5 of each question
 
         assertFalse(qp.checkWindowSize(0));
-        assertFalse(qp.checkWindowSize(5));
-        assertTrue(qp.checkWindowSize(6));
-        assertTrue(qp.checkWindowSize(10));
+        assertTrue(qp.checkWindowSize(1));
+        assertTrue(qp.checkWindowSize(5));
+        assertFalse(qp.checkWindowSize(6));
+        assertFalse(qp.checkWindowSize(10));
+
+        QuestionPool qp2 = new QuestionPool(new JsonDatastore("src/test/resources/author/DemoQuestionPool.json"));
+        //qp2 has 10 plane, 27 struct, and 10 zone
+
+        assertFalse(qp2.checkWindowSize(0));
+        assertTrue(qp2.checkWindowSize(5));
+        assertTrue(qp2.checkWindowSize(10));
+        assertFalse(qp2.checkWindowSize(27));
+        assertFalse(qp2.checkWindowSize(100));
     }
 }
