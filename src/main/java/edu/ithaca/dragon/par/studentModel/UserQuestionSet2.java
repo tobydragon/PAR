@@ -31,6 +31,26 @@ public class UserQuestionSet2 {
 
     public List<QuestionCount> getQuestions(){ return questions; }
 
+    public List<Question> getSeenQuestions(){
+        List<Question> seen = new ArrayList<Question>();
+        for (QuestionCount currQuestion: questions){
+            if (currQuestion.getTimesSeen()>0){
+                seen.add(currQuestion.getQuestion());
+            }
+        }
+        return seen;
+    }
+
+    public List<Question> getUnseenQuestions(){
+        List<Question> unseen = new ArrayList<Question>();
+        for (QuestionCount currQuestion: questions){
+            if (currQuestion.getTimesSeen()==0){
+                unseen.add(currQuestion.getQuestion());
+            }
+        }
+        return unseen;
+    }
+
 
     public int getTimesSeen (String questionId){
         for (int i = 0; i<questions.size(); i++){

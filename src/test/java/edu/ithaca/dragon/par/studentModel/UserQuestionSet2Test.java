@@ -328,4 +328,124 @@ public class UserQuestionSet2Test {
 
     }
 
+    @Test
+    public void getUnseenQuestionsTest() throws IOException{
+        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
+        UserQuestionSet2 que = new UserQuestionSet2("1", questionsFromFile);
+
+        //checks all questions are unseen
+        List<Question> unseenList = que.getUnseenQuestions();
+        int len = unseenList.size();
+        assertEquals(15, len);
+
+        //decrease in number unseen
+        que.givenQuestion("StructureQ1");
+        unseenList = que.getUnseenQuestions();
+        len = unseenList.size();
+        assertEquals(14, len);
+
+        //no decrease in number unseen
+        que.givenQuestion("StructureQ1");
+        unseenList = que.getUnseenQuestions();
+        len = unseenList.size();
+        assertEquals(14, len);
+
+        //decrease in number unseen
+        que.givenQuestion("ZoneQ1");
+        unseenList = que.getUnseenQuestions();
+        len = unseenList.size();
+        assertEquals(13, len);
+
+        //invalid question ID
+        assertThrows(RuntimeException.class, () -> { que.givenQuestion("6");});
+        unseenList = que.getUnseenQuestions();
+        len = unseenList.size();
+        assertEquals(13, len);
+
+        //invalid question ID
+        assertThrows(RuntimeException.class, () -> { que.givenQuestion("5");});
+        unseenList = que.getUnseenQuestions();
+        len = unseenList.size();
+        assertEquals(13, len);
+
+        //decrease in number unseen
+        que.givenQuestion("PlaneQ1");
+        unseenList = que.getUnseenQuestions();
+        len = unseenList.size();
+        assertEquals(12, len);
+
+        //no decrease in number unseen
+        que.givenQuestion("ZoneQ1");
+        unseenList = que.getUnseenQuestions();
+        len = unseenList.size();
+        assertEquals(12, len);
+
+        //no decrease in number unseen
+        que.givenQuestion("PlaneQ1");
+        unseenList = que.getUnseenQuestions();
+        len = unseenList.size();
+        assertEquals(12, len);
+    }
+
+
+    @Test
+    public void getSeenQuestionsTest() throws IOException{
+        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
+        UserQuestionSet2 que = new UserQuestionSet2("1", questionsFromFile);
+
+        //checks all questions are seen
+        List<Question> seenList = que.getSeenQuestions();
+        int len = seenList.size();
+        assertEquals(0, len);
+
+        //increase in number seen
+        que.givenQuestion("StructureQ1");
+        seenList = que.getSeenQuestions();
+        len = seenList.size();
+        assertEquals(1, len);
+
+        //no increase in number seen
+        que.givenQuestion("StructureQ1");
+        seenList = que.getSeenQuestions();
+        len = seenList.size();
+        assertEquals(1, len);
+
+        //increase in number seen
+        que.givenQuestion("ZoneQ1");
+        seenList = que.getSeenQuestions();
+        len = seenList.size();
+        assertEquals(2, len);
+
+        //invalid question ID
+        assertThrows(RuntimeException.class, () -> { que.givenQuestion("6");});
+        seenList = que.getSeenQuestions();
+        len = seenList.size();
+        assertEquals(2, len);
+
+        //invalid question ID
+        assertThrows(RuntimeException.class, () -> { que.givenQuestion("5");});
+        seenList = que.getSeenQuestions();
+        len = seenList.size();
+        assertEquals(2, len);
+
+        //increase in number seen
+        que.givenQuestion("PlaneQ1");
+        seenList = que.getSeenQuestions();
+        len = seenList.size();
+        assertEquals(3, len);
+
+        //no increase in number seen
+        que.givenQuestion("ZoneQ1");
+        seenList = que.getSeenQuestions();
+        len = seenList.size();
+        assertEquals(3, len);
+
+        //no increase in number seen
+        que.givenQuestion("PlaneQ1");
+        seenList = que.getSeenQuestions();
+        len = seenList.size();
+        assertEquals(3, len);
+    }
+
+
 }
