@@ -61,6 +61,9 @@ public class StudentModel {
         return userResponseSet.knowledgeScoreByType();
     }
 
+    public int getWindowSize(){
+        return userResponseSet.getWindowSize();
+    }
 
 
     /**

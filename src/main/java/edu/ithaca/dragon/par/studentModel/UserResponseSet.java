@@ -6,10 +6,15 @@ public class UserResponseSet {
     private String userId;
     private List<ResponsesPerQuestion> userResponse;
 
+    //windowSize is the amount of responses to look back on when calculating the understanding of a topic
+    private int windowSize;
 
     public UserResponseSet(String userIdIn) {
         this.userId = userIdIn;
         userResponse = new ArrayList<>();
+
+        //TODO: consider taking windowSize in as a parameter instead of hardcoding
+        windowSize = 4;
     }
 
 
@@ -68,8 +73,10 @@ public class UserResponseSet {
         return userId;
     }
 
+    public int getWindowSize(){ return windowSize; }
 
     public double knowledgeCalc() {
+        //TODO: should 12 be replaced by windowSize?
         return knowledgeCalc(userResponse, 12);
     }
     /**
@@ -120,7 +127,7 @@ public class UserResponseSet {
         Map<String, Double> responseByTypeDouble = new HashMap<>();
         for (String quesType : responseByType.keySet()) {
             List<ResponsesPerQuestion> quesList = responseByType.get(quesType);
-            responseByTypeDouble.put(quesType, knowledgeCalc(quesList, 4));
+            responseByTypeDouble.put(quesType, knowledgeCalc(quesList, windowSize));
         }
         return responseByTypeDouble;
     }
