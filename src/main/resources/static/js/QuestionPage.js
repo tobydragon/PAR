@@ -1,5 +1,6 @@
 var amountOfQuestions = 0;
 var questionAnswers = [];
+var questionFollowupAnswers = [];
 var userID = null;
 var responsesGivenText = [];
 var questionIDs = [];
@@ -86,6 +87,7 @@ function addToTypesSeenForFeedback(type) {
 
 //generates question for html based on the question given (the JSON)
 function generateQuestion(question) {
+    console.log(question);
     var questionStr = createDatalistDropdown(question, amountOfQuestions);
     amountOfQuestions++;
     questionObjects.push(question);
@@ -96,11 +98,12 @@ function generateQuestion(question) {
 }
 
 function generateFollowupQuestions(question) {
-    if (question.hasOwnProperty("followupQuestions")) {
-        var questionStrFollowup = createDatalistDropdown(question, amountOfQuestions);
-        amountOfQuestions++;
-        displayQuestion(questionStrFollowup);
-    }
+    var questionStrFollowup = createDatalistDropdown(question.followupQuestions[0], amountOfQuestions);
+    questionFollowupAnswers.push(question.followupQuestions[0].correctAnswer);
+    console.log(questionStrFollowup);
+    amountOfQuestions++;
+    // displayQuestion(questionStrFollowup);
+    return questionStrFollowup;
 }
 
 function checkAnswers() {
@@ -133,23 +136,23 @@ function displayCheckAndRecordAnswers() {
         var currentName = "q" + i;
         var currentAnswer = form[currentName].value;
 
+        console.log(i);
         responsesGivenText.push(currentAnswer);
 
         var answerEvaluationString;
         answerEvaluationString = compareAnswers(questionAnswers[i], currentAnswer, questionTypes[i]);
         disableFields(answerEvaluationString, currentName);
 
-        console.log(questionTypes);
-        console.log(responsesGivenText);
-
         var displayAreaName = "questionCorrect" + i;
         displayAnswers(displayAreaName, answerEvaluationString, questionAnswers[i], unsureShowsCorrectAnswer);
 
         if (answerEvaluationString === "Correct") {
-            let followupString = generateFollowupQuestions(questionObjects[i]);
-            console.log(followupString);
-
-            //displayQuestion(followupString);
+            console.log("questionObject: " + JSON.stringify(questionObjects[i]));
+            if (questionObjects[i].hasOwnProperty("followupQuestions") && questionObjects[i].hasOwnProperty("followupQuestions") != null) {
+                var followupString = generateFollowupQuestions(questionObjects[i]);
+                answerEvaluationString = compareAnswers(questionFollowupAnswers[i], currentAnswer, questionTypes[i]);
+                displayQuestion(followupString);
+            }
         }
     }
     if (willDisplayFeedback) {

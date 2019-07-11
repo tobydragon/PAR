@@ -60,22 +60,22 @@ describe("QuestionPageLibraryTest", function () {
     });
     it("check to make sure generateFollowupQuestions create appropriate followup questions for a correct struct question", function () {
         var test = {
-            "id": "structure1./images/demoEquine02.jpg",
+            "id": "structure1./images/demoTest01.jpg",
             "type": "structure",
-            "questionText": "What is the the hypoechoic structure?",
-            "correctAnswer": "Suspensory ligament (branches)",
-            "possibleAnswers": ["Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (We use Accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)"],
-            "imageUrl": "./images/demoEquine02.jpg",
+            "questionText": "What is my answer?",
+            "correctAnswer": "testAnswer1",
+            "possibleAnswers": ["testAnswer1", "testAnswer2"],
+            "imageUrl": "./images/demoTest01.jpg",
             "followupQuestions": [{
                 "id": "AttachQ4",
                 "type": "Attachment",
                 "questionText": "Which attachment is this?",
                 "correctAnswer": "Type2",
                 "possibleAnswers": ["Type1", "Type2", "Type3"],
-                "imageUrl": "./images/demoEquine02.jpg",
+                "imageUrl": "./images/demoTest01.jpg",
                 "followupQuestions": []
     }]
         }
-        expect(generateFollowupQuestions(test)).toBe("something about followup questions");
+        expect(generateFollowupQuestions(test)).toBe('<p>Which attachment is this?</p> <input id="q0" list="list0"/> <datalist id="list0"><option id= "option0" value="Type1"/><option id= "option1" value="Type2"/><option id= "option2" value="Type3"/><option id= "optionUnsure" value="unsure"/></datalist><i id="questionCorrect0"></i>');
     });
 });

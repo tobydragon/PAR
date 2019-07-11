@@ -121,6 +121,19 @@ function createDatalistDropdown(json, currentAmountOfQuestions) {
     question += '<i id="' + "questionCorrect" + (currentAmountOfQuestions) + '"></i>';
     return question;
 }
+
+function createFollowupDatalistDropdown(json, currentAmountOfQuestions) {
+    var i;
+    var question = "<p>" + json.followupQuestions[currentAmountOfQuestions].questionText + '</p> <input id="' + ("q" + (currentAmountOfQuestions)) + '" list="' + ("list" + currentAmountOfQuestions) + '"/> <datalist id="' + ("list" + currentAmountOfQuestions) + '">';
+    for (i = 0; i < json.followupQuestions[currentAmountOfQuestions].possibleAnswers.length; i++) {
+        question = question + '<option id= "option' + i + '" value="' + json.followupQuestions[currentAmountOfQuestions].possibleAnswers[i] + '"/>';
+    }
+    question += '<option id= "optionUnsure" value="unsure"/>';
+    question += '</datalist>';
+    question += '<i id="' + "questionCorrect" + (currentAmountOfQuestions) + '"></i>';
+    return question;
+}
+
 //Creates select dropdown based on a question given for the html.
 function createSelectDropdown(json, currentAmountOfQuestions) {
     var question = "<p>" + json.questionText + '</p> <select id="' + ("q" + (currentAmountOfQuestions)) + '">';
