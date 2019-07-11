@@ -133,6 +133,29 @@ function createSelectDropdown(json, currentAmountOfQuestions) {
     return question;
 }
 
+function createFollowupQuestionsDatalistDropdown(json, currentAmountOfQuestions) {
+    var i;
+    var question = "<p>" + json.followupQuestions.questionText + '</p> <input id="' + ("q" + (currentAmountOfQuestions)) + '" list="' + ("list" + currentAmountOfQuestions) + '"/> <datalist id="' + ("list" + currentAmountOfQuestions) + '">';
+    for (i = 0; i < json.followupQuestions.possibleAnswers.length; i++) {
+        question = question + '<option id= "option' + i + '" value="' + json.followupQuestions.possibleAnswers[i] + '"/>';
+    }
+    question += '<option id= "optionUnsure" value="unsure"/>';
+    question += '</datalist>';
+    question += '<i id="' + "questionCorrect" + (currentAmountOfQuestions) + '"></i>';
+    return question;
+}
+
+function createFollowupQuestionsSelectDropdown(json, currentAmountOfQuestions) {
+    var question = "<p>" + json.followupQuestions.questionText + '</p> <select id="' + ("q" + (currentAmountOfQuestions)) + '">';
+    for (i = 0; i < json.followupQuestions.possibleAnswers.length; i++) {
+        question = question + '<option id="option' + i + '">' + json.followupQuestions.possibleAnswers[i] + '</option>';
+    }
+    question += '<option id="optionUnsure">unsure</option>';
+    question += '</select>';
+    question += '<i id="' + "questionCorrect" + (currentAmountOfQuestions) + '"></i>';
+    return question;
+}
+
 
 //
 //score functions
@@ -260,7 +283,7 @@ function displayCheck(value, rightAnwser, unsureShowsCorrectAnswerHere) {
         return '<font color=\"red\">Your answer is: ' + value + '</font>';
     }
 
-    if (value == "unsure") {
+    if (value == "Unsure") {
         if (unsureShowsCorrectAnswerHere == true) {
             return '<font color=\"#663399\">' + "The correct answer is " + rightAnwser + '</font>';
         } else {
@@ -342,13 +365,8 @@ function createResponses() {
     submitToAPI("api/recordResponse", object);
 }
 
-function disableField(elementToCheck, elementToToggle) {
-
-    if (document.getElementById(elementToCheck).value == "unsure" || document.getElementById(elementToCheck).value == "Unsure") {
-        document.getElementById(elementToToggle).disabled = true;
-    } else {
-        document.getElementById(elementToToggle).disabled = false;
-    }
+function disableField(elementToDisable) {
+    document.getElementById(elementToDisable).disabled = true;
 }
 
 

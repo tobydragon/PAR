@@ -94,6 +94,8 @@ function generateQuestion(question) {
     displayQuestion(difficultyStr);
 }
 
+function generateFollowupQuestions(question)
+
 function checkAnswers() {
     console.log(questionAnswers);
     document.getElementById("errorFeedback").innerHTML = " ";
@@ -123,34 +125,54 @@ function displayCheckAndRecordAnswers() {
     for (var i = 0; i < amountOfQuestions; i++) {
         var currentName = "q" + i;
         var currentAnswer = form[currentName].value;
-        currentAnswer = currentAnswer.toLowerCase();
 
         responsesGivenText.push(currentAnswer);
 
-        var isCorrect;
-        if (currentAnswer == "unsure") {
-            console.log(currentAnswer);
-            disableField('optionUnsure', currentName);
+        var answerEvaluationString;
+        answerEvaluationString = compareAnswers(questionAnswers[i], currentAnswer, questionTypes[i]);
+        disableFields(answerEvaluationString, currentName);
+        if (answerEvaluationString === "Correct") {
+            generateFollowupQuestions();
         }
-        if (currentAnswer == questionAnswers[i]) {
-            isCorrect = "Correct";
-        } else if (currentAnswer == "") {
-            responsesGivenText.pop();
-            isCorrect = "blank";
-        } else if (currentAnswer != questionAnswers[i]) {
-            if (currentAnswer == "unsure") {
-                isCorrect = "unsure";
-            } else {
-                isCorrect = "Incorrect";
-            }
-            addToTypesSeenForFeedback(questionTypes[i]);
-        }
+        console.log(questionTypes);
+        console.log(responsesGivenText);
+
         var displayAreaName = "questionCorrect" + i;
-        document.getElementById(displayAreaName).innerHTML = displayCheck(isCorrect, questionAnswers[i], unsureShowsCorrectAnswer);
+        displayAnswers(displayAreaName, answerEvaluationString, questionAnswers[i], unsureShowsCorrectAnswer);
     }
     if (willDisplayFeedback) {
         generateFeedback();
     }
+}
+
+function disableFields(correctAnswerValue, elementToDisable) {
+    if (correctAnswerValue === "Correct") {
+        disableField(elementToDisable);
+    } else if (correctAnswerValue === "Unsure") {
+        disableField(elementToDisable);
+    }
+}
+
+function compareAnswers(correctAnswer, userAnswer, questionType) {
+    var answerEvaluationString = "";
+    correctAnswer = correctAnswer.toLowerCase();
+    userAnswer = userAnswer.toLowerCase();
+    if (userAnswer === correctAnswer) {
+        return answerEvaluationString = "Correct";
+    } else if (userAnswer != correctAnswer) {
+        if (userAnswer === "unsure") {
+            return answerEvaluationString = "Unsure";
+        } else if (userAnswer === "") {
+            responsesGivenText.pop();
+            return answerEvaluationString = "blank";
+        }
+        addToTypesSeenForFeedback(questionType);
+        return answerEvaluationString = "Incorrect";
+    }
+}
+
+function displayAnswers(elementIdToDisplay, answerEvaluationString, questionAnswer, unsureShowsCorrectAnswer) {
+    document.getElementById(elementIdToDisplay).innerHTML = displayCheck(answerEvaluationString, questionAnswer, unsureShowsCorrectAnswer);
 }
 
 function nextQuestionSet() {
