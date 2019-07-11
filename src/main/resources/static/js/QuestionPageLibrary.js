@@ -104,7 +104,7 @@ function createRadioQuestion(json, currentAmountOfQuestions) {
         question += '<br> <input type="radio" name="' + ("q" + currentAmountOfQuestions) + '" value="';
         question = question + json.possibleAnswers[i] + '">' + json.possibleAnswers[i];
     }
-    question += '<br> <input type="radio" name="I do not know" value="Unsure"';
+    question += '<br> <input type="radio" name="I do not know" value="unsure"';
     question += '<br> <i id="questionCorrect"' + (currentAmountOfQuestions) + '></i>';
     return question;
 }
@@ -116,7 +116,7 @@ function createDatalistDropdown(json, currentAmountOfQuestions) {
     for (i = 0; i < json.possibleAnswers.length; i++) {
         question = question + '<option id= "option' + i + '" value="' + json.possibleAnswers[i] + '"/>';
     }
-    question += '<option id= "optionUnsure" value="Unsure"/>';
+    question += '<option id= "optionUnsure" value="unsure"/>';
     question += '</datalist>';
     question += '<i id="' + "questionCorrect" + (currentAmountOfQuestions) + '"></i>';
     return question;
@@ -127,7 +127,7 @@ function createSelectDropdown(json, currentAmountOfQuestions) {
     for (i = 0; i < json.possibleAnswers.length; i++) {
         question = question + '<option id="option' + i + '">' + json.possibleAnswers[i] + '</option>';
     }
-    question += '<option id="optionUnsure">Unsure</option>';
+    question += '<option id="optionUnsure">unsure</option>';
     question += '</select>';
     question += '<i id="' + "questionCorrect" + (currentAmountOfQuestions) + '"></i>';
     return question;
@@ -158,8 +158,8 @@ function generateSinglescore() {
 
 function setCurrentScore() {
     if (scoreType == "ByType") {
-        generateScoreByType();
-        //generateScoreStringByType();
+        //generateScoreByType();
+        generateScoreStringByType();
     } else if (scoreType == "SingleScore") {
         generateSinglescore();
     } else if (scoreType == "Level") {
@@ -260,7 +260,7 @@ function displayCheck(value, rightAnwser, unsureShowsCorrectAnswerHere) {
         return '<font color=\"red\">Your answer is: ' + value + '</font>';
     }
 
-    if (value == "Unsure") {
+    if (value == "unsure") {
         if (unsureShowsCorrectAnswerHere == true) {
             return '<font color=\"#663399\">' + "The correct answer is " + rightAnwser + '</font>';
         } else {
@@ -356,7 +356,7 @@ function disableField(elementToCheck, elementToToggle) {
 //for testing purposes only
 //
 function testSetVariables() {
-    responsesGivenText = ["Lateral", "ligament", "Unsure"];
+    responsesGivenText = ["lateral", "ligament", "unsure"];
     questionIDs = ["PlaneQ1", "StructureQ1", "ZoneQ1"];
     userID = "Hewwo123";
 }

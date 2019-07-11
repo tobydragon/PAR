@@ -128,7 +128,7 @@ function displayCheckAndRecordAnswers() {
         responsesGivenText.push(currentAnswer);
 
         var isCorrect;
-        if (currentAnswer == "Unsure") {
+        if (currentAnswer == "unsure") {
             console.log(currentAnswer);
             disableField('optionUnsure', currentName);
         }
@@ -138,8 +138,8 @@ function displayCheckAndRecordAnswers() {
             responsesGivenText.pop();
             isCorrect = "blank";
         } else if (currentAnswer != questionAnswers[i]) {
-            if (currentAnswer == "Unsure") {
-                isCorrect = "Unsure";
+            if (currentAnswer == "unsure") {
+                isCorrect = "unsure";
             } else {
                 isCorrect = "Incorrect";
             }
