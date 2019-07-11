@@ -2,9 +2,8 @@
   "userId" : "TestUser100",
   "userQuestionSetRecord" : {
     "userId" : "TestUser100",
-    "unseenQuestionIds" : [ "PlaneQ1", "PlaneQ2", "PlaneQ3", "PlaneQ4", "PlaneQ5", "StructureQ1", "StructureQ2", "StructureQ3", "StructureQ4", "StructureQ5", "ZoneQ1", "ZoneQ2", "ZoneQ3", "ZoneQ4", "ZoneQ5" ],
-    "seenQuestionIds" : [ ],
-    "timesSeen" : [ ]
+    "questionIds" : [ "PlaneQ1", "PlaneQ2", "PlaneQ3", "PlaneQ4", "PlaneQ5", "StructureQ1", "StructureQ2", "StructureQ3", "StructureQ4", "StructureQ5", "ZoneQ1", "ZoneQ2", "ZoneQ3", "ZoneQ4", "ZoneQ5" ],
+    "timesSeen" : [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
   },
   "userResponseSetRecord" : {
     "userId" : "TestUser100",
