@@ -5,14 +5,11 @@ import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.JsonDatastore;
 import edu.ithaca.dragon.par.io.StudentModelRecord;
-import edu.ithaca.dragon.par.studentModel.ResponsesPerQuestion;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.util.JsonUtil;
 import org.junit.jupiter.api.Test;
 
-import java.awt.*;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,35 +17,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class TaskGeneratorTest {
-
-
-    @Test
-    public void makeTaskNoRepeatTest() throws IOException{
-        //make a studentModel that has answered 3 questions correctly, and has just gotten to level 2
-        QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/DemoQuestionPool.json"));
-        StudentModelRecord studentModelRecord = JsonUtil.fromJsonFile("src/test/resources/author/realExamples/TaskGeneratorTest-makeTaskNoRepeatTest-student.json", StudentModelRecord.class);
-        StudentModel studentModel = studentModelRecord.buildStudentModel(qp);
-
-        //get their next task
-        ImageTask imageTask1 = TaskGenerator.makeTask(studentModel);
-        //make sure the url has never been seen
-        assertEquals("./images/demoEquine04.jpg", imageTask1.getImageUrl());
-
-        //get their next task
-        ImageTask imageTask2 = TaskGenerator.makeTask(studentModel);
-        //make sure the url has never been seen
-        assertEquals("./images/demoEquine10.jpg", imageTask2.getImageUrl());
-
-        //get their next task
-        ImageTask imageTask3 = TaskGenerator.makeTask(studentModel);
-        //make sure the url has never been seen
-        assertEquals("./images/demoEquine11.jpg", imageTask3.getImageUrl());
-
-
-
-
-    }
-
 
     @Test
     public void makeTaskWithSingleQuestionTest() throws IOException {

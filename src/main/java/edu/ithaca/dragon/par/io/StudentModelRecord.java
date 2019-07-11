@@ -2,8 +2,6 @@ package edu.ithaca.dragon.par.io;
 
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
-import edu.ithaca.dragon.par.studentModel.UserQuestionSet;
-import edu.ithaca.dragon.par.studentModel.UserResponseSet;
 
 public class StudentModelRecord {
     private String userId;
