@@ -24,6 +24,10 @@ public class QuestionCount {
         return question;
     }
 
+    public void setTimesSeen(int seen){
+        timesSeen = seen;
+    }
+
     public boolean equals(Object otherObj){
         if(otherObj == null){
             return false;

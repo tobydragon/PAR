@@ -12,14 +12,26 @@ public class UserQuestionSet {
 
 
     public UserQuestionSet(String userIdIn, List<Question> questionsIn){
+        this(userIdIn, questionsIn, new ArrayList<>());
+    }
+    public UserQuestionSet(String userIdIn, List<Question> questionsIn, List<Integer> timesSeenIn){
+        if(timesSeenIn.size()==0){
+            for (int i = 0; i <questionsIn.size(); i++){
+                timesSeenIn.add(0);
+            }
+        }
+        if (timesSeenIn.size()!=questionsIn.size()){
+            throw new RuntimeException();
+        }
         userId = userIdIn;
-        questions = questionToQuestionCount(questionsIn);
+        questions = questionToQuestionCount(questionsIn, timesSeenIn);
     }
 
-    public static List<QuestionCount> questionToQuestionCount(List<Question> questions){
+    public static List<QuestionCount> questionToQuestionCount(List<Question> questions, List<Integer> timesSeenIn){
         List<QuestionCount> questionCountList = new ArrayList<QuestionCount>();
         for (int i = 0; i<questions.size(); i++){
             QuestionCount qc = new QuestionCount(questions.get(i));
+            qc.setTimesSeen(timesSeenIn.get(i));
             questionCountList.add(qc);
         }
         return questionCountList;

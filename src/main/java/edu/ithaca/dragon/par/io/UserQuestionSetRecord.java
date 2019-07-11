@@ -27,13 +27,27 @@ public class UserQuestionSetRecord {
         }
     }
 
+
+
+
+
     public UserQuestionSet buildUserQuestionSet(QuestionPool questionPool) {
         List<Question> questions = new ArrayList<>();
-        questions = questionPool.getQuestionsFromIds(questionIds);
+        List<Integer> seen = new ArrayList<>();
+
+        assert(questionIds.size() == timesSeen.size());
 
 
-        return new UserQuestionSet(userId, questions);
+        for(int i=0; i<questionIds.size(); i++){
+            questions.add(questionPool.getQuestionFromId(questionIds.get(i)));
+            seen.add(timesSeen.get(i));
+        }
+
+        return new UserQuestionSet(userId, questions, timesSeen);
     }
+
+
+
 
     public String getUserId() {
         return userId;
