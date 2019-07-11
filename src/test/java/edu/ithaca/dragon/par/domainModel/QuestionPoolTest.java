@@ -5,12 +5,13 @@ import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.security.InvalidParameterException;
 import java.util.Arrays;
 import java.util.List;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class QuestionPoolTest {
 
@@ -93,5 +94,26 @@ public class QuestionPoolTest {
 
         }
 
+    }
+
+    @Test
+    public void checkWindowSizeTest() throws IOException{
+        QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));
+        //This qp has 5 of each question
+
+        assertFalse(qp.checkWindowSize(0));
+        assertTrue(qp.checkWindowSize(1));
+        assertTrue(qp.checkWindowSize(5));
+        assertFalse(qp.checkWindowSize(6));
+        assertFalse(qp.checkWindowSize(10));
+
+        QuestionPool qp2 = new QuestionPool(new JsonDatastore("src/test/resources/author/DemoQuestionPool.json"));
+        //qp2 has 10 plane, 27 struct, and 10 zone
+
+        assertFalse(qp2.checkWindowSize(0));
+        assertTrue(qp2.checkWindowSize(5));
+        assertTrue(qp2.checkWindowSize(10));
+        assertFalse(qp2.checkWindowSize(27));
+        assertFalse(qp2.checkWindowSize(100));
     }
 }

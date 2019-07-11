@@ -1,10 +1,13 @@
 package edu.ithaca.dragon.par.domainModel;
 
+import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.Datastore;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class QuestionPool {
     private List<Question> allQuestions;
@@ -57,5 +60,39 @@ public class QuestionPool {
         }
 
         return toReturn;
+    }
+
+    public boolean checkWindowSize(int desiredWindowSize){
+        if(desiredWindowSize<1){
+            return false;
+        }
+        //create parallel arrays of types and count of times seen
+        List<String> enumNames = Stream.of(EquineQuestionTypes.values()).map(Enum::name).collect(Collectors.toList());
+        List<Integer> typeCounts = new ArrayList<>();
+
+        //initialize typeCounts with 0s
+        for(int i=0; i<enumNames.size(); i++){
+            typeCounts.add(0);
+        }
+
+        //loop through all questions
+        for(Question currQuestion : allQuestions){
+
+            //find which type it is
+            for(int i=0; i<enumNames.size(); i++){
+                if(enumNames.get(i).equals(currQuestion.getType())){
+                    //increment the typecount
+                    typeCounts.set(i, typeCounts.get(i) + 1);
+                    break;
+                }
+            }
+        }
+
+        //check if the typecounts are high enough
+        for(int i = 0; i<typeCounts.size();i++){
+            if(typeCounts.get(i) < desiredWindowSize)
+                return false;
+        }
+        return true;
     }
 }
