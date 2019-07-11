@@ -16,13 +16,15 @@ public class FileSystemUtil {
     }
 
     public static List<String> findAllFileNamesInDir(String dirPath, String fileExtension) throws IOException{
+        return findAllFileNamesInDir(new File(dirPath), fileExtension);
+    }
+
+    public static List<String> findAllFileNamesInDir(File directory, String fileExtension) throws IOException{
         //check if studentModelFilePath exists
-        File tmpDir = new File(dirPath);
-        if(!tmpDir.exists()) {
-            throw new IOException("path " + dirPath + " cannot be found");
+        if(!directory.exists()) {
+            throw new IOException("path " + directory.toString() + " cannot be found");
         }
-        File dir = new File(dirPath);
-        File[] allFiles = dir.listFiles();
+        File[] allFiles = directory.listFiles();
 
         List<String> filenames = new ArrayList<>();
         for(File file : allFiles){

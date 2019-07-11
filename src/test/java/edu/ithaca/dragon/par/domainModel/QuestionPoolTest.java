@@ -1,6 +1,7 @@
 package edu.ithaca.dragon.par.domainModel;
 
 import edu.ithaca.dragon.par.io.JsonDatastore;
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -13,6 +14,16 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class QuestionPoolTest {
+
+    @Test
+    public void createQuestionPoolTest() throws IOException{
+        //create QuestionPool with JsonDatastore
+        QuestionPool myQP = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));
+        //get all questions and check them
+        List<Question> myQPList = myQP.getAllQuestions();
+        Assert.assertTrue(myQPList.size() == 15);
+    }
+
     @Test
     public void getQuestionsFromUrlTest() throws IOException {
         QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));

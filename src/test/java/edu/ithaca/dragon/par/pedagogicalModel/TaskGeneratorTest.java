@@ -26,7 +26,7 @@ public class TaskGeneratorTest {
     public void makeTaskNoRepeatTest() throws IOException{
         //make a studentModel that has answered 3 questions correctly, and has just gotten to level 2
         QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/DemoQuestionPool.json"));
-        StudentModelRecord studentModelRecord = JsonUtil.fromJsonFile("src/test/resources/author/reaLExamples/TaskGeneratorTest-makeTaskNoRepeatTest-student.json", StudentModelRecord.class);
+        StudentModelRecord studentModelRecord = JsonUtil.fromJsonFile("src/test/resources/author/realExamples/TaskGeneratorTest-makeTaskNoRepeatTest-student.json", StudentModelRecord.class);
         StudentModel studentModel = studentModelRecord.buildStudentModel(qp);
 
         //get their next task
