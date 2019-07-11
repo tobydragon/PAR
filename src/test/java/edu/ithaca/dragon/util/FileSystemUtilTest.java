@@ -15,7 +15,6 @@ class FileSystemUtilTest {
         assertEquals(2,names.size());
         List<String> paths = FileSystemUtil.addPathToFilenames("src/test/resources/author/students", names);
         assertEquals(2,paths.size());
-        assertEquals("src/test/resources/author/students/TestUser100.json", paths.get(0));
 
         names = FileSystemUtil.findAllFileNamesInDir("src/test/resources/images", "jpg");
         assertEquals(10,names.size());

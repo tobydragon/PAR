@@ -8,11 +8,13 @@ import java.util.List;
 
 public class QuestionPool {
     private List<Question> allQuestions;
-    private Datastore datastore;
 
 
-    public QuestionPool(Datastore datastoreIn) throws IOException {
-        datastore = datastoreIn;
+    public QuestionPool(List<Question> allQuestions){
+        this.allQuestions = new ArrayList<>(allQuestions);
+    }
+
+    public QuestionPool(Datastore datastore) throws IOException {
         allQuestions = datastore.loadQuestions();
     }
 

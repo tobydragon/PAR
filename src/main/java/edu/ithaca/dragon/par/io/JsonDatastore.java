@@ -36,12 +36,17 @@ public class JsonDatastore implements Datastore{
 
     @Override
     public List<StudentModel> loadStudentModels() throws IOException {
-        List<StudentModel> studentModels = new ArrayList<>();
-        for(String filePath : FileSystemUtil.addPathToFilenames(studentModelFilePath, FileSystemUtil.findAllFileNamesInDir(studentModelFilePath, "json"))){
-            StudentModelRecord newSMR = JsonUtil.fromJsonFile(filePath, StudentModelRecord.class);
-            studentModels.add(newSMR.buildStudentModel(questionPool));
+        if (studentModelFilePath != null) {
+            List<StudentModel> studentModels = new ArrayList<>();
+            for (String filePath : FileSystemUtil.addPathToFilenames(studentModelFilePath, FileSystemUtil.findAllFileNamesInDir(studentModelFilePath, "json"))) {
+                StudentModelRecord newSMR = JsonUtil.fromJsonFile(filePath, StudentModelRecord.class);
+                studentModels.add(newSMR.buildStudentModel(questionPool));
+            }
+            return studentModels;
         }
-        return studentModels;
+        else {
+            throw new IOException("Trying to load student models but no path present");
+        }
     }
 
     @Override
@@ -60,11 +65,15 @@ public class JsonDatastore implements Datastore{
 
     @Override
     public void saveStudentModels(Collection<StudentModel> studentModelsIn) throws IOException {
-        if(studentModelFilePath == null)
-            throw new IOException("studentModelFilePath is null");
-        for(StudentModel currStudentModel : studentModelsIn){
-            saveStudentModel(currStudentModel);
+        if(studentModelFilePath != null) {
+            for(StudentModel currStudentModel : studentModelsIn){
+                saveStudentModel(currStudentModel);
+            }
         }
+        else {
+            throw new IOException("studentModelFilePath is null");
+        }
+
     }
 
     @Override
@@ -73,15 +82,5 @@ public class JsonDatastore implements Datastore{
             throw new IOException("studentModelFilePath is null");
         String fullFilePath = studentModelFilePath + "/" +  studentModel.getUserId() + ".json";
         JsonUtil.toJsonFile(fullFilePath, new StudentModelRecord(studentModel));
-    }
-
-    @Override
-    public void setStudentModelFilePath(String newStudentModelFilePath){
-        studentModelFilePath = newStudentModelFilePath;
-    }
-
-    @Override
-    public void setQuestionFilePath(String newQuestionFilePath){
-        questionFilePath = newQuestionFilePath;
     }
 }
