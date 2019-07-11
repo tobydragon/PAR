@@ -17,7 +17,7 @@
 	</parent>
 
 	<properties>
-		<java.version>12</java.version>
+		<java.version>11</java.version>
 
 		<junit.version>4.12</junit.version>
 		<junit-jupiter.version>5.4.0</junit-jupiter.version>

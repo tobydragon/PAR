@@ -55,7 +55,7 @@ public class JsonSpringUtil {
     public static <T> List<T> listFromClassPathJson(String relativePath, Class<? extends T> classToBeCreated) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         //found this fix here: https://stackoverflow.com/questions/11659844/jackson-deserialize-generic-class-variable
-        return  mapper.readValue(new ClassPathResource(relativePath).getFile(), mapper.getTypeFactory().constructParametricType(List.class, classToBeCreated));
+        return  mapper.readValue(new ClassPathResource(relativePath).getInputStream(), mapper.getTypeFactory().constructParametricType(List.class, classToBeCreated));
     }
 
     public static <T> List<T> listFromFileSystemOrCopyFromDefaultClassPathJson(String fileSystemLocation, String classPathLocation, Class<? extends T> classToBeCreated) throws IOException{
