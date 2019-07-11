@@ -158,8 +158,8 @@ function generateSinglescore() {
 
 function setCurrentScore() {
     if (scoreType == "ByType") {
-        //generateScoreByType();
-        generateScoreStringByType();
+        generateScoreByType();
+        //generateScoreStringByType();
     } else if (scoreType == "SingleScore") {
         generateSinglescore();
     } else if (scoreType == "Level") {
