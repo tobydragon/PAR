@@ -138,9 +138,11 @@ public class TaskGenerator {
      * @return
      */
     public static ImageTask makeTask(StudentModel studentModel){
-        checkStudentModel(studentModel);
+        return makeTask(studentModel, StudentModel.calcLevel(studentModel.knowledgeScoreByType()));
+    }
 
-        int level = StudentModel.calcLevel(studentModel.knowledgeScoreByType());
+    public static ImageTask makeTask(StudentModel studentModel, int level){
+        checkStudentModel(studentModel);
 
         Question initialQuestion = TaskGenerator.getInitialQuestionForTask(studentModel, level);
         List<Question> questionList = TaskGenerator.addAllQuestions(studentModel, initialQuestion);
