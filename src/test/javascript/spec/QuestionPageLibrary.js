@@ -56,4 +56,7 @@ describe("QuestionPageLibraryTest", function () {
         testElementValue = "otherWords";
         expect(disableField(testElementValue, testElementDiv)).toBe((questionString.disabled = false));
     });
+    /** it("generateScoreStringByType to generate the correct string for the visualization", function () {
+        expect(generateScoreStringByType().toBe("blip"));
+    }); **/
 });

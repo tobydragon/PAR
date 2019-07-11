@@ -196,7 +196,7 @@ function generateScoreStringByType() {
     for (var key in visJSON) { //key search
         if (visJSON.hasOwnProperty(key)) {
             let value = visJSON[key];
-            visString += "<i class=black>" + key + ": </i>";
+            visString += "&nbsp <i class=black>" + key + ": </i>";
             for (let i = 0; i < value.length; i++) { //value search on string
                 if (value[i] == "O") {
                     visString += '<i class="fas fa-check-circle green"></i>';
