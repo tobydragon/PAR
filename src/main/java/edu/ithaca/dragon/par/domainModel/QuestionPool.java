@@ -26,11 +26,27 @@ public class QuestionPool {
     }
 
     public Question getQuestionFromId(String questionIdIn){
-        for(int i = 0; i < allQuestions.size(); i++){
-            if(allQuestions.get(i).getId().equals(questionIdIn))
-                return allQuestions.get(i);
+        Question q = getQuestionFromId(questionIdIn, allQuestions);
+        if(q == null){
+            throw new RuntimeException("Question with id:" + questionIdIn + " does not exist");
         }
-        throw new RuntimeException("Question with id:" + questionIdIn + " does not exist");
+        return q;
+    }
+
+    public static Question getQuestionFromId(String questionIdIn, List<Question> questionList){
+
+        for(Question q : questionList){
+            if(q.getId().equals(questionIdIn)){
+                return q;
+            }
+
+            //call getQuestionFromId on the followup questions
+            Question q2 = getQuestionFromId(questionIdIn, q.getFollowupQuestions());
+            if(q2 != null){
+                return q2;
+            }
+        }
+        return null;
     }
 
     public List<Question> getQuestionsFromUrl(String imageUrlIn){

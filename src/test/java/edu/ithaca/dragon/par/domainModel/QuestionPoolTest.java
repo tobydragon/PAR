@@ -56,6 +56,11 @@ public class QuestionPoolTest {
         }catch(RuntimeException ee){
 
         }
+
+        //Test for follow up Questions
+        QuestionPool qp2 = new QuestionPool(new JsonDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json"));
+        Question followupQuestionFromId = qp2.getQuestionFromId("AttachQ1");
+        assertEquals("Attachment", followupQuestionFromId.getType());
     }
 
     @Test
