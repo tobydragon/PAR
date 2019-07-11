@@ -10,6 +10,10 @@ public class QuestionPool {
     private List<Question> allQuestions;
 
 
+    public QuestionPool(List<Question> allQuestions){
+        this.allQuestions = new ArrayList<>(allQuestions);
+    }
+
     public QuestionPool(Datastore datastore) throws IOException {
         allQuestions = datastore.loadQuestions();
     }
