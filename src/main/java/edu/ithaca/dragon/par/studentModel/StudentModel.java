@@ -61,11 +61,6 @@ public class StudentModel {
         return userResponseSet.knowledgeScoreByType();
     }
 
-    public int getWindowSize(){
-        return userResponseSet.getWindowSize();
-    }
-
-
     /**
      * Creates a list of ResponsesPerQuestion objects
      * @param imageTaskResponses: response submitted by the user

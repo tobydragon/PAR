@@ -7,14 +7,11 @@ public class UserResponseSet {
     private List<ResponsesPerQuestion> userResponse;
 
     //windowSize is the amount of responses to look back on when calculating the understanding of a topic
-    private int windowSize;
+    public static int windowSize = 4;
 
     public UserResponseSet(String userIdIn) {
         this.userId = userIdIn;
         userResponse = new ArrayList<>();
-
-        //TODO: consider taking windowSize in as a parameter instead of hardcoding
-        windowSize = 4;
     }
 
 
@@ -72,8 +69,6 @@ public class UserResponseSet {
     public String getUserId() {
         return userId;
     }
-
-    public int getWindowSize(){ return windowSize; }
 
     public double knowledgeCalc() {
         //TODO: should 12 be replaced by windowSize?
