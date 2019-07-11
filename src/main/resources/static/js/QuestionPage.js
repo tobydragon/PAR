@@ -138,15 +138,19 @@ function displayCheckAndRecordAnswers() {
         var answerEvaluationString;
         answerEvaluationString = compareAnswers(questionAnswers[i], currentAnswer, questionTypes[i]);
         disableFields(answerEvaluationString, currentName);
-        if (answerEvaluationString === "Correct") {
-            let followupString = generateFollowupQuestions(questionObjects[i]);
-            displayQuestion(followupString);
-        }
+
         console.log(questionTypes);
         console.log(responsesGivenText);
 
         var displayAreaName = "questionCorrect" + i;
         displayAnswers(displayAreaName, answerEvaluationString, questionAnswers[i], unsureShowsCorrectAnswer);
+
+        if (answerEvaluationString === "Correct") {
+            let followupString = generateFollowupQuestions(questionObjects[i]);
+            console.log(followupString);
+
+            //displayQuestion(followupString);
+        }
     }
     if (willDisplayFeedback) {
         generateFeedback();
@@ -154,9 +158,7 @@ function displayCheckAndRecordAnswers() {
 }
 
 function disableFields(correctAnswerValue, elementToDisable) {
-    if (correctAnswerValue === "Correct") {
-        disableField(elementToDisable);
-    } else if (correctAnswerValue === "Unsure") {
+    if (correctAnswerValue === "Correct" || correctAnswerValue === "Unsure") {
         disableField(elementToDisable);
     }
 }
