@@ -57,11 +57,25 @@ describe("QuestionPageLibraryTest", function () {
         expect(compareAnswers("bob", "", "")).toBe("blank");
         expect(compareAnswers("bob", "Rick", "")).toBe("Incorrect");
 
-    })
+    });
     it("check to make sure generateFollowupQuestions create appropriate followup questions for a correct struct question", function () {
-        var folloupQuestionPrereqCorrectness = true;
-        expect(generateFollowupQuestion(folloupQuestionPrereqCorrectness)).toBe("something about followup questions");
-        folloupQuestionPrereqCorrectness = false;
-        expect(generateFollowupQuestion(folloupQuestionPrereqCorrectness)).toBe(undefined);
+        var test = {
+            "id": "structure1./images/demoEquine02.jpg",
+            "type": "structure",
+            "questionText": "What is the the hypoechoic structure?",
+            "correctAnswer": "Suspensory ligament (branches)",
+            "possibleAnswers": ["Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (We use Accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)"],
+            "imageUrl": "./images/demoEquine02.jpg",
+            "followupQuestions": [{
+                "id": "AttachQ4",
+                "type": "Attachment",
+                "questionText": "Which attachment is this?",
+                "correctAnswer": "Type2",
+                "possibleAnswers": ["Type1", "Type2", "Type3"],
+                "imageUrl": "./images/demoEquine02.jpg",
+                "followupQuestions": []
+    }]
+        }
+        expect(generateFollowupQuestions(test)).toBe("something about followup questions");
     });
 });

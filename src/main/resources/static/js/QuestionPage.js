@@ -5,6 +5,7 @@ var responsesGivenText = [];
 var questionIDs = [];
 var questionTypes = [];
 var typesSeenForFeedback = [];
+var questionObjects = [];
 
 var unsureShowsCorrectAnswer;
 var feedbackByType;
@@ -85,16 +86,22 @@ function addToTypesSeenForFeedback(type) {
 
 //generates question for html based on the question given (the JSON)
 function generateQuestion(question) {
-    var difficultyStr = createDatalistDropdown(question, amountOfQuestions);
+    var questionStr = createDatalistDropdown(question, amountOfQuestions);
     amountOfQuestions++;
-
+    questionObjects.push(question);
     questionAnswers.push(question.correctAnswer);
     questionIDs.push(question.id);
     questionTypes.push(question.type);
-    displayQuestion(difficultyStr);
+    displayQuestion(questionStr);
 }
 
-function generateFollowupQuestions(question)
+function generateFollowupQuestions(question) {
+    if (question.hasOwnProperty("followupQuestions")) {
+        var questionStrFollowup = createDatalistDropdown(question, amountOfQuestions);
+        amountOfQuestions++;
+        displayQuestion(questionStrFollowup);
+    }
+}
 
 function checkAnswers() {
     console.log(questionAnswers);
@@ -132,7 +139,8 @@ function displayCheckAndRecordAnswers() {
         answerEvaluationString = compareAnswers(questionAnswers[i], currentAnswer, questionTypes[i]);
         disableFields(answerEvaluationString, currentName);
         if (answerEvaluationString === "Correct") {
-            generateFollowupQuestions();
+            let followupString = generateFollowupQuestions(questionObjects[i]);
+            displayQuestion(followupString);
         }
         console.log(questionTypes);
         console.log(responsesGivenText);
