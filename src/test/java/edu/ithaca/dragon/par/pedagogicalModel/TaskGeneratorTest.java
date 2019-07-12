@@ -202,7 +202,7 @@ public class TaskGeneratorTest {
         assertEquals(noFollowups, noFollowsAfter);
 
         //The method should not remove the base question
-        assertThrows(RuntimeException.class, () -> {Question noFollowsAfterPlane = TaskGenerator.removeTypeFromQuestion(noFollowups, "Plane");});
+        assertThrows(RuntimeException.class, () -> {Question noFollowsAfterPlane = TaskGenerator.removeTypeFromQuestion(noFollowups, "plane");});
 
         //Removing attachment followups should create a question with no followups
         Question twoFollowupsAfter = TaskGenerator.removeTypeFromQuestion(twoFollowups, "Attachment");
@@ -210,9 +210,9 @@ public class TaskGeneratorTest {
         assertFalse(twoFollowups == twoFollowupsAfter);
 
         //Removing a followup to a followup
-        Question recFollowupsAfter = TaskGenerator.removeTypeFromQuestion(recFollowups, "Bonus");
+        Question recFollowupsAfter = TaskGenerator.removeTypeFromQuestion(recFollowups, "Plane");
         assertFalse(recFollowupsAfter == recFollowups);
-        assertTrue(recFollowups.getFollowupQuestions().get(2).getType() == "Bonus");
-        assertFalse(recFollowupsAfter.getFollowupQuestions().get(2).getType() == "Bonus");
+        assertEquals("Plane", recFollowups.getFollowupQuestions().get(2).getFollowupQuestions().get(0).getType());
+        assertEquals(0, recFollowupsAfter.getFollowupQuestions().get(2).getFollowupQuestions().size());
     }
 }
