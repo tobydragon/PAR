@@ -193,7 +193,22 @@ public class TaskGenerator {
     }
 
     public static Question removeTypeFromQuestion(Question question, String type){
-        return null;
+        if(!question.getType().equals(type)) {
+            if (question.getFollowupQuestions().size() != 0){
+                List<Question> cleanFollowups = new ArrayList<>();
+                for (Question followupQuestion : question.getFollowupQuestions()){
+                    if (!followupQuestion.getType().equals(type)) {
+                        Question cleanFollowUp = removeTypeFromQuestion(followupQuestion, type);
+                        cleanFollowups.add(cleanFollowUp);
+                    }
+                }
+                return new Question(question, cleanFollowups);
+            }
+            return question;
+        }
+        else{
+            throw new RuntimeException("root question matches type, cannot remove itself");
+        }
     }
 
     /**
