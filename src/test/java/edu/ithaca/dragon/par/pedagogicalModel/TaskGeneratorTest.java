@@ -4,13 +4,11 @@ import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.JsonDatastore;
-import edu.ithaca.dragon.par.io.StudentModelRecord;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.util.JsonUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import java.awt.*;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -118,22 +116,22 @@ public class TaskGeneratorTest {
         StudentModel studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
 
         //first url
-        Question q1 = studentModel.getUserQuestionSet().getUnseenQuestions().get(0);
+        Question q1 = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions().get(0);
         List<Question> qs =TaskGenerator.addAllQuestions(studentModel, q1);
         assertEquals(5, qs.size());
 
         //second url
-        Question q2 = studentModel.getUserQuestionSet().getUnseenQuestions().get(5);
+        Question q2 = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions().get(5);
         qs =TaskGenerator.addAllQuestions(studentModel, q2);
         assertEquals(6, qs.size());
 
         //third url
-        Question q3 = studentModel.getUserQuestionSet().getUnseenQuestions().get(11);
+        Question q3 = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions().get(11);
         qs =TaskGenerator.addAllQuestions(studentModel, q3);
         assertEquals(4, qs.size());
 
         //fourth url
-        Question q4 = studentModel.getUserQuestionSet().getUnseenQuestions().get(15);
+        Question q4 = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions().get(15);
         qs =TaskGenerator.addAllQuestions(studentModel, q4);
         assertEquals(3, qs.size());
         //repeat
@@ -143,7 +141,7 @@ public class TaskGeneratorTest {
         assertEquals(3, qs.size());
 
         //last question
-        Question q5 = studentModel.getUserQuestionSet().getUnseenQuestions().get(questionPool.getAllQuestions().size()-1);
+        Question q5 = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions().get(questionPool.getAllQuestions().size()-1);
         qs =TaskGenerator.addAllQuestions(studentModel, q5);
         assertEquals(6, qs.size());
     }

@@ -5,7 +5,6 @@ import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 
-import java.awt.desktop.QuitEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +23,7 @@ public class TaskGenerator {
             case 1:
                 if(studentModel.getUnseenQuestionCount()>0){
                     //make and return an imageTask with the first question from the studentModels.unseenQuestions that matches the level
-                    List<Question> unseen = studentModel.getUserQuestionSet().getUnseenQuestions();
+                    List<Question> unseen = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions();
                     for (int i = 0; i< unseen.size(); i++){
                         if(unseen.get(i).getType().equals("plane")){
                             return unseen.get(i);
@@ -38,7 +37,7 @@ public class TaskGenerator {
             case 2:
                 if(studentModel.getUnseenQuestionCount()>0){
                     //make and return an imageTask with the first question from the studentModels.unseenQuestions that matches the level
-                    List<Question> unseen = studentModel.getUserQuestionSet().getUnseenQuestions();
+                    List<Question> unseen = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions();
                     for (int i = 0; i< unseen.size(); i++){
                         if(unseen.get(i).getType().equals("plane")){
                             return unseen.get(i);
@@ -56,7 +55,7 @@ public class TaskGenerator {
             case 3:
                 if(studentModel.getUnseenQuestionCount()>0){
                     //make and return an imageTask with the first question from the studentModels.unseenQuestions that matches the level
-                    List<Question> unseen = studentModel.getUserQuestionSet().getUnseenQuestions();
+                    List<Question> unseen = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions();
                     for (int i = 0; i< unseen.size(); i++){
                         if(unseen.get(i).getType().equals("structure")){
                             return unseen.get(i);
@@ -70,7 +69,7 @@ public class TaskGenerator {
             case 4:
                 if(studentModel.getUnseenQuestionCount()>0){
                     //make and return an imageTask with the first question from the studentModels.unseenQuestions that matches the level
-                    List<Question> unseen = studentModel.getUserQuestionSet().getUnseenQuestions();
+                    List<Question> unseen = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions();
                     for (int i = 0; i< unseen.size(); i++){
                         if(unseen.get(i).getType().equals("structure")){
                             return unseen.get(i);
@@ -90,7 +89,7 @@ public class TaskGenerator {
             case 5:
                 if(studentModel.getUnseenQuestionCount()>0){
                     //make and return an imageTask with the first question from the studentModels.unseenQuestions that matches the level
-                    List<Question> unseen = studentModel.getUserQuestionSet().getUnseenQuestions();
+                    List<Question> unseen = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions();
                     for (int i = 0; i< unseen.size(); i++){
                         if(unseen.get(i).getType().equals("structure")){
                             return unseen.get(i);
@@ -114,7 +113,7 @@ public class TaskGenerator {
             case 6:
                 if(studentModel.getUnseenQuestionCount()>0){
                     //make and return an imageTask with the first question from the studentModels.unseenQuestions that matches the level
-                    List<Question> unseen = studentModel.getUserQuestionSet().getUnseenQuestions();
+                    List<Question> unseen = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions();
                     for (int i = 0; i< unseen.size(); i++){
                         if(unseen.get(i).getType().equals("zone")){
                             return unseen.get(i);
@@ -154,7 +153,7 @@ public class TaskGenerator {
 
         //let studentModel know that unseen questions are seen
         for(Question currQuestion : questionList){
-            studentModel.getUserQuestionSet().givenQuestion(currQuestion.getId());
+            studentModel.getUserQuestionSet().increaseTimesSeen(currQuestion.getId());
         }
         return imageTask;
     }
@@ -197,8 +196,8 @@ public class TaskGenerator {
      */
     public static List<Question> addAllQuestions(StudentModel studentModel, Question initialQuestion){
         //put initialQuestion, unseenQuestions and seenQuestions all in a list
-        List<Question> unseenQuestionsWithCorrectUrl = QuestionPool.getQuestionsWithUrl(studentModel.getUserQuestionSet().getUnseenQuestions(), initialQuestion.getImageUrl());
-        List<Question> seenQuestionsWithCorrectUrl = QuestionPool.getQuestionsWithUrl(studentModel.getUserQuestionSet().getSeenQuestions(), initialQuestion.getImageUrl());
+        List<Question> unseenQuestionsWithCorrectUrl = QuestionPool.getQuestionsWithUrl(studentModel.getUserQuestionSet().getTopLevelUnseenQuestions(), initialQuestion.getImageUrl());
+        List<Question> seenQuestionsWithCorrectUrl = QuestionPool.getQuestionsWithUrl(studentModel.getUserQuestionSet().getTopLevelSeenQuestions(), initialQuestion.getImageUrl());
         List<Question> questionList = new ArrayList<>();
         questionList.addAll(unseenQuestionsWithCorrectUrl);
         questionList.addAll(seenQuestionsWithCorrectUrl);
@@ -215,7 +214,7 @@ public class TaskGenerator {
     public static Question getLeastSeenQuestion(StudentModel studentModel, String type){
         //TODO check if there are unseen questions?
 
-        List<Question> seenQuestions = studentModel.getUserQuestionSet().getSeenQuestions();
+        List<Question> seenQuestions = studentModel.getUserQuestionSet().getTopLevelSeenQuestions();
 
         if(seenQuestions.size()==0){
             throw new RuntimeException("The studentModel has no questions");
@@ -223,7 +222,7 @@ public class TaskGenerator {
 
         int index = 0;
         for(int i = 0; i<seenQuestions.size(); i++){
-            if( (studentModel.getUserQuestionSet().getSeenQuestions().get(i).getType().equals(type)) && (studentModel.getUserQuestionSet().getTimesSeen(seenQuestions.get(i).getId()) < studentModel.getUserQuestionSet().getTimesSeen(seenQuestions.get(index).getId()))){
+            if( (studentModel.getUserQuestionSet().getTopLevelSeenQuestions().get(i).getType().equals(type)) && (studentModel.getUserQuestionSet().getTimesSeen(seenQuestions.get(i).getId()) < studentModel.getUserQuestionSet().getTimesSeen(seenQuestions.get(index).getId()))){
                 index = i;
             }
         }

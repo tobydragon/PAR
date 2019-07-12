@@ -26,8 +26,8 @@ public class UserQuestionSet {
 
     public List<QuestionCount> getQuestionCounts(){ return questionCounts; }
 
-    public List<Question> getSeenQuestions(){
-        List<Question> seen = new ArrayList<Question>();
+    public List<Question> getTopLevelSeenQuestions(){
+        List<Question> seen = new ArrayList<>();
         for (QuestionCount currQuestion: questionCounts){
             if (currQuestion.getTimesSeen()>0){
                 seen.add(currQuestion.getQuestion());
@@ -36,8 +36,8 @@ public class UserQuestionSet {
         return seen;
     }
 
-    public List<Question> getUnseenQuestions(){
-        List<Question> unseen = new ArrayList<Question>();
+    public List<Question> getTopLevelUnseenQuestions(){
+        List<Question> unseen = new ArrayList<>();
         for (QuestionCount currQuestion: questionCounts){
             if (currQuestion.getTimesSeen()==0){
                 unseen.add(currQuestion.getQuestion());
@@ -48,7 +48,7 @@ public class UserQuestionSet {
 
 
     public int getTimesSeen (String questionId){
-        QuestionCount qc = getQuestioncountFromId(questionId);
+        QuestionCount qc = getQuestionCountFromId(questionId);
         if(qc == null){
             throw new RuntimeException("QuestionCount with id:" + questionId + " does not exist");
         }
@@ -60,28 +60,8 @@ public class UserQuestionSet {
         return userId;
     }
 
-    public  int getLenOfSeenQuestions(){
-        int seen = 0;
-        for (QuestionCount currQuestion: questionCounts){
-            if (currQuestion.getTimesSeen()>0){
-                seen+=1;
-            }
-        }
-        return seen;
-    }
-
-    public  int getLenOfUnseenQuestions(){
-        int unseen = 0;
-        for (QuestionCount currQuestion: questionCounts){
-            if (currQuestion.getTimesSeen()==0){
-                unseen+=1;
-            }
-        }
-        return unseen;
-    }
-
-    public void givenQuestion(String questionId){
-        QuestionCount qc = getQuestioncountFromId(questionId);
+    public void increaseTimesSeen(String questionId){
+        QuestionCount qc = getQuestionCountFromId(questionId);
         if(qc == null){
             throw new RuntimeException("QuestionCount with id:" + questionId + " does not exist");
         }
@@ -89,22 +69,22 @@ public class UserQuestionSet {
 
     }
 
-    public QuestionCount getQuestioncountFromId(String questionIdIn){
-        QuestionCount q = getQuestioncountFromId(questionIdIn, questionCounts);
+    public QuestionCount getQuestionCountFromId(String questionIdIn){
+        QuestionCount q = getQuestionCountFromId(questionIdIn, questionCounts);
         if(q == null){
             throw new RuntimeException("QuestionCount with id:" + questionIdIn + " does not exist");
         }
         return q;
     }
 
-    public static QuestionCount getQuestioncountFromId(String questionIdIn, List<QuestionCount> questionList){
+    public static QuestionCount getQuestionCountFromId(String questionIdIn, List<QuestionCount> questionList){
         for(QuestionCount q : questionList){
             if(q.getQuestion().getId().equals(questionIdIn)){
                 return q;
             }
 
             //call getQuestionFromId on the followup questions
-            QuestionCount q2 = getQuestioncountFromId(questionIdIn, q.getFollowupCounts());
+            QuestionCount q2 = getQuestionCountFromId(questionIdIn, q.getFollowupCounts());
             if(q2 != null){
                 return q2;
             }

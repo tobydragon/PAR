@@ -37,7 +37,7 @@ public class UserQuestionSetTest {
         assertEquals(UQS1, UQS2);
 
         //give a question from a UserQuestionSet, then compare
-        UQS1.givenQuestion("StructureQ1");
+        UQS1.increaseTimesSeen("StructureQ1");
         assertFalse(UQS1.equals(UQS2));
 
         //insure that the timesSeen of that question are different between UQS1 and UQS2
@@ -45,7 +45,7 @@ public class UserQuestionSetTest {
         assertEquals(0, UQS2.getTimesSeen("StructureQ1"));
 
         //give the same question from the other UserQuestionSet, then compare
-        UQS2.givenQuestion("StructureQ1");
+        UQS2.increaseTimesSeen("StructureQ1");
         assertTrue(UQS1.equals(UQS2));
     }
 
@@ -59,21 +59,21 @@ public class UserQuestionSetTest {
         assertEquals(0, seen1);
 
         //checks question has been seen once
-        que.givenQuestion("PlaneQ1");
+        que.increaseTimesSeen("PlaneQ1");
         int seen2 = que.getTimesSeen("PlaneQ1");
         assertEquals(1, seen2);
 
         //checks question has been seen twice
-        que.givenQuestion("StructureQ1");
-        que.givenQuestion("StructureQ1");
+        que.increaseTimesSeen("StructureQ1");
+        que.increaseTimesSeen("StructureQ1");
         int seen3 = que.getTimesSeen("StructureQ1");
         assertEquals(2, seen3);
 
         //checks seeing question multiple times in a row
-        que.givenQuestion("ZoneQ1");
-        que.givenQuestion("ZoneQ1");
-        que.givenQuestion("ZoneQ1");
-        que.givenQuestion("ZoneQ1");
+        que.increaseTimesSeen("ZoneQ1");
+        que.increaseTimesSeen("ZoneQ1");
+        que.increaseTimesSeen("ZoneQ1");
+        que.increaseTimesSeen("ZoneQ1");
         int seen4 = que.getTimesSeen("ZoneQ1");
         assertEquals(4, seen4);
 
@@ -129,19 +129,19 @@ public class UserQuestionSetTest {
         UserQuestionSet que = UserQuestionSet.buildNewUserQuestionSetFromQuestions("1", questionsFromFile);
 
         //checks times seen increases consecutively
-        que.givenQuestion("PlaneQ1");
+        que.increaseTimesSeen("PlaneQ1");
         int seen = que.getTimesSeen("PlaneQ1");
         assertEquals(1, seen);
-        que.givenQuestion("PlaneQ1");
+        que.increaseTimesSeen("PlaneQ1");
         seen = que.getTimesSeen("PlaneQ1");
         assertEquals(2, seen);
 
         //checks times seen increases multiple times consecutively
-        que.givenQuestion("StructureQ1");
+        que.increaseTimesSeen("StructureQ1");
         seen = que.getTimesSeen("StructureQ1");
         assertEquals(1, seen);
-        que.givenQuestion("StructureQ1");
-        que.givenQuestion("StructureQ1");
+        que.increaseTimesSeen("StructureQ1");
+        que.increaseTimesSeen("StructureQ1");
         seen = que.getTimesSeen("StructureQ1");
         assertEquals(3, seen);
 
@@ -149,7 +149,7 @@ public class UserQuestionSetTest {
         //checks other question does not have an increase in times seen
         seen = que.getTimesSeen("ZoneQ1");
         assertEquals(0, seen);
-        que.givenQuestion("ZoneQ1");
+        que.increaseTimesSeen("ZoneQ1");
         seen = que.getTimesSeen("ZoneQ1");
         assertEquals(1, seen);
         seen = que.getTimesSeen("StructureQ1");
@@ -189,55 +189,55 @@ public class UserQuestionSetTest {
 
 
         //Time seen increase for PlaneQ1, length of seen and unseen list change
-        que.givenQuestion("PlaneQ1");
+        que.increaseTimesSeen("PlaneQ1");
         int ts = que.getTimesSeen("PlaneQ1");
         assertEquals(1, ts);
 
         //Time seen increase for ZoneQ1, length of seen and unseen list change
-        que.givenQuestion("ZoneQ1");
+        que.increaseTimesSeen("ZoneQ1");
         ts = que.getTimesSeen("ZoneQ1");
         assertEquals(1, ts);
 
         //Invalid Question ID, no values change
-        assertThrows(RuntimeException.class, () -> { que.givenQuestion("3");});
+        assertThrows(RuntimeException.class, () -> { que.increaseTimesSeen("3");});
         assertThrows(RuntimeException.class, () -> { que.getTimesSeen("3");});
 
         //already seen question, seen and unseen list lengths do not change, times seen increases
-        que.givenQuestion("PlaneQ1");
+        que.increaseTimesSeen("PlaneQ1");
         ts = que.getTimesSeen("PlaneQ1");
         assertEquals(2, ts);
 
         //new question, seen and unseen question lists change in length, times seen is 1
-        que.givenQuestion("StructureQ1");
+        que.increaseTimesSeen("StructureQ1");
         ts = que.getTimesSeen("StructureQ1");
         assertEquals(1, ts);
 
         //invalid question ID, no values change
-        assertThrows(RuntimeException.class, () -> { que.givenQuestion("1");});
+        assertThrows(RuntimeException.class, () -> { que.increaseTimesSeen("1");});
         assertThrows(RuntimeException.class, () -> { que.getTimesSeen("1");});
 
         //already seen question, times seen increases, seen and unseen lists remain unchanged
-        que.givenQuestion("ZoneQ1");
+        que.increaseTimesSeen("ZoneQ1");
         ts = que.getTimesSeen("ZoneQ1");
         assertEquals(2, ts);
 
         //increase in times seen
-        que.givenQuestion("ZoneQ1");
+        que.increaseTimesSeen("ZoneQ1");
         ts = que.getTimesSeen("ZoneQ1");
         assertEquals(3, ts);
 
         //increase in times seen
-        que.givenQuestion("ZoneQ1");
+        que.increaseTimesSeen("ZoneQ1");
         ts = que.getTimesSeen("ZoneQ1");
         assertEquals(4, ts);
 
         //increase in times seen
-        que.givenQuestion("ZoneQ1");
+        que.increaseTimesSeen("ZoneQ1");
         ts = que.getTimesSeen("ZoneQ1");
         assertEquals(5, ts);
 
         //increase in times seen
-        que.givenQuestion("ZoneQ1");
+        que.increaseTimesSeen("ZoneQ1");
         ts = que.getTimesSeen("ZoneQ1");
         assertEquals(6, ts);
 
@@ -254,7 +254,7 @@ public class UserQuestionSetTest {
         assertEquals(6, ts);
 
         //increase in times seen
-        que.givenQuestion("PlaneQ1");
+        que.increaseTimesSeen("PlaneQ1");
         ts = que.getTimesSeen("PlaneQ1");
         assertEquals(3, ts);
 
@@ -265,8 +265,8 @@ public class UserQuestionSetTest {
 
 
         //increase in times seen
-        qSet.givenQuestion("PlaneQ1");
-        qSet.givenQuestion("PlaneQ1");
+        qSet.increaseTimesSeen("PlaneQ1");
+        qSet.increaseTimesSeen("PlaneQ1");
         ts = qSet.getTimesSeen("PlaneQ1");
         assertEquals(2, ts);
 
@@ -277,9 +277,9 @@ public class UserQuestionSetTest {
         assertEquals(0, ts);
 
         //increase in times seen
-        qSet.givenQuestion("ZoneQ1");
-        qSet.givenQuestion("ZoneQ1");
-        qSet.givenQuestion("ZoneQ1");
+        qSet.increaseTimesSeen("ZoneQ1");
+        qSet.increaseTimesSeen("ZoneQ1");
+        qSet.increaseTimesSeen("ZoneQ1");
         ts = qSet.getTimesSeen("ZoneQ1");
         assertEquals(3, ts);
 
@@ -297,55 +297,55 @@ public class UserQuestionSetTest {
         UserQuestionSet que = UserQuestionSet.buildNewUserQuestionSetFromQuestions("1", questionsFromFile);
 
         //checks all questions are unseen
-        List<Question> unseenList = que.getUnseenQuestions();
+        List<Question> unseenList = que.getTopLevelUnseenQuestions();
         int len = unseenList.size();
         assertEquals(15, len);
 
         //decrease in number unseen
-        que.givenQuestion("StructureQ1");
-        unseenList = que.getUnseenQuestions();
+        que.increaseTimesSeen("StructureQ1");
+        unseenList = que.getTopLevelUnseenQuestions();
         len = unseenList.size();
         assertEquals(14, len);
 
         //no decrease in number unseen
-        que.givenQuestion("StructureQ1");
-        unseenList = que.getUnseenQuestions();
+        que.increaseTimesSeen("StructureQ1");
+        unseenList = que.getTopLevelUnseenQuestions();
         len = unseenList.size();
         assertEquals(14, len);
 
         //decrease in number unseen
-        que.givenQuestion("ZoneQ1");
-        unseenList = que.getUnseenQuestions();
+        que.increaseTimesSeen("ZoneQ1");
+        unseenList = que.getTopLevelUnseenQuestions();
         len = unseenList.size();
         assertEquals(13, len);
 
         //invalid question ID
-        assertThrows(RuntimeException.class, () -> { que.givenQuestion("6");});
-        unseenList = que.getUnseenQuestions();
+        assertThrows(RuntimeException.class, () -> { que.increaseTimesSeen("6");});
+        unseenList = que.getTopLevelUnseenQuestions();
         len = unseenList.size();
         assertEquals(13, len);
 
         //invalid question ID
-        assertThrows(RuntimeException.class, () -> { que.givenQuestion("5");});
-        unseenList = que.getUnseenQuestions();
+        assertThrows(RuntimeException.class, () -> { que.increaseTimesSeen("5");});
+        unseenList = que.getTopLevelUnseenQuestions();
         len = unseenList.size();
         assertEquals(13, len);
 
         //decrease in number unseen
-        que.givenQuestion("PlaneQ1");
-        unseenList = que.getUnseenQuestions();
+        que.increaseTimesSeen("PlaneQ1");
+        unseenList = que.getTopLevelUnseenQuestions();
         len = unseenList.size();
         assertEquals(12, len);
 
         //no decrease in number unseen
-        que.givenQuestion("ZoneQ1");
-        unseenList = que.getUnseenQuestions();
+        que.increaseTimesSeen("ZoneQ1");
+        unseenList = que.getTopLevelUnseenQuestions();
         len = unseenList.size();
         assertEquals(12, len);
 
         //no decrease in number unseen
-        que.givenQuestion("PlaneQ1");
-        unseenList = que.getUnseenQuestions();
+        que.increaseTimesSeen("PlaneQ1");
+        unseenList = que.getTopLevelUnseenQuestions();
         len = unseenList.size();
         assertEquals(12, len);
     }
@@ -357,55 +357,55 @@ public class UserQuestionSetTest {
         UserQuestionSet que = UserQuestionSet.buildNewUserQuestionSetFromQuestions("1", questionsFromFile);
 
         //checks all questions are seen
-        List<Question> seenList = que.getSeenQuestions();
+        List<Question> seenList = que.getTopLevelSeenQuestions();
         int len = seenList.size();
         assertEquals(0, len);
 
         //increase in number seen
-        que.givenQuestion("StructureQ1");
-        seenList = que.getSeenQuestions();
+        que.increaseTimesSeen("StructureQ1");
+        seenList = que.getTopLevelSeenQuestions();
         len = seenList.size();
         assertEquals(1, len);
 
         //no increase in number seen
-        que.givenQuestion("StructureQ1");
-        seenList = que.getSeenQuestions();
+        que.increaseTimesSeen("StructureQ1");
+        seenList = que.getTopLevelSeenQuestions();
         len = seenList.size();
         assertEquals(1, len);
 
         //increase in number seen
-        que.givenQuestion("ZoneQ1");
-        seenList = que.getSeenQuestions();
+        que.increaseTimesSeen("ZoneQ1");
+        seenList = que.getTopLevelSeenQuestions();
         len = seenList.size();
         assertEquals(2, len);
 
         //invalid question ID
-        assertThrows(RuntimeException.class, () -> { que.givenQuestion("6");});
-        seenList = que.getSeenQuestions();
+        assertThrows(RuntimeException.class, () -> { que.increaseTimesSeen("6");});
+        seenList = que.getTopLevelSeenQuestions();
         len = seenList.size();
         assertEquals(2, len);
 
         //invalid question ID
-        assertThrows(RuntimeException.class, () -> { que.givenQuestion("5");});
-        seenList = que.getSeenQuestions();
+        assertThrows(RuntimeException.class, () -> { que.increaseTimesSeen("5");});
+        seenList = que.getTopLevelSeenQuestions();
         len = seenList.size();
         assertEquals(2, len);
 
         //increase in number seen
-        que.givenQuestion("PlaneQ1");
-        seenList = que.getSeenQuestions();
+        que.increaseTimesSeen("PlaneQ1");
+        seenList = que.getTopLevelSeenQuestions();
         len = seenList.size();
         assertEquals(3, len);
 
         //no increase in number seen
-        que.givenQuestion("ZoneQ1");
-        seenList = que.getSeenQuestions();
+        que.increaseTimesSeen("ZoneQ1");
+        seenList = que.getTopLevelSeenQuestions();
         len = seenList.size();
         assertEquals(3, len);
 
         //no increase in number seen
-        que.givenQuestion("PlaneQ1");
-        seenList = que.getSeenQuestions();
+        que.increaseTimesSeen("PlaneQ1");
+        seenList = que.getTopLevelSeenQuestions();
         len = seenList.size();
         assertEquals(3, len);
     }
@@ -416,8 +416,8 @@ public class UserQuestionSetTest {
     public void writeUserQuestionSet() throws IOException{
         List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
         UserQuestionSet userQuestionSet = UserQuestionSet.buildNewUserQuestionSetFromQuestions("kerryAnne", questionsFromFile);
-        userQuestionSet.givenQuestion("PlaneQ1");
-        userQuestionSet.givenQuestion("ZoneQ1");
+        userQuestionSet.increaseTimesSeen("PlaneQ1");
+        userQuestionSet.increaseTimesSeen("ZoneQ1");
         UserQuestionSetRecord uqsr = new UserQuestionSetRecord(userQuestionSet);
 
         JsonUtil.toJsonFile("src/test/resources/autoGenerated/newUserQuestionSet.json", uqsr);

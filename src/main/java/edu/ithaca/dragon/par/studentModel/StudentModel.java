@@ -34,15 +34,15 @@ public class StudentModel {
     }
 
     public void givenQuestion(String questionId){
-        userQuestionSet.givenQuestion(questionId);
+        userQuestionSet.increaseTimesSeen(questionId);
     }
 
     public int getSeenQuestionCount(){
-        return userQuestionSet.getLenOfSeenQuestions();
+        return userQuestionSet.getTopLevelSeenQuestions().size();
     }
 
     public int getUnseenQuestionCount(){
-        return userQuestionSet.getLenOfUnseenQuestions();
+        return userQuestionSet.getTopLevelUnseenQuestions().size();
     }
 
     public int getResponseCount(){
