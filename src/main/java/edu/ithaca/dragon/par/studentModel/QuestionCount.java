@@ -2,14 +2,19 @@ package edu.ithaca.dragon.par.studentModel;
 
 import edu.ithaca.dragon.par.domainModel.Question;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class QuestionCount {
 
     Question question;
     int timesSeen;
+    List<QuestionCount> followup
 
     public QuestionCount(Question questionIn){
         question = questionIn;
         timesSeen = 0;
+        followup = UserQuestionSet.questionToQuestionCount(questionIn.getFollowupQuestions());
     }
 
     public int getTimesSeen(){

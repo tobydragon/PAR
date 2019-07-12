@@ -24,14 +24,14 @@ public class UserQuestionSet {
             throw new RuntimeException();
         }
         userId = userIdIn;
-        questions = questionToQuestionCount(questionsIn, timesSeenIn);
+        questions = questionToQuestionCount(questionsIn);
     }
 
-    public static List<QuestionCount> questionToQuestionCount(List<Question> questions, List<Integer> timesSeenIn){
+    public static List<QuestionCount> questionToQuestionCount(List<Question> questions){
         List<QuestionCount> questionCountList = new ArrayList<QuestionCount>();
         for (int i = 0; i<questions.size(); i++){
             QuestionCount qc = new QuestionCount(questions.get(i));
-            qc.setTimesSeen(timesSeenIn.get(i));
+            qc.setTimesSeen(0);
             questionCountList.add(qc);
         }
         return questionCountList;
