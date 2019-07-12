@@ -1,14 +1,13 @@
 package edu.ithaca.dragon.par.studentModel;
 
 import edu.ithaca.dragon.par.domainModel.Question;
-import edu.ithaca.dragon.par.io.ImageTask;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserQuestionSet {
     private String userId;
-    private List<QuestionCount> questions;
+    private List<QuestionCount> questionCounts;
 
 
     public UserQuestionSet(String userIdIn, List<Question> questionsIn){
@@ -24,7 +23,7 @@ public class UserQuestionSet {
             throw new RuntimeException();
         }
         userId = userIdIn;
-        questions = questionToQuestionCount(questionsIn);
+        questionCounts = questionToQuestionCount(questionsIn);
     }
 
     public static List<QuestionCount> questionToQuestionCount(List<Question> questions){
@@ -39,14 +38,14 @@ public class UserQuestionSet {
 
 
     public int getLenOfQuestions(){
-        return questions.size();
+        return questionCounts.size();
     }
 
-    public List<QuestionCount> getQuestions(){ return questions; }
+    public List<QuestionCount> getQuestionCounts(){ return questionCounts; }
 
     public List<Question> getSeenQuestions(){
         List<Question> seen = new ArrayList<Question>();
-        for (QuestionCount currQuestion: questions){
+        for (QuestionCount currQuestion: questionCounts){
             if (currQuestion.getTimesSeen()>0){
                 seen.add(currQuestion.getQuestion());
             }
@@ -56,7 +55,7 @@ public class UserQuestionSet {
 
     public List<Question> getUnseenQuestions(){
         List<Question> unseen = new ArrayList<Question>();
-        for (QuestionCount currQuestion: questions){
+        for (QuestionCount currQuestion: questionCounts){
             if (currQuestion.getTimesSeen()==0){
                 unseen.add(currQuestion.getQuestion());
             }
@@ -66,9 +65,9 @@ public class UserQuestionSet {
 
 
     public int getTimesSeen (String questionId){
-        for (int i = 0; i<questions.size(); i++){
-            if(questions.get(i).getQuestion().getId().equals(questionId)){
-                return questions.get(i).getTimesSeen();
+        for (int i = 0; i< questionCounts.size(); i++){
+            if(questionCounts.get(i).getQuestion().getId().equals(questionId)){
+                return questionCounts.get(i).getTimesSeen();
             }
         }
         throw new RuntimeException();
@@ -80,9 +79,9 @@ public class UserQuestionSet {
     }
 
     public boolean increaseTimesSeen (String questionId){
-        for (int i = 0; i<questions.size(); i++){
-            if(questions.get(i).getQuestion().getId().equals(questionId)){
-                questions.get(i).increaseTimesSeen();
+        for (int i = 0; i< questionCounts.size(); i++){
+            if(questionCounts.get(i).getQuestion().getId().equals(questionId)){
+                questionCounts.get(i).increaseTimesSeen();
                 return true;
             }
         }
@@ -91,7 +90,7 @@ public class UserQuestionSet {
 
     public  int getLenOfSeenQuestions(){
         int seen = 0;
-        for (QuestionCount currQuestion: questions){
+        for (QuestionCount currQuestion: questionCounts){
             if (currQuestion.getTimesSeen()>0){
                 seen+=1;
             }
@@ -101,7 +100,7 @@ public class UserQuestionSet {
 
     public  int getLenOfUnseenQuestions(){
         int unseen = 0;
-        for (QuestionCount currQuestion: questions){
+        for (QuestionCount currQuestion: questionCounts){
             if (currQuestion.getTimesSeen()==0){
                 unseen+=1;
             }
@@ -111,9 +110,9 @@ public class UserQuestionSet {
 
     public void givenQuestion(String questionId){
         boolean found = false;
-        for(int i = 0; i<questions.size(); i++){
-            if(questions.get(i).getQuestion().getId().equals(questionId)){
-                questions.get(i).increaseTimesSeen();
+        for(int i = 0; i< questionCounts.size(); i++){
+            if(questionCounts.get(i).getQuestion().getId().equals(questionId)){
+                questionCounts.get(i).increaseTimesSeen();
                 found = true;
             }
         }
@@ -132,7 +131,7 @@ public class UserQuestionSet {
         }
         UserQuestionSet other = (UserQuestionSet) otherObj;
         return this.getUserId().equals(other.getUserId())
-                && this.getQuestions().equals(other.getQuestions());
+                && this.getQuestionCounts().equals(other.getQuestionCounts());
     }
 
 

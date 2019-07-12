@@ -21,7 +21,7 @@ public class UserQuestionSetRecord {
     public UserQuestionSetRecord(UserQuestionSet userQuestionSet){
         this();
         userId = userQuestionSet.getUserId();
-        for(QuestionCount currQC : userQuestionSet.getQuestions()){
+        for(QuestionCount currQC : userQuestionSet.getQuestionCounts()){
             questionIds.add(currQC.getQuestion().getId());
             timesSeen.add(currQC.getTimesSeen());
         }

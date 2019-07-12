@@ -223,8 +223,8 @@ public class UserQuestionSetTest {
         UserQuestionSet que = new UserQuestionSet("14", questionsFromFile);
 
         //checks all questions are unseen before tests start
-        for (int i = 0; i <que.getQuestions().size(); i++){
-            int numSeen = que.getTimesSeen(que.getQuestions().get(i).getQuestion().getId());
+        for (int i = 0; i <que.getQuestionCounts().size(); i++){
+            int numSeen = que.getTimesSeen(que.getQuestionCounts().get(i).getQuestion().getId());
             assertEquals(0, numSeen);
         }
 
