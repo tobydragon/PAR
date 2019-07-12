@@ -10,44 +10,24 @@ import java.util.List;
 
 public class UserQuestionSetRecord {
     private String userId;
-    private List<String> questionIds;
-    private List<Integer> timesSeen;
+    private List<QuestionCountRecord> questionCountRecords;
 
     public UserQuestionSetRecord(){
-        questionIds = new ArrayList<>();
-        timesSeen = new ArrayList<>();
+        questionCountRecords = new ArrayList<>();
     }
 
     public UserQuestionSetRecord(UserQuestionSet userQuestionSet){
         this();
         userId = userQuestionSet.getUserId();
-        for(QuestionCount currQC : userQuestionSet.getQuestions()){
-            questionIds.add(currQC.getQuestion().getId());
-            timesSeen.add(currQC.getTimesSeen());
+        for(QuestionCount questionCount : userQuestionSet.getQuestionCounts()){
+            questionCountRecords.add(new QuestionCountRecord(questionCount));
         }
     }
-
-
-
-
 
     public UserQuestionSet buildUserQuestionSet(QuestionPool questionPool) {
-        List<Question> questions = new ArrayList<>();
-        List<Integer> seen = new ArrayList<>();
-
-        assert(questionIds.size() == timesSeen.size());
-
-
-        for(int i=0; i<questionIds.size(); i++){
-            questions.add(questionPool.getQuestionFromId(questionIds.get(i)));
-            seen.add(timesSeen.get(i));
-        }
-
-        return new UserQuestionSet(userId, questions, timesSeen);
+        List<QuestionCount> questionCounts = QuestionCountRecord.questionCountRecordToQuestionCount(questionCountRecords,questionPool);
+        return UserQuestionSet.buildUserQuestionSetFromCounts(userId, questionCounts);
     }
-
-
-
 
     public String getUserId() {
         return userId;
@@ -57,19 +37,11 @@ public class UserQuestionSetRecord {
         this.userId = userId;
     }
 
-    public List<String> getQuestionIds() {
-        return questionIds;
+    public List<QuestionCountRecord> getQuestionCountRecords() {
+        return questionCountRecords;
     }
 
-    public void setQuestionIds(List<String> questionIds) {
-        this.questionIds = questionIds;
-    }
-
-    public List<Integer> getTimesSeen() {
-        return timesSeen;
-    }
-
-    public void setTimesSeen(List<Integer> timesSeen) {
-        this.timesSeen = timesSeen;
+    public void setQuestionCountRecords(List<QuestionCountRecord> questionCountRecords) {
+        this.questionCountRecords = questionCountRecords;
     }
 }

@@ -90,10 +90,10 @@ public class QuestionTest {
     @Test
     public void toAndFromJsonTestWithFollowUpQuestions() throws IOException {
         //Set up a list of Questions
-        //StructureQ1 has 3 followup questions
+        //StructureQ1 has 3 followupCounts questions
         //one of those questions has a follow up
         //PlaneQ1 does not have any follow up questions
-        Question bonusQuestion = new Question("BonusQ1", "This is a followup to a followup question!", "Plane", "Nice!", Arrays.asList("Nice!", "Sweet!", "Cool!"), "../static/images/equine02.jpg");
+        Question bonusQuestion = new Question("BonusQ1", "This is a followupCounts to a followupCounts question!", "Plane", "Nice!", Arrays.asList("Nice!", "Sweet!", "Cool!"), "../static/images/equine02.jpg");
         Question attach1 = new Question("AttachQ1", "Which attachment is this?", "Attachment",
                 "Type1", Arrays.asList("Type1", "Type2", "Type3"), "../static/images/equine02.jpg");
         Question attach2 = new Question("AttachQ2", "Which attachment is this?", "Attachment",
