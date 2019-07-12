@@ -11,6 +11,10 @@ public class QuestionCountRecord {
     public int timesSeen;
     public List<QuestionCountRecord> followupCountRecords;
 
+    public QuestionCountRecord(){
+        followupCountRecords = new ArrayList<>();
+    }
+
     public QuestionCountRecord(QuestionCount questionCount) {
         questionId = questionCount.getQuestion().getId();
         timesSeen = questionCount.getTimesSeen();
