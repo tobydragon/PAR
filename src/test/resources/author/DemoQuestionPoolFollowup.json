@@ -36,7 +36,7 @@
     "followupQuestions": [
       {
         "id": "AttachQ1",
-        "type": "Attachment",
+        "type": "attachment",
         "questionText": "Which attachment is this?",
         "correctAnswer": "Type1",
         "possibleAnswers": [
@@ -49,7 +49,7 @@
       },
       {
         "id": "AttachQ2",
-        "type": "Attachment",
+        "type": "attachment",
         "questionText": "Which attachment is this?",
         "correctAnswer": "Type3",
         "possibleAnswers": [
@@ -62,7 +62,7 @@
       },
       {
         "id": "AttachQ3",
-        "type": "Attachment",
+        "type": "attachment",
         "questionText": "Which attachment is this?",
         "correctAnswer": "Type2",
         "possibleAnswers": [
@@ -74,7 +74,7 @@
         "followupQuestions": [
           {
             "id": "BonusQ1",
-            "type": "Plane",
+            "type": "plane",
             "questionText": "This is a followup to a followup question!",
             "correctAnswer": "Sweet!",
             "possibleAnswers": [
@@ -218,7 +218,7 @@
     "followupQuestions": [
       {
         "id": "AttachQ4",
-        "type": "Attachment",
+        "type": "attachment",
         "questionText": "Which attachment is this?",
         "correctAnswer": "Type2",
         "possibleAnswers": [
@@ -230,7 +230,7 @@
         "followupQuestions": [
           {
             "id": "BonusQ2",
-            "type": "Plane",
+            "type": "plane",
             "questionText": "This is a followup to a followup question!",
             "correctAnswer": "Cool!",
             "possibleAnswers": [
@@ -430,7 +430,7 @@
     "followupQuestions": [
       {
         "id": "AttachQ5",
-        "type": "Attachment",
+        "type": "attachment",
         "questionText": "Which attachment is this?",
         "correctAnswer": "Type3",
         "possibleAnswers": [
@@ -572,7 +572,7 @@
     "followupQuestions": [
       {
         "id": "AttachQ6",
-        "type": "Attachment",
+        "type": "attachment",
         "questionText": "Which attachment is this?",
         "correctAnswer": "Type1",
         "possibleAnswers": [
@@ -585,7 +585,7 @@
       },
       {
         "id": "AttachQ7",
-        "type": "Attachment",
+        "type": "attachment",
         "questionText": "Which attachment is this?",
         "correctAnswer": "Type3",
         "possibleAnswers": [
@@ -839,7 +839,7 @@
     "followupQuestions": [
       {
         "id": "AttachQ8",
-        "type": "Attachment",
+        "type": "attachment",
         "questionText": "Which attachment is this?",
         "correctAnswer": "Type2",
         "possibleAnswers": [
@@ -851,7 +851,7 @@
         "followupQuestions": [
           {
             "id": "BonusQ3",
-            "type": "Plane",
+            "type": "plane",
             "questionText": "This is a followup to a followup question!",
             "correctAnswer": "Nice!",
             "possibleAnswers": [
@@ -1027,7 +1027,7 @@
     "followupQuestions": [
       {
         "id": "AttachQ9",
-        "type": "Attachment",
+        "type": "attachment",
         "questionText": "Which attachment is this?",
         "correctAnswer": "Type3",
         "possibleAnswers": [
@@ -1039,7 +1039,7 @@
         "followupQuestions": [
           {
             "id": "BonusQ4",
-            "type": "Plane",
+            "type": "plane",
             "questionText": "This is a followup to a followup question!",
             "correctAnswer": "Cool!",
             "possibleAnswers": [
@@ -1103,7 +1103,7 @@
     "followupQuestions": [
       {
         "id": "AttachQ10",
-        "type": "Attachment",
+        "type": "attachment",
         "questionText": "Which attachment is this?",
         "correctAnswer": "Type1",
         "possibleAnswers": [
@@ -1115,7 +1115,7 @@
         "followupQuestions": [
           {
             "id": "BonusQ5",
-            "type": "Plane",
+            "type": "plane",
             "questionText": "This is a followup to a followup question!",
             "correctAnswer": "Sweet!",
             "possibleAnswers": [
@@ -1155,7 +1155,7 @@
     "followupQuestions": [
       {
         "id": "AttachQ11",
-        "type": "Attachment",
+        "type": "attachment",
         "questionText": "Which attachment is this?",
         "correctAnswer": "Type2",
         "possibleAnswers": [

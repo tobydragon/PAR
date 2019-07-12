@@ -192,7 +192,22 @@ public class TaskGenerator {
     }
 
     public static Question removeTypeFromQuestion(Question question, String type){
-        return null;
+        if(!question.getType().equals(type)) {
+            if (question.getFollowupQuestions().size() != 0){
+                List<Question> cleanFollowups = new ArrayList<>();
+                for (Question followupQuestion : question.getFollowupQuestions()){
+                    if (!followupQuestion.getType().equals(type)) {
+                        Question cleanFollowUp = removeTypeFromQuestion(followupQuestion, type);
+                        cleanFollowups.add(cleanFollowUp);
+                    }
+                }
+                return new Question(question, cleanFollowups);
+            }
+            return question;
+        }
+        else{
+            throw new RuntimeException("root question matches type, cannot remove itself");
+        }
     }
 
     /**
@@ -200,8 +215,8 @@ public class TaskGenerator {
      */
     public static List<Question> addAllQuestions(StudentModel studentModel, Question initialQuestion){
         //put initialQuestion, unseenQuestions and seenQuestions all in a list
-        List<Question> unseenQuestionsWithCorrectUrl = QuestionPool.getQuestionsWithUrl(studentModel.getUserQuestionSet().getTopLevelUnseenQuestions(), initialQuestion.getImageUrl());
-        List<Question> seenQuestionsWithCorrectUrl = QuestionPool.getQuestionsWithUrl(studentModel.getUserQuestionSet().getTopLevelSeenQuestions(), initialQuestion.getImageUrl());
+        List<Question> unseenQuestionsWithCorrectUrl = QuestionPool.getTopLevelQuestionsFromUrl(studentModel.getUserQuestionSet().getTopLevelUnseenQuestions(), initialQuestion.getImageUrl());
+        List<Question> seenQuestionsWithCorrectUrl = QuestionPool.getTopLevelQuestionsFromUrl(studentModel.getUserQuestionSet().getTopLevelSeenQuestions(), initialQuestion.getImageUrl());
         List<Question> questionList = new ArrayList<>();
         questionList.addAll(unseenQuestionsWithCorrectUrl);
         questionList.addAll(seenQuestionsWithCorrectUrl);
