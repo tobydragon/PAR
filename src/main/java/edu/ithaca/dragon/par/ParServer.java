@@ -7,6 +7,7 @@ import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
 import edu.ithaca.dragon.par.pedagogicalModel.TaskGenerator;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
+import edu.ithaca.dragon.par.studentModel.UserResponseSet;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -23,6 +24,8 @@ public class ParServer {
         this.questionPool = new QuestionPool(datastore);
         this.datastore = datastore;
         studentModelMap = new HashMap<>();
+
+        checkIfWindowSizeIsValid(questionPool);
     }
 
     //side effects: generating an image task will  mark previously unseen questions as seen as well as
@@ -95,5 +98,11 @@ public class ParServer {
     public Map<String, Double> calcScoreByType(String userId) throws IOException {
         StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, datastore);
         return currentStudent.knowledgeScoreByType();
+    }
+
+    public void checkIfWindowSizeIsValid(QuestionPool questionPool){
+        if(!questionPool.checkWindowSize(UserResponseSet.windowSize)){
+            throw new RuntimeException("The windownSize is too small for the given questionPool");
+        }
     }
 }

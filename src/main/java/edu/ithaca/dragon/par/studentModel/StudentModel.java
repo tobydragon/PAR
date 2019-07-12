@@ -61,8 +61,6 @@ public class StudentModel {
         return userResponseSet.knowledgeScoreByType();
     }
 
-
-
     /**
      * Creates a list of ResponsesPerQuestion objects
      * @param imageTaskResponses: response submitted by the user

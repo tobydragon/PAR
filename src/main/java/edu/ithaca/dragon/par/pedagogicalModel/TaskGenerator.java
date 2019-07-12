@@ -1,9 +1,11 @@
 package edu.ithaca.dragon.par.pedagogicalModel;
 
 import edu.ithaca.dragon.par.domainModel.Question;
+import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 
+import java.awt.desktop.QuitEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -138,9 +140,11 @@ public class TaskGenerator {
      * @return
      */
     public static ImageTask makeTask(StudentModel studentModel){
-        checkStudentModel(studentModel);
+        return makeTask(studentModel, StudentModel.calcLevel(studentModel.knowledgeScoreByType()));
+    }
 
-        int level = StudentModel.calcLevel(studentModel.knowledgeScoreByType());
+    public static ImageTask makeTask(StudentModel studentModel, int level){
+        checkStudentModel(studentModel);
 
         Question initialQuestion = TaskGenerator.getInitialQuestionForTask(studentModel, level);
         List<Question> questionList = TaskGenerator.addAllQuestions(studentModel, initialQuestion);
@@ -191,19 +195,10 @@ public class TaskGenerator {
     /**
      * Creates a list of questions that have the questionUrl out of questionList
      */
-    public static List<Question> getQuestionsWithUrl(List<Question> questionList, String questionUrl){
-        List<Question> toReturn = new ArrayList<>();
-        for(Question questionToCheck : questionList){
-            if(questionToCheck.getImageUrl().equals(questionUrl))
-                toReturn.add(questionToCheck);
-        }
-        return toReturn;
-    }
-
     public static List<Question> addAllQuestions(StudentModel studentModel, Question initialQuestion){
         //put initialQuestion, unseenQuestions and seenQuestions all in a list
-        List<Question> unseenQuestionsWithCorrectUrl = TaskGenerator.getQuestionsWithUrl(studentModel.getUserQuestionSet().getUnseenQuestions(), initialQuestion.getImageUrl());
-        List<Question> seenQuestionsWithCorrectUrl = TaskGenerator.getQuestionsWithUrl(studentModel.getUserQuestionSet().getSeenQuestions(), initialQuestion.getImageUrl());
+        List<Question> unseenQuestionsWithCorrectUrl = QuestionPool.getQuestionsWithUrl(studentModel.getUserQuestionSet().getUnseenQuestions(), initialQuestion.getImageUrl());
+        List<Question> seenQuestionsWithCorrectUrl = QuestionPool.getQuestionsWithUrl(studentModel.getUserQuestionSet().getSeenQuestions(), initialQuestion.getImageUrl());
         List<Question> questionList = new ArrayList<>();
         questionList.addAll(unseenQuestionsWithCorrectUrl);
         questionList.addAll(seenQuestionsWithCorrectUrl);
