@@ -10,18 +10,24 @@ public class QuestionCount {
     public int timesSeen;
     public List<QuestionCount> followupCounts;
 
-    public void setQuestion(Question question) {
-        this.question = question;
-    }
-
-    public List<QuestionCount> getFollowupCounts() {
-        return followupCounts;
-    }
-
     public QuestionCount(Question questionIn){
         question = questionIn;
         timesSeen = 0;
         followupCounts = UserQuestionSet.questionToQuestionCount(questionIn.getFollowupQuestions());
+    }
+
+
+
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
+
+    public void setFollowupCounts(List<QuestionCount> followupCounts) {
+        this.followupCounts = followupCounts;
+    }
+
+    public List<QuestionCount> getFollowupCounts() {
+        return followupCounts;
     }
 
     public int getTimesSeen(){

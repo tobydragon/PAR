@@ -1,5 +1,6 @@
 package edu.ithaca.dragon.par.io;
 
+import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.studentModel.QuestionCount;
 
 import java.util.ArrayList;
@@ -29,6 +30,31 @@ public class QuestionCountRecord {
         }
         return questionCountRecordList;
     }
+
+    public static List<QuestionCount> questionCountRecordToQuestionCount(List<QuestionCountRecord> questionCountRecords, QuestionPool questionPool) {
+        List<QuestionCount> questionCountList = new ArrayList<>();
+        for (int i = 0; i < questionCountRecords.size(); i++){
+            QuestionCount currQuestionCount = questionCountRecords.get(i).buildQuestionCount(questionPool);
+            questionCountList.add(currQuestionCount);
+        }
+        return questionCountList;
+    }
+
+    public QuestionCount buildQuestionCount(QuestionPool questionPool) {
+        QuestionCount questionCount = new QuestionCount(questionPool.getQuestionFromId(questionId));
+        questionCount.setTimesSeen(timesSeen);
+        if (followupCountRecords.size()>0){
+            List<QuestionCount> followupList = new ArrayList<>();
+            followupList = questionCountRecordToQuestionCount(followupCountRecords, questionPool);
+            questionCount.setFollowupCounts(followupList);
+        }
+        else{
+            questionCount.followupCounts = new ArrayList<>();
+        }
+
+        return questionCount;
+    }
+
 
     public String getQuestionId() {
         return questionId;
