@@ -49,6 +49,15 @@ public class QuestionPool {
         return null;
     }
 
+    public List<Question> getTopLevelQuestionsFromUrl(String imageUrlIn){
+        List<Question> toReturn = new ArrayList<>();
+        for(int i = 0; i < allQuestions.size(); i++){
+            if(allQuestions.get(i).getImageUrl().equals(imageUrlIn))
+                toReturn.add(allQuestions.get(i));
+        }
+        return toReturn;
+    }
+
     public List<Question> getQuestionsFromUrl(String questionUrl){
         return QuestionPool.getQuestionsWithUrl(allQuestions, questionUrl);
     }
