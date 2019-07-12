@@ -29,56 +29,73 @@ public class ResponsesPerQuestion {
         allResponses =new ArrayList<>();
         allResponses.add(questionResponse);
     }
-//TODO: CHANGE KNOWLEDGE CALC TO BE BASED ON TIME STAMP INFORMATION
-    //IF RESPONSE IS GIVEN WITH 35(CAN CHANGE) SECONDS WITHIN THE SAME QUESTION,
-// THEN DONT COUNT THE NEWEST RESPONSE
+
+    /**
+     * Calculates the knowledge score of the student
+     * @return 0 or 100
+     */
     public double knowledgeCalc(){
-        double score;
-        if(allResponses.get(0).getResponseText().equals(question.getCorrectAnswer())) score = 100;
-
-        else score = 0;
-
-        if(allResponsesSize()>1) {
-            for (int i = 0; i < allResponsesSize(); i++) {
-                if (!allResponses.get(i).getResponseText().equals(question.getCorrectAnswer()) && score == 100) score = 50;
-                else if (allResponses.get(i).getResponseText().equals(question.getCorrectAnswer()) && score == 0) score = 50;
-                }
-        }
-        return score;
-}
-    public int knowledge(){
-       int score=0;
+       double score=0;
        if(allResponsesSize()==1) {
            if (allResponses.get(0).getResponseText().equals(question.getCorrectAnswer())) score = 100;
            else score = 0;
        }
         if(allResponsesSize()>1) {
-            if(checkTimeStampDifference(allResponses.get(allResponsesSize()-1).getMillSeconds(),allResponses.get(allResponsesSize()-2).getMillSeconds())) {
-                if(allResponses.get(allResponsesSize()-1).getResponseText().equals(question.getCorrectAnswer())){
-                   score=100;
+            //if the timestamp difference is > or == 30 seconds
+            if (checkTimeStampDifference(allResponses.get(allResponsesSize() - 1).getMillSeconds(), allResponses.get(allResponsesSize() - 2).getMillSeconds())) {
+                //check the answer if its right or wrong/ not dependent on previous answers
+                if (allResponses.get(allResponsesSize() - 1).getResponseText().equals(question.getCorrectAnswer())) {
+                    score = 100;
                 }
-                else{
-                    score=0;
+                else score = 0;
+            } else {
+                //if the timestamp difference is < 30 seconds
+                score = 100;
+                //creates a list of QuestionResponses that have a timestamp difference < 30 second apart
+                List<QuestionResponse> questionResponses = answersWithSameTimeStamp(allResponses);
+                for (int k = 0; k < questionResponses.size() ; k++) {
+                    //if any of the answers are wrong within this list then you receive a 0
+                    if (!questionResponses.get(k).getResponseText().equals(question.getCorrectAnswer()))
+                        score = 0;
+                    }
                 }
-                   }
-            }
+        }
         return score;
     }
 
+    /**
+     * Creates a list of QuestionResponses that have the same timestamps
+     * @param allResponses list of all the responses recorded
+     * @return list of QuestionResponses within less than a 30 seconds time window
+     */
+    public static List<QuestionResponse> answersWithSameTimeStamp(List<QuestionResponse> allResponses){
+        List<QuestionResponse> questionResponses=new ArrayList<>();
+        questionResponses.add(allResponses.get(allResponses.size()-1));
+        for(int k=allResponses.size()-2;k>-1;k--){//k=allResponses.size()-2 to get all the index before the last element in the list
+            if(!checkTimeStampDifference(allResponses.get(allResponses.size()-1).getMillSeconds(),allResponses.get(k).getMillSeconds())){
+                questionResponses.add(allResponses.get(k));
+            }
+        }
+        return questionResponses;
+}
 
+    /**
+     * Calculates the seconds difference between two timestamps
+     * @param firstTimeStamp newest timestamp
+     * @param secondTimeStamp timestamp before last
+     * @return true if the timestamps are 30 or more seconds apart/false if less than 30 seconds apart
+     */
     public static boolean checkTimeStampDifference(long firstTimeStamp,long secondTimeStamp){
         long secondsDifference =Math.abs(firstTimeStamp-secondTimeStamp)/1000;
         if(secondsDifference>=SECONDS_BETWEEN) return true;
         return false;
     }
-//change back
+
+
     public void addNewResponse(String newResponse){
+        //create a new timestamp for new response
         QuestionResponse questionResponse=new QuestionResponse(newResponse);
         this.allResponses.add(questionResponse);
-    }
-
-    public void addNewResponse(QuestionResponse questionResponse){
-        allResponses.add(questionResponse);
     }
 
     public int allResponsesSize(){

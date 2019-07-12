@@ -112,14 +112,17 @@ public class ParServerTest {
         parServer.imageTaskResponseSubmitted(responseSet2,"s2");//gives responses from responseSet2 that contains some right and wrong answers
         assertEquals(83.3333333,parServer.calcScore("s2"),DataUtil.OK_DOUBLE_MARGIN);
         parServer.imageTaskResponseSubmitted(responsesFromFile.get(0),"s2");//gives responses from file that give all the correct answer (for scores that are 0 gives the user 50)
-        assertEquals(91.66666666666,parServer.calcScore("s2"), DataUtil.OK_DOUBLE_MARGIN);
-
+        assertEquals(83.3333333,parServer.calcScore("s2"), DataUtil.OK_DOUBLE_MARGIN);
+        parServer.imageTaskResponseSubmitted(responsesFromFile.get(0),"s2");//gives responses from file that give all the correct answer (for scores that are 0 gives the user 50)
+        assertEquals(83.3333333,parServer.calcScore("s2"), DataUtil.OK_DOUBLE_MARGIN);
+//score should stay the same even when the correct answers are entered afterwards since they were all answered in a
+// time window that didnt exceed 30 seconds
 
         //terrible student
         parServer.imageTaskResponseSubmitted(responsesFromFile.get(0),"s3");//gives responses from file
         assertEquals(100.0,parServer.calcScore("s3"), DataUtil.OK_DOUBLE_MARGIN);
         parServer.imageTaskResponseSubmitted(responseSet3,"s3");//gives all wrong answers so it give the student half credit for each question
-        assertEquals(50.0,parServer.calcScore("s3"), DataUtil.OK_DOUBLE_MARGIN);
+        assertEquals(0,parServer.calcScore("s3"), DataUtil.OK_DOUBLE_MARGIN);
 
 
 
