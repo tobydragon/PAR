@@ -161,34 +161,39 @@ public class TaskGenerator {
     public static List<Question> filterQuestions(int level, List<Question> questionList){
         //only levels 1 and 2 have plane questions
         if(level==3 || level==4 || level==5 || level==6){
-            questionList = removeType(questionList, "plane");
+            questionList = removeTypeFromQuestionList(questionList, "plane");
         }
 
         //only levels 2, 3, 4, and 5 have structure questions
         if(level==1 || level==6){
-            questionList = removeType(questionList, "structure");
+            questionList = removeTypeFromQuestionList(questionList, "structure");
         }
 
         //only levels 4 and 5 have attachment questions
         if(level==1 || level==2 || level==3 || level==6){
-            questionList = removeType(questionList, "attachment");
+            questionList = removeTypeFromQuestionList(questionList, "attachment");
         }
 
         //only levels 5 and 6 have zone questions
         if(level==1 || level==2 || level==3 || level==4){
-            questionList = removeType(questionList, "zone");
+            questionList = removeTypeFromQuestionList(questionList, "zone");
         }
         return questionList;
     }
 
-    public static List<Question> removeType(List<Question> questions, String type){
-        List<Question> newList = new ArrayList<Question>();
+    public static List<Question> removeTypeFromQuestionList(List<Question> questions, String type){
+        List<Question> newList = new ArrayList<>();
         for(Question currQuestion: questions){
             if(!currQuestion.getType().equals(type)){
-                newList.add(currQuestion);
+                Question cleanQuestion = removeTypeFromQuestion(currQuestion);
+                newList.add(cleanQuestion);
             }
         }
         return newList;
+    }
+
+    public static Question removeTypeFromQuestion(Question question){
+        return null;
     }
 
     /**
