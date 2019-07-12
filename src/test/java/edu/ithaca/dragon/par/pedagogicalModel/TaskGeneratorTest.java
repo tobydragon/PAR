@@ -212,21 +212,21 @@ public class TaskGeneratorTest {
         Question recFollowups = questionPool.getQuestionFromId("structure0./images/demoEquine14.jpg");
 
         //Trying to remove nonexistant followup questions should have no effect on the Question
-        Question noFollowsAfter = TaskGenerator.removeTypeFromQuestion(noFollowups, "Attachment");
+        Question noFollowsAfter = TaskGenerator.removeTypeFromQuestion(noFollowups, "attachment");
         assertEquals(noFollowups, noFollowsAfter);
 
         //The method should not remove the base question
         assertThrows(RuntimeException.class, () -> {Question noFollowsAfterPlane = TaskGenerator.removeTypeFromQuestion(noFollowups, "plane");});
 
         //Removing attachment followups should create a question with no followups
-        Question twoFollowupsAfter = TaskGenerator.removeTypeFromQuestion(twoFollowups, "Attachment");
+        Question twoFollowupsAfter = TaskGenerator.removeTypeFromQuestion(twoFollowups, "attachment");
         assertEquals(0, twoFollowupsAfter.getFollowupQuestions().size());
         assertFalse(twoFollowups == twoFollowupsAfter);
 
         //Removing a followup to a followup
-        Question recFollowupsAfter = TaskGenerator.removeTypeFromQuestion(recFollowups, "Plane");
+        Question recFollowupsAfter = TaskGenerator.removeTypeFromQuestion(recFollowups, "plane");
         assertFalse(recFollowupsAfter == recFollowups);
-        assertEquals("Plane", recFollowups.getFollowupQuestions().get(2).getFollowupQuestions().get(0).getType());
+        assertEquals("plane", recFollowups.getFollowupQuestions().get(2).getFollowupQuestions().get(0).getType());
         assertEquals(0, recFollowupsAfter.getFollowupQuestions().get(2).getFollowupQuestions().size());
     }
 }

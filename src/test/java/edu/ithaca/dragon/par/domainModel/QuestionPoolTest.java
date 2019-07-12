@@ -60,7 +60,7 @@ public class QuestionPoolTest {
         //Test for follow up Questions
         QuestionPool qp2 = new QuestionPool(new JsonDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json"));
         Question followupQuestionFromId = qp2.getQuestionFromId("AttachQ1");
-        assertEquals("Attachment", followupQuestionFromId.getType());
+        assertEquals("attachment", followupQuestionFromId.getType());
     }
 
     @Test
