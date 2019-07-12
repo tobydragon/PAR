@@ -216,8 +216,8 @@ public class TaskGenerator {
      */
     public static List<Question> addAllQuestions(StudentModel studentModel, Question initialQuestion){
         //put initialQuestion, unseenQuestions and seenQuestions all in a list
-        List<Question> unseenQuestionsWithCorrectUrl = QuestionPool.getQuestionsWithUrl(studentModel.getUserQuestionSet().getTopLevelUnseenQuestions(), initialQuestion.getImageUrl());
-        List<Question> seenQuestionsWithCorrectUrl = QuestionPool.getQuestionsWithUrl(studentModel.getUserQuestionSet().getTopLevelSeenQuestions(), initialQuestion.getImageUrl());
+        List<Question> unseenQuestionsWithCorrectUrl = QuestionPool.getTopLevelQuestionsFromUrl(studentModel.getUserQuestionSet().getTopLevelUnseenQuestions(), initialQuestion.getImageUrl());
+        List<Question> seenQuestionsWithCorrectUrl = QuestionPool.getTopLevelQuestionsFromUrl(studentModel.getUserQuestionSet().getTopLevelSeenQuestions(), initialQuestion.getImageUrl());
         List<Question> questionList = new ArrayList<>();
         questionList.addAll(unseenQuestionsWithCorrectUrl);
         questionList.addAll(seenQuestionsWithCorrectUrl);
