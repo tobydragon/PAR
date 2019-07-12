@@ -95,8 +95,10 @@ function readJson(url) {
 //display function for showing previously generated HTML of questions onscreen.
 function displayQuestion(displayHTML) {
     document.getElementById("questionSet").innerHTML += displayHTML;
+
 }
 
+/**
 //Creates radio question based on question given and difficulty for the html.
 function createRadioQuestion(json, currentAmountOfQuestions) {
     var question = "<p>" + json.questionText + "</p>";
@@ -108,7 +110,7 @@ function createRadioQuestion(json, currentAmountOfQuestions) {
     question += '<br> <i id="questionCorrect"' + (currentAmountOfQuestions) + '></i>';
     return question;
 }
-
+**/
 //Creates datalist dropdown based on a question given for the html.
 function createDatalistDropdown(json, currentAmountOfQuestions) {
     var i;
@@ -124,9 +126,9 @@ function createDatalistDropdown(json, currentAmountOfQuestions) {
 
 function createFollowupDatalistDropdown(json, currentAmountOfQuestions) {
     var i;
-    var question = "<p>" + json.followupQuestions[currentAmountOfQuestions].questionText + '</p> <input id="' + ("q" + (currentAmountOfQuestions)) + '" list="' + ("list" + currentAmountOfQuestions) + '"/> <datalist id="' + ("list" + currentAmountOfQuestions) + '">';
-    for (i = 0; i < json.followupQuestions[currentAmountOfQuestions].possibleAnswers.length; i++) {
-        question = question + '<option id= "option' + i + '" value="' + json.followupQuestions[currentAmountOfQuestions].possibleAnswers[i] + '"/>';
+    var question = "<p>" + json.followupQuestions[0].questionText + '</p> <input id="' + ("q" + (currentAmountOfQuestions)) + '" list="' + ("list" + currentAmountOfQuestions) + '"/> <datalist id="' + ("list" + currentAmountOfQuestions) + '">';
+    for (i = 0; i < json.followupQuestions[0].possibleAnswers.length; i++) {
+        question = question + '<option id= "option' + i + '" value="' + json.followupQuestions[0].possibleAnswers[i] + '"/>';
     }
     question += '<option id= "optionUnsure" value="unsure"/>';
     question += '</datalist>';
@@ -171,8 +173,8 @@ function generateSinglescore() {
 
 function setCurrentScore() {
     if (scoreType == "ByType") {
-        //generateScoreByType();
-        generateScoreStringByType();
+        generateScoreByType();
+        //generateScoreStringByType();
     } else if (scoreType == "SingleScore") {
         generateSinglescore();
     } else if (scoreType == "Level") {

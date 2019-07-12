@@ -90,7 +90,10 @@ function generateQuestion(question) {
     console.log(question);
     var questionStr = createDatalistDropdown(question, amountOfQuestions);
     amountOfQuestions++;
+    console.log("question: " + JSON.stringify(question));
     questionObjects.push(question);
+    console.log("questionObjects: " + JSON.stringify(questionObjects));
+    console.log("size of questionobjects: " + questionObjects.length);
     questionAnswers.push(question.correctAnswer);
     questionIDs.push(question.id);
     questionTypes.push(question.type);
@@ -98,10 +101,11 @@ function generateQuestion(question) {
 }
 
 function generateFollowupQuestions(question) {
-    var questionStrFollowup = createDatalistDropdown(question.followupQuestions[0], amountOfQuestions);
+    var questionStrFollowup = createFollowupDatalistDropdown(question, amountOfQuestions);
     questionFollowupAnswers.push(question.followupQuestions[0].correctAnswer);
-    console.log(questionStrFollowup);
-    amountOfQuestions++;
+    console.log("question followup answers list " + questionFollowupAnswers);
+    console.log("followup str " + questionStrFollowup);
+    //amountOfQuestions++;
     // displayQuestion(questionStrFollowup);
     return questionStrFollowup;
 }
@@ -131,27 +135,30 @@ function checkAnswers() {
 
 //Checks the answers given in the questions against the record of what is correct/incorrect.
 function displayCheckAndRecordAnswers() {
+    console.log("amountofq's: " + amountOfQuestions);
     var form = document.getElementById("questionSetForm");
     for (var i = 0; i < amountOfQuestions; i++) {
         var currentName = "q" + i;
-        var currentAnswer = form[currentName].value;
 
-        console.log(i);
+        var currentAnswer = form[currentName].value;
         responsesGivenText.push(currentAnswer);
 
         var answerEvaluationString;
-        answerEvaluationString = compareAnswers(questionAnswers[i], currentAnswer, questionTypes[i]);
+        console.log("qA: " + questionAnswers);
+        answerEvaluationString = compareAnswers(questionAnswers[questionAnswers.length - 1], currentAnswer, questionTypes[i]);
         disableFields(answerEvaluationString, currentName);
 
         var displayAreaName = "questionCorrect" + i;
         displayAnswers(displayAreaName, answerEvaluationString, questionAnswers[i], unsureShowsCorrectAnswer);
 
         if (answerEvaluationString === "Correct") {
-            console.log("questionObject: " + JSON.stringify(questionObjects[i]));
-            if (questionObjects[i].hasOwnProperty("followupQuestions") && questionObjects[i].hasOwnProperty("followupQuestions") != null) {
-                var followupString = generateFollowupQuestions(questionObjects[i]);
-                answerEvaluationString = compareAnswers(questionFollowupAnswers[i], currentAnswer, questionTypes[i]);
+            if (questionObjects[questionObjects.length - 1].hasOwnProperty('followupQuestions') != false && questionObjects[questionObjects.length - 1].followupQuestions != null) {
+                var followupString = generateFollowupQuestions(questionObjects[questionObjects.length - 1]);
+                console.log("what ya comparing: " + questionFollowupAnswers[questionFollowupAnswers.length - 1]);
+                answerEvaluationString = compareAnswers(questionFollowupAnswers[questionFollowupAnswers.length - 1], currentAnswer, questionTypes[i]);
                 displayQuestion(followupString);
+                var displayAreaNameFollowup = "questionCorrect" + (i + 1);
+                displayAnswers(displayAreaNameFollowup, answerEvaluationString, questionFollowupAnswers[questionFollowupAnswers.length - 1], unsureShowsCorrectAnswer);
             }
         }
     }
@@ -168,6 +175,7 @@ function disableFields(correctAnswerValue, elementToDisable) {
 
 function compareAnswers(correctAnswer, userAnswer, questionType) {
     var answerEvaluationString = "";
+    console.log(correctAnswer);
     correctAnswer = correctAnswer.toLowerCase();
     userAnswer = userAnswer.toLowerCase();
     if (userAnswer === correctAnswer) {

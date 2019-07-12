@@ -70,12 +70,12 @@ describe("QuestionPageLibraryTest", function () {
                 "id": "AttachQ4",
                 "type": "Attachment",
                 "questionText": "Which attachment is this?",
-                "correctAnswer": "Type2",
-                "possibleAnswers": ["Type1", "Type2", "Type3"],
+                "correctAnswer": "TypeTwo",
+                "possibleAnswers": ["TypeOne", "TypeTwo", "TypeThree"],
                 "imageUrl": "./images/demoTest01.jpg",
                 "followupQuestions": []
     }]
         }
-        expect(generateFollowupQuestions(test)).toBe('<p>Which attachment is this?</p> <input id="q0" list="list0"/> <datalist id="list0"><option id= "option0" value="Type1"/><option id= "option1" value="Type2"/><option id= "option2" value="Type3"/><option id= "optionUnsure" value="unsure"/></datalist><i id="questionCorrect0"></i>');
+        expect(generateFollowupQuestions(test)).toBe('<p>Which attachment is this?</p> <input id="q0" list="list0"/> <datalist id="list0"><option id= "option0" value="TypeOne"/><option id= "option1" value="TypeTwo"/><option id= "option2" value="TypeThree"/><option id= "optionUnsure" value="unsure"/></datalist><i id="questionCorrect0"></i>');
     });
 });
