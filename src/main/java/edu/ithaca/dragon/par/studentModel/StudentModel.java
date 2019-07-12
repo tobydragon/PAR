@@ -15,7 +15,7 @@ public class StudentModel {
 
     public StudentModel(String userId, List<Question> questions){
         this.userId = userId;
-        this.userQuestionSet = new UserQuestionSet(userId, questions);
+        this.userQuestionSet = UserQuestionSet.buildNewUserQuestionSetFromQuestions(userId, questions);
         this.userResponseSet = new UserResponseSet(userId);
     }
 

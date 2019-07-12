@@ -10,20 +10,17 @@ public class UserQuestionSet {
     private List<QuestionCount> questionCounts;
 
 
-    public UserQuestionSet(String userIdIn, List<Question> questionsIn){
-        this(userIdIn, questionsIn, new ArrayList<>());
+    public static UserQuestionSet buildNewUserQuestionSetFromQuestions(String userId, List<Question> questionsIn ){
+        return new UserQuestionSet(userId, questionToQuestionCount(questionsIn));
     }
-    public UserQuestionSet(String userIdIn, List<Question> questionsIn, List<Integer> timesSeenIn){
-        if(timesSeenIn.size()==0){
-            for (int i = 0; i <questionsIn.size(); i++){
-                timesSeenIn.add(0);
-            }
-        }
-        if (timesSeenIn.size()!=questionsIn.size()){
-            throw new RuntimeException();
-        }
-        userId = userIdIn;
-        questionCounts = questionToQuestionCount(questionsIn);
+
+    public static UserQuestionSet buildUserQuestionSetFromCounts(String userId, List<QuestionCount> questionCounts ){
+        return new UserQuestionSet(userId, questionCounts);
+    }
+
+    private UserQuestionSet(String userId, List<QuestionCount> questionCounts ){
+        this.userId = userId;
+        this.questionCounts = questionCounts;
     }
 
     public static List<QuestionCount> questionToQuestionCount(List<Question> questions){

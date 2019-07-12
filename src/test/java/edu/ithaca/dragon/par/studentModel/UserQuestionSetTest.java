@@ -25,15 +25,15 @@ public class UserQuestionSetTest {
         //compare two UserQuestionSets with different content (different Json files)
         List<Question> questionsFromFile1a = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
         List<Question> questionsFromFile2a = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool2.json", Question.class);
-        UserQuestionSet UQS1a = new UserQuestionSet("99", questionsFromFile1a);
-        UserQuestionSet UQS2a = new UserQuestionSet("99", questionsFromFile2a);
+        UserQuestionSet UQS1a = UserQuestionSet.buildNewUserQuestionSetFromQuestions("99", questionsFromFile1a);
+        UserQuestionSet UQS2a = UserQuestionSet.buildNewUserQuestionSetFromQuestions("99", questionsFromFile2a);
         assertFalse(UQS1a.equals(UQS2a));
 
         //compare two UserQuestionSets with the same content, but different memory addresses
         List<Question> questionsFromFile1 = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
         List<Question> questionsFromFile2 = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
-        UserQuestionSet UQS1 = new UserQuestionSet("99", questionsFromFile1);
-        UserQuestionSet UQS2 = new UserQuestionSet("99", questionsFromFile2);
+        UserQuestionSet UQS1 = UserQuestionSet.buildNewUserQuestionSetFromQuestions("99", questionsFromFile1);
+        UserQuestionSet UQS2 = UserQuestionSet.buildNewUserQuestionSetFromQuestions("99", questionsFromFile2);
         assertEquals(UQS1, UQS2);
 
         //give a question from a UserQuestionSet, then compare
@@ -52,7 +52,7 @@ public class UserQuestionSetTest {
     @Test
     public void getLenofQuestionsTest() throws IOException {
         List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
-        UserQuestionSet que = new UserQuestionSet("99", questionsFromFile);
+        UserQuestionSet que = UserQuestionSet.buildNewUserQuestionSetFromQuestions("99", questionsFromFile);
 
         //checks all questions are unseen
         int len = que.getLenOfQuestions();
@@ -87,7 +87,7 @@ public class UserQuestionSetTest {
     @Test
     public void getTimesSeenTest() throws IOException{
         List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
-        UserQuestionSet que = new UserQuestionSet("101", questionsFromFile);
+        UserQuestionSet que = UserQuestionSet.buildNewUserQuestionSetFromQuestions("101", questionsFromFile);
 
         //checks question has not been seen
         int seen1 = que.getTimesSeen("PlaneQ1");
@@ -127,24 +127,24 @@ public class UserQuestionSetTest {
     @Test
     public void getUserIdTest() throws IOException{
         List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
-        UserQuestionSet que1 = new UserQuestionSet("1", questionsFromFile);
+        UserQuestionSet que1 = UserQuestionSet.buildNewUserQuestionSetFromQuestions("1", questionsFromFile);
 
         //checks correct user ID is retrieved
         String userId1 = que1.getUserId();
         assertEquals("1", userId1);
 
         //checks correct user ID is retrieved
-        UserQuestionSet que2 = new UserQuestionSet("2", questionsFromFile);
+        UserQuestionSet que2 = UserQuestionSet.buildNewUserQuestionSetFromQuestions("2", questionsFromFile);
         String userId2 = que2.getUserId();
         assertEquals("2", userId2);
 
         //checks correct user ID is retrieved
-        UserQuestionSet que3 = new UserQuestionSet("3", questionsFromFile);
+        UserQuestionSet que3 = UserQuestionSet.buildNewUserQuestionSetFromQuestions("3", questionsFromFile);
         String userId3 = que3.getUserId();
         assertEquals("3", userId3);
 
         //checks correct user ID is retrieved
-        UserQuestionSet que4 = new UserQuestionSet("557", questionsFromFile);
+        UserQuestionSet que4 = UserQuestionSet.buildNewUserQuestionSetFromQuestions("557", questionsFromFile);
         String userId4 = que4.getUserId();
         assertEquals("557", userId4);
 
@@ -161,7 +161,7 @@ public class UserQuestionSetTest {
     @Test
     public void increaseTimesSeenTest() throws IOException{
         List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
-        UserQuestionSet que = new UserQuestionSet("1", questionsFromFile);
+        UserQuestionSet que = UserQuestionSet.buildNewUserQuestionSetFromQuestions("1", questionsFromFile);
 
         //checks times seen increases consecutively
         que.givenQuestion("PlaneQ1");
@@ -220,7 +220,7 @@ public class UserQuestionSetTest {
     @Test
     public void givenQuestionTest() throws IOException{
         List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
-        UserQuestionSet que = new UserQuestionSet("14", questionsFromFile);
+        UserQuestionSet que = UserQuestionSet.buildNewUserQuestionSetFromQuestions("14", questionsFromFile);
 
         //checks all questions are unseen before tests start
         for (int i = 0; i <que.getQuestionCounts().size(); i++){
@@ -302,7 +302,7 @@ public class UserQuestionSetTest {
 
         //new question set
         List<Question> qFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
-        UserQuestionSet qSet = new UserQuestionSet("14", qFromFile);
+        UserQuestionSet qSet = UserQuestionSet.buildNewUserQuestionSetFromQuestions("14", qFromFile);
 
 
         //increase in times seen
@@ -335,7 +335,7 @@ public class UserQuestionSetTest {
     @Test
     public void getUnseenQuestionsTest() throws IOException{
         List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
-        UserQuestionSet que = new UserQuestionSet("1", questionsFromFile);
+        UserQuestionSet que = UserQuestionSet.buildNewUserQuestionSetFromQuestions("1", questionsFromFile);
 
         //checks all questions are unseen
         List<Question> unseenList = que.getUnseenQuestions();
@@ -395,7 +395,7 @@ public class UserQuestionSetTest {
     @Test
     public void getSeenQuestionsTest() throws IOException{
         List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
-        UserQuestionSet que = new UserQuestionSet("1", questionsFromFile);
+        UserQuestionSet que = UserQuestionSet.buildNewUserQuestionSetFromQuestions("1", questionsFromFile);
 
         //checks all questions are seen
         List<Question> seenList = que.getSeenQuestions();
@@ -456,7 +456,7 @@ public class UserQuestionSetTest {
     @Test
     public void writeUserQuestionSet() throws IOException{
         List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
-        UserQuestionSet userQuestionSet = new UserQuestionSet("kerryAnne", questionsFromFile);
+        UserQuestionSet userQuestionSet = UserQuestionSet.buildNewUserQuestionSetFromQuestions("kerryAnne", questionsFromFile);
         userQuestionSet.givenQuestion("PlaneQ1");
         userQuestionSet.givenQuestion("ZoneQ1");
         UserQuestionSetRecord uqsr = new UserQuestionSetRecord(userQuestionSet);
