@@ -185,14 +185,14 @@ public class TaskGenerator {
         List<Question> newList = new ArrayList<>();
         for(Question currQuestion: questions){
             if(!currQuestion.getType().equals(type)){
-                Question cleanQuestion = removeTypeFromQuestion(currQuestion);
+                Question cleanQuestion = removeTypeFromQuestion(currQuestion, type);
                 newList.add(cleanQuestion);
             }
         }
         return newList;
     }
 
-    public static Question removeTypeFromQuestion(Question question){
+    public static Question removeTypeFromQuestion(Question question, String type){
         return null;
     }
 
