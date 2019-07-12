@@ -106,16 +106,35 @@ public class UserQuestionSet {
     }
 
     public void givenQuestion(String questionId){
-        boolean found = false;
-        for(int i = 0; i< questionCounts.size(); i++){
-            if(questionCounts.get(i).getQuestion().getId().equals(questionId)){
-                questionCounts.get(i).increaseTimesSeen();
-                found = true;
+        QuestionCount qc = getQuestioncountFromId(questionId);
+        if(qc == null){
+            throw new RuntimeException("QuestionCount with id:" + questionId + " does not exist");
+        }
+        qc.increaseTimesSeen();
+
+    }
+
+    public QuestionCount getQuestioncountFromId(String questionIdIn){
+        QuestionCount q = getQuestioncountFromId(questionIdIn, questionCounts);
+        if(q == null){
+            throw new RuntimeException("QuestionCount with id:" + questionIdIn + " does not exist");
+        }
+        return q;
+    }
+
+    public static QuestionCount getQuestioncountFromId(String questionIdIn, List<QuestionCount> questionList){
+        for(QuestionCount q : questionList){
+            if(q.getQuestion().getId().equals(questionIdIn)){
+                return q;
+            }
+
+            //call getQuestionFromId on the followup questions
+            QuestionCount q2 = getQuestioncountFromId(questionIdIn, q.getFollowupCounts());
+            if(q2 != null){
+                return q2;
             }
         }
-        if(!found) {
-            throw new RuntimeException();
-        }
+        return null;
     }
 
     @Override
