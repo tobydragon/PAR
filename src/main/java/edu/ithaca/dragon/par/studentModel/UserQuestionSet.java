@@ -48,12 +48,11 @@ public class UserQuestionSet {
 
 
     public int getTimesSeen (String questionId){
-        for (int i = 0; i< questionCounts.size(); i++){
-            if(questionCounts.get(i).getQuestion().getId().equals(questionId)){
-                return questionCounts.get(i).getTimesSeen();
-            }
+        QuestionCount qc = getQuestioncountFromId(questionId);
+        if(qc == null){
+            throw new RuntimeException("QuestionCount with id:" + questionId + " does not exist");
         }
-        throw new RuntimeException();
+        return qc.timesSeen;
     }
 
 
