@@ -8,14 +8,15 @@ import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.util.JsonUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+import org.springframework.scheduling.config.Task;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static junit.framework.TestCase.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TaskGeneratorTest {
 
@@ -196,5 +197,22 @@ public class TaskGeneratorTest {
         Question twoFollowups = questionPool.getQuestionFromId("structure3./images/demoEquine10.jpg");
         Question recFollowups = questionPool.getQuestionFromId("structure0./images/demoEquine14.jpg");
 
+        //Trying to remove nonexistant followup questions should have no effect on the Question
+        Question noFollowsAfter = TaskGenerator.removeTypeFromQuestion(noFollowups, "Attachment");
+        assertTrue(noFollowups == noFollowsAfter);
+
+        //The method should not remove the base question
+        assertThrows(RuntimeException.class, () -> {Question noFollowsAfterPlane = TaskGenerator.removeTypeFromQuestion(noFollowups, "Plane");});
+
+        //Removing attachment followups should create a question with no followups
+        Question twoFollowupsAfter = TaskGenerator.removeTypeFromQuestion(twoFollowups, "Attachment");
+        assertFalse(twoFollowupsAfter == twoFollowups);
+        assertEquals(0, twoFollowupsAfter.getFollowupQuestions().size());
+
+        //Removing a followup to a followup
+        Question recFollowupsAfter = TaskGenerator.removeTypeFromQuestion(recFollowups, "Bonus");
+        assertFalse(recFollowupsAfter == recFollowups);
+        assertTrue(recFollowups.getFollowupQuestions().get(2).getType() == "Bonus");
+        assertFalse(recFollowupsAfter.getFollowupQuestions().get(2).getType() == "Bonus");
     }
 }
