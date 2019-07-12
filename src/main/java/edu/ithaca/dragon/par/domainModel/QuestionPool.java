@@ -49,6 +49,7 @@ public class QuestionPool {
         return null;
     }
 
+    //This is currently only used in tests
     public List<Question> getQuestionsFromUrl(String imageUrlIn){
         List<Question> toReturn = new ArrayList<>();
         for(int i = 0; i < allQuestions.size(); i++){
@@ -58,6 +59,7 @@ public class QuestionPool {
         return toReturn;
     }
 
+    //This is currently only used in tests
     public List<Question> getQuestionsFromIds(List<String> idsIn){
         List<Question> toReturn = new ArrayList<>();
         boolean validId;
