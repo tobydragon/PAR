@@ -5,13 +5,14 @@ import edu.ithaca.dragon.par.domainModel.Question;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class UserQuestionSet {
     private String userId;
     private List<QuestionCount> questionCounts;
 
 
     public static UserQuestionSet buildNewUserQuestionSetFromQuestions(String userId, List<Question> questionsIn ){
-        return new UserQuestionSet(userId, questionToQuestionCount(questionsIn));
+        return new UserQuestionSet(userId, QuestionCount.questionToQuestionCount(questionsIn));
     }
 
     public static UserQuestionSet buildUserQuestionSetFromCounts(String userId, List<QuestionCount> questionCounts ){
@@ -21,21 +22,6 @@ public class UserQuestionSet {
     private UserQuestionSet(String userId, List<QuestionCount> questionCounts ){
         this.userId = userId;
         this.questionCounts = questionCounts;
-    }
-
-    public static List<QuestionCount> questionToQuestionCount(List<Question> questions){
-        List<QuestionCount> questionCountList = new ArrayList<QuestionCount>();
-        for (int i = 0; i<questions.size(); i++){
-            QuestionCount qc = new QuestionCount(questions.get(i));
-            qc.setTimesSeen(0);
-            questionCountList.add(qc);
-        }
-        return questionCountList;
-    }
-
-
-    public int getLenOfQuestions(){
-        return questionCounts.size();
     }
 
     public List<QuestionCount> getQuestionCounts(){ return questionCounts; }
@@ -73,16 +59,6 @@ public class UserQuestionSet {
 
     public String getUserId () {
         return userId;
-    }
-
-    public boolean increaseTimesSeen (String questionId){
-        for (int i = 0; i< questionCounts.size(); i++){
-            if(questionCounts.get(i).getQuestion().getId().equals(questionId)){
-                questionCounts.get(i).increaseTimesSeen();
-                return true;
-            }
-        }
-        return false;
     }
 
     public  int getLenOfSeenQuestions(){

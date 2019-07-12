@@ -50,41 +50,6 @@ public class UserQuestionSetTest {
     }
 
     @Test
-    public void getLenofQuestionsTest() throws IOException {
-        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
-        UserQuestionSet que = UserQuestionSet.buildNewUserQuestionSetFromQuestions("99", questionsFromFile);
-
-        //checks all questions are unseen
-        int len = que.getLenOfQuestions();
-        assertEquals(15, len);
-
-        //checks 1 question has been seen
-        que.givenQuestion("PlaneQ1");
-        len = que.getLenOfQuestions();
-        assertEquals(15,len);
-
-        //checks 2 questions have been seen
-        que.givenQuestion("StructureQ1");
-        len = que.getLenOfQuestions();
-        assertEquals(15,len);
-
-        //checks getLen does not change the length of seen list
-        len = que.getLenOfQuestions();
-        assertEquals(15,len);
-
-        //checks length of seen list does not change when invalid question ID is used
-        assertThrows(RuntimeException.class, () -> { que.givenQuestion("4");});
-        len = que.getLenOfQuestions();
-        assertEquals(15,len);
-
-        //checks length of seen list does not change when invalid question ID is used
-        assertThrows(RuntimeException.class, () -> { que.givenQuestion("1");});
-        len = que.getLenOfQuestions();
-        assertEquals(15,len);
-
-    }
-
-    @Test
     public void getTimesSeenTest() throws IOException{
         List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
         UserQuestionSet que = UserQuestionSet.buildNewUserQuestionSetFromQuestions("101", questionsFromFile);
@@ -100,15 +65,15 @@ public class UserQuestionSetTest {
 
         //checks question has been seen twice
         que.givenQuestion("StructureQ1");
-        que.increaseTimesSeen("StructureQ1");
+        que.givenQuestion("StructureQ1");
         int seen3 = que.getTimesSeen("StructureQ1");
         assertEquals(2, seen3);
 
         //checks seeing question multiple times in a row
         que.givenQuestion("ZoneQ1");
-        que.increaseTimesSeen("ZoneQ1");
-        que.increaseTimesSeen("ZoneQ1");
-        que.increaseTimesSeen("ZoneQ1");
+        que.givenQuestion("ZoneQ1");
+        que.givenQuestion("ZoneQ1");
+        que.givenQuestion("ZoneQ1");
         int seen4 = que.getTimesSeen("ZoneQ1");
         assertEquals(4, seen4);
 
@@ -159,7 +124,7 @@ public class UserQuestionSetTest {
     }
 
     @Test
-    public void increaseTimesSeenTest() throws IOException{
+    public void givenQuestionTest() throws IOException{
         List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
         UserQuestionSet que = UserQuestionSet.buildNewUserQuestionSetFromQuestions("1", questionsFromFile);
 
@@ -167,8 +132,7 @@ public class UserQuestionSetTest {
         que.givenQuestion("PlaneQ1");
         int seen = que.getTimesSeen("PlaneQ1");
         assertEquals(1, seen);
-        boolean found = que.increaseTimesSeen("PlaneQ1");
-        assertTrue(found);
+        que.givenQuestion("PlaneQ1");
         seen = que.getTimesSeen("PlaneQ1");
         assertEquals(2, seen);
 
@@ -176,10 +140,8 @@ public class UserQuestionSetTest {
         que.givenQuestion("StructureQ1");
         seen = que.getTimesSeen("StructureQ1");
         assertEquals(1, seen);
-        found = que.increaseTimesSeen("StructureQ1");
-        assertTrue(found);
-        found = que.increaseTimesSeen("StructureQ1");
-        assertTrue(found);
+        que.givenQuestion("StructureQ1");
+        que.givenQuestion("StructureQ1");
         seen = que.getTimesSeen("StructureQ1");
         assertEquals(3, seen);
 
@@ -187,14 +149,11 @@ public class UserQuestionSetTest {
         //checks other question does not have an increase in times seen
         seen = que.getTimesSeen("ZoneQ1");
         assertEquals(0, seen);
-        que.increaseTimesSeen("ZoneQ1");
+        que.givenQuestion("ZoneQ1");
         seen = que.getTimesSeen("ZoneQ1");
         assertEquals(1, seen);
         seen = que.getTimesSeen("StructureQ1");
         assertEquals(3, seen);
-
-        found = que.increaseTimesSeen("hey hey hey :)");
-        assertFalse(found);
 
         //invalid question ID
         assertThrows(RuntimeException.class, () -> { que.getTimesSeen("2");});
@@ -218,7 +177,7 @@ public class UserQuestionSetTest {
 
 
     @Test
-    public void givenQuestionTest() throws IOException{
+    public void givenQuestionTest2() throws IOException{
         List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
         UserQuestionSet que = UserQuestionSet.buildNewUserQuestionSetFromQuestions("14", questionsFromFile);
 
