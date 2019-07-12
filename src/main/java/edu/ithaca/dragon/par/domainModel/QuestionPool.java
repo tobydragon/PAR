@@ -49,16 +49,20 @@ public class QuestionPool {
         return null;
     }
 
-    //This is currently only used in tests
-    public List<Question> getQuestionsFromUrl(String imageUrlIn){
+    public List<Question> getQuestionsFromUrl(String questionUrl){
+        return QuestionPool.getQuestionsWithUrl(allQuestions, questionUrl);
+    }
+
+    public static List<Question> getQuestionsWithUrl(List<Question> questionList, String questionUrl){
         List<Question> toReturn = new ArrayList<>();
-        for(int i = 0; i < allQuestions.size(); i++){
-            if(allQuestions.get(i).getImageUrl().equals(imageUrlIn))
-                toReturn.add(allQuestions.get(i));
+        for(Question questionToCheck : questionList){
+            if(questionToCheck.getImageUrl().equals(questionUrl)){
+                toReturn.add(questionToCheck);
+            }
+            toReturn.addAll(getQuestionsWithUrl(questionToCheck.getFollowupQuestions(), questionUrl));
         }
         return toReturn;
     }
-
     //This is currently only used in tests
     public List<Question> getQuestionsFromIds(List<String> idsIn){
         List<Question> toReturn = new ArrayList<>();
