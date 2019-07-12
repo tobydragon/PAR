@@ -18,7 +18,7 @@ public class UserResponseSet {
 
         if (index == -1) userResponse.add(response);
 
-        else userResponse.get(index).addNewResponse(response.getResponseText());
+        else userResponse.get(index).addNewResponse(response.getFirstResponse());
     }
 
     public void addAllResponses(List<ResponsesPerQuestion> allResponsesIn) {
@@ -47,7 +47,7 @@ public class UserResponseSet {
     public int countTotalResponses(){
         int count=0;
         for(ResponsesPerQuestion responses: userResponse){
-            count=count+responses.allResponseTextSize();
+            count=count+responses.allResponsesSize();
         }
         return count;
     }

@@ -13,7 +13,6 @@ public class ResponsesPerQuestionRecord {
     private String questionId;
     private String responseText;
     private List<QuestionResponse> allResponseTexts;
-    //private Question question;
 //TODO:changes string list to QuestionResponse List
     public ResponsesPerQuestionRecord(){
         allResponseTexts=new ArrayList<>();
@@ -24,15 +23,15 @@ public class ResponsesPerQuestionRecord {
         this();
         userId= responsesPerQuestionIn.getUserId();
         questionId= responsesPerQuestionIn.getQuestionId();
-        responseText= responsesPerQuestionIn.getResponseText();
-        for(int i =0;i<responsesPerQuestionIn.allResponseTextSize();i++){
-            allResponseTexts.add(responsesPerQuestionIn.getAllResponseTexts().get(i));
+        responseText= responsesPerQuestionIn.getFirstResponse();
+        for(int i =0;i<responsesPerQuestionIn.allResponsesSize();i++){
+            allResponseTexts.add(responsesPerQuestionIn.getAllResponses().get(i));
         }
     }
      public ResponsesPerQuestion buildResponsesPerQuestionRecord(QuestionPool questionPool){
         Question question =questionPool.getQuestionFromId(questionId);
         ResponsesPerQuestion responsesPerQuestion=new ResponsesPerQuestion(userId,question,responseText);
-        responsesPerQuestion.setAllResponseTexts(allResponseTexts);
+        responsesPerQuestion.setAllResponses(allResponseTexts);
         return responsesPerQuestion;
      }
 
@@ -68,3 +67,4 @@ public class ResponsesPerQuestionRecord {
         this.allResponseTexts = allResponseTexts;
     }
 }
+

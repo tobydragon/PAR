@@ -42,8 +42,8 @@ public class UserResponseSetTest {
         ResponsesPerQuestion response2 = new ResponsesPerQuestion(responsesFromFile.get(0).getUserId(), questionsFromFile.get(1),responsesFromFile.get(0).getResponseTexts().get(1));
         respSet.addResponse(response1);respSet.addResponse(response1);respSet.addResponse(response2);
 
-        assertEquals(2,response1.allResponseTextSize());
-        assertEquals(1,response2.allResponseTextSize());
+        assertEquals(2,response1.allResponsesSize());
+        assertEquals(1,response2.allResponsesSize());
     }
 
     @Test
