@@ -105,6 +105,16 @@ public class UserQuestionSet {
                 && this.getQuestionCounts().equals(other.getQuestionCounts());
     }
 
+    public void increaseTimesSeenAllQuestions(List<Question> questions){
+        for (int i = 0; i < questions.size(); i++){
+            increaseTimesSeen(questions.get(i).getId());
+            if (questions.get(i).getFollowupQuestions().size()>0){
+                increaseTimesSeenAllQuestions(questions.get(i).getFollowupQuestions());
+            }
+        }
+    }
+
+
 
 }
 

@@ -152,11 +152,10 @@ public class TaskGenerator {
         ImageTask imageTask = new ImageTask(initialQuestion.getImageUrl(), questionList);
 
         //let studentModel know that unseen questions are seen
-        for(Question currQuestion : questionList){
-            studentModel.getUserQuestionSet().increaseTimesSeen(currQuestion.getId());
-        }
+        studentModel.getUserQuestionSet().increaseTimesSeenAllQuestions(questionList);
         return imageTask;
     }
+
 
     public static List<Question> filterQuestions(int level, List<Question> questionList){
         //only levels 1 and 2 have plane questions

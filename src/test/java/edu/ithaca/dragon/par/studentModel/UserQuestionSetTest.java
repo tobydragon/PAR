@@ -428,4 +428,29 @@ public class UserQuestionSetTest {
     }
 
 
+    @Test
+    public void increaseTimesSeenAllQuestionsTest() throws IOException{
+        List<Question> questions= JsonUtil.listFromJsonFile("src/test/resources/author/DemoQuestionPoolFollowup.json", Question.class);
+        questions = questions.subList(0,5);
+        StudentModel studentModel = new StudentModel("TestUser1", questions);
+        studentModel.getUserQuestionSet().increaseTimesSeenAllQuestions(questions);
+        assertEquals(1, studentModel.getUserQuestionSet().getQuestionCounts().get(0).getTimesSeen());
+        assertEquals(1, studentModel.getUserQuestionSet().getQuestionCounts().get(1).getFollowupCounts().get(0).getTimesSeen());
+        assertEquals(1, studentModel.getUserQuestionSet().getQuestionCounts().get(1).getFollowupCounts().get(2).getFollowupCounts().get(0).getTimesSeen());
+        studentModel.getUserQuestionSet().increaseTimesSeenAllQuestions(questions);
+        assertEquals(2, studentModel.getUserQuestionSet().getQuestionCounts().get(0).getTimesSeen());
+        assertEquals(2, studentModel.getUserQuestionSet().getQuestionCounts().get(1).getFollowupCounts().get(0).getTimesSeen());
+        assertEquals(2, studentModel.getUserQuestionSet().getQuestionCounts().get(1).getFollowupCounts().get(2).getFollowupCounts().get(0).getTimesSeen());
+
+
+        StudentModel studentModel2 = new StudentModel("TestUser1", questions);
+        questions = questions.subList(0,4);
+        studentModel2.getUserQuestionSet().increaseTimesSeenAllQuestions(questions);
+        assertEquals(1, studentModel2.getUserQuestionSet().getQuestionCounts().get(0).getTimesSeen());
+        assertEquals(1, studentModel2.getUserQuestionSet().getQuestionCounts().get(0).getTimesSeen());
+
+
+
+    }
+
 }
