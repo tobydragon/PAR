@@ -4,7 +4,7 @@ class TextEntryResponseBox {
         this.id = id;
         this.possibleResponses = possibleResponses;
         this.correctResponse = response;
-        this.possibleResponsesDatalist = buildDatalist(id, possibleResponses);
+        this.possibleResponsesDatalist = buildDatalistElement(id, possibleResponses);
         this.inputTextbox = buildInputTextbox(id, this.possibleResponsesDatalist.getAttribute("id"));
     }
 
@@ -14,9 +14,9 @@ class TextEntryResponseBox {
     }
 }
 
-function buildDatalist(id, possibleResponses){
+function buildDatalistElement(questionId, possibleResponses){
     let datalist = document.createElement("datalist");
-    datalist.setAttribute("id", "responseDataList"+id);
+    datalist.setAttribute("id", questionId + "Datalist");
     for (let optionText of possibleResponses){
         datalist.appendChild(buildOptionElement(optionText));
     }
