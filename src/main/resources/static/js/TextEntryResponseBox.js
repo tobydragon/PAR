@@ -1,16 +1,33 @@
+const ResponseResult = {
+    correct :"correct",
+    incorrect :"incorrect",
+    unsure :"unsure"
+}
+
 class TextEntryResponseBox {
 
-    constructor (id, possibleResponses, correctResponse){
+    constructor (id, defaultResponses, correctResponse){
         this.id = id;
-        this.possibleResponses = possibleResponses;
         this.correctResponse = response;
-        this.possibleResponsesDatalist = buildDatalistElement(id, possibleResponses);
+        this.possibleResponsesDatalist = buildDatalistElement(id, defaultResponses);
         this.inputTextbox = buildInputTextbox(id, this.possibleResponsesDatalist.getAttribute("id"));
     }
 
     appendToElement(whereToAppendId){
         document.getElementById(whereToAppendId).appendChild(this.possibleResponsesDatalist);
         document.getElementById(whereToAppendId).appendChild(this.inputTextbox);
+    }
+}
+
+function checkResponse(correctResponse, actualResponse){
+    if (correctResponse.trim().toLowerCase() === actualResponse.trim().toLowerCase()){
+        return ResponseResult.correct;
+    }
+    else if (correctResponse.trim().toLowerCase() === ResponseResult.unsure.trim().toLowerCase()){
+        return ResponseResult.unsure;
+    }
+    else {
+        return ResponseResult.incorrect;
     }
 }
 
@@ -33,6 +50,7 @@ function buildOptionElement(optionText){
 
 /**
  * @param datalistId and id of a datalist tagged id that already exists in the document
+ * @pre need to call buildDatalistElement before building this and use the id sent to buildDatalistElement
  */
 function buildInputTextbox(id, datalistId){
     let inputTextbox = document.createElement("input");
