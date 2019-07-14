@@ -4,8 +4,8 @@ class TextEntryResponseBox {
         this.id = id;
         this.possibleResponses = possibleResponses;
         this.correctResponse = response;
-        this.possibleResponsesDatalist = createDatalist(id, possibleResponses);
-        this.inputTextbox = createInputTextbox(id, this.possibleResponsesDatalist.getAttribute("id"));
+        this.possibleResponsesDatalist = buildDatalist(id, possibleResponses);
+        this.inputTextbox = buildInputTextbox(id, this.possibleResponsesDatalist.getAttribute("id"));
     }
 
     appendToElement(whereToAppendId){
@@ -14,25 +14,27 @@ class TextEntryResponseBox {
     }
 }
 
-function createDatalist(id, possibleResponses){
+function buildDatalist(id, possibleResponses){
     let datalist = document.createElement("datalist");
     datalist.setAttribute("id", "responseDataList"+id);
     for (let optionText of possibleResponses){
-        datalist.appendChild(createOptionElement(optionText));
+        datalist.appendChild(buildOptionElement(optionText));
     }
-    datalist.appendChild(createOptionElement("unsure"));
+    datalist.appendChild(buildOptionElement("unsure"));
     console.log ("Datalist created: "   + datalist.getElementsByClassName("option"));
     return datalist;
 }
 
-function createOptionElement(optionText){
+function buildOptionElement(optionText){
     let optionElement = document.createElement("option");
     optionElement.setAttribute("value", optionText);
-    console.log ("option created: "   + optionElement);
     return optionElement;
 }
 
-function createInputTextbox(id, datalistId){
+/**
+ * @param datalistId and id of a datalist tagged id that already exists in the document
+ */
+function buildInputTextbox(id, datalistId){
     let inputTextbox = document.createElement("input");
     inputTextbox.type = "text";
     inputTextbox.setAttribute("id", id);
