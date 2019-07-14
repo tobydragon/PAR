@@ -16,20 +16,45 @@ describe("TextEntryResponseBox", function () {
         expect(element.options.item(element.options.length-1).value).toBe("unsure");
     });
 
-    it("checkResponse", function () {
-        expect(checkResponse("a", "a")).toBe(ResponseResult.correct);
-        expect(checkResponse(" a ", "a")).toBe(ResponseResult.correct);
-        expect(checkResponse(" A ", "a")).toBe(ResponseResult.correct);
-        expect(checkResponse("a", " a ")).toBe(ResponseResult.correct);
-        expect(checkResponse("a", " A ")).toBe(ResponseResult.correct);
-        expect(checkResponse("aA ", " Aa")).toBe(ResponseResult.correct);
-        expect(checkResponse("aB", " Ab ")).toBe(ResponseResult.correct);
+    it("checkAnyResponse", function () {
+        expect(checkAnyResponse("a", "a")).toBe(ResponseResult.correct);
+        expect(checkAnyResponse(" a ", "a")).toBe(ResponseResult.correct);
+        expect(checkAnyResponse(" A ", "a")).toBe(ResponseResult.correct);
+        expect(checkAnyResponse("a", " a ")).toBe(ResponseResult.correct);
+        expect(checkAnyResponse("a", " A ")).toBe(ResponseResult.correct);
+        expect(checkAnyResponse("aA ", " Aa")).toBe(ResponseResult.correct);
+        expect(checkAnyResponse("aB", " Ab ")).toBe(ResponseResult.correct);
 
-        expect(checkResponse("a", "b")).toBe(ResponseResult.incorrect);
-        expect(checkResponse("a", "ab")).toBe(ResponseResult.incorrect);
-        expect(checkResponse("ab", "ba")).toBe(ResponseResult.incorrect);
-        expect(checkResponse("aB", "Ba")).toBe(ResponseResult.incorrect);
-        expect(checkResponse("a", "b  ")).toBe(ResponseResult.incorrect);
-        expect(checkResponse("a", "ab  ")).toBe(ResponseResult.incorrect);
+        expect(checkAnyResponse("a", "b")).toBe(ResponseResult.incorrect);
+        expect(checkAnyResponse("a", "ab")).toBe(ResponseResult.incorrect);
+        expect(checkAnyResponse("ab", "ba")).toBe(ResponseResult.incorrect);
+        expect(checkAnyResponse("aB", "Ba")).toBe(ResponseResult.incorrect);
+        expect(checkAnyResponse("a", "b  ")).toBe(ResponseResult.incorrect);
+        expect(checkAnyResponse("a", "ab  ")).toBe(ResponseResult.incorrect);
+
+        expect(checkAnyResponse("ab", "ba")).toBe(ResponseResult.incorrect);
+        expect(checkAnyResponse("aB", "Ba")).toBe(ResponseResult.incorrect);
+        expect(checkAnyResponse("a", "b  ")).toBe(ResponseResult.incorrect);
+        expect(checkAnyResponse("a", "ab  ")).toBe(ResponseResult.incorrect);
+
+        expect(checkAnyResponse("anything", ResponseResult.unsure)).toBe(ResponseResult.unsure);
+        expect(checkAnyResponse("anything", " "+ ResponseResult.unsure.toUpperCase()+" ")).toBe(ResponseResult.unsure);
+
+    });
+
+    it("checkThisResponse", function () {
+        let textEntryResponseBox = new TextEntryResponseBox("test1", ["high", "middle", "low"], "low");
+        textEntryResponseBox.inputTextbox.value = "low";
+        expect(textEntryResponseBox.checkCurrentResponse()).toBe(ResponseResult.correct);
+        textEntryResponseBox.inputTextbox.value = "low ";
+        expect(textEntryResponseBox.checkCurrentResponse()).toBe(ResponseResult.correct);
+        textEntryResponseBox.inputTextbox.value = "LOW";
+        expect(textEntryResponseBox.checkCurrentResponse()).toBe(ResponseResult.correct);
+        textEntryResponseBox.inputTextbox.value = "HIGH";
+        expect(textEntryResponseBox.checkCurrentResponse()).toBe(ResponseResult.incorrect);
+        textEntryResponseBox.inputTextbox.value = "high";
+        expect(textEntryResponseBox.checkCurrentResponse()).toBe(ResponseResult.incorrect);
+        textEntryResponseBox.inputTextbox.value = "something";
+        expect(textEntryResponseBox.checkCurrentResponse()).toBe(ResponseResult.incorrect);
     });
 });

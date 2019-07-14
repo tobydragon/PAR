@@ -8,7 +8,7 @@ class TextEntryResponseBox {
 
     constructor (id, defaultResponses, correctResponse){
         this.id = id;
-        this.correctResponse = response;
+        this.correctResponse = correctResponse;
         this.possibleResponsesDatalist = buildDatalistElement(id, defaultResponses);
         this.inputTextbox = buildInputTextbox(id, this.possibleResponsesDatalist.getAttribute("id"));
     }
@@ -17,13 +17,17 @@ class TextEntryResponseBox {
         document.getElementById(whereToAppendId).appendChild(this.possibleResponsesDatalist);
         document.getElementById(whereToAppendId).appendChild(this.inputTextbox);
     }
+
+    checkCurrentResponse(){
+        return checkAnyResponse(this.correctResponse, this.inputTextbox.value);
+    }
 }
 
-function checkResponse(correctResponse, actualResponse){
+function checkAnyResponse(correctResponse, actualResponse){
     if (correctResponse.trim().toLowerCase() === actualResponse.trim().toLowerCase()){
         return ResponseResult.correct;
     }
-    else if (correctResponse.trim().toLowerCase() === ResponseResult.unsure.trim().toLowerCase()){
+    else if (ResponseResult.unsure.trim().toLowerCase() === actualResponse.trim().toLowerCase()){
         return ResponseResult.unsure;
     }
     else {
