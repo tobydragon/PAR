@@ -1,6 +1,6 @@
-class QuestionArea {
+class QuestionAreaDisplay {
     constructor(questionObject){
-        this.answerBox = new TextEntryResponseBox(questionObject.id+"ResponseBox", questionObject.possibleAnswers, questionObject.correctAnswer);
+        this.answerBox = new InputDatalistResponseBoxDisplay(questionObject.id+"ResponseBox", questionObject.possibleAnswers, questionObject.correctAnswer);
         this.element = buildQuestionAreaElement(questionObject.id, questionObject.questionText, this.answerBox.element);
         if (questionObject.hasOwnProperty("followupQuestions")){
             this.followUpAreas = buildQuestionAreas(questionObject.followupQuestions);
@@ -36,7 +36,7 @@ function buildQuestionAreaElement(id, questionText, answerBoxElement){
 function buildQuestionAreas(questionObjectList){
     let questionAreaList = [];
     for (let questionObject of questionObjectList){
-        questionAreaList.push(new QuestionArea(questionObject));
+        questionAreaList.push(new QuestionAreaDisplay(questionObject));
     }
     return questionAreaList;
 }

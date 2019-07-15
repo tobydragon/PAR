@@ -7,7 +7,7 @@ const ResponseResult = {
     blank:""
 };
 
-class TextEntryResponseBox {
+class InputDatalistResponseBoxDisplay {
 
     constructor (id, defaultResponses, correctResponse){
         this.id = id;

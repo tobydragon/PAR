@@ -52,7 +52,7 @@ describe("TextEntryResponseBox", function () {
     });
 
     it("checkThisResponse", function () {
-        let textEntryResponseBox = new TextEntryResponseBox("test1", ["high", "middle", "low"], "low");
+        let textEntryResponseBox = new InputDatalistResponseBoxDisplay("test1", ["high", "middle", "low"], "low");
         textEntryResponseBox.inputTextbox.value = "low";
         expect(textEntryResponseBox.checkCurrentResponse()).toBe(ResponseResult.correct);
         textEntryResponseBox.inputTextbox.value = "low ";

@@ -13,7 +13,7 @@
     </div>
     <script>
         let questionObjects = readJson("../../resources/author/DemoQuestionPoolFollowup.json");
-        test = new QuestionArea(questionObjects[1]);
+        test = new QuestionAreaDisplay(questionObjects[1]);
         test.addFollowupQuestions();
         document.getElementById("test").appendChild(test.element);
     </script>
