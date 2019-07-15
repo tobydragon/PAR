@@ -47,7 +47,7 @@ public class StudentModelTest {
         assertEquals(0, studentModel.getResponseCount());
     }
 
-    @Test//make a card TODO:CHANGE TEST NAME AND STUDENT MODEL .getResponseCount
+    @Test
     public void testPickingQuestionsAndReceivingResponses(){
         studentModel.givenQuestion("PlaneQ1");
         studentModel.givenQuestion("PlaneQ1");
