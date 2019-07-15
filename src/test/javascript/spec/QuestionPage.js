@@ -1,4 +1,4 @@
-describe("QuestionPage Test", function () {
+describe("QuestionPage", function () {
     it("check to make sure generateFollowupQuestions create appropriate followup questions for a correct struct question", function () {
         var test = {
             "id": "structure1./images/demoTest01.jpg",

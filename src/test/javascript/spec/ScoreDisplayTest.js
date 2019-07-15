@@ -1,4 +1,4 @@
-describe("ScoreDisplayTest", function () {
+describe("ScoreDisplay", function () {
     it("make sure ScoreDisplay creates correct visualization string", function () {
         var scoreJsonObj = {
             "plane": "XOOX",
