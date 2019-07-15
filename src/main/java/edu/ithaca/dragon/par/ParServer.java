@@ -105,9 +105,9 @@ public class ParServer {
         testMap.put("zone", "____");
         return testMap;
     }
-        public void checkIfWindowSizeIsValid(QuestionPool questionPool){
-            if (!questionPool.checkWindowSize(UserResponseSet.windowSize)) {
-                throw new RuntimeException("The windownSize is too small for the given questionPool");
+    public void checkIfWindowSizeIsValid(QuestionPool questionPool){
+        if (!questionPool.checkWindowSize(UserResponseSet.windowSize)) {
+            throw new RuntimeException("The windowSize is too small for the given questionPool");
             }
         }
     }

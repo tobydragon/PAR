@@ -26,7 +26,8 @@ function submitToAPI(url, objectToSubmit) {
     request.send(JSON.stringify(objectToSubmit));
     request.onreadystatechange = function () {
         if (request.status === 200) {
-            //setCurrentScore();
+            let scoreJSON = readJson("api/getScoreStringByType?userId=" + objectToSubmit.userId);
+            setCurrentScore(scoreJSON);
         } else {
             window.onerror = function (msg) {
                 location.replace('/error?message=' + msg);
