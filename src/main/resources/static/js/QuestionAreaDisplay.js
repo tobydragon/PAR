@@ -30,6 +30,7 @@ function buildQuestionAreaElement(id, questionText, answerBoxElement){
 
     element.appendChild(questionTextArea);
     element.appendChild(answerBoxElement);
+
     return element;
 }
 

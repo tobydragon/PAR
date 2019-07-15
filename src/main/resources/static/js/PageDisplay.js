@@ -17,4 +17,9 @@ class PageDisplay{
 
         this.imageTaskDisplay= new ImageTaskDisplay(imageTaskJSON, this.userId);
     }
+
+    logout() {
+        this.userId = null;
+        return location.replace('/login');
+    }
 }

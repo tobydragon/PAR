@@ -21,7 +21,7 @@ class InputDatalistResponseBoxDisplay {
 
     checkCurrentResponse(response){
         response.addToResponseTexts(this.inputTextbox.value);
-        return checkAnyResponse(this.correctResponse, this.inputTextbox.value);
+        return checkAnyResponse(this.correctResponse, this.inputTextbox.value, this.element);
     }
 }
 
@@ -30,22 +30,31 @@ function buildElement(id, possibleResponseDatalist, inputTextbox){
     element.setAttribute("id", id);
     element.appendChild(possibleResponseDatalist);
     element.appendChild(inputTextbox);
+
     return element;
 }
 
-function checkAnyResponse(correctResponse, actualResponse){
+function checkAnyResponse(correctResponse, actualResponse, element){
+    let feedbackTextArea = document.createElement("feedback");
     if (correctResponse.trim().toLowerCase() === actualResponse.trim().toLowerCase()){
+        feedbackTextArea.textContent = '<font color=\"green\">Your answer is: Correct </font>';
+        element.appendChild(feedbackTextArea);
         return ResponseResult.correct;
     }
     else if (ResponseResult.unsure.trim().toLowerCase() === actualResponse.trim().toLowerCase()){
+        feedbackTextArea.textContent = '<font color=\"#663399\">' + "The correct answer is " + correctResponse + '</font>';
+        element.appendChild(feedbackTextArea);
         return ResponseResult.unsure;
     }
     else if (ResponseResult.blank.trim().toLowerCase() === actualResponse.trim().toLowerCase()){
         return ResponseResult.blank;
     }
     else {
+        feedbackTextArea.textContent = '<font color=\"red\">Your answer is: Incorrect </font>';
+        element.appendChild(feedbackTextArea);
         return ResponseResult.incorrect;
     }
+
 }
 
 function buildDatalistElement(questionId, possibleResponses){
