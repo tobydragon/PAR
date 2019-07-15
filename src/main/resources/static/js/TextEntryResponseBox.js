@@ -1,26 +1,35 @@
+'use strict';
+
 const ResponseResult = {
     correct :"correct",
     incorrect :"incorrect",
-    unsure :"unsure"
-}
+    unsure :"unsure",
+    blank:""
+};
 
 class TextEntryResponseBox {
 
     constructor (id, defaultResponses, correctResponse){
         this.id = id;
         this.correctResponse = correctResponse;
-        this.possibleResponsesDatalist = buildDatalistElement(id, defaultResponses);
-        this.inputTextbox = buildInputTextbox(id, this.possibleResponsesDatalist.getAttribute("id"));
-    }
-
-    appendToElement(whereToAppendId){
-        document.getElementById(whereToAppendId).appendChild(this.possibleResponsesDatalist);
-        document.getElementById(whereToAppendId).appendChild(this.inputTextbox);
+        //don't currently need a pointer to this datalist
+        let possibleResponsesDatalist = buildDatalistElement(id, defaultResponses);
+        //need a pointer to this textbox to check answers
+        this.inputTextbox = buildInputTextbox(id, possibleResponsesDatalist.getAttribute("id"));
+        this.element = buildElement(id, possibleResponsesDatalist, this.inputTextbox);
     }
 
     checkCurrentResponse(){
         return checkAnyResponse(this.correctResponse, this.inputTextbox.value);
     }
+}
+
+function buildElement(id, possibleResponseDatalist, inputTextbox){
+    let element = document.createElement("div");
+    element.setAttribute("id", id);
+    element.appendChild(possibleResponseDatalist);
+    element.appendChild(inputTextbox);
+    return element;
 }
 
 function checkAnyResponse(correctResponse, actualResponse){
@@ -29,6 +38,9 @@ function checkAnyResponse(correctResponse, actualResponse){
     }
     else if (ResponseResult.unsure.trim().toLowerCase() === actualResponse.trim().toLowerCase()){
         return ResponseResult.unsure;
+    }
+    else if (ResponseResult.blank.trim().toLowerCase() === actualResponse.trim().toLowerCase()){
+        return ResponseResult.blank;
     }
     else {
         return ResponseResult.incorrect;
@@ -42,7 +54,6 @@ function buildDatalistElement(questionId, possibleResponses){
         datalist.appendChild(buildOptionElement(optionText));
     }
     datalist.appendChild(buildOptionElement("unsure"));
-    console.log ("Datalist created: "   + datalist.getElementsByClassName("option"));
     return datalist;
 }
 
@@ -53,7 +64,7 @@ function buildOptionElement(optionText){
 }
 
 /**
- * @param datalistId and id of a datalist tagged id that already exists in the document
+ * @param datalistId an id of a datalist tagged id that already exists in the document
  * @pre need to call buildDatalistElement before building this and use the id sent to buildDatalistElement
  */
 function buildInputTextbox(id, datalistId){
