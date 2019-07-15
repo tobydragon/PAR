@@ -35,14 +35,19 @@ function buildElement(id, possibleResponseDatalist, inputTextbox){
 }
 
 function checkAnyResponse(correctResponse, actualResponse, element){
-    let feedbackTextArea = document.createElement("feedback");
+    if(element.contains("feedbackTextArea")) {
+        element.removeChild("feedbackTextArea");
+    }
+    let feedbackTextArea = document.createElement("div");
     if (correctResponse.trim().toLowerCase() === actualResponse.trim().toLowerCase()){
-        feedbackTextArea.textContent = '<font color=\"green\">Your answer is: Correct </font>';
+        feedbackTextArea.textContent = 'Your answer is: Correct';
+        feedbackTextArea.classList.add("correct");
         element.appendChild(feedbackTextArea);
         return ResponseResult.correct;
     }
     else if (ResponseResult.unsure.trim().toLowerCase() === actualResponse.trim().toLowerCase()){
-        feedbackTextArea.textContent = '<font color=\"#663399\">' + "The correct answer is " + correctResponse + '</font>';
+        feedbackTextArea.textContent = "The correct answer is " + correctResponse;
+        feedbackTextArea.classList.add("unsure");
         element.appendChild(feedbackTextArea);
         return ResponseResult.unsure;
     }
@@ -50,7 +55,8 @@ function checkAnyResponse(correctResponse, actualResponse, element){
         return ResponseResult.blank;
     }
     else {
-        feedbackTextArea.textContent = '<font color=\"red\">Your answer is: Incorrect </font>';
+        feedbackTextArea.textContent = 'Your answer is: Incorrect';
+        feedbackTextArea.classList.add("incorrect");
         element.appendChild(feedbackTextArea);
         return ResponseResult.incorrect;
     }
