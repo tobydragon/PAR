@@ -1,6 +1,7 @@
 //
 //Canvas functions
 //
+/**
 window.addEventListener("load", canvasApp, false);
 
 function canvasSupport() {
@@ -59,7 +60,7 @@ function canvasApp() {
     });
 
 }
-
+**/
 
 
 //
@@ -82,7 +83,7 @@ function pageDisplay(imageTaskJSON) {
 function setUserId() {
     document.getElementById("UserId").innerHTML = "&nbsp" + sendUserId();
 }
-
+/**
 //Gets JSON, reads it, and returns it
 function readJson(url) {
     var request = new XMLHttpRequest();
@@ -91,7 +92,7 @@ function readJson(url) {
 
     return JSON.parse(request.response);
 }
-
+**/
 //display function for showing previously generated HTML of questions onscreen.
 function displayQuestion(displayHTML) {
     document.getElementById("questionSet").innerHTML += displayHTML;
@@ -112,6 +113,7 @@ function createRadioQuestion(json, currentAmountOfQuestions) {
 }
 **/
 //Creates datalist dropdown based on a question given for the html.
+/**
 function createDatalistDropdown(json, currentAmountOfQuestions) {
     var i;
     var question = "<p>" + json.questionText + '</p> <input id="' + ("q" + (currentAmountOfQuestions)) + '" list="' + ("list" + currentAmountOfQuestions) + '"/> <datalist id="' + ("list" + currentAmountOfQuestions) + '">';
@@ -147,7 +149,7 @@ function createSelectDropdown(json, currentAmountOfQuestions) {
     question += '<i id="' + "questionCorrect" + (currentAmountOfQuestions) + '"></i>';
     return question;
 }
-
+**/
 
 //
 //score functions
