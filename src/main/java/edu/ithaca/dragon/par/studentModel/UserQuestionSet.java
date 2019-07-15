@@ -1,52 +1,34 @@
 package edu.ithaca.dragon.par.studentModel;
 
 import edu.ithaca.dragon.par.domainModel.Question;
-import edu.ithaca.dragon.par.io.ImageTask;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class UserQuestionSet {
     private String userId;
-    private List<QuestionCount> questions;
+    private List<QuestionCount> questionCounts;
 
 
-    public UserQuestionSet(String userIdIn, List<Question> questionsIn){
-        this(userIdIn, questionsIn, new ArrayList<>());
-    }
-    public UserQuestionSet(String userIdIn, List<Question> questionsIn, List<Integer> timesSeenIn){
-        if(timesSeenIn.size()==0){
-            for (int i = 0; i <questionsIn.size(); i++){
-                timesSeenIn.add(0);
-            }
-        }
-        if (timesSeenIn.size()!=questionsIn.size()){
-            throw new RuntimeException();
-        }
-        userId = userIdIn;
-        questions = questionToQuestionCount(questionsIn, timesSeenIn);
+    public static UserQuestionSet buildNewUserQuestionSetFromQuestions(String userId, List<Question> questionsIn ){
+        return new UserQuestionSet(userId, QuestionCount.questionToQuestionCount(questionsIn));
     }
 
-    public static List<QuestionCount> questionToQuestionCount(List<Question> questions, List<Integer> timesSeenIn){
-        List<QuestionCount> questionCountList = new ArrayList<QuestionCount>();
-        for (int i = 0; i<questions.size(); i++){
-            QuestionCount qc = new QuestionCount(questions.get(i));
-            qc.setTimesSeen(timesSeenIn.get(i));
-            questionCountList.add(qc);
-        }
-        return questionCountList;
+    public static UserQuestionSet buildUserQuestionSetFromCounts(String userId, List<QuestionCount> questionCounts ){
+        return new UserQuestionSet(userId, questionCounts);
     }
 
-
-    public int getLenOfQuestions(){
-        return questions.size();
+    private UserQuestionSet(String userId, List<QuestionCount> questionCounts ){
+        this.userId = userId;
+        this.questionCounts = questionCounts;
     }
 
-    public List<QuestionCount> getQuestions(){ return questions; }
+    public List<QuestionCount> getQuestionCounts(){ return questionCounts; }
 
-    public List<Question> getSeenQuestions(){
-        List<Question> seen = new ArrayList<Question>();
-        for (QuestionCount currQuestion: questions){
+    public List<Question> getTopLevelSeenQuestions(){
+        List<Question> seen = new ArrayList<>();
+        for (QuestionCount currQuestion: questionCounts){
             if (currQuestion.getTimesSeen()>0){
                 seen.add(currQuestion.getQuestion());
             }
@@ -54,9 +36,9 @@ public class UserQuestionSet {
         return seen;
     }
 
-    public List<Question> getUnseenQuestions(){
-        List<Question> unseen = new ArrayList<Question>();
-        for (QuestionCount currQuestion: questions){
+    public List<Question> getTopLevelUnseenQuestions(){
+        List<Question> unseen = new ArrayList<>();
+        for (QuestionCount currQuestion: questionCounts){
             if (currQuestion.getTimesSeen()==0){
                 unseen.add(currQuestion.getQuestion());
             }
@@ -66,12 +48,11 @@ public class UserQuestionSet {
 
 
     public int getTimesSeen (String questionId){
-        for (int i = 0; i<questions.size(); i++){
-            if(questions.get(i).getQuestion().getId().equals(questionId)){
-                return questions.get(i).getTimesSeen();
-            }
+        QuestionCount qc = getQuestionCountFromId(questionId);
+        if(qc == null){
+            throw new RuntimeException("QuestionCount with id:" + questionId + " does not exist");
         }
-        throw new RuntimeException();
+        return qc.timesSeen;
     }
 
 
@@ -79,47 +60,36 @@ public class UserQuestionSet {
         return userId;
     }
 
-    public boolean increaseTimesSeen (String questionId){
-        for (int i = 0; i<questions.size(); i++){
-            if(questions.get(i).getQuestion().getId().equals(questionId)){
-                questions.get(i).increaseTimesSeen();
-                return true;
-            }
+    public void increaseTimesSeen(String questionId){
+        QuestionCount qc = getQuestionCountFromId(questionId);
+        if(qc == null){
+            throw new RuntimeException("QuestionCount with id:" + questionId + " does not exist");
         }
-        return false;
+        qc.increaseTimesSeen();
+
     }
 
-    public  int getLenOfSeenQuestions(){
-        int seen = 0;
-        for (QuestionCount currQuestion: questions){
-            if (currQuestion.getTimesSeen()>0){
-                seen+=1;
-            }
+    public QuestionCount getQuestionCountFromId(String questionIdIn){
+        QuestionCount q = getQuestionCountFromId(questionIdIn, questionCounts);
+        if(q == null){
+            throw new RuntimeException("QuestionCount with id:" + questionIdIn + " does not exist");
         }
-        return seen;
+        return q;
     }
 
-    public  int getLenOfUnseenQuestions(){
-        int unseen = 0;
-        for (QuestionCount currQuestion: questions){
-            if (currQuestion.getTimesSeen()==0){
-                unseen+=1;
+    public static QuestionCount getQuestionCountFromId(String questionIdIn, List<QuestionCount> questionList){
+        for(QuestionCount q : questionList){
+            if(q.getQuestion().getId().equals(questionIdIn)){
+                return q;
             }
-        }
-        return unseen;
-    }
 
-    public void givenQuestion(String questionId){
-        boolean found = false;
-        for(int i = 0; i<questions.size(); i++){
-            if(questions.get(i).getQuestion().getId().equals(questionId)){
-                questions.get(i).increaseTimesSeen();
-                found = true;
+            //call getQuestionFromId on the followup questions
+            QuestionCount q2 = getQuestionCountFromId(questionIdIn, q.getFollowupCounts());
+            if(q2 != null){
+                return q2;
             }
         }
-        if(!found) {
-            throw new RuntimeException();
-        }
+        return null;
     }
 
     @Override
@@ -132,8 +102,18 @@ public class UserQuestionSet {
         }
         UserQuestionSet other = (UserQuestionSet) otherObj;
         return this.getUserId().equals(other.getUserId())
-                && this.getQuestions().equals(other.getQuestions());
+                && this.getQuestionCounts().equals(other.getQuestionCounts());
     }
+
+    public void increaseTimesSeenAllQuestions(List<Question> questions){
+        for (int i = 0; i < questions.size(); i++){
+            increaseTimesSeen(questions.get(i).getId());
+            if (questions.get(i).getFollowupQuestions().size()>0){
+                increaseTimesSeenAllQuestions(questions.get(i).getFollowupQuestions());
+            }
+        }
+    }
+
 
 
 }

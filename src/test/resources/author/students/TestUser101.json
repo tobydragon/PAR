@@ -2,8 +2,67 @@
   "userId" : "TestUser101",
   "userQuestionSetRecord" : {
     "userId" : "TestUser101",
-    "questionIds" : [ "PlaneQ1", "PlaneQ2", "PlaneQ3", "PlaneQ4", "PlaneQ5", "StructureQ1", "StructureQ2", "StructureQ3", "StructureQ4", "StructureQ5", "ZoneQ1", "ZoneQ2", "ZoneQ3", "ZoneQ4", "ZoneQ5" ],
-    "timesSeen" : [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+    "questionCountRecords" : [ {
+      "questionId" : "PlaneQ1",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "PlaneQ2",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "PlaneQ3",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "PlaneQ4",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "PlaneQ5",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "StructureQ1",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "StructureQ2",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "StructureQ3",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "StructureQ4",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "StructureQ5",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "ZoneQ1",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "ZoneQ2",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "ZoneQ3",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "ZoneQ4",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "ZoneQ5",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    } ]
   },
   "userResponseSetRecord" : {
     "userId" : "TestUser101",
