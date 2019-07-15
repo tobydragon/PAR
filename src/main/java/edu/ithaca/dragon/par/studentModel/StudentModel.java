@@ -101,7 +101,7 @@ public class StudentModel {
 
         return orderedScores;
     }
-
+//TODO:ALLOW LEVEL 4 FOR ATTACHMENT QUESTIONS
     public static int calcLevel(Map<String, Double> scoresPerType) {
         List<Double> orderedScores = orderedScores(scoresPerType);
         int level = 1;//sets score to one
