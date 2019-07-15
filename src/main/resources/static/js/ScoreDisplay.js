@@ -1,14 +1,25 @@
-function setCurrentScore() {
-    if (scoreType == "ByType") {
-        generateScoreByType();
-        //generateScoreStringByType();
-    } else if (scoreType == "SingleScore") {
-        generateSinglescore();
-    } else if (scoreType == "Level") {
-        generateScoreLevel();
+class ScoreDisplay {
+    constructor(scoreObject) {
+        this.scoreObject = buildScore(scoreObject);
+    }
+
+    buildScore(scoreObject) {
+        setCurrentScore(scoreObject);
     }
 }
 
+function setCurrentScore(scoreObject) {
+    let scoreType = "ByType";
+    if (scoreType === "ByType") {
+        generateScoreByType(scoreObject);
+        //generateScoreStringByType();
+    } else if (scoreType === "SingleScore") {
+        generateSinglescore(scoreObject);
+    } else if (scoreType === "Level") {
+        generateScoreLevel(scoreObject);
+    }
+}
+/**
 function generateSinglescore() {
     var url = "api/calcScore?userId=" + sendUserId();
     var request = new XMLHttpRequest();
@@ -23,16 +34,15 @@ function generateSinglescore() {
         document.getElementById("score").innerHTML = "&nbsp" + score;
     }
 }
-
-function generateScoreByType() {
+**/
+function generateScoreByType(scoreObject) {
     //80-100 green
     //79-50 orange
     //49-0 red
     var breakdownString = " ";
-    var scoreJson = readJson("api/calcScoreByType?userId=" + sendUserId());
-    for (var key in scoreJson) {
-        if (scoreJson.hasOwnProperty(key)) {
-            let value = scoreJson[key];
+    for (var key in scoreObject) {
+        if (scoreObject.hasOwnProperty(key)) {
+            let value = scoreObject[key];
             if (value >= 80) {
                 breakdownString += "<i class=black>" + key + ":</i> <i class=green>" + value + "<i>";
             } else if (value <= 79 && value >= 50) {
@@ -43,16 +53,15 @@ function generateScoreByType() {
         }
         breakdownString += "<br />";
     }
-    displayScoreBreakdown(breakdownString);
+    return breakdownString;
 
 }
 
-function generateScoreStringByType() {
+function generateScoreStringByType(scoreObject) {
     var visString = " ";
-    var visJSON = readJson("api/getScoreStringByType?userId=" + sendUserId());
     for (var key in visJSON) { //key search
-        if (visJSON.hasOwnProperty(key)) {
-            let value = visJSON[key];
+        if (scoreObject.hasOwnProperty(key)) {
+            let value = scoreObject[key];
             visString += "&nbsp <i class=black>" + key + ": </i>";
             for (let i = 0; i < value.length; i++) { //value search on string
                 if (value[i] == "O") {
@@ -68,5 +77,5 @@ function generateScoreStringByType() {
             visString += '<br />';
         }
     }
-    displayScoreBreakdownByVisualization(visString);
+    return scoreObject;
 }
