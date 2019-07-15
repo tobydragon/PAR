@@ -1,5 +1,6 @@
 package edu.ithaca.dragon.par.domainModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Question {
@@ -10,16 +11,29 @@ public class Question {
     private String correctAnswer;
     private List<String> possibleAnswers;
     private String imageUrl;
+    private List<Question> followupQuestions;
 
-    public Question(){}
+    public Question(){
+        this.possibleAnswers = new ArrayList<>();
+        this.followupQuestions = new ArrayList<>();
+    }
 
     public Question(String idIn, String questionTextIn, String typeIn, String correctAnswerIn, List<String> answersIn, String imageUrlIn){
+        this(idIn, questionTextIn, typeIn, correctAnswerIn, answersIn, imageUrlIn, new ArrayList<>());
+    }
+
+    public Question(String idIn, String questionTextIn, String typeIn, String correctAnswerIn, List<String> answersIn, String imageUrlIn, List<Question> followupQuestionsIn) {
         this.id = idIn;
         this.questionText = questionTextIn;
         this.type = typeIn;
         this.correctAnswer = correctAnswerIn;
         this.possibleAnswers = answersIn;
         this.imageUrl = imageUrlIn;
+        this.followupQuestions = followupQuestionsIn;
+    }
+
+    public Question(Question toCopy, List<Question> differentFollowups){
+        this(toCopy.id, toCopy.questionText, toCopy.type, toCopy.correctAnswer, new ArrayList<>(toCopy.possibleAnswers), toCopy.imageUrl, differentFollowups);
     }
 
     public String getId() {return id;}
@@ -39,6 +53,10 @@ public class Question {
 
     public String getImageUrl() {return imageUrl;}
     public void setImageUrl(String imageUrlIn) {imageUrl =imageUrlIn; }
+
+    public List<Question> getFollowupQuestions() {return followupQuestions;}
+    public void setFollowupQuestions(List<Question> followupQuestionsIn) {
+        followupQuestions = followupQuestionsIn; }
 
     @Override
     public String toString() {

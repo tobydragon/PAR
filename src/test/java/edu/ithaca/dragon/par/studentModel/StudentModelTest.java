@@ -216,13 +216,4 @@ public class StudentModelTest {
         assertEquals(6, StudentModel.calcLevel(m11));
 
     }
-
-    @Test
-    public void calcLevelRealProblemTest() throws IOException{
-        QuestionPool realisticQuestionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/DemoQuestionPool.json"));
-        StudentModel studentModel = JsonUtil.fromJsonFile("src/test/resources/author/realExamples/checkLevelBug.json", StudentModelRecord.class).buildStudentModel(realisticQuestionPool);
-        Map<String, Double> scoresPerType = studentModel.knowledgeScoreByType();
-        assertEquals(6, StudentModel.calcLevel(scoresPerType));
-    }
-
 }

@@ -2,6 +2,7 @@ package edu.ithaca.dragon.par.io;
 
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
+import edu.ithaca.dragon.par.studentModel.QuestionCount;
 import edu.ithaca.dragon.par.studentModel.UserQuestionSet;
 
 import java.util.ArrayList;
@@ -9,40 +10,23 @@ import java.util.List;
 
 public class UserQuestionSetRecord {
     private String userId;
-    private List<String> unseenQuestionIds;
-    private List<String> seenQuestionIds;
-    private List<Integer> timesSeen;
+    private List<QuestionCountRecord> questionCountRecords;
 
     public UserQuestionSetRecord(){
-        unseenQuestionIds = new ArrayList<>();
-        seenQuestionIds = new ArrayList<>();
-        timesSeen = new ArrayList<>();
+        questionCountRecords = new ArrayList<>();
     }
 
     public UserQuestionSetRecord(UserQuestionSet userQuestionSet){
         this();
         userId = userQuestionSet.getUserId();
-        for(Question question : userQuestionSet.getSeenQuestions()){
-            seenQuestionIds.add(question.getId());
-            timesSeen.add(userQuestionSet.getTimesSeen(question.getId()));
-        }
-        for(Question question : userQuestionSet.getUnseenQuestions()){
-            unseenQuestionIds.add(question.getId());
+        for(QuestionCount questionCount : userQuestionSet.getQuestionCounts()){
+            questionCountRecords.add(new QuestionCountRecord(questionCount));
         }
     }
 
     public UserQuestionSet buildUserQuestionSet(QuestionPool questionPool) {
-        List<Question> unseenQuestions = new ArrayList<>();
-        for(String currUnseenId : unseenQuestionIds){
-            unseenQuestions = questionPool.getQuestionsFromIds(unseenQuestionIds);
-        }
-
-        List<Question> seenQuestions = new ArrayList<>();
-        for(String currSeenId : seenQuestionIds){
-            seenQuestions = questionPool.getQuestionsFromIds(seenQuestionIds);
-        }
-
-        return new UserQuestionSet(userId, unseenQuestions, seenQuestions, timesSeen);
+        List<QuestionCount> questionCounts = QuestionCountRecord.questionCountRecordToQuestionCount(questionCountRecords,questionPool);
+        return UserQuestionSet.buildUserQuestionSetFromCounts(userId, questionCounts);
     }
 
     public String getUserId() {
@@ -53,27 +37,11 @@ public class UserQuestionSetRecord {
         this.userId = userId;
     }
 
-    public List<String> getUnseenQuestionIds() {
-        return unseenQuestionIds;
+    public List<QuestionCountRecord> getQuestionCountRecords() {
+        return questionCountRecords;
     }
 
-    public void setUnseenQuestionIds(List<String> unseenQuestionIds) {
-        this.unseenQuestionIds = unseenQuestionIds;
-    }
-
-    public List<String> getSeenQuestionIds() {
-        return seenQuestionIds;
-    }
-
-    public void setSeenQuestionIds(List<String> seenQuestionIds) {
-        this.seenQuestionIds = seenQuestionIds;
-    }
-
-    public List<Integer> getTimesSeen() {
-        return timesSeen;
-    }
-
-    public void setTimesSeen(List<Integer> timesSeen) {
-        this.timesSeen = timesSeen;
+    public void setQuestionCountRecords(List<QuestionCountRecord> questionCountRecords) {
+        this.questionCountRecords = questionCountRecords;
     }
 }

@@ -15,7 +15,7 @@ public class StudentModel {
 
     public StudentModel(String userId, List<Question> questions){
         this.userId = userId;
-        this.userQuestionSet = new UserQuestionSet(userId, questions);
+        this.userQuestionSet = UserQuestionSet.buildNewUserQuestionSetFromQuestions(userId, questions);
         this.userResponseSet = new UserResponseSet(userId);
     }
 
@@ -34,15 +34,15 @@ public class StudentModel {
     }
 
     public void givenQuestion(String questionId){
-        userQuestionSet.givenQuestion(questionId);
+        userQuestionSet.increaseTimesSeen(questionId);
     }
 
     public int getSeenQuestionCount(){
-        return userQuestionSet.getLenOfSeenQuestions();
+        return userQuestionSet.getTopLevelSeenQuestions().size();
     }
 
     public int getUnseenQuestionCount(){
-        return userQuestionSet.getLenOfUnseenQuestions();
+        return userQuestionSet.getTopLevelUnseenQuestions().size();
     }
 
     public int getResponseCount(){
@@ -60,8 +60,6 @@ public class StudentModel {
     public Map<String,Double> knowledgeScoreByType(){
         return userResponseSet.knowledgeScoreByType();
     }
-
-
 
     /**
      * Creates a list of ResponsesPerQuestion objects
