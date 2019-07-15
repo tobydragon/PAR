@@ -79,6 +79,18 @@ h5 {
     color: goldenrod;
 }
 
+.correct {
+    color: green;
+}
+
+.incorrect {
+    color: red;
+}
+
+.unsure {
+    color:#663399;
+}
+
 /* ---------------------------------------*
 /* Add spacing to text elements */
 
