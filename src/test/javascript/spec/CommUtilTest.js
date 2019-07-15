@@ -1,6 +1,6 @@
 'use strict';
 
-describe("FileUtil", function () {
+describe("CommUtil", function () {
     // it("readJsonAsync", function () {
     //     //readJsonFile("/Users/Documents/workspace/test.json", finishReadJsonTest);
     //     //TODO: understand how to test async functions, see: https://stackoverflow.com/questions/27344872/testing-asynchronous-callbacks-with-jasmine
