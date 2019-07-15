@@ -8,10 +8,14 @@ class ImageTaskDisplay{
         this.#userId=userId;
         this.#response= new Response(userId);
         this.#pageImage= new PageImage(imageTaskJson.imageUrl);
-        this.#questionAreadiplay= new QuestionAreaDisplay(imageTaskJson.taskQuestions);
+        this.#questionAreadiplay= new buildQuestionAreas(imageTaskJson.taskQuestions, this.#response);
     }
 
     submitAnswers(){
-        this.#questionAreadiplay.
+        for(var i=0; i<this.#questionAreadiplay.length; i++){
+            this.#questionAreadiplay[i].answerBox.checkCurrentResponse(this.#response);
+        }
+
+        submitToAPI("api/recordResponse", this.#response);
     }
 }

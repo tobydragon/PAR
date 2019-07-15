@@ -86,7 +86,7 @@
                             Submit
                         </button>
                     </i>
-                    <button type="button" class="fas fa-arrow-circle-right btn btn-outline-dark" id="nextQuestionButton" onclick="nextQuestionSet()"></button>
+                    <button type="button" class="fas fa-arrow-circle-right btn btn-outline-dark" id="nextQuestionButton" onclick="refresh()"></button>
                     <i id="errorFeedback"> </i>
                 </div>
 
@@ -95,9 +95,9 @@
     </div>
     <script>
         userID = "[[${User}]]";
-        setUserId();
-        getSettings();
-
+        var pagedisplay= new PageDisplay();
+        pagedisplay.userId=userID;
+        pagedisplay.nextImageTask()
     </script>
 
     <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
