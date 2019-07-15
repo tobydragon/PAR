@@ -18,14 +18,26 @@
     <link rel="stylesheet" href="/css/style.css">
     <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
     <!-- Main JS Files -->
-    <script type="text/javascript" src="/js/QuestionPage.js"></script>
-    <script type="text/javascript" src="/js/QuestionPageLibrary.js"></script>
+    <script type="text/javascript" src="/js/PageDisplay.js"></script>
+    <script type="text/javascript" src="/js/ImageTaskDisplay.js"></script>
+    <script type="text/javascript" src="/js/CommUtil.js"></script>
+    <script type="text/javascript" src="/js/QuestionAreaDisplay.js"></script>
+    <script type="text/javascript" src="/js/Response.js"></script>
+    <script type="text/javascript" src="/js/PageImage.js"></script>
+    <script type="text/javascript" src="/js/InputDatalistResponseBoxDisplay.js"></script>
     <script type="text/javascript" src="/js/Modernizr.js"></script>
     <!-- Font Awsome -->
     <script src="https://kit.fontawesome.com/f9199bcaa3.js"></script>
 </head>
 
 <body>
+
+<script>
+    userID = "[[${User}]]";
+    var pagedisplay= new PageDisplay();
+    pagedisplay.userId=userID;
+</script>
+
     <!-- Nav Bar -->
     <div class="container-fluid">
         <div class="row bg-light">
@@ -54,6 +66,7 @@
         <br />
         <div class="row">
             <div class="col-1"></div>
+
             <div class="col-6 imgCenter">
                 <canvas id="myCanvas" width="700%" height="550%" class="center-block">
                     Your browser doesn't support Canvas.
@@ -82,7 +95,7 @@
             <div class="col-12 text-center">
                 <div class="show">
                     <i id="submitButtonTag">
-                        <button type="button" class="btn btn-primary" id="submitButton" onclick="checkAnswers()">
+                        <button type="button" class="btn btn-primary" id="submitButton" onclick="pagedisplay.imageTaskDisplay.submitAnswers()">
                             Submit
                         </button>
                     </i>
@@ -93,13 +106,10 @@
             </div>
         </div>
     </div>
-    <script>
-        userID = "[[${User}]]";
-        var pagedisplay= new PageDisplay();
-        pagedisplay.userId=userID;
-        pagedisplay.nextImageTask()
-    </script>
 
+<script>
+    pagedisplay.nextImageTask()
+</script>
     <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

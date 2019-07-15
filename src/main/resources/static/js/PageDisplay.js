@@ -1,10 +1,13 @@
 class PageDisplay{
-    #imageTaskDisplay;
-    userId;
+
+    constructor(){
+        this.imageTaskDisplay= null;
+        this.userId= null;
+    }
 
     nextImageTask(){
         try {
-            var imageTaskJSON = readJson("api/nextImageTask?userId=" + sendUserId());
+            var imageTaskJSON = readJson("api/nextImageTask?userId=" + this.userId);
 
         } catch (Exception) {
             window.onerror = function (msg) {
@@ -12,6 +15,6 @@ class PageDisplay{
             }
         }
 
-        this.#imageTaskDisplay= new ImageTaskDisplay(imageTaskJSON, this.userId);
+        this.imageTaskDisplay= new ImageTaskDisplay(imageTaskJSON, this.userId);
     }
 }

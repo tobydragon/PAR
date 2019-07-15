@@ -1,5 +1,6 @@
 class PageImage{
-    constructor(imageUrl){
+
+    constructor(imageUrl) {
         //Check to see if the canvas has a context
         if (!canvasSupport()) {
             return; //Canvas not supported so exit the function

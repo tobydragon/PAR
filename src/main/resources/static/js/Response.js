@@ -1,17 +1,16 @@
 class Response{
-    #userId;
-    #taskQuestionIds = [];
-    #responseTexts= [];
 
     constructor(userID, questionIDs){
         this.userId= userID;
+        this.taskQuestionIds = [];
+        this.responseTexts= [];
     }
 
     addToResponseTexts(userResponse){
-        this.#responseTexts.push(userResponse);
+        this.responseTexts.push(userResponse);
     }
 
     addToQuestionIds(questionId){
-        this.#taskQuestionIds.push(questionId);
+        this.taskQuestionIds.push(questionId);
     }
 }
