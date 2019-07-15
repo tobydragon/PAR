@@ -19,7 +19,8 @@ class InputDatalistResponseBoxDisplay {
         this.element = buildElement(id, possibleResponsesDatalist, this.inputTextbox);
     }
 
-    checkCurrentResponse(){
+    checkCurrentResponse(response){
+        response.addToResponseTexts(this.inputTextbox.value);
         return checkAnyResponse(this.correctResponse, this.inputTextbox.value);
     }
 }

@@ -33,10 +33,11 @@ function buildQuestionAreaElement(id, questionText, answerBoxElement){
     return element;
 }
 
-function buildQuestionAreas(questionObjectList){
+function buildQuestionAreas(questionObjectList, response){
     let questionAreaList = [];
     for (let questionObject of questionObjectList){
         questionAreaList.push(new QuestionAreaDisplay(questionObject));
+        response.addToQuestionIds(questionObject.id);
     }
     return questionAreaList;
 }
