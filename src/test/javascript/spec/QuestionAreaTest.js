@@ -17,4 +17,31 @@ describe("QuestionArea", function () {
         expect(questionAreas[46].element.getAttribute("id")).toBe("zone./images/demoEquine32.jpg");
     });
 
+    it("addFollowupQuestions", function () {
+        let questionObjects = readJson("../resources/author/DemoQuestionPoolFollowup.json");
+        let questionAreas = buildQuestionAreas(questionObjects);
+        let questionWithFollowup = questionAreas[1];
+        expect(questionWithFollowup.element.childNodes.length).toBe(2);
+        questionWithFollowup.addFollowupQuestions();
+        //should be one new child holding all the followups
+        expect(questionWithFollowup.element.childNodes.length).toBe(3);
+        //there should be 3 followups
+        expect(questionWithFollowup.element.childNodes[2].childNodes.length).toBe(3);
+        //the correct followup id on the first
+        expect(questionWithFollowup.element.childNodes[2].childNodes[0].id).toBe("AttachQ1");
+
+        //no followups, shouldn't add the followup element at all
+        let questionNoFollowup = questionAreas[0];
+        expect(questionNoFollowup.element.childNodes.length).toBe(2);
+        questionNoFollowup.addFollowupQuestions();
+        expect(questionNoFollowup.element.childNodes.length).toBe(2);
+
+        //test one without followup field defined
+        questionObjects = readJson("../resources/author/DemoQuestionPool.json");
+        questionNoFollowup = questionAreas[0];
+        expect(questionNoFollowup.element.childNodes.length).toBe(2);
+        questionNoFollowup.addFollowupQuestions();
+        expect(questionNoFollowup.element.childNodes.length).toBe(2);
+    });
+
 });

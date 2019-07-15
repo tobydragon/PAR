@@ -2,6 +2,22 @@ class QuestionArea {
     constructor(questionObject){
         this.answerBox = new TextEntryResponseBox(questionObject.id+"ResponseBox", questionObject.possibleAnswers, questionObject.correctAnswer);
         this.element = buildQuestionAreaElement(questionObject.id, questionObject.questionText, this.answerBox.element);
+        if (questionObject.hasOwnProperty("followupQuestions")){
+            this.followUpAreas = buildQuestionAreas(questionObject.followupQuestions);
+        }
+        else {
+            this.followUpAreas = [];
+        }
+    }
+
+    addFollowupQuestions(){
+        let followupElement = document.createElement("div");
+        for (let area of this.followUpAreas){
+            followupElement.appendChild(area.element);
+        }
+        if (followupElement.childNodes.length>0) {
+            this.element.appendChild(followupElement);
+        }
     }
 }
 
@@ -19,7 +35,7 @@ function buildQuestionAreaElement(id, questionText, answerBoxElement){
 
 function buildQuestionAreas(questionObjectList){
     let questionAreaList = [];
-    for (questionObject of questionObjectList){
+    for (let questionObject of questionObjectList){
         questionAreaList.push(new QuestionArea(questionObject));
     }
     return questionAreaList;

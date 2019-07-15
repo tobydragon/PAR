@@ -5,24 +5,16 @@
     <title>TextEntryAnswerTest</title>
     <script type="text/javascript" src="../../../main/resources/static/js/TextEntryResponseBox.js"></script>
     <script type="text/javascript" src="../../../main/resources/static/js/QuestionArea.js"></script>
+    <script type="text/javascript" src="../../../main/resources/static/js/CommUtil.js"></script>
+
 </head>
 <body>
     <div id = "test">
     </div>
     <script>
-        questionObject = {
-            id: "plane./images/demoEquine14.jpg",
-            type: "plane",
-            questionText: "On which plane is the ultrasound taken?",
-            correctAnswer: "longitudinal",
-            possibleAnswers: [
-            "transverse",
-            "longitudinal"
-        ],
-            imageUrl: "./images/demoEquine14.jpg",
-            followupQuestions: []
-        };
-        test = new QuestionArea(questionObject);
+        let questionObjects = readJson("../../resources/author/DemoQuestionPoolFollowup.json");
+        test = new QuestionArea(questionObjects[1]);
+        test.addFollowupQuestions();
         document.getElementById("test").appendChild(test.element);
     </script>
 </body>
