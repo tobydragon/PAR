@@ -16,3 +16,11 @@ function buildQuestionAreaElement(id, questionText, answerBoxElement){
     element.appendChild(answerBoxElement);
     return element;
 }
+
+function buildQuestionAreas(questionObjectList){
+    let questionAreaList = [];
+    for (questionObject of questionObjectList){
+        questionAreaList.push(new QuestionArea(questionObject));
+    }
+    return questionAreaList;
+}

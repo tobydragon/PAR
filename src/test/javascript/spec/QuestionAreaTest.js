@@ -9,4 +9,12 @@ describe("QuestionArea", function () {
         expect(element.childNodes.item(0).textContent).toBe("Is this a question?");
     });
 
+    it("buildQuestionAreas", function () {
+        let questionObjects = readJson("../resources/author/DemoQuestionPool.json");
+        let questionAreas = buildQuestionAreas(questionObjects);
+        expect(questionAreas.length).toBe(47);
+        expect(questionAreas[0].element.getAttribute("id")).toBe("plane./images/demoEquine14.jpg");
+        expect(questionAreas[46].element.getAttribute("id")).toBe("zone./images/demoEquine32.jpg");
+    });
+
 });
