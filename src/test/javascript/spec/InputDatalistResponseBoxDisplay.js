@@ -1,6 +1,6 @@
 'use strict';
 
-describe("TextEntryResponseBox", function () {
+describe("InputDatalistResponseBoxDisplay", function () {
     it("buildOptionElement", function () {
         let element = buildOptionElement("nope");
         expect(element.tagName.toLowerCase()).toBe("option");
@@ -13,7 +13,7 @@ describe("TextEntryResponseBox", function () {
         expect(element.id.toLowerCase()).toBe(("test1Datalist").toLowerCase());
         expect(element.options.length).toBe(4);
         expect(element.options.item(0).value).toBe("1");
-        expect(element.options.item(element.options.length-1).value).toBe("unsure");
+        expect(element.options.item(element.options.length - 1).value).toBe("unsure");
     });
 
     it("checkAnyResponse", function () {
@@ -38,7 +38,7 @@ describe("TextEntryResponseBox", function () {
         expect(checkAnyResponse("a", "ab  ")).toBe(ResponseResult.incorrect);
 
         expect(checkAnyResponse("anything", ResponseResult.unsure)).toBe(ResponseResult.unsure);
-        expect(checkAnyResponse("anything", " "+ ResponseResult.unsure.toUpperCase()+" ")).toBe(ResponseResult.unsure);
+        expect(checkAnyResponse("anything", " " + ResponseResult.unsure.toUpperCase() + " ")).toBe(ResponseResult.unsure);
         //unsure shouldn't be authored as the correct answer, but if it is, it should return correct when entered
         expect(checkAnyResponse(ResponseResult.unsure, ResponseResult.unsure)).toBe(ResponseResult.correct);
 
