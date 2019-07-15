@@ -1,11 +1,11 @@
 class QuestionArea {
     constructor(questionObject){
         this.answerBox = new TextEntryResponseBox(questionObject.id+"ResponseBox", questionObject.possibleAnswers, questionObject.correctAnswer);
-        this.element = buildQuestionAreaElement(questionObject.id, questionObject.questionText, this.answerBox);
+        this.element = buildQuestionAreaElement(questionObject.id, questionObject.questionText, this.answerBox.element);
     }
 }
 
-function buildQuestionAreaElement(id, questionText, answerBox){
+function buildQuestionAreaElement(id, questionText, answerBoxElement){
     let element = document.createElement("div");
     element.setAttribute("id", id);
 
@@ -13,6 +13,6 @@ function buildQuestionAreaElement(id, questionText, answerBox){
     questionTextArea.textContent = questionText;
 
     element.appendChild(questionTextArea);
-    element.appendChild(answerBox.element);
+    element.appendChild(answerBoxElement);
     return element;
 }
