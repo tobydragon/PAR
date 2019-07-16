@@ -79,11 +79,11 @@ function pageDisplay(imageTaskJSON) {
     }
     document.getElementById("Ids").innerHTML = questionIDs.toString();
 }
-
+/**
 function setUserId() {
     document.getElementById("UserId").innerHTML = "&nbsp" + sendUserId();
 }
-/**
+
 //Gets JSON, reads it, and returns it
 function readJson(url) {
     var request = new XMLHttpRequest();
@@ -92,13 +92,13 @@ function readJson(url) {
 
     return JSON.parse(request.response);
 }
-**/
+
 //display function for showing previously generated HTML of questions onscreen.
 function displayQuestion(displayHTML) {
     document.getElementById("questionSet").innerHTML += displayHTML;
 
 }
-
+**/
 /**
 //Creates radio question based on question given and difficulty for the html.
 function createRadioQuestion(json, currentAmountOfQuestions) {
@@ -267,7 +267,7 @@ function generateFeedback() {
 function clearFeedback() {
     document.getElementById("helpfulFeedback").innerHTML = " ";
 }
-
+/**
 //Displays the value of right/wrong based on the previous function's input value.
 function displayCheck(value, rightAnwser, unsureShowsCorrectAnswerHere) {
     if (value == "Correct") {
@@ -297,7 +297,7 @@ function clearQuestionCorrectnessResponses() {
     }
 
 }
-
+**/
 function checkForAnswers() {
     if (numberOfQuestionsAnswered == amountOfQuestions) {
         return true;
@@ -306,7 +306,7 @@ function checkForAnswers() {
         return false;
     }
 }
-
+/*
 function reEnableSubmit() {
     document.getElementById("submitButtonTag").innerHTML = " <button type=\"button\" class=\"btn btn-primary\" id=\"submitButton\" onclick=\"checkAnswers()\">" +
         "Submit" + "</button>";
@@ -315,12 +315,13 @@ function reEnableSubmit() {
 function disableSubmit() {
     document.getElementById("submitButtonTag").innerHTML = " ";
 }
-
+**/
 
 
 //
 //Response functions
 //
+/**
 function createResponseJson() {
     var newResponse;
     if (userID != null) {
@@ -359,12 +360,13 @@ function createResponses() {
     var object = createResponseJson();
     submitToAPI("api/recordResponse", object);
 }
-
+**/
+/**
 function disableField(elementToDisable) {
     document.getElementById(elementToDisable).disabled = true;
 }
-
-
+**/
+/**
 //
 //for testing purposes only
 //
@@ -378,3 +380,4 @@ function testGenerateReponseJSON() {
     testSetVariables();
     return createResponseJson();
 }
+**/

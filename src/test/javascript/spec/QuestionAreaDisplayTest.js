@@ -45,5 +45,4 @@ describe("QuestionAreaDisplay", function () {
         questionNoFollowup.addFollowupQuestions();
         expect(questionNoFollowup.element.childNodes.length).toBe(2);
     });
-
 });

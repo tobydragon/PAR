@@ -1,3 +1,4 @@
+/**
 var amountOfQuestions = 0;
 var questionAnswers = [];
 var questionFollowupAnswers = [];
@@ -17,11 +18,12 @@ var mustSubmitAnswersToContinue;
 var numberOfQuestionsAnswered = 0;
 var canGiveNoAnswer;
 var willDisplayFeedback;
-
+**/
 
 //
 //Passing and Clearing variables
 //
+/**
 function sendUserId() {
     if (userID != null) {
         return userID;
@@ -48,7 +50,8 @@ function clearQuestionAnswers() {
 function clearResponses() {
     responsesGivenText = [];
 }
-
+**/
+/**
 function logout() {
     userID = null;
     return location.replace('/login');
@@ -73,7 +76,7 @@ function getSettings() {
     canGiveNoAnswer = settings.canGiveNoAnswer;
     willDisplayFeedback = settings.willDisplayFeedback;
 }
-
+**/
 function addToTypesSeenForFeedback(type) {
     if (!typesSeenForFeedback.includes(type)) {
         typesSeenForFeedback.push(type);
@@ -86,6 +89,7 @@ function addToTypesSeenForFeedback(type) {
 //
 
 //generates question for html based on the question given (the JSON)
+/**
 function generateQuestion(question) {
     console.log(question);
     var questionStr = createDatalistDropdown(question, amountOfQuestions);
@@ -166,13 +170,15 @@ function displayCheckAndRecordAnswers() {
         generateFeedback();
     }
 }
-
+**/
+/**
 function disableFields(correctAnswerValue, elementToDisable) {
     if (correctAnswerValue === "Correct" || correctAnswerValue === "Unsure") {
         disableField(elementToDisable);
     }
 }
-
+**/
+/**
 function compareAnswers(correctAnswer, userAnswer, questionType) {
     var answerEvaluationString = "";
     console.log(correctAnswer);
@@ -213,3 +219,4 @@ function nextQuestionSet() {
         document.getElementById("errorFeedback").innerHTML = " ";
     }
 }
+**/

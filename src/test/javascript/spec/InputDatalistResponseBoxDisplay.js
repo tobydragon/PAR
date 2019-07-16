@@ -60,7 +60,7 @@ describe("InputDatalistResponseBoxDisplay", function () {
         document.getElementById("testArea").appendChild(textEntryResponseBox.element);
         document.getElementById("testArea").style.display = "none";
         textEntryResponseBox.inputTextbox.value = "low";
-        let test= new Response("test1");
+        let test = new Response("test1");
 
         expect(textEntryResponseBox.checkCurrentResponse(test)).toBe(ResponseResult.correct);
         textEntryResponseBox.inputTextbox.value = "low ";
@@ -74,4 +74,10 @@ describe("InputDatalistResponseBoxDisplay", function () {
         textEntryResponseBox.inputTextbox.value = "something";
         expect(textEntryResponseBox.checkCurrentResponse(test)).toBe(ResponseResult.incorrect);
     });
+    it("disableElement", function () {
+        let testElement = document.createElement('button');
+        testElement.textContent = "test button";
+        expect(testElement.disabled).toBe(false);
+        expect(disableElement(testElement)).toBe(true);
+    })
 });
