@@ -30,7 +30,6 @@ public class StudentModelTest {
         questionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));
         studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
         responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponse.class);
-
     }
 
     @AfterEach
