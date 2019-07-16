@@ -17,6 +17,10 @@ describe("InputDatalistResponseBoxDisplay", function () {
     });
 
     it("checkAnyResponse", function () {
+        let textEntryResponseBox = new InputDatalistResponseBoxDisplay("test1", ["high", "middle", "low"], "low");
+        document.getElementById("testArea").appendChild(textEntryResponseBox.element);
+        document.getElementById("testArea").style.display = "none";
+
         expect(checkAnyResponse("a", "a")).toBe(ResponseResult.correct);
         expect(checkAnyResponse(" a ", "a")).toBe(ResponseResult.correct);
         expect(checkAnyResponse(" A ", "a")).toBe(ResponseResult.correct);
@@ -53,17 +57,21 @@ describe("InputDatalistResponseBoxDisplay", function () {
 
     it("checkThisResponse", function () {
         let textEntryResponseBox = new InputDatalistResponseBoxDisplay("test1", ["high", "middle", "low"], "low");
+        document.getElementById("testArea").appendChild(textEntryResponseBox.element);
+        document.getElementById("testArea").style.display = "none";
         textEntryResponseBox.inputTextbox.value = "low";
-        expect(textEntryResponseBox.checkCurrentResponse()).toBe(ResponseResult.correct);
+        let test= new Response("test1");
+
+        expect(textEntryResponseBox.checkCurrentResponse(test)).toBe(ResponseResult.correct);
         textEntryResponseBox.inputTextbox.value = "low ";
-        expect(textEntryResponseBox.checkCurrentResponse()).toBe(ResponseResult.correct);
+        expect(textEntryResponseBox.checkCurrentResponse(test)).toBe(ResponseResult.correct);
         textEntryResponseBox.inputTextbox.value = "LOW";
-        expect(textEntryResponseBox.checkCurrentResponse()).toBe(ResponseResult.correct);
+        expect(textEntryResponseBox.checkCurrentResponse(test)).toBe(ResponseResult.correct);
         textEntryResponseBox.inputTextbox.value = "HIGH";
-        expect(textEntryResponseBox.checkCurrentResponse()).toBe(ResponseResult.incorrect);
+        expect(textEntryResponseBox.checkCurrentResponse(test)).toBe(ResponseResult.incorrect);
         textEntryResponseBox.inputTextbox.value = "high";
-        expect(textEntryResponseBox.checkCurrentResponse()).toBe(ResponseResult.incorrect);
+        expect(textEntryResponseBox.checkCurrentResponse(test)).toBe(ResponseResult.incorrect);
         textEntryResponseBox.inputTextbox.value = "something";
-        expect(textEntryResponseBox.checkCurrentResponse()).toBe(ResponseResult.incorrect);
+        expect(textEntryResponseBox.checkCurrentResponse(test)).toBe(ResponseResult.incorrect);
     });
 });
