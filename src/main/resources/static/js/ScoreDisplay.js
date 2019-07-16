@@ -66,3 +66,43 @@ function generateScoreStringByType(scoreObject) {
     }
     return visString;
 }
+/**
+function generateScoreStringByType(scoreObject) {
+    let visualBuilder = document.createElement('div');
+    console.log("scoreObj: " + JSON.stringify(scoreObject));
+    for (let key in scoreObject) {
+        if (scoreObject.hasOwnProperty(key)) {
+            let value = scoreObject[key];
+            visualBuilder.classList.add("black");
+            visualBuilder.innerHTML = (key + ": ");
+            for (let i = 0; i < value.length; i++) {
+                visualBuilder.appendChild(buildVisualSegment(value[i]));
+            }
+        }
+    }
+
+    console.log(visualBuilder);
+    return visualBuilder;
+}
+
+function buildVisualSegment(value) {
+    let childElement = document.createElement('i');
+    if (value === 'O') {
+        childElement.classList.add("fas");
+        childElement.classList.add("fa-check-circle");
+        childElement.classList.add("green");
+    } else if (value === 'X') {
+        childElement.classList.add("fas");
+        childElement.classList.add("fa-times-circle");
+        childElement.classList.add("red");
+    } else if (value === '_') {
+        childElement.classList.add("fas");
+        childElement.classList.add("fa-circle");
+    } else {
+        childElement.classList.add("fas");
+        childElement.classList.add("fa-minus-circle");
+        childElement.classList.add("yellow");
+    }
+    return childElement;
+}
+**/
