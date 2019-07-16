@@ -26,7 +26,7 @@ class InputDatalistResponseBoxDisplay {
 
     checkCurrentResponse(response) {
         response.addToResponseTexts(this.inputTextbox.value);
-        return checkAnyResponse(this.correctResponse, this.inputTextbox.value, this.type, response.typesIncorrect);
+        return checkAnyResponse(this.correctResponse, this.inputTextbox.value, this.type, response.typesIncorrect, this.element);
     }
 }
 
@@ -39,19 +39,19 @@ function buildElement(id, possibleResponseDatalist, inputTextbox) {
     return element;
 }
 
-function checkAnyResponse(correctResponse, actualResponse, type, typesIncorrect){
+function checkAnyResponse(correctResponse, actualResponse, type, typesIncorrect, element){
     if (correctResponse.trim().toLowerCase() === actualResponse.trim().toLowerCase()){
-        document.getElementById("feedbackTextArea").innerHTML = '<font color=\"green\">Your answer is: Correct</font>';
+        element.getElementsByTagName("feedbackTextArea").innerHTML = '<font color=\"green\">Your answer is: Correct</font>';
         disableElement(document.getElementById("feedbackTextArea"));
         return ResponseResult.correct;
     } else if (ResponseResult.unsure.trim().toLowerCase() === actualResponse.trim().toLowerCase()) {
-        document.getElementById("feedbackTextArea").innerHTML = "<font color=\"#663399\">The correct answer is " + correctResponse + '</font>';
+        element.getElementsByTagName("feedbackTextArea").innerHTML = "<font color=\"#663399\">The correct answer is " + correctResponse + '</font>';
         disableElement(document.getElementById("feedbackTextArea"));
         return ResponseResult.unsure;
     } else if (ResponseResult.blank.trim().toLowerCase() === actualResponse.trim().toLowerCase()) {
         return ResponseResult.blank;
     } else {
-        document.getElementById("feedbackTextArea").innerHTML = '<font color=\"red\">Your answer is: Incorrect</font>';
+        element.getElementsByTagName("feedbackTextArea").innerHTML = '<font color=\"red\">Your answer is: Incorrect</font>';
         if(!typesIncorrect.includes(type)) {
             typesIncorrect.push(type);
         }

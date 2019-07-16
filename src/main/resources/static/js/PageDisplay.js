@@ -21,8 +21,12 @@ class PageDisplay{
     }
 
     nextImageTask(){
+        var settings;
+        
         try {
+            settings = readJson("api/getImageTaskSettings");
             var imageTaskJSON = readJson("api/nextImageTask?userId=" + this.userId);
+            this.imageTaskDisplay= new ImageTaskDisplay(imageTaskJSON, this.userId, settings);
 
         } catch (Exception) {
             window.onerror = function (msg) {
@@ -30,16 +34,7 @@ class PageDisplay{
             }
         }
 
-        try {
-            var settings = readJson("api/getImageTaskSettings");
 
-        } catch (Exception) {
-            window.onerror = function (msg) {
-                location.replace('/error?message=' + msg);
-            }
-        }
-
-        this.imageTaskDisplay= new ImageTaskDisplay(imageTaskJSON, this.userId, settings);
     }
 
     logout() {
