@@ -1,6 +1,6 @@
 class QuestionAreaDisplay {
     constructor(questionObject, response) {
-        this.answerBox = new InputDatalistResponseBoxDisplay(questionObject.id + "ResponseBox", questionObject.possibleAnswers, questionObject.correctAnswer);
+        this.answerBox = new InputDatalistResponseBoxDisplay(questionObject.id + "ResponseBox", questionObject.possibleAnswers, questionObject.correctAnswer, questionObject.type);
         this.element = buildQuestionAreaElement(questionObject.id, questionObject.questionText, this.answerBox.element);
         if (questionObject.hasOwnProperty("followupQuestions")) {
             this.followUpAreas = buildQuestionAreas(questionObject.followupQuestions, response);

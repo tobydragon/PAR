@@ -21,7 +21,7 @@ class ImageTaskDisplay{
 
     submitAnswers(){
         for(var i=0; i<this.questionAreaDisp.length; i++){
-            this.questionAreaDisp[i].answerBox.checkCurrentResponse(this.response);
+            let current= this.questionAreaDisp[i].answerBox.checkCurrentResponse(this.response);
         }
 
         this.giveFeedback(this.response.typesIncorrect);

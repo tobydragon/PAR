@@ -26,7 +26,7 @@ class InputDatalistResponseBoxDisplay {
 
     checkCurrentResponse(response){
         response.addToResponseTexts(this.inputTextbox.value);
-        return checkAnyResponse(this.correctResponse, this.inputTextbox.value, this.element, this.type, response.typesIncorrect);
+        return checkAnyResponse(this.correctResponse, this.inputTextbox.value, this.type, response.typesIncorrect);
     }
 }
 
@@ -53,7 +53,9 @@ function checkAnyResponse(correctResponse, actualResponse, type, typesIncorrect)
     }
     else {
         document.getElementById("feedbackTextArea").innerHTML = '<font color=\"red\">Your answer is: Incorrect</font>';
-        typesIncorrect.add(type);
+        if(!typesIncorrect.includes(type)) {
+            typesIncorrect.push(type);
+        }
         return ResponseResult.incorrect;
     }
 
