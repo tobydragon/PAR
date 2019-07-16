@@ -72,11 +72,21 @@ public class Question {
             return false;
         }
         Question other = (Question) otherObj;
-        return this.getId().equals(other.getId())
-                && this.getQuestionText().equals(other.getQuestionText())
-                && this.getType().equals(other.getType())
-                && this.getCorrectAnswer().equals(other.getCorrectAnswer())
-                && this.getPossibleAnswers().equals(other.getPossibleAnswers())
-                && this.getImageUrl().equals(other.getImageUrl());
+
+        if (this.getCorrectAnswer()==null && ((Question) otherObj).getCorrectAnswer()==null){
+            return this.getId().equals(other.getId())
+                    && this.getQuestionText().equals(other.getQuestionText())
+                    && this.getType().equals(other.getType())
+                    && this.getPossibleAnswers().equals(other.getPossibleAnswers())
+                    && this.getImageUrl().equals(other.getImageUrl());
+        }
+        else {
+            return this.getId().equals(other.getId())
+                    && this.getQuestionText().equals(other.getQuestionText())
+                    && this.getType().equals(other.getType())
+                    && this.getCorrectAnswer().equals(other.getCorrectAnswer())
+                    && this.getPossibleAnswers().equals(other.getPossibleAnswers())
+                    && this.getImageUrl().equals(other.getImageUrl());
+        }
     }
 }
