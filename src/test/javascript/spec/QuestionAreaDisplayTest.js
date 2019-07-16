@@ -19,7 +19,8 @@ describe("QuestionAreaDisplay", function () {
 
     it("addFollowupQuestions", function () {
         let questionObjects = readJson("../resources/author/DemoQuestionPoolFollowup.json");
-        let questionAreas = buildQuestionAreas(questionObjects);
+        let testResponse = new Response("tester");
+        let questionAreas = buildQuestionAreas(questionObjects, testResponse);
         let questionWithFollowup = questionAreas[1];
         expect(questionWithFollowup.element.childNodes.length).toBe(2);
         questionWithFollowup.addFollowupQuestions();

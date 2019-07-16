@@ -11,8 +11,8 @@ class ScoreDisplay {
 function setCurrentScore(scoreObject) {
     let scoreType = "ByType";
     if (scoreType === "ByType") {
-        generateScoreByType(scoreObject);
-        //generateScoreStringByType();
+        //generateScoreByType(scoreObject);
+        generateScoreStringByType(scoreObject);
     } else if (scoreType === "SingleScore") {
         generateSinglescore(scoreObject);
     } else if (scoreType === "Level") {
@@ -58,8 +58,8 @@ function generateScoreByType(scoreObject) {
 }
 
 function generateScoreStringByType(scoreObject) {
-    var visString = " ";
-    for (var key in visJSON) { //key search
+    var visString = "";
+    for (var key in scoreObject) { //key search
         if (scoreObject.hasOwnProperty(key)) {
             let value = scoreObject[key];
             visString += "&nbsp <i class=black>" + key + ": </i>";
@@ -77,5 +77,5 @@ function generateScoreStringByType(scoreObject) {
             visString += '<br />';
         }
     }
-    return scoreObject;
+    return visString;
 }
