@@ -9,6 +9,15 @@ class PageDisplay{
         document.getElementById("UserId").innerHTML=this.userId;
     }
 
+    generateScore(){
+        let visJSON = readJson("api/getScoreStringByType?userId=" + this.userId);
+        return setCurrentScore(visJSON);
+    }
+
+    displayScore(given){
+        document.getElementById("score").innerHTML= given;
+    }
+
     nextImageTask(){
         try {
             var imageTaskJSON = readJson("api/nextImageTask?userId=" + this.userId);
