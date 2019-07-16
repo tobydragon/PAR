@@ -21,22 +21,7 @@ function setCurrentScore(scoreObject) {
     }
     return scoreString;
 }
-/**
-function generateSinglescore() {
-    var url = "api/calcScore?userId=" + sendUserId();
-    var request = new XMLHttpRequest();
-    request.open("GET", url, false);
-    request.send(null);
 
-    //can be -1 currently if User is new
-    var score = request.response;
-    if (score == -1) {
-        document.getElementById("score").innerHTML = "&nbsp" + "0";
-    } else {
-        document.getElementById("score").innerHTML = "&nbsp" + score;
-    }
-}
-**/
 function generateScoreByType(scoreObject) {
     //80-100 green
     //79-50 orange
