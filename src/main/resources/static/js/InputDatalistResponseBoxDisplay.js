@@ -17,6 +17,10 @@ class InputDatalistResponseBoxDisplay {
         //need a pointer to this textbox to check answers
         this.inputTextbox = buildInputTextbox(id, possibleResponsesDatalist.getAttribute("id"));
         this.element = buildElement(id, possibleResponsesDatalist, this.inputTextbox);
+
+        let feedbackTextArea = document.createElement("div");
+        feedbackTextArea.id= "feedbackTextArea";
+        this.element.appendChild(feedbackTextArea);
     }
 
     checkCurrentResponse(response){
@@ -35,29 +39,19 @@ function buildElement(id, possibleResponseDatalist, inputTextbox){
 }
 
 function checkAnyResponse(correctResponse, actualResponse, element){
-    if(element.contains("feedbackTextArea")) {
-        element.removeChild("feedbackTextArea");
-    }
-    let feedbackTextArea = document.createElement("div");
     if (correctResponse.trim().toLowerCase() === actualResponse.trim().toLowerCase()){
-        feedbackTextArea.textContent = 'Your answer is: Correct';
-        feedbackTextArea.classList.add("correct");
-        element.appendChild(feedbackTextArea);
+        document.getElementById("feedbackTextArea").innerHTML = '<font color=\"green\">Your answer is: Correct</font>';
         return ResponseResult.correct;
     }
     else if (ResponseResult.unsure.trim().toLowerCase() === actualResponse.trim().toLowerCase()){
-        feedbackTextArea.textContent = "The correct answer is " + correctResponse;
-        feedbackTextArea.classList.add("unsure");
-        element.appendChild(feedbackTextArea);
+        document.getElementById("feedbackTextArea").innerHTML = "<font color=\"#663399\">The correct answer is " + correctResponse+'</font>';
         return ResponseResult.unsure;
     }
     else if (ResponseResult.blank.trim().toLowerCase() === actualResponse.trim().toLowerCase()){
         return ResponseResult.blank;
     }
     else {
-        feedbackTextArea.textContent = 'Your answer is: Incorrect';
-        feedbackTextArea.classList.add("incorrect");
-        element.appendChild(feedbackTextArea);
+        document.getElementById("feedbackTextArea").innerHTML = '<font color=\"red\">Your answer is: Incorrect</font>';
         return ResponseResult.incorrect;
     }
 
