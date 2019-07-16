@@ -44,7 +44,7 @@ public class ParRestController {
 
     @GetMapping("/nextImageTask")
     public ImageTask nextImageTask(@RequestParam String userId) throws IOException {
-            return parServer.nextImageTask(userId);
+        return parServer.nextImageTask(userId);
     }
 
     @PostMapping("/recordResponse")
