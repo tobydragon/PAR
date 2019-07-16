@@ -5,6 +5,10 @@ class PageDisplay{
         this.userId= null;
     }
 
+    displayUserId(){
+        document.getElementById("UserId").innerHTML=this.userId;
+    }
+
     nextImageTask(){
         try {
             var imageTaskJSON = readJson("api/nextImageTask?userId=" + this.userId);
