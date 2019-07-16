@@ -4,7 +4,8 @@ import edu.ithaca.dragon.par.ParServer;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
 import edu.ithaca.dragon.par.io.JsonSpringDatastore;
-import edu.ithaca.dragon.par.pedagogicalModel.Settings;
+import edu.ithaca.dragon.par.pedagogicalModel.ImageTaskSettings;
+import edu.ithaca.dragon.par.pedagogicalModel.PageSettings;
 import edu.ithaca.dragon.util.DataUtil;
 import edu.ithaca.dragon.util.JsonSpringUtil;
 import org.apache.logging.log4j.LogManager;
@@ -37,9 +38,14 @@ public class ParRestController {
         return "Greetings from PAR API!";
     }
 
-    @GetMapping("/getSettings")
-    public Settings getSettings() throws IOException  {
-        return JsonSpringUtil.fromClassPathJson("author/SettingsExample.json", Settings.class);
+    @GetMapping("/getPageSettings")
+    public PageSettings getPageSettings() throws IOException  {
+        return JsonSpringUtil.fromClassPathJson("author/PageSettingsExample.json", PageSettings.class);
+    }
+
+    @GetMapping("/getImageTaskSettings")
+    public ImageTaskSettings getImageTaskSettings() throws IOException  {
+        return JsonSpringUtil.fromClassPathJson("author/SettingsExample.json", ImageTaskSettings.class);
     }
 
     @GetMapping("/nextImageTask")

@@ -34,7 +34,19 @@
 <body>
     <script>
         userID = "[[${User}]]";
-        let pagedisplay = new PageDisplay();
+        var settings;
+
+        try {
+            settings = readJson("api/getPageSettings");
+
+        } catch (Exception) {
+            window.onerror = function (msg) {
+                location.replace('/error?message=' + msg);
+            }
+        }
+
+        settings = readJson("api/getPageSettings");
+        let pagedisplay = new PageDisplay(settings);
         pagedisplay.userId = userID;
 
     </script>

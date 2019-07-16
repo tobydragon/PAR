@@ -1,8 +1,10 @@
 class PageDisplay{
 
-    constructor(){
+    constructor(pageSettings){
         this.imageTaskDisplay= null;
         this.userId= null;
+        this.scoreType = pageSettings.scoreType;
+        this.showScore = pageSettings.showScore;
     }
 
     displayUserId(){
@@ -28,7 +30,16 @@ class PageDisplay{
             }
         }
 
-        this.imageTaskDisplay= new ImageTaskDisplay(imageTaskJSON, this.userId);
+        try {
+            var settings = readJson("api/getImageTaskSettings");
+
+        } catch (Exception) {
+            window.onerror = function (msg) {
+                location.replace('/error?message=' + msg);
+            }
+        }
+
+        this.imageTaskDisplay= new ImageTaskDisplay(imageTaskJSON, this.userId, settings);
     }
 
     logout() {

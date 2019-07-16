@@ -9,7 +9,8 @@ const ResponseResult = {
 
 class InputDatalistResponseBoxDisplay {
 
-    constructor (id, defaultResponses, correctResponse){
+    constructor (id, defaultResponses, correctResponse, type){
+        this.type= type;
         this.id = id;
         this.correctResponse = correctResponse;
         //don't currently need a pointer to this datalist
@@ -25,7 +26,7 @@ class InputDatalistResponseBoxDisplay {
 
     checkCurrentResponse(response){
         response.addToResponseTexts(this.inputTextbox.value);
-        return checkAnyResponse(this.correctResponse, this.inputTextbox.value, this.element);
+        return checkAnyResponse(this.correctResponse, this.inputTextbox.value, this.element, this.type, response.typesIncorrect);
     }
 }
 
@@ -38,7 +39,7 @@ function buildElement(id, possibleResponseDatalist, inputTextbox){
     return element;
 }
 
-function checkAnyResponse(correctResponse, actualResponse){
+function checkAnyResponse(correctResponse, actualResponse, type, typesIncorrect){
     if (correctResponse.trim().toLowerCase() === actualResponse.trim().toLowerCase()){
         document.getElementById("feedbackTextArea").innerHTML = '<font color=\"green\">Your answer is: Correct</font>';
         return ResponseResult.correct;
@@ -52,6 +53,7 @@ function checkAnyResponse(correctResponse, actualResponse){
     }
     else {
         document.getElementById("feedbackTextArea").innerHTML = '<font color=\"red\">Your answer is: Incorrect</font>';
+        typesIncorrect.add(type);
         return ResponseResult.incorrect;
     }
 

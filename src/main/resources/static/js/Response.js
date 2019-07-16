@@ -4,6 +4,7 @@ class Response{
         this.userId= userID;
         this.taskQuestionIds = [];
         this.responseTexts= [];
+        this.typesIncorrect= new Set();
     }
 
     addToResponseTexts(userResponse){
