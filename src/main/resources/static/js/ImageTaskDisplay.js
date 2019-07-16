@@ -17,7 +17,7 @@ class ImageTaskDisplay{
             this.questionAreaDisp[i].answerBox.checkCurrentResponse(this.response);
         }
 
-
+        console.log(this.response.taskQuestionIds);
         submitToAPI("api/recordResponse", this.response);
     }
 
