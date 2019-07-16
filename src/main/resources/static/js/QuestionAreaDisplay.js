@@ -1,27 +1,26 @@
 class QuestionAreaDisplay {
-    constructor(questionObject){
-        this.answerBox = new InputDatalistResponseBoxDisplay(questionObject.id+"ResponseBox", questionObject.possibleAnswers, questionObject.correctAnswer);
+    constructor(questionObject, response) {
+        this.answerBox = new InputDatalistResponseBoxDisplay(questionObject.id + "ResponseBox", questionObject.possibleAnswers, questionObject.correctAnswer);
         this.element = buildQuestionAreaElement(questionObject.id, questionObject.questionText, this.answerBox.element);
-        if (questionObject.hasOwnProperty("followupQuestions")){
-            this.followUpAreas = buildQuestionAreas(questionObject.followupQuestions);
-        }
-        else {
+        if (questionObject.hasOwnProperty("followupQuestions")) {
+            this.followUpAreas = buildQuestionAreas(questionObject.followupQuestions, response);
+        } else {
             this.followUpAreas = [];
         }
     }
 
-    addFollowupQuestions(){
+    addFollowupQuestions() {
         let followupElement = document.createElement("div");
-        for (let area of this.followUpAreas){
+        for (let area of this.followUpAreas) {
             followupElement.appendChild(area.element);
         }
-        if (followupElement.childNodes.length>0) {
+        if (followupElement.childNodes.length > 0) {
             this.element.appendChild(followupElement);
         }
     }
 }
 
-function buildQuestionAreaElement(id, questionText, answerBoxElement){
+function buildQuestionAreaElement(id, questionText, answerBoxElement) {
     let element = document.createElement("div");
     element.setAttribute("id", id);
 
@@ -34,10 +33,10 @@ function buildQuestionAreaElement(id, questionText, answerBoxElement){
     return element;
 }
 
-function buildQuestionAreas(questionObjectList, response){
+function buildQuestionAreas(questionObjectList, response) {
     let questionAreaList = [];
-    for (let questionObject of questionObjectList){
-        questionAreaList.push(new QuestionAreaDisplay(questionObject));
+    for (let questionObject of questionObjectList) {
+        questionAreaList.push(new QuestionAreaDisplay(questionObject, response));
         response.addToQuestionIds(questionObject.id);
     }
     return questionAreaList;

@@ -11,7 +11,8 @@ describe("QuestionAreaDisplay", function () {
 
     it("buildQuestionAreas", function () {
         let questionObjects = readJson("../resources/author/DemoQuestionPool.json");
-        let questionAreas = buildQuestionAreas(questionObjects);
+        let testResponse = new Response("tester");
+        let questionAreas = buildQuestionAreas(questionObjects, testResponse);
         expect(questionAreas.length).toBe(47);
         expect(questionAreas[0].element.getAttribute("id")).toBe("plane./images/demoEquine14.jpg");
         expect(questionAreas[46].element.getAttribute("id")).toBe("zone./images/demoEquine32.jpg");
