@@ -37,4 +37,8 @@ public class AuthorModel {
     public List<QuestionCount> getQuestionCountList() {
         return questionCountList;
     }
+
+    public void increaseTimesSeen(String questionId){
+
+    }
 }

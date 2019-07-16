@@ -41,4 +41,21 @@ public class AuthorModelTest {
         assertThrows(InvalidParameterException.class, ()-> { authorModel.removeQuestion("NotAValidQuestionId"); });
     }
 
+    @Test
+    public void increaseTimesSeen(){
+        assertEquals(0, authorModel.questionCountList.get(0).timesSeen);
+        authorModel.increaseTimesSeen("PlaneQ1");
+        assertEquals(1, authorModel.questionCountList.get(0).timesSeen);
+        authorModel.increaseTimesSeen("PlaneQ1");
+        assertEquals(2, authorModel.questionCountList.get(0).timesSeen);
+
+        assertEquals(0, authorModel.questionCountList.get(6).timesSeen);
+        authorModel.increaseTimesSeen("StructureQ2");
+        assertEquals(1, authorModel.questionCountList.get(6).timesSeen);
+        authorModel.increaseTimesSeen("StructureQ2");
+        assertEquals(2, authorModel.questionCountList.get(6).timesSeen);
+
+        assertThrows(InvalidParameterException.class, ()-> {authorModel.increaseTimesSeen("NotAValidQuestionId");});
+    }
+
 }
