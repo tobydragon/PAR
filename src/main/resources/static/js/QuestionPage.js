@@ -1,3 +1,4 @@
+/**
 var amountOfQuestions = 0;
 var questionAnswers = [];
 var questionFollowupAnswers = [];
@@ -17,7 +18,7 @@ var mustSubmitAnswersToContinue;
 var numberOfQuestionsAnswered = 0;
 var canGiveNoAnswer;
 var willDisplayFeedback;
-
+**/
 
 //
 //Passing and Clearing variables
@@ -170,11 +171,13 @@ function displayCheckAndRecordAnswers() {
     }
 }
 **/
+/**
 function disableFields(correctAnswerValue, elementToDisable) {
     if (correctAnswerValue === "Correct" || correctAnswerValue === "Unsure") {
         disableField(elementToDisable);
     }
 }
+**/
 /**
 function compareAnswers(correctAnswer, userAnswer, questionType) {
     var answerEvaluationString = "";

@@ -361,10 +361,11 @@ function createResponses() {
     submitToAPI("api/recordResponse", object);
 }
 **/
+/**
 function disableField(elementToDisable) {
     document.getElementById(elementToDisable).disabled = true;
 }
-
+**/
 /**
 //
 //for testing purposes only
