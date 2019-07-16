@@ -154,6 +154,7 @@ function createSelectDropdown(json, currentAmountOfQuestions) {
 //
 //score functions
 //
+/**
 function generateScoreLevel() {
 
 }
@@ -243,7 +244,7 @@ function displayScoreBreakdown(breakdownString) {
         document.getElementById("score").innerHTML = " " + breakdownString;
     }
 }
-
+**/
 
 
 //

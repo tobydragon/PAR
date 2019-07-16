@@ -33,18 +33,19 @@
 
 <body>
 
-<script>
-    userID = "[[${User}]]";
-    var pagedisplay= new PageDisplay();
-    pagedisplay.userId=userID;
-</script>
+    <script>
+        userID = "[[${User}]]";
+        var pagedisplay = new PageDisplay();
+        pagedisplay.userId = userID;
+
+    </script>
 
     <!-- Nav Bar -->
     <div class="container-fluid">
         <div class="row bg-light">
             <div class="col-1"></div>
             <div class="col-2">
-                <img src="/images/ParLogo.png" height="90%" width="70%" class="imgCenter" alt="PAR_logo">
+                <img src="/images/ParLogo.png" height="90%" width="70%" class="imgCenter img-fluid" alt="PAR_logo">
             </div>
             <div class="col-3 colVertCenter">
                 <i id="scoreTag"> </i>
@@ -108,11 +109,12 @@
         </div>
     </div>
 
-<script>
-    pagedisplay.displayUserId();
-    pagedisplay.displayScore(pagedisplay.generateScore());
-    pagedisplay.nextImageTask()
-</script>
+    <script>
+        pagedisplay.displayUserId();
+        pagedisplay.displayScore(pagedisplay.generateScore());
+        pagedisplay.nextImageTask()
+
+    </script>
     <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
