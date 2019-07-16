@@ -1,6 +1,7 @@
 package edu.ithaca.dragon.par.authorModel;
 
 import edu.ithaca.dragon.par.domainModel.Question;
+import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.studentModel.QuestionCount;
 import edu.ithaca.dragon.util.JsonUtil;
 import org.junit.jupiter.api.Test;
@@ -13,7 +14,15 @@ public class AuthorTaskGeneratorTest {
 
     @Test
     public void nextImageTaskTemplateTest() throws IOException{
-        List<Question> questions = JsonUtil.listFromJsonFile("src/test/resources/author/DemoQuestionPoolFollowup.json", Question.class);
+        List<Question> questions = JsonUtil.listFromJsonFile("src/test/resources/author/DemoQuestionPoolFollowupTemplate.json", Question.class);
+        AuthorModel authorModel = new AuthorModel("user1", questions);
+        ImageTask im = AuthorTaskGenerator.makeTaskTemplate(authorModel);
+        ImageTask intendedFirstTask = JsonUtil.fromJsonFile("src/test/resources/author/nextImageTaskTemplateTest1.json", ImageTask.class);
+        assertEquals(intendedFirstTask, im);
+
+        ImageTask im2 = AuthorTaskGenerator.makeTaskTemplate(authorModel);
+        ImageTask intendedSecondTask = JsonUtil.fromJsonFile("src/test/resources/author/nextImageTaskTemplateTest2.json", ImageTask.class);
+        assertEquals(intendedSecondTask, im2);
 
     }
 
