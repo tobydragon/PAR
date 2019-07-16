@@ -9,15 +9,17 @@ class ScoreDisplay {
 }
 
 function setCurrentScore(scoreObject) {
+    let scoreString = "";
     let scoreType = "ByType";
     if (scoreType === "ByType") {
-        //generateScoreByType(scoreObject);
-        generateScoreStringByType(scoreObject);
+        //scoreString=generateScoreByType(scoreObject);
+        scoreString = generateScoreStringByType(scoreObject);
     } else if (scoreType === "SingleScore") {
-        generateSinglescore(scoreObject);
+        scoreString = generateSinglescore(scoreObject);
     } else if (scoreType === "Level") {
-        generateScoreLevel(scoreObject);
+        scoreString = generateScoreLevel(scoreObject);
     }
+    return scoreString;
 }
 /**
 function generateSinglescore() {
@@ -39,12 +41,12 @@ function generateScoreByType(scoreObject) {
     //80-100 green
     //79-50 orange
     //49-0 red
-    var breakdownString = " ";
+    var breakdownString = "";
     for (var key in scoreObject) {
         if (scoreObject.hasOwnProperty(key)) {
             let value = scoreObject[key];
             if (value >= 80) {
-                breakdownString += "<i class=black>" + key + ":</i> <i class=green>" + value + "<i>";
+                breakdownString += "&nbsp <i class=black>" + key + ":</i> <i class=green>" + value + "<i>";
             } else if (value <= 79 && value >= 50) {
                 breakdownString += "<i class=black>" + key + ":</i> <i class=orange>" + value + "<i>";
             } else if (value <= 49) {
