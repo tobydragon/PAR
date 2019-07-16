@@ -36,3 +36,7 @@ class PageDisplay{
         return location.replace('/login');
     }
 }
+
+function logout() {
+    return location.replace('/login');
+}
