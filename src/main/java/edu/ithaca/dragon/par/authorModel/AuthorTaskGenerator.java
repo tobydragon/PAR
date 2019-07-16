@@ -12,11 +12,11 @@ public class AuthorTaskGenerator {
 
     }
 
-    public static QuestionCount getInitialQuestion(List<QuestionCount> questionCountListq){
+    public static QuestionCount getInitialQuestion(List<QuestionCount> questionCountList){
 
     }
 
-    public static List<QuestionCount> getAllQuestionsWithSameUrl(List<QuestionCount> questionCountList){
+    public static List<QuestionCount> getAllQuestionsWithSameUrl(QuestionCount questionCountList){
 
     }
 }
