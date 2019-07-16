@@ -1,6 +1,6 @@
 class Response{
 
-    constructor(userID, questionIDs){
+    constructor(userID){
         this.userId= userID;
         this.taskQuestionIds = [];
         this.responseTexts= [];

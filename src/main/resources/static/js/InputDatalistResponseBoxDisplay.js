@@ -38,7 +38,7 @@ function buildElement(id, possibleResponseDatalist, inputTextbox){
     return element;
 }
 
-function checkAnyResponse(correctResponse, actualResponse, element){
+function checkAnyResponse(correctResponse, actualResponse){
     if (correctResponse.trim().toLowerCase() === actualResponse.trim().toLowerCase()){
         document.getElementById("feedbackTextArea").innerHTML = '<font color=\"green\">Your answer is: Correct</font>';
         return ResponseResult.correct;
