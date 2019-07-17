@@ -11,16 +11,21 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class ParAuthoringServerTest {
 
+    private Datastore datastore;
+    private Datastore templateDatastore;
+    private ParAuthoringServer pas;
+
+
     @BeforeEach
-    public void constructorTest() throws IOException {
-        Datastore datastore = new JsonDatastore("src/test/resources/author/DemoQuestionPool.json");
+    public void setUp() throws IOException {
+        Datastore datastore = new JsonDatastore("src/test/resources/author/SampleQuestionsEmpty.json");
         Datastore templateDatastore = new JsonDatastore("src/test/resources/author/DemoQuestionPoolTemplate.json");
         ParAuthoringServer pas = new ParAuthoringServer(datastore, templateDatastore);
     }
 
     @Test
     public void convertQuestionTemplateToQuestionTest(){
-        fail("Make the function!");
+
     }
 
     @Test

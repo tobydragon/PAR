@@ -15,7 +15,7 @@ public class AuthorTaskGeneratorTest {
     @Test
     public void nextImageTaskTemplateTest() throws IOException{
         List<Question> questions = JsonUtil.listFromJsonFile("src/test/resources/author/DemoQuestionPoolTemplate.json", Question.class);
-        AuthorModel authorModel = new AuthorModel("user1", questions);
+        AuthorModel authorModel = new AuthorModel("user1", QuestionCount.questionToQuestionCount(questions));
         ImageTask im = AuthorTaskGenerator.makeTaskTemplate(authorModel);
         ImageTask intendedFirstTask = JsonUtil.fromJsonFile("src/test/resources/author/nextImageTaskTemplateTest1.json", ImageTask.class);
         assertEquals(intendedFirstTask, im);
@@ -54,7 +54,7 @@ public class AuthorTaskGeneratorTest {
     @Test
     void getAllQuestionsWithSameUrlTest() throws IOException{
         List<Question> questions = JsonUtil.listFromJsonFile("src/test/resources/author/DemoQuestionPoolFollowup.json", Question.class);
-        AuthorModel authorModel = new AuthorModel("user1", questions);
+        AuthorModel authorModel = new AuthorModel("user1", QuestionCount.questionToQuestionCount(questions));
         List<QuestionCount> questionCountList = QuestionCount.questionToQuestionCount(questions);
         QuestionCount question = questionCountList.get(0);
         List<QuestionCount> sameUrl = AuthorTaskGenerator.getAllQuestionsWithSameUrl(question, authorModel);
