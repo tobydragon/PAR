@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
+import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.JsonDatastore;
 import edu.ithaca.dragon.util.JsonUtil;
 import org.junit.jupiter.api.AfterEach;
@@ -52,11 +53,11 @@ public class QuestionTest {
 
     @Test
     public void toJsonAndBackTest() throws IOException {
-        Question planeQ = new Question("PlaneQ1", "On which plane is the ultrasound taken?", "Plane",
+        Question planeQ = new Question("PlaneQ1", "On which plane is the ultrasound taken?", EquineQuestionTypes.plane.toString(),
                 "Lateral", Arrays.asList("Transverse", "Lateral"), "../static/images/equine02.jpg");
-        Question structureQ = new Question("StructureQ1", "What structure is in the near field?", "Structure",
+        Question structureQ = new Question("StructureQ1", "What structure is in the near field?", EquineQuestionTypes.structure.toString(),
                 "bone", Arrays.asList("bone", "ligament", "tumor", "tendon"), "../static/images/equine02.jpg");
-        Question zoneQ = new Question("ZoneQ1", "In what zone is this ultrasound taken?", "Zone",
+        Question zoneQ = new Question("ZoneQ1", "In what zone is this ultrasound taken?", EquineQuestionTypes.zone.toString(),
                 "3c", Arrays.asList("1a", "1b", "2a", "2b", "2c", "3a", "3b", "3c"), "../static/images/equine02.jpg");
         List<Question> questionsToFile = Arrays.asList(planeQ, structureQ, zoneQ);
 
@@ -73,16 +74,16 @@ public class QuestionTest {
 
     @Test
     public void equalsTest(){
-        Question planeQ = new Question("PlaneQ1", "On which plane is the ultrasound taken?", "Plane",
+        Question planeQ = new Question("PlaneQ1", "On which plane is the ultrasound taken?", EquineQuestionTypes.plane.toString(),
                 "Lateral", Arrays.asList("Transverse", "Lateral"), "../static/images/equine02.jpg");
         assertEquals(planeQ, planeQ);
         assertNotEquals(planeQ, "Hello");
 
-        Question planeQsame = new Question("PlaneQ1", "On which plane is the ultrasound taken?", "Plane",
+        Question planeQsame = new Question("PlaneQ1", "On which plane is the ultrasound taken?", EquineQuestionTypes.plane.toString(),
                 "Lateral", Arrays.asList("Transverse", "Lateral"), "../static/images/equine02.jpg");
         assertEquals(planeQ, planeQsame);
 
-        Question planeQdiffAns = new Question("PlaneQ1", "On which plane is the ultrasound taken?", "Plane",
+        Question planeQdiffAns = new Question("PlaneQ1", "On which plane is the ultrasound taken?", EquineQuestionTypes.plane.toString(),
                 "Lateral", Arrays.asList("Transverse", "Lateral", "Other Answer"), "../static/images/equine02.jpg");
         assertNotEquals(planeQ, planeQdiffAns);
     }
@@ -101,8 +102,8 @@ public class QuestionTest {
         Question attach3 = new Question("AttachQ1", "Which attachment is this?", "Attachment",
                 "Type2", Arrays.asList("Type1", "Type2", "Type3"), "../static/images/equine02.jpg", Arrays.asList(bonusQuestion));
         List<Question> attachmentQuestions = Arrays.asList(attach1, attach2, attach3);
-        Question myQ = new Question("StructureQ1", "What kind of structure is this?", "Structure", "Structure1", Arrays.asList("Structure1", "Structure2", "Structure3"), "../static/images/equine02.jpg", attachmentQuestions);
-        Question myQ2 = new Question("PlaneQ1", "What plane is this?", "Plane", "Transverse", Arrays.asList("Transverse", "Longitudinal"), "../static/images/equine02.jpg");
+        Question myQ = new Question("StructureQ1", "What kind of structure is this?", EquineQuestionTypes.structure.toString(), "Structure1", Arrays.asList("Structure1", "Structure2", "Structure3"), "../static/images/equine02.jpg", attachmentQuestions);
+        Question myQ2 = new Question("PlaneQ1", "What plane is this?", EquineQuestionTypes.plane.toString(), "Transverse", Arrays.asList("Transverse", "Longitudinal"), "../static/images/equine02.jpg");
         List<Question> hardcodedQuestions = Arrays.asList(myQ, myQ2);
 
         //Write to file
