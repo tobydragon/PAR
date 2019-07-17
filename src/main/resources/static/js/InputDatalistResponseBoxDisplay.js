@@ -45,7 +45,7 @@ function checkAnyResponse(correctResponse, actualResponse, type, typesIncorrect,
         textArea.innerHTML = '<font color=\"green\">Your answer is: Correct</font>';
         return ResponseResult.correct;
     } else if (ResponseResult.unsure.trim().toLowerCase() === actualResponse.trim().toLowerCase()) {
-        if(unsureShowsCorrect) {
+        if (unsureShowsCorrect) {
             textArea.innerHTML = "<font color=\"#663399\">The correct answer is " + correctResponse + '</font>';
         }
         if (!typesIncorrect.includes(type)) {
@@ -66,7 +66,7 @@ function checkAnyResponse(correctResponse, actualResponse, type, typesIncorrect,
     }
 
 }
-/** might be used, as element based
+
 function checkAnyResponseRewritten(correctResponse, actualResponse, element) {
     if (correctResponse.trim().toLowerCase() === actualResponse.trim().toLowerCase()) {
         element.classList.add("correct");
@@ -86,7 +86,7 @@ function checkAnyResponseRewritten(correctResponse, actualResponse, element) {
         return ResponseResult.incorrect;
     }
 }
-**/
+
 function buildDatalistElement(questionId, possibleResponses) {
     let datalist = document.createElement("datalist");
     datalist.setAttribute("id", questionId + "Datalist");

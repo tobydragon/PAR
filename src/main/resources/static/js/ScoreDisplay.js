@@ -71,26 +71,19 @@ function generateScoreElementByType(scoreObject) {
     let visualBuilder;
     let outerNode = document.createElement('div');
     let buildSegment;
-    console.log("scoreObj: " + JSON.stringify(scoreObject));
     for (let key in scoreObject) {
-        console.log(key);
         visualBuilder = document.createElement('div');
         if (scoreObject.hasOwnProperty(key)) {
             let value = scoreObject[key];
-            console.log(value);
             visualBuilder.classList.add("black");
             visualBuilder.innerHTML = (key + ": ");
             for (let i = 0; i < value.length; i++) {
                 buildSegment = buildVisualSegment(value[i]);
-                console.log(buildSegment);
                 visualBuilder.appendChild(buildSegment);
             }
         }
         outerNode.appendChild(visualBuilder);
     }
-
-    console.log(visualBuilder);
-    console.log(outerNode);
     return outerNode;
 }
 

@@ -20,10 +20,10 @@ describe("InputDatalistResponseBoxDisplay", function () {
         let textEntryResponseBox = new InputDatalistResponseBoxDisplay("test1", ["high", "middle", "low"], "low");
         document.getElementById("testArea").appendChild(textEntryResponseBox.element);
         document.getElementById("testArea").style.display = "none";
-        let type= "long";
-        let typesIncorrect=[];
-        let textArea=document.getElementById("testArea");
-        let unsureShowsCorrect= false;
+        let type = "long";
+        let typesIncorrect = [];
+        let textArea = document.getElementById("testArea");
+        let unsureShowsCorrect = false;
 
         expect(checkAnyResponse("a", "a", type, typesIncorrect, textArea, unsureShowsCorrect)).toBe(ResponseResult.correct);
         expect(checkAnyResponse(" a ", "a", type, typesIncorrect, textArea, unsureShowsCorrect)).toBe(ResponseResult.correct);
@@ -65,7 +65,7 @@ describe("InputDatalistResponseBoxDisplay", function () {
         document.getElementById("testArea").style.display = "none";
         textEntryResponseBox.inputTextbox.value = "low";
         let test = new Response("test1");
-        let unsureShowsCorrect= false;
+        let unsureShowsCorrect = false;
 
         expect(textEntryResponseBox.checkCurrentResponse(test)).toBe(ResponseResult.correct, unsureShowsCorrect);
         textEntryResponseBox.inputTextbox.value = "low ";
@@ -84,5 +84,10 @@ describe("InputDatalistResponseBoxDisplay", function () {
         testElement.textContent = "test button";
         expect(testElement.disabled).toBe(false);
         expect(disableElement(testElement)).toBe(true);
+    });
+    it("addFollowupQuestionsToPrereq", function () {
+        let questionObjects = readJson("../resources/author/DemoQuestionPoolFollowup.json");
+        let testResponse = new Response("test1");
+        expect(addFollowupQuestionsToPrereq(questionObjects[1], testResponse)).not.toBeUndefined();
     })
 });
