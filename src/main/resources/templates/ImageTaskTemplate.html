@@ -37,7 +37,7 @@
         var settings;
 
         try {
-            settings = readJson("api/getPageSettings");
+            settings = readJson("api/getPageSettings?userId=" + userID);
 
         } catch (Exception) {
             window.onerror = function (msg) {
@@ -45,9 +45,10 @@
             }
         }
 
-        settings = readJson("api/getPageSettings");
+        settings = readJson("api/getPageSettings?userId=" + userID);
         let pagedisplay = new PageDisplay(settings);
         pagedisplay.userId = userID;
+        pagedisplay.setIsAuthor();
 
     </script>
 
@@ -119,12 +120,17 @@
             </div>
         </div>
     </div>
+
     <script>
         pagedisplay.displayUserId();
         if(pagedisplay.showScore) {
             pagedisplay.displayScore(pagedisplay.generateScore());
         }
-        pagedisplay.nextImageTask();
+        if(pagedisplay.isAuthor){
+            pagedisplay.nextAuthorImageTask();
+        } else {
+            pagedisplay.nextImageTask();
+        }
 
     </script>
     <!-- - - - - - - - - - - - - - - - - - - - - - - - -->

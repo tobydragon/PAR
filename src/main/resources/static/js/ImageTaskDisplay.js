@@ -1,6 +1,6 @@
 class ImageTaskDisplay{
 
-    constructor(imageTaskJson, userId, imageTaskSettings){
+    constructor(imageTaskJson, userId, imageTaskSettings, isAuthor){
         this.userId=userId;
         this.response= new Response(userId);
         this.pageImage= new PageImage(imageTaskJson.imageUrl);
@@ -19,6 +19,8 @@ class ImageTaskDisplay{
 
         this.listOfCorrectAnswers= [];
 
+        this.isAuthor= isAuthor;
+
         for(var i=0; i<this.questionAreaDisp.length; i++) {
             this.questionAreaDisp[i].addFollowupQuestions();
             document.getElementById("questionSet").appendChild(this.questionAreaDisp[i].element);
@@ -26,8 +28,16 @@ class ImageTaskDisplay{
     }
 
     submitAnswers(){
-        document.getElementById("errorFeedback").innerHTML= " ";
-        let canContinu= this.checkAnswers();
+        let canContinu;
+        if(!this.isAuthor) {
+            document.getElementById("errorFeedback").innerHTML = " ";
+            canContinu = this.checkAnswers();
+        } else {
+            for(var i=0; i<this.questionAreaDisp.length; i++){
+                this.questionAreaDisp[i].answerBox.recordCurrentResponse(this.response);
+            }
+            canContinu=true;
+        }
 
         if(canContinu) {
             if (this.willDisplayFeedback) {
@@ -69,7 +79,12 @@ class ImageTaskDisplay{
             responseTexts: this.response.responseTexts
         };
 
-        submitToAPI("api/recordResponse", newResponse);
+        if(this.isAuthor){
+            //TODO: Needs a new URL
+            submitToAPI("api/recordResponse", newResponse);
+        } else {
+            submitToAPI("api/recordResponse", newResponse);
+        }
     }
 
     nextQuestion(){
@@ -82,7 +97,6 @@ class ImageTaskDisplay{
                 document.getElementById("errorFeedback").innerHTML= "<font color=red>Must submit answers to continue</font>";
             }
         }
-
     }
 
     giveFeedback(typesSeenForFeedback){

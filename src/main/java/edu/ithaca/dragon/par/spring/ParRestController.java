@@ -39,12 +39,18 @@ public class ParRestController {
     }
 
     @GetMapping("/getPageSettings")
-    public PageSettings getPageSettings() throws IOException  {
+    public PageSettings getPageSettings(@RequestParam String userId) throws IOException  {
+        if(userId.equals("author")){
+            return JsonSpringUtil.fromClassPathJson("author/AuthorPageSettingsExample.json", PageSettings.class);
+        }
         return JsonSpringUtil.fromClassPathJson("author/PageSettingsExample.json", PageSettings.class);
     }
 
     @GetMapping("/getImageTaskSettings")
-    public ImageTaskSettings getImageTaskSettings() throws IOException  {
+    public ImageTaskSettings getImageTaskSettings(@RequestParam String userId) throws IOException  {
+        if(userId.equals("author")){
+            return JsonSpringUtil.fromClassPathJson("author/AuthorSettingsExample.json", ImageTaskSettings.class);
+        }
         return JsonSpringUtil.fromClassPathJson("author/SettingsExample.json", ImageTaskSettings.class);
     }
 
