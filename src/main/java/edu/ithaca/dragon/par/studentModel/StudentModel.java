@@ -91,6 +91,9 @@ public class StudentModel {
     private static List<Double> orderedScores(Map<String, Double> scoresPerType){
         List<Double> orderedScores=new ArrayList<>();//ordered list of scores
         for(EquineQuestionTypes quesType: EquineQuestionTypes.values()){
+            if(quesType.toString().equals("zone")){
+                orderedScores.add(scoresPerType.get("attachment"));//hardcoded until added to enum
+            }
             if(scoresPerType.get(quesType.toString())==null){
                 orderedScores.add(-1.0);
             }
@@ -106,26 +109,24 @@ public class StudentModel {
         List<Double> orderedScores = orderedScores(scoresPerType);
         int level = 1;//sets score to one
 
-        if (orderedScores.get(0) < 75) {//if user has score less than 75 on plane , returns level 1
-            return level;
-        } else {
+        if (orderedScores.get(0) < 75)
+            return level;//if user has score less than 75 on plane , returns level 1
+
+        else {
             for(int i = 0; i < orderedScores.size()-1; i++) {
+
                 if (orderedScores.get(i) > 74 && orderedScores.get(i) < 100) {//if score is less than 100 and greater than 74, adds a level
                     level = level + 1;
-                    if (level == 4) {//no level 4 yet, skips
-                        level = level + 1;
-                        return level;
-                    }
                     return level;//returns level in this case
-
-                } else if (orderedScores.get(i) == 100) {//if score is 100, adds 2 to level/skips a level
-                    level = level + 2;
-                    if (level == 4) level = level + 1;//no level 4 yet, skips
                 }
+
+                else if (orderedScores.get(i) == 100)
+                    level = level + 2;//if score is 100, adds 2 to level/skips a level
             }
-            if(orderedScores.get(orderedScores.size()-2)==100){//if second to last score is a 100, then adds level/level 6
-                level=level+1;
-            }
+
+          if(orderedScores.get(orderedScores.size()-2)==100)
+                level=level-1;//if if the user has a 100 on the second to last element then the score would be 7/ subtracts 1
+
 
             return level;
         }

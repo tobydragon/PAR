@@ -93,7 +93,7 @@ public class ResponsesPerQuestion {
 
 
     public void addNewResponse(String newResponse){
-        //create a new timestamp for new response
+        //creates a new timestamp for new response
         QuestionResponse questionResponse=new QuestionResponse(newResponse);
         this.allResponses.add(questionResponse);
     }
