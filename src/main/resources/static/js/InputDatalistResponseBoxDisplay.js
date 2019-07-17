@@ -48,8 +48,14 @@ function checkAnyResponse(correctResponse, actualResponse, type, typesIncorrect,
         if(unsureShowsCorrect) {
             textArea.innerHTML = "<font color=\"#663399\">The correct answer is " + correctResponse + '</font>';
         }
+        if (!typesIncorrect.includes(type)) {
+            typesIncorrect.push(type);
+        }
         return ResponseResult.unsure;
     } else if (ResponseResult.blank.trim().toLowerCase() === actualResponse.trim().toLowerCase()) {
+        if (!typesIncorrect.includes(type)) {
+            typesIncorrect.push(type);
+        }
         return ResponseResult.blank;
     } else {
         textArea.innerHTML = '<font color=\"red\">Your answer is: Incorrect</font>';

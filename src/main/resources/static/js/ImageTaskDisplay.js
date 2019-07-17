@@ -17,6 +17,7 @@ class ImageTaskDisplay{
         this.haveSubmited=false;
         this.canGiveNoAnswer = imageTaskSettings.canGiveNoAnswer;
 
+        this.listOfCorrectAnswers= [];
 
         for(var i=0; i<this.questionAreaDisp.length; i++) {
             this.questionAreaDisp[i].addFollowupQuestions();
@@ -25,6 +26,7 @@ class ImageTaskDisplay{
     }
 
     submitAnswers(){
+        document.getElementById("errorFeedback").innerHTML= " ";
         let canContinu= this.checkAnswers();
 
         if(canContinu) {
@@ -35,22 +37,25 @@ class ImageTaskDisplay{
             this.submitResponse();
 
             if (!this.ableToResubmitAnswers) {
-                disableElement("submitButton")
+                document.getElementById("submitButton").classList.add("hide");
             }
             this.haveSubmited = true;
+            document.getElementById("errorFeedback").innerHTML= "<font color=\"#663399\"> Response recorded</font>";
         } else {
-            document.getElementById("helpfulFeedback").innerHTML= "<font color=red>No response was recorded because you did not answer all the questions</font>";
+            document.getElementById("errorFeedback").innerHTML= "<font color=red>No response was recorded because you did not answer all the questions</font>";
         }
     }
 
     checkAnswers(){
-        let listOfCorrectAnswers= [];
+        this.listOfCorrectAnswers= [];
         for(var i=0; i<this.questionAreaDisp.length; i++){
-            listOfCorrectAnswers.push(this.questionAreaDisp[i].answerBox.checkCurrentResponse(this.response, this.unsureShowsCorrectAnswer));
+            this.listOfCorrectAnswers.push(this.questionAreaDisp[i].answerBox.checkCurrentResponse(this.response, this.unsureShowsCorrectAnswer));
         }
         if(!this.canGiveNoAnswer){
-            if(listOfCorrectAnswers.includes("blank")){
+            if(this.listOfCorrectAnswers.includes("")){
                 return false;
+            } else {
+                return true;
             }
         } else {
             return true;
@@ -74,7 +79,7 @@ class ImageTaskDisplay{
             if(this.haveSubmited){
                 location.reload();
             } else {
-                document.getElementById("helpfulFeedback").innerHTML= "<font color=red>Must submit answers to continue</font>";
+                document.getElementById("errorFeedback").innerHTML= "<font color=red>Must submit answers to continue</font>";
             }
         }
 
