@@ -98,20 +98,20 @@ public class StudentModelTest {
         Map<String, Double> m2 = new HashMap<>();
         m2.put(EquineQuestionTypes.plane.toString(), 0.0);
         m2.put(EquineQuestionTypes.structure.toString(), 0.0);
-        m2.put("attachment", 90.0);
+        m2.put(EquineQuestionTypes.attachment.toString(), 90.0);
         m2.put(EquineQuestionTypes.zone.toString(), 100.0);
         assertEquals(1, StudentModel.calcLevel(m2));
 
         m2 = new HashMap<>();
         m2.put(EquineQuestionTypes.plane.toString(), -1.0);
         m2.put(EquineQuestionTypes.structure.toString(), -1.0);
-        m2.put("attachment", -1.0);
+        m2.put(EquineQuestionTypes.attachment.toString(), -1.0);
         m2.put(EquineQuestionTypes.zone.toString(), -1.0);
         assertEquals(1, StudentModel.calcLevel(m2));
         m2 = new HashMap<>();
         m2.put(EquineQuestionTypes.plane.toString(), 75.0);
         m2.put(EquineQuestionTypes.structure.toString(), 20.0);
-        m2.put("attachment", -1.0);
+        m2.put(EquineQuestionTypes.attachment.toString(), -1.0);
         m2.put(EquineQuestionTypes.zone.toString(), -1.0);
         assertEquals(2, StudentModel.calcLevel(m2));
 
@@ -119,7 +119,7 @@ public class StudentModelTest {
         m2 = new HashMap<>();
         m2.put(EquineQuestionTypes.plane.toString(), 75.0);
         m2.put(EquineQuestionTypes.structure.toString(), 100.0);
-        m2.put("attachment", 30.0);
+        m2.put(EquineQuestionTypes.attachment.toString(), 30.0);
         m2.put(EquineQuestionTypes.zone.toString(), -1.0);
         assertEquals(2, StudentModel.calcLevel(m2));
 
@@ -127,63 +127,63 @@ public class StudentModelTest {
         m2 = new HashMap<>();
         m2.put(EquineQuestionTypes.plane.toString(), 75.0);
         m2.put(EquineQuestionTypes.structure.toString(), 75.0);
-        m2.put("attachment", -1.0);
+        m2.put(EquineQuestionTypes.attachment.toString(), -1.0);
         m2.put(EquineQuestionTypes.zone.toString(), -1.0);
         assertEquals(2, StudentModel.calcLevel(m2));
 
         m2=new HashMap<>();
         m2.put(EquineQuestionTypes.plane.toString(), 100.0);
         m2.put(EquineQuestionTypes.structure.toString(), 74.0);
-        m2.put("attachment", -1.0);
+        m2.put(EquineQuestionTypes.attachment.toString(), -1.0);
         m2.put(EquineQuestionTypes.zone.toString(), -1.0);
         assertEquals(3, StudentModel.calcLevel(m2));
 
         m2=new HashMap<>();
         m2.put(EquineQuestionTypes.plane.toString(), 100.0);
         m2.put(EquineQuestionTypes.structure.toString(), 75.0);
-        m2.put("attachment", -1.0);
+        m2.put(EquineQuestionTypes.attachment.toString(), -1.0);
         m2.put(EquineQuestionTypes.zone.toString(), -1.0);
         assertEquals(4, StudentModel.calcLevel(m2));
 
         m2=new HashMap<>();
         m2.put(EquineQuestionTypes.plane.toString(), 100.0);
         m2.put(EquineQuestionTypes.structure.toString(), 75.0);
-        m2.put("attachment", 75.0);
+        m2.put(EquineQuestionTypes.attachment.toString(), 75.0);
         m2.put(EquineQuestionTypes.zone.toString(), -1.0);
         assertEquals(4, StudentModel.calcLevel(m2));
 
         m2=new HashMap<>();
         m2.put(EquineQuestionTypes.plane.toString(), 100.0);
         m2.put(EquineQuestionTypes.structure.toString(), 100.0);
-        m2.put("attachment", -1.0);
+        m2.put(EquineQuestionTypes.attachment.toString(), -1.0);
         m2.put(EquineQuestionTypes.zone.toString(), -1.0);
         assertEquals(5, StudentModel.calcLevel(m2));
 
         m2=new HashMap<>();
         m2.put(EquineQuestionTypes.plane.toString(), 100.0);
         m2.put(EquineQuestionTypes.structure.toString(), 100.0);
-        m2.put("attachment", 34.0);
+        m2.put(EquineQuestionTypes.attachment.toString(), 34.0);
         m2.put(EquineQuestionTypes.zone.toString(), -1.0);
         assertEquals(5, StudentModel.calcLevel(m2));
 
         m2=new HashMap<>();
         m2.put(EquineQuestionTypes.plane.toString(), 100.0);
         m2.put(EquineQuestionTypes.structure.toString(), 100.0);
-        m2.put("attachment", 100.0);
+        m2.put(EquineQuestionTypes.attachment.toString(), 100.0);
         m2.put(EquineQuestionTypes.zone.toString(), -1.0);
         assertEquals(6, StudentModel.calcLevel(m2));
 
         m2=new HashMap<>();
         m2.put(EquineQuestionTypes.plane.toString(), 100.0);
         m2.put(EquineQuestionTypes.structure.toString(), 100.0);
-        m2.put("attachment", 75.0);
+        m2.put(EquineQuestionTypes.attachment.toString(), 75.0);
         m2.put(EquineQuestionTypes.zone.toString(), -1.0);
         assertEquals(6, StudentModel.calcLevel(m2));
         
         m2=new HashMap<>();
         m2.put(EquineQuestionTypes.plane.toString(), 100.0);
         m2.put(EquineQuestionTypes.structure.toString(), 100.0);
-        m2.put("attachment", 100.0);
+        m2.put(EquineQuestionTypes.attachment.toString(), 100.0);
         m2.put(EquineQuestionTypes.zone.toString(), 75.0);
         assertEquals(6, StudentModel.calcLevel(m2));
     }

@@ -2,6 +2,7 @@ package edu.ithaca.dragon.par.pedagogicalModel;
 
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
+import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.JsonDatastore;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
@@ -94,18 +95,18 @@ public class TaskGeneratorTest {
     @Test
     public void removeTypeTest() throws IOException{
         List<Question> questions= JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
-        questions = TaskGenerator.removeTypeFromQuestionList(questions, "plane");
+        questions = TaskGenerator.removeTypeFromQuestionList(questions, EquineQuestionTypes.plane.toString());
         assertEquals(10, questions.size());
-        questions = TaskGenerator.removeTypeFromQuestionList(questions, "structure");
+        questions = TaskGenerator.removeTypeFromQuestionList(questions, EquineQuestionTypes.structure.toString());
         assertEquals(5, questions.size());
-        questions = TaskGenerator.removeTypeFromQuestionList(questions, "zone");
+        questions = TaskGenerator.removeTypeFromQuestionList(questions, EquineQuestionTypes.zone.toString());
         assertEquals(0, questions.size());
 
-        questions = TaskGenerator.removeTypeFromQuestionList(questions, "plane");
+        questions = TaskGenerator.removeTypeFromQuestionList(questions, EquineQuestionTypes.plane.toString());
         assertEquals(0, questions.size());
-        questions = TaskGenerator.removeTypeFromQuestionList(questions, "structure");
+        questions = TaskGenerator.removeTypeFromQuestionList(questions, EquineQuestionTypes.structure.toString());
         assertEquals(0, questions.size());
-        questions = TaskGenerator.removeTypeFromQuestionList(questions, "zone");
+        questions = TaskGenerator.removeTypeFromQuestionList(questions, EquineQuestionTypes.zone.toString());
         assertEquals(0, questions.size());
 
 
@@ -212,19 +213,19 @@ public class TaskGeneratorTest {
         Question recFollowups = questionPool.getQuestionFromId("structure0./images/demoEquine14.jpg");
 
         //Trying to remove nonexistant followup questions should have no effect on the Question
-        Question noFollowsAfter = TaskGenerator.removeTypeFromQuestion(noFollowups, "attachment");
+        Question noFollowsAfter = TaskGenerator.removeTypeFromQuestion(noFollowups, EquineQuestionTypes.attachment.toString());
         assertEquals(noFollowups, noFollowsAfter);
 
         //The method should not remove the base question
         assertThrows(RuntimeException.class, () -> {Question noFollowsAfterPlane = TaskGenerator.removeTypeFromQuestion(noFollowups, "plane");});
 
         //Removing attachment followups should create a question with no followups
-        Question twoFollowupsAfter = TaskGenerator.removeTypeFromQuestion(twoFollowups, "attachment");
+        Question twoFollowupsAfter = TaskGenerator.removeTypeFromQuestion(twoFollowups, EquineQuestionTypes.attachment.toString());
         assertEquals(0, twoFollowupsAfter.getFollowupQuestions().size());
         assertFalse(twoFollowups == twoFollowupsAfter);
 
         //Removing a followup to a followup
-        Question recFollowupsAfter = TaskGenerator.removeTypeFromQuestion(recFollowups, "plane");
+        Question recFollowupsAfter = TaskGenerator.removeTypeFromQuestion(recFollowups, EquineQuestionTypes.plane.toString());
         assertFalse(recFollowupsAfter == recFollowups);
         assertEquals("plane", recFollowups.getFollowupQuestions().get(2).getFollowupQuestions().get(0).getType());
         assertEquals(0, recFollowupsAfter.getFollowupQuestions().get(2).getFollowupQuestions().size());
