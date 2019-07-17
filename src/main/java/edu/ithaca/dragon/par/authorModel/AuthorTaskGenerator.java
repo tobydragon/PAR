@@ -12,6 +12,10 @@ import java.util.List;
 public class AuthorTaskGenerator {
 
     public static ImageTask makeTaskTemplate(AuthorModel authorModel){
+        if (authorModel.getQuestionCountList().size()<1){
+            throw new RuntimeException("No questions to be answered");
+        }
+
         QuestionCount initialQuestion = getInitialQuestion(authorModel.getQuestionCountList());
         List<QuestionCount> imageTaskList = getAllQuestionsWithSameUrl(initialQuestion, authorModel);
         List<Question> forTask = new ArrayList<>();
