@@ -121,7 +121,9 @@
     </div>
     <script>
         pagedisplay.displayUserId();
-        pagedisplay.displayScore(pagedisplay.generateScore());
+        if(pagedisplay.showScore) {
+            pagedisplay.displayScore(pagedisplay.generateScore());
+        }
         pagedisplay.nextImageTask();
 
     </script>

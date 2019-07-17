@@ -25,9 +25,9 @@ class InputDatalistResponseBoxDisplay {
         this.element.appendChild(feedbackTextArea);
     }
 
-    checkCurrentResponse(response) {
+    checkCurrentResponse(response, unsureShowsCorrect) {
         response.addToResponseTexts(this.inputTextbox.value);
-        return checkAnyResponse(this.correctResponse, this.inputTextbox.value, this.type, response.typesIncorrect, this.textArea);
+        return checkAnyResponse(this.correctResponse, this.inputTextbox.value, this.type, response.typesIncorrect, this.textArea, unsureShowsCorrect);
     }
 }
 
@@ -40,12 +40,14 @@ function buildElement(id, possibleResponseDatalist, inputTextbox) {
     return element;
 }
 
-function checkAnyResponse(correctResponse, actualResponse, type, typesIncorrect, textArea) {
+function checkAnyResponse(correctResponse, actualResponse, type, typesIncorrect, textArea, unsureShowsCorrect) {
     if (correctResponse.trim().toLowerCase() === actualResponse.trim().toLowerCase()) {
         textArea.innerHTML = '<font color=\"green\">Your answer is: Correct</font>';
         return ResponseResult.correct;
     } else if (ResponseResult.unsure.trim().toLowerCase() === actualResponse.trim().toLowerCase()) {
-        textArea.innerHTML = "<font color=\"#663399\">The correct answer is " + correctResponse + '</font>';
+        if(unsureShowsCorrect) {
+            textArea.innerHTML = "<font color=\"#663399\">The correct answer is " + correctResponse + '</font>';
+        }
         return ResponseResult.unsure;
     } else if (ResponseResult.blank.trim().toLowerCase() === actualResponse.trim().toLowerCase()) {
         return ResponseResult.blank;

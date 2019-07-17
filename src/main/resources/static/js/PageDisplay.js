@@ -1,8 +1,9 @@
 class PageDisplay {
 
-    constructor(pageSettings) {
-        this.imageTaskDisplay = null;
-        this.userId = null;
+    constructor(pageSettings){
+        this.imageTaskDisplay= null;
+        this.userId= null;
+        //settings
         this.scoreType = pageSettings.scoreType;
         this.showScore = pageSettings.showScore;
     }
@@ -13,7 +14,7 @@ class PageDisplay {
 
     generateScore() {
         let visJSON = readJson("api/getScoreStringByType?userId=" + this.userId);
-        return setCurrentScore(visJSON);
+        return setCurrentScore(visJSON, this.scoreType);
     }
 
     displayScore(given) {
