@@ -9,8 +9,8 @@ const ResponseResult = {
 
 class InputDatalistResponseBoxDisplay {
 
-    constructor (id, defaultResponses, correctResponse, type){
-        this.type= type;
+    constructor(id, defaultResponses, correctResponse, type) {
+        this.type = type;
         this.id = id;
         this.correctResponse = correctResponse;
         //don't currently need a pointer to this datalist
@@ -21,7 +21,7 @@ class InputDatalistResponseBoxDisplay {
 
         let feedbackTextArea = document.createElement("div");
         feedbackTextArea.id = "feedbackTextArea";
-        this.textArea= feedbackTextArea;
+        this.textArea = feedbackTextArea;
         this.element.appendChild(feedbackTextArea);
     }
 
@@ -40,8 +40,8 @@ function buildElement(id, possibleResponseDatalist, inputTextbox) {
     return element;
 }
 
-function checkAnyResponse(correctResponse, actualResponse, type, typesIncorrect, textArea){
-    if (correctResponse.trim().toLowerCase() === actualResponse.trim().toLowerCase()){
+function checkAnyResponse(correctResponse, actualResponse, type, typesIncorrect, textArea) {
+    if (correctResponse.trim().toLowerCase() === actualResponse.trim().toLowerCase()) {
         textArea.innerHTML = '<font color=\"green\">Your answer is: Correct</font>';
         return ResponseResult.correct;
     } else if (ResponseResult.unsure.trim().toLowerCase() === actualResponse.trim().toLowerCase()) {
@@ -51,7 +51,7 @@ function checkAnyResponse(correctResponse, actualResponse, type, typesIncorrect,
         return ResponseResult.blank;
     } else {
         textArea.innerHTML = '<font color=\"red\">Your answer is: Incorrect</font>';
-        if(!typesIncorrect.includes(type)) {
+        if (!typesIncorrect.includes(type)) {
             typesIncorrect.push(type);
         }
         return ResponseResult.incorrect;

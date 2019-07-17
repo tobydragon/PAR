@@ -1,4 +1,4 @@
-class PageDisplay{
+class PageDisplay {
 
     constructor(pageSettings){
         this.imageTaskDisplay= null;
@@ -8,26 +8,26 @@ class PageDisplay{
         this.showScore = pageSettings.showScore;
     }
 
-    displayUserId(){
-        document.getElementById("UserId").innerHTML=this.userId;
+    displayUserId() {
+        document.getElementById("UserId").innerHTML = "&nbsp" + this.userId;
     }
 
-    generateScore(){
+    generateScore() {
         let visJSON = readJson("api/getScoreStringByType?userId=" + this.userId);
         return setCurrentScore(visJSON, this.scoreType);
     }
 
-    displayScore(given){
-        document.getElementById("score").innerHTML= given;
+    displayScore(given) {
+        document.getElementById("score").innerHTML = given;
     }
 
-    nextImageTask(){
+    nextImageTask() {
         var settings;
 
         try {
             settings = readJson("api/getImageTaskSettings");
             var imageTaskJSON = readJson("api/nextImageTask?userId=" + this.userId);
-            this.imageTaskDisplay= new ImageTaskDisplay(imageTaskJSON, this.userId, settings);
+            this.imageTaskDisplay = new ImageTaskDisplay(imageTaskJSON, this.userId, settings);
 
         } catch (Exception) {
             window.onerror = function (msg) {
