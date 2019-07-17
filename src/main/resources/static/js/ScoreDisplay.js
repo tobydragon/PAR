@@ -13,8 +13,7 @@ function setCurrentScore(scoreObject, scoreType) {
     let outerNode = document.createElement('div');
     if (scoreType === "ByType") {
         //scoreString=generateScoreByType(scoreObject);
-        //scoreString = generateScoreStringByType(scoreObject);
-        scoreString = outerNode.appendChild(generateScoreStringByTypeRewritten(scoreObject));
+        scoreString = outerNode.appendChild(generateScoreElementByType(scoreObject));
     } else if (scoreType === "SingleScore") {
         scoreString = generateSinglescore(scoreObject);
     } else if (scoreType === "Level") {
@@ -44,7 +43,7 @@ function generateScoreByType(scoreObject) {
     return breakdownString;
 
 }
-
+/**
 function generateScoreStringByType(scoreObject) {
     var visString = "";
     for (var key in scoreObject) { //key search
@@ -66,24 +65,33 @@ function generateScoreStringByType(scoreObject) {
         }
     }
     return visString;
-}
+}**/
 
-function generateScoreStringByTypeRewritten(scoreObject) {
-    let visualBuilder = document.createElement('div');
+function generateScoreElementByType(scoreObject) {
+    let visualBuilder;
+    let outerNode = document.createElement('div');
+    let buildSegment;
     console.log("scoreObj: " + JSON.stringify(scoreObject));
     for (let key in scoreObject) {
+        console.log(key);
+        visualBuilder = document.createElement('div');
         if (scoreObject.hasOwnProperty(key)) {
             let value = scoreObject[key];
+            console.log(value);
             visualBuilder.classList.add("black");
             visualBuilder.innerHTML = (key + ": ");
             for (let i = 0; i < value.length; i++) {
-                visualBuilder.appendChild(buildVisualSegment(value[i]));
+                buildSegment = buildVisualSegment(value[i]);
+                console.log(buildSegment);
+                visualBuilder.appendChild(buildSegment);
             }
         }
+        outerNode.appendChild(visualBuilder);
     }
 
     console.log(visualBuilder);
-    return visualBuilder;
+    console.log(outerNode);
+    return outerNode;
 }
 
 function buildVisualSegment(value) {
