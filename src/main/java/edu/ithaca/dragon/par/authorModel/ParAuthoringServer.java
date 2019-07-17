@@ -3,6 +3,7 @@ package edu.ithaca.dragon.par.authorModel;
 import edu.ithaca.dragon.par.ParServer;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.io.Datastore;
+import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 
 import java.io.IOException;
@@ -30,6 +31,10 @@ public class ParAuthoringServer extends ParServer {
      */
     public void convertQuestionTemplateToQuestion(String questionId, String answer){
 
+    }
+
+    public ImageTask nextImageTaskTemplate(String authorId) throws IOException{
+        return null;
     }
 
 }
