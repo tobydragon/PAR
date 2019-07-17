@@ -93,6 +93,10 @@ public class QuestionPool {
         return toReturn;
     }
 
+    public void checkWindowSize(List<String> enumNames, List<Integer> typeCounts){
+
+    }
+
     public boolean checkWindowSize(int desiredWindowSize){
         if(desiredWindowSize<1){
             return false;
@@ -108,6 +112,15 @@ public class QuestionPool {
 
         //loop through all questions
         for(Question currQuestion : allQuestions){
+
+            //check for attachment followup questions
+            //TODO: This is not recursive and assumes that all followup questions are attachment questions with no further followup questions
+            //TODO: Make it recursive!!
+            for(Question currFollowup : currQuestion.getFollowupQuestions()){
+                if(currFollowup.getType().equals(EquineQuestionTypes.attachment.toString())){
+                    typeCounts.set(2, typeCounts.get(2) + 1);
+                }
+            }
 
             //find which type it is
             for(int i=0; i<enumNames.size(); i++){
