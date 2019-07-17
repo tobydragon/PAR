@@ -17,7 +17,7 @@ class PageDisplay {
     }
 
     displayScore(given) {
-        document.getElementById("score").innerHTML = given;
+        document.getElementById("score").appendChild(given);
     }
 
     nextImageTask() {

@@ -102,7 +102,7 @@ public class ParServer {
         Map<String, String> testMap = new HashMap<>();
         testMap.put("plane", "XOOX");
         testMap.put("struct", "O~~_");
-        testMap.put("zone", "____");
+        testMap.put("zone", "_X__");
         return testMap;
     }
     public void checkIfWindowSizeIsValid(QuestionPool questionPool){
