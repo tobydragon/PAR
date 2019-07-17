@@ -77,6 +77,7 @@ function getSettings() {
     willDisplayFeedback = settings.willDisplayFeedback;
 }
 **/
+/**
 function addToTypesSeenForFeedback(type) {
     if (!typesSeenForFeedback.includes(type)) {
         typesSeenForFeedback.push(type);

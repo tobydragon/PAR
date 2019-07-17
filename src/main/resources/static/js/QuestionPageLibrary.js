@@ -67,6 +67,7 @@ function canvasApp() {
 //functions to create the questions
 //
 //Calls generateQuestion on the JSON object for the question at ith index
+/**
 function pageDisplay(imageTaskJSON) {
     clearQuestionIDs();
     if (showScore) {
@@ -250,6 +251,7 @@ function displayScoreBreakdown(breakdownString) {
 //
 //Answering questions and feedback functions
 //
+/**
 function generateFeedback() {
     if (typesSeenForFeedback.length > 0) {
         document.getElementById("helpfulFeedback").innerHTML = "Feedback: ";
@@ -298,6 +300,7 @@ function clearQuestionCorrectnessResponses() {
 
 }
 **/
+/**
 function checkForAnswers() {
     if (numberOfQuestionsAnswered == amountOfQuestions) {
         return true;
