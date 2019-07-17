@@ -12,7 +12,7 @@ import java.util.Map;
 public class ParAuthoringServer extends ParServer {
 
     private QuestionPool questionPoolTemplate;
-    private Map<String, StudentModel> authorModelMap;
+    private Map<String, AuthorModel> authorModelMap;
     private Datastore datastoreForTemplate;
 
     public ParAuthoringServer(Datastore datastore, Datastore datastoreForTemplate) throws IOException {
@@ -30,6 +30,10 @@ public class ParAuthoringServer extends ParServer {
      */
     public void convertQuestionTemplateToQuestion(String questionId, String answer){
 
+    }
+
+    public static AuthorModel getOrCreateAuthorModel() {
+        return null;
     }
 
 }
