@@ -11,9 +11,11 @@ class ScoreDisplay {
 function setCurrentScore(scoreObject) {
     let scoreString = "";
     let scoreType = "ByType";
+    let outerNode = document.createElement('div');
     if (scoreType === "ByType") {
         //scoreString=generateScoreByType(scoreObject);
-        scoreString = generateScoreStringByType(scoreObject);
+        //scoreString = generateScoreStringByType(scoreObject);
+        scoreString = outerNode.appendChild(generateScoreStringByTypeRewritten(scoreObject));
     } else if (scoreType === "SingleScore") {
         scoreString = generateSinglescore(scoreObject);
     } else if (scoreType === "Level") {
@@ -66,8 +68,8 @@ function generateScoreStringByType(scoreObject) {
     }
     return visString;
 }
-/**
-function generateScoreStringByType(scoreObject) {
+
+function generateScoreStringByTypeRewritten(scoreObject) {
     let visualBuilder = document.createElement('div');
     console.log("scoreObj: " + JSON.stringify(scoreObject));
     for (let key in scoreObject) {
@@ -86,7 +88,7 @@ function generateScoreStringByType(scoreObject) {
 }
 
 function buildVisualSegment(value) {
-    let childElement = document.createElement('i');
+    let childElement = document.createElement('div');
     if (value === 'O') {
         childElement.classList.add("fas");
         childElement.classList.add("fa-check-circle");
@@ -105,4 +107,3 @@ function buildVisualSegment(value) {
     }
     return childElement;
 }
-**/
