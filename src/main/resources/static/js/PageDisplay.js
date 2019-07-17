@@ -35,7 +35,6 @@ class PageDisplay {
             }
         }
 
-
     }
 
     logout() {

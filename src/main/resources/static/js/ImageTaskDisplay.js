@@ -82,7 +82,6 @@ class ImageTaskDisplay{
                 document.getElementById("errorFeedback").innerHTML= "<font color=red>Must submit answers to continue</font>";
             }
         }
-
     }
 
     giveFeedback(typesSeenForFeedback){
