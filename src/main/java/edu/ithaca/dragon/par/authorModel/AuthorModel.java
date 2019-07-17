@@ -10,9 +10,9 @@ public class AuthorModel {
     String authorId;
     List<QuestionCount> questionCountList;
 
-    public AuthorModel(String authorId, List<Question> questionsIn){
+    public AuthorModel(String authorId, List<QuestionCount> questionCountsIn){
         this.authorId = authorId;
-        this.questionCountList = QuestionCount.questionToQuestionCount(questionsIn);
+        this.questionCountList = questionCountsIn;
     }
 
     /**
@@ -49,5 +49,17 @@ public class AuthorModel {
         if(!found){
             throw new InvalidParameterException("Question with id:" + questionId + " does not exist in authorModel:" + authorId);
         }
+    }
+
+    @Override
+    public boolean equals(Object otherObj){
+        if(otherObj == null)
+            return false;
+        if(otherObj.getClass() != AuthorModel.class){
+            return false;
+        }
+        AuthorModel other = (AuthorModel)otherObj;
+        return authorId.equals(other.authorId) &&
+                questionCountList.equals(other.questionCountList);
     }
 }
