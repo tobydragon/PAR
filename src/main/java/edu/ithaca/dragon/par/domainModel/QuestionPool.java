@@ -93,8 +93,25 @@ public class QuestionPool {
         return toReturn;
     }
 
+    public void checkWindowSize(List<String> enumNames, List<Integer> typeCounts, List<Question> questionList){
+        //loop through all questions
+        for(Question currQuestion : questionList) {
+
+            checkWindowSize(enumNames, typeCounts, currQuestion.getFollowupQuestions());
+
+            //find which type it is
+            for (int i = 0; i < enumNames.size(); i++) {
+                if (enumNames.get(i).equals(currQuestion.getType())) {
+                    //increment the typecount
+                    typeCounts.set(i, typeCounts.get(i) + 1);
+                    break;
+                }
+            }
+        }
+    }
+
     public boolean checkWindowSize(int desiredWindowSize){
-        if(desiredWindowSize<1){
+        if(desiredWindowSize<0){
             return false;
         }
         //create parallel arrays of types and count of times seen
@@ -106,18 +123,7 @@ public class QuestionPool {
             typeCounts.add(0);
         }
 
-        //loop through all questions
-        for(Question currQuestion : allQuestions){
-
-            //find which type it is
-            for(int i=0; i<enumNames.size(); i++){
-                if(enumNames.get(i).equals(currQuestion.getType())){
-                    //increment the typecount
-                    typeCounts.set(i, typeCounts.get(i) + 1);
-                    break;
-                }
-            }
-        }
+        checkWindowSize(enumNames, typeCounts, allQuestions);
 
         //check if the typecounts are high enough
         for(int i = 0; i<typeCounts.size();i++){

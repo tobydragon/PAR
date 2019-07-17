@@ -20,11 +20,11 @@ public class UserResponseSet {
 
         if (index == -1) userResponse.add(response);
 
-        else userResponse.get(index).addNewResponse(response.getResponseText());
+        else userResponse.get(index).addNewResponse(response.getFirstResponse());
     }
 
     public void addAllResponses(List<ResponsesPerQuestion> allResponsesIn) {
-        for (int i=0;i<allResponsesIn.size();i++) {
+        for (int i = 0; i < allResponsesIn.size(); i++) {
             addResponse(allResponsesIn.get(i));
         }
     }
@@ -41,15 +41,15 @@ public class UserResponseSet {
         }
         return -1;
     }
-//get question answered
+
     public int getUserResponsesSize() {
         return userResponse.size();
     }
 
-    public int countTotalResponses(){
-        int count=0;
-        for(ResponsesPerQuestion responses: userResponse){
-            count=count+responses.allResponseTextSize();
+    public int countTotalResponses() {
+        int count = 0;
+        for (ResponsesPerQuestion responses : userResponse) {
+            count = count + responses.allResponsesSize();
         }
         return count;
     }
@@ -57,7 +57,6 @@ public class UserResponseSet {
     public void setUserResponse(List<ResponsesPerQuestion> userResponsesIn) {
         this.userResponse = userResponsesIn;
     }
-
     public List<ResponsesPerQuestion> getUserResponse() {
         return userResponse;
     }
@@ -65,7 +64,6 @@ public class UserResponseSet {
     public void setUserId(String userIdIn) {
         this.userId = userIdIn;
     }
-
     public String getUserId() {
         return userId;
     }
@@ -81,42 +79,25 @@ public class UserResponseSet {
     public double knowledgeCalc(int responsesToConsider) {
         return knowledgeCalc(userResponse, responsesToConsider);
     }
-
     /**
-     *
      * @param allResponses
      * @param responsesToConsider how many responses should the algorithm look back on
      * @return
      */
     public static double knowledgeCalc(List<ResponsesPerQuestion> allResponses, int responsesToConsider) {
         //return -1 if the list is empty
-        if(allResponses.size() == 0)
+        if (allResponses.size() == 0)
             return -1.0;
 
         double scoreBeforeDivision = 0;
-        for(int i = allResponses.size()-1, j = 0; j < responsesToConsider; i--, j++){
+        for (int i = allResponses.size() - 1, j = 0; j < responsesToConsider; i--, j++) {
 
-            if(i >= 0){
-                scoreBeforeDivision+=allResponses.get(i).knowledgeCalc();
-
+            if (i >= 0) {
+                scoreBeforeDivision += allResponses.get(i).knowledgeCalc();
             }
         }
         return (scoreBeforeDivision / responsesToConsider);
     }
-
-    @Override
-    public boolean equals(Object otherObj) {
-        if (otherObj == null) {
-            return false;
-        }
-        if (!UserResponseSet.class.isAssignableFrom(otherObj.getClass())) {
-            return false;
-        }
-        UserResponseSet other = (UserResponseSet) otherObj;
-        return this.getUserResponse().equals(other.getUserResponse())
-                && this.getUserId().equals(other.getUserId());
-    }
-
     public Map<String, Double> knowledgeScoreByType() {
         Map<String, List<ResponsesPerQuestion>> responseByType = splitResponsesByType(userResponse);
         Map<String, Double> responseByTypeDouble = new HashMap<>();
@@ -126,6 +107,7 @@ public class UserResponseSet {
         }
         return responseByTypeDouble;
     }
+
 
     private static Map<String, List<ResponsesPerQuestion>> splitResponsesByType(List<ResponsesPerQuestion> responsesPerQuestions) {
         Map<String, List<ResponsesPerQuestion>> responseByType = new HashMap<>();
@@ -139,5 +121,18 @@ public class UserResponseSet {
             }
         }
         return responseByType;
+    }
+
+    @Override
+    public boolean equals(Object otherObj) {
+        if (otherObj == null) {
+            return false;
+        }
+        if (!UserResponseSet.class.isAssignableFrom(otherObj.getClass())) {
+            return false;
+        }
+        UserResponseSet other = (UserResponseSet) otherObj;
+        return this.getUserResponse().equals(other.getUserResponse())
+                && this.getUserId().equals(other.getUserId());
     }
 }
