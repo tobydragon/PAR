@@ -29,16 +29,16 @@ public class AuthorModelTest {
     @Test
     public void constructorTest() throws IOException {
         assertEquals("TestAuthor1", authorModel.getAuthorId());
-        assertEquals(15, authorModel.getQuestionCountList().size());
+        assertEquals(47, authorModel.getQuestionCountList().size());
     }
 
     @Test
     public void removeQuestionTest(){
-        assertEquals(15, authorModel.getQuestionCountList().size());
-        authorModel.removeQuestion("PlaneQ1");
-        assertEquals(14, authorModel.getQuestionCountList().size());
-        authorModel.removeQuestion("ZoneQ3");
-        assertEquals(13, authorModel.getQuestionCountList().size());
+        assertEquals(47, authorModel.getQuestionCountList().size());
+        authorModel.removeQuestion("plane./images/demoEquine14.jpg");
+        assertEquals(46, authorModel.getQuestionCountList().size());
+        authorModel.removeQuestion("structure0./images/demoEquine02.jpg");
+        assertEquals(45, authorModel.getQuestionCountList().size());
 
         assertThrows(InvalidParameterException.class, ()-> { authorModel.removeQuestion("ZoneQ3"); });
         assertThrows(InvalidParameterException.class, ()-> { authorModel.removeQuestion("NotAValidQuestionId"); });
@@ -47,15 +47,15 @@ public class AuthorModelTest {
     @Test
     public void increaseTimesSeen(){
         assertEquals(0, authorModel.questionCountList.get(0).timesSeen);
-        authorModel.increaseTimesSeen("PlaneQ1");
+        authorModel.increaseTimesSeen("plane./images/demoEquine14.jpg");
         assertEquals(1, authorModel.questionCountList.get(0).timesSeen);
-        authorModel.increaseTimesSeen("PlaneQ1");
+        authorModel.increaseTimesSeen("plane./images/demoEquine14.jpg");
         assertEquals(2, authorModel.questionCountList.get(0).timesSeen);
 
         assertEquals(0, authorModel.questionCountList.get(6).timesSeen);
-        authorModel.increaseTimesSeen("StructureQ2");
+        authorModel.increaseTimesSeen("structure0./images/demoEquine02.jpg");
         assertEquals(1, authorModel.questionCountList.get(6).timesSeen);
-        authorModel.increaseTimesSeen("StructureQ2");
+        authorModel.increaseTimesSeen("structure0./images/demoEquine02.jpg");
         assertEquals(2, authorModel.questionCountList.get(6).timesSeen);
 
         assertThrows(InvalidParameterException.class, ()-> {authorModel.increaseTimesSeen("NotAValidQuestionId");});

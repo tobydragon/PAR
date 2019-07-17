@@ -3,50 +3,103 @@ import edu.ithaca.dragon.par.domainModel.Question;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ResponsesPerQuestion {
+    public static final long SECONDS_BETWEEN =30;
     private String questionId;
     private String userId;
     private Question question;
-    private String responseText;
+    private String firstResponse;
     private String questionType;
-    private List<String> allResponseTexts;
+    private List<QuestionResponse> allResponses;
 
 
-
+    public ResponsesPerQuestion(){
+        this.allResponses=new ArrayList<>();
+    }
     public ResponsesPerQuestion(String userIdIn, Question questionIn, String responseIn){
+        QuestionResponse questionResponse=new QuestionResponse(responseIn);
         this.userId=userIdIn;
         this.question=questionIn;
         this.questionId=questionIn.getId();
         this.questionType=questionIn.getType();
-        responseText=responseIn;
-        allResponseTexts=new ArrayList<>();
-        allResponseTexts.add(responseIn);
+        firstResponse=responseIn;
+        allResponses =new ArrayList<>();
+        allResponses.add(questionResponse);
     }
 
+    /**
+     * Calculates the knowledge score of the student
+     * @return 0 or 100
+     */
     public double knowledgeCalc(){
-        double score;
-        if(responseText.equals(question.getCorrectAnswer())) score = 100;
-
-        else score = 0;
-
-        if(allResponseTextSize()>1) {
-            for (int i = 1; i < allResponseTextSize(); i++) {
-                if (!allResponseTexts.get(i).equals(question.getCorrectAnswer()) && score==100) score = 50;
-
-                else if(allResponseTexts.get(i).equals(question.getCorrectAnswer()) && score==0) score = 50;
-            }
+       double score=0;
+       if(allResponsesSize()==1) {
+           if (allResponses.get(0).getResponseText().equals(question.getCorrectAnswer())) score = 100;
+           else score = 0;
+       }
+        if(allResponsesSize()>1) {
+            //if the timestamp difference is > or == 30 seconds
+            if (checkTimeStampDifference(allResponses.get(allResponsesSize() - 1).getMillSeconds(), allResponses.get(allResponsesSize() - 2).getMillSeconds())) {
+                //check the answer if its right or wrong/ not dependent on previous answers
+                if (allResponses.get(allResponsesSize() - 1).getResponseText().equals(question.getCorrectAnswer())) {
+                    score = 100;
+                }
+                else score = 0;
+            } else {
+                //if the timestamp difference is < 30 seconds
+                score = 100;
+                //creates a list of QuestionResponses that have a timestamp difference < 30 second apart
+                List<QuestionResponse> questionResponses = answersWithSameTimeStamp(allResponses);
+                for (int k = 0; k < questionResponses.size() ; k++) {
+                    //if any of the answers are wrong within this list then you receive a 0
+                    if (!questionResponses.get(k).getResponseText().equals(question.getCorrectAnswer()))
+                        score = 0;
+                    }
+                }
         }
         return score;
-}
-
-    public void addNewResponse(String newResponse){
-        allResponseTexts.add(newResponse);
     }
 
-    public int allResponseTextSize(){
-        return allResponseTexts.size();
+    /**
+     * Creates a list of QuestionResponses that have the same timestamps
+     * @param allResponses list of all the responses recorded
+     * @return list of QuestionResponses within less than a 30 seconds time window
+     */
+    public static List<QuestionResponse> answersWithSameTimeStamp(List<QuestionResponse> allResponses){
+        List<QuestionResponse> questionResponses=new ArrayList<>();
+        questionResponses.add(allResponses.get(allResponses.size()-1));
+        for(int k=allResponses.size()-2;k>-1;k--){//k=allResponses.size()-2 to get all the index before the last element in the list
+            if(!checkTimeStampDifference(allResponses.get(allResponses.size()-1).getMillSeconds(),allResponses.get(k).getMillSeconds())){
+                questionResponses.add(allResponses.get(k));
+            }
+        }
+        return questionResponses;
+}
+
+    /**
+     * Calculates the seconds difference between two timestamps
+     * @param firstTimeStamp newest timestamp
+     * @param secondTimeStamp timestamp before last
+     * @return true if the timestamps are 30 or more seconds apart/false if less than 30 seconds apart
+     */
+    public static boolean checkTimeStampDifference(long firstTimeStamp,long secondTimeStamp){
+        long secondsDifference =Math.abs(firstTimeStamp-secondTimeStamp)/1000;
+        if(secondsDifference>=SECONDS_BETWEEN) return true;
+        return false;
+    }
+
+
+    public void addNewResponse(String newResponse){
+        //creates a new timestamp for new response
+        QuestionResponse questionResponse=new QuestionResponse(newResponse);
+        this.allResponses.add(questionResponse);
+    }
+
+    public int allResponsesSize(){
+        return allResponses.size();
     }
 
     public void setQuestionId(String questionIdIn){this.questionId=questionIdIn;}
@@ -66,16 +119,15 @@ public class ResponsesPerQuestion {
         this.question = question;
     }
 
-    public List<String> getAllResponseTexts() {
-        return allResponseTexts;
+    public List<QuestionResponse> getAllResponses(){
+        return allResponses;
+    }
+    public void setAllResponses(List<QuestionResponse> allResponses) {
+        this.allResponses = allResponses;
     }
 
-    public void setAllResponseTexts(List<String> allResponseTexts) {
-        this.allResponseTexts = allResponseTexts;
-    }
-
-    public void setResponseText(String responseTextIn){this.responseText=responseTextIn;}
-    public String getResponseText(){return responseText;}
+    public void setFirstResponse(String responseTextIn){this.firstResponse=responseTextIn;}
+    public String getFirstResponse(){return firstResponse;}
 
     public String getQuestionType() {
         return questionType;
@@ -94,9 +146,9 @@ public class ResponsesPerQuestion {
         }
         ResponsesPerQuestion other = (ResponsesPerQuestion) otherObj;
         return this.getQuestionId().equals(other.getQuestionId())
-                && this.getResponseText().equals(other.getResponseText())
+                && this.getFirstResponse().equals(other.getFirstResponse())
                 && this.getUserId().equals(other.getUserId())
-                && this.getAllResponseTexts().equals(other.getAllResponseTexts())
+                && this.getAllResponses().equals(other.getAllResponses())
                 && this.getQuestion().equals(other.getQuestion());
 
     }
