@@ -85,9 +85,4 @@ describe("InputDatalistResponseBoxDisplay", function () {
         expect(testElement.disabled).toBe(false);
         expect(disableElement(testElement)).toBe(true);
     });
-    it("addFollowupQuestionsToPrereq", function () {
-        let questionObjects = readJson("../resources/author/DemoQuestionPoolFollowup.json");
-        let testResponse = new Response("test1");
-        expect(addFollowupQuestionsToPrereq(questionObjects[1], testResponse)).not.toBeUndefined();
-    })
 });
