@@ -106,7 +106,7 @@ public class QuestionPoolTest {
         QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool3.json"));
         //This qp has 5 of each question
 
-        assertFalse(qp.checkWindowSize(0));
+        assertTrue(qp.checkWindowSize(0));
         assertTrue(qp.checkWindowSize(1));
         assertTrue(qp.checkWindowSize(5));
         assertFalse(qp.checkWindowSize(6));
@@ -115,7 +115,7 @@ public class QuestionPoolTest {
         QuestionPool qp2 = new QuestionPool(new JsonDatastore("src/test/resources/author/DemoQuestionPool2.json"));
         //qp2 has 10 plane, 27 struct, and 10 zone
 
-        assertFalse(qp2.checkWindowSize(0));
+        assertTrue(qp2.checkWindowSize(0));
         assertTrue(qp2.checkWindowSize(5));
         assertFalse(qp2.checkWindowSize(10));//TODO:look over
         assertFalse(qp2.checkWindowSize(27));
