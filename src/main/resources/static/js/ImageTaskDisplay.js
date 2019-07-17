@@ -14,6 +14,7 @@ class ImageTaskDisplay{
 
         this.ableToResubmitAnswers = imageTaskSettings.ableToResubmitAnswers;
         this.mustSubmitAnswersToContinue = imageTaskSettings.mustSubmitAnswersToContinue;
+        this.haveSubmited=false;
         this.canGiveNoAnswer = imageTaskSettings.canGiveNoAnswer;
 
 
@@ -24,14 +25,39 @@ class ImageTaskDisplay{
     }
 
     submitAnswers(){
+        let canContinu= this.checkAnswers();
+
+        if(canContinu) {
+            if (this.willDisplayFeedback) {
+                this.giveFeedback(this.response.typesIncorrect);
+            }
+
+            this.submitResponse();
+
+            if (!this.ableToResubmitAnswers) {
+                disableElement("submitButton")
+            }
+            this.haveSubmited = true;
+        } else {
+            document.getElementById("helpfulFeedback").innerHTML= "<font color=red>No response was recorded because you did not answer all the questions</font>";
+        }
+    }
+
+    checkAnswers(){
+        let listOfCorrectAnswers= [];
         for(var i=0; i<this.questionAreaDisp.length; i++){
-            let current= this.questionAreaDisp[i].answerBox.checkCurrentResponse(this.response);
+            listOfCorrectAnswers.push(this.questionAreaDisp[i].answerBox.checkCurrentResponse(this.response, this.unsureShowsCorrectAnswer));
         }
-
-        if(this.willDisplayFeedback) {
-            this.giveFeedback(this.response.typesIncorrect);
+        if(!this.canGiveNoAnswer){
+            if(listOfCorrectAnswers.includes("blank")){
+                return false;
+            }
+        } else {
+            return true;
         }
+    }
 
+    submitResponse(){
         let newResponse = {
             userId: this.userId,
             taskQuestionIds: this.response.taskQuestionIds,
@@ -42,7 +68,16 @@ class ImageTaskDisplay{
     }
 
     nextQuestion(){
-        location.reload();
+        if(!this.mustSubmitAnswersToContinue){
+            location.reload();
+        } else {
+            if(this.haveSubmited){
+                location.reload();
+            } else {
+                document.getElementById("helpfulFeedback").innerHTML= "<font color=red>Must submit answers to continue</font>";
+            }
+        }
+
     }
 
     giveFeedback(typesSeenForFeedback){
