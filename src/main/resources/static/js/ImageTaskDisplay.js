@@ -29,11 +29,13 @@ class ImageTaskDisplay{
 
     submitAnswers(){
         let canContinu;
-        console.log(this.isAuthor);
         if(!this.isAuthor) {
             document.getElementById("errorFeedback").innerHTML = " ";
             canContinu = this.checkAnswers();
         } else {
+            for(var i=0; i<this.questionAreaDisp.length; i++){
+                this.questionAreaDisp[i].answerBox.recordCurrentResponse(this.response);
+            }
             canContinu=true;
         }
 

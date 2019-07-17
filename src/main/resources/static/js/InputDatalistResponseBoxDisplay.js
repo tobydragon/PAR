@@ -29,6 +29,10 @@ class InputDatalistResponseBoxDisplay {
         response.addToResponseTexts(this.inputTextbox.value);
         return checkAnyResponse(this.correctResponse, this.inputTextbox.value, this.type, response.typesIncorrect, this.textArea, unsureShowsCorrect);
     }
+
+    recordCurrentResponse(response) {
+        response.addToResponseTexts(this.inputTextbox.value);
+    }
 }
 
 function buildElement(id, possibleResponseDatalist, inputTextbox) {

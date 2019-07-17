@@ -10,10 +10,8 @@ class PageDisplay {
     }
 
     setIsAuthor(){
-        console.log(this.userId);
         if(this.userId==="author"){
             this.isAuthor=true;
-            console.log("I am author!")
         } else {
             this.isAuthor=false;
         }
