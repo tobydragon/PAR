@@ -6,6 +6,17 @@ class PageDisplay {
         //settings
         this.scoreType = pageSettings.scoreType;
         this.showScore = pageSettings.showScore;
+
+    }
+
+    setIsAuthor(){
+        console.log(this.userId);
+        if(this.userId==="author"){
+            this.isAuthor=true;
+            console.log("I am author!")
+        } else {
+            this.isAuthor=false;
+        }
     }
 
     displayUserId() {
@@ -21,13 +32,29 @@ class PageDisplay {
         document.getElementById("score").appendChild(given);
     }
 
+    nextAuthorImageTask(){
+        var settings;
+
+        //TODO: Needs a new URL
+        try {
+            settings = readJson("api/getImageTaskSettings?userId=" + this.userId);
+            var imageTaskJSON = readJson("api/nextImageTask?userId=" + this.userId);
+            this.imageTaskDisplay = new ImageTaskDisplay(imageTaskJSON, this.userId, settings, this.isAuthor);
+
+        } catch (Exception) {
+            window.onerror = function (msg) {
+                location.replace('/error?message=' + msg);
+            }
+        }
+    }
+
     nextImageTask() {
         var settings;
 
         try {
-            settings = readJson("api/getImageTaskSettings");
+            settings = readJson("api/getImageTaskSettings?userId=" + this.userId);
             var imageTaskJSON = readJson("api/nextImageTask?userId=" + this.userId);
-            this.imageTaskDisplay = new ImageTaskDisplay(imageTaskJSON, this.userId, settings);
+            this.imageTaskDisplay = new ImageTaskDisplay(imageTaskJSON, this.userId, settings, this.isAuthor);
 
         } catch (Exception) {
             window.onerror = function (msg) {
