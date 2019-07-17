@@ -1,5 +1,7 @@
 package edu.ithaca.dragon.par.studentModel;
 
+import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
+
 import java.util.*;
 
 public class UserResponseSet {
@@ -121,6 +123,10 @@ public class UserResponseSet {
             }
         }
         return responseByType;
+    }
+
+    public Map<EquineQuestionTypes, String> generateKnowledgeBaseMap(){
+        return null;
     }
 
     @Override

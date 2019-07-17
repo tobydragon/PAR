@@ -2,6 +2,7 @@ package edu.ithaca.dragon.par.studentModel;
 import edu.ithaca.dragon.par.domainModel.Question;
 
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
+import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
 import edu.ithaca.dragon.par.io.JsonDatastore;
 import edu.ithaca.dragon.util.DataUtil;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
@@ -112,6 +114,22 @@ public class UserResponseSetTest {
         responseSet.addResponse(response6);
         assertEquals(100, responseSet.knowledgeCalc(3), DataUtil.OK_DOUBLE_MARGIN);
 
+    }
+
+    @Test
+    public void generateKnowledgeBaseMapTest()throws IOException{
+        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
+        UserResponseSet userResponseSet = new UserResponseSet("TestUser1");
+        List<ImageTaskResponse> responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponse.class);
+
+        Map<EquineQuestionTypes, String> m1 = userResponseSet.generateKnowledgeBaseMap();
+        assertEquals("____", m1.get(EquineQuestionTypes.plane));
+        assertEquals("____", m1.get(EquineQuestionTypes.structure));
+        assertEquals("____", m1.get(EquineQuestionTypes.attachment));
+        assertEquals("____", m1.get(EquineQuestionTypes.zone));
+
+        ResponsesPerQuestion response = new ResponsesPerQuestion(responsesFromFile.get(0).getUserId(), questionsFromFile.get(0),responsesFromFile.get(0).getResponseTexts().get(0));
+        userResponseSet.addResponse(response);
     }
 
 }
