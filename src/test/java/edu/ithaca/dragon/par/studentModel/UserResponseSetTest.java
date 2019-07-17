@@ -118,9 +118,8 @@ public class UserResponseSetTest {
 
     @Test
     public void generateKnowledgeBaseMapTest()throws IOException{
-        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
+        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/DemoQuestionPoolFollowup.json", Question.class);
         UserResponseSet userResponseSet = new UserResponseSet("TestUser1");
-        List<ImageTaskResponse> responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponse.class);
 
         Map<EquineQuestionTypes, String> m1 = userResponseSet.generateKnowledgeBaseMap();
         assertEquals("____", m1.get(EquineQuestionTypes.plane));
@@ -128,8 +127,62 @@ public class UserResponseSetTest {
         assertEquals("____", m1.get(EquineQuestionTypes.attachment));
         assertEquals("____", m1.get(EquineQuestionTypes.zone));
 
-        ResponsesPerQuestion response = new ResponsesPerQuestion(responsesFromFile.get(0).getUserId(), questionsFromFile.get(0),responsesFromFile.get(0).getResponseTexts().get(0));
+        ResponsesPerQuestion response = new ResponsesPerQuestion("TestUser1", questionsFromFile.get(0),questionsFromFile.get(0).getCorrectAnswer());
         userResponseSet.addResponse(response);
+        m1 = userResponseSet.generateKnowledgeBaseMap();
+        assertEquals("___O", m1.get(EquineQuestionTypes.plane));
+        assertEquals("____", m1.get(EquineQuestionTypes.structure));
+        assertEquals("____", m1.get(EquineQuestionTypes.attachment));
+        assertEquals("____", m1.get(EquineQuestionTypes.zone));
+
+        response = new ResponsesPerQuestion("TestUser1",questionsFromFile.get(1),questionsFromFile.get(1).getCorrectAnswer());
+        userResponseSet.addResponse(response);
+        m1 = userResponseSet.generateKnowledgeBaseMap();
+        assertEquals("___O", m1.get(EquineQuestionTypes.plane));
+        assertEquals("___O", m1.get(EquineQuestionTypes.structure));
+        assertEquals("____", m1.get(EquineQuestionTypes.attachment));
+        assertEquals("____", m1.get(EquineQuestionTypes.zone));
+
+        response = new ResponsesPerQuestion("TestUser1", questionsFromFile.get(2),"wrong");
+        userResponseSet.addResponse(response);
+        m1 = userResponseSet.generateKnowledgeBaseMap();
+        assertEquals("___O", m1.get(EquineQuestionTypes.plane));
+        assertEquals("__OX", m1.get(EquineQuestionTypes.structure));
+        assertEquals("____", m1.get(EquineQuestionTypes.attachment));
+        assertEquals("____", m1.get(EquineQuestionTypes.zone));
+
+        response = new ResponsesPerQuestion("TestUser1", questionsFromFile.get(2).getFollowupQuestions().get(0),"wrong");
+        userResponseSet.addResponse(response);
+        m1 = userResponseSet.generateKnowledgeBaseMap();
+        assertEquals("___O", m1.get(EquineQuestionTypes.plane));
+        assertEquals("__OX", m1.get(EquineQuestionTypes.structure));
+        assertEquals("___X", m1.get(EquineQuestionTypes.attachment));
+        assertEquals("____", m1.get(EquineQuestionTypes.zone));
+
+        response = new ResponsesPerQuestion("TestUser1", questionsFromFile.get(2).getFollowupQuestions().get(1),questionsFromFile.get(2).getFollowupQuestions().get(1).getCorrectAnswer());
+        userResponseSet.addResponse(response);
+        m1 = userResponseSet.generateKnowledgeBaseMap();
+        assertEquals("___O", m1.get(EquineQuestionTypes.plane));
+        assertEquals("__OX", m1.get(EquineQuestionTypes.structure));
+        assertEquals("__XO", m1.get(EquineQuestionTypes.attachment));
+        assertEquals("____", m1.get(EquineQuestionTypes.zone));
+
+        response = new ResponsesPerQuestion("TestUser1", questionsFromFile.get(4),questionsFromFile.get(4).getCorrectAnswer());
+        userResponseSet.addResponse(response);
+        m1 = userResponseSet.generateKnowledgeBaseMap();
+        assertEquals("___O", m1.get(EquineQuestionTypes.plane));
+        assertEquals("__OX", m1.get(EquineQuestionTypes.structure));
+        assertEquals("__XO", m1.get(EquineQuestionTypes.attachment));
+        assertEquals("___O", m1.get(EquineQuestionTypes.zone));
+
+        response = new ResponsesPerQuestion("TestUser1", questionsFromFile.get(4),questionsFromFile.get(4).getCorrectAnswer());
+        userResponseSet.addResponse(response);
+        m1 = userResponseSet.generateKnowledgeBaseMap();
+        assertEquals("___O", m1.get(EquineQuestionTypes.plane));
+        assertEquals("__OX", m1.get(EquineQuestionTypes.structure));
+        assertEquals("__XO", m1.get(EquineQuestionTypes.attachment));
+        assertEquals("___O", m1.get(EquineQuestionTypes.zone));
+
     }
 
 }
