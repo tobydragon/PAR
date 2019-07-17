@@ -15,6 +15,8 @@ describe("ScoreDisplay", function () {
         expect(generateScoreElementByType(scoreJsonObj)).toHaveClass('yellow');
         expect(generateScoreElementByType(scoreJsonObj)).toHaveClass('fa-circle');
         expect(generateScoreElementByType(scoreJsonObj)).toHaveClass('fa-check-circle');
+        expect(generateScoreElementByType(scoreJsonObj)).toContain('fa-check-circle');
+
     });
     it("generateScoreByType", function () {
         var scoreJsonObj = {
