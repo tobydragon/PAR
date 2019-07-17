@@ -8,9 +8,8 @@ class ScoreDisplay {
     }
 }
 
-function setCurrentScore(scoreObject) {
+function setCurrentScore(scoreObject, scoreType) {
     let scoreString = "";
-    let scoreType = "ByType";
     if (scoreType === "ByType") {
         //scoreString=generateScoreByType(scoreObject);
         scoreString = generateScoreStringByType(scoreObject);

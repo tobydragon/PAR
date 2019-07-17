@@ -6,12 +6,16 @@ class ImageTaskDisplay{
         this.pageImage= new PageImage(imageTaskJson.imageUrl);
         this.questionAreaDisp= new buildQuestionAreas(imageTaskJson.taskQuestions, this.response);
 
+        //settings
         this.unsureShowsCorrectAnswer = imageTaskSettings.unsureShowsCorrectAnswer;
+
         this.feedbackByType = imageTaskSettings.feedbackByType;
+        this.willDisplayFeedback = imageTaskSettings.willDisplayFeedback;
+
         this.ableToResubmitAnswers = imageTaskSettings.ableToResubmitAnswers;
         this.mustSubmitAnswersToContinue = imageTaskSettings.mustSubmitAnswersToContinue;
         this.canGiveNoAnswer = imageTaskSettings.canGiveNoAnswer;
-        this.willDisplayFeedback = imageTaskSettings.willDisplayFeedback;
+
 
         for(var i=0; i<this.questionAreaDisp.length; i++) {
             this.questionAreaDisp[i].addFollowupQuestions();
@@ -24,7 +28,9 @@ class ImageTaskDisplay{
             let current= this.questionAreaDisp[i].answerBox.checkCurrentResponse(this.response);
         }
 
-        this.giveFeedback(this.response.typesIncorrect);
+        if(this.willDisplayFeedback) {
+            this.giveFeedback(this.response.typesIncorrect);
+        }
 
         let newResponse = {
             userId: this.userId,

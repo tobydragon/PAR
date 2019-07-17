@@ -43,11 +43,9 @@ function buildElement(id, possibleResponseDatalist, inputTextbox) {
 function checkAnyResponse(correctResponse, actualResponse, type, typesIncorrect, textArea){
     if (correctResponse.trim().toLowerCase() === actualResponse.trim().toLowerCase()){
         textArea.innerHTML = '<font color=\"green\">Your answer is: Correct</font>';
-        disableElement(document.getElementById("feedbackTextArea"));
         return ResponseResult.correct;
     } else if (ResponseResult.unsure.trim().toLowerCase() === actualResponse.trim().toLowerCase()) {
         textArea.innerHTML = "<font color=\"#663399\">The correct answer is " + correctResponse + '</font>';
-        disableElement(document.getElementById("feedbackTextArea"));
         return ResponseResult.unsure;
     } else if (ResponseResult.blank.trim().toLowerCase() === actualResponse.trim().toLowerCase()) {
         return ResponseResult.blank;
