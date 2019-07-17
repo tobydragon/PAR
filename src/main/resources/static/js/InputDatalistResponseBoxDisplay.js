@@ -21,12 +21,13 @@ class InputDatalistResponseBoxDisplay {
 
         let feedbackTextArea = document.createElement("div");
         feedbackTextArea.id = "feedbackTextArea";
+        this.textArea= feedbackTextArea;
         this.element.appendChild(feedbackTextArea);
     }
 
     checkCurrentResponse(response) {
         response.addToResponseTexts(this.inputTextbox.value);
-        return checkAnyResponse(this.correctResponse, this.inputTextbox.value, this.type, response.typesIncorrect, this.element);
+        return checkAnyResponse(this.correctResponse, this.inputTextbox.value, this.type, response.typesIncorrect, this.textArea);
     }
 }
 
@@ -39,19 +40,19 @@ function buildElement(id, possibleResponseDatalist, inputTextbox) {
     return element;
 }
 
-function checkAnyResponse(correctResponse, actualResponse, type, typesIncorrect, element){
+function checkAnyResponse(correctResponse, actualResponse, type, typesIncorrect, textArea){
     if (correctResponse.trim().toLowerCase() === actualResponse.trim().toLowerCase()){
-        element.getElementsByTagName("feedbackTextArea").innerHTML = '<font color=\"green\">Your answer is: Correct</font>';
+        textArea.innerHTML = '<font color=\"green\">Your answer is: Correct</font>';
         disableElement(document.getElementById("feedbackTextArea"));
         return ResponseResult.correct;
     } else if (ResponseResult.unsure.trim().toLowerCase() === actualResponse.trim().toLowerCase()) {
-        element.getElementsByTagName("feedbackTextArea").innerHTML = "<font color=\"#663399\">The correct answer is " + correctResponse + '</font>';
+        textArea.innerHTML = "<font color=\"#663399\">The correct answer is " + correctResponse + '</font>';
         disableElement(document.getElementById("feedbackTextArea"));
         return ResponseResult.unsure;
     } else if (ResponseResult.blank.trim().toLowerCase() === actualResponse.trim().toLowerCase()) {
         return ResponseResult.blank;
     } else {
-        element.getElementsByTagName("feedbackTextArea").innerHTML = '<font color=\"red\">Your answer is: Incorrect</font>';
+        textArea.innerHTML = '<font color=\"red\">Your answer is: Incorrect</font>';
         if(!typesIncorrect.includes(type)) {
             typesIncorrect.push(type);
         }

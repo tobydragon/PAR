@@ -22,7 +22,7 @@ class PageDisplay{
 
     nextImageTask(){
         var settings;
-        
+
         try {
             settings = readJson("api/getImageTaskSettings");
             var imageTaskJSON = readJson("api/nextImageTask?userId=" + this.userId);
