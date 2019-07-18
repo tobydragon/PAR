@@ -25,7 +25,7 @@ public class JsonDatastore implements Datastore{
 
     public JsonDatastore(String questionFilePath, String studentModelFilePath) throws IOException {
         this.questionFilePath = questionFilePath;
-        this.questionPool = new QuestionPool(this);
+        this.questionPool = new QuestionPool(this.loadQuestions());
         this.studentModelFilePath = studentModelFilePath;
     }
 

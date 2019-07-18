@@ -22,7 +22,7 @@ public class AuthorModelTest {
     @BeforeEach
     public void setUp() throws IOException {
         //TODO: the questionPool should load in questionTemplates
-        questionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json"));
+        questionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").loadQuestions());
         authorModel = new AuthorModel("TestAuthor1", QuestionCount.questionToQuestionCount(questionPool.getAllQuestions()));
     }
 

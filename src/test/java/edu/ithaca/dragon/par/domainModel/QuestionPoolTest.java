@@ -18,7 +18,7 @@ public class QuestionPoolTest {
     @Test
     public void createQuestionPoolTest() throws IOException{
         //create QuestionPool with JsonDatastore
-        QuestionPool myQP = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));
+        QuestionPool myQP = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json").loadQuestions());
         //get all questions and check them
         List<Question> myQPList = myQP.getAllQuestions();
         Assert.assertTrue(myQPList.size() == 15);
@@ -26,7 +26,7 @@ public class QuestionPoolTest {
 
     @Test
     public void getQuestionsFromUrlTest() throws IOException {
-        QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));
+        QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json").loadQuestions());
         List<Question> questionsFromUrl = qp.getQuestionsFromUrl("./images/demoEquine04.jpg");
         assertTrue(questionsFromUrl.size() == 3);
 
@@ -39,7 +39,7 @@ public class QuestionPoolTest {
 
     @Test
     public void getQuestionFromId() throws IOException {
-        QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));
+        QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json").loadQuestions());
         Question questionFromId = qp.getQuestionFromId("PlaneQ3");
         assertTrue(questionFromId.getQuestionText().equals("On which plane is the ultrasound taken?"));
         assertTrue(questionFromId.getCorrectAnswer().equals("Lateral"));
@@ -58,7 +58,7 @@ public class QuestionPoolTest {
         }
 
         //Test for follow up Questions
-        QuestionPool qp2 = new QuestionPool(new JsonDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json"));
+        QuestionPool qp2 = new QuestionPool(new JsonDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").loadQuestions());
         Question followupQuestionFromId = qp2.getQuestionFromId("AttachQ1");
         assertEquals("attachment", followupQuestionFromId.getType());
     }
@@ -67,7 +67,7 @@ public class QuestionPoolTest {
     public void getQuestionsFromIdsTest() throws IOException {
 
         //all question ids are good
-        QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));
+        QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json").loadQuestions());
         List<String> questionIds1 = Arrays.asList("StructureQ3","StructureQ4","ZoneQ1");
         List<Question> questionList1 = qp.getQuestionsFromIds(questionIds1);
         assertEquals(questionList1.size(), 3);
@@ -75,7 +75,7 @@ public class QuestionPoolTest {
         //some question ids are invalid
         //TODO: is this try catch structure correct for this test?
         try{
-            QuestionPool qp2 = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));
+            QuestionPool qp2 = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json").loadQuestions());
             List<String> questionIds2 = Arrays.asList("StructureQ3","StructureQ4","NotAnId", "AlsoNotAnId");
             List<Question> questionList2 = qp2.getQuestionsFromIds(questionIds2);
             assertEquals(questionList2.size(), 2);
@@ -84,14 +84,14 @@ public class QuestionPoolTest {
         }
 
         //the order of ids does not match the order of the questions in the Json file
-        QuestionPool qp3 = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));
+        QuestionPool qp3 = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json").loadQuestions());
         List<String> questionIds3 = Arrays.asList("ZoneQ4","StructureQ4","ZoneQ1", "PlaneQ1");
         List<Question> questionList3 = qp3.getQuestionsFromIds(questionIds3);
         assertEquals(questionList3.size(), 4);
 
         //no Ids in list
         try{
-            QuestionPool qp4 = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionsEmpty.json"));
+            QuestionPool qp4 = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionsEmpty.json").loadQuestions());
             List<String> questionIds4 = Arrays.asList("IsThisAnId?");
             List<Question> questionList4 = qp4.getQuestionsFromIds(questionIds4);
             assertEquals(questionList4.size(), 0);
@@ -103,7 +103,7 @@ public class QuestionPoolTest {
 
     @Test
     public void checkWindowSizeTest() throws IOException{
-        QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool3.json"));
+        QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool3.json").loadQuestions());
         //This qp has 5 of each question
 
         assertTrue(qp.checkWindowSize(0));
@@ -112,7 +112,7 @@ public class QuestionPoolTest {
         assertFalse(qp.checkWindowSize(6));
         assertFalse(qp.checkWindowSize(10));
 
-        QuestionPool qp2 = new QuestionPool(new JsonDatastore("src/test/resources/author/DemoQuestionPool2.json"));
+        QuestionPool qp2 = new QuestionPool(new JsonDatastore("src/test/resources/author/DemoQuestionPool2.json").loadQuestions());
         //qp2 has 10 plane, 27 struct, and 10 zone
 
         assertTrue(qp2.checkWindowSize(0));
