@@ -1,19 +1,19 @@
 class PageDisplay {
 
-    constructor(pageSettings){
-        this.imageTaskDisplay= null;
-        this.userId= null;
+    constructor(pageSettings) {
+        this.imageTaskDisplay = null;
+        this.userId = null;
         //settings
         this.scoreType = pageSettings.scoreType;
         this.showScore = pageSettings.showScore;
 
     }
 
-    setIsAuthor(){
-        if(this.userId==="author"){
-            this.isAuthor=true;
+    setIsAuthor() {
+        if (this.userId === "author") {
+            this.isAuthor = true;
         } else {
-            this.isAuthor=false;
+            this.isAuthor = false;
         }
     }
 
@@ -22,7 +22,7 @@ class PageDisplay {
     }
 
     generateScore() {
-        let visJSON = readJson("api/getScoreStringByType?userId=" + this.userId);
+        let visJSON = readJson("api/knowledgeBase?userId=" + this.userId);
         return setCurrentScore(visJSON, this.scoreType);
     }
 
@@ -30,7 +30,7 @@ class PageDisplay {
         document.getElementById("score").appendChild(given);
     }
 
-    nextAuthorImageTask(){
+    nextAuthorImageTask() {
         var settings;
 
         //TODO: Needs a new URL
