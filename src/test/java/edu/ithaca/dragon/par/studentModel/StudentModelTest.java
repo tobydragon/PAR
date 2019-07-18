@@ -64,12 +64,12 @@ public class StudentModelTest {
     @Test
     public void knowledgeScoreByTypeTest(){
         Map<String,Double> resp=studentModel.knowledgeScoreByType();
-        assertEquals(0,resp.size());
+        assertEquals(4,resp.size());
 
         studentModel.imageTaskResponseSubmitted(responsesFromFile.get(1),questionPool);
 
         Map<String,Double> resp1=studentModel.knowledgeScoreByType();
-        assertEquals(3,resp1.size());
+        assertEquals(4,resp1.size());
 
         assertEquals(50.0,resp1.get(EquineQuestionTypes.plane.toString()),DataUtil.OK_DOUBLE_MARGIN);
         assertEquals(100.0,resp1.get(EquineQuestionTypes.structure.toString()),DataUtil.OK_DOUBLE_MARGIN);
