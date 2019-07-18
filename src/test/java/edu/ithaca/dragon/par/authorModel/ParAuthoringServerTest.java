@@ -1,5 +1,6 @@
 package edu.ithaca.dragon.par.authorModel;
 
+import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.io.Datastore;
 import edu.ithaca.dragon.par.io.JsonDatastore;
 import org.junit.jupiter.api.BeforeEach;
@@ -7,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ParAuthoringServerTest {
 
@@ -25,6 +26,43 @@ public class ParAuthoringServerTest {
 
     @Test
     public void convertQuestionTemplateToQuestionTest(){
+        assertEquals(47, pas.getQuestionPoolTemplate().getAllQuestions().size());
+        assertEquals(0, pas.getQuestionPool().getAllQuestions().size());
+        pas.convertQuestionTemplateToQuestion("plane./images/demoEquine14.jpg", "longitudinal");
+        assertEquals(46, pas.getQuestionPoolTemplate().getAllQuestions().size());
+        assertEquals(1, pas.getQuestionPool().getAllQuestions().size());
+
+        pas.convertQuestionTemplateToQuestion("structure2./images/demoEquine14.jpg", "Superficial digital flexor tendon");
+        assertEquals(45, pas.getQuestionPoolTemplate().getAllQuestions().size());
+        assertEquals(2, pas.getQuestionPool().getAllQuestions().size());
+
+        pas.convertQuestionTemplateToQuestion("zone./images/demoEquine14.jpg", "2");
+        assertEquals(44, pas.getQuestionPoolTemplate().getAllQuestions().size());
+        assertEquals(3, pas.getQuestionPool().getAllQuestions().size());
+
+        pas.convertQuestionTemplateToQuestion("AttachQ1", "Type1");
+        assertEquals(43, pas.getQuestionPoolTemplate().getAllQuestions().size());
+        assertEquals(4, pas.getQuestionPool().getAllQuestions().size());
+
+        assertThrows(RuntimeException.class, ()->{pas.convertQuestionTemplateToQuestion("badId", "2");});
+        assertThrows(RuntimeException.class, ()->{pas.convertQuestionTemplateToQuestion("zone./images/demoEquine14.jpg", "2");});
+        assertThrows(RuntimeException.class, ()-> {pas.convertQuestionTemplateToQuestion("zone./images/demoEquine14.jpg", "BadAnswer");});
+
+    }
+
+    @Test
+    public void checkIfAnswerIsValidTest(){
+        Question question = pas.getQuestionPoolTemplate().getAllQuestions().get(0);
+        boolean answerValid = ParAuthoringServer.checkIfAnswerIsValid(question, "longitudinal");
+        assertTrue(answerValid);
+
+
+        answerValid = ParAuthoringServer.checkIfAnswerIsValid(question, "transverse");
+        assertTrue(answerValid);
+
+        answerValid = ParAuthoringServer.checkIfAnswerIsValid(question, "badAnswer");
+        assertFalse(answerValid);
+
 
     }
 

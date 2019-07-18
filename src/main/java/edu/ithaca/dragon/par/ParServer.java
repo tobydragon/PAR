@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class ParServer {
 
-    private QuestionPool questionPool;
+    protected QuestionPool questionPool;
     private Map<String, StudentModel> studentModelMap;
     private Datastore datastore;
     private Integer windowSizeOverride;
@@ -74,6 +74,10 @@ public class ParServer {
     }
 
     //Side effect: if a new model is created, it is added to the given studentModelMap
+
+    public QuestionPool getQuestionPool() {
+        return questionPool;
+    }
 
     /**
      *
