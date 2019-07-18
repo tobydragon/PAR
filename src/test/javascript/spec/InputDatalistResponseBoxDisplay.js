@@ -115,7 +115,7 @@ describe("InputDatalistResponseBoxDisplay", function () {
         document.getElementById("testArea").style.display = "none";
         textEntryResponseBox.inputTextbox.value = "low";
         let test = new Response("test1");
-        let unsureShowsCorrect= false;
+        let unsureShowsCorrect = false;
 
         expect(textEntryResponseBox.checkCurrentResponse(test)).toBe(ResponseResult.correct, unsureShowsCorrect);
         textEntryResponseBox.inputTextbox.value = "low ";
@@ -134,5 +134,5 @@ describe("InputDatalistResponseBoxDisplay", function () {
         testElement.textContent = "test button";
         expect(testElement.disabled).toBe(false);
         expect(disableElement(testElement)).toBe(true);
-    })
+    });
 });

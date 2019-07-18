@@ -31,6 +31,13 @@ class InputDatalistResponseBoxDisplay {
         addToTypesIncorrect(correctness, this.type, response.typesIncorrect);
         this.textArea.innerHTML = displayCheckedResponse(correctness, this.correctResponse, unsureShowsCorrect);
         return  correctness;
+        if (correctness === "correct") {
+            disableElement(this.element);
+            addFollowupQuestionToPrereq(this.id, this.inputTextbox.value);
+        } else if (correctness === "unsure") {
+            disableElement(this.element);
+        }
+        return correctness;
     }
 
     recordCurrentResponse(response) {
@@ -85,7 +92,7 @@ function checkAnyResponse(correctResponse, actualResponse) {
         return ResponseResult.incorrect;
     }
 }
-/** might be used, as element based
+
 function checkAnyResponseRewritten(correctResponse, actualResponse, element) {
     if (correctResponse.trim().toLowerCase() === actualResponse.trim().toLowerCase()) {
         element.classList.add("correct");
@@ -105,7 +112,7 @@ function checkAnyResponseRewritten(correctResponse, actualResponse, element) {
         return ResponseResult.incorrect;
     }
 }
-**/
+
 function buildDatalistElement(questionId, possibleResponses) {
     let datalist = document.createElement("datalist");
     datalist.setAttribute("id", questionId + "Datalist");
@@ -136,4 +143,11 @@ function buildInputTextbox(id, datalistId) {
 
 function disableElement(elementToDisable) {
     return elementToDisable.disabled = true;
+}
+
+function addFollowupQuestionToPrereq(questionId, userResponse) {
+    let outerNodeBuilder = document.createElement('div');
+    let questionAreaObj = new QuestionAreaDisplay(questionId, userResponse);
+    outerNodeBuilder.innerHTML = questionAreaObj.addFollowupQuestions();
+    return outerNodeBuilder;
 }

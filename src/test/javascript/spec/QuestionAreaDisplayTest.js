@@ -45,4 +45,8 @@ describe("QuestionAreaDisplay", function () {
         questionNoFollowup.addFollowupQuestions();
         expect(questionNoFollowup.element.childNodes.length).toBe(2);
     });
+    it("addFollowupQuestionsToPrereq", function () {
+        let questionObjects = readJson("../resources/author/DemoQuestionPoolFollowup.json");
+        expect(addFollowupQuestionToPrereq(questionObjects[1])).not.toBeUndefined();
+    });
 });

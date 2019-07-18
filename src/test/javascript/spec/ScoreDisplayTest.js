@@ -6,7 +6,6 @@ describe("ScoreDisplay", function () {
             "zone": "_X__"
         };
         expect(generateScoreElementByType(scoreJsonObj)).toEqual('<div><div class="black">plane: <div class="fas fa-times-circle red" aria-hidden="true"></div><div class="fas fa-check-circle green" aria-hidden="true"></div><div class="fas fa-check-circle green" aria-hidden="true"></div><div class="fas fa-times-circle red" aria-hidden="true"></div></div><div class="black">struct: <div class="fas fa-check-circle green" aria-hidden="true"></div><div class="fas fa-minus-circle yellow" aria-hidden="true"></div><div class="fas fa-minus-circle yellow" aria-hidden="true"></div><div class="fas fa-circle" aria-hidden="true"></div></div><div class="black">zone: <div class="fas fa-circle" aria-hidden="true"></div><div class="fas fa-times-circle red" aria-hidden="true"></div><div class="fas fa-circle" aria-hidden="true"></div><div class="fas fa-circle" aria-hidden="true"></div></div></div>');
-        console.log(scoreJsonObj);
         expect(generateScoreElementByType(scoreJsonObj)).toHaveClass('black');
         expect(generateScoreElementByType(scoreJsonObj)).toHaveClass('fas');
         expect(generateScoreElementByType(scoreJsonObj)).toHaveClass('fa-times-circle');
