@@ -34,12 +34,7 @@ class ImageTaskDisplay{
             canContinu = this.checkAnswers();
         } else {
             for(var i=0; i<this.questionAreaDisp.length; i++){
-                let correctness=this.questionAreaDisp[i].answerBox.recordCurrentResponse(this.response);
-                if(correctness==="correct"){
-                    for(var i=0; i<this.questionAreaDisp[i].followUpAreas.length; i++){
-                        this.questionAreaDisp[i].followup.classList.remove("hide");
-                    }
-                }
+               this.questionAreaDisp[i].answerBox.recordCurrentResponse(this.response);
             }
             canContinu=true;
         }
@@ -67,7 +62,13 @@ class ImageTaskDisplay{
             if(!(this.response.taskQuestionIds.includes(this.questionAreaDisp[i].element.id))) {
                 this.response.addToQuestionIds(this.questionAreaDisp[i].element.id);
             }
+
             this.listOfCorrectAnswers.push(this.questionAreaDisp[i].answerBox.checkCurrentResponse(this.response, this.unsureShowsCorrectAnswer, this.questionAreaDisp[i].element.id));
+
+            let correctness=this.listOfCorrectAnswers[this.listOfCorrectAnswers.length-1];
+            if(correctness==="correct"){
+                this.questionAreaDisp[i].followup.classList.remove("hide");
+            }
         }
         if(!this.canGiveNoAnswer){
             if(this.listOfCorrectAnswers.includes("")){
