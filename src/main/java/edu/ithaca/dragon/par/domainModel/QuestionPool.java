@@ -5,6 +5,7 @@ import edu.ithaca.dragon.par.io.Datastore;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -43,6 +44,20 @@ public class QuestionPool {
             }
         }
         return null;
+    }
+
+    public static void removeQuestionFromId(String id, List<Question> questionList){
+        Iterator<Question> itr = questionList.listIterator();
+        while(itr.hasNext()){
+            Question currQuestion = itr.next();
+            if(currQuestion.getId().equals(id)){
+                itr.remove();
+            }
+            else{
+                //call getQuestionFromId on the followup questions
+                removeQuestionFromId(id, currQuestion.getFollowupQuestions());
+            }
+        }
     }
 
     public static List<Question> getTopLevelQuestionsFromUrl(List<Question> questions, String imageUrlIn){

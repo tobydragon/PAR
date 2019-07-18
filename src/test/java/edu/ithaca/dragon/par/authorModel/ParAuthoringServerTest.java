@@ -31,6 +31,7 @@ public class ParAuthoringServerTest {
     @Test
     public void convertQuestionTemplateToQuestionTest(){
         assertEquals(0, pas.getQuestionPool().getAllQuestions().size());
+        assertEquals(47, pas.getQuestionPoolTemplate().getAllQuestions().size());
         pas.convertQuestionTemplateToQuestion("plane./images/demoEquine14.jpg", "longitudinal");
         assertEquals(46, pas.getQuestionPoolTemplate().getAllQuestions().size());
         assertEquals(1, pas.getQuestionPool().getAllQuestions().size());
