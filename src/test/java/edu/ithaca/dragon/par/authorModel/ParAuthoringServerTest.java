@@ -1,5 +1,6 @@
 package edu.ithaca.dragon.par.authorModel;
 
+import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.io.Datastore;
 import edu.ithaca.dragon.par.io.JsonDatastore;
 import org.junit.jupiter.api.BeforeEach;
@@ -51,6 +52,17 @@ public class ParAuthoringServerTest {
 
     @Test
     public void checkIfAnswerIsValidTest(){
+        Question question = pas.getQuestionPoolTemplate().getAllQuestions().get(0);
+        boolean answerValid = ParAuthoringServer.checkIfAnswerIsValid(question, "longitudinal");
+        assertTrue(answerValid);
+
+
+        answerValid = ParAuthoringServer.checkIfAnswerIsValid(question, "transverse");
+        assertTrue(answerValid);
+
+        answerValid = ParAuthoringServer.checkIfAnswerIsValid(question, "badAnswer");
+        assertFalse(answerValid);
+
 
     }
 

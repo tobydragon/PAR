@@ -55,7 +55,8 @@ public class ParAuthoringServer extends ParServer {
 
     }
 
-    public boolean checkIfAnswerIsValid(Question questionTemplate, String answer) {
+    //TODO: Deal with case
+    public static boolean checkIfAnswerIsValid(Question questionTemplate, String answer) {
         boolean answerFound = false;
         for (int i = 0; i < questionTemplate.getPossibleAnswers().size(); i++) {
             if (questionTemplate.getPossibleAnswers().get(i).equals(answer)) {
