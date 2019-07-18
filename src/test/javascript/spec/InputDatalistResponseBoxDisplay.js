@@ -17,7 +17,7 @@ describe("InputDatalistResponseBoxDisplay", function () {
     });
 
     it("addToTypesIncorrect", function () {
-        let testList= [];
+        let testList = [];
         addToTypesIncorrect("correct", "plane", testList);
         expect(testList.length).toBe(0);
         addToTypesIncorrect("correct", "ZONE", testList);
@@ -59,17 +59,17 @@ describe("InputDatalistResponseBoxDisplay", function () {
         document.getElementById("testArea").appendChild(textEntryResponseBox.element);
         document.getElementById("testArea").style.display = "none";
 
-        expect(displayCheckedResponse("correct", "Long",  true)).toBe('<font color=\"green\">Your answer is: Correct</font>');
-        expect(displayCheckedResponse("correct", "Long",  false)).toBe('<font color=\"green\">Your answer is: Correct</font>');
+        expect(displayCheckedResponse("correct", "Long", true)).toBe('<font color=\"green\">Your answer is: Correct</font>');
+        expect(displayCheckedResponse("correct", "Long", false)).toBe('<font color=\"green\">Your answer is: Correct</font>');
 
-        expect(displayCheckedResponse("unsure", "Long",  true)).toBe("<font color=\"#663399\">The correct answer is Long</font>");
-        expect(displayCheckedResponse("unsure", "Long",  false)).toBe("");
+        expect(displayCheckedResponse("unsure", "Long", true)).toBe("<font color=\"#663399\">The correct answer is Long</font>");
+        expect(displayCheckedResponse("unsure", "Long", false)).toBe("");
 
-        expect(displayCheckedResponse("", "Long",  true)).toBe("");
-        expect(displayCheckedResponse("", "Long",  false)).toBe("");
+        expect(displayCheckedResponse("", "Long", true)).toBe("");
+        expect(displayCheckedResponse("", "Long", false)).toBe("");
 
-        expect(displayCheckedResponse("incorrect", "Long",  true)).toBe('<font color=\"red\">Your answer is: Incorrect</font>');
-        expect(displayCheckedResponse("incorrect", "Long",  false)).toBe('<font color=\"red\">Your answer is: Incorrect</font>');
+        expect(displayCheckedResponse("incorrect", "Long", true)).toBe('<font color=\"red\">Your answer is: Incorrect</font>');
+        expect(displayCheckedResponse("incorrect", "Long", false)).toBe('<font color=\"red\">Your answer is: Incorrect</font>');
     });
 
     it("checkAnyResponse", function () {
@@ -110,24 +110,25 @@ describe("InputDatalistResponseBoxDisplay", function () {
     });
 
     it("checkThisResponse", function () {
-        let textEntryResponseBox = new InputDatalistResponseBoxDisplay("test1", ["high", "middle", "low"], "low");
+        let questionObjects = readJson("../resources/author/DemoQuestionPoolFollowup.json");
+        let textEntryResponseBox = new InputDatalistResponseBoxDisplay(questionObjects[1], "test1", ["high", "middle", "low"], "low");
         document.getElementById("testArea").appendChild(textEntryResponseBox.element);
         document.getElementById("testArea").style.display = "none";
         textEntryResponseBox.inputTextbox.value = "low";
         let test = new Response("test1");
         let unsureShowsCorrect = false;
 
-        expect(textEntryResponseBox.checkCurrentResponse(test)).toBe(ResponseResult.correct, unsureShowsCorrect);
+        expect(textEntryResponseBox.checkCurrentResponse(test, unsureShowsCorrect)).toBe(ResponseResult.correct, unsureShowsCorrect);
         textEntryResponseBox.inputTextbox.value = "low ";
-        expect(textEntryResponseBox.checkCurrentResponse(test)).toBe(ResponseResult.correct, unsureShowsCorrect);
+        expect(textEntryResponseBox.checkCurrentResponse(test, unsureShowsCorrect)).toBe(ResponseResult.correct, unsureShowsCorrect);
         textEntryResponseBox.inputTextbox.value = "LOW";
-        expect(textEntryResponseBox.checkCurrentResponse(test)).toBe(ResponseResult.correct, unsureShowsCorrect);
+        expect(textEntryResponseBox.checkCurrentResponse(test, unsureShowsCorrect)).toBe(ResponseResult.correct, unsureShowsCorrect);
         textEntryResponseBox.inputTextbox.value = "HIGH";
-        expect(textEntryResponseBox.checkCurrentResponse(test)).toBe(ResponseResult.incorrect, unsureShowsCorrect);
+        expect(textEntryResponseBox.checkCurrentResponse(test, unsureShowsCorrect)).toBe(ResponseResult.incorrect, unsureShowsCorrect);
         textEntryResponseBox.inputTextbox.value = "high";
-        expect(textEntryResponseBox.checkCurrentResponse(test)).toBe(ResponseResult.incorrect, unsureShowsCorrect);
+        expect(textEntryResponseBox.checkCurrentResponse(test, unsureShowsCorrect)).toBe(ResponseResult.incorrect, unsureShowsCorrect);
         textEntryResponseBox.inputTextbox.value = "something";
-        expect(textEntryResponseBox.checkCurrentResponse(test)).toBe(ResponseResult.incorrect, unsureShowsCorrect);
+        expect(textEntryResponseBox.checkCurrentResponse(test, unsureShowsCorrect)).toBe(ResponseResult.incorrect, unsureShowsCorrect);
     });
     it("disableElement", function () {
         let testElement = document.createElement('button');
