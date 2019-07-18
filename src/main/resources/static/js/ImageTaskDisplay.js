@@ -34,7 +34,12 @@ class ImageTaskDisplay{
             canContinu = this.checkAnswers();
         } else {
             for(var i=0; i<this.questionAreaDisp.length; i++){
-                this.questionAreaDisp[i].answerBox.recordCurrentResponse(this.response);
+                let correctness=this.questionAreaDisp[i].answerBox.recordCurrentResponse(this.response);
+                if(correctness==="correct"){
+                    for(var i=0; i<this.questionAreaDisp[i].followUpAreas.length; i++){
+                        this.questionAreaDisp[i].followup.classList.remove("hide");
+                    }
+                }
             }
             canContinu=true;
         }
@@ -59,7 +64,10 @@ class ImageTaskDisplay{
     checkAnswers(){
         this.listOfCorrectAnswers= [];
         for(var i=0; i<this.questionAreaDisp.length; i++){
-            this.listOfCorrectAnswers.push(this.questionAreaDisp[i].answerBox.checkCurrentResponse(this.response, this.unsureShowsCorrectAnswer));
+            if(!(this.response.taskQuestionIds.includes(this.questionAreaDisp[i].element.id))) {
+                this.response.addToQuestionIds(this.questionAreaDisp[i].element.id);
+            }
+            this.listOfCorrectAnswers.push(this.questionAreaDisp[i].answerBox.checkCurrentResponse(this.response, this.unsureShowsCorrectAnswer, this.questionAreaDisp[i].element.id));
         }
         if(!this.canGiveNoAnswer){
             if(this.listOfCorrectAnswers.includes("")){
@@ -78,6 +86,10 @@ class ImageTaskDisplay{
             taskQuestionIds: this.response.taskQuestionIds,
             responseTexts: this.response.responseTexts
         };
+
+        console.log(this.userId);
+        console.log(this.response.taskQuestionIds);
+        console.log(this.response.responseTexts);
 
         if(this.isAuthor){
             //TODO: Needs a new URL

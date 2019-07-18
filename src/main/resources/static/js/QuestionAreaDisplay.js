@@ -18,6 +18,8 @@ class QuestionAreaDisplay {
         if (followupElement.childNodes.length > 0) {
             this.element.appendChild(followupElement);
         }
+        followupElement.classList.add("hide");
+        this.followup=followupElement;
     }
 }
 
@@ -38,7 +40,6 @@ function buildQuestionAreas(questionObjectList, response) {
     let questionAreaList = [];
     for (let questionObject of questionObjectList) {
         questionAreaList.push(new QuestionAreaDisplay(questionObject, response));
-        response.addToQuestionIds(questionObject.id);
     }
     return questionAreaList;
 }
