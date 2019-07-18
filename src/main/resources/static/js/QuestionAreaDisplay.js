@@ -41,9 +41,3 @@ function buildQuestionAreas(questionObjectList, response) {
     }
     return questionAreaList;
 }
-
-function addFollowupQuestionToPrereq(question) {
-    let outerNodeBuilder = document.createElement('div');
-    outerNodeBuilder.innerHTML = question.addFollowupQuestions();
-    return outerNodeBuilder;
-}

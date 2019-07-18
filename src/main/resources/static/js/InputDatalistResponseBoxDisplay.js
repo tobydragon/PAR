@@ -27,7 +27,14 @@ class InputDatalistResponseBoxDisplay {
 
     checkCurrentResponse(response, unsureShowsCorrect) {
         response.addToResponseTexts(this.inputTextbox.value);
-        return checkAnyResponse(this.correctResponse, this.inputTextbox.value, this.type, response.typesIncorrect, this.textArea, unsureShowsCorrect);
+        let returnResponse = checkAnyResponse(this.correctResponse, this.inputTextbox.value, this.type, response.typesIncorrect, this.textArea, unsureShowsCorrect);
+        if (returnResponse === "correct") {
+            disableElement(this.element);
+            addFollowupQuestionToPrereq(this.id, this.inputTextbox.value);
+        } else if (returnResponse === "unsure") {
+            disableElement(this.element);
+        }
+        return returnResponse;
     }
 
     recordCurrentResponse(response) {
@@ -121,4 +128,11 @@ function buildInputTextbox(id, datalistId) {
 
 function disableElement(elementToDisable) {
     return elementToDisable.disabled = true;
+}
+
+function addFollowupQuestionToPrereq(questionId, userResponse) {
+    let outerNodeBuilder = document.createElement('div');
+    let questionAreaObj = new QuestionAreaDisplay(questionId, userResponse);
+    outerNodeBuilder.innerHTML = questionAreaObj.addFollowupQuestions();
+    return outerNodeBuilder;
 }
