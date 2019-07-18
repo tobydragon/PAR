@@ -129,6 +129,9 @@ public class StudentModel {
         }
     }
 
+    public Map<EquineQuestionTypes, String> generateKnowledgeBaseMap(){
+        return userResponseSet.generateKnowledgeBaseMap();
+    }
 
     @Override
     public boolean equals(Object otherObj){
