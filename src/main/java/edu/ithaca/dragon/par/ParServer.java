@@ -19,11 +19,22 @@ public class ParServer {
     private QuestionPool questionPool;
     private Map<String, StudentModel> studentModelMap;
     private Datastore datastore;
+    private Integer windowSizeOverride;
 
     public ParServer(Datastore datastore) throws IOException{
         this.questionPool = new QuestionPool(datastore);
         this.datastore = datastore;
         studentModelMap = new HashMap<>();
+        this.windowSizeOverride = null;
+
+        checkIfWindowSizeIsValid(questionPool);
+    }
+
+    public ParServer(Datastore datastore, int windowSizeOverride) throws IOException{
+        this.questionPool = new QuestionPool(datastore);
+        this.datastore = datastore;
+        studentModelMap = new HashMap<>();
+        this.windowSizeOverride = windowSizeOverride;
 
         checkIfWindowSizeIsValid(questionPool);
     }
@@ -101,8 +112,15 @@ public class ParServer {
     }
 
     public void checkIfWindowSizeIsValid(QuestionPool questionPool){
-        if(!questionPool.checkWindowSize(UserResponseSet.windowSize)){
-            throw new RuntimeException("The windownSize is too small for the given questionPool");
+        if(windowSizeOverride == null){
+            if(!questionPool.checkWindowSize(UserResponseSet.windowSize)){
+                throw new RuntimeException("The windownSize is too small for the given questionPool");
+            }
+        }
+        else{
+            if(!questionPool.checkWindowSize(windowSizeOverride)){
+                throw new RuntimeException("The windownSize (Overriden) is too small for the given questionPool");
+            }
         }
     }
 }

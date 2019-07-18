@@ -146,5 +146,8 @@ public class ParServerTest {
         Datastore testDS = new JsonDatastore("src/test/resources/author/SampleQuestionsEmpty.json");
         assertThrows(RuntimeException.class, () -> {ParServer testServer = new ParServer(testDS);});
 
+        //windowSizeOverride Test
+        Datastore testDS2 = new JsonDatastore("src/test/resources/author/SampleQuestionsEmpty.json");
+        ParServer testServer = new ParServer(testDS, 0);
     }
 }
