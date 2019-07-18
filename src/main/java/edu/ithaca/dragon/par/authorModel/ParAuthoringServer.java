@@ -8,7 +8,9 @@ import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ParAuthoringServer extends ParServer {
@@ -41,10 +43,12 @@ public class ParAuthoringServer extends ParServer {
      */
     public void convertQuestionTemplateToQuestion(String questionId, String answer) {
         Question questionTemplate = questionPoolTemplate.getQuestionFromId(questionId);
+
         //question not found
         if (questionTemplate == null){
             throw new RuntimeException("A question with Id:" + questionId + " does not exist or has already been answered");
         }
+
         else{
             //checks if answer is in the possibleAnswers list
             boolean answerValid = checkIfAnswerIsValid(questionTemplate, answer);
@@ -52,7 +56,10 @@ public class ParAuthoringServer extends ParServer {
                 throw new RuntimeException();
             }
 
+            else{
+                List<Question> followup = getValidFollowUpQuestions(questionTemplate);
 
+            }
 
         }
 
@@ -61,6 +68,9 @@ public class ParAuthoringServer extends ParServer {
 
     //TODO: Deal with case
     public static boolean checkIfAnswerIsValid(Question questionTemplate, String answer) {
+        if (answer==null){
+            return false;
+        }
         boolean answerFound = false;
         for (int i = 0; i < questionTemplate.getPossibleAnswers().size(); i++) {
             if (questionTemplate.getPossibleAnswers().get(i).equals(answer)) {
@@ -71,6 +81,18 @@ public class ParAuthoringServer extends ParServer {
         //it was not found
         return false;
     }
+
+    public static List<Question>  getValidFollowUpQuestions(Question questionTemplate){
+        List<Question> validFollowUps = new ArrayList<>();
+        for (int i = 0; i <questionTemplate.getFollowupQuestions().size(); i++){
+            boolean answerValid = checkIfAnswerIsValid(questionTemplate.getFollowupQuestions().get(i), questionTemplate.getFollowupQuestions().get(i).getCorrectAnswer());
+            if (answerValid){
+                validFollowUps.add(questionTemplate.getFollowupQuestions().get(i));
+            }
+        }
+        return validFollowUps;
+    }
+
 
 
     public static AuthorModel getOrCreateAuthorModel() {

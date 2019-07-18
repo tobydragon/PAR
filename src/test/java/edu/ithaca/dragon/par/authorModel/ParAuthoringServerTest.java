@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -56,15 +57,34 @@ public class ParAuthoringServerTest {
         boolean answerValid = ParAuthoringServer.checkIfAnswerIsValid(question, "longitudinal");
         assertTrue(answerValid);
 
-
         answerValid = ParAuthoringServer.checkIfAnswerIsValid(question, "transverse");
         assertTrue(answerValid);
 
         answerValid = ParAuthoringServer.checkIfAnswerIsValid(question, "badAnswer");
         assertFalse(answerValid);
 
+    }
+
+    @Test
+    public void getValidFollowUpQuestionsTest(){
+        Question question = pas.getQuestionPoolTemplate().getAllQuestions().get(1);
+        List<Question> validFollowUps = ParAuthoringServer.getValidFollowUpQuestions(question);
+        assertNull(validFollowUps);
+        question.getFollowupQuestions().get(0).setCorrectAnswer("Type1");
+        validFollowUps = ParAuthoringServer.getValidFollowUpQuestions(question);
+        assertEquals(1, validFollowUps.size());
+
+        question.getFollowupQuestions().get(1).setCorrectAnswer("Type3");
+        validFollowUps = ParAuthoringServer.getValidFollowUpQuestions(question);
+        assertEquals(2, validFollowUps.size());
+
+        question.getFollowupQuestions().get(0).setCorrectAnswer("badAnswer");
+        validFollowUps = ParAuthoringServer.getValidFollowUpQuestions(question);
+        assertEquals(1, validFollowUps.size());
+
 
     }
+
 
     @Test
     public void getOrCreateAuthorModelTest() throws IOException{
