@@ -16,47 +16,97 @@ describe("InputDatalistResponseBoxDisplay", function () {
         expect(element.options.item(element.options.length - 1).value).toBe("unsure");
     });
 
-    it("checkAnyResponse", function () {
+    it("addToTypesIncorrect", function () {
+        let testList= [];
+        addToTypesIncorrect("correct", "plane", testList);
+        expect(testList.length).toBe(0);
+        addToTypesIncorrect("correct", "ZONE", testList);
+        expect(testList.length).toBe(0);
+        addToTypesIncorrect("correct", "", testList);
+        expect(testList.length).toBe(0);
+
+        addToTypesIncorrect("incorrect", "plane", testList);
+        expect(testList.length).toBe(1);
+        addToTypesIncorrect("incorrect", "ZONE", testList);
+        expect(testList.length).toBe(2);
+        addToTypesIncorrect("incorrect", "", testList);
+        expect(testList.length).toBe(3);
+
+        addToTypesIncorrect("incorrect", "plane", testList);
+        expect(testList.length).toBe(3);
+        addToTypesIncorrect("incorrect", "ZONE", testList);
+        expect(testList.length).toBe(3);
+        addToTypesIncorrect("incorrect", "", testList);
+        expect(testList.length).toBe(3);
+
+        addToTypesIncorrect("unsure", "plane1", testList);
+        expect(testList.length).toBe(4);
+        addToTypesIncorrect("unsure", "ZONE1", testList);
+        expect(testList.length).toBe(5);
+        addToTypesIncorrect("unsure", "1", testList);
+        expect(testList.length).toBe(6);
+
+        addToTypesIncorrect("", "plane2", testList);
+        expect(testList.length).toBe(7);
+        addToTypesIncorrect("", "ZONE2", testList);
+        expect(testList.length).toBe(8);
+        addToTypesIncorrect("", "2", testList);
+        expect(testList.length).toBe(9);
+    });
+
+    it("displayCheckedResponse", function () {
         let textEntryResponseBox = new InputDatalistResponseBoxDisplay("test1", ["high", "middle", "low"], "low");
         document.getElementById("testArea").appendChild(textEntryResponseBox.element);
         document.getElementById("testArea").style.display = "none";
-        let type= "long";
-        let typesIncorrect=[];
-        let textArea=document.getElementById("testArea");
-        let unsureShowsCorrect= false;
 
-        expect(checkAnyResponse("a", "a", type, typesIncorrect, textArea, unsureShowsCorrect)).toBe(ResponseResult.correct);
-        expect(checkAnyResponse(" a ", "a", type, typesIncorrect, textArea, unsureShowsCorrect)).toBe(ResponseResult.correct);
-        expect(checkAnyResponse(" A ", "a", type, typesIncorrect, textArea, unsureShowsCorrect)).toBe(ResponseResult.correct);
-        expect(checkAnyResponse("a", " a ", type, typesIncorrect, textArea, unsureShowsCorrect)).toBe(ResponseResult.correct);
-        expect(checkAnyResponse("a", " A ", type, typesIncorrect, textArea, unsureShowsCorrect)).toBe(ResponseResult.correct);
-        expect(checkAnyResponse("aA ", " Aa", type, typesIncorrect, textArea, unsureShowsCorrect)).toBe(ResponseResult.correct);
-        expect(checkAnyResponse("aB", " Ab ", type, typesIncorrect, textArea, unsureShowsCorrect)).toBe(ResponseResult.correct);
+        expect(displayCheckedResponse("correct", "Long",  true)).toBe('<font color=\"green\">Your answer is: Correct</font>');
+        expect(displayCheckedResponse("correct", "Long",  false)).toBe('<font color=\"green\">Your answer is: Correct</font>');
 
-        expect(checkAnyResponse("a", "b", type, typesIncorrect, textArea, unsureShowsCorrect)).toBe(ResponseResult.incorrect);
-        expect(checkAnyResponse("a", "ab", type, typesIncorrect, textArea, unsureShowsCorrect)).toBe(ResponseResult.incorrect);
-        expect(checkAnyResponse("ab", "ba", type, typesIncorrect, textArea, unsureShowsCorrect)).toBe(ResponseResult.incorrect);
-        expect(checkAnyResponse("ab", "a b", type, typesIncorrect, textArea, unsureShowsCorrect)).toBe(ResponseResult.incorrect);
-        expect(checkAnyResponse("aB", "Ba", type, typesIncorrect, textArea, unsureShowsCorrect)).toBe(ResponseResult.incorrect);
-        expect(checkAnyResponse("a", "b  ", type, typesIncorrect, textArea, unsureShowsCorrect)).toBe(ResponseResult.incorrect);
-        expect(checkAnyResponse("a", "ab  ", type, typesIncorrect, textArea, unsureShowsCorrect)).toBe(ResponseResult.incorrect);
-        expect(checkAnyResponse("ab", "ba", type, typesIncorrect, textArea, unsureShowsCorrect)).toBe(ResponseResult.incorrect);
-        expect(checkAnyResponse("aB", "Ba", type, typesIncorrect, textArea, unsureShowsCorrect)).toBe(ResponseResult.incorrect);
-        expect(checkAnyResponse("a", "b  ", type, typesIncorrect, textArea, unsureShowsCorrect)).toBe(ResponseResult.incorrect);
-        expect(checkAnyResponse("a", "ab  ", type, typesIncorrect, textArea, unsureShowsCorrect)).toBe(ResponseResult.incorrect);
+        expect(displayCheckedResponse("unsure", "Long",  true)).toBe("<font color=\"#663399\">The correct answer is Long</font>");
+        expect(displayCheckedResponse("unsure", "Long",  false)).toBe("");
 
-        expect(checkAnyResponse("anything", ResponseResult.unsure, type, typesIncorrect, textArea, unsureShowsCorrect)).toBe(ResponseResult.unsure);
-        expect(checkAnyResponse("anything", " " + ResponseResult.unsure.toUpperCase() + " ", type, typesIncorrect, textArea, unsureShowsCorrect)).toBe(ResponseResult.unsure);
+        expect(displayCheckedResponse("", "Long",  true)).toBe("");
+        expect(displayCheckedResponse("", "Long",  false)).toBe("");
+
+        expect(displayCheckedResponse("incorrect", "Long",  true)).toBe('<font color=\"red\">Your answer is: Incorrect</font>');
+        expect(displayCheckedResponse("incorrect", "Long",  false)).toBe('<font color=\"red\">Your answer is: Incorrect</font>');
+    });
+
+    it("checkAnyResponse", function () {
+        let textEntryResponseBox = new InputDatalistResponseBoxDisplay("test1", ["high", "middle", "low"], "low");
+
+        expect(checkAnyResponse("a", "a")).toBe(ResponseResult.correct);
+        expect(checkAnyResponse(" a ", "a")).toBe(ResponseResult.correct);
+        expect(checkAnyResponse(" A ", "a")).toBe(ResponseResult.correct);
+        expect(checkAnyResponse("a", " a ")).toBe(ResponseResult.correct);
+        expect(checkAnyResponse("a", " A ")).toBe(ResponseResult.correct);
+        expect(checkAnyResponse("aA ", " Aa")).toBe(ResponseResult.correct);
+        expect(checkAnyResponse("aB", " Ab ")).toBe(ResponseResult.correct);
+
+        expect(checkAnyResponse("a", "b")).toBe(ResponseResult.incorrect);
+        expect(checkAnyResponse("a", "ab")).toBe(ResponseResult.incorrect);
+        expect(checkAnyResponse("ab", "ba")).toBe(ResponseResult.incorrect);
+        expect(checkAnyResponse("ab", "a b")).toBe(ResponseResult.incorrect);
+        expect(checkAnyResponse("aB", "Ba")).toBe(ResponseResult.incorrect);
+        expect(checkAnyResponse("a", "b  ")).toBe(ResponseResult.incorrect);
+        expect(checkAnyResponse("a", "ab  ")).toBe(ResponseResult.incorrect);
+        expect(checkAnyResponse("ab", "ba")).toBe(ResponseResult.incorrect);
+        expect(checkAnyResponse("aB", "Ba")).toBe(ResponseResult.incorrect);
+        expect(checkAnyResponse("a", "b  ")).toBe(ResponseResult.incorrect);
+        expect(checkAnyResponse("a", "ab  ")).toBe(ResponseResult.incorrect);
+
+        expect(checkAnyResponse("anything", ResponseResult.unsure)).toBe(ResponseResult.unsure);
+        expect(checkAnyResponse("anything", " " + ResponseResult.unsure.toUpperCase() + " ")).toBe(ResponseResult.unsure);
         //unsure shouldn't be authored as the correct answer, but if it is, it should return correct when entered
-        expect(checkAnyResponse(ResponseResult.unsure, ResponseResult.unsure, type, typesIncorrect, textArea, unsureShowsCorrect)).toBe(ResponseResult.correct);
+        expect(checkAnyResponse(ResponseResult.unsure, ResponseResult.unsure)).toBe(ResponseResult.correct);
 
-        expect(checkAnyResponse("anything", ResponseResult.blank, type, typesIncorrect, textArea, unsureShowsCorrect)).toBe(ResponseResult.blank);
-        expect(checkAnyResponse("anything", " ", type, typesIncorrect, textArea, unsureShowsCorrect)).toBe(ResponseResult.blank);
-        expect(checkAnyResponse("anything", "  ", type, typesIncorrect, textArea, unsureShowsCorrect)).toBe(ResponseResult.blank);
-        expect(checkAnyResponse("anything", " \t", type, typesIncorrect, textArea, unsureShowsCorrect)).toBe(ResponseResult.blank);
-        expect(checkAnyResponse("anything", " \n", type, typesIncorrect, textArea, unsureShowsCorrect)).toBe(ResponseResult.blank);
+        expect(checkAnyResponse("anything", ResponseResult.blank)).toBe(ResponseResult.blank);
+        expect(checkAnyResponse("anything", " ")).toBe(ResponseResult.blank);
+        expect(checkAnyResponse("anything", "  ")).toBe(ResponseResult.blank);
+        expect(checkAnyResponse("anything", " \t")).toBe(ResponseResult.blank);
+        expect(checkAnyResponse("anything", " \n")).toBe(ResponseResult.blank);
         //blank shouldn't be authored as the correct answer, but if it is, it should return correct when entered
-        expect(checkAnyResponse(ResponseResult.blank, ResponseResult.blank, type, typesIncorrect, textArea, unsureShowsCorrect)).toBe(ResponseResult.correct);
+        expect(checkAnyResponse(ResponseResult.blank, ResponseResult.blank)).toBe(ResponseResult.correct);
     });
 
     it("checkThisResponse", function () {
