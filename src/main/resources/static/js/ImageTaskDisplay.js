@@ -59,14 +59,19 @@ class ImageTaskDisplay {
     checkAnswers() {
         this.listOfCorrectAnswers = [];
         for (var i = 0; i < this.questionAreaDisp.length; i++) {
-            if (!(this.response.taskQuestionIds.includes(this.questionAreaDisp[i].element.id))) {
-                this.response.addToQuestionIds(this.questionAreaDisp[i].element.id);
+            let current = this.questionAreaDisp[i];
+
+            if (!(this.response.taskQuestionIds.includes(current.element.id))) {
+                this.response.addToQuestionIds(current.element.id);
             }
 
-            this.listOfCorrectAnswers.push(this.questionAreaDisp[i].answerBox.checkCurrentResponse(this.response, this.unsureShowsCorrectAnswer, this.questionAreaDisp[i].element.id));
+            this.listOfCorrectAnswers.push(current.answerBox.checkCurrentResponse(this.response, this.unsureShowsCorrectAnswer, current.element.id));
 
             let correctness = this.listOfCorrectAnswers[this.listOfCorrectAnswers.length - 1];
             if (correctness === "correct") {
+                for (var x = 0; x < current.followUpAreas.length; x++) {
+                    this.listOfCorrectAnswers.push(current.followUpAreas[x].answerBox.checkCurrentResponse(this.response, this.unsureShowsCorrectAnswer, current.followUpAreas[x].id))
+                }
                 this.questionAreaDisp[i].followup.classList.remove("hide");
             }
         }
