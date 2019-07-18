@@ -32,7 +32,9 @@ class InputDatalistResponseBoxDisplay {
         let returnResponse = checkAnyResponse(this.correctResponse, this.inputTextbox.value);
         addToTypesIncorrect(returnResponse, this.type, response.typesIncorrect);
         let questionAreaObject = new QuestionAreaDisplay(this.questionObject, response);
+
         this.textArea.innerHTML = displayCheckedResponse(returnResponse, this.correctResponse, unsureShowsCorrect);
+
         if (returnResponse === "correct") {
             disableElement(this.inputTextbox);
             questionAreaObject.addFollowupQuestions();

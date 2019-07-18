@@ -28,6 +28,7 @@ class ImageTaskDisplay {
     }
 
     submitAnswers() {
+        this.response.responseTexts= [];
         let canContinu;
         if (!this.isAuthor) {
             document.getElementById("errorFeedback").innerHTML = " ";
@@ -56,6 +57,20 @@ class ImageTaskDisplay {
         }
     }
 
+    checkFollowUp(){
+        if (this.haveSubmited) {
+            for (var i = 0; i < this.questionAreaDisp.length; i++) {
+                let current = this.questionAreaDisp[i];
+                for (var x = 0; x < current.followUpAreas.length; x++) {
+                    this.listOfCorrectAnswers.push(current.followUpAreas[x].answerBox.checkCurrentResponse(this.response, this.unsureShowsCorrectAnswer));
+                    if (!(this.response.taskQuestionIds.includes(current.followUpAreas[x].element.id))) {
+                        this.response.addToQuestionIds(current.followUpAreas[x].element.id);
+                    }
+                }
+            }
+        }
+    }
+
     checkAnswers() {
         this.listOfCorrectAnswers = [];
         for (var i = 0; i < this.questionAreaDisp.length; i++) {
@@ -65,16 +80,16 @@ class ImageTaskDisplay {
                 this.response.addToQuestionIds(current.element.id);
             }
 
-            this.listOfCorrectAnswers.push(current.answerBox.checkCurrentResponse(this.response, this.unsureShowsCorrectAnswer, current.element.id));
+            this.listOfCorrectAnswers.push(current.answerBox.checkCurrentResponse(this.response, this.unsureShowsCorrectAnswer));
 
             let correctness = this.listOfCorrectAnswers[this.listOfCorrectAnswers.length - 1];
             if (correctness === "correct") {
-                for (var x = 0; x < current.followUpAreas.length; x++) {
-                    this.listOfCorrectAnswers.push(current.followUpAreas[x].answerBox.checkCurrentResponse(this.response, this.unsureShowsCorrectAnswer, current.followUpAreas[x].id))
-                }
                 this.questionAreaDisp[i].followup.classList.remove("hide");
             }
         }
+
+        this.checkFollowUp();
+
         if (!this.canGiveNoAnswer) {
             if (this.listOfCorrectAnswers.includes("")) {
                 return false;
@@ -92,6 +107,9 @@ class ImageTaskDisplay {
             taskQuestionIds: this.response.taskQuestionIds,
             responseTexts: this.response.responseTexts
         };
+
+        console.log(this.response.taskQuestionIds);
+        console.log(this.response.responseTexts);
 
 
         if (this.isAuthor) {
