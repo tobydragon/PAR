@@ -23,7 +23,7 @@ public class ParSpringApplicationTest {
 
 	@Autowired
 	private MockMvc mvc;
-
+//TODO:CREATE AN UPDATED currentQuestionPool.json WITH ATTACHMENT QUESTIONS
 	@Test
 	public void getDefaultApiResponseTest() throws Exception {
 		mvc.perform(MockMvcRequestBuilders.get("/api/").accept(MediaType.APPLICATION_JSON))
