@@ -2,6 +2,7 @@ package edu.ithaca.dragon.par;
 
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
+import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.Datastore;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
@@ -97,14 +98,11 @@ public class ParServer {
         StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, datastore);
         return currentStudent.knowledgeScoreByType();
     }
-
-    public Map<String, String> getScoreStringByType(String userId) throws IOException {
-        Map<String, String> testMap = new HashMap<>();
-        testMap.put("plane", "XOOX");
-        testMap.put("struct", "O~~_");
-        testMap.put("zone", "_X__");
-        return testMap;
+    public Map<EquineQuestionTypes,String> knowledgeBase(String userId)throws IOException{
+        StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, datastore);
+        return currentStudent.generateKnowledgeBaseMap();
     }
+
     public void checkIfWindowSizeIsValid(QuestionPool questionPool){
         if (!questionPool.checkWindowSize(UserResponseSet.windowSize)) {
             throw new RuntimeException("The windowSize is too small for the given questionPool");

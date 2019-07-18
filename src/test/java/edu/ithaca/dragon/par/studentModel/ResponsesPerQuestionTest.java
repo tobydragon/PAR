@@ -44,30 +44,6 @@ public class ResponsesPerQuestionTest {
         assertEquals(2, responsesPerQuestion.allResponsesSize());//timestamps should not affect adding of responses
         //timestamps are only taken into consideration when calculating the knowledge score
     }
-/*
-    @Test
-    public void knowledgeCalcTest2()throws IOException{
-
-        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
-        List<ImageTaskResponse> responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponse.class);
-
-        List<QuestionResponse> questionResponses=JsonUtil.listFromJsonFile("src/test/resources/author/SampleTimeStamp-Q1.json",QuestionResponse.class);
-        ResponsesPerQuestion responsesPerQuestion = new ResponsesPerQuestion(responsesFromFile.get(0).getUserId(), questionsFromFile.get(0), responsesFromFile.get(0).getResponseTexts().get(0));
-        responsesPerQuestion.setAllResponses(questionResponses);
-        assertEquals(0,responsesPerQuestion.knowledgeCalc(),DataUtil.OK_DOUBLE_MARGIN);
-
-
-        List<QuestionResponse> questionResponses2=JsonUtil.listFromJsonFile("src/test/resources/author/SampleTimeStamp2-Q1.json",QuestionResponse.class);
-        ResponsesPerQuestion responsesPerQuestion2 = new ResponsesPerQuestion(responsesFromFile.get(0).getUserId(), questionsFromFile.get(0), responsesFromFile.get(0).getResponseTexts().get(0));
-        responsesPerQuestion2.setAllResponses(questionResponses2);
-        assertEquals(100.0,responsesPerQuestion2.knowledgeCalc(),DataUtil.OK_DOUBLE_MARGIN);
-
-    }
-
-
- */
-
-
 
     /*
     @Test
