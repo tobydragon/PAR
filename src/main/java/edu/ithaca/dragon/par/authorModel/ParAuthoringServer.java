@@ -22,7 +22,11 @@ public class ParAuthoringServer extends ParServer {
     }
 
     public ParAuthoringServer(Datastore datastore, Datastore datastoreForTemplate) throws IOException {
-        super(datastore);
+        this(datastore, datastoreForTemplate, null);
+    }
+
+    public ParAuthoringServer(Datastore datastore, Datastore datastoreForTemplate, Integer windowSizeOverride) throws IOException {
+        super(datastore, windowSizeOverride);
         this.datastoreForTemplate = datastoreForTemplate;
         this.questionPoolTemplate = new QuestionPool(datastoreForTemplate);
         authorModelMap = new HashMap<>();
