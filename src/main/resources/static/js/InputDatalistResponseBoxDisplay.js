@@ -27,15 +27,17 @@ class InputDatalistResponseBoxDisplay {
 
     checkCurrentResponse(response, unsureShowsCorrect) {
         response.addToResponseTexts(this.inputTextbox.value);
-        let questionAreaObj = new QuestionAreaDisplay(this.id, this.inputTextbox.value);
-        let returnResponse = checkAnyResponse(this.correctResponse, this.inputTextbox.value, this.type, response.typesIncorrect, this.textArea, unsureShowsCorrect);
-        if (returnResponse === "correct") {
-            disableElement(this.inputTextbox);
-            questionAreaObj.addFollowupQuestions();
-        } else if (returnResponse === "unsure") {
-            disableElement(this.inputTextbox);
+        let correctness = checkAnyResponse(this.correctResponse, this.inputTextbox.value);
+        addToTypesIncorrect(correctness, this.type, response.typesIncorrect);
+        this.textArea.innerHTML = displayCheckedResponse(correctness, this.correctResponse, unsureShowsCorrect);
+        return correctness;
+        if (correctness === "correct") {
+            disableElement(this.element);
+            addFollowupQuestionToPrereq(this.id, this.inputTextbox.value);
+        } else if (correctness === "unsure") {
+            disableElement(this.element);
         }
-        return returnResponse;
+        return correctness;
     }
 
     recordCurrentResponse(response) {
@@ -52,31 +54,43 @@ function buildElement(id, possibleResponseDatalist, inputTextbox) {
     return element;
 }
 
-function checkAnyResponse(correctResponse, actualResponse, type, typesIncorrect, textArea, unsureShowsCorrect) {
-    if (correctResponse.trim().toLowerCase() === actualResponse.trim().toLowerCase()) {
-        textArea.innerHTML = '<font color=\"green\">Your answer is: Correct</font>';
-        return ResponseResult.correct;
-    } else if (ResponseResult.unsure.trim().toLowerCase() === actualResponse.trim().toLowerCase()) {
-        if (unsureShowsCorrect) {
-            textArea.innerHTML = "<font color=\"#663399\">The correct answer is " + correctResponse + '</font>';
-        }
-        if (!typesIncorrect.includes(type)) {
-            typesIncorrect.push(type);
-        }
-        return ResponseResult.unsure;
-    } else if (ResponseResult.blank.trim().toLowerCase() === actualResponse.trim().toLowerCase()) {
-        if (!typesIncorrect.includes(type)) {
-            typesIncorrect.push(type);
-        }
-        return ResponseResult.blank;
+function addToTypesIncorrect(correctness, type, typesIncorrect) {
+    if (correctness === ResponseResult.correct) {
+
     } else {
-        textArea.innerHTML = '<font color=\"red\">Your answer is: Incorrect</font>';
         if (!typesIncorrect.includes(type)) {
             typesIncorrect.push(type);
         }
-        return ResponseResult.incorrect;
     }
 
+}
+
+function displayCheckedResponse(correctness, correctResponse, unsureShowsCorrect) {
+    if (correctness === ResponseResult.correct) {
+        return '<font color=\"green\">Your answer is: Correct</font>';
+    } else if (correctness === ResponseResult.unsure) {
+        if (unsureShowsCorrect) {
+            return "<font color=\"#663399\">The correct answer is " + correctResponse + '</font>';
+        } else {
+            return "";
+        }
+    } else if (correctness === ResponseResult.blank) {
+        return "";
+    } else {
+        return '<font color=\"red\">Your answer is: Incorrect</font>';
+    }
+}
+
+function checkAnyResponse(correctResponse, actualResponse) {
+    if (correctResponse.trim().toLowerCase() === actualResponse.trim().toLowerCase()) {
+        return ResponseResult.correct;
+    } else if (ResponseResult.unsure.trim().toLowerCase() === actualResponse.trim().toLowerCase()) {
+        return ResponseResult.unsure;
+    } else if (ResponseResult.blank.trim().toLowerCase() === actualResponse.trim().toLowerCase()) {
+        return ResponseResult.blank;
+    } else {
+        return ResponseResult.incorrect;
+    }
 }
 
 function checkAnyResponseRewritten(correctResponse, actualResponse, element) {
