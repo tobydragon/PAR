@@ -29,16 +29,15 @@ class InputDatalistResponseBoxDisplay {
 
     checkCurrentResponse(response, unsureShowsCorrect) {
         response.addToResponseTexts(this.inputTextbox.value);
-        console.log(this.correctResponse);
         let returnResponse = checkAnyResponse(this.correctResponse, this.inputTextbox.value);
         addToTypesIncorrect(returnResponse, this.type, response.typesIncorrect);
         let questionAreaObject = new QuestionAreaDisplay(this.questionObject, response);
         this.textArea.innerHTML = displayCheckedResponse(returnResponse, this.correctResponse, unsureShowsCorrect);
         if (returnResponse === "correct") {
-            disableElement(this.element);
+            disableElement(this.inputTextbox);
             questionAreaObject.addFollowupQuestions();
         } else if (returnResponse === "unsure") {
-            disableElement(this.element);
+            disableElement(this.inputTextbox);
         }
         return returnResponse;
     }
