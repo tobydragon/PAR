@@ -9,10 +9,12 @@ const ResponseResult = {
 
 class InputDatalistResponseBoxDisplay {
 
-    constructor(id, defaultResponses, correctResponse, type) {
+    constructor(questionObject, id, defaultResponses, correctResponse, type) {
+        this.questionObject = questionObject;
         this.type = type;
         this.id = id;
         this.correctResponse = correctResponse;
+        console.log(this.correctResponse);
         //don't currently need a pointer to this datalist
         let possibleResponsesDatalist = buildDatalistElement(id, defaultResponses);
         //need a pointer to this textbox to check answers
@@ -27,17 +29,18 @@ class InputDatalistResponseBoxDisplay {
 
     checkCurrentResponse(response, unsureShowsCorrect) {
         response.addToResponseTexts(this.inputTextbox.value);
-        let correctness=checkAnyResponse(this.correctResponse, this.inputTextbox.value);
-        addToTypesIncorrect(correctness, this.type, response.typesIncorrect);
-        this.textArea.innerHTML = displayCheckedResponse(correctness, this.correctResponse, unsureShowsCorrect);
-        return  correctness;
-        if (correctness === "correct") {
+        console.log(this.correctResponse);
+        let returnResponse = checkAnyResponse(this.correctResponse, this.inputTextbox.value);
+        addToTypesIncorrect(returnResponse, this.type, response.typesIncorrect);
+        let questionAreaObject = new QuestionAreaDisplay(this.questionObject, response);
+        this.textArea.innerHTML = displayCheckedResponse(returnResponse, this.correctResponse, unsureShowsCorrect);
+        if (returnResponse === "correct") {
             disableElement(this.element);
-            addFollowupQuestionToPrereq(this.id, this.inputTextbox.value);
-        } else if (correctness === "unsure") {
+            questionAreaObject.addFollowupQuestions();
+        } else if (returnResponse === "unsure") {
             disableElement(this.element);
         }
-        return correctness;
+        return returnResponse;
     }
 
     recordCurrentResponse(response) {
@@ -54,8 +57,8 @@ function buildElement(id, possibleResponseDatalist, inputTextbox) {
     return element;
 }
 
-function addToTypesIncorrect(correctness, type, typesIncorrect){
-    if(correctness===ResponseResult.correct){
+function addToTypesIncorrect(correctness, type, typesIncorrect) {
+    if (correctness === ResponseResult.correct) {
 
     } else {
         if (!typesIncorrect.includes(type)) {
@@ -65,16 +68,16 @@ function addToTypesIncorrect(correctness, type, typesIncorrect){
 
 }
 
-function displayCheckedResponse(correctness, correctResponse,  unsureShowsCorrect){
-    if (correctness===ResponseResult.correct) {
-        return'<font color=\"green\">Your answer is: Correct</font>';
-    } else if (correctness===ResponseResult.unsure) {
-        if(unsureShowsCorrect) {
+function displayCheckedResponse(correctness, correctResponse, unsureShowsCorrect) {
+    if (correctness === ResponseResult.correct) {
+        return '<font color=\"green\">Your answer is: Correct</font>';
+    } else if (correctness === ResponseResult.unsure) {
+        if (unsureShowsCorrect) {
             return "<font color=\"#663399\">The correct answer is " + correctResponse + '</font>';
         } else {
             return "";
         }
-    } else if (correctness===ResponseResult.blank) {
+    } else if (correctness === ResponseResult.blank) {
         return "";
     } else {
         return '<font color=\"red\">Your answer is: Incorrect</font>';
@@ -143,11 +146,4 @@ function buildInputTextbox(id, datalistId) {
 
 function disableElement(elementToDisable) {
     return elementToDisable.disabled = true;
-}
-
-function addFollowupQuestionToPrereq(questionId, userResponse) {
-    let outerNodeBuilder = document.createElement('div');
-    let questionAreaObj = new QuestionAreaDisplay(questionId, userResponse);
-    outerNodeBuilder.innerHTML = questionAreaObj.addFollowupQuestions();
-    return outerNodeBuilder;
 }
