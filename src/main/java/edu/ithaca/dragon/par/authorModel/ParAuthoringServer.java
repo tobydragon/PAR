@@ -58,12 +58,13 @@ public class ParAuthoringServer extends ParServer {
 
             else{
                 List<Question> followup = getValidFollowUpQuestions(questionTemplate);
+                Question questionToAdd = new Question(questionTemplate.getId(), questionTemplate.getQuestionText(), questionTemplate.getType(), answer, questionTemplate.getPossibleAnswers(), questionTemplate.getImageUrl(), followup);
+                questionPool.getAllQuestions().add(questionToAdd);
+                questionPoolTemplate.getAllQuestions().remove(questionTemplate);
+
 
             }
-
         }
-
-
     }
 
     //TODO: Deal with case
@@ -71,7 +72,6 @@ public class ParAuthoringServer extends ParServer {
         if (answer==null){
             return false;
         }
-        boolean answerFound = false;
         for (int i = 0; i < questionTemplate.getPossibleAnswers().size(); i++) {
             if (questionTemplate.getPossibleAnswers().get(i).equals(answer)) {
                 //found

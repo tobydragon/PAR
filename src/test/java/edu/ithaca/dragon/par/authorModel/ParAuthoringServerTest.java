@@ -1,12 +1,14 @@
 package edu.ithaca.dragon.par.authorModel;
 
 import edu.ithaca.dragon.par.domainModel.Question;
+import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.io.Datastore;
 import edu.ithaca.dragon.par.io.JsonDatastore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,12 +24,11 @@ public class ParAuthoringServerTest {
     public void setUp() throws IOException {
         Datastore datastore = new JsonDatastore("src/test/resources/author/SampleQuestionsEmpty.json");
         Datastore templateDatastore = new JsonDatastore("src/test/resources/author/DemoQuestionPoolTemplate.json");
-        ParAuthoringServer pas = new ParAuthoringServer(datastore, templateDatastore);
+        pas = new ParAuthoringServer(datastore, templateDatastore, 0);
     }
 
     @Test
     public void convertQuestionTemplateToQuestionTest(){
-        assertEquals(47, pas.getQuestionPoolTemplate().getAllQuestions().size());
         assertEquals(0, pas.getQuestionPool().getAllQuestions().size());
         pas.convertQuestionTemplateToQuestion("plane./images/demoEquine14.jpg", "longitudinal");
         assertEquals(46, pas.getQuestionPoolTemplate().getAllQuestions().size());
@@ -69,7 +70,7 @@ public class ParAuthoringServerTest {
     public void getValidFollowUpQuestionsTest(){
         Question question = pas.getQuestionPoolTemplate().getAllQuestions().get(1);
         List<Question> validFollowUps = ParAuthoringServer.getValidFollowUpQuestions(question);
-        assertNull(validFollowUps);
+        assertEquals(new ArrayList<>(), validFollowUps);
         question.getFollowupQuestions().get(0).setCorrectAnswer("Type1");
         validFollowUps = ParAuthoringServer.getValidFollowUpQuestions(question);
         assertEquals(1, validFollowUps.size());
