@@ -1,6 +1,7 @@
 package edu.ithaca.dragon.par.spring;
 
 import edu.ithaca.dragon.par.ParServer;
+import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
 import edu.ithaca.dragon.par.io.JsonSpringDatastore;
@@ -71,5 +72,10 @@ public class ParRestController {
     @GetMapping("/calcScoreByType")
     public Map<String, Double> calcScoreByType(@RequestParam String userId) throws IOException{
         return parServer.calcScoreByType(userId);
+    }
+
+    @GetMapping("/knowledgeBase")
+    public Map<EquineQuestionTypes,String> knowledgeBase(@RequestParam String userId)throws IOException{
+        return parServer.knowledgeBase(userId);
     }
 }

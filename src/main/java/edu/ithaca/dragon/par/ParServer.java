@@ -2,6 +2,7 @@ package edu.ithaca.dragon.par;
 
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
+import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.Datastore;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
@@ -98,6 +99,10 @@ public class ParServer {
     public Map<String, Double> calcScoreByType(String userId) throws IOException {
         StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, datastore);
         return currentStudent.knowledgeScoreByType();
+    }
+    public Map<EquineQuestionTypes,String> knowledgeBase(String userId)throws IOException{
+        StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, datastore);
+        return currentStudent.generateKnowledgeBaseMap();
     }
 
     public void checkIfWindowSizeIsValid(QuestionPool questionPool){
