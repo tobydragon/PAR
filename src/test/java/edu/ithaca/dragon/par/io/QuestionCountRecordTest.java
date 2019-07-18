@@ -36,7 +36,7 @@ public class QuestionCountRecordTest {
 
     @Test
     public void buildQuestionCountTest() throws IOException {
-        QuestionPool myQP = new QuestionPool(new JsonDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json"));
+        QuestionPool myQP = new QuestionPool(new JsonDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").loadQuestions());
         QuestionCount qc1 = new QuestionCount(myQP.getAllQuestions().get(0));
         QuestionCountRecord qc1Record = new QuestionCountRecord(qc1);
         QuestionCount fromRecord = qc1Record.buildQuestionCount(myQP);
@@ -57,7 +57,7 @@ public class QuestionCountRecordTest {
 
     @Test
     public void questionCountRecordToQuestionCountTest() throws IOException {
-        QuestionPool myQP = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));
+        QuestionPool myQP = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json").loadQuestions());
         List<QuestionCount>  questionCountList = new ArrayList<>();
         for (int i = 0; i<myQP.getAllQuestions().size(); i++){
             QuestionCount currQuestionCount = new QuestionCount(myQP.getAllQuestions().get(i));
@@ -73,7 +73,7 @@ public class QuestionCountRecordTest {
 
 
 
-        QuestionPool myQP2 = new QuestionPool(new JsonDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json"));
+        QuestionPool myQP2 = new QuestionPool(new JsonDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").loadQuestions());
         List<QuestionCount>  questionCountList2 = new ArrayList<>();
         for (int i = 0; i<myQP2.getAllQuestions().size(); i++){
             QuestionCount currQuestionCount2 = new QuestionCount(myQP2.getAllQuestions().get(i));

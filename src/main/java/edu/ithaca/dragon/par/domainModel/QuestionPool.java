@@ -10,15 +10,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class QuestionPool {
-    private List<Question> allQuestions;
 
+    private List<Question> allQuestions;
 
     public QuestionPool(List<Question> allQuestions){
         this.allQuestions = new ArrayList<>(allQuestions);
-    }
-
-    public QuestionPool(Datastore datastore) throws IOException {
-        allQuestions = datastore.loadQuestions();
     }
 
     public List<Question> getAllQuestions(){

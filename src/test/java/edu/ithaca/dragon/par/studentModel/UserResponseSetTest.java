@@ -48,7 +48,7 @@ public class UserResponseSetTest {
 
     @Test
     public void addAllResponseTest()throws IOException{
-        QuestionPool questionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));
+        QuestionPool questionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json").loadQuestions());
         List<ImageTaskResponse> responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponse.class);
         List<ResponsesPerQuestion> responsesPerQuestions=StudentModel.createUserResponseObj(responsesFromFile.get(0),questionPool,"s1");
         UserResponseSet respSet=new UserResponseSet(responsesFromFile.get(0).getUserId());

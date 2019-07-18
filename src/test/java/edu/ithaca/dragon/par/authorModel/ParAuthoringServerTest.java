@@ -22,8 +22,9 @@ public class ParAuthoringServerTest {
 
     @BeforeEach
     public void setUp() throws IOException {
-        Datastore datastore = new JsonDatastore("src/test/resources/author/SampleQuestionsEmpty.json");
-        Datastore templateDatastore = new JsonDatastore("src/test/resources/author/DemoQuestionPoolTemplate.json");
+
+        datastore = new JsonDatastore("src/test/resources/author/SampleQuestionsEmpty.json");
+        templateDatastore = new JsonDatastore("src/test/resources/author/DemoQuestionPoolTemplate.json");
         pas = new ParAuthoringServer(datastore, templateDatastore, 0);
     }
 

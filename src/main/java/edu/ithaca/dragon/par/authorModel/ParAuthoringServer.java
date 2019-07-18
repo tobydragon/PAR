@@ -30,7 +30,7 @@ public class ParAuthoringServer extends ParServer {
     public ParAuthoringServer(Datastore datastore, Datastore datastoreForTemplate, Integer windowSizeOverride) throws IOException {
         super(datastore, windowSizeOverride);
         this.datastoreForTemplate = datastoreForTemplate;
-        this.questionPoolTemplate = new QuestionPool(datastoreForTemplate);
+        this.questionPoolTemplate = new QuestionPool(datastoreForTemplate.loadQuestions());
         authorModelMap = new HashMap<>();
     }
 

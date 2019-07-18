@@ -22,7 +22,7 @@ public class ParServer {
     private Integer windowSizeOverride;
 
     public ParServer(Datastore datastore) throws IOException{
-        this.questionPool = new QuestionPool(datastore);
+        this.questionPool = new QuestionPool(datastore.loadQuestions());
         this.datastore = datastore;
         studentModelMap = new HashMap<>();
         this.windowSizeOverride = null;
@@ -31,7 +31,7 @@ public class ParServer {
     }
 
     public ParServer(Datastore datastore, int windowSizeOverride) throws IOException{
-        this.questionPool = new QuestionPool(datastore);
+        this.questionPool = new QuestionPool(datastore.loadQuestions());
         this.datastore = datastore;
         studentModelMap = new HashMap<>();
         this.windowSizeOverride = windowSizeOverride;
