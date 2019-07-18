@@ -1,6 +1,5 @@
 class QuestionAreaDisplay {
     constructor(questionObject, response) {
-        console.log(questionObject.correctAnswer);
         this.answerBox = new InputDatalistResponseBoxDisplay(questionObject, questionObject.id + "ResponseBox", questionObject.possibleAnswers, questionObject.correctAnswer, questionObject.type);
         this.element = buildQuestionAreaElement(questionObject.id, questionObject.questionText, this.answerBox.element);
         if (questionObject.hasOwnProperty("followupQuestions")) {
@@ -19,7 +18,7 @@ class QuestionAreaDisplay {
             this.element.appendChild(followupElement);
         }
         followupElement.classList.add("hide");
-        this.followup=followupElement;
+        this.followup = followupElement;
     }
 }
 

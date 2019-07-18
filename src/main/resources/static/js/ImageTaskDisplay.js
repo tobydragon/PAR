@@ -1,10 +1,10 @@
-class ImageTaskDisplay{
+class ImageTaskDisplay {
 
-    constructor(imageTaskJson, userId, imageTaskSettings, isAuthor){
-        this.userId=userId;
-        this.response= new Response(userId);
-        this.pageImage= new PageImage(imageTaskJson.imageUrl);
-        this.questionAreaDisp= new buildQuestionAreas(imageTaskJson.taskQuestions, this.response);
+    constructor(imageTaskJson, userId, imageTaskSettings, isAuthor) {
+        this.userId = userId;
+        this.response = new Response(userId);
+        this.pageImage = new PageImage(imageTaskJson.imageUrl);
+        this.questionAreaDisp = new buildQuestionAreas(imageTaskJson.taskQuestions, this.response);
 
         //settings
         this.unsureShowsCorrectAnswer = imageTaskSettings.unsureShowsCorrectAnswer;
@@ -14,32 +14,32 @@ class ImageTaskDisplay{
 
         this.ableToResubmitAnswers = imageTaskSettings.ableToResubmitAnswers;
         this.mustSubmitAnswersToContinue = imageTaskSettings.mustSubmitAnswersToContinue;
-        this.haveSubmited=false;
+        this.haveSubmited = false;
         this.canGiveNoAnswer = imageTaskSettings.canGiveNoAnswer;
 
-        this.listOfCorrectAnswers= [];
+        this.listOfCorrectAnswers = [];
 
-        this.isAuthor= isAuthor;
+        this.isAuthor = isAuthor;
 
-        for(var i=0; i<this.questionAreaDisp.length; i++) {
+        for (var i = 0; i < this.questionAreaDisp.length; i++) {
             this.questionAreaDisp[i].addFollowupQuestions();
             document.getElementById("questionSet").appendChild(this.questionAreaDisp[i].element);
         }
     }
 
-    submitAnswers(){
+    submitAnswers() {
         let canContinu;
-        if(!this.isAuthor) {
+        if (!this.isAuthor) {
             document.getElementById("errorFeedback").innerHTML = " ";
             canContinu = this.checkAnswers();
         } else {
-            for(var i=0; i<this.questionAreaDisp.length; i++){
-               this.questionAreaDisp[i].answerBox.recordCurrentResponse(this.response);
+            for (var i = 0; i < this.questionAreaDisp.length; i++) {
+                this.questionAreaDisp[i].answerBox.recordCurrentResponse(this.response);
             }
-            canContinu=true;
+            canContinu = true;
         }
 
-        if(canContinu) {
+        if (canContinu) {
             if (this.willDisplayFeedback) {
                 this.giveFeedback(this.response.typesIncorrect);
             }
@@ -50,28 +50,28 @@ class ImageTaskDisplay{
                 document.getElementById("submitButton").classList.add("hide");
             }
             this.haveSubmited = true;
-            document.getElementById("errorFeedback").innerHTML= "<font color=\"#663399\"> Response recorded</font>";
+            document.getElementById("errorFeedback").innerHTML = "<font color=\"#663399\"> Response recorded</font>";
         } else {
-            document.getElementById("errorFeedback").innerHTML= "<font color=red>No response was recorded because you did not answer all the questions</font>";
+            document.getElementById("errorFeedback").innerHTML = "<font color=red>No response was recorded because you did not answer all the questions</font>";
         }
     }
 
-    checkAnswers(){
-        this.listOfCorrectAnswers= [];
-        for(var i=0; i<this.questionAreaDisp.length; i++){
-            if(!(this.response.taskQuestionIds.includes(this.questionAreaDisp[i].element.id))) {
+    checkAnswers() {
+        this.listOfCorrectAnswers = [];
+        for (var i = 0; i < this.questionAreaDisp.length; i++) {
+            if (!(this.response.taskQuestionIds.includes(this.questionAreaDisp[i].element.id))) {
                 this.response.addToQuestionIds(this.questionAreaDisp[i].element.id);
             }
 
             this.listOfCorrectAnswers.push(this.questionAreaDisp[i].answerBox.checkCurrentResponse(this.response, this.unsureShowsCorrectAnswer, this.questionAreaDisp[i].element.id));
 
-            let correctness=this.listOfCorrectAnswers[this.listOfCorrectAnswers.length-1];
-            if(correctness==="correct"){
+            let correctness = this.listOfCorrectAnswers[this.listOfCorrectAnswers.length - 1];
+            if (correctness === "correct") {
                 this.questionAreaDisp[i].followup.classList.remove("hide");
             }
         }
-        if(!this.canGiveNoAnswer){
-            if(this.listOfCorrectAnswers.includes("")){
+        if (!this.canGiveNoAnswer) {
+            if (this.listOfCorrectAnswers.includes("")) {
                 return false;
             } else {
                 return true;
@@ -81,18 +81,15 @@ class ImageTaskDisplay{
         }
     }
 
-    submitResponse(){
+    submitResponse() {
         let newResponse = {
             userId: this.userId,
             taskQuestionIds: this.response.taskQuestionIds,
             responseTexts: this.response.responseTexts
         };
 
-        console.log(this.userId);
-        console.log(this.response.taskQuestionIds);
-        console.log(this.response.responseTexts);
 
-        if(this.isAuthor){
+        if (this.isAuthor) {
             //TODO: Needs a new URL
             submitToAPI("api/recordResponse", newResponse);
         } else {
@@ -100,19 +97,19 @@ class ImageTaskDisplay{
         }
     }
 
-    nextQuestion(){
-        if(!this.mustSubmitAnswersToContinue){
+    nextQuestion() {
+        if (!this.mustSubmitAnswersToContinue) {
             location.reload();
         } else {
-            if(this.haveSubmited){
+            if (this.haveSubmited) {
                 location.reload();
             } else {
-                document.getElementById("errorFeedback").innerHTML= "<font color=red>Must submit answers to continue</font>";
+                document.getElementById("errorFeedback").innerHTML = "<font color=red>Must submit answers to continue</font>";
             }
         }
     }
 
-    giveFeedback(typesSeenForFeedback){
+    giveFeedback(typesSeenForFeedback) {
         if (typesSeenForFeedback.length > 0) {
             document.getElementById("helpfulFeedback").innerHTML = "Feedback: ";
         }

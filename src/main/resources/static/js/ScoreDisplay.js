@@ -70,6 +70,7 @@ function generateScoreStringByType(scoreObject) {
 function generateScoreElementByType(scoreObject) {
     let visualBuilder;
     let outerNode = document.createElement('div');
+    outerNode.classList.add("textAlignRight");
     let buildSegment;
     for (let key in scoreObject) {
         visualBuilder = document.createElement('div');
