@@ -44,10 +44,6 @@ public class ParAuthoringServerTest {
         assertEquals(44, pas.getQuestionPoolTemplate().getAllQuestions().size());
         assertEquals(3, pas.getQuestionPool().getAllQuestions().size());
 
-        pas.convertQuestionTemplateToQuestion("AttachQ1", "Type1");
-        assertEquals(43, pas.getQuestionPoolTemplate().getAllQuestions().size());
-        assertEquals(4, pas.getQuestionPool().getAllQuestions().size());
-
         assertThrows(RuntimeException.class, ()->{pas.convertQuestionTemplateToQuestion("badId", "2");});
         assertThrows(RuntimeException.class, ()->{pas.convertQuestionTemplateToQuestion("zone./images/demoEquine14.jpg", "2");});
         assertThrows(RuntimeException.class, ()-> {pas.convertQuestionTemplateToQuestion("zone./images/demoEquine14.jpg", "BadAnswer");});

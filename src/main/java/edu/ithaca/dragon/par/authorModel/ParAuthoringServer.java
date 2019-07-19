@@ -58,8 +58,8 @@ public class ParAuthoringServer extends ParServer {
 
             List<Question> followup = getValidFollowUpQuestions(questionTemplate);
             Question questionToAdd = new Question(questionTemplate.getId(), questionTemplate.getQuestionText(), questionTemplate.getType(), answer, questionTemplate.getPossibleAnswers(), questionTemplate.getImageUrl(), followup);
-            questionPool.getAllQuestions().add(questionToAdd);
-            QuestionPool.removeQuestionFromId(questionTemplate.getId(), questionPoolTemplate.getAllQuestions());
+            questionPool.addQuestion(questionToAdd);
+            questionPoolTemplate.removeQuestionById(questionTemplate.getId());
         }
     }
 
