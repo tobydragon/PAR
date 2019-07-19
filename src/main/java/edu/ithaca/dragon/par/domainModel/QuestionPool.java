@@ -22,6 +22,10 @@ public class QuestionPool {
         return new ArrayList<>(allQuestions);
     }
 
+    public void addQuestion(Question newQuestion){
+        allQuestions.add(newQuestion);
+    }
+
     public Question getQuestionFromId(String questionIdIn){
         Question q = getQuestionFromId(questionIdIn, allQuestions);
         if(q == null){
