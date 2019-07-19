@@ -1,5 +1,7 @@
 package edu.ithaca.dragon.par.io;
 
+import edu.ithaca.dragon.par.domainModel.Question;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,6 +45,9 @@ public class ImageTaskResponse {
         this.userId = userId;
     }
 
+    public String findResponseToQuestion(Question question){
+        return "asd";
+    }
 
 
     @Override
