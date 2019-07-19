@@ -110,8 +110,7 @@ describe("InputDatalistResponseBoxDisplay", function () {
     });
 
     it("checkThisResponse", function () {
-        let questionObjects = readJson("../resources/author/DemoQuestionPoolFollowup.json");
-        let textEntryResponseBox = new InputDatalistResponseBoxDisplay(questionObjects[1], "test1", ["high", "middle", "low"], "low");
+        let textEntryResponseBox = new InputDatalistResponseBoxDisplay("test1", ["high", "middle", "low"], "low");
         document.getElementById("testArea").appendChild(textEntryResponseBox.element);
         document.getElementById("testArea").style.display = "none";
         textEntryResponseBox.inputTextbox.value = "low";

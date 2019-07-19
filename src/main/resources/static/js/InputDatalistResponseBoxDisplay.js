@@ -9,8 +9,7 @@ const ResponseResult = {
 
 class InputDatalistResponseBoxDisplay {
 
-    constructor(questionObject, id, defaultResponses, correctResponse, type) {
-        this.questionObject = questionObject;
+    constructor(id, defaultResponses, correctResponse, type) {
         this.type = type;
         this.id = id;
         this.correctResponse = correctResponse;
@@ -31,13 +30,11 @@ class InputDatalistResponseBoxDisplay {
         response.addToResponseTexts(this.inputTextbox.value);
         let returnResponse = checkAnyResponse(this.correctResponse, this.inputTextbox.value);
         addToTypesIncorrect(returnResponse, this.type, response.typesIncorrect);
-        let questionAreaObject = new QuestionAreaDisplay(this.questionObject, response);
 
         this.textArea.innerHTML = displayCheckedResponse(returnResponse, this.correctResponse, unsureShowsCorrect);
 
         if (returnResponse === "correct") {
             disableElement(this.inputTextbox);
-            questionAreaObject.addFollowupQuestions();
         } else if (returnResponse === "unsure") {
             disableElement(this.inputTextbox);
         }

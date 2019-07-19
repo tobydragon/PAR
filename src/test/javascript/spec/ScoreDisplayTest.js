@@ -5,16 +5,27 @@ describe("ScoreDisplay", function () {
             "struct": "O~~_",
             "zone": "_X__"
         };
-        expect(generateScoreElementByType(scoreJsonObj)).toEqual('<div><div class="black">plane: <div class="fas fa-times-circle red" aria-hidden="true"></div><div class="fas fa-check-circle green" aria-hidden="true"></div><div class="fas fa-check-circle green" aria-hidden="true"></div><div class="fas fa-times-circle red" aria-hidden="true"></div></div><div class="black">struct: <div class="fas fa-check-circle green" aria-hidden="true"></div><div class="fas fa-minus-circle yellow" aria-hidden="true"></div><div class="fas fa-minus-circle yellow" aria-hidden="true"></div><div class="fas fa-circle" aria-hidden="true"></div></div><div class="black">zone: <div class="fas fa-circle" aria-hidden="true"></div><div class="fas fa-times-circle red" aria-hidden="true"></div><div class="fas fa-circle" aria-hidden="true"></div><div class="fas fa-circle" aria-hidden="true"></div></div></div>');
-        expect(generateScoreElementByType(scoreJsonObj)).toHaveClass('black');
-        expect(generateScoreElementByType(scoreJsonObj)).toHaveClass('fas');
-        expect(generateScoreElementByType(scoreJsonObj)).toHaveClass('fa-times-circle');
-        expect(generateScoreElementByType(scoreJsonObj)).toHaveClass('green');
-        expect(generateScoreElementByType(scoreJsonObj)).toHaveClass('red');
-        expect(generateScoreElementByType(scoreJsonObj)).toHaveClass('yellow');
-        expect(generateScoreElementByType(scoreJsonObj)).toHaveClass('fa-circle');
-        expect(generateScoreElementByType(scoreJsonObj)).toHaveClass('fa-check-circle');
-        expect(generateScoreElementByType(scoreJsonObj)).toContain('fa-check-circle');
+        let element = generateScoreElementByType(scoreJsonObj);
+        console.log(element);
+        expect(element.getAttribute("class")).toContain('textAlignRight');
+        expect(element.childNodes.item(0).getAttribute("class")).toContain('black');
+        expect(element.childNodes.item(0).textContent).toBe('plane: ');
+        expect(element.childNodes.item(1).textContent).toBe('struct: ');
+        expect(element.childNodes.item(2).textContent).toBe('zone: ');
+        expect(element.childNodes.item(2).textContent).not.toBe('plane: ');
+
+
+        expect(element.childNodes.item(0).childNodes.item(1).getAttribute("class")).toContain('fas fa-times-circle red');
+        expect(element.childNodes.item(0).childNodes.item(2).getAttribute("class")).toContain('fas fa-check-circle green');
+        expect(element.childNodes.item(0).childNodes.item(3).getAttribute("class")).not.toContain('fas fa-minus-circle yellow');
+
+        expect(element.childNodes.item(1).childNodes.item(1).getAttribute("class")).not.toContain('fas fa-minus-circle yellow');
+        expect(element.childNodes.item(1).childNodes.item(2).getAttribute("class")).toContain('fas fa-minus-circle yellow');
+
+        expect(element.childNodes.item(2).childNodes.item(1).getAttribute("class")).toContain('fas fa-circle');
+        expect(element.childNodes.item(2).childNodes.item(2).getAttribute("class")).toContain('fas fa-times-circle red');
+        expect(element.childNodes.item(2).childNodes.item(3).getAttribute("class")).toContain('fas fa-circle');
+        expect(element.childNodes.item(2).childNodes.item(4).getAttribute("class")).toContain('fas fa-circle');
 
     });
     it("generateScoreByType", function () {
@@ -25,24 +36,15 @@ describe("ScoreDisplay", function () {
         };
         expect(generateScoreByType(scoreJsonObj)).toBe('<i class=black>plane:</i> <i class=orange>70<i><br /><i class=black>struct:</i> <i class=red>40<i><br /><i class=black>zone:</i> <i class=red>20<i><br />');
     });
-    it("setCurrentScore", function () {
+    /**it("setCurrentScore", function () {
         var scoreJsonObj = {
             "plane": "XOOX",
             "struct": "O~~_",
             "zone": "_X__"
         };
-        //expect(setCurrentScore(scoreJsonObj)).toBe('<div><div class="black">plane: <div class="fas fa-times-circle red" aria-hidden="true"></div><div class="fas fa-check-circle green" aria-hidden="true"></div><div class="fas fa-check-circle green" aria-hidden="true"></div><div class="fas fa-times-circle red" aria-hidden="true"></div></div><div class="black">struct: <div class="fas fa-check-circle green" aria-hidden="true"></div><div class="fas fa-minus-circle yellow" aria-hidden="true"></div><div class="fas fa-minus-circle yellow" aria-hidden="true"></div><div class="fas fa-circle" aria-hidden="true"></div></div><div class="black">zone: <div class="fas fa-circle" aria-hidden="true"></div><div class="fas fa-times-circle red" aria-hidden="true"></div><div class="fas fa-circle" aria-hidden="true"></div><div class="fas fa-circle" aria-hidden="true"></div></div></div>');
-        expect(setCurrentScore(scoreJsonObj, "ByType")).toHaveClass('black');
-        expect(setCurrentScore(scoreJsonObj, "ByType")).toHaveClass('fas');
-        expect(setCurrentScore(scoreJsonObj, "ByType")).toHaveClass('fa-times-circle');
-        expect(setCurrentScore(scoreJsonObj, "ByType")).toHaveClass('green');
-        expect(setCurrentScore(scoreJsonObj, "ByType")).toHaveClass('red');
-        expect(setCurrentScore(scoreJsonObj, "ByType")).toHaveClass('yellow');
-        expect(setCurrentScore(scoreJsonObj, "ByType")).toHaveClass('fa-circle');
-        expect(setCurrentScore(scoreJsonObj, "ByType")).toHaveClass('fa-check-circle');
 
-    });
-    it("buildELement", function () {
+    });**/
+    it("buildElement", function () {
         let value = 'X';
         //expect(buildVisualSegment(value)).toBe('<div class="fas fa-times-circle red">');
         expect(buildVisualSegment(value)).toHaveClass('fas');
