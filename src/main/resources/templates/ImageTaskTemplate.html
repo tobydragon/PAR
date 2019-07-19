@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Image Task</title>
+    <title>PAR ImageTask</title>
 
     <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
     <!-- Meta -->
@@ -40,7 +40,7 @@
             settings = readJson("api/getPageSettings?userId=" + userID);
 
         } catch (Exception) {
-            window.onerror = function (msg) {
+            window.onerror = function(msg) {
                 location.replace('/error?message=' + msg);
             }
         }
@@ -60,11 +60,11 @@
                 <img src="/images/ParLogo.png" height="90%" width="70%" class="imgCenter img-fluid" alt="PAR_logo">
             </div>
             <div class="col-3 colVertCenter">
-                <i id="scoreTag"> </i>
-                <i id="score"> </i>
+                <i><b id="scoreTag">Knowledge Base: </b></i>
+                <div id="score"> </div>
             </div>
             <div class="col-3 colVertCenter">
-                <b class="size20">User ID: </b>
+                <i><b class="size20">User ID: </b></i>
                 <div id="UserId" class="size20"> </div>
             </div>
             <div class="col-1"></div>
@@ -79,24 +79,38 @@
     <div class="container-fluid">
         <br />
         <div class="row">
-            <div class="col-1"></div>
+            <div class="col-2"></div>
 
-            <div class="col-6 imgCenter">
+            <div class="col-5 imgCenter">
                 <canvas id="myCanvas" width="700%" height="550%" class="center-block">
                     Your browser doesn't support Canvas.
                 </canvas>
 
             </div>
-            <div class="col-4 text-center">
+            <div class="col-3 text-center">
                 <br />
                 <h1> Question Set</h1>
                 <form action="#" method="post" id="questionSetForm">
-                    <i id="questionSet"> </i>
+                    <div id="questionSet"> </div>
                 </form>
                 <br>
                 <i id="helpfulFeedback"> </i>
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <div class="show">
+                            <i id="submitButtonTag">
+                                <button type="button" class="btn btn-primary" id="submitButton" onclick="pagedisplay.imageTaskDisplay.submitAnswers()">
+                                    Submit
+                                </button>
+                            </i>
+                            <button type="button" class="fas fa-arrow-circle-right btn btn-outline-dark" id="nextQuestionButton" onclick="pagedisplay.imageTaskDisplay.nextQuestion()"></button>
+                            <i id="errorFeedback"> </i>
+                        </div>
+
+                    </div>
+                </div>
             </div>
-            <div class="col-1"></div>
+            <div class="col-2"></div>
 
         </div>
         <div class="row">
@@ -104,29 +118,14 @@
                 <i id="Ids"> </i>
             </div>
         </div>
-
-        <div class="row">
-            <div class="col-12 text-center">
-                <div class="show">
-                    <i id="submitButtonTag">
-                        <button type="button" class="btn btn-primary" id="submitButton" onclick="pagedisplay.imageTaskDisplay.submitAnswers()">
-                            Submit
-                        </button>
-                    </i>
-                    <button type="button" class="fas fa-arrow-circle-right btn btn-outline-dark" id="nextQuestionButton" onclick="pagedisplay.imageTaskDisplay.nextQuestion()"></button>
-                    <i id="errorFeedback"> </i>
-                </div>
-
-            </div>
-        </div>
     </div>
 
     <script>
         pagedisplay.displayUserId();
-        if(pagedisplay.showScore) {
+        if (pagedisplay.showScore) {
             pagedisplay.displayScore(pagedisplay.generateScore());
         }
-        if(pagedisplay.isAuthor){
+        if (pagedisplay.isAuthor) {
             pagedisplay.nextAuthorImageTask();
         } else {
             pagedisplay.nextImageTask();
