@@ -25,7 +25,7 @@ public class ParAuthoringServerTest {
 
         datastore = new JsonDatastore("src/test/resources/author/SampleQuestionsEmpty.json");
         templateDatastore = new JsonDatastore("src/test/resources/author/DemoQuestionPoolTemplate.json");
-        pas = new ParAuthoringServer(datastore, templateDatastore, 0);
+        pas = new ParAuthoringServer(datastore, templateDatastore);
     }
 
     @Test
@@ -81,13 +81,6 @@ public class ParAuthoringServerTest {
         validFollowUps = ParAuthoringServer.getValidFollowUpQuestions(question);
         assertEquals(1, validFollowUps.size());
 
-
-    }
-
-
-    @Test
-    public void getOrCreateAuthorModelTest() throws IOException{
-        AuthorModel authorModel1 = ParAuthoringServer.getOrCreateAuthorModel();
 
     }
 }

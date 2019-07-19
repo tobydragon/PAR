@@ -13,25 +13,33 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ParAuthoringServer extends ParServer {
+public class ParAuthoringServer {
 
+    //The QP full of unanswered Questions
     private QuestionPool questionPoolTemplate;
-    private Map<String, AuthorModel> authorModelMap;
+
+    //The QP that is initially empty, and gets filled with answered Questions
+    private QuestionPool questionPool;
+
+    private Datastore datastore;
     private Datastore datastoreForTemplate;
+    private AuthorModel authorModel;
+
+    public ParAuthoringServer(Datastore datastore, Datastore datastoreForTemplate) throws IOException {
+        this.datastore = datastore;
+        this.questionPool = new QuestionPool(datastore.loadQuestions());
+        this.datastoreForTemplate = datastoreForTemplate;
+        this.questionPoolTemplate = new QuestionPool(datastoreForTemplate.loadQuestions());
+
+        authorModel = datastore.loadAuthorModel();
+    }
+
+    public QuestionPool getQuestionPool() {
+        return questionPool;
+    }
 
     public QuestionPool getQuestionPoolTemplate() {
         return questionPoolTemplate;
-    }
-
-    public ParAuthoringServer(Datastore datastore, Datastore datastoreForTemplate) throws IOException {
-        this(datastore, datastoreForTemplate, null);
-    }
-
-    public ParAuthoringServer(Datastore datastore, Datastore datastoreForTemplate, Integer windowSizeOverride) throws IOException {
-        super(datastore, windowSizeOverride);
-        this.datastoreForTemplate = datastoreForTemplate;
-        this.questionPoolTemplate = new QuestionPool(datastoreForTemplate.loadQuestions());
-        authorModelMap = new HashMap<>();
     }
 
     /**
@@ -44,23 +52,21 @@ public class ParAuthoringServer extends ParServer {
     public void convertQuestionTemplateToQuestion(String questionId, String answer) {
         Question questionTemplate = questionPoolTemplate.getQuestionFromId(questionId);
 
-        //question not found
-        if (questionTemplate == null){
-            throw new RuntimeException("A question with Id:" + questionId + " does not exist or has already been answered");
-        }
 
-        else{
-            //checks if answer is in the possibleAnswers list
-            boolean answerValid = checkIfAnswerIsValid(questionTemplate, answer);
-            if (!answerValid){
-                throw new RuntimeException();
-            }
 
-            List<Question> followup = getValidFollowUpQuestions(questionTemplate);
-            Question questionToAdd = new Question(questionTemplate.getId(), questionTemplate.getQuestionText(), questionTemplate.getType(), answer, questionTemplate.getPossibleAnswers(), questionTemplate.getImageUrl(), followup);
-            questionPool.addQuestion(questionToAdd);
-            questionPoolTemplate.removeQuestionById(questionTemplate.getId());
+
+
+        if (!checkIfAnswerIsValid(questionTemplate, answer)){
+            throw new RuntimeException();
         }
+        List<Question> followup = getValidFollowUpQuestions(questionTemplate);
+        Question questionToAdd = new Question(questionTemplate.getId(), questionTemplate.getQuestionText(), questionTemplate.getType(), answer, questionTemplate.getPossibleAnswers(), questionTemplate.getImageUrl(), followup);
+
+        // ^ move this code into a static function that
+
+
+        questionPool.addQuestion(questionToAdd);
+        questionPoolTemplate.removeQuestionById(questionTemplate.getId());
     }
 
     //TODO: Deal with case
@@ -78,6 +84,9 @@ public class ParAuthoringServer extends ParServer {
         return false;
     }
 
+    /**
+     * @return A list of pointers to followup Questions which need to be converted
+     */
     public static List<Question>  getValidFollowUpQuestions(Question questionTemplate){
         List<Question> validFollowUps = new ArrayList<>();
         for (int i = 0; i <questionTemplate.getFollowupQuestions().size(); i++){
@@ -89,20 +98,12 @@ public class ParAuthoringServer extends ParServer {
         return validFollowUps;
     }
 
-
-
-    public static AuthorModel getOrCreateAuthorModel() {
-    return null;
-    }
-
-
-    public ImageTask nextImageTaskTemplate(String authorId) throws IOException {
+    public ImageTask nextImageTaskTemplate(AuthorModel authorModel) throws IOException {
         return null;
     }
 
-    @Override
-    public void imageTaskResponseSubmitted(ImageTaskResponse imageTaskResponse, String authorId) throws IOException{
-        //load the author
+
+    public void imageTaskResponseSubmitted(ImageTaskResponse imageTaskResponse) throws IOException{
 
     }
 }

@@ -28,6 +28,7 @@ public class ParRestController {
         super();
         try {
             parServer = new ParServer(new JsonSpringDatastore("localData/currentQuestionPool.json","author/DemoQuestionPool.json", "localData/students"));
+
         }
         catch(IOException e){
             throw new RuntimeException("Server can't start without questionPool or studentRecord", e);
@@ -80,7 +81,7 @@ public class ParRestController {
         return parAuthoringServer.nextImageTaskTemplate(authorId);
     }
 
-    @PostMapping("submitImageTaskTemplateResponse")
+    @PostMapping("/submitImageTaskTemplateResponse")
     public ResponseEntity<String> recordTemplateResponse(@RequestBody ImageTaskResponse response) {
         try {
             parAuthoringServer.imageTaskResponseSubmitted(response, response.getUserId());
