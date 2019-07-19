@@ -102,6 +102,7 @@ public class ParAuthoringServer {
         return null;
     }
 
+
     public void imageTaskResponseSubmitted(ImageTaskResponse imageTaskResponse) throws IOException{
 
     }
