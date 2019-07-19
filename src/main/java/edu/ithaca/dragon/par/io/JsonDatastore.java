@@ -1,5 +1,6 @@
 package edu.ithaca.dragon.par.io;
 
+import edu.ithaca.dragon.par.authorModel.AuthorModel;
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
@@ -17,21 +18,48 @@ public class JsonDatastore implements Datastore{
     private String questionFilePath;
     private String studentModelFilePath;
     private QuestionPool questionPool;
+    private String authorModelFilePath;
+    private QuestionPool questionPoolTemplate;
+    private String questionTemplateFilePath;
 
     //Constructor to be used only for loading Questions
     public JsonDatastore(String questionFilePath) throws IOException {
-        this(questionFilePath, null);
+        this(questionFilePath, null, null, null);
     }
 
     public JsonDatastore(String questionFilePath, String studentModelFilePath) throws IOException {
+        this(questionFilePath, studentModelFilePath, null, null);
+    }
+
+    public JsonDatastore(String questionFilePath, String questionTemplateFilePath, String authorModelFilePath) throws IOException {
+        this(questionFilePath, null, questionTemplateFilePath, authorModelFilePath);
+
+    }
+
+    public JsonDatastore(String questionFilePath, String studentModelFilePath, String questionTemplateFilePath, String authorModelFilePath) throws IOException {
         this.questionFilePath = questionFilePath;
-        this.questionPool = new QuestionPool(this.loadQuestions());
+        if(questionFilePath != null){
+            this.questionPool = new QuestionPool(this.loadQuestionsStatic(questionFilePath));
+        }
         this.studentModelFilePath = studentModelFilePath;
+        this.questionTemplateFilePath = questionTemplateFilePath;
+        if(questionTemplateFilePath != null){
+            this.questionPoolTemplate = new QuestionPool(this.loadQuestionsStatic(questionTemplateFilePath));
+        }
+        this.authorModelFilePath = authorModelFilePath;
     }
 
     @Override
-    public java.util.List<Question> loadQuestions() throws IOException {
-        return JsonUtil.listFromJsonFile(questionFilePath, Question.class);
+    public List<Question> loadQuestions(){
+        return questionPool.getAllQuestions();
+    }
+
+    public List<Question> getQuestionTemplates(){
+        return questionPoolTemplate.getAllQuestions();
+    }
+
+    public static List<Question> loadQuestionsStatic(String filePath) throws IOException {
+        return JsonUtil.listFromJsonFile(filePath, Question.class);
     }
 
     @Override
@@ -82,5 +110,15 @@ public class JsonDatastore implements Datastore{
             throw new IOException("studentModelFilePath is null");
         String fullFilePath = studentModelFilePath + "/" +  studentModel.getUserId() + ".json";
         JsonUtil.toJsonFile(fullFilePath, new StudentModelRecord(studentModel));
+    }
+
+    @Override
+    public AuthorModel loadAuthorModel() throws IOException {
+        return null;
+    }
+
+    @Override
+    public void saveAuthorModel(AuthorModel authorModel) throws IOException {
+
     }
 }
