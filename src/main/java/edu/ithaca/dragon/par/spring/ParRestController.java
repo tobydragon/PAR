@@ -1,6 +1,7 @@
 package edu.ithaca.dragon.par.spring;
 
 import edu.ithaca.dragon.par.ParServer;
+import edu.ithaca.dragon.par.authorModel.ParAuthoringServer;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
 import edu.ithaca.dragon.par.io.JsonSpringDatastore;
@@ -20,6 +21,7 @@ import java.util.Map;
 public class ParRestController {
     private final Logger logger = LogManager.getLogger(this.getClass());
 
+    private ParAuthoringServer parAuthoringServer;
     private ParServer parServer;
 
     ParRestController(){
@@ -71,5 +73,21 @@ public class ParRestController {
     @GetMapping("/calcScoreByType")
     public Map<String, Double> calcScoreByType(@RequestParam String userId) throws IOException{
         return parServer.calcScoreByType(userId);
+    }
+
+    @GetMapping("/nextImageTaskTemplate")
+    public ImageTask nextImageTaskTemplate(@RequestParam String authorId) throws IOException {
+        return parAuthoringServer.nextImageTaskTemplate(authorId);
+    }
+
+    @PostMapping("submitImageTaskTemplateResponse")
+    public ResponseEntity<String> recordTemplateResponse(@RequestBody ImageTaskResponse response) {
+        try {
+            parAuthoringServer.imageTaskResponseSubmitted(response, response.getUserId());
+            return ResponseEntity.ok().body("ok");
+        } catch (Exception e){
+            logger.warn(e);
+            return ResponseEntity.notFound().build();
+        }
     }
 }

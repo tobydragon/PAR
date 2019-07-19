@@ -5,7 +5,7 @@ import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.io.Datastore;
 import edu.ithaca.dragon.par.io.ImageTask;
-import edu.ithaca.dragon.par.studentModel.StudentModel;
+import edu.ithaca.dragon.par.io.ImageTaskResponse;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -98,5 +98,10 @@ public class ParAuthoringServer extends ParServer {
 
     public ImageTask nextImageTaskTemplate(String authorId) throws IOException {
         return null;
+    }
+
+    @Override
+    public void imageTaskResponseSubmitted(ImageTaskResponse imageTaskResponse, String userId) throws IOException{
+
     }
 }
