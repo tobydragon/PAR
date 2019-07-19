@@ -125,19 +125,18 @@ public class QuestionPoolTest {
     @Test
     public void removeQuestionFromIdTest() throws IOException{
         QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").loadQuestions());
-        List<Question> questionList = qp.getAllQuestions();
-        QuestionPool.removeQuestionFromId("plane./images/demoEquine14.jpg", questionList);
-        assertEquals(46, questionList.size());
+        qp.removeQuestionById("plane./images/demoEquine14.jpg");
+        assertEquals(46, qp.getAllQuestions().size());
 
-        QuestionPool.removeQuestionFromId("AttachQ1", questionList);
-        assertEquals(46, questionList.size());
-        assertEquals(2, questionList.get(0).getFollowupQuestions().size());
+        qp.removeQuestionById("AttachQ1");
+        assertEquals(46, qp.getAllQuestions().size());
+        assertEquals(2, qp.getAllQuestions().get(0).getFollowupQuestions().size());
 
-        QuestionPool.removeQuestionFromId("plane./images/demoEquine14.jpg", questionList);
-        assertEquals(46, questionList.size());
+        qp.removeQuestionById("plane./images/demoEquine14.jpg");
+        assertEquals(46, qp.getAllQuestions().size());
 
-        QuestionPool.removeQuestionFromId("structure2./images/demoEquine14.jpg", questionList);
-        assertEquals(45, questionList.size());
+        qp.removeQuestionById("structure2./images/demoEquine14.jpg");
+        assertEquals(45, qp.getAllQuestions().size());
 
     }
 }

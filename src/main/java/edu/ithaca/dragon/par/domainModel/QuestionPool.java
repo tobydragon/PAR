@@ -46,7 +46,11 @@ public class QuestionPool {
         return null;
     }
 
-    public static void removeQuestionFromId(String id, List<Question> questionList){
+    public void removeQuestionById(String id){
+        removeQuestionFromIdRecursive(id, allQuestions);
+    }
+
+    public void removeQuestionFromIdRecursive(String id, List<Question> questionList){
         Iterator<Question> itr = questionList.listIterator();
         while(itr.hasNext()){
             Question currQuestion = itr.next();
@@ -55,7 +59,7 @@ public class QuestionPool {
             }
             else{
                 //call getQuestionFromId on the followup questions
-                removeQuestionFromId(id, currQuestion.getFollowupQuestions());
+                removeQuestionFromIdRecursive(id, currQuestion.getFollowupQuestions());
             }
         }
     }
