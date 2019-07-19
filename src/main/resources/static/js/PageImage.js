@@ -23,8 +23,8 @@ class PageImage{
         //Setup the canvas object
         var theCanvas = document.getElementById("myCanvas"); //get the canvas element
         var context = theCanvas.getContext("2d"); //get the context
-        var canvasHeight = theCanvas.height; //get the heigth of the canvas
         var canvasWidth = theCanvas.width; //get the width of the canvas
+        var canvasHeight = theCanvas.height; //get the heigth of the canvas
         var canvasColor = "white"; // set the default canvas bg color
 
         function clearCanvas(canvasColor) {
