@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>TextEntryAnswerTest</title>
+    <script type="text/javascript" src="/js/InputDatalistResponseBoxDisplay.js"></script>
+    <script type="text/javascript" src="/js/QuestionAreaDisplay.js"></script>
+    <script type="text/javascript" src="/js/CommUtil.js"></script>
+
+</head>
+
+<body>
+    <div id="test">
+    </div>
+    <script>
+        let questionObjects = readJson("../../resources/author/DemoQuestionPoolFollowup.json");
+        test = new QuestionAreaDisplay(questionObjects[1]);
+        test.addFollowupQuestions();
+        document.getElementById("test").appendChild(test.element);
+
+    </script>
+</body>
+
+</html>

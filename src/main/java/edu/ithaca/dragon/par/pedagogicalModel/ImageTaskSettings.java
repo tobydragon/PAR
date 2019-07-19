@@ -2,12 +2,10 @@ package edu.ithaca.dragon.par.pedagogicalModel;
 
 import java.util.Map;
 
-public class Settings {
+public class ImageTaskSettings {
      private boolean unsureShowsCorrectAnswer;
      private Map<String, String> feedbackByType;
      private boolean ableToResubmitAnswers;
-     private String scoreType;
-     private Boolean showScore;
      private Boolean mustSubmitAnswersToContinue;
      private Boolean canGiveNoAnswer;
      private Boolean willDisplayFeedback;
@@ -22,12 +20,6 @@ public class Settings {
      }
 
      public boolean getableToResubmitAnswers(){ return ableToResubmitAnswers; }
-
-     public String getScoreType(){
-        return scoreType;
-     }
-
-     public boolean getShowScore(){ return showScore; }
 
      public boolean getMustSubmitAnswersToContinue(){ return mustSubmitAnswersToContinue; }
 
@@ -46,14 +38,6 @@ public class Settings {
 
     public void setableToResubmitAnswers(boolean setNew){
         ableToResubmitAnswers= setNew;
-    }
-
-    public void setScoreType(String setNew){
-        scoreType= setNew;
-    }
-
-    public void setShowScore(boolean setNew){
-        showScore= setNew;
     }
 
     public void setMustSubmitAnswersToContinue(boolean setNew){
