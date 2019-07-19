@@ -8,21 +8,17 @@ class ImageTaskDisplay {
 
         //settings
         this.unsureShowsCorrectAnswer = imageTaskSettings.unsureShowsCorrectAnswer;
-
         this.feedbackByType = imageTaskSettings.feedbackByType;
         this.willDisplayFeedback = imageTaskSettings.willDisplayFeedback;
-
         this.ableToResubmitAnswers = imageTaskSettings.ableToResubmitAnswers;
         this.mustSubmitAnswersToContinue = imageTaskSettings.mustSubmitAnswersToContinue;
         this.haveSubmited = false;
         this.canGiveNoAnswer = imageTaskSettings.canGiveNoAnswer;
 
         this.listOfCorrectAnswers = [];
-
         this.isAuthor = isAuthor;
 
         for (var i = 0; i < this.questionAreaDisp.length; i++) {
-            this.questionAreaDisp[i].addFollowupQuestions();
             document.getElementById("questionSet").appendChild(this.questionAreaDisp[i].element);
         }
     }
@@ -32,7 +28,9 @@ class ImageTaskDisplay {
         let canContinu;
         if (!this.isAuthor) {
             document.getElementById("errorFeedback").innerHTML = " ";
-            canContinu = this.checkAnswers();
+            this.checkAnswers();
+            this.checkFollowUp();
+            canContinu = this.checkIfCanContinu();
         } else {
             for (var i = 0; i < this.questionAreaDisp.length; i++) {
                 this.questionAreaDisp[i].answerBox.recordCurrentResponse(this.response);
@@ -41,20 +39,36 @@ class ImageTaskDisplay {
         }
 
         if (canContinu) {
-            if (this.willDisplayFeedback) {
-                this.giveFeedback(this.response.typesIncorrect);
-            }
-
-            this.submitResponse();
-
-            if (!this.ableToResubmitAnswers) {
-                document.getElementById("submitButton").classList.add("hide");
-            }
-            this.haveSubmited = true;
-            document.getElementById("errorFeedback").innerHTML = "<font color=\"#663399\"> Response recorded</font>";
+            this.sendResponse();
         } else {
             document.getElementById("errorFeedback").innerHTML = "<font color=red>No response was recorded because you did not answer all the questions</font>";
         }
+    }
+
+    checkIfCanContinu(){
+        if (!this.canGiveNoAnswer) {
+            if (this.listOfCorrectAnswers.includes("")) {
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return true;
+        }
+    }
+
+    sendResponse(){
+        if (this.willDisplayFeedback) {
+            this.giveFeedback(this.response.typesIncorrect);
+        }
+
+        this.submitResponse();
+
+        if (!this.ableToResubmitAnswers) {
+            document.getElementById("submitButton").classList.add("hide");
+        }
+        this.haveSubmited = true;
+        document.getElementById("errorFeedback").innerHTML = "<font color=\"#663399\"> Response recorded</font>";
     }
 
     checkFollowUp(){
@@ -83,21 +97,9 @@ class ImageTaskDisplay {
             this.listOfCorrectAnswers.push(current.answerBox.checkCurrentResponse(this.response, this.unsureShowsCorrectAnswer));
 
             let correctness = this.listOfCorrectAnswers[this.listOfCorrectAnswers.length - 1];
-            if (correctness === "correct") {
-                this.questionAreaDisp[i].followup.classList.remove("hide");
+            if (correctness === ResponseResult.correct) {
+                this.questionAreaDisp[i].addFollowupQuestions();
             }
-        }
-
-        this.checkFollowUp();
-
-        if (!this.canGiveNoAnswer) {
-            if (this.listOfCorrectAnswers.includes("")) {
-                return false;
-            } else {
-                return true;
-            }
-        } else {
-            return true;
         }
     }
 
