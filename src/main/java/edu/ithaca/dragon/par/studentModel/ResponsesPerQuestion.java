@@ -29,7 +29,7 @@ public class ResponsesPerQuestion {
         allResponses =new ArrayList<>();
         allResponses.add(questionResponse);
     }
-
+//TODO: SHOULD FOLLOWUP QUESTIONS COUNT TOWARDS THE ORIGINAL QUESTION/SHOULD BE COUNTED AS ITS OWN QUESTION
     /**
      * Calculates the knowledge score of the student
      * @return 0 or 100
