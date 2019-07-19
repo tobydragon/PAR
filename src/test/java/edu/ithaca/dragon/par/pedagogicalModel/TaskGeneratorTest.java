@@ -171,14 +171,19 @@ public class TaskGeneratorTest {
         questionList = TaskGenerator.filterQuestions(4, questionList);
         assertEquals(27, questionList.size());
 
-        //structure, attachment, and zone only
+        //structure and attachment only
         questionList = questionPool.getAllQuestions();
         questionList = TaskGenerator.filterQuestions(5, questionList);
+        assertEquals(27, questionList.size());
+
+        //structure, attachment, and zone only
+        questionList = questionPool.getAllQuestions();
+        questionList = TaskGenerator.filterQuestions(6, questionList);
         assertEquals(37, questionList.size());
 
         //zone only
         questionList = questionPool.getAllQuestions();
-        questionList = TaskGenerator.filterQuestions(6, questionList);
+        questionList = TaskGenerator.filterQuestions(7, questionList);
         assertEquals(10, questionList.size());
     }
 

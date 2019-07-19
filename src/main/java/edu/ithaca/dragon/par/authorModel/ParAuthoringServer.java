@@ -101,7 +101,8 @@ public class ParAuthoringServer extends ParServer {
     }
 
     @Override
-    public void imageTaskResponseSubmitted(ImageTaskResponse imageTaskResponse, String userId) throws IOException{
+    public void imageTaskResponseSubmitted(ImageTaskResponse imageTaskResponse, String authorId) throws IOException{
+        //load the author
 
     }
 }
