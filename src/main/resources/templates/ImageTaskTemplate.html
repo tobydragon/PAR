@@ -35,9 +35,10 @@
 <body>
     <script>
         userID = "[[${User}]]";
-        let completeDisplay=new CompleteDisplay();
-        completeDisplay.userID= userID;
+        let completeDisplay = new CompleteDisplay();
+        completeDisplay.userID = userID;
         completeDisplay.createPageDisplay();
+
     </script>
 
     <!-- Nav Bar -->
@@ -70,7 +71,7 @@
             <div class="col-1"></div>
 
             <div class="col-6 imgCenter">
-                <canvas id="myCanvas"  class="center-block">
+                <canvas id="myCanvas" class="center-block">
                     Your browser doesn't support Canvas.
                 </canvas>
 
@@ -94,18 +95,16 @@
                             <button type="button" class="fas fa-arrow-circle-right btn btn-outline-dark" id="nextQuestionButton" onclick="completeDisplay.nextQuestion()"></button>
                             <i id="errorFeedback"> </i>
                         </div>
-
+                        <div class="row">
+                            <div class="col-12">
+                                <i id="Ids"> </i>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-2"></div>
 
-        </div>
-        <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
-        <div class="row">
-            <div class="col-12">
-                <i id="Ids"> </i>
-            </div>
         </div>
     </div>
 
@@ -113,6 +112,7 @@
         completeDisplay.displayUserId();
         completeDisplay.showScore();
         completeDisplay.nextImageTask();
+
     </script>
     <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
