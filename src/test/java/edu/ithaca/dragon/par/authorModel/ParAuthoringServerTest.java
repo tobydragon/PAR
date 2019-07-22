@@ -2,14 +2,16 @@ package edu.ithaca.dragon.par.authorModel;
 
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
-import edu.ithaca.dragon.par.io.Datastore;
-import edu.ithaca.dragon.par.io.ImageTask;
-import edu.ithaca.dragon.par.io.ImageTaskResponse;
-import edu.ithaca.dragon.par.io.JsonDatastore;
+import edu.ithaca.dragon.par.io.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,21 +20,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ParAuthoringServerTest {
 
-    private Datastore datastore;
-    private Datastore templateDatastore;
-    private ParAuthoringServer pas;
-
-
-    @BeforeEach
-    public void setUp() throws IOException {
-
-        datastore = new JsonDatastore("src/test/resources/author/SampleQuestionsEmpty.json");
-        templateDatastore = new JsonDatastore("src/test/resources/author/DemoQuestionPoolTemplate.json");
-        pas = new ParAuthoringServer(datastore, templateDatastore);
-    }
-
     @Test
-    public void imageTaskResponseSubmittedTest() throws IOException{
+    public void imageTaskResponseSubmittedTest(@TempDir Path tempDir) throws IOException{
+        //make paths for copies of the files
+        Path currentQuestionPath = tempDir.resolve("currentQuestions.json");
+        Path currentQuestionTemplatePath = tempDir.resolve("currentQuestionTemplates.json");
+        //copy the files to use to the paths (these temp files will change as work is done)
+        Files.copy(Paths.get("src/test/resources/author/SampleQuestionsEmpty.json"), currentQuestionPath, StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(Paths.get("src/test/resources/author/DemoQuestionPoolTemplate.json"), currentQuestionTemplatePath, StandardCopyOption.REPLACE_EXISTING);
+
+        ParAuthoringServer pas = new ParAuthoringServer(new AuthorDatastore(currentQuestionPath.toString(),
+                currentQuestionTemplatePath.toString(), tempDir.resolve("currentAuthorModel.json").toString()));
 
         assertEquals(0, pas.getQuestionPool().getAllQuestions().size());
         assertEquals(47, pas.getQuestionPoolTemplate().getAllQuestions().size());
@@ -57,41 +55,17 @@ public class ParAuthoringServerTest {
     }
 
     @Test
-    public void checkIfAnswerIsValidTest(){
-        Question question = pas.getQuestionPoolTemplate().getAllQuestions().get(0);
-        boolean answerValid = ParAuthoringServer.checkIfAnswerIsValid(question, "longitudinal");
-        assertTrue(answerValid);
+    public void nextImageTaskTemplate(@TempDir Path tempDir) throws IOException{
+        //make paths for copies of the files
+        Path currentQuestionPath = tempDir.resolve("currentQuestions.json");
+        Path currentQuestionTemplatePath = tempDir.resolve("currentQuestionTemplates.json");
+        //copy the files to use to the paths (these temp files will change as work is done)
+        Files.copy(Paths.get("src/test/resources/author/SampleQuestionsEmpty.json"), currentQuestionPath, StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(Paths.get("src/test/resources/author/DemoQuestionPoolTemplate.json"), currentQuestionTemplatePath, StandardCopyOption.REPLACE_EXISTING);
 
-        answerValid = ParAuthoringServer.checkIfAnswerIsValid(question, "transverse");
-        assertTrue(answerValid);
+        ParAuthoringServer pas = new ParAuthoringServer(new AuthorDatastore(currentQuestionPath.toString(),
+                currentQuestionTemplatePath.toString(), tempDir.resolve("currentAuthorModel.json").toString()));
 
-        answerValid = ParAuthoringServer.checkIfAnswerIsValid(question, "badAnswer");
-        assertFalse(answerValid);
-
-    }
-
-    @Test
-    public void getValidFollowUpQuestionsTest(){
-        Question question = pas.getQuestionPoolTemplate().getAllQuestions().get(1);
-        List<Question> validFollowUps = ParAuthoringServer.getValidFollowUpQuestions(question);
-        assertEquals(new ArrayList<>(), validFollowUps);
-        question.getFollowupQuestions().get(0).setCorrectAnswer("Type1");
-        validFollowUps = ParAuthoringServer.getValidFollowUpQuestions(question);
-        assertEquals(1, validFollowUps.size());
-
-        question.getFollowupQuestions().get(1).setCorrectAnswer("Type3");
-        validFollowUps = ParAuthoringServer.getValidFollowUpQuestions(question);
-        assertEquals(2, validFollowUps.size());
-
-        question.getFollowupQuestions().get(0).setCorrectAnswer("badAnswer");
-        validFollowUps = ParAuthoringServer.getValidFollowUpQuestions(question);
-        assertEquals(1, validFollowUps.size());
-
-
-    }
-
-    @Test
-    public void nextImageTaskTemplate(){
         ImageTask imageTask = pas.nextImageTaskTemplate();
         assertEquals(5, imageTask.getTaskQuestions().size());
         assertEquals("./images/demoEquine14.jpg", imageTask.getImageUrl());
@@ -144,10 +118,15 @@ public class ParAuthoringServerTest {
     }
 
     @Test
-    public void endOfTasksTest() throws IOException{
-        datastore = new JsonDatastore("src/test/resources/author/SampleQuestionsEmpty.json");
-        templateDatastore = new JsonDatastore("src/test/resources/author/DemoQuestionPoolTemplateSmall.json");
-        pas = new ParAuthoringServer(datastore, templateDatastore);
+    public void endOfTasksTest(@TempDir Path tempDir) throws IOException{
+        Path currentQuestionPath = tempDir.resolve("currentQuestions.json");
+        Path currentQuestionTemplatePath = tempDir.resolve("currentQuestionTemplates.json");
+        //copy the files to use to the paths (these temp files will change as work is done)
+        Files.copy(Paths.get("src/test/resources/author/SampleQuestionsEmpty.json"), currentQuestionPath, StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(Paths.get("src/test/resources/author/DemoQuestionPoolTemplateSmall.json"), currentQuestionTemplatePath, StandardCopyOption.REPLACE_EXISTING);
+
+        ParAuthoringServer pas = new ParAuthoringServer(new AuthorDatastore(currentQuestionPath.toString(),
+                currentQuestionTemplatePath.toString(), tempDir.resolve("currentAuthorModel.json").toString()));
 
         ImageTask imageTask = pas.nextImageTaskTemplate();
         assertEquals("./images/demoEquine14.jpg", imageTask.getImageUrl());
