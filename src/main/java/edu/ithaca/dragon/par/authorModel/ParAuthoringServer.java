@@ -6,6 +6,8 @@ import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.io.Datastore;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
+import edu.ithaca.dragon.par.studentModel.QuestionCount;
+import edu.ithaca.dragon.par.studentModel.StudentModel;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,7 +33,7 @@ public class ParAuthoringServer {
         this.datastoreForTemplate = datastoreForTemplate;
         this.questionPoolTemplate = new QuestionPool(datastoreForTemplate.loadQuestions());
 
-        authorModel = datastore.loadAuthorModel();
+        authorModel = getOrCreateAuthorModel(questionPoolTemplate.getAllQuestions());
     }
 
     public QuestionPool getQuestionPool() {
@@ -40,6 +42,15 @@ public class ParAuthoringServer {
 
     public QuestionPool getQuestionPoolTemplate() {
         return questionPoolTemplate;
+    }
+
+    public AuthorModel getOrCreateAuthorModel(List<Question> questionTemplates) throws IOException{
+        AuthorModel authorModel = datastore.loadAuthorModel();
+        //if the student didn't have a file, create a new student
+        if(authorModel == null){
+            authorModel = new AuthorModel("author", QuestionCount.questionToQuestionCount(questionTemplates));
+        }
+        return authorModel;
     }
 
     /**
@@ -98,10 +109,9 @@ public class ParAuthoringServer {
         return validFollowUps;
     }
 
-    public ImageTask nextImageTaskTemplate(AuthorModel authorModel) throws IOException {
+    public ImageTask nextImageTaskTemplate() {
         return AuthorTaskGenerator.makeTaskTemplate(authorModel);
     }
-
 
     public void imageTaskResponseSubmitted(ImageTaskResponse imageTaskResponse) throws IOException{
 
