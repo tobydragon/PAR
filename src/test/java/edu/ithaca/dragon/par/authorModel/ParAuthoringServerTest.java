@@ -54,8 +54,6 @@ public class ParAuthoringServerTest {
         pas.imageTaskResponseSubmitted(imageTaskResponse1);
         assertEquals(42, pas.getQuestionPoolTemplate().getAllQuestions().size());
         assertEquals(5, pas.getQuestionPool().getAllQuestions().size());
-
-
     }
 
     @Test
@@ -96,17 +94,99 @@ public class ParAuthoringServerTest {
     public void nextImageTaskTemplate(){
         ImageTask imageTask = pas.nextImageTaskTemplate();
         assertEquals(5, imageTask.getTaskQuestions().size());
+        assertEquals("./images/demoEquine14.jpg", imageTask.getImageUrl());
 
         ImageTask imageTask2 = pas.nextImageTaskTemplate();
         assertEquals(6, imageTask2.getTaskQuestions().size());
+        assertEquals("./images/demoEquine02.jpg", imageTask2.getImageUrl());
 
         ImageTask imageTask3 = pas.nextImageTaskTemplate();
         assertEquals(4, imageTask3.getTaskQuestions().size());
+        assertEquals("./images/demoEquine13.jpg", imageTask3.getImageUrl());
 
         ImageTask imageTask4 = pas.nextImageTaskTemplate();
         assertEquals(3, imageTask4.getTaskQuestions().size());
+        assertEquals("./images/demoEquine04.jpg", imageTask4.getImageUrl());
 
         ImageTask imageTask5 = pas.nextImageTaskTemplate();
-        System.out.println(imageTask5.getImageUrl());
+        assertEquals(6, imageTask5.getTaskQuestions().size());
+        assertEquals("./images/demoEquine10.jpg", imageTask5.getImageUrl());
+
+        ImageTask imageTask6 = pas.nextImageTaskTemplate();
+        assertEquals(4, imageTask6.getTaskQuestions().size());
+        assertEquals("./images/demoEquine11.jpg", imageTask6.getImageUrl());
+
+        ImageTask imageTask7 = pas.nextImageTaskTemplate();
+        assertEquals(5, imageTask7.getTaskQuestions().size());
+        assertEquals("./images/demoEquine05.jpg", imageTask7.getImageUrl());
+
+        ImageTask imageTask8 = pas.nextImageTaskTemplate();
+        assertEquals(5, imageTask8.getTaskQuestions().size());
+        assertEquals("./images/demoEquine09.jpg", imageTask8.getImageUrl());
+
+        ImageTask imageTask9 = pas.nextImageTaskTemplate();
+        assertEquals(3, imageTask9.getTaskQuestions().size());
+        assertEquals("./images/demoEquine37.jpg", imageTask9.getImageUrl());
+
+        ImageTask imageTask10 = pas.nextImageTaskTemplate();
+        assertEquals(6, imageTask10.getTaskQuestions().size());
+        assertEquals("./images/demoEquine32.jpg", imageTask10.getImageUrl());
+
+        //At this point, every single question has been seen. The system successfully loops.
+
+        ImageTask imageTask11 = pas.nextImageTaskTemplate();
+        assertEquals(5, imageTask11.getTaskQuestions().size());
+        assertEquals("./images/demoEquine14.jpg", imageTask11.getImageUrl());
+
+        ImageTask imageTask12 = pas.nextImageTaskTemplate();
+        assertEquals(6, imageTask12.getTaskQuestions().size());
+        assertEquals("./images/demoEquine02.jpg", imageTask12.getImageUrl());
     }
+
+    @Test
+    public void endOfTasksTest() throws IOException{
+        ImageTask imageTask = pas.nextImageTaskTemplate();
+        pas.imageTaskResponseSubmitted(new ImageTaskResponse());
+
+
+        assertEquals(5, imageTask.getTaskQuestions().size());
+        assertEquals("./images/demoEquine14.jpg", imageTask.getImageUrl());
+
+        ImageTask imageTask2 = pas.nextImageTaskTemplate();
+        assertEquals(6, imageTask2.getTaskQuestions().size());
+        assertEquals("./images/demoEquine02.jpg", imageTask2.getImageUrl());
+
+        ImageTask imageTask3 = pas.nextImageTaskTemplate();
+        assertEquals(4, imageTask3.getTaskQuestions().size());
+        assertEquals("./images/demoEquine13.jpg", imageTask3.getImageUrl());
+
+        ImageTask imageTask4 = pas.nextImageTaskTemplate();
+        assertEquals(3, imageTask4.getTaskQuestions().size());
+        assertEquals("./images/demoEquine04.jpg", imageTask4.getImageUrl());
+
+        ImageTask imageTask5 = pas.nextImageTaskTemplate();
+        assertEquals(6, imageTask5.getTaskQuestions().size());
+        assertEquals("./images/demoEquine10.jpg", imageTask5.getImageUrl());
+
+        ImageTask imageTask6 = pas.nextImageTaskTemplate();
+        assertEquals(4, imageTask6.getTaskQuestions().size());
+        assertEquals("./images/demoEquine11.jpg", imageTask6.getImageUrl());
+
+        ImageTask imageTask7 = pas.nextImageTaskTemplate();
+        assertEquals(5, imageTask7.getTaskQuestions().size());
+        assertEquals("./images/demoEquine05.jpg", imageTask7.getImageUrl());
+
+        ImageTask imageTask8 = pas.nextImageTaskTemplate();
+        assertEquals(5, imageTask8.getTaskQuestions().size());
+        assertEquals("./images/demoEquine09.jpg", imageTask8.getImageUrl());
+
+        ImageTask imageTask9 = pas.nextImageTaskTemplate();
+        assertEquals(3, imageTask9.getTaskQuestions().size());
+        assertEquals("./images/demoEquine37.jpg", imageTask9.getImageUrl());
+
+        ImageTask imageTask10 = pas.nextImageTaskTemplate();
+        assertEquals(6, imageTask10.getTaskQuestions().size());
+        assertEquals("./images/demoEquine32.jpg", imageTask10.getImageUrl());
+    }
+
 }
