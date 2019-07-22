@@ -92,13 +92,13 @@ public class ParRestController {
     public Map<EquineQuestionTypes,String> knowledgeBaseEstimate(@RequestParam String userId)throws IOException{
         return parServer.knowledgeBaseEstimate(userId);
 
-    @GetMapping("/nextImageTaskTemplate")
-    public ImageTask nextImageTaskTemplate(@RequestParam String authorId) throws IOException {
+    @GetMapping("/nextAuthorImageTask")
+    public ImageTask nextAuthorImageTask() throws IOException {
         return parAuthoringServer.nextImageTaskTemplate();
     }
 
-    @PostMapping("/submitImageTaskTemplateResponse")
-    public ResponseEntity<String> recordTemplateResponse(@RequestBody ImageTaskResponse response) {
+    @PostMapping("/submitAuthorImageTaskResponse")
+    public ResponseEntity<String> submitAuthorImageTaskResponse(@RequestBody ImageTaskResponse response) {
         try {
             parAuthoringServer.imageTaskResponseSubmitted(response);
             return ResponseEntity.ok().body("ok");
