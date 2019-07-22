@@ -13,28 +13,17 @@ class PageDisplay {
         this.isAuthor= setIsAuthor(this.userId);
     }
 
-    nextAuthorImageTask() {
-        var settings;
-
-        //TODO: Needs a new URL
-        try {
-            settings = readJson("api/getImageTaskSettings?userId=" + this.userId);
-            var imageTaskJSON = readJson("api/nextImageTask?userId=" + this.userId);
-            this.imageTaskDisplay = new ImageTaskDisplay(imageTaskJSON, this.userId, settings, this.isAuthor);
-
-        } catch (Exception) {
-            window.onerror = function (msg) {
-                location.replace('/error?message=' + msg);
-            }
-        }
-    }
 
     nextImageTask() {
         var settings;
 
         try {
             settings = readJson("api/getImageTaskSettings?userId=" + this.userId);
-            var imageTaskJSON = readJson("api/nextImageTask?userId=" + this.userId);
+            if(this.isAuthor){
+                //TODO
+            } else {
+                var imageTaskJSON = readJson("api/nextImageTask?userId=" + this.userId);
+            }
             this.imageTaskDisplay = new ImageTaskDisplay(imageTaskJSON, this.userId, settings, this.isAuthor);
 
         } catch (Exception) {
