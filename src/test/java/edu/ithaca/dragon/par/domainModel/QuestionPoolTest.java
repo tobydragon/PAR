@@ -153,10 +153,7 @@ public class QuestionPoolTest {
         Question thirdQuestion = qp.getTopLevelQuestionById("structure0./images/demoEquine14.jpg");
         assertEquals(qp.getAllQuestions().get(1), thirdQuestion);
 
-        assertThrows(RuntimeException.class, ()->{Question noQuestion = qp.getTopLevelQuestionById("badId");});
-
-
-        assertThrows(RuntimeException.class, ()->{Question noQuestion = qp.getTopLevelQuestionById("AttachQ1");});
-
+        assertNull(qp.getTopLevelQuestionById("AttachQ1"));
+        assertNull(qp.getTopLevelQuestionById("badId"));
     }
 }

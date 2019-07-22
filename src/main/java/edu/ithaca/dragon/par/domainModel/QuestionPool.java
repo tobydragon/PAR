@@ -158,6 +158,6 @@ public class QuestionPool {
                 return allQuestions.get(i);
             }
         }
-        throw new RuntimeException("Question Id "+id+" is invalid");
+        return null;
     }
 }
