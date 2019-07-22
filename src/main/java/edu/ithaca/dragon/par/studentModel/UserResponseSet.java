@@ -145,7 +145,7 @@ public class UserResponseSet {
 
     public Map<EquineQuestionTypes, String> generateKnowledgeBaseMap(){
         Map<String, List<ResponsesPerQuestion>> responseByType = splitResponsesByType(userResponses);
-        Map<EquineQuestionTypes,String> knowledgeBaseMap=new HashMap<>();
+        Map<EquineQuestionTypes,String> knowledgeBaseMap=new LinkedHashMap<>();
         for (EquineQuestionTypes currType : EquineQuestionTypes.values()) {
             List<ResponsesPerQuestion> quesList = responseByType.get(currType.toString());
             knowledgeBaseMap.put(currType, knowledgeBaseEstimate(quesList,windowSize));
