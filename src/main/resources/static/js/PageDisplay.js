@@ -10,24 +10,7 @@ class PageDisplay {
     }
 
     setIsAuthor() {
-        if (this.userId === "author") {
-            this.isAuthor = true;
-        } else {
-            this.isAuthor = false;
-        }
-    }
-
-    displayUserId() {
-        document.getElementById("UserId").innerHTML = "&nbsp" + this.userId;
-    }
-
-    generateScore() {
-        let visJSON = readJson("api/knowledgeBase?userId=" + this.userId);
-        return setCurrentScore(visJSON, this.scoreType);
-    }
-
-    displayScore(given) {
-        document.getElementById("score").appendChild(given);
+        this.isAuthor= setIsAuthor(this.userId);
     }
 
     nextAuthorImageTask() {
@@ -70,4 +53,12 @@ class PageDisplay {
 
 function logout() {
     return location.replace('/login');
+}
+
+function setIsAuthor(userId){
+    if (userId === "author") {
+        return  true;
+    } else {
+        return false;
+    }
 }

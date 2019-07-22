@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="/css/style.css">
     <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
     <!-- Main JS Files -->
+    <script type="text/javascript" src="/js/CompleteDisplay.js"></script>
     <script type="text/javascript" src="/js/PageDisplay.js"></script>
     <script type="text/javascript" src="/js/ImageTaskDisplay.js"></script>
     <script type="text/javascript" src="/js/CommUtil.js"></script>
@@ -34,21 +35,9 @@
 <body>
     <script>
         userID = "[[${User}]]";
-        var settings;
-
-        try {
-            settings = readJson("api/getPageSettings?userId=" + userID);
-
-        } catch (Exception) {
-            window.onerror = function(msg) {
-                location.replace('/error?message=' + msg);
-            }
-        }
-
-        settings = readJson("api/getPageSettings?userId=" + userID);
-        let pagedisplay = new PageDisplay(settings);
-        pagedisplay.userId = userID;
-        pagedisplay.setIsAuthor();
+        let completeDisplay = new CompleteDisplay();
+        completeDisplay.userID = userID;
+        completeDisplay.createPageDisplay();
     </script>
 
     <!-- Nav Bar -->
@@ -68,7 +57,7 @@
             </div>
             <div class="col-1"></div>
             <div class="col-2 colVertCenter">
-                <button type="button" class="btn btn-primary" id="logoutButton" onclick="pagedisplay.logout()">
+                <button type="button" class="btn btn-primary" id="logoutButton" onclick="completeDisplay.pageDisplay.logout()">
                     Logout
                 </button>
             </div>
@@ -81,7 +70,7 @@
             <div class="col-1"></div>
 
             <div class="col-6 imgCenter">
-                <canvas id="myCanvas" height=200% class="center-block">
+                <canvas id="myCanvas" class="center-block">
                     Your browser doesn't support Canvas.
                 </canvas>
 
@@ -98,37 +87,30 @@
                     <div class="col-12 text-center">
                         <div class="show">
                             <i id="submitButtonTag">
-                                <button type="button" class="btn btn-primary" id="submitButton" onclick="pagedisplay.imageTaskDisplay.submitAnswers()">
+                                <button type="button" class="btn btn-primary" id="submitButton" onclick="completeDisplay.pageDisplay.imageTaskDisplay.submitAnswers()">
                                     Submit
                                 </button>
                             </i>
-                            <button type="button" class="fas fa-arrow-circle-right btn btn-outline-dark" id="nextQuestionButton" onclick="pagedisplay.imageTaskDisplay.nextQuestion()"></button>
+                            <button type="button" class="fas fa-arrow-circle-right btn btn-outline-dark" id="nextQuestionButton" onclick="completeDisplay.nextQuestion()"></button>
                             <i id="errorFeedback"> </i>
                         </div>
-
+                        <div class="row">
+                            <div class="col-12">
+                                <i id="Ids"> </i>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-1"></div>
 
         </div>
-        <div class="row">
-            <div class="col-12">
-                <i id="Ids"> </i>
-            </div>
-        </div>
     </div>
 
     <script>
-        pagedisplay.displayUserId();
-        if (pagedisplay.showScore) {
-            pagedisplay.displayScore(pagedisplay.generateScore());
-        }
-        if (pagedisplay.isAuthor) {
-            pagedisplay.nextAuthorImageTask();
-        } else {
-            pagedisplay.nextImageTask();
-        }
+        completeDisplay.displayUserId();
+        completeDisplay.showScore();
+        completeDisplay.nextImageTask();
     </script>
     <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
