@@ -107,7 +107,7 @@ function submitResponse(response, isAuthor) {
     };
 
     if (isAuthor) {
-        //TODO: Needs a new URL
+        console.log("we here as author");
         submitToAPI("api/submitAuthorImageTaskResponse", newResponse);
     } else {
         submitToAPI("api/recordResponse", newResponse);

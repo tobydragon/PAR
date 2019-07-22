@@ -1,17 +1,17 @@
 class CompleteDisplay {
 
     constructor() {
-        this.pageDisplay=null;
-        this.pageSettings=null;
-        this.userID= null;
+        this.pageDisplay = null;
+        this.pageSettings = null;
+        this.userID = null;
     }
 
-    createPageDisplay(){
+    createPageDisplay() {
         try {
             this.pageSettings = readJson("api/getPageSettings?userId=" + this.userID);
 
         } catch (Exception) {
-            window.onerror = function(msg) {
+            window.onerror = function (msg) {
                 location.replace('/error?message=' + msg);
             }
         }
@@ -26,7 +26,7 @@ class CompleteDisplay {
         document.getElementById("UserId").innerHTML = "&nbsp" + this.userID;
     }
 
-    showScore(){
+    showScore() {
         if (this.pageDisplay.showScore) {
             this.displayScore(this.generateScore());
         }
@@ -38,23 +38,20 @@ class CompleteDisplay {
     }
 
     displayScore(given) {
-        if(document.getElementById("score").hasChildNodes()) {
-            let node=document.getElementById("score").firstChild;
+        if (document.getElementById("score").hasChildNodes()) {
+            let node = document.getElementById("score").firstChild;
             document.getElementById("score").removeChild(node);
         }
         document.getElementById("score").appendChild(given);
     }
 
-    nextImageTask(){
-        document.getElementById("questionSet").innerText="";
-        if (this.pageDisplay.isAuthor) {
-            this.pageDisplay.nextAuthorImageTask();
-        } else {
-            this.pageDisplay.nextImageTask();
-        }
+    nextImageTask() {
+        document.getElementById("questionSet").innerText = "";
+        this.pageDisplay.nextImageTask();
+
     }
 
-    nextQuestion(){
+    nextQuestion() {
         if (!this.pageDisplay.imageTaskDisplay.mustSubmitAnswersToContinue) {
             this.nextImageTask();
             this.showScore();
