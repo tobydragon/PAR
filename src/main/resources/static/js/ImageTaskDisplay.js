@@ -122,18 +122,6 @@ class ImageTaskDisplay {
         }
     }
 
-    nextQuestion() {
-        if (!this.mustSubmitAnswersToContinue) {
-            location.reload();
-        } else {
-            if (this.haveSubmited) {
-                location.reload();
-            } else {
-                document.getElementById("errorFeedback").innerHTML = "<font color=red>Must submit answers to continue</font>";
-            }
-        }
-    }
-
     giveFeedback(typesSeenForFeedback) {
         if (typesSeenForFeedback.length > 0) {
             document.getElementById("helpfulFeedback").innerHTML = "Feedback: ";

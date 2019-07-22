@@ -24,7 +24,7 @@ class CompleteDisplay {
 
     showScore(){
         if (this.pageDisplay.showScore) {
-            this.pageDisplay.displayScore(this.pageDisplay.generateScore());
+            this.displayScore(this.generateScore());
         }
     }
 
@@ -36,5 +36,38 @@ class CompleteDisplay {
             this.pageDisplay.nextImageTask();
         }
     }
-    
+
+    displayUserId() {
+        document.getElementById("UserId").innerHTML = "&nbsp" + this.userID;
+        console.log("Excuse?");
+        console.log(this.userID);
+    }
+
+    generateScore() {
+        let visJSON = readJson("api/knowledgeBase?userId=" + this.userID);
+        return setCurrentScore(visJSON, this.pageDisplay.scoreType);
+    }
+
+    displayScore(given) {
+        if(document.getElementById("score").hasChildNodes()) {
+            let node=document.getElementById("score").firstChild;
+            document.getElementById("score").removeChild(node);
+        }
+        document.getElementById("score").appendChild(given);
+    }
+
+    nextQuestion(){
+        if (!this.pageDisplay.imageTaskDisplay.mustSubmitAnswersToContinue) {
+            this.nextImageTask();
+            this.showScore();
+        } else {
+            if (this.pageDisplay.imageTaskDisplay.haveSubmited) {
+                this.nextImageTask();
+                this.showScore();
+            } else {
+                document.getElementById("errorFeedback").innerHTML = "<font color=red>Must submit answers to continue</font>";
+            }
+        }
+    }
+
 }

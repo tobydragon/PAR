@@ -34,11 +34,10 @@
 
 <body>
     <script>
-        userID = "[[${display}]]";
+        userID = "[[${User}]]";
         let completeDisplay=new CompleteDisplay();
         completeDisplay.userID= userID;
         completeDisplay.createPageDisplay();
-        let pagedisplay= completeDisplay.pageDisplay;
     </script>
 
     <!-- Nav Bar -->
@@ -58,7 +57,7 @@
             </div>
             <div class="col-1"></div>
             <div class="col-2 colVertCenter">
-                <button type="button" class="btn btn-primary" id="logoutButton" onclick="pagedisplay.logout()">
+                <button type="button" class="btn btn-primary" id="logoutButton" onclick="completeDisplay.pageDisplay.logout()">
                     Logout
                 </button>
             </div>
@@ -88,11 +87,11 @@
                     <div class="col-12 text-center">
                         <div class="show">
                             <i id="submitButtonTag">
-                                <button type="button" class="btn btn-primary" id="submitButton" onclick="pagedisplay.imageTaskDisplay.submitAnswers()">
+                                <button type="button" class="btn btn-primary" id="submitButton" onclick="completeDisplay.pageDisplay.imageTaskDisplay.submitAnswers()">
                                     Submit
                                 </button>
                             </i>
-                            <button type="button" class="fas fa-arrow-circle-right btn btn-outline-dark" id="nextQuestionButton" onclick="completeDisplay.nextImageTask()"></button>
+                            <button type="button" class="fas fa-arrow-circle-right btn btn-outline-dark" id="nextQuestionButton" onclick="completeDisplay.nextQuestion()"></button>
                             <i id="errorFeedback"> </i>
                         </div>
 
@@ -110,7 +109,7 @@
     </div>
 
     <script>
-        pagedisplay.displayUserId();
+        completeDisplay.displayUserId();
         completeDisplay.showScore();
         completeDisplay.nextImageTask();
     </script>

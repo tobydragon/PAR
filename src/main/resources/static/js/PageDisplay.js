@@ -17,19 +17,6 @@ class PageDisplay {
         }
     }
 
-    displayUserId() {
-        document.getElementById("UserId").innerHTML = "&nbsp" + this.userId;
-    }
-
-    generateScore() {
-        let visJSON = readJson("api/knowledgeBase?userId=" + this.userId);
-        return setCurrentScore(visJSON, this.scoreType);
-    }
-
-    displayScore(given) {
-        document.getElementById("score").appendChild(given);
-    }
-
     nextAuthorImageTask() {
         var settings;
 
