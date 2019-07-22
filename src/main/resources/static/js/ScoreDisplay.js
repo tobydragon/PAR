@@ -101,6 +101,7 @@ function buildVisualSegment(value) {
     } else if (value === '_') {
         childElement.classList.add("fas");
         childElement.classList.add("fa-circle");
+        childElement.classList.add("light-grey");
     } else {
         childElement.classList.add("fas");
         childElement.classList.add("fa-minus-circle");

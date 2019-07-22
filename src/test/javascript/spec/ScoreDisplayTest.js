@@ -24,8 +24,8 @@ describe("ScoreDisplay", function () {
 
         expect(element.childNodes.item(2).childNodes.item(1).getAttribute("class")).toContain('fas fa-circle');
         expect(element.childNodes.item(2).childNodes.item(2).getAttribute("class")).toContain('fas fa-times-circle red');
-        expect(element.childNodes.item(2).childNodes.item(3).getAttribute("class")).toContain('fas fa-circle');
-        expect(element.childNodes.item(2).childNodes.item(4).getAttribute("class")).toContain('fas fa-circle');
+        expect(element.childNodes.item(2).childNodes.item(3).getAttribute("class")).toContain('fas fa-circle light-grey');
+        expect(element.childNodes.item(2).childNodes.item(4).getAttribute("class")).toContain('fas fa-circle light-grey');
 
     });
     it("generateScoreByType", function () {
