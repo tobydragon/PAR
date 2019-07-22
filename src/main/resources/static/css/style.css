@@ -28,6 +28,11 @@ h5 {
     font-family: 'Nanum Gothic', sans-serif;
 }
 
+#myCanvas {
+    position: absolute;
+    width: 100%;
+}
+
 .center {
     text-align: center;
 }
@@ -73,6 +78,26 @@ h5 {
 
 .black {
     color: black;
+}
+
+.yellow {
+    color: goldenrod;
+}
+
+.correct {
+    color: green;
+}
+
+.incorrect {
+    color: red;
+}
+
+.unsure {
+    color: #663399;
+}
+
+.textAlignRight {
+    text-align: right;
 }
 
 /* ---------------------------------------*

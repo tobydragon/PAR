@@ -42,7 +42,11 @@ public class ParSpringApplicationTest {
 				.andExpect(status().isOk())
 				.andExpect(content().contentType("application/json;charset=UTF-8"));
 
-		mvc.perform(MockMvcRequestBuilders.get("/api/getSettings").accept(MediaType.APPLICATION_JSON))
+		mvc.perform(MockMvcRequestBuilders.get("/api/getPageSettings?userId=Student").accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(content().contentType("application/json;charset=UTF-8"));
+
+		mvc.perform(MockMvcRequestBuilders.get("/api/getImageTaskSettings?userId=Student").accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(content().contentType("application/json;charset=UTF-8"));
 	}
