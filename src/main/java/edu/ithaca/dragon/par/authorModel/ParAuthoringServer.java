@@ -99,7 +99,7 @@ public class ParAuthoringServer {
     }
 
     public ImageTask nextImageTaskTemplate(AuthorModel authorModel) throws IOException {
-        return null;
+        return AuthorTaskGenerator.makeTaskTemplate(authorModel);
     }
 
 
