@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
+import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.util.JsonUtil;
 import org.junit.jupiter.api.Test;
@@ -32,12 +33,17 @@ public class ImageTaskResponseTest {
 
     @Test
     public void findResponseToQuestionTest() throws IOException{
-        QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool3.json").loadQuestions());
-        ImageTaskResponse responseSet = new ImageTaskResponse("response1",Arrays.asList("PlaneQ1","StructureQ1","ZoneQ1"),Arrays.asList("Lateral","bone","3c"));
+        QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").loadQuestions());
+        ImageTaskResponse responseSet = new ImageTaskResponse("response1",Arrays.asList("plane./images/demoEquine14.jpg","structure0./images/demoEquine14.jpg", "AttachQ1"),Arrays.asList("Lateral","bone","3c"));
         List<ImageTaskResponse> responsesToFile = Arrays.asList(responseSet);
-        fail("finish this test");
         //test for sucsessfully getting the answer to a parent question
+        assertEquals("Lateral", responseSet.findResponseToQuestion(qp.getQuestionFromId("plane./images/demoEquine14.jpg")));
+        assertEquals("bone", responseSet.findResponseToQuestion(qp.getQuestionFromId("structure0./images/demoEquine14.jpg")));
+
         //getting null for a question that doesn't exist
+        assertEquals(null, responseSet.findResponseToQuestion(new Question("notAValidQuestion", "notAValidQuestion", "notAValidQuestion", "notAValidQuestion", Arrays.asList("notAValidQuestion","notAValidQuestion2"), "notAValidQuestion")));
+
         //getting null for a followup question
+        assertEquals(null, responseSet.findResponseToQuestion(qp.getQuestionFromId("AttachQ1")));
     }
 }
