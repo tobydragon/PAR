@@ -76,19 +76,19 @@ public class ParRestController {
         return parServer.calcScoreByType(userId);
     }
 
-    @GetMapping("/nextImageTaskTemplate")
-    public ImageTask nextImageTaskTemplate(@RequestParam String authorId) throws IOException {
-        return parAuthoringServer.nextImageTaskTemplate(authorId);
-    }
-
-    @PostMapping("/submitImageTaskTemplateResponse")
-    public ResponseEntity<String> recordTemplateResponse(@RequestBody ImageTaskResponse response) {
-        try {
-            parAuthoringServer.imageTaskResponseSubmitted(response, response.getUserId());
-            return ResponseEntity.ok().body("ok");
-        } catch (Exception e){
-            logger.warn(e);
-            return ResponseEntity.notFound().build();
-        }
-    }
+//    @GetMapping("/nextImageTaskTemplate")
+//    public ImageTask nextImageTaskTemplate(@RequestParam String authorId) throws IOException {
+//        return parAuthoringServer.nextImageTaskTemplate(authorId);
+//    }
+//
+//    @PostMapping("/submitImageTaskTemplateResponse")
+//    public ResponseEntity<String> recordTemplateResponse(@RequestBody ImageTaskResponse response) {
+//        try {
+//            parAuthoringServer.imageTaskResponseSubmitted(response, response.getUserId());
+//            return ResponseEntity.ok().body("ok");
+//        } catch (Exception e){
+//            logger.warn(e);
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
 }

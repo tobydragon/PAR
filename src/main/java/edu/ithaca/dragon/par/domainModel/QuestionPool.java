@@ -151,4 +151,13 @@ public class QuestionPool {
         }
         return true;
     }
+
+    public Question getTopLevelQuestionById(String id){
+        for (int i = 0; i <allQuestions.size(); i++){
+            if (allQuestions.get(i).getId().equals(id)){
+                return allQuestions.get(i);
+            }
+        }
+        throw new RuntimeException("Question Id "+id+" is invalid");
+    }
 }
