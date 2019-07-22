@@ -17,14 +17,30 @@ import java.util.Map;
 
 public class ParServer {
 
-    private QuestionPool questionPool;
+    protected QuestionPool questionPool;
     private Map<String, StudentModel> studentModelMap;
     private Datastore datastore;
+    private Integer windowSizeOverride;
 
+<<<<<<< HEAD
     public ParServer(Datastore datastore) throws IOException {
         this.questionPool = new QuestionPool(datastore);
+=======
+    public ParServer(Datastore datastore) throws IOException{
+        this.questionPool = new QuestionPool(datastore.loadQuestions());
+>>>>>>> ad949dadfe26d4c795750049d65d445c86406050
         this.datastore = datastore;
         studentModelMap = new HashMap<>();
+        this.windowSizeOverride = null;
+
+        checkIfWindowSizeIsValid(questionPool);
+    }
+
+    public ParServer(Datastore datastore, int windowSizeOverride) throws IOException{
+        this.questionPool = new QuestionPool(datastore.loadQuestions());
+        this.datastore = datastore;
+        studentModelMap = new HashMap<>();
+        this.windowSizeOverride = windowSizeOverride;
 
         checkIfWindowSizeIsValid(questionPool);
     }
@@ -64,6 +80,10 @@ public class ParServer {
 
     //Side effect: if a new model is created, it is added to the given studentModelMap
 
+    public QuestionPool getQuestionPool() {
+        return questionPool;
+    }
+
     /**
      * @param studentModelMap
      * @param userId
@@ -77,16 +97,22 @@ public class ParServer {
         //if the student wasn't in the map, try to load from file
         if (studentModel == null) {
             studentModel = datastore.loadStudentModel(userId);
+<<<<<<< HEAD
         }
 
         //the student didn't have a file, create a new student
         if (studentModel == null) {
             studentModel = new StudentModel(userId, datastore.loadQuestions());
+=======
+>>>>>>> ad949dadfe26d4c795750049d65d445c86406050
 
+            //if the student didn't have a file, create a new student
+            if(studentModel == null){
+                studentModel = new StudentModel(userId, datastore.loadQuestions());
+            }
+            //add the student to the map
+            studentModelMap.put(userId, studentModel);
         }
-        //add the student to the map
-        studentModelMap.put(userId, studentModel);
-
         return studentModel;
     }
 
@@ -104,8 +130,19 @@ public class ParServer {
     }
 
     public void checkIfWindowSizeIsValid(QuestionPool questionPool){
+<<<<<<< HEAD
         if (!questionPool.checkWindowSize(UserResponseSet.windowSize)) {
             throw new RuntimeException("The windowSize is too small for the given questionPool");
+=======
+        if(windowSizeOverride == null){
+            if(!questionPool.checkWindowSize(UserResponseSet.windowSize)){
+                throw new RuntimeException("The windownSize is too small for the given questionPool");
+            }
+        }
+        else{
+            if(!questionPool.checkWindowSize(windowSizeOverride)){
+                throw new RuntimeException("The windownSize (Overriden) is too small for the given questionPool");
+>>>>>>> ad949dadfe26d4c795750049d65d445c86406050
             }
         }
     }

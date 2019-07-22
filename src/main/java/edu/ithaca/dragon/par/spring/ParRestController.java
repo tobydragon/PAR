@@ -2,6 +2,7 @@ package edu.ithaca.dragon.par.spring;
 
 import edu.ithaca.dragon.par.ParServer;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
+import edu.ithaca.dragon.par.authorModel.ParAuthoringServer;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
 import edu.ithaca.dragon.par.io.JsonSpringDatastore;
@@ -22,12 +23,14 @@ import java.util.Map;
 public class ParRestController {
     private final Logger logger = LogManager.getLogger(this.getClass());
 
+    private ParAuthoringServer parAuthoringServer;
     private ParServer parServer;
 
     ParRestController(){
         super();
         try {
             parServer = new ParServer(new JsonSpringDatastore("localData/currentQuestionPool.json","author/DemoQuestionPool.json", "localData/students"));
+
         }
         catch(IOException e){
             throw new RuntimeException("Server can't start without questionPool or studentRecord", e);
@@ -57,7 +60,7 @@ public class ParRestController {
 
     @GetMapping("/nextImageTask")
     public ImageTask nextImageTask(@RequestParam String userId) throws IOException {
-            return parServer.nextImageTask(userId);
+        return parServer.nextImageTask(userId);
     }
 
     @PostMapping("/recordResponse")
@@ -88,5 +91,20 @@ public class ParRestController {
     @GetMapping("/knowledgeBase")
     public Map<EquineQuestionTypes,String> knowledgeBaseEstimate(@RequestParam String userId)throws IOException{
         return parServer.knowledgeBaseEstimate(userId);
+
+    @GetMapping("/nextImageTaskTemplate")
+    public ImageTask nextImageTaskTemplate(@RequestParam String authorId) throws IOException {
+        return parAuthoringServer.nextImageTaskTemplate();
+    }
+
+    @PostMapping("/submitImageTaskTemplateResponse")
+    public ResponseEntity<String> recordTemplateResponse(@RequestBody ImageTaskResponse response) {
+        try {
+            parAuthoringServer.imageTaskResponseSubmitted(response);
+            return ResponseEntity.ok().body("ok");
+        } catch (Exception e){
+            logger.warn(e);
+            return ResponseEntity.notFound().build();
+        }
     }
 }

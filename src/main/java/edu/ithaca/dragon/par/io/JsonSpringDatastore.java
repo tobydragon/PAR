@@ -1,5 +1,6 @@
 package edu.ithaca.dragon.par.io;
 
+import edu.ithaca.dragon.par.authorModel.AuthorModel;
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
@@ -55,6 +56,16 @@ public class JsonSpringDatastore implements Datastore {
     public void saveStudentModel(StudentModel studentModel) throws IOException {
         String fullFilePath = currentStudentModelDir + "/" +  studentModel.getUserId() + ".json";
         JsonSpringUtil.toFileSystemJson(fullFilePath, new StudentModelRecord(studentModel));
+    }
+
+    @Override
+    public AuthorModel loadAuthorModel() throws IOException {
+        return null;
+    }
+
+    @Override
+    public void saveAuthorModel(AuthorModel authorModel) throws IOException {
+
     }
 
     @Override
