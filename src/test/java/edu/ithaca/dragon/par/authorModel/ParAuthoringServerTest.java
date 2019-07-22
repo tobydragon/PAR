@@ -3,6 +3,7 @@ package edu.ithaca.dragon.par.authorModel;
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.io.Datastore;
+import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
 import edu.ithaca.dragon.par.io.JsonDatastore;
 import org.junit.jupiter.api.BeforeEach;
@@ -89,5 +90,23 @@ public class ParAuthoringServerTest {
         assertEquals(1, validFollowUps.size());
 
 
+    }
+
+    @Test
+    public void nextImageTaskTemplate(){
+        ImageTask imageTask = pas.nextImageTaskTemplate();
+        assertEquals(5, imageTask.getTaskQuestions().size());
+
+        ImageTask imageTask2 = pas.nextImageTaskTemplate();
+        assertEquals(6, imageTask2.getTaskQuestions().size());
+
+        ImageTask imageTask3 = pas.nextImageTaskTemplate();
+        assertEquals(4, imageTask3.getTaskQuestions().size());
+
+        ImageTask imageTask4 = pas.nextImageTaskTemplate();
+        assertEquals(3, imageTask4.getTaskQuestions().size());
+
+        ImageTask imageTask5 = pas.nextImageTaskTemplate();
+        System.out.println(imageTask5.getImageUrl());
     }
 }
