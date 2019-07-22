@@ -3,12 +3,14 @@ package edu.ithaca.dragon.par.authorModel;
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.io.Datastore;
+import edu.ithaca.dragon.par.io.ImageTaskResponse;
 import edu.ithaca.dragon.par.io.JsonDatastore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,24 +31,25 @@ public class ParAuthoringServerTest {
     }
 
     @Test
-    public void convertQuestionTemplateToQuestionTest(){
+    public void imageTaskResponseSubmittedTest() throws IOException{
+
         assertEquals(0, pas.getQuestionPool().getAllQuestions().size());
         assertEquals(47, pas.getQuestionPoolTemplate().getAllQuestions().size());
-        pas.convertQuestionTemplateToQuestion("plane./images/demoEquine14.jpg", "longitudinal");
-        assertEquals(46, pas.getQuestionPoolTemplate().getAllQuestions().size());
-        assertEquals(1, pas.getQuestionPool().getAllQuestions().size());
 
-        pas.convertQuestionTemplateToQuestion("structure2./images/demoEquine14.jpg", "Superficial digital flexor tendon");
+        ImageTaskResponse imageTaskResponse1 = new ImageTaskResponse("User1", Arrays.asList("plane./images/demoEquine14.jpg", "structure0./images/demoEquine14.jpg", "AttachQ1", "AttachQ2"), Arrays.asList("longitudinal", "Superficial digital flexor tendon", "AttachType1", "AttachType2"));
+        pas.imageTaskResponseSubmitted(imageTaskResponse1);
+
         assertEquals(45, pas.getQuestionPoolTemplate().getAllQuestions().size());
         assertEquals(2, pas.getQuestionPool().getAllQuestions().size());
+        assertEquals(2, pas.getQuestionPool().getQuestionFromId("structure0./images/demoEquine14.jpg").getFollowupQuestions().size());
 
-        pas.convertQuestionTemplateToQuestion("zone./images/demoEquine14.jpg", "2");
-        assertEquals(44, pas.getQuestionPoolTemplate().getAllQuestions().size());
-        assertEquals(3, pas.getQuestionPool().getAllQuestions().size());
+        ImageTaskResponse imageTaskResponse2 = new ImageTaskResponse("User1", Arrays.asList("structure2./images/demoEquine14.jpg", "structure3./images/demoEquine14.jpg", "zone./images/demoEquine14.jpg"), Arrays.asList("Metacarple Bone 3", "Superficial digital flexor tendon", "3a"));
+        pas.imageTaskResponseSubmitted(imageTaskResponse2);
 
-        assertThrows(RuntimeException.class, ()->{pas.convertQuestionTemplateToQuestion("badId", "2");});
-        assertThrows(RuntimeException.class, ()->{pas.convertQuestionTemplateToQuestion("zone./images/demoEquine14.jpg", "2");});
-        assertThrows(RuntimeException.class, ()-> {pas.convertQuestionTemplateToQuestion("zone./images/demoEquine14.jpg", "BadAnswer");});
+        assertEquals(42, pas.getQuestionPoolTemplate().getAllQuestions().size());
+        assertEquals(5, pas.getQuestionPool().getAllQuestions().size());
+
+        assertThrows(RuntimeException.class, ()->{pas.imageTaskResponseSubmitted(imageTaskResponse1);});
 
     }
 
