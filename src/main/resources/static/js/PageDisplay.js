@@ -10,7 +10,7 @@ class PageDisplay {
     }
 
     setIsAuthor() {
-        this.isAuthor= setIsAuthor(this.userId);
+        this.isAuthor = setIsAuthor(this.userId);
     }
 
     nextAuthorImageTask() {
@@ -19,7 +19,7 @@ class PageDisplay {
         //TODO: Needs a new URL
         try {
             settings = readJson("api/getImageTaskSettings?userId=" + this.userId);
-            var imageTaskJSON = readJson("api/nextImageTask?userId=" + this.userId);
+            var imageTaskJSON = readJson("api/nextAuthorImageTask?userId=" + this.userId);
             this.imageTaskDisplay = new ImageTaskDisplay(imageTaskJSON, this.userId, settings, this.isAuthor);
 
         } catch (Exception) {
@@ -55,9 +55,9 @@ function logout() {
     return location.replace('/login');
 }
 
-function setIsAuthor(userId){
+function setIsAuthor(userId) {
     if (userId === "author") {
-        return  true;
+        return true;
     } else {
         return false;
     }

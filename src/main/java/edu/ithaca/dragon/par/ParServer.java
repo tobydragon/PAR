@@ -22,13 +22,8 @@ public class ParServer {
     private Datastore datastore;
     private Integer windowSizeOverride;
 
-<<<<<<< HEAD
     public ParServer(Datastore datastore) throws IOException {
-        this.questionPool = new QuestionPool(datastore);
-=======
-    public ParServer(Datastore datastore) throws IOException{
         this.questionPool = new QuestionPool(datastore.loadQuestions());
->>>>>>> ad949dadfe26d4c795750049d65d445c86406050
         this.datastore = datastore;
         studentModelMap = new HashMap<>();
         this.windowSizeOverride = null;
@@ -36,7 +31,7 @@ public class ParServer {
         checkIfWindowSizeIsValid(questionPool);
     }
 
-    public ParServer(Datastore datastore, int windowSizeOverride) throws IOException{
+    public ParServer(Datastore datastore, int windowSizeOverride) throws IOException {
         this.questionPool = new QuestionPool(datastore.loadQuestions());
         this.datastore = datastore;
         studentModelMap = new HashMap<>();
@@ -97,17 +92,14 @@ public class ParServer {
         //if the student wasn't in the map, try to load from file
         if (studentModel == null) {
             studentModel = datastore.loadStudentModel(userId);
-<<<<<<< HEAD
         }
 
         //the student didn't have a file, create a new student
         if (studentModel == null) {
             studentModel = new StudentModel(userId, datastore.loadQuestions());
-=======
->>>>>>> ad949dadfe26d4c795750049d65d445c86406050
 
             //if the student didn't have a file, create a new student
-            if(studentModel == null){
+            if (studentModel == null) {
                 studentModel = new StudentModel(userId, datastore.loadQuestions());
             }
             //add the student to the map
@@ -124,26 +116,22 @@ public class ParServer {
         StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, datastore);
         return currentStudent.knowledgeScoreByType();
     }
-    public Map<EquineQuestionTypes,String> knowledgeBaseEstimate(String userId)throws IOException{
+
+    public Map<EquineQuestionTypes, String> knowledgeBaseEstimate(String userId) throws IOException {
         StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, datastore);
         return currentStudent.generateKnowledgeBaseMap();
     }
 
-    public void checkIfWindowSizeIsValid(QuestionPool questionPool){
-<<<<<<< HEAD
-        if (!questionPool.checkWindowSize(UserResponseSet.windowSize)) {
-            throw new RuntimeException("The windowSize is too small for the given questionPool");
-=======
-        if(windowSizeOverride == null){
-            if(!questionPool.checkWindowSize(UserResponseSet.windowSize)){
+    public void checkIfWindowSizeIsValid(QuestionPool questionPool) {
+        if (windowSizeOverride == null) {
+            if (!questionPool.checkWindowSize(UserResponseSet.windowSize)) {
                 throw new RuntimeException("The windownSize is too small for the given questionPool");
             }
-        }
-        else{
-            if(!questionPool.checkWindowSize(windowSizeOverride)){
+        } else {
+            if (!questionPool.checkWindowSize(windowSizeOverride)) {
                 throw new RuntimeException("The windownSize (Overriden) is too small for the given questionPool");
->>>>>>> ad949dadfe26d4c795750049d65d445c86406050
             }
         }
     }
+}
 

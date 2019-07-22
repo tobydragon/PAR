@@ -89,9 +89,9 @@ public class ParRestController {
         return parServer.calcScoreByType(userId);
     }
     @GetMapping("/knowledgeBase")
-    public Map<EquineQuestionTypes,String> knowledgeBaseEstimate(@RequestParam String userId)throws IOException{
+    public Map<EquineQuestionTypes,String> knowledgeBaseEstimate(@RequestParam String userId)throws IOException {
         return parServer.knowledgeBaseEstimate(userId);
-
+    }
     @GetMapping("/nextAuthorImageTask")
     public ImageTask nextAuthorImageTask() throws IOException {
         return parAuthoringServer.nextImageTaskTemplate();

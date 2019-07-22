@@ -3,7 +3,7 @@ class ImageTaskDisplay {
     constructor(imageTaskJson, userId, imageTaskSettings, isAuthor) {
         this.userId = userId;
         this.response = new Response(userId);
-        if(imageTaskJson.imageUrl==="STOP"){
+        if (imageTaskJson.imageUrl === "NoMoreQuestions") {
             //TODO
         } else {
             this.pageImage = new PageImage(imageTaskJson.imageUrl);
@@ -28,12 +28,12 @@ class ImageTaskDisplay {
         }
     }
 
-    displayImageUrl(url){
-        document.getElementById("Ids").innerText= url;
+    displayImageUrl(url) {
+        document.getElementById("Ids").innerText = url;
     }
 
     submitAnswers() {
-        this.response.responseTexts= [];
+        this.response.responseTexts = [];
         let canContinu;
 
         if (!this.isAuthor) {
@@ -45,30 +45,30 @@ class ImageTaskDisplay {
             canContinu = true;
         }
 
-        if(canContinu){
+        if (canContinu) {
             this.displayFeedback();
-            this.haveSubmited=sendResponse(this.willDisplayFeedback, this.response, this.ableToResubmitAnswers, this.isAuthor, this.feedbackByType);
+            this.haveSubmited = sendResponse(this.willDisplayFeedback, this.response, this.ableToResubmitAnswers, this.isAuthor, this.feedbackByType);
         } else {
             document.getElementById("errorFeedback").innerHTML = "<font color=red>No response was recorded because you did not answer all the questions</font>";
         }
     }
 
-    authorSubmitResponses(){
+    authorSubmitResponses() {
         for (var i = 0; i < this.questionAreaDisp.length; i++) {
             this.questionAreaDisp[i].answerBox.recordCurrentResponse(this.response);
         }
     }
 
-    displayFeedback(){
+    displayFeedback() {
         if (this.willDisplayFeedback) {
-            document.getElementById("helpfulFeedback").innerHTML= giveFeedback(this.response.typesIncorrect, this.feedbackByType);
+            document.getElementById("helpfulFeedback").innerHTML = giveFeedback(this.response.typesIncorrect, this.feedbackByType);
         }
     }
 
-    checkFollowUp(current){
+    checkFollowUp(current) {
         for (var x = 0; x < current.followUpAreas.length; x++) {
             this.listOfCorrectAnswers.push(current.followUpAreas[x].answerBox.checkCurrentResponse(this.response, this.unsureShowsCorrectAnswer));
-            addToResponseIds(this.response,current.followUpAreas[x].element.id );
+            addToResponseIds(this.response, current.followUpAreas[x].element.id);
         }
     }
 
@@ -77,23 +77,23 @@ class ImageTaskDisplay {
         for (var i = 0; i < this.questionAreaDisp.length; i++) {
             let current = this.questionAreaDisp[i];
             addToResponseIds(this.response, current.element.id);
-            let correctness= current.answerBox.checkCurrentResponse(this.response, this.unsureShowsCorrectAnswer);
+            let correctness = current.answerBox.checkCurrentResponse(this.response, this.unsureShowsCorrectAnswer);
             this.listOfCorrectAnswers.push(correctness);
             checkIfShouldAddFollowupQ(correctness, current);
-            if(this.haveSubmited){
+            if (this.haveSubmited) {
                 this.checkFollowUp(current);
             }
         }
     }
 }
 
-function checkIfShouldAddFollowupQ(correctness, questionAreaDisplay){
+function checkIfShouldAddFollowupQ(correctness, questionAreaDisplay) {
     if (correctness === ResponseResult.correct) {
         questionAreaDisplay.addFollowupQuestions();
     }
 }
 
-function addToResponseIds(response, id){
+function addToResponseIds(response, id) {
     if (!(response.taskQuestionIds.includes(id))) {
         response.addToQuestionIds(id);
     }
@@ -108,16 +108,16 @@ function submitResponse(response, isAuthor) {
 
     if (isAuthor) {
         //TODO: Needs a new URL
-        submitToAPI("api/recordResponse", newResponse);
+        submitToAPI("api/submitAuthorImageTaskResponse", newResponse);
     } else {
         submitToAPI("api/recordResponse", newResponse);
     }
 }
 
 function giveFeedback(typesSeenForFeedback, feedbackByType) {
-    var feedbackString="";
+    var feedbackString = "";
     if (typesSeenForFeedback.length > 0) {
-        feedbackString= "Feedback: ";
+        feedbackString = "Feedback: ";
     }
     for (var i = 0; i < typesSeenForFeedback.length; i++) {
         var type = typesSeenForFeedback[i];
@@ -131,7 +131,7 @@ function giveFeedback(typesSeenForFeedback, feedbackByType) {
     return feedbackString;
 }
 
-function sendResponse(response, ableToResubmitAnswers, isAuthor){
+function sendResponse(response, ableToResubmitAnswers, isAuthor) {
     submitResponse(response, isAuthor);
 
     if (!ableToResubmitAnswers) {
@@ -142,7 +142,7 @@ function sendResponse(response, ableToResubmitAnswers, isAuthor){
     return true;
 }
 
-function checkIfCanContinu(canGiveNoAnswer, listOfCorrectAnswers){
+function checkIfCanContinu(canGiveNoAnswer, listOfCorrectAnswers) {
     if (!canGiveNoAnswer) {
         if (listOfCorrectAnswers.includes("")) {
             return false;
@@ -153,4 +153,3 @@ function checkIfCanContinu(canGiveNoAnswer, listOfCorrectAnswers){
         return true;
     }
 }
-
