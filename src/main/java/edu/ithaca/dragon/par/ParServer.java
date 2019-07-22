@@ -98,7 +98,7 @@ public class ParServer {
         StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, datastore);
         return currentStudent.knowledgeScoreByType();
     }
-    public Map<EquineQuestionTypes,String> knowledgeBase(String userId)throws IOException{
+    public Map<EquineQuestionTypes,String> knowledgeBaseEstimate(String userId)throws IOException{
         StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, datastore);
         return currentStudent.generateKnowledgeBaseMap();
     }
