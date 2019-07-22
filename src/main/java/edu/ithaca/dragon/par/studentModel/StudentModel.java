@@ -88,7 +88,7 @@ public class StudentModel {
         userResponseSet.addAllResponses(createUserResponseObj(imageTaskResponses,questions,this.userId));
     }
 
-    public static List<Double> orderedScores(Map<String, Double> scoresPerType){
+    private static List<Double> orderedScores(Map<String, Double> scoresPerType){
         List<Double> orderedScores=new ArrayList<>();
         for(EquineQuestionTypes quesType: EquineQuestionTypes.values()){
             if(scoresPerType.get(quesType.toString())==null){
@@ -120,10 +120,6 @@ public class StudentModel {
                 else if (orderedScores.get(i) == 100)
                     level = level + 2;//if score is 100, adds 2 to level/skips a level
             }
-
-          //if(orderedScores.get(orderedScores.size()-2)==100)
-          //      level=level-1;//if if the user has a 100 on the second to last element then the score would be 7/ subtracts 1
-
 
             return level;
         }
