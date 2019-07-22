@@ -102,8 +102,31 @@ public class ParAuthoringServer {
         return AuthorTaskGenerator.makeTaskTemplate(authorModel);
     }
 
+    public static Question buildQuestionFromTemplate(Question questionIn, ImageTaskResponse imageTaskResponse){
+        String answer = imageTaskResponse.findResponseToQuestion(questionIn);
+        if(answer == null){
+            return null;
+        }
+
+        List<Question> followupQuestions = new ArrayList<>();
+        for(Question currFollowup : questionIn.getFollowupQuestions()){
+            Question newFollowUp = buildQuestionFromTemplate(currFollowup, imageTaskResponse);
+            if (newFollowUp != null) {
+                followupQuestions.add(newFollowUp);
+            }
+        }
+
+        return new Question(questionIn, answer, followupQuestions);
+    }
 
     public void imageTaskResponseSubmitted(ImageTaskResponse imageTaskResponse) throws IOException{
-
+        for(String currId : imageTaskResponse.getTaskQuestionIds()){
+            Question currQuestion = questionPoolTemplate.getTopLevelQuestionById(currId);
+            if(currQuestion != null){
+                Question newQuestion = buildQuestionFromTemplate(currQuestion, imageTaskResponse);
+                questionPool.addQuestion(newQuestion);
+                questionPoolTemplate.removeQuestionById(currQuestion.getId());
+            }
+        }
     }
 }

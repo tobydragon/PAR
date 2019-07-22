@@ -32,6 +32,10 @@ public class Question {
         this.followupQuestions = followupQuestionsIn;
     }
 
+    public Question(Question toCopy, String correctAnswer, List<Question> differentFollowups){
+        this(toCopy.id, toCopy.questionText, toCopy.type, correctAnswer, new ArrayList<>(toCopy.possibleAnswers), toCopy.imageUrl, differentFollowups);
+    }
+
     public Question(Question toCopy, List<Question> differentFollowups){
         this(toCopy.id, toCopy.questionText, toCopy.type, toCopy.correctAnswer, new ArrayList<>(toCopy.possibleAnswers), toCopy.imageUrl, differentFollowups);
     }

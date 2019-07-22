@@ -42,6 +42,7 @@ public class ParAuthoringServerTest {
         assertEquals(45, pas.getQuestionPoolTemplate().getAllQuestions().size());
         assertEquals(2, pas.getQuestionPool().getAllQuestions().size());
         assertEquals(2, pas.getQuestionPool().getQuestionFromId("structure0./images/demoEquine14.jpg").getFollowupQuestions().size());
+        assertEquals("longitudinal", pas.getQuestionPool().getQuestionFromId("plane./images/demoEquine14.jpg").getCorrectAnswer());
 
         ImageTaskResponse imageTaskResponse2 = new ImageTaskResponse("User1", Arrays.asList("structure2./images/demoEquine14.jpg", "structure3./images/demoEquine14.jpg", "zone./images/demoEquine14.jpg"), Arrays.asList("Metacarple Bone 3", "Superficial digital flexor tendon", "3a"));
         pas.imageTaskResponseSubmitted(imageTaskResponse2);
@@ -49,7 +50,10 @@ public class ParAuthoringServerTest {
         assertEquals(42, pas.getQuestionPoolTemplate().getAllQuestions().size());
         assertEquals(5, pas.getQuestionPool().getAllQuestions().size());
 
-        assertThrows(RuntimeException.class, ()->{pas.imageTaskResponseSubmitted(imageTaskResponse1);});
+        pas.imageTaskResponseSubmitted(imageTaskResponse1);
+        assertEquals(42, pas.getQuestionPoolTemplate().getAllQuestions().size());
+        assertEquals(5, pas.getQuestionPool().getAllQuestions().size());
+
 
     }
 
