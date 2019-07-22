@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="/css/style.css">
     <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
     <!-- Main JS Files -->
+    <script type="text/javascript" src="/js/CompleteDisplay.js"></script>
     <script type="text/javascript" src="/js/PageDisplay.js"></script>
     <script type="text/javascript" src="/js/ImageTaskDisplay.js"></script>
     <script type="text/javascript" src="/js/CommUtil.js"></script>
@@ -33,23 +34,11 @@
 
 <body>
     <script>
-        userID = "[[${User}]]";
-        var settings;
-
-        try {
-            settings = readJson("api/getPageSettings?userId=" + userID);
-
-        } catch (Exception) {
-            window.onerror = function(msg) {
-                location.replace('/error?message=' + msg);
-            }
-        }
-
-        settings = readJson("api/getPageSettings?userId=" + userID);
-        let pagedisplay = new PageDisplay(settings);
-        pagedisplay.userId = userID;
-        pagedisplay.setIsAuthor();
-
+        userID = "[[${display}]]";
+        let completeDisplay=new CompleteDisplay();
+        completeDisplay.userID= userID;
+        completeDisplay.createPageDisplay();
+        let pagedisplay= completeDisplay.pageDisplay;
     </script>
 
     <!-- Nav Bar -->
@@ -103,7 +92,7 @@
                                     Submit
                                 </button>
                             </i>
-                            <button type="button" class="fas fa-arrow-circle-right btn btn-outline-dark" id="nextQuestionButton" onclick="pagedisplay.imageTaskDisplay.nextQuestion()"></button>
+                            <button type="button" class="fas fa-arrow-circle-right btn btn-outline-dark" id="nextQuestionButton" onclick="completeDisplay.nextImageTask()"></button>
                             <i id="errorFeedback"> </i>
                         </div>
 
@@ -122,15 +111,8 @@
 
     <script>
         pagedisplay.displayUserId();
-        if (pagedisplay.showScore) {
-            pagedisplay.displayScore(pagedisplay.generateScore());
-        }
-        if (pagedisplay.isAuthor) {
-            pagedisplay.nextAuthorImageTask();
-        } else {
-            pagedisplay.nextImageTask();
-        }
-
+        completeDisplay.showScore();
+        completeDisplay.nextImageTask();
     </script>
     <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
