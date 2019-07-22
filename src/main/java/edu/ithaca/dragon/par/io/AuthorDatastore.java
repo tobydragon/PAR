@@ -2,6 +2,7 @@ package edu.ithaca.dragon.par.io;
 
 import edu.ithaca.dragon.par.authorModel.AuthorModel;
 import edu.ithaca.dragon.par.domainModel.Question;
+import edu.ithaca.dragon.par.studentModel.QuestionCount;
 import edu.ithaca.dragon.util.JsonUtil;
 
 import java.io.File;
@@ -13,44 +14,60 @@ public class AuthorDatastore {
     private JsonQuestionPoolDatastore questionsDatastore;
     private JsonQuestionPoolDatastore questionTemplatesDatastore;
     private String authorFilepath;
+    private AuthorModel authorModel;
 
     public AuthorDatastore(String questionsFilePath, String questionTemplatesFilepath, String authorFilepath) throws IOException{
         this.questionsDatastore = new JsonQuestionPoolDatastore(questionsFilePath);
         this.questionTemplatesDatastore = new JsonQuestionPoolDatastore(questionTemplatesFilepath);
         this.authorFilepath = authorFilepath;
+        setUpAuthorModelProperties(authorFilepath, questionTemplatesDatastore.getAllQuestions());
     }
 
-    public List<Question> getAllQuestions(){
-        return questionsDatastore.getAllQuestions();
-    }
-
-    public List<Question> getAllQuestionTemplates(){
-        return questionTemplatesDatastore.getAllQuestions();
-    }
-
-    public AuthorModel getAuthorModel() throws IOException{
-        File checkFile = new File(authorFilepath);
+    private void setUpAuthorModelProperties(String filepath, List<Question> questionTemplates) throws IOException{
+        this.authorFilepath = filepath;
+        //check if file exists, return null if it doesn't
+        File checkFile = new File(filepath);
         if(!checkFile.exists()){
-            return null;
+            authorModel = new AuthorModel("author", QuestionCount.questionToQuestionCount(questionTemplates));
+            overwriteAuthorFile();
         }
         else {
-            return JsonUtil.fromJsonFile(authorFilepath, AuthorModel.class);
+            authorModel = JsonUtil.fromJsonFile(filepath, AuthorModel.class);
         }
     }
 
-    public void replaceAll(List<Question> questions, List<Question> questionTemplates, AuthorModel authorModel) throws IOException{
-        replaceAllQuestions(questions);
-        replaceAllQuestionTemplatesAndAuthorModel(questionTemplates, authorModel);
+    public Question findTopLevelQuestionTemplateById(String questionId){
+        return questionTemplatesDatastore.findTopLevelQuestionTemplateById(questionId);
     }
 
-    public void replaceAllQuestions(List<Question> questions) throws IOException{
-        questionsDatastore.replaceQuestions(questions);
+    //used only for testing currently
+    public Question findTopLevelQuestionById(String questionId){
+        return questionsDatastore.findTopLevelQuestionTemplateById(questionId);
     }
 
-    //author model is dependent on questionTemplates, should be replaced with updated author model when templates are changed
-    public void replaceAllQuestionTemplatesAndAuthorModel(List<Question> questions, AuthorModel authorModel) throws IOException{
-        questionTemplatesDatastore.replaceQuestions(questions);
+    public void addQuestion(Question question) throws IOException{
+        questionsDatastore.addQuestion(question);
     }
 
+    private void overwriteAuthorFile() throws IOException{
+        JsonUtil.toJsonFile(authorFilepath, authorModel);
+    }
 
+    public void removeQuestionTemplateById(String templateId) throws IOException{
+        questionTemplatesDatastore.removeQuestionById(templateId);
+        authorModel.removeQuestion(templateId);
+        overwriteAuthorFile();
+    }
+
+    public AuthorModel getAuthorModel(){
+        return authorModel;
+    }
+
+    public int getQuestionCount(){
+        return questionsDatastore.getQuestionCount();
+    }
+
+    public int getQuestionTemplateCount(){
+        return questionTemplatesDatastore.getQuestionCount();
+    }
 }

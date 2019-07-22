@@ -32,26 +32,26 @@ public class ParAuthoringServerTest {
         ParAuthoringServer pas = new ParAuthoringServer(new AuthorDatastore(currentQuestionPath.toString(),
                 currentQuestionTemplatePath.toString(), tempDir.resolve("currentAuthorModel.json").toString()));
 
-        assertEquals(0, pas.getQuestionPool().getAllQuestions().size());
-        assertEquals(47, pas.getQuestionPoolTemplate().getAllQuestions().size());
+        assertEquals(0, pas.getQuestionCount());
+        assertEquals(47, pas.getQuestionTemplateCount());
 
         ImageTaskResponse imageTaskResponse1 = new ImageTaskResponse("User1", Arrays.asList("plane./images/demoEquine14.jpg", "structure0./images/demoEquine14.jpg", "AttachQ1", "AttachQ2"), Arrays.asList("longitudinal", "Superficial digital flexor tendon", "AttachType1", "AttachType2"));
         pas.imageTaskResponseSubmitted(imageTaskResponse1);
 
-        assertEquals(45, pas.getQuestionPoolTemplate().getAllQuestions().size());
-        assertEquals(2, pas.getQuestionPool().getAllQuestions().size());
-        assertEquals(2, pas.getQuestionPool().getQuestionFromId("structure0./images/demoEquine14.jpg").getFollowupQuestions().size());
-        assertEquals("longitudinal", pas.getQuestionPool().getQuestionFromId("plane./images/demoEquine14.jpg").getCorrectAnswer());
+        assertEquals(45, pas.getQuestionTemplateCount());
+        assertEquals(2, pas.getQuestionCount());
+        assertEquals(2, pas.findTopLevelQuestionById("structure0./images/demoEquine14.jpg").getFollowupQuestions().size());
+        assertEquals("longitudinal", pas.findTopLevelQuestionById("plane./images/demoEquine14.jpg").getCorrectAnswer());
 
         ImageTaskResponse imageTaskResponse2 = new ImageTaskResponse("User1", Arrays.asList("structure2./images/demoEquine14.jpg", "structure3./images/demoEquine14.jpg", "zone./images/demoEquine14.jpg"), Arrays.asList("Metacarple Bone 3", "Superficial digital flexor tendon", "3a"));
         pas.imageTaskResponseSubmitted(imageTaskResponse2);
 
-        assertEquals(42, pas.getQuestionPoolTemplate().getAllQuestions().size());
-        assertEquals(5, pas.getQuestionPool().getAllQuestions().size());
+        assertEquals(42, pas.getQuestionTemplateCount());
+        assertEquals(5, pas.getQuestionCount());
 
         pas.imageTaskResponseSubmitted(imageTaskResponse1);
-        assertEquals(42, pas.getQuestionPoolTemplate().getAllQuestions().size());
-        assertEquals(5, pas.getQuestionPool().getAllQuestions().size());
+        assertEquals(42, pas.getQuestionTemplateCount());
+        assertEquals(5, pas.getQuestionCount());
     }
 
     @Test

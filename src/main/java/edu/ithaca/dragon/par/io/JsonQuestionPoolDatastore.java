@@ -24,4 +24,26 @@ public class JsonQuestionPoolDatastore {
         questionPool = new QuestionPool(questions);
         JsonUtil.toJsonFile(questionFilePath, questions);
     }
+
+    public QuestionPool getQuestionPool(){
+        return questionPool;
+    }
+
+    public Question findTopLevelQuestionTemplateById(String questionId){
+        return questionPool.getTopLevelQuestionById(questionId);
+    }
+
+    public void addQuestion(Question newQuestion) throws IOException {
+        questionPool.addQuestion(newQuestion);
+        JsonUtil.toJsonFile(questionFilePath, questionPool.getAllQuestions());
+    }
+
+    public void removeQuestionById(String questionId) throws IOException {
+        questionPool.removeQuestionById(questionId);
+        JsonUtil.toJsonFile(questionFilePath, questionPool.getAllQuestions());
+    }
+
+    public int getQuestionCount(){
+        return questionPool.getAllQuestions().size();
+    }
 }
