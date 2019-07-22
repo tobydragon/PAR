@@ -135,6 +135,7 @@ public class ParAuthoringServer {
                 Question newQuestion = buildQuestionFromTemplate(currQuestion, imageTaskResponse);
                 questionPool.addQuestion(newQuestion);
                 questionPoolTemplate.removeQuestionById(currQuestion.getId());
+                authorModel.removeQuestion(currId);
             }
         }
     }

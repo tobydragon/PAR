@@ -2,6 +2,7 @@ package edu.ithaca.dragon.par;
 
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
+import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.Datastore;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
@@ -21,7 +22,7 @@ public class ParServer {
     private Datastore datastore;
     private Integer windowSizeOverride;
 
-    public ParServer(Datastore datastore) throws IOException{
+    public ParServer(Datastore datastore) throws IOException {
         this.questionPool = new QuestionPool(datastore.loadQuestions());
         this.datastore = datastore;
         studentModelMap = new HashMap<>();
@@ -30,7 +31,7 @@ public class ParServer {
         checkIfWindowSizeIsValid(questionPool);
     }
 
-    public ParServer(Datastore datastore, int windowSizeOverride) throws IOException{
+    public ParServer(Datastore datastore, int windowSizeOverride) throws IOException {
         this.questionPool = new QuestionPool(datastore.loadQuestions());
         this.datastore = datastore;
         studentModelMap = new HashMap<>();
@@ -43,32 +44,31 @@ public class ParServer {
     //increase the number of times seen for already seen questions. marking unseen questions as seen involves
     //moving an unseen question from an unseen list to a seen list as well as adding an integer (1) to the times
     //seen arraylist.
-    public ImageTask nextImageTask(String userId) throws IOException{
+    public ImageTask nextImageTask(String userId) throws IOException {
         StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, datastore);
-        ImageTask imageTask =  TaskGenerator.makeTask(currentStudent);
+        ImageTask imageTask = TaskGenerator.makeTask(currentStudent);
 
-        if (imageTask != null){
+        if (imageTask != null) {
             return imageTask;
-        }
-        else {
+        } else {
             throw new RuntimeException("No image task given for userId:" + userId);
         }
     }
 
-    public void imageTaskResponseSubmitted(ImageTaskResponse imageTaskResponse, String userId) throws IOException{
+    public void imageTaskResponseSubmitted(ImageTaskResponse imageTaskResponse, String userId) throws IOException {
         StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, datastore);
-        currentStudent.imageTaskResponseSubmitted(imageTaskResponse,questionPool);
+        currentStudent.imageTaskResponseSubmitted(imageTaskResponse, questionPool);
 
         //save this response to file
         datastore.saveStudentModel(studentModelMap.get(userId));
     }
 
-    public double calcScore(String userId) throws IOException{
+    public double calcScore(String userId) throws IOException {
         StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, datastore);
         return currentStudent.knowledgeScore();
     }
 
-    public static String sendNewImageTaskResponse(ImageTaskResponse response) throws IOException{
+    public static String sendNewImageTaskResponse(ImageTaskResponse response) throws IOException {
         //update the data store with the new imageTaskResponse
         return null;
     }
@@ -80,22 +80,26 @@ public class ParServer {
     }
 
     /**
-     *
      * @param studentModelMap
      * @param userId
      * @return a StudentModel corresponding to the given userId that is also in the studentModelMap
      * @post if there was no corresponding StudentModel, a new on will be created and added to the map
      */
-    public static StudentModel getOrCreateStudentModel(Map<String, StudentModel> studentModelMap, String userId, Datastore datastore) throws IOException{
+    public static StudentModel getOrCreateStudentModel(Map<String, StudentModel> studentModelMap, String userId, Datastore datastore) throws IOException {
         //try to find the student in the map
         StudentModel studentModel = studentModelMap.get(userId);
 
         //if the student wasn't in the map, try to load from file
-        if (studentModel == null){
+        if (studentModel == null) {
             studentModel = datastore.loadStudentModel(userId);
+        }
+
+        //the student didn't have a file, create a new student
+        if (studentModel == null) {
+            studentModel = new StudentModel(userId, datastore.loadQuestions());
 
             //if the student didn't have a file, create a new student
-            if(studentModel == null){
+            if (studentModel == null) {
                 studentModel = new StudentModel(userId, datastore.loadQuestions());
             }
             //add the student to the map
@@ -104,7 +108,7 @@ public class ParServer {
         return studentModel;
     }
 
-    public void logout(String userId){
+    public void logout(String userId) {
         studentModelMap.remove(userId);
     }
 
@@ -113,16 +117,21 @@ public class ParServer {
         return currentStudent.knowledgeScoreByType();
     }
 
-    public void checkIfWindowSizeIsValid(QuestionPool questionPool){
-        if(windowSizeOverride == null){
-            if(!questionPool.checkWindowSize(UserResponseSet.windowSize)){
+    public Map<EquineQuestionTypes, String> knowledgeBaseEstimate(String userId) throws IOException {
+        StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, datastore);
+        return currentStudent.generateKnowledgeBaseMap();
+    }
+
+    public void checkIfWindowSizeIsValid(QuestionPool questionPool) {
+        if (windowSizeOverride == null) {
+            if (!questionPool.checkWindowSize(UserResponseSet.windowSize)) {
                 throw new RuntimeException("The windownSize is too small for the given questionPool");
             }
-        }
-        else{
-            if(!questionPool.checkWindowSize(windowSizeOverride)){
+        } else {
+            if (!questionPool.checkWindowSize(windowSizeOverride)) {
                 throw new RuntimeException("The windownSize (Overriden) is too small for the given questionPool");
             }
         }
     }
 }
+

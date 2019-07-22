@@ -89,7 +89,7 @@ public class StudentModel {
     }
 
     private static List<Double> orderedScores(Map<String, Double> scoresPerType){
-        List<Double> orderedScores=new ArrayList<>();//ordered list of scores
+        List<Double> orderedScores=new ArrayList<>();
         for(EquineQuestionTypes quesType: EquineQuestionTypes.values()){
             if(scoresPerType.get(quesType.toString())==null){
                 orderedScores.add(-1.0);
@@ -99,7 +99,7 @@ public class StudentModel {
             }
         }
 
-        return orderedScores;
+        return orderedScores;//ordered list of scores
     }
 
     public static int calcLevel(Map<String, Double> scoresPerType) {
@@ -121,14 +121,13 @@ public class StudentModel {
                     level = level + 2;//if score is 100, adds 2 to level/skips a level
             }
 
-          if(orderedScores.get(orderedScores.size()-2)==100)
-                level=level-1;//if if the user has a 100 on the second to last element then the score would be 7/ subtracts 1
-
-
             return level;
         }
     }
 
+    public Map<EquineQuestionTypes, String> generateKnowledgeBaseMap(){
+        return userResponseSet.generateKnowledgeBaseMap();
+    }
 
     @Override
     public boolean equals(Object otherObj){

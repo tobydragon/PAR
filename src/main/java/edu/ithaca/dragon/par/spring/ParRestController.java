@@ -1,11 +1,13 @@
 package edu.ithaca.dragon.par.spring;
 
 import edu.ithaca.dragon.par.ParServer;
+import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.authorModel.ParAuthoringServer;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
 import edu.ithaca.dragon.par.io.JsonSpringDatastore;
-import edu.ithaca.dragon.par.pedagogicalModel.Settings;
+import edu.ithaca.dragon.par.pedagogicalModel.ImageTaskSettings;
+import edu.ithaca.dragon.par.pedagogicalModel.PageSettings;
 import edu.ithaca.dragon.util.DataUtil;
 import edu.ithaca.dragon.util.JsonSpringUtil;
 import org.apache.logging.log4j.LogManager;
@@ -40,9 +42,20 @@ public class ParRestController {
         return "Greetings from PAR API!";
     }
 
-    @GetMapping("/getSettings")
-    public Settings getSettings() throws IOException  {
-        return JsonSpringUtil.fromClassPathJson("author/SettingsExample.json", Settings.class);
+    @GetMapping("/getPageSettings")
+    public PageSettings getPageSettings(@RequestParam String userId) throws IOException  {
+        if(userId.equals("author")){
+            return JsonSpringUtil.fromClassPathJson("author/AuthorPageSettingsExample.json", PageSettings.class);
+        }
+        return JsonSpringUtil.fromClassPathJson("author/PageSettingsExample.json", PageSettings.class);
+    }
+
+    @GetMapping("/getImageTaskSettings")
+    public ImageTaskSettings getImageTaskSettings(@RequestParam String userId) throws IOException  {
+        if(userId.equals("author")){
+            return JsonSpringUtil.fromClassPathJson("author/AuthorSettingsExample.json", ImageTaskSettings.class);
+        }
+        return JsonSpringUtil.fromClassPathJson("author/SettingsExample.json", ImageTaskSettings.class);
     }
 
     @GetMapping("/nextImageTask")
@@ -75,20 +88,23 @@ public class ParRestController {
     public Map<String, Double> calcScoreByType(@RequestParam String userId) throws IOException{
         return parServer.calcScoreByType(userId);
     }
+    @GetMapping("/knowledgeBase")
+    public Map<EquineQuestionTypes,String> knowledgeBaseEstimate(@RequestParam String userId)throws IOException {
+        return parServer.knowledgeBaseEstimate(userId);
+    }
+    @GetMapping("/nextAuthorImageTask")
+    public ImageTask nextAuthorImageTask() throws IOException {
+        return parAuthoringServer.nextImageTaskTemplate();
+    }
 
-//    @GetMapping("/nextImageTaskTemplate")
-//    public ImageTask nextImageTaskTemplate(@RequestParam String authorId) throws IOException {
-//        return parAuthoringServer.nextImageTaskTemplate(authorId);
-//    }
-//
-//    @PostMapping("/submitImageTaskTemplateResponse")
-//    public ResponseEntity<String> recordTemplateResponse(@RequestBody ImageTaskResponse response) {
-//        try {
-//            parAuthoringServer.imageTaskResponseSubmitted(response, response.getUserId());
-//            return ResponseEntity.ok().body("ok");
-//        } catch (Exception e){
-//            logger.warn(e);
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
+    @PostMapping("/submitAuthorImageTaskResponse")
+    public ResponseEntity<String> submitAuthorImageTaskResponse(@RequestBody ImageTaskResponse response) {
+        try {
+            parAuthoringServer.imageTaskResponseSubmitted(response);
+            return ResponseEntity.ok().body("ok");
+        } catch (Exception e){
+            logger.warn(e);
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
