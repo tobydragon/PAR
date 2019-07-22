@@ -20,7 +20,5 @@ public interface Datastore {
 
     void saveStudentModel(StudentModel studentModel) throws IOException;
 
-    AuthorModel loadAuthorModel() throws IOException;
 
-    void saveAuthorModel(AuthorModel authorModel) throws IOException;
 }

@@ -59,16 +59,6 @@ public class JsonSpringDatastore implements Datastore {
     }
 
     @Override
-    public AuthorModel loadAuthorModel() throws IOException {
-        return null;
-    }
-
-    @Override
-    public void saveAuthorModel(AuthorModel authorModel) throws IOException {
-
-    }
-
-    @Override
     public void saveStudentModels(Collection<StudentModel> studentModelsIn) throws IOException {
         for(StudentModel currStudentModel : studentModelsIn){
             saveStudentModel(currStudentModel);

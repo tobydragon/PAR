@@ -44,7 +44,8 @@ public class ParAuthoringServer {
     }
 
     public AuthorModel getOrCreateAuthorModel(List<Question> questionTemplates) throws IOException{
-        AuthorModel authorModel = datastore.loadAuthorModel();
+        //TODO: get from datastore
+        AuthorModel authorModel = null;
         //if the student didn't have a file, create a new student
         if(authorModel == null){
             authorModel = new AuthorModel("author", QuestionCount.questionToQuestionCount(questionTemplates));
