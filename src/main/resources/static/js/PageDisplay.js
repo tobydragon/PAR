@@ -10,11 +10,7 @@ class PageDisplay {
     }
 
     setIsAuthor() {
-        if (this.userId === "author") {
-            this.isAuthor = true;
-        } else {
-            this.isAuthor = false;
-        }
+        this.isAuthor= setIsAuthor(this.userId);
     }
 
     nextAuthorImageTask() {
@@ -57,4 +53,12 @@ class PageDisplay {
 
 function logout() {
     return location.replace('/login');
+}
+
+function setIsAuthor(userId){
+    if (userId === "author") {
+        return  true;
+    } else {
+        return false;
+    }
 }

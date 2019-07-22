@@ -22,25 +22,14 @@ class CompleteDisplay {
         this.pageDisplay.setIsAuthor();
     }
 
+    displayUserId() {
+        document.getElementById("UserId").innerHTML = "&nbsp" + this.userID;
+    }
+
     showScore(){
         if (this.pageDisplay.showScore) {
             this.displayScore(this.generateScore());
         }
-    }
-
-    nextImageTask(){
-        document.getElementById("questionSet").innerText="";
-        if (this.pageDisplay.isAuthor) {
-            this.pageDisplay.nextAuthorImageTask();
-        } else {
-            this.pageDisplay.nextImageTask();
-        }
-    }
-
-    displayUserId() {
-        document.getElementById("UserId").innerHTML = "&nbsp" + this.userID;
-        console.log("Excuse?");
-        console.log(this.userID);
     }
 
     generateScore() {
@@ -54,6 +43,15 @@ class CompleteDisplay {
             document.getElementById("score").removeChild(node);
         }
         document.getElementById("score").appendChild(given);
+    }
+
+    nextImageTask(){
+        document.getElementById("questionSet").innerText="";
+        if (this.pageDisplay.isAuthor) {
+            this.pageDisplay.nextAuthorImageTask();
+        } else {
+            this.pageDisplay.nextImageTask();
+        }
     }
 
     nextQuestion(){
