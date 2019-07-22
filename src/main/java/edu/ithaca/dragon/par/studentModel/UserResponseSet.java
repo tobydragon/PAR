@@ -166,7 +166,7 @@ public class UserResponseSet {
         }
         //reads in the scores from the last element to first since the most recent response is at beginning of the list
         for(int i=scores.size()-1;i>-1;i--){
-            //re-writes the string knowledgeBase i.e ____ -> ___O or ___X and so on
+            //re-writes the string knowledgeBaseEstimate i.e ____ -> ___O or ___X and so on
 
             if(scores.get(i)==100) knowledgeBase=knowledgeBase.substring(1)+"O";
 

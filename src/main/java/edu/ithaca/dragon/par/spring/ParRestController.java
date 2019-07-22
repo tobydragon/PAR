@@ -75,7 +75,7 @@ public class ParRestController {
     }
 
     @GetMapping("/knowledgeBase")
-    public Map<EquineQuestionTypes,String> knowledgeBase(@RequestParam String userId)throws IOException{
-        return parServer.knowledgeBase(userId);
+    public Map<EquineQuestionTypes,String> knowledgeBaseEstimate(@RequestParam String userId)throws IOException{
+        return parServer.knowledgeBaseEstimate(userId);
     }
 }
