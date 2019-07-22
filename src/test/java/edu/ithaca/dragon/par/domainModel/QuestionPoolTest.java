@@ -139,4 +139,24 @@ public class QuestionPoolTest {
         assertEquals(45, qp.getAllQuestions().size());
 
     }
+
+    @Test
+    public void getTopLevelQuestionByIdTest() throws IOException{
+        QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").loadQuestions());
+        Question firstQuestion = qp.getQuestionFromId("plane./images/demoEquine14.jpg");
+        assertEquals(qp.getAllQuestions().get(0), firstQuestion);
+
+        //repeat
+        Question secondQuestion = qp.getTopLevelQuestionById("plane./images/demoEquine14.jpg");
+        assertEquals(qp.getAllQuestions().get(0), secondQuestion);
+
+        Question thirdQuestion = qp.getTopLevelQuestionById("structure0./images/demoEquine14.jpg");
+        assertEquals(qp.getAllQuestions().get(1), thirdQuestion);
+
+        assertThrows(RuntimeException.class, ()->{Question noQuestion = qp.getTopLevelQuestionById("badId");});
+
+
+        assertThrows(RuntimeException.class, ()->{Question noQuestion = qp.getTopLevelQuestionById("AttachQ1");});
+
+    }
 }
