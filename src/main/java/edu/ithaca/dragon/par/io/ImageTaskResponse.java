@@ -46,7 +46,12 @@ public class ImageTaskResponse {
     }
 
     public String findResponseToQuestion(Question question){
-        return "asd";
+        for(int i=0; i<taskQuestionIds.size(); i++){
+            if(taskQuestionIds.get(i).equals(question.getId())){
+                return responseTexts.get(i);
+            }
+        }
+        return null;
     }
 
 

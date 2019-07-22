@@ -39,11 +39,9 @@ public class ImageTaskResponseTest {
         //test for sucsessfully getting the answer to a parent question
         assertEquals("Lateral", responseSet.findResponseToQuestion(qp.getQuestionFromId("plane./images/demoEquine14.jpg")));
         assertEquals("bone", responseSet.findResponseToQuestion(qp.getQuestionFromId("structure0./images/demoEquine14.jpg")));
+        assertEquals("3c", responseSet.findResponseToQuestion(qp.getQuestionFromId("AttachQ1")));
 
         //getting null for a question that doesn't exist
         assertEquals(null, responseSet.findResponseToQuestion(new Question("notAValidQuestion", "notAValidQuestion", "notAValidQuestion", "notAValidQuestion", Arrays.asList("notAValidQuestion","notAValidQuestion2"), "notAValidQuestion")));
-
-        //getting null for a followup question
-        assertEquals(null, responseSet.findResponseToQuestion(qp.getQuestionFromId("AttachQ1")));
     }
 }
