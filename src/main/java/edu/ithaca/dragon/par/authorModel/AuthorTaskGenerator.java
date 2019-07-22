@@ -13,7 +13,7 @@ public class AuthorTaskGenerator {
 
     public static ImageTask makeTaskTemplate(AuthorModel authorModel){
         if (authorModel.getQuestionCountList().size()<1){
-            throw new RuntimeException("No questions to be answered");
+            return new ImageTask("noMoreQuestions", new ArrayList<>());
         }
 
         QuestionCount initialQuestion = getInitialQuestion(authorModel.getQuestionCountList());
