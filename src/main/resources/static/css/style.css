@@ -104,6 +104,18 @@ h5 {
     text-align: right;
 }
 
+.btn-login {
+    color: #fff;
+    background-color: #274C72;
+    border-color: #274C72;
+}
+
+.login-input-box {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid;
+}
+
 /* ---------------------------------------*
 /* Add spacing to text elements */
 
