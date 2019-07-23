@@ -1,9 +1,6 @@
 package edu.ithaca.dragon.par.authorModel;
 
-import edu.ithaca.dragon.par.domainModel.Question;
-import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.io.*;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -12,9 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -29,7 +24,7 @@ public class ParAuthoringServerTest {
         Files.copy(Paths.get("src/test/resources/author/SampleQuestionsEmpty.json"), currentQuestionPath, StandardCopyOption.REPLACE_EXISTING);
         Files.copy(Paths.get("src/test/resources/author/DemoQuestionPoolTemplate.json"), currentQuestionTemplatePath, StandardCopyOption.REPLACE_EXISTING);
 
-        ParAuthoringServer pas = new ParAuthoringServer(new AuthorDatastore(currentQuestionPath.toString(),
+        ParAuthoringServer pas = new ParAuthoringServer(new JsonAuthorDatastore(currentQuestionPath.toString(),
                 currentQuestionTemplatePath.toString(), tempDir.resolve("currentAuthorModel.json").toString()));
 
         assertEquals(0, pas.getQuestionCount());
@@ -63,7 +58,7 @@ public class ParAuthoringServerTest {
         Files.copy(Paths.get("src/test/resources/author/SampleQuestionsEmpty.json"), currentQuestionPath, StandardCopyOption.REPLACE_EXISTING);
         Files.copy(Paths.get("src/test/resources/author/DemoQuestionPoolTemplate.json"), currentQuestionTemplatePath, StandardCopyOption.REPLACE_EXISTING);
 
-        ParAuthoringServer pas = new ParAuthoringServer(new AuthorDatastore(currentQuestionPath.toString(),
+        ParAuthoringServer pas = new ParAuthoringServer(new JsonAuthorDatastore(currentQuestionPath.toString(),
                 currentQuestionTemplatePath.toString(), tempDir.resolve("currentAuthorModel.json").toString()));
 
         ImageTask imageTask = pas.nextImageTaskTemplate();
@@ -125,7 +120,7 @@ public class ParAuthoringServerTest {
         Files.copy(Paths.get("src/test/resources/author/SampleQuestionsEmpty.json"), currentQuestionPath, StandardCopyOption.REPLACE_EXISTING);
         Files.copy(Paths.get("src/test/resources/author/DemoQuestionPoolTemplateSmall.json"), currentQuestionTemplatePath, StandardCopyOption.REPLACE_EXISTING);
 
-        ParAuthoringServer pas = new ParAuthoringServer(new AuthorDatastore(currentQuestionPath.toString(),
+        ParAuthoringServer pas = new ParAuthoringServer(new JsonAuthorDatastore(currentQuestionPath.toString(),
                 currentQuestionTemplatePath.toString(), tempDir.resolve("currentAuthorModel.json").toString()));
 
         ImageTask imageTask = pas.nextImageTaskTemplate();

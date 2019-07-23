@@ -5,6 +5,7 @@ import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.authorModel.ParAuthoringServer;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
+import edu.ithaca.dragon.par.io.springio.JsonSpringAuthorDatastore;
 import edu.ithaca.dragon.par.io.springio.JsonSpringDatastore;
 import edu.ithaca.dragon.par.pedagogicalModel.ImageTaskSettings;
 import edu.ithaca.dragon.par.pedagogicalModel.PageSettings;
@@ -30,10 +31,11 @@ public class ParRestController {
         super();
         try {
             parServer = new ParServer(new JsonSpringDatastore("localData/currentQuestionPool.json","author/DemoQuestionPool.json", "localData/students"));
-
+            parAuthoringServer = new ParAuthoringServer(new JsonSpringAuthorDatastore("localData/currentAuthoredQuestions.json", "author/AuthorQuestionsDefault.json",
+                    "localData/currentAuthorQuestionTemplates.json", "author/AuthorQuestionTemplatesDefault.json", "localData/currentAuthorModel.json" ));
         }
         catch(IOException e){
-            throw new RuntimeException("Server can't start without questionPool or studentRecord", e);
+            throw new RuntimeException("Server can't start without all necessary files loaded: ", e);
         }
     }
 
