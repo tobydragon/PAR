@@ -9,13 +9,19 @@ TODO
 ## Master: [![CircleCI](https://circleci.com/gh/tobydragon/PAR/tree/master.svg?style=svg)](https://circleci.com/gh/tobydragon/PAR/tree/master)
 
 # Sprint 1
-The goal is to create a system that can generate and display complete imageTasks (an image with several related questions of different types), and score and store the results of the assesment
+A system that can generate and display complete imageTasks (an image with several related questions of different types), and score and store the results of the assesment
 
 ### [Use Case Diagram](https://drive.google.com/file/d/1QTz--W0J2Ndkk39QbW9K4qkbaIEpPG40/view)
 
 ### [Class Diagram](https://drive.google.com/file/d/1yWu4kD_JU9DjYumKP-gYLECOCFiK0NfK/view?usp=sharing)
 
 # Sprint 2
-The goal of this sprint is to have a usable system in a example practice instance, with architecture decisions on the front end.
+A usable system in a example practice instance, with architecture decisions on the front end.
 
 ### [Sequence Diagram](https://drive.google.com/file/d/1ZpLw_vbLu6KnSWsBCviQYmpIlEqpbHq-/view)
+
+# Sprint 3
+Working Follow-up Questions
+
+# Sprint 4
+Allow authors to add Questions and working follow-up Questions
