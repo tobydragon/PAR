@@ -2,7 +2,7 @@ package edu.ithaca.dragon.par.authorModel;
 
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.io.AuthorModelRecord;
-import edu.ithaca.dragon.par.io.JsonDatastore;
+import edu.ithaca.dragon.par.io.JsonStudentModelDatastore;
 import edu.ithaca.dragon.par.studentModel.QuestionCount;
 import edu.ithaca.dragon.util.JsonUtil;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,7 +22,7 @@ public class AuthorModelTest {
     @BeforeEach
     public void setUp() throws IOException {
         //TODO: the questionPool should load in questionTemplates
-        questionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").loadQuestions());
+        questionPool = new QuestionPool(new JsonStudentModelDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").loadQuestions());
         authorModel = new AuthorModel("TestAuthor1", QuestionCount.questionToQuestionCount(questionPool.getAllQuestions()));
     }
 

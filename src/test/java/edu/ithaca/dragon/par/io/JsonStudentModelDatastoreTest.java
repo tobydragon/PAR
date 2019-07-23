@@ -13,19 +13,19 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class JsonDatastoreTest {
+public class JsonStudentModelDatastoreTest {
 
     @Test
     public void loadBadStudentModelTest() throws IOException{
         //throws exception when Datastore does not have a studentModelFilePath
-        Datastore datastoreA = new JsonDatastore("src/test/resources/author/SampleQuestionPool.json");
+        Datastore datastoreA = new JsonStudentModelDatastore("src/test/resources/author/SampleQuestionPool.json");
         assertThrows(IOException.class, datastoreA::loadStudentModels);
 
         List<StudentModel> studentModels = new ArrayList<>();
         assertThrows(IOException.class, () -> datastoreA.saveStudentModels(studentModels));
 
         //throws exception when the given studentModelFilePath does not exist
-        Datastore datastoreB = new JsonDatastore("src/test/resources/author/SampleQuestionPool.json", "ThisDoesNotExist.json");
+        Datastore datastoreB = new JsonStudentModelDatastore("src/test/resources/author/SampleQuestionPool.json", "ThisDoesNotExist.json");
         assertThrows(IOException.class, datastoreB::loadStudentModels);
     }
 
@@ -33,18 +33,18 @@ public class JsonDatastoreTest {
     public void loadAndSaveStudentModelTest(@TempDir Path tempDir) throws IOException{
 
         //load in student models form file
-        Datastore datastoreFromFile = new JsonDatastore("src/test/resources/author/SampleQuestionPool.json", "src/test/resources/author/students");
+        Datastore datastoreFromFile = new JsonStudentModelDatastore("src/test/resources/author/SampleQuestionPool.json", "src/test/resources/author/students");
         List<StudentModel> studentModelList = datastoreFromFile.loadStudentModels();
 
         //verify studentModels from files
         assertEquals(2, studentModelList.size());
 
         //save them to new datastore
-        Datastore datastoreToFile = new JsonDatastore("src/test/resources/author/SampleQuestionPool.json", tempDir.toString());
+        Datastore datastoreToFile = new JsonStudentModelDatastore("src/test/resources/author/SampleQuestionPool.json", tempDir.toString());
         datastoreToFile.saveStudentModels(studentModelList);
 
         //load them back in to a different datastore
-        Datastore datastore2 = new JsonDatastore("src/test/resources/author/SampleQuestionPool.json", tempDir.toString());
+        Datastore datastore2 = new JsonStudentModelDatastore("src/test/resources/author/SampleQuestionPool.json", tempDir.toString());
         List<StudentModel> studentModelList2 = datastore2.loadStudentModels();
 
         //verify studentModels
@@ -53,7 +53,7 @@ public class JsonDatastoreTest {
 
     @Test
     public void loadIndividualStudentTest() throws IOException{
-        Datastore datastore = new JsonDatastore("src/test/resources/author/SampleQuestionPool.json", "src/test/resources/author/students");
+        Datastore datastore = new JsonStudentModelDatastore("src/test/resources/author/SampleQuestionPool.json", "src/test/resources/author/students");
 
         //load an existing file and make sure it exists
         StudentModel testUser100 = datastore.loadStudentModel("TestUser100");

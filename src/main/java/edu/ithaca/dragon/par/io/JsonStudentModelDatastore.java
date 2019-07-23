@@ -1,8 +1,6 @@
 package edu.ithaca.dragon.par.io;
 
-import edu.ithaca.dragon.par.authorModel.AuthorModel;
 import edu.ithaca.dragon.par.domainModel.Question;
-import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.util.FileSystemUtil;
 import edu.ithaca.dragon.util.JsonUtil;
@@ -12,17 +10,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-//TODO: to become StudentModelDatastore
-public class JsonDatastore extends JsonQuestionPoolDatastore implements Datastore{
+
+public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore implements Datastore{
 
     private String studentModelFilePath;
 
     //TODO: get rid of this, have anyone needing that take a JsonQuestionPoolDatastore
-    public JsonDatastore(String questionFilePath) throws IOException {
+    public JsonStudentModelDatastore(String questionFilePath) throws IOException {
         this(questionFilePath, null);
     }
 
-    public JsonDatastore(String questionFilePath, String studentModelFilePath) throws IOException {
+    public JsonStudentModelDatastore(String questionFilePath, String studentModelFilePath) throws IOException {
         super(questionFilePath);
         this.studentModelFilePath = studentModelFilePath;
     }

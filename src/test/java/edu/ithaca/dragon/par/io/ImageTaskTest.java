@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.List;
 
 import static junit.framework.TestCase.assertTrue;
@@ -19,7 +18,7 @@ public class ImageTaskTest {
 
     @Test
     public void toJsonAndBackTest() throws IOException {
-        QuestionPool myQP = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json").loadQuestions());
+        QuestionPool myQP = new QuestionPool(new JsonStudentModelDatastore("src/test/resources/author/SampleQuestionPool.json").loadQuestions());
         List<Question> myQPList = myQP.getAllQuestions();
         ImageTask testImageTask = new ImageTask("../static/images/equine02.jpg\"", myQPList);
 

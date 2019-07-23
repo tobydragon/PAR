@@ -3,7 +3,7 @@ package edu.ithaca.dragon.par.studentModel;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
-import edu.ithaca.dragon.par.io.JsonDatastore;
+import edu.ithaca.dragon.par.io.JsonStudentModelDatastore;
 import edu.ithaca.dragon.util.DataUtil;
 import edu.ithaca.dragon.util.JsonUtil;
 import org.junit.jupiter.api.AfterEach;
@@ -11,7 +11,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +25,7 @@ public class StudentModelTest {
 
     @BeforeEach
     public void setUp() throws IOException{
-        questionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json").loadQuestions());
+        questionPool = new QuestionPool(new JsonStudentModelDatastore("src/test/resources/author/SampleQuestionPool.json").loadQuestions());
         studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
         responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponse.class);
     }

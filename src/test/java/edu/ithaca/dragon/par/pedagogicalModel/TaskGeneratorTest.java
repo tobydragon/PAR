@@ -4,12 +4,11 @@ import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.ImageTask;
-import edu.ithaca.dragon.par.io.JsonDatastore;
+import edu.ithaca.dragon.par.io.JsonStudentModelDatastore;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.util.JsonUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import org.springframework.scheduling.config.Task;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -24,7 +23,7 @@ public class TaskGeneratorTest {
     @Test
     public void makeTaskWithSingleQuestionTest() throws IOException {
         //set up questionPool and studentModel, create an imageTask with the studentModel
-        QuestionPool questionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json").loadQuestions());
+        QuestionPool questionPool = new QuestionPool(new JsonStudentModelDatastore("src/test/resources/author/SampleQuestionPool.json").loadQuestions());
         StudentModel studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
 
         //no questions have been seen
@@ -47,7 +46,7 @@ public class TaskGeneratorTest {
     @Test
     public void makeTaskTest() throws IOException{
         //set up questionPool and studentModel, create an imageTask with the studentModel
-        QuestionPool questionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/DemoQuestionPool.json").loadQuestions());
+        QuestionPool questionPool = new QuestionPool(new JsonStudentModelDatastore("src/test/resources/author/DemoQuestionPool.json").loadQuestions());
         StudentModel studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
 
         //make an imageTask and check aspects of it
@@ -65,7 +64,7 @@ public class TaskGeneratorTest {
 
     @Test
     public void studentModelWithNoQuestionsTest() throws IOException{
-        QuestionPool emptyQP = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionsEmpty.json").loadQuestions());
+        QuestionPool emptyQP = new QuestionPool(new JsonStudentModelDatastore("src/test/resources/author/SampleQuestionsEmpty.json").loadQuestions());
         StudentModel studentModel = new StudentModel("TestUser1", emptyQP.getAllQuestions());
 
         //try to make a single Question
@@ -114,7 +113,7 @@ public class TaskGeneratorTest {
 
     @Test
     public void addAllQuestionsTest()throws IOException{
-        QuestionPool questionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/DemoQuestionPool.json").loadQuestions());
+        QuestionPool questionPool = new QuestionPool(new JsonStudentModelDatastore("src/test/resources/author/DemoQuestionPool.json").loadQuestions());
         StudentModel studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
 
         //first url
@@ -151,7 +150,7 @@ public class TaskGeneratorTest {
     @Test
     public void filterQuestionsTest()throws IOException{
        //plane only
-        QuestionPool questionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/DemoQuestionPool.json").loadQuestions());
+        QuestionPool questionPool = new QuestionPool(new JsonStudentModelDatastore("src/test/resources/author/DemoQuestionPool.json").loadQuestions());
         List<Question> questionList = questionPool.getAllQuestions();
         questionList = TaskGenerator.filterQuestions(1, questionList);
         assertEquals(10, questionList.size());
@@ -189,7 +188,7 @@ public class TaskGeneratorTest {
 
     @Test
     public void imageTaskWithFollowupQuestionsTest(@TempDir Path tempDir) throws IOException{
-        QuestionPool questionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").loadQuestions());
+        QuestionPool questionPool = new QuestionPool(new JsonStudentModelDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").loadQuestions());
         StudentModel studentModel = new StudentModel("TestUser111", questionPool.getAllQuestions());
 
         ImageTask imageTask = TaskGenerator.makeTask(studentModel, 3);
@@ -212,7 +211,7 @@ public class TaskGeneratorTest {
 
     @Test
     public void removeTypeFromQuestionTest() throws IOException{
-        QuestionPool questionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").loadQuestions());
+        QuestionPool questionPool = new QuestionPool(new JsonStudentModelDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").loadQuestions());
         Question noFollowups = questionPool.getQuestionFromId("plane./images/demoEquine14.jpg");
         Question twoFollowups = questionPool.getQuestionFromId("structure3./images/demoEquine10.jpg");
         Question recFollowups = questionPool.getQuestionFromId("structure0./images/demoEquine14.jpg");
