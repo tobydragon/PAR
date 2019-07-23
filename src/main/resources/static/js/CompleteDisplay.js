@@ -47,11 +47,7 @@ class CompleteDisplay {
 
     nextImageTask(){
         document.getElementById("questionSet").innerText="";
-        if (this.pageDisplay.isAuthor) {
-            this.pageDisplay.nextAuthorImageTask();
-        } else {
-            this.pageDisplay.nextImageTask();
-        }
+        this.pageDisplay.nextImageTask();
     }
 
     nextQuestion(){

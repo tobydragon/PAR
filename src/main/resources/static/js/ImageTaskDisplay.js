@@ -35,9 +35,9 @@ class ImageTaskDisplay {
     submitAnswers() {
         this.response.responseTexts= [];
         let canContinu;
+        document.getElementById("errorFeedback").innerHTML = " ";
 
         if (!this.isAuthor) {
-            document.getElementById("errorFeedback").innerHTML = " ";
             this.checkAnswers();
             canContinu = checkIfCanContinu(this.canGiveNoAnswer, this.listOfCorrectAnswers);
         } else {
@@ -56,6 +56,7 @@ class ImageTaskDisplay {
     authorSubmitResponses(){
         for (var i = 0; i < this.questionAreaDisp.length; i++) {
             this.questionAreaDisp[i].answerBox.recordCurrentResponse(this.response);
+            addToResponseIds(this.response, this.questionAreaDisp[i].element.id);
         }
     }
 
