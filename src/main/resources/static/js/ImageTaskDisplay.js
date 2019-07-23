@@ -24,6 +24,9 @@ class ImageTaskDisplay {
         this.isAuthor = isAuthor;
 
         for (var i = 0; i < this.questionAreaDisp.length; i++) {
+            if(isAuthor){
+                this.questionAreaDisp[i].addFollowupQuestions();
+            }
             document.getElementById("questionSet").appendChild(this.questionAreaDisp[i].element);
         }
     }
@@ -35,19 +38,20 @@ class ImageTaskDisplay {
     submitAnswers() {
         this.response.responseTexts = [];
         let canContinu;
+        document.getElementById("errorFeedback").innerHTML = " ";
 
         if (!this.isAuthor) {
-            document.getElementById("errorFeedback").innerHTML = " ";
             this.checkAnswers();
             canContinu = checkIfCanContinu(this.canGiveNoAnswer, this.listOfCorrectAnswers);
         } else {
+            console.log("author Submit response");
             this.authorSubmitResponses();
             canContinu = true;
         }
 
         if (canContinu) {
             this.displayFeedback();
-            this.haveSubmited = sendResponse(this.willDisplayFeedback, this.response, this.ableToResubmitAnswers, this.isAuthor, this.feedbackByType);
+            this.haveSubmited = sendResponse(this.response, this.ableToResubmitAnswers, this.isAuthor);
         } else {
             document.getElementById("errorFeedback").innerHTML = "<font color=red>No response was recorded because you did not answer all the questions</font>";
         }
@@ -56,6 +60,7 @@ class ImageTaskDisplay {
     authorSubmitResponses() {
         for (var i = 0; i < this.questionAreaDisp.length; i++) {
             this.questionAreaDisp[i].answerBox.recordCurrentResponse(this.response);
+            addToResponseIds(this.response, this.questionAreaDisp[i].element.id);
         }
     }
 
@@ -107,7 +112,6 @@ function submitResponse(response, isAuthor) {
     };
 
     if (isAuthor) {
-        console.log("we here as author");
         submitToAPI("api/submitAuthorImageTaskResponse", newResponse);
     } else {
         submitToAPI("api/recordResponse", newResponse);

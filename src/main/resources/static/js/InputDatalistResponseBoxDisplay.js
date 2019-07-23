@@ -13,7 +13,7 @@ class InputDatalistResponseBoxDisplay {
         this.type = type;
         this.id = id;
         this.correctResponse = correctResponse;
-        console.log(this.correctResponse);
+        console.log("the answer is: "+this.correctResponse);
         //don't currently need a pointer to this datalist
         let possibleResponsesDatalist = buildDatalistElement(id, defaultResponses);
         //need a pointer to this textbox to check answers

@@ -45,13 +45,13 @@ class CompleteDisplay {
         document.getElementById("score").appendChild(given);
     }
 
-    nextImageTask() {
-        document.getElementById("questionSet").innerText = "";
+    nextImageTask(){
+        document.getElementById("questionSet").innerText="";
         this.pageDisplay.nextImageTask();
-
     }
 
     nextQuestion() {
+        document.getElementById("errorFeedback").innerHTML = " ";
         if (!this.pageDisplay.imageTaskDisplay.mustSubmitAnswersToContinue) {
             this.nextImageTask();
             this.showScore();
