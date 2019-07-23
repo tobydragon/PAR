@@ -74,11 +74,6 @@ public class ParServer {
     }
 
     //Side effect: if a new model is created, it is added to the given studentModelMap
-
-    public QuestionPool getQuestionPool() {
-        return questionPool;
-    }
-
     /**
      * @param studentModelMap
      * @param userId
