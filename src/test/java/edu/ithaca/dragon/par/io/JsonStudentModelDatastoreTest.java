@@ -20,9 +20,6 @@ public class JsonStudentModelDatastoreTest {
         //throws exception when StudentModelDatastore does not have a studentModelFilePath
         StudentModelDatastore studentModelDatastoreA = new JsonStudentModelDatastore("src/test/resources/author/SampleQuestionPool.json", null);
         assertNull(studentModelDatastoreA.getStudentModel("asd"));
-
-        List<StudentModel> studentModels = new ArrayList<>();
-        assertThrows(IOException.class, () -> studentModelDatastoreA.saveStudentModels(studentModels));
     }
 
     @Test
