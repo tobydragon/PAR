@@ -35,19 +35,6 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
     }
 
     @Override
-    public void saveStudentModels(Collection<StudentModel> studentModelsIn) throws IOException {
-        if(studentModelFilePath != null) {
-            for(StudentModel currStudentModel : studentModelsIn){
-                saveStudentModel(currStudentModel);
-            }
-        }
-        else {
-            throw new IOException("studentModelFilePath is null");
-        }
-
-    }
-
-    @Override
     public void saveStudentModel(StudentModel studentModel) throws IOException{
         if(studentModelFilePath == null)
             throw new IOException("studentModelFilePath is null");
