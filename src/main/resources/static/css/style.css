@@ -116,6 +116,19 @@ h5 {
     border-bottom: 1px solid;
 }
 
+.par-red {
+    color: #dc3545;
+}
+
+.par-blue {
+    color: #007bff;
+}
+
+.par-teal {
+
+    color: #138C9E;
+}
+
 /* ---------------------------------------*
 /* Add spacing to text elements */
 
