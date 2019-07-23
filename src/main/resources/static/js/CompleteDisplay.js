@@ -19,6 +19,9 @@ class CompleteDisplay {
         this.pageSettings = readJson("api/getPageSettings?userId=" + this.userID);
         this.pageDisplay = new PageDisplay(this.pageSettings);
         this.pageDisplay.userId = this.userID;
+    }
+
+    setPageDisplayIsAuthor(){
         this.pageDisplay.setIsAuthor();
     }
 

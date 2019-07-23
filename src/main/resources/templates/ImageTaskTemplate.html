@@ -57,6 +57,9 @@
             </div>
             <div class="col-1"></div>
             <div class="col-2 colVertCenter">
+                <button type="button" class="btn btn-primary" id="submitAuthorButton" onclick="completeDisplay.pageDisplay.authorSubmitFinal()">
+                    Add Questions to Pool
+                </button>
                 <button type="button" class="btn btn-primary" id="logoutButton" onclick="completeDisplay.pageDisplay.logout()">
                     Logout
                 </button>
@@ -108,6 +111,7 @@
     </div>
 
     <script>
+        completeDisplay.setPageDisplayIsAuthor();
         completeDisplay.displayUserId();
         completeDisplay.showScore();
         completeDisplay.nextImageTask();

@@ -59,8 +59,13 @@ class ImageTaskDisplay {
 
     authorSubmitResponses() {
         for (var i = 0; i < this.questionAreaDisp.length; i++) {
-            this.questionAreaDisp[i].answerBox.recordCurrentResponse(this.response);
-            addToResponseIds(this.response, this.questionAreaDisp[i].element.id);
+            let current = this.questionAreaDisp[i];
+            current.answerBox.recordCurrentResponse(this.response);
+            addToResponseIds(this.response, current.element.id);
+            for (var x = 0; x < current.followUpAreas.length; x++) {
+                addToResponseIds(this.response, current.followUpAreas[x].element.id);
+                current.followUpAreas[x].answerBox.recordCurrentResponse(this.response);
+            }
         }
     }
 
@@ -84,7 +89,9 @@ class ImageTaskDisplay {
             addToResponseIds(this.response, current.element.id);
             let correctness = current.answerBox.checkCurrentResponse(this.response, this.unsureShowsCorrectAnswer);
             this.listOfCorrectAnswers.push(correctness);
-            checkIfShouldAddFollowupQ(correctness, current);
+            if(checkIfShouldAddFollowupQ(correctness)){
+                current.addFollowupQuestions();
+            }
             if (this.haveSubmited) {
                 this.checkFollowUp(current);
             }
@@ -92,9 +99,11 @@ class ImageTaskDisplay {
     }
 }
 
-function checkIfShouldAddFollowupQ(correctness, questionAreaDisplay) {
+function checkIfShouldAddFollowupQ(correctness) {
     if (correctness === ResponseResult.correct) {
-        questionAreaDisplay.addFollowupQuestions();
+        return true;
+    } else {
+        return false;
     }
 }
 
@@ -112,6 +121,8 @@ function submitResponse(response, isAuthor) {
     };
 
     if (isAuthor) {
+        console.log(newResponse.responseTexts);
+        console.log(newResponse.taskQuestionIds);
         submitToAPI("api/submitAuthorImageTaskResponse", newResponse);
     } else {
         submitToAPI("api/recordResponse", newResponse);
