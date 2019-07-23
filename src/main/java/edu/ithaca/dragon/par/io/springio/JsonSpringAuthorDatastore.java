@@ -3,6 +3,7 @@ package edu.ithaca.dragon.par.io.springio;
 import edu.ithaca.dragon.par.authorModel.AuthorModel;
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.io.AuthorDatastore;
+import edu.ithaca.dragon.par.io.AuthorModelRecord;
 import edu.ithaca.dragon.par.io.JsonQuestionPoolDatastore;
 import edu.ithaca.dragon.par.studentModel.QuestionCount;
 import edu.ithaca.dragon.util.JsonSpringUtil;
@@ -31,7 +32,7 @@ public class JsonSpringAuthorDatastore implements AuthorDatastore {
     private void setUpAuthorModelProperties(String filepath, List<Question> questionTemplates) throws IOException{
         this.authorFilepath = filepath;
         try{
-            authorModel = JsonSpringUtil.fromFileSystemJson(filepath, AuthorModel.class);
+            authorModel = JsonSpringUtil.fromFileSystemJson(filepath, AuthorModelRecord.class).buildAuthorModel(questionTemplatesDatastore.getQuestionPool());
         } catch (IOException e){
             authorModel = new AuthorModel("author", QuestionCount.questionToQuestionCount(questionTemplates));
             overwriteAuthorFile();
@@ -52,7 +53,7 @@ public class JsonSpringAuthorDatastore implements AuthorDatastore {
     }
 
     private void overwriteAuthorFile() throws IOException{
-        JsonSpringUtil.toFileSystemJson(authorFilepath, authorModel);
+        JsonSpringUtil.toFileSystemJson(authorFilepath, new AuthorModelRecord(authorModel));
     }
 
     public void removeQuestionTemplateById(String templateId) throws IOException{

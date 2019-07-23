@@ -21,6 +21,10 @@ public class JsonSpringQuestionPoolDatastore {
         return questionPool.getAllQuestions();
     }
 
+    public QuestionPool getQuestionPool(){
+        return questionPool;
+    }
+
     public Question findTopLevelQuestionTemplateById(String questionId){
         return questionPool.getTopLevelQuestionById(questionId);
     }

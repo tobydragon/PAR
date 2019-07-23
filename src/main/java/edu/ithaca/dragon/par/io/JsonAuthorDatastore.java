@@ -32,7 +32,7 @@ public class JsonAuthorDatastore implements AuthorDatastore {
             overwriteAuthorFile();
         }
         else {
-            authorModel = JsonUtil.fromJsonFile(filepath, AuthorModel.class);
+            authorModel = (JsonUtil.fromJsonFile(filepath, AuthorModelRecord.class).buildAuthorModel(questionTemplatesDatastore.getQuestionPool()));
         }
     }
 
@@ -53,7 +53,7 @@ public class JsonAuthorDatastore implements AuthorDatastore {
     }
 
     private void overwriteAuthorFile() throws IOException{
-        JsonUtil.toJsonFile(authorFilepath, authorModel);
+        JsonUtil.toJsonFile(authorFilepath, new AuthorModelRecord(authorModel));
     }
 
     @Override
