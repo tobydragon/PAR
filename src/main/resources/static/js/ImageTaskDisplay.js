@@ -24,6 +24,9 @@ class ImageTaskDisplay {
         this.isAuthor = isAuthor;
 
         for (var i = 0; i < this.questionAreaDisp.length; i++) {
+            if(isAuthor){
+                this.questionAreaDisp[i].addFollowupQuestions();
+            }
             document.getElementById("questionSet").appendChild(this.questionAreaDisp[i].element);
         }
     }
