@@ -52,7 +52,7 @@ public class UserResponseSetTest {
 
     @Test
     public void addAllResponseTest()throws IOException{
-        QuestionPool questionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));
+        QuestionPool questionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json").loadQuestions());
         List<ImageTaskResponse> responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponse.class);
         List<ResponsesPerQuestion> responsesPerQuestions=StudentModel.createUserResponseObj(responsesFromFile.get(0),questionPool,"s1");
         UserResponseSet respSet=new UserResponseSet(responsesFromFile.get(0).getUserId());
@@ -66,8 +66,6 @@ public class UserResponseSetTest {
         respSet.addAllResponses(responsesPerQuestions.subList(5,15));
         assertEquals(15,respSet.getUserResponsesSize());
         assertEquals(30,respSet.countTotalResponses());
-
-
 
 
     }
@@ -223,7 +221,7 @@ public class UserResponseSetTest {
         }
         respSet.addAllResponses(userResponse);
         //UserResponseSet userResponseSet=new UserResponseSet("TestUser1");
-        Map<String, List<ResponsesPerQuestion>> responseByType = respSet.splitResponsesByType(respSet.getUserResponse());
+        Map<String, List<ResponsesPerQuestion>> responseByType = respSet.splitResponsesByType(respSet.getUserResponses());
         //assertEquals(Arrays.asList("plane", "structure", "attachment", "zone"),responseByType.keySet());
         for (EquineQuestionTypes currType: EquineQuestionTypes.values()) {
             System.out.println(responseByType.get(currType.toString()).size());
@@ -246,7 +244,7 @@ public class UserResponseSetTest {
         }
         respSet.addAllResponses(userResponse);
 
-        String a=respSet.knowledgeBaseCalc(respSet.getUserResponse(),4);
+        String a=respSet.knowledgeBaseCalc(respSet.getUserResponses(),4);
         System.out.println(a);
 
         userResponse=new ArrayList<>();
@@ -262,7 +260,7 @@ public class UserResponseSetTest {
 
         respSet.addAllResponses(userResponse);
 
-        String a2=respSet.knowledgeBaseCalc(respSet.getUserResponse(),4);
+        String a2=respSet.knowledgeBaseCalc(respSet.getUserResponses(),4);
         System.out.println(a2);
     }
 

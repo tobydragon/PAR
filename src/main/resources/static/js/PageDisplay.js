@@ -10,17 +10,17 @@ class PageDisplay {
     }
 
     setIsAuthor() {
-        this.isAuthor= setIsAuthor(this.userId);
+        this.isAuthor = setIsAuthor(this.userId);
     }
-
 
     nextImageTask() {
         var settings;
 
         try {
             settings = readJson("api/getImageTaskSettings?userId=" + this.userId);
-            if(this.isAuthor){
-                //TODO
+            if (this.isAuthor) {
+                console.log("wooooo");
+                var imageTaskJSON = readJson("api/nextAuthorImageTask?userId=" + this.userId);
             } else {
                 var imageTaskJSON = readJson("api/nextImageTask?userId=" + this.userId);
             }
@@ -44,9 +44,9 @@ function logout() {
     return location.replace('/login');
 }
 
-function setIsAuthor(userId){
+function setIsAuthor(userId) {
     if (userId === "author") {
-        return  true;
+        return true;
     } else {
         return false;
     }

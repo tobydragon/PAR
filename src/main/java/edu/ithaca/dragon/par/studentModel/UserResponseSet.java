@@ -6,22 +6,22 @@ import java.util.*;
 
 public class UserResponseSet {
     private String userId;
-    private List<ResponsesPerQuestion> userResponse;
-
+    private List<ResponsesPerQuestion> userResponses;
     //windowSize is the amount of responses to look back on when calculating the understanding of a topic
     public static int windowSize = 4;
 
     public UserResponseSet(String userIdIn) {
         this.userId = userIdIn;
-        userResponse = new ArrayList<>();
+        userResponses = new ArrayList<>();
     }
+
 
     public void addResponse(ResponsesPerQuestion response) {
         int index = sameResponseCheck(response);
 
-        if (index == -1) userResponse.add(response);
+        if (index == -1) userResponses.add(response);
 
-        else userResponse.get(index).addNewResponse(response.getFirstResponse());
+        else userResponses.get(index).addNewResponse(response.getFirstResponse());
     }
     public void addAllResponses(List<ResponsesPerQuestion> allResponsesIn) {
         for (int i = 0; i < allResponsesIn.size(); i++) {
@@ -29,12 +29,13 @@ public class UserResponseSet {
         }
     }
 
+
     private int sameResponseCheck(ResponsesPerQuestion response) {
-        if (userResponse.isEmpty()) {
+        if (userResponses.isEmpty()) {
             return -1;
         } else {
-            for (int i = 0; i < userResponse.size(); i++) {
-                if (userResponse.get(i).getQuestionId().equals(response.getQuestionId())) {
+            for (int i = 0; i < userResponses.size(); i++) {
+                if (userResponses.get(i).getQuestionId().equals(response.getQuestionId())) {
                     return i;
                 }
             }
@@ -42,24 +43,28 @@ public class UserResponseSet {
         return -1;
     }
 
+
     public int getUserResponsesSize() {
-        return userResponse.size();
+        return userResponses.size();
     }
+
 
     public int countTotalResponses() {
         int count = 0;
-        for (ResponsesPerQuestion responses : userResponse) {
+        for (ResponsesPerQuestion responses : userResponses) {
             count = count + responses.allResponsesSize();
         }
         return count;
     }
 
-    public void setUserResponse(List<ResponsesPerQuestion> userResponsesIn) {
-        this.userResponse = userResponsesIn;
+
+    public void setUserResponses(List<ResponsesPerQuestion> userResponsesIn) {
+        this.userResponses = userResponsesIn;
     }
-    public List<ResponsesPerQuestion> getUserResponse() {
-        return userResponse;
+    public List<ResponsesPerQuestion> getUserResponses() {
+        return userResponses;
     }
+
 
     public void setUserId(String userIdIn) {
         this.userId = userIdIn;
@@ -68,17 +73,22 @@ public class UserResponseSet {
         return userId;
     }
 
+
     public double knowledgeCalc() {
         //TODO: should 12 be replaced by windowSize?
-        return knowledgeCalc(userResponse, 12);
+        return knowledgeCalc(userResponses, 12);
     }
+
+
     /**
      * @param responsesToConsider how many responses should the algorithm look back on to calculate the recent average?
      * @return
      */
     public double knowledgeCalc(int responsesToConsider) {
-        return knowledgeCalc(userResponse, responsesToConsider);
+        return knowledgeCalc(userResponses, responsesToConsider);
     }
+
+
     /**
      * @param allResponses
      * @param responsesToConsider how many responses should the algorithm look back on
@@ -88,25 +98,27 @@ public class UserResponseSet {
         //return -1 if the list is empty
         if (allResponses.size() == 0)
             return -1.0;
-
         double scoreBeforeDivision = 0;
         for (int i = allResponses.size() - 1, j = 0; j < responsesToConsider; i--, j++) {
 
-            if (i >= 0) {
-                scoreBeforeDivision += allResponses.get(i).knowledgeCalc();
-            }
+            if (i >= 0) scoreBeforeDivision += allResponses.get(i).knowledgeCalc();
+
         }
         return (scoreBeforeDivision / responsesToConsider);
     }
+
+
     public Map<String, Double> knowledgeScoreByType() {
-        Map<String, List<ResponsesPerQuestion>> responseByType = splitResponsesByType(userResponse);
-        Map<String, Double> responseByTypeDouble = new HashMap<>();
-        for (String quesType : responseByType.keySet()) {
-            List<ResponsesPerQuestion> quesList = responseByType.get(quesType);
-            responseByTypeDouble.put(quesType, knowledgeCalc(quesList, windowSize));
+        Map<String, List<ResponsesPerQuestion>> responseByType = splitResponsesByType(userResponses);
+        Map<String, Double> responseByTypeDouble = new LinkedHashMap<>();
+        for (EquineQuestionTypes currType: EquineQuestionTypes.values()) {
+            List<ResponsesPerQuestion> quesList = responseByType.get(currType.toString());
+            responseByTypeDouble.put(currType.toString(), knowledgeCalc(quesList, windowSize));
         }
         return responseByTypeDouble;
     }
+
+
     private static  Map<String, List<ResponsesPerQuestion>> splitResponsesByType(List<ResponsesPerQuestion> responsesPerQuestions) {
         Map<String, List<ResponsesPerQuestion>> responseByType = new HashMap<>();
         List<ResponsesPerQuestion> responsesPerQuestion = new ArrayList<>();
@@ -130,16 +142,19 @@ public class UserResponseSet {
         return responseByType;
     }
 
+
     public Map<EquineQuestionTypes, String> generateKnowledgeBaseMap(){
-        Map<String, List<ResponsesPerQuestion>> responseByType = splitResponsesByType(userResponse);
-        Map<EquineQuestionTypes,String> knowledgeBaseMap=new HashMap<>();
+        Map<String, List<ResponsesPerQuestion>> responseByType = splitResponsesByType(userResponses);
+        Map<EquineQuestionTypes,String> knowledgeBaseMap=new LinkedHashMap<>();
         for (EquineQuestionTypes currType : EquineQuestionTypes.values()) {
             List<ResponsesPerQuestion> quesList = responseByType.get(currType.toString());
-            knowledgeBaseMap.put(currType, knowledgeBaseCalc(quesList,windowSize));
+            knowledgeBaseMap.put(currType, knowledgeBaseEstimate(quesList,windowSize));
         }
         return knowledgeBaseMap;
     }
-    private static String knowledgeBaseCalc(List<ResponsesPerQuestion> allResponses, int responsesToConsider) {
+
+
+    private static String knowledgeBaseEstimate(List<ResponsesPerQuestion> allResponses, int responsesToConsider) {
         //return ____ if the list is empty
         if (allResponses.size() == 0)  return "____";
 
@@ -151,7 +166,7 @@ public class UserResponseSet {
         }
         //reads in the scores from the last element to first since the most recent response is at beginning of the list
         for(int i=scores.size()-1;i>-1;i--){
-            //re-writes the string knowledgeBase i.e ____ -> ___O or ___X and so on
+            //re-writes the string knowledgeBaseEstimate i.e ____ -> ___O or ___X and so on
 
             if(scores.get(i)==100) knowledgeBase=knowledgeBase.substring(1)+"O";
 
@@ -170,7 +185,7 @@ public class UserResponseSet {
             return false;
         }
         UserResponseSet other = (UserResponseSet) otherObj;
-        return this.getUserResponse().equals(other.getUserResponse())
+        return this.getUserResponses().equals(other.getUserResponses())
                 && this.getUserId().equals(other.getUserId());
     }
 }

@@ -6,6 +6,8 @@ TODO
 
 ## [ZenHub Board](https://app.zenhub.com/workspaces/par-5cf68a391437ff1e943f0c81/board?filterLogic=any&repos=190221376,191385989)
 
+## Master: [![CircleCI](https://circleci.com/gh/tobydragon/PAR/tree/master.svg?style=svg)](https://circleci.com/gh/tobydragon/PAR/tree/master)
+
 # Sprint 1
 The goal is to create a system that can generate and display complete imageTasks (an image with several related questions of different types), and score and store the results of the assesment
 

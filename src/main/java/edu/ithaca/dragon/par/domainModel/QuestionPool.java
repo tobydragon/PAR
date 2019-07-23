@@ -5,24 +5,25 @@ import edu.ithaca.dragon.par.io.Datastore;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class QuestionPool {
-    private List<Question> allQuestions;
 
+    private List<Question> allQuestions;
 
     public QuestionPool(List<Question> allQuestions){
         this.allQuestions = new ArrayList<>(allQuestions);
     }
 
-    public QuestionPool(Datastore datastore) throws IOException {
-        allQuestions = datastore.loadQuestions();
-    }
-
     public List<Question> getAllQuestions(){
         return new ArrayList<>(allQuestions);
+    }
+
+    public void addQuestion(Question newQuestion){
+        allQuestions.add(newQuestion);
     }
 
     public Question getQuestionFromId(String questionIdIn){
@@ -47,6 +48,24 @@ public class QuestionPool {
             }
         }
         return null;
+    }
+
+    public void removeQuestionById(String id){
+        removeQuestionFromIdRecursive(id, allQuestions);
+    }
+
+    public void removeQuestionFromIdRecursive(String id, List<Question> questionList){
+        Iterator<Question> itr = questionList.listIterator();
+        while(itr.hasNext()){
+            Question currQuestion = itr.next();
+            if(currQuestion.getId().equals(id)){
+                itr.remove();
+            }
+            else{
+                //call getQuestionFromId on the followup questions
+                removeQuestionFromIdRecursive(id, currQuestion.getFollowupQuestions());
+            }
+        }
     }
 
     public static List<Question> getTopLevelQuestionsFromUrl(List<Question> questions, String imageUrlIn){
@@ -131,5 +150,14 @@ public class QuestionPool {
                 return false;
         }
         return true;
+    }
+
+    public Question getTopLevelQuestionById(String id){
+        for (int i = 0; i <allQuestions.size(); i++){
+            if (allQuestions.get(i).getId().equals(id)){
+                return allQuestions.get(i);
+            }
+        }
+        return null;
     }
 }
