@@ -1,10 +1,7 @@
 package edu.ithaca.dragon.par;
 
 
-import edu.ithaca.dragon.par.io.Datastore;
-import edu.ithaca.dragon.par.io.ImageTask;
-import edu.ithaca.dragon.par.io.ImageTaskResponse;
-import edu.ithaca.dragon.par.io.JsonStudentModelDatastore;
+import edu.ithaca.dragon.par.io.*;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.util.DataUtil;
 import edu.ithaca.dragon.util.JsonUtil;
@@ -26,7 +23,7 @@ public class ParServerTest {
 
     @Test
     public void getOrCreateStudentModelTest() throws IOException {
-        Datastore datastore = new JsonStudentModelDatastore("src/test/resources/author/SampleQuestionPool.json");
+        Datastore datastore = new JsonStudentModelDatastore("src/test/resources/author/SampleQuestionPool.json", null);
         StudentModel sm1 = new StudentModel("s1", datastore.loadQuestions().subList(0, 1));
         StudentModel sm2 = new StudentModel("s2", datastore.loadQuestions().subList(0, 2));
         StudentModel sm3 = new StudentModel("s3", datastore.loadQuestions());
@@ -70,7 +67,7 @@ public class ParServerTest {
 
     @Test
     public void nextImageTaskTest() throws IOException{
-        Datastore datastore = new JsonStudentModelDatastore("src/test/resources/author/SampleQuestionPool3.json");
+        Datastore datastore = new JsonStudentModelDatastore("src/test/resources/author/SampleQuestionPool3.json", null);
         ParServer parServer = new ParServer(datastore);
         ImageTask nextTask = parServer.nextImageTask("s1");
         ImageTask intendedFirstTask = JsonUtil.fromJsonFile("src/test/resources/author/nextImageTaskTest1.json", ImageTask.class);
@@ -139,11 +136,11 @@ public class ParServerTest {
     @Test
     public void windowSizeCheckTest() throws IOException{
         //This test assumes that windowSize is hardcoded in UserResponseSet to be 4
-        Datastore testDS = new JsonStudentModelDatastore("src/test/resources/author/SampleQuestionsEmpty.json");
+        Datastore testDS = new JsonStudentModelDatastore("src/test/resources/author/SampleQuestionsEmpty.json", null);
         assertThrows(RuntimeException.class, () -> {ParServer testServer = new ParServer(testDS);});
 
         //windowSizeOverride Test
-        Datastore testDS2 = new JsonStudentModelDatastore("src/test/resources/author/SampleQuestionsEmpty.json");
+        Datastore testDS2 = new JsonStudentModelDatastore("src/test/resources/author/SampleQuestionsEmpty.json", null);
         ParServer testServer = new ParServer(testDS, 0);
     }
 }

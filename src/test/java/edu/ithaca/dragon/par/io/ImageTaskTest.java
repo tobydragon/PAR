@@ -18,7 +18,7 @@ public class ImageTaskTest {
 
     @Test
     public void toJsonAndBackTest() throws IOException {
-        QuestionPool myQP = new QuestionPool(new JsonStudentModelDatastore("src/test/resources/author/SampleQuestionPool.json").loadQuestions());
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/SampleQuestionPool.json").getAllQuestions());
         List<Question> myQPList = myQP.getAllQuestions();
         ImageTask testImageTask = new ImageTask("../static/images/equine02.jpg\"", myQPList);
 

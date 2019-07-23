@@ -15,11 +15,6 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
 
     private String studentModelFilePath;
 
-    //TODO: get rid of this, have anyone needing that take a JsonQuestionPoolDatastore
-    public JsonStudentModelDatastore(String questionFilePath) throws IOException {
-        this(questionFilePath, null);
-    }
-
     public JsonStudentModelDatastore(String questionFilePath, String studentModelFilePath) throws IOException {
         super(questionFilePath);
         this.studentModelFilePath = studentModelFilePath;

@@ -18,7 +18,7 @@ public class JsonStudentModelDatastoreTest {
     @Test
     public void loadBadStudentModelTest() throws IOException{
         //throws exception when Datastore does not have a studentModelFilePath
-        Datastore datastoreA = new JsonStudentModelDatastore("src/test/resources/author/SampleQuestionPool.json");
+        Datastore datastoreA = new JsonStudentModelDatastore("src/test/resources/author/SampleQuestionPool.json", null);
         assertThrows(IOException.class, datastoreA::loadStudentModels);
 
         List<StudentModel> studentModels = new ArrayList<>();
