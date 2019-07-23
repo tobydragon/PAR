@@ -5,7 +5,7 @@ import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.authorModel.ParAuthoringServer;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
-import edu.ithaca.dragon.par.io.JsonSpringDatastore;
+import edu.ithaca.dragon.par.io.springio.JsonSpringDatastore;
 import edu.ithaca.dragon.par.pedagogicalModel.ImageTaskSettings;
 import edu.ithaca.dragon.par.pedagogicalModel.PageSettings;
 import edu.ithaca.dragon.util.DataUtil;
