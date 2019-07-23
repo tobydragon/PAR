@@ -89,7 +89,9 @@ class ImageTaskDisplay {
             addToResponseIds(this.response, current.element.id);
             let correctness = current.answerBox.checkCurrentResponse(this.response, this.unsureShowsCorrectAnswer);
             this.listOfCorrectAnswers.push(correctness);
-            checkIfShouldAddFollowupQ(correctness, current);
+            if(checkIfShouldAddFollowupQ(correctness)){
+                current.addFollowupQuestions();
+            }
             if (this.haveSubmited) {
                 this.checkFollowUp(current);
             }
@@ -97,9 +99,11 @@ class ImageTaskDisplay {
     }
 }
 
-function checkIfShouldAddFollowupQ(correctness, questionAreaDisplay) {
+function checkIfShouldAddFollowupQ(correctness) {
     if (correctness === ResponseResult.correct) {
-        questionAreaDisplay.addFollowupQuestions();
+        return true;
+    } else {
+        return false;
     }
 }
 
