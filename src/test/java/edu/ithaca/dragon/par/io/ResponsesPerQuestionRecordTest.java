@@ -17,8 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ResponsesPerQuestionRecordTest {
      @Test
     public void toJsonAndBackTest() throws IOException{
-//<<<<<<< HEAD:src/test/java/edu/ithaca/dragon/par/io/ResponsesPerQuestionRecordTest.java
-         QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));
+         QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json").loadQuestions());
          ResponsesPerQuestion response=new ResponsesPerQuestion("kandace",qp.getQuestionFromId("StructureQ2"),"hi");
 
          ResponsesPerQuestionRecord responseRecord=new ResponsesPerQuestionRecord(response);

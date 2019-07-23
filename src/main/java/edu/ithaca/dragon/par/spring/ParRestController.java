@@ -2,9 +2,11 @@ package edu.ithaca.dragon.par.spring;
 
 import edu.ithaca.dragon.par.ParServer;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
+import edu.ithaca.dragon.par.authorModel.ParAuthoringServer;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
-import edu.ithaca.dragon.par.io.JsonSpringDatastore;
+import edu.ithaca.dragon.par.io.springio.JsonSpringAuthorDatastore;
+import edu.ithaca.dragon.par.io.springio.JsonSpringDatastore;
 import edu.ithaca.dragon.par.pedagogicalModel.ImageTaskSettings;
 import edu.ithaca.dragon.par.pedagogicalModel.PageSettings;
 import edu.ithaca.dragon.util.DataUtil;
@@ -22,15 +24,18 @@ import java.util.Map;
 public class ParRestController {
     private final Logger logger = LogManager.getLogger(this.getClass());
 
+    private ParAuthoringServer parAuthoringServer;
     private ParServer parServer;
 
     ParRestController(){
         super();
         try {
             parServer = new ParServer(new JsonSpringDatastore("localData/currentQuestionPool.json","author/DemoQuestionPool.json", "localData/students"));
+            parAuthoringServer = new ParAuthoringServer(new JsonSpringAuthorDatastore("localData/currentAuthoredQuestions.json", "author/AuthorQuestionsDefault.json",
+                    "localData/currentAuthorQuestionTemplates.json", "author/AuthorQuestionTemplatesDefault.json", "localData/currentAuthorModel.json" ));
         }
         catch(IOException e){
-            throw new RuntimeException("Server can't start without questionPool or studentRecord", e);
+            throw new RuntimeException("Server can't start without all necessary files loaded: ", e);
         }
     }
 
@@ -57,7 +62,7 @@ public class ParRestController {
 
     @GetMapping("/nextImageTask")
     public ImageTask nextImageTask(@RequestParam String userId) throws IOException {
-            return parServer.nextImageTask(userId);
+        return parServer.nextImageTask(userId);
     }
 
     @PostMapping("/recordResponse")
@@ -86,7 +91,22 @@ public class ParRestController {
         return parServer.calcScoreByType(userId);
     }
     @GetMapping("/knowledgeBase")
-    public Map<EquineQuestionTypes,String> knowledgeBaseEstimate(@RequestParam String userId)throws IOException{
+    public Map<EquineQuestionTypes,String> knowledgeBaseEstimate(@RequestParam String userId)throws IOException {
         return parServer.knowledgeBaseEstimate(userId);
+    }
+    @GetMapping("/nextAuthorImageTask")
+    public ImageTask nextAuthorImageTask() throws IOException {
+        return parAuthoringServer.nextImageTaskTemplate();
+    }
+
+    @PostMapping("/submitAuthorImageTaskResponse")
+    public ResponseEntity<String> submitAuthorImageTaskResponse(@RequestBody ImageTaskResponse response) {
+        try {
+            parAuthoringServer.imageTaskResponseSubmitted(response);
+            return ResponseEntity.ok().body("ok");
+        } catch (Exception e){
+            logger.warn(e);
+            return ResponseEntity.notFound().build();
+        }
     }
 }

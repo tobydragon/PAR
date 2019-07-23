@@ -3,7 +3,12 @@ class ImageTaskDisplay {
     constructor(imageTaskJson, userId, imageTaskSettings, isAuthor) {
         this.userId = userId;
         this.response = new Response(userId);
-        this.pageImage = new PageImage(imageTaskJson.imageUrl);
+        if (imageTaskJson.imageUrl === "NoMoreQuestions") {
+            //TODO
+        } else {
+            this.pageImage = new PageImage(imageTaskJson.imageUrl);
+            this.displayImageUrl(imageTaskJson.imageUrl);
+        }
         this.questionAreaDisp = new buildQuestionAreas(imageTaskJson.taskQuestions, this.response);
 
         //settings
@@ -19,69 +24,56 @@ class ImageTaskDisplay {
         this.isAuthor = isAuthor;
 
         for (var i = 0; i < this.questionAreaDisp.length; i++) {
+            if(isAuthor){
+                this.questionAreaDisp[i].addFollowupQuestions();
+            }
             document.getElementById("questionSet").appendChild(this.questionAreaDisp[i].element);
         }
     }
 
+    displayImageUrl(url) {
+        document.getElementById("Ids").innerText = url;
+    }
+
     submitAnswers() {
-        this.response.responseTexts= [];
+        this.response.responseTexts = [];
         let canContinu;
+        document.getElementById("errorFeedback").innerHTML = " ";
+
         if (!this.isAuthor) {
-            document.getElementById("errorFeedback").innerHTML = " ";
             this.checkAnswers();
-            this.checkFollowUp();
-            canContinu = this.checkIfCanContinu();
+            canContinu = checkIfCanContinu(this.canGiveNoAnswer, this.listOfCorrectAnswers);
         } else {
-            for (var i = 0; i < this.questionAreaDisp.length; i++) {
-                this.questionAreaDisp[i].answerBox.recordCurrentResponse(this.response);
-            }
+            console.log("author Submit response");
+            this.authorSubmitResponses();
             canContinu = true;
         }
 
         if (canContinu) {
-            this.sendResponse();
+            this.displayFeedback();
+            this.haveSubmited = sendResponse(this.response, this.ableToResubmitAnswers, this.isAuthor);
         } else {
             document.getElementById("errorFeedback").innerHTML = "<font color=red>No response was recorded because you did not answer all the questions</font>";
         }
     }
 
-    checkIfCanContinu(){
-        if (!this.canGiveNoAnswer) {
-            if (this.listOfCorrectAnswers.includes("")) {
-                return false;
-            } else {
-                return true;
-            }
-        } else {
-            return true;
+    authorSubmitResponses() {
+        for (var i = 0; i < this.questionAreaDisp.length; i++) {
+            this.questionAreaDisp[i].answerBox.recordCurrentResponse(this.response);
+            addToResponseIds(this.response, this.questionAreaDisp[i].element.id);
         }
     }
 
-    sendResponse(){
+    displayFeedback() {
         if (this.willDisplayFeedback) {
-            this.giveFeedback(this.response.typesIncorrect);
+            document.getElementById("helpfulFeedback").innerHTML = giveFeedback(this.response.typesIncorrect, this.feedbackByType);
         }
-
-        this.submitResponse();
-
-        if (!this.ableToResubmitAnswers) {
-            document.getElementById("submitButton").classList.add("hide");
-        }
-        this.haveSubmited = true;
-        document.getElementById("errorFeedback").innerHTML = "<font color=\"#663399\"> Response recorded</font>";
     }
 
-    checkFollowUp(){
-        if (this.haveSubmited) {
-            for (var i = 0; i < this.questionAreaDisp.length; i++) {
-                let current = this.questionAreaDisp[i];
-                for (var x = 0; x < current.followUpAreas.length; x++) {
-                    this.listOfCorrectAnswers.push(current.followUpAreas[x].answerBox.checkCurrentResponse(this.response, this.unsureShowsCorrectAnswer));
-                    if (!(this.response.taskQuestionIds.includes(current.followUpAreas[x].element.id))) {
-                        this.response.addToQuestionIds(current.followUpAreas[x].element.id);
-                    }
-                }
-            }
+    checkFollowUp(current) {
+        for (var x = 0; x < current.followUpAreas.length; x++) {
+            this.listOfCorrectAnswers.push(current.followUpAreas[x].answerBox.checkCurrentResponse(this.response, this.unsureShowsCorrectAnswer));
+            addToResponseIds(this.response, current.followUpAreas[x].element.id);
         }
     }
 
@@ -89,63 +81,79 @@ class ImageTaskDisplay {
         this.listOfCorrectAnswers = [];
         for (var i = 0; i < this.questionAreaDisp.length; i++) {
             let current = this.questionAreaDisp[i];
-
-            if (!(this.response.taskQuestionIds.includes(current.element.id))) {
-                this.response.addToQuestionIds(current.element.id);
-            }
-
-            this.listOfCorrectAnswers.push(current.answerBox.checkCurrentResponse(this.response, this.unsureShowsCorrectAnswer));
-
-            let correctness = this.listOfCorrectAnswers[this.listOfCorrectAnswers.length - 1];
-            if (correctness === ResponseResult.correct) {
-                this.questionAreaDisp[i].addFollowupQuestions();
-            }
-        }
-    }
-
-    submitResponse() {
-        let newResponse = {
-            userId: this.userId,
-            taskQuestionIds: this.response.taskQuestionIds,
-            responseTexts: this.response.responseTexts
-        };
-
-        console.log(this.response.taskQuestionIds);
-        console.log(this.response.responseTexts);
-
-
-        if (this.isAuthor) {
-            //TODO: Needs a new URL
-            submitToAPI("api/recordResponse", newResponse);
-        } else {
-            submitToAPI("api/recordResponse", newResponse);
-        }
-    }
-
-    nextQuestion() {
-        if (!this.mustSubmitAnswersToContinue) {
-            location.reload();
-        } else {
+            addToResponseIds(this.response, current.element.id);
+            let correctness = current.answerBox.checkCurrentResponse(this.response, this.unsureShowsCorrectAnswer);
+            this.listOfCorrectAnswers.push(correctness);
+            checkIfShouldAddFollowupQ(correctness, current);
             if (this.haveSubmited) {
-                location.reload();
-            } else {
-                document.getElementById("errorFeedback").innerHTML = "<font color=red>Must submit answers to continue</font>";
+                this.checkFollowUp(current);
             }
         }
     }
+}
 
-    giveFeedback(typesSeenForFeedback) {
-        if (typesSeenForFeedback.length > 0) {
-            document.getElementById("helpfulFeedback").innerHTML = "Feedback: ";
+function checkIfShouldAddFollowupQ(correctness, questionAreaDisplay) {
+    if (correctness === ResponseResult.correct) {
+        questionAreaDisplay.addFollowupQuestions();
+    }
+}
+
+function addToResponseIds(response, id) {
+    if (!(response.taskQuestionIds.includes(id))) {
+        response.addToQuestionIds(id);
+    }
+}
+
+function submitResponse(response, isAuthor) {
+    let newResponse = {
+        userId: response.userId,
+        taskQuestionIds: response.taskQuestionIds,
+        responseTexts: response.responseTexts
+    };
+
+    if (isAuthor) {
+        submitToAPI("api/submitAuthorImageTaskResponse", newResponse);
+    } else {
+        submitToAPI("api/recordResponse", newResponse);
+    }
+}
+
+function giveFeedback(typesSeenForFeedback, feedbackByType) {
+    var feedbackString = "";
+    if (typesSeenForFeedback.length > 0) {
+        feedbackString = "Feedback: ";
+    }
+    for (var i = 0; i < typesSeenForFeedback.length; i++) {
+        var type = typesSeenForFeedback[i];
+        var response = feedbackByType[type];
+        if (i < typesSeenForFeedback.length - 1) {
+            response += ", ";
         }
-        for (var i = 0; i < typesSeenForFeedback.length; i++) {
-            var type = typesSeenForFeedback[i];
-            var response = this.feedbackByType[type];
-            if (i < typesSeenForFeedback.length - 1) {
-                response += ", ";
-            }
-            document.getElementById("helpfulFeedback").innerHTML += response;
-        }
+        feedbackString += response;
     }
 
+    return feedbackString;
+}
+
+function sendResponse(response, ableToResubmitAnswers, isAuthor) {
+    submitResponse(response, isAuthor);
+
+    if (!ableToResubmitAnswers) {
+        document.getElementById("submitButton").classList.add("hide");
+    }
+    document.getElementById("errorFeedback").innerHTML = "<font color=\"#663399\"> Response recorded</font>";
+
+    return true;
+}
+
+function checkIfCanContinu(canGiveNoAnswer, listOfCorrectAnswers) {
+    if (!canGiveNoAnswer) {
+        if (listOfCorrectAnswers.includes("")) {
+            return false;
+        } else {
+            return true;
+        }
+    } else {
+        return true;
+    }
 }
