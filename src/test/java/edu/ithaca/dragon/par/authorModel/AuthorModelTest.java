@@ -3,7 +3,6 @@ package edu.ithaca.dragon.par.authorModel;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.io.AuthorModelRecord;
 import edu.ithaca.dragon.par.io.JsonQuestionPoolDatastore;
-import edu.ithaca.dragon.par.io.JsonStudentModelDatastore;
 import edu.ithaca.dragon.par.studentModel.QuestionCount;
 import edu.ithaca.dragon.util.JsonUtil;
 import org.junit.jupiter.api.BeforeEach;

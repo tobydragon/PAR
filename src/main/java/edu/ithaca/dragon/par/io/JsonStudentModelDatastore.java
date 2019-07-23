@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore implements Datastore{
+public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore implements StudentModelDatastore {
 
     private String studentModelFilePath;
 
@@ -19,13 +19,6 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
         super(questionFilePath);
         this.studentModelFilePath = studentModelFilePath;
     }
-
-    //TODO: rename
-    @Override
-    public List<Question> loadQuestions(){
-        return getAllQuestions();
-    }
-
 
     @Override
     public List<StudentModel> loadStudentModels() throws IOException {

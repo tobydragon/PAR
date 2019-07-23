@@ -8,9 +8,9 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
-public interface Datastore {
+public interface StudentModelDatastore {
 
-    List<Question> loadQuestions() throws IOException;
+    List<Question> getAllQuestions() throws IOException;
 
     List<StudentModel> loadStudentModels() throws IOException;
 

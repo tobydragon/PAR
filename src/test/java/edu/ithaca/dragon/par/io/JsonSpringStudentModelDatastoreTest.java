@@ -2,7 +2,7 @@ package edu.ithaca.dragon.par.io;
 
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
-import edu.ithaca.dragon.par.io.springio.JsonSpringDatastore;
+import edu.ithaca.dragon.par.io.springio.JsonSpringStudentModelDatastore;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.util.JsonSpringUtil;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class JsonSpringDatastoreTest {
+public class JsonSpringStudentModelDatastoreTest {
 
     @Test
     public void copyDefaultQuestionsTest(@TempDir Path tempDir) throws IOException{
@@ -25,19 +25,19 @@ public class JsonSpringDatastoreTest {
 
         File studentDir = tempDir.resolve("testStudents").toFile();
         studentDir.mkdir();
-        Datastore datastore = new JsonSpringDatastore(currentQuestionFile.toString(), "author/DemoQuestionPool.json", studentDir.toString());
+        StudentModelDatastore studentModelDatastore = new JsonSpringStudentModelDatastore(currentQuestionFile.toString(), "author/DemoQuestionPool.json", studentDir.toString());
 
         assertTrue(currentQuestionFile.toFile().exists());
-        assertEquals(47, datastore.loadQuestions().size());
+        assertEquals(47, studentModelDatastore.getAllQuestions().size());
 
-        assertEquals(0, datastore.loadStudentModels().size());
+        assertEquals(0, studentModelDatastore.loadStudentModels().size());
     }
 
     @Test
     public void useCurrentQuestionsTest(@TempDir Path tempDir) throws IOException{
-        Datastore datastore = new JsonSpringDatastore("src/test/resources/author/DemoQuestionPool.json", "bad path", tempDir.toString());
-        assertEquals(47, datastore.loadQuestions().size());
-        assertEquals(0, datastore.loadStudentModels().size());
+        StudentModelDatastore studentModelDatastore = new JsonSpringStudentModelDatastore("src/test/resources/author/DemoQuestionPool.json", "bad path", tempDir.toString());
+        assertEquals(47, studentModelDatastore.getAllQuestions().size());
+        assertEquals(0, studentModelDatastore.loadStudentModels().size());
     }
 
     @Test
@@ -46,19 +46,19 @@ public class JsonSpringDatastoreTest {
         List<StudentModel> studentModels = Arrays.asList(JsonSpringUtil.fromClassPathJson("author/students/TestUser100.json", StudentModelRecord.class).buildStudentModel(questionPool),
                 JsonSpringUtil.fromClassPathJson("author/students/TestUser101.json", StudentModelRecord.class).buildStudentModel(questionPool));
 
-        Datastore datastore = new JsonSpringDatastore("src/test/resources/author/SampleQuestionPool.json", "bad path", tempDir.toString());
-        assertEquals(0, datastore.loadStudentModels().size());
-        datastore.saveStudentModels(studentModels);
-        assertEquals(2, datastore.loadStudentModels().size());
-        assertNotNull(datastore.loadStudentModel("TestUser100"));
+        StudentModelDatastore studentModelDatastore = new JsonSpringStudentModelDatastore("src/test/resources/author/SampleQuestionPool.json", "bad path", tempDir.toString());
+        assertEquals(0, studentModelDatastore.loadStudentModels().size());
+        studentModelDatastore.saveStudentModels(studentModels);
+        assertEquals(2, studentModelDatastore.loadStudentModels().size());
+        assertNotNull(studentModelDatastore.loadStudentModel("TestUser100"));
 
         //read it into a new structure and check it
-        datastore = new JsonSpringDatastore("src/test/resources/author/SampleQuestionPool.json", "bad path", tempDir.toString());
-        assertEquals(2, datastore.loadStudentModels().size());
-        assertNotNull(datastore.loadStudentModel("TestUser101"));
+        studentModelDatastore = new JsonSpringStudentModelDatastore("src/test/resources/author/SampleQuestionPool.json", "bad path", tempDir.toString());
+        assertEquals(2, studentModelDatastore.loadStudentModels().size());
+        assertNotNull(studentModelDatastore.loadStudentModel("TestUser101"));
 
         //try to load in a non-existing file
-        StudentModel notAUser = datastore.loadStudentModel("ThisIsNotAValidUserId");
+        StudentModel notAUser = studentModelDatastore.loadStudentModel("ThisIsNotAValidUserId");
         assertNull(notAUser);
     }
 

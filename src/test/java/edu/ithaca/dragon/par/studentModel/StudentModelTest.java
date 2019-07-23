@@ -4,7 +4,6 @@ import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
 import edu.ithaca.dragon.par.io.JsonQuestionPoolDatastore;
-import edu.ithaca.dragon.par.io.JsonStudentModelDatastore;
 import edu.ithaca.dragon.util.DataUtil;
 import edu.ithaca.dragon.util.JsonUtil;
 import org.junit.jupiter.api.AfterEach;

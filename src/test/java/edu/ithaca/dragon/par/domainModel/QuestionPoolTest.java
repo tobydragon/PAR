@@ -1,7 +1,6 @@
 package edu.ithaca.dragon.par.domainModel;
 
 import edu.ithaca.dragon.par.io.JsonQuestionPoolDatastore;
-import edu.ithaca.dragon.par.io.JsonStudentModelDatastore;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 

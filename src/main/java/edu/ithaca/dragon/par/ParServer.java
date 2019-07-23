@@ -1,9 +1,8 @@
 package edu.ithaca.dragon.par;
 
-import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
-import edu.ithaca.dragon.par.io.Datastore;
+import edu.ithaca.dragon.par.io.StudentModelDatastore;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
 import edu.ithaca.dragon.par.pedagogicalModel.TaskGenerator;
@@ -11,7 +10,6 @@ import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.par.studentModel.UserResponseSet;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,21 +17,21 @@ public class ParServer {
 
     protected QuestionPool questionPool;
     private Map<String, StudentModel> studentModelMap;
-    private Datastore datastore;
+    private StudentModelDatastore studentModelDatastore;
     private Integer windowSizeOverride;
 
-    public ParServer(Datastore datastore) throws IOException {
-        this.questionPool = new QuestionPool(datastore.loadQuestions());
-        this.datastore = datastore;
+    public ParServer(StudentModelDatastore studentModelDatastore) throws IOException {
+        this.questionPool = new QuestionPool(studentModelDatastore.getAllQuestions());
+        this.studentModelDatastore = studentModelDatastore;
         studentModelMap = new HashMap<>();
         this.windowSizeOverride = null;
 
         checkIfWindowSizeIsValid(questionPool);
     }
 
-    public ParServer(Datastore datastore, int windowSizeOverride) throws IOException {
-        this.questionPool = new QuestionPool(datastore.loadQuestions());
-        this.datastore = datastore;
+    public ParServer(StudentModelDatastore studentModelDatastore, int windowSizeOverride) throws IOException {
+        this.questionPool = new QuestionPool(studentModelDatastore.getAllQuestions());
+        this.studentModelDatastore = studentModelDatastore;
         studentModelMap = new HashMap<>();
         this.windowSizeOverride = windowSizeOverride;
 
@@ -45,7 +43,7 @@ public class ParServer {
     //moving an unseen question from an unseen list to a seen list as well as adding an integer (1) to the times
     //seen arraylist.
     public ImageTask nextImageTask(String userId) throws IOException {
-        StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, datastore);
+        StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, studentModelDatastore);
         ImageTask imageTask = TaskGenerator.makeTask(currentStudent);
 
         if (imageTask != null) {
@@ -56,15 +54,15 @@ public class ParServer {
     }
 
     public void imageTaskResponseSubmitted(ImageTaskResponse imageTaskResponse, String userId) throws IOException {
-        StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, datastore);
+        StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, studentModelDatastore);
         currentStudent.imageTaskResponseSubmitted(imageTaskResponse, questionPool);
 
         //save this response to file
-        datastore.saveStudentModel(studentModelMap.get(userId));
+        studentModelDatastore.saveStudentModel(studentModelMap.get(userId));
     }
 
     public double calcScore(String userId) throws IOException {
-        StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, datastore);
+        StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, studentModelDatastore);
         return currentStudent.knowledgeScore();
     }
 
@@ -80,22 +78,22 @@ public class ParServer {
      * @return a StudentModel corresponding to the given userId that is also in the studentModelMap
      * @post if there was no corresponding StudentModel, a new on will be created and added to the map
      */
-    public static StudentModel getOrCreateStudentModel(Map<String, StudentModel> studentModelMap, String userId, Datastore datastore) throws IOException {
+    public static StudentModel getOrCreateStudentModel(Map<String, StudentModel> studentModelMap, String userId, StudentModelDatastore studentModelDatastore) throws IOException {
         //try to find the student in the map
         StudentModel studentModel = studentModelMap.get(userId);
 
         //if the student wasn't in the map, try to load from file
         if (studentModel == null) {
-            studentModel = datastore.loadStudentModel(userId);
+            studentModel = studentModelDatastore.loadStudentModel(userId);
         }
 
         //the student didn't have a file, create a new student
         if (studentModel == null) {
-            studentModel = new StudentModel(userId, datastore.loadQuestions());
+            studentModel = new StudentModel(userId, studentModelDatastore.getAllQuestions());
 
             //if the student didn't have a file, create a new student
             if (studentModel == null) {
-                studentModel = new StudentModel(userId, datastore.loadQuestions());
+                studentModel = new StudentModel(userId, studentModelDatastore.getAllQuestions());
             }
             //add the student to the map
             studentModelMap.put(userId, studentModel);
@@ -108,12 +106,12 @@ public class ParServer {
     }
 
     public Map<String, Double> calcScoreByType(String userId) throws IOException {
-        StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, datastore);
+        StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, studentModelDatastore);
         return currentStudent.knowledgeScoreByType();
     }
 
     public Map<EquineQuestionTypes, String> knowledgeBaseEstimate(String userId) throws IOException {
-        StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, datastore);
+        StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, studentModelDatastore);
         return currentStudent.generateKnowledgeBaseMap();
     }
 
