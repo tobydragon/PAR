@@ -84,7 +84,7 @@ public class ParServer {
 
         //if the student wasn't in the map, try to load from file
         if (studentModel == null) {
-            studentModel = studentModelDatastore.loadStudentModel(userId);
+            studentModel = studentModelDatastore.getStudentModel(userId);
         }
 
         //the student didn't have a file, create a new student

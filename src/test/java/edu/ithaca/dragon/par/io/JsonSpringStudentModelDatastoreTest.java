@@ -29,37 +29,12 @@ public class JsonSpringStudentModelDatastoreTest {
 
         assertTrue(currentQuestionFile.toFile().exists());
         assertEquals(47, studentModelDatastore.getAllQuestions().size());
-
-        assertEquals(0, studentModelDatastore.loadStudentModels().size());
     }
 
     @Test
     public void useCurrentQuestionsTest(@TempDir Path tempDir) throws IOException{
         StudentModelDatastore studentModelDatastore = new JsonSpringStudentModelDatastore("src/test/resources/author/DemoQuestionPool.json", "bad path", tempDir.toString());
         assertEquals(47, studentModelDatastore.getAllQuestions().size());
-        assertEquals(0, studentModelDatastore.loadStudentModels().size());
-    }
-
-    @Test
-    public void saveAndLoadStudentModelsTest(@TempDir Path tempDir) throws IOException{
-        QuestionPool questionPool = new QuestionPool(JsonSpringUtil.listFromClassPathJson("author/SampleQuestionPool.json", Question.class));
-        List<StudentModel> studentModels = Arrays.asList(JsonSpringUtil.fromClassPathJson("author/students/TestUser100.json", StudentModelRecord.class).buildStudentModel(questionPool),
-                JsonSpringUtil.fromClassPathJson("author/students/TestUser101.json", StudentModelRecord.class).buildStudentModel(questionPool));
-
-        StudentModelDatastore studentModelDatastore = new JsonSpringStudentModelDatastore("src/test/resources/author/SampleQuestionPool.json", "bad path", tempDir.toString());
-        assertEquals(0, studentModelDatastore.loadStudentModels().size());
-        studentModelDatastore.saveStudentModels(studentModels);
-        assertEquals(2, studentModelDatastore.loadStudentModels().size());
-        assertNotNull(studentModelDatastore.loadStudentModel("TestUser100"));
-
-        //read it into a new structure and check it
-        studentModelDatastore = new JsonSpringStudentModelDatastore("src/test/resources/author/SampleQuestionPool.json", "bad path", tempDir.toString());
-        assertEquals(2, studentModelDatastore.loadStudentModels().size());
-        assertNotNull(studentModelDatastore.loadStudentModel("TestUser101"));
-
-        //try to load in a non-existing file
-        StudentModel notAUser = studentModelDatastore.loadStudentModel("ThisIsNotAValidUserId");
-        assertNull(notAUser);
     }
 
 }

@@ -25,7 +25,7 @@ public class JsonSpringStudentModelDatastore extends JsonSpringQuestionPoolDatas
     }
 
     @Override
-    public StudentModel loadStudentModel(String userId) {
+    public StudentModel getStudentModel(String userId) {
         String fullFileName = currentStudentModelDir + "/" + userId + ".json";
         try {
             StudentModelRecord studentModelRecord = JsonSpringUtil.fromFileSystemJson(fullFileName, StudentModelRecord.class);
@@ -34,17 +34,6 @@ public class JsonSpringStudentModelDatastore extends JsonSpringQuestionPoolDatas
         catch (IOException e){
             return null;
         }
-    }
-
-    @Override
-    public List<StudentModel> loadStudentModels() throws IOException {
-        List<StudentModel> studentModels = new ArrayList<>();
-        File studentModelFilePath = new FileSystemResource(currentStudentModelDir).getFile();
-        for (String filePath : FileSystemUtil.addPathToFilenames(studentModelFilePath.toString(), FileSystemUtil.findAllFileNamesInDir(studentModelFilePath, "json"))) {
-            StudentModelRecord newSMR = JsonSpringUtil.fromFileSystemJson(filePath, StudentModelRecord.class);
-            studentModels.add(newSMR.buildStudentModel(questionPool));
-        }
-        return studentModels;
     }
 
     @Override

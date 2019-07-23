@@ -19,36 +19,10 @@ public class JsonStudentModelDatastoreTest {
     public void loadBadStudentModelTest() throws IOException{
         //throws exception when StudentModelDatastore does not have a studentModelFilePath
         StudentModelDatastore studentModelDatastoreA = new JsonStudentModelDatastore("src/test/resources/author/SampleQuestionPool.json", null);
-        assertThrows(IOException.class, studentModelDatastoreA::loadStudentModels);
+        assertNull(studentModelDatastoreA.getStudentModel("asd"));
 
         List<StudentModel> studentModels = new ArrayList<>();
         assertThrows(IOException.class, () -> studentModelDatastoreA.saveStudentModels(studentModels));
-
-        //throws exception when the given studentModelFilePath does not exist
-        StudentModelDatastore studentModelDatastoreB = new JsonStudentModelDatastore("src/test/resources/author/SampleQuestionPool.json", "ThisDoesNotExist.json");
-        assertThrows(IOException.class, studentModelDatastoreB::loadStudentModels);
-    }
-
-    @Test
-    public void loadAndSaveStudentModelTest(@TempDir Path tempDir) throws IOException{
-
-        //load in student models form file
-        StudentModelDatastore studentModelDatastoreFromFile = new JsonStudentModelDatastore("src/test/resources/author/SampleQuestionPool.json", "src/test/resources/author/students");
-        List<StudentModel> studentModelList = studentModelDatastoreFromFile.loadStudentModels();
-
-        //verify studentModels from files
-        assertEquals(2, studentModelList.size());
-
-        //save them to new datastore
-        StudentModelDatastore studentModelDatastoreToFile = new JsonStudentModelDatastore("src/test/resources/author/SampleQuestionPool.json", tempDir.toString());
-        studentModelDatastoreToFile.saveStudentModels(studentModelList);
-
-        //load them back in to a different datastore
-        StudentModelDatastore studentModelDatastore2 = new JsonStudentModelDatastore("src/test/resources/author/SampleQuestionPool.json", tempDir.toString());
-        List<StudentModel> studentModelList2 = studentModelDatastore2.loadStudentModels();
-
-        //verify studentModels
-        assertEquals(2, studentModelList2.size());
     }
 
     @Test
@@ -56,11 +30,11 @@ public class JsonStudentModelDatastoreTest {
         StudentModelDatastore studentModelDatastore = new JsonStudentModelDatastore("src/test/resources/author/SampleQuestionPool.json", "src/test/resources/author/students");
 
         //load an existing file and make sure it exists
-        StudentModel testUser100 = studentModelDatastore.loadStudentModel("TestUser100");
+        StudentModel testUser100 = studentModelDatastore.getStudentModel("TestUser100");
         assertEquals("TestUser100", testUser100.getUserId());
 
         //try to load in a non-existing file
-        StudentModel notAUser = studentModelDatastore.loadStudentModel("ThisIsNotAValidUserId");
+        StudentModel notAUser = studentModelDatastore.getStudentModel("ThisIsNotAValidUserId");
         assertNull(notAUser);
     }
 }

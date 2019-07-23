@@ -21,22 +21,7 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
     }
 
     @Override
-    public List<StudentModel> loadStudentModels() throws IOException {
-        if (studentModelFilePath != null) {
-            List<StudentModel> studentModels = new ArrayList<>();
-            for (String filePath : FileSystemUtil.addPathToFilenames(studentModelFilePath, FileSystemUtil.findAllFileNamesInDir(studentModelFilePath, "json"))) {
-                StudentModelRecord newSMR = JsonUtil.fromJsonFile(filePath, StudentModelRecord.class);
-                studentModels.add(newSMR.buildStudentModel(questionPool));
-            }
-            return studentModels;
-        }
-        else {
-            throw new IOException("Trying to load student models but no path present");
-        }
-    }
-
-    @Override
-    public StudentModel loadStudentModel(String userId) throws IOException{
+    public StudentModel getStudentModel(String userId) throws IOException{
         String fullFileName = studentModelFilePath + "/" + userId + ".json";
 
         //check if file exists, return null if it doesn't

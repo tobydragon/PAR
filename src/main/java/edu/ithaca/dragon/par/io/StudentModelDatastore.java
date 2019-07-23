@@ -12,9 +12,7 @@ public interface StudentModelDatastore {
 
     List<Question> getAllQuestions() throws IOException;
 
-    List<StudentModel> loadStudentModels() throws IOException;
-
-    StudentModel loadStudentModel(String userId) throws IOException;
+    StudentModel getStudentModel(String userId) throws IOException;
 
     void saveStudentModels(Collection<StudentModel> studentModelsIn) throws IOException;
 
