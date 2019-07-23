@@ -115,6 +115,8 @@ public class UserQuestionSet {
     }
 
 
+    public void addQuestion(Question q2) {
 
+    }
 }
 
