@@ -59,8 +59,13 @@ class ImageTaskDisplay {
 
     authorSubmitResponses() {
         for (var i = 0; i < this.questionAreaDisp.length; i++) {
-            this.questionAreaDisp[i].answerBox.recordCurrentResponse(this.response);
-            addToResponseIds(this.response, this.questionAreaDisp[i].element.id);
+            let current = this.questionAreaDisp[i];
+            current.answerBox.recordCurrentResponse(this.response);
+            addToResponseIds(this.response, current.element.id);
+            for (var x = 0; x < current.followUpAreas.length; x++) {
+                addToResponseIds(this.response, current.followUpAreas[x].element.id);
+                current.followUpAreas[x].answerBox.recordCurrentResponse(this.response);
+            }
         }
     }
 
@@ -112,6 +117,8 @@ function submitResponse(response, isAuthor) {
     };
 
     if (isAuthor) {
+        console.log(newResponse.responseTexts);
+        console.log(newResponse.taskQuestionIds);
         submitToAPI("api/submitAuthorImageTaskResponse", newResponse);
     } else {
         submitToAPI("api/recordResponse", newResponse);

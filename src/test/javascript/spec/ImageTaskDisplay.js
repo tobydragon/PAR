@@ -23,7 +23,7 @@ describe("ImageTaskDisplay", function () {
 
     it("checkIfCanContinu", function () {
         let test1= [];
-        expect(checkIfCanContinu(true, listOfCorrectAnswers)).toBe(true);
+        expect(checkIfCanContinu(true, test1)).toBe(true);
     });
 
 
