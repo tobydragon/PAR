@@ -51,6 +51,7 @@ class CompleteDisplay {
     }
 
     nextQuestion() {
+        document.getElementById("errorFeedback").innerHTML = " ";
         if (!this.pageDisplay.imageTaskDisplay.mustSubmitAnswersToContinue) {
             this.nextImageTask();
             this.showScore();

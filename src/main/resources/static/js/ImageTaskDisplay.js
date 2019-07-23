@@ -41,13 +41,14 @@ class ImageTaskDisplay {
             this.checkAnswers();
             canContinu = checkIfCanContinu(this.canGiveNoAnswer, this.listOfCorrectAnswers);
         } else {
+            console.log("author Submit response");
             this.authorSubmitResponses();
             canContinu = true;
         }
 
         if (canContinu) {
             this.displayFeedback();
-            this.haveSubmited = sendResponse(this.willDisplayFeedback, this.response, this.ableToResubmitAnswers, this.isAuthor, this.feedbackByType);
+            this.haveSubmited = sendResponse(this.response, this.ableToResubmitAnswers, this.isAuthor);
         } else {
             document.getElementById("errorFeedback").innerHTML = "<font color=red>No response was recorded because you did not answer all the questions</font>";
         }
@@ -108,7 +109,6 @@ function submitResponse(response, isAuthor) {
     };
 
     if (isAuthor) {
-        console.log("we here as author");
         submitToAPI("api/submitAuthorImageTaskResponse", newResponse);
     } else {
         submitToAPI("api/recordResponse", newResponse);

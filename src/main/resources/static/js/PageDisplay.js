@@ -19,7 +19,6 @@ class PageDisplay {
         try {
             settings = readJson("api/getImageTaskSettings?userId=" + this.userId);
             if (this.isAuthor) {
-                console.log("wooooo");
                 var imageTaskJSON = readJson("api/nextAuthorImageTask?userId=" + this.userId);
             } else {
                 var imageTaskJSON = readJson("api/nextImageTask?userId=" + this.userId);
