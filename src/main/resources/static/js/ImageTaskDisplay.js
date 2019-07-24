@@ -6,8 +6,7 @@ class ImageTaskDisplay {
         if (imageTaskJson.imageUrl === "NoMoreQuestions") {
             //TODO
         } else {
-            this.pageImage = new PageImage(imageTaskJson.imageUrl);
-            this.displayImageUrl(imageTaskJson.imageUrl);
+            this.createCanvas(imageTaskJson.imageUrl);
         }
         this.questionAreaDisp = new buildQuestionAreas(imageTaskJson.taskQuestions, this.response);
 
@@ -96,6 +95,17 @@ class ImageTaskDisplay {
                 this.checkFollowUp(current);
             }
         }
+    }
+
+    createCanvas(imageUrl){
+        let newCanvas = document.createElement("CANVAS");
+        newCanvas.id= "myCanvas";
+        newCanvas.width= "1024";
+        newCanvas.height= "768";
+        newCanvas.classList.add("center-block");
+        document.getElementById("canvasArea").appendChild(newCanvas);
+        this.pageImage = new PageImage(imageUrl);
+        this.displayImageUrl(imageUrl);
     }
 }
 
