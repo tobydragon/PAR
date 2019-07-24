@@ -1,6 +1,7 @@
 package edu.ithaca.dragon.par.io.springio;
 
 import edu.ithaca.dragon.par.domainModel.Question;
+import edu.ithaca.dragon.par.io.ImageTaskResponse;
 import edu.ithaca.dragon.par.io.StudentModelDatastore;
 import edu.ithaca.dragon.par.io.StudentModelRecord;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
@@ -37,13 +38,17 @@ public class JsonSpringStudentModelDatastore extends JsonSpringQuestionPoolDatas
     }
 
     @Override
-    public void saveStudentModel(StudentModel studentModel) throws IOException {
-        String fullFilePath = currentStudentModelDir + "/" +  studentModel.getUserId() + ".json";
-        JsonSpringUtil.toFileSystemJson(fullFilePath, new StudentModelRecord(studentModel));
+    public void addQuestions(List<Question> questions) throws IOException {
+
     }
 
     @Override
-    public void addQuestions(List<Question> questions) throws IOException {
+    public void imageTaskResponseSubmitted(StudentModel studentModel, ImageTaskResponse imageTaskResponse) throws IOException {
+
+    }
+
+    @Override
+    public void logout(String userId) throws IOException {
 
     }
 
