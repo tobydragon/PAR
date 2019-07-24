@@ -10,39 +10,9 @@ class PageDisplay {
     }
 
     setIsAuthor() {
-        if (this.userId === "author") {
-            this.isAuthor = true;
-        } else {
-            this.isAuthor = false;
-        }
-    }
-
-    displayUserId() {
-        document.getElementById("UserId").innerHTML = "&nbsp" + this.userId;
-    }
-
-    generateScore() {
-        let visJSON = readJson("api/knowledgeBase?userId=" + this.userId);
-        return setCurrentScore(visJSON, this.scoreType);
-    }
-
-    displayScore(given) {
-        document.getElementById("score").appendChild(given);
-    }
-
-    nextAuthorImageTask() {
-        var settings;
-
-        //TODO: Needs a new URL
-        try {
-            settings = readJson("api/getImageTaskSettings?userId=" + this.userId);
-            var imageTaskJSON = readJson("api/nextImageTask?userId=" + this.userId);
-            this.imageTaskDisplay = new ImageTaskDisplay(imageTaskJSON, this.userId, settings, this.isAuthor);
-
-        } catch (Exception) {
-            window.onerror = function (msg) {
-                location.replace('/error?message=' + msg);
-            }
+        this.isAuthor = setIsAuthor(this.userId);
+        if(!this.isAuthor){
+            document.getElementById("submitAuthorButton").classList.add("hide");
         }
     }
 
@@ -51,7 +21,11 @@ class PageDisplay {
 
         try {
             settings = readJson("api/getImageTaskSettings?userId=" + this.userId);
-            var imageTaskJSON = readJson("api/nextImageTask?userId=" + this.userId);
+            if (this.isAuthor) {
+                var imageTaskJSON = readJson("api/nextAuthorImageTask?userId=" + this.userId);
+            } else {
+                var imageTaskJSON = readJson("api/nextImageTask?userId=" + this.userId);
+            }
             this.imageTaskDisplay = new ImageTaskDisplay(imageTaskJSON, this.userId, settings, this.isAuthor);
 
         } catch (Exception) {
@@ -66,8 +40,20 @@ class PageDisplay {
         this.userId = null;
         return location.replace('/login');
     }
+
+    authorSubmitFinal(){
+
+    }
 }
 
 function logout() {
     return location.replace('/login');
+}
+
+function setIsAuthor(userId) {
+    if (userId === "author") {
+        return true;
+    } else {
+        return false;
+    }
 }

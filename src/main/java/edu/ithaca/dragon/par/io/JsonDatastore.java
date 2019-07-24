@@ -1,5 +1,6 @@
 package edu.ithaca.dragon.par.io;
 
+import edu.ithaca.dragon.par.authorModel.AuthorModel;
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
@@ -11,28 +12,27 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+//TODO: to become StudentModelDatastore
+public class JsonDatastore extends JsonQuestionPoolDatastore implements Datastore{
 
-public class JsonDatastore implements Datastore{
-
-    private String questionFilePath;
     private String studentModelFilePath;
-    private QuestionPool questionPool;
 
-    //Constructor to be used only for loading Questions
+    //TODO: get rid of this, have anyone needing that take a JsonQuestionPoolDatastore
     public JsonDatastore(String questionFilePath) throws IOException {
         this(questionFilePath, null);
     }
 
     public JsonDatastore(String questionFilePath, String studentModelFilePath) throws IOException {
-        this.questionFilePath = questionFilePath;
-        this.questionPool = new QuestionPool(this);
+        super(questionFilePath);
         this.studentModelFilePath = studentModelFilePath;
     }
 
+    //TODO: rename
     @Override
-    public java.util.List<Question> loadQuestions() throws IOException {
-        return JsonUtil.listFromJsonFile(questionFilePath, Question.class);
+    public List<Question> loadQuestions(){
+        return getAllQuestions();
     }
+
 
     @Override
     public List<StudentModel> loadStudentModels() throws IOException {

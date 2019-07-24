@@ -1,7 +1,8 @@
-package edu.ithaca.dragon.par.io;
+package edu.ithaca.dragon.par.io.springio;
 
 import edu.ithaca.dragon.par.domainModel.Question;
-import edu.ithaca.dragon.par.domainModel.QuestionPool;
+import edu.ithaca.dragon.par.io.Datastore;
+import edu.ithaca.dragon.par.io.StudentModelRecord;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.util.FileSystemUtil;
 import edu.ithaca.dragon.util.JsonSpringUtil;
@@ -13,19 +14,20 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class JsonSpringDatastore implements Datastore {
+//TODO: to become JsonSpringStudentModelDatastore
+public class JsonSpringDatastore extends JsonSpringQuestionPoolDatastore implements Datastore {
 
-    QuestionPool questionPool;
-    String currentStudentModelDir;
+    private String currentStudentModelDir;
+
 
     public JsonSpringDatastore (String currentQuestionPoolLocation, String defaultQuestionPoolLocation, String currentStudentModelDir) throws IOException{
-        this.questionPool = new QuestionPool(JsonSpringUtil.listFromFileSystemOrCopyFromDefaultClassPathJson(currentQuestionPoolLocation, defaultQuestionPoolLocation, Question.class));
+        super(currentQuestionPoolLocation, defaultQuestionPoolLocation );
         this.currentStudentModelDir = currentStudentModelDir;
     }
 
     @Override
     public List<Question> loadQuestions() {
-        return questionPool.getAllQuestions();
+        return getAllQuestions();
     }
 
     @Override

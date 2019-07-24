@@ -1,0 +1,256 @@
+{
+  "authorId" : "TestAuthor1",
+  "questionCountRecords" : [ {
+    "questionId" : "plane./images/demoEquine14.jpg",
+    "timesSeen" : 3,
+    "followupCountRecords" : [ ]
+  }, {
+    "questionId" : "structure0./images/demoEquine14.jpg",
+    "timesSeen" : 1,
+    "followupCountRecords" : [ {
+      "questionId" : "AttachQ1",
+      "timesSeen" : 1,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "AttachQ2",
+      "timesSeen" : 1,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "AttachQ3",
+      "timesSeen" : 1,
+      "followupCountRecords" : [ {
+        "questionId" : "BonusQ1",
+        "timesSeen" : 1,
+        "followupCountRecords" : [ ]
+      } ]
+    } ]
+  }, {
+    "questionId" : "structure2./images/demoEquine14.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ ]
+  }, {
+    "questionId" : "structure3./images/demoEquine14.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ ]
+  }, {
+    "questionId" : "zone./images/demoEquine14.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ ]
+  }, {
+    "questionId" : "plane./images/demoEquine02.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ ]
+  }, {
+    "questionId" : "structure0./images/demoEquine02.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ ]
+  }, {
+    "questionId" : "structure1./images/demoEquine02.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ {
+      "questionId" : "AttachQ4",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "BonusQ2",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    } ]
+  }, {
+    "questionId" : "structure2./images/demoEquine02.jpg",
+    "timesSeen" : 2,
+    "followupCountRecords" : [ ]
+  }, {
+    "questionId" : "structure3./images/demoEquine02.jpg",
+    "timesSeen" : 1,
+    "followupCountRecords" : [ ]
+  }, {
+    "questionId" : "zone./images/demoEquine02.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ ]
+  }, {
+    "questionId" : "plane./images/demoEquine13.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ ]
+  }, {
+    "questionId" : "structure0./images/demoEquine13.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ ]
+  }, {
+    "questionId" : "structure3./images/demoEquine13.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ ]
+  }, {
+    "questionId" : "zone./images/demoEquine13.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ ]
+  }, {
+    "questionId" : "plane./images/demoEquine04.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ ]
+  }, {
+    "questionId" : "structure0./images/demoEquine04.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ {
+      "questionId" : "AttachQ5",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    } ]
+  }, {
+    "questionId" : "zone./images/demoEquine04.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ ]
+  }, {
+    "questionId" : "plane./images/demoEquine10.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ ]
+  }, {
+    "questionId" : "structure0./images/demoEquine10.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ ]
+  }, {
+    "questionId" : "structure1./images/demoEquine10.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ ]
+  }, {
+    "questionId" : "structure2./images/demoEquine10.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ ]
+  }, {
+    "questionId" : "structure3./images/demoEquine10.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ {
+      "questionId" : "AttachQ6",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "AttachQ7",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    } ]
+  }, {
+    "questionId" : "zone./images/demoEquine10.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ ]
+  }, {
+    "questionId" : "plane./images/demoEquine11.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ ]
+  }, {
+    "questionId" : "structure0./images/demoEquine11.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ ]
+  }, {
+    "questionId" : "structure3./images/demoEquine11.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ ]
+  }, {
+    "questionId" : "zone./images/demoEquine11.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ ]
+  }, {
+    "questionId" : "plane./images/demoEquine05.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ ]
+  }, {
+    "questionId" : "structure0./images/demoEquine05.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ ]
+  }, {
+    "questionId" : "structure1./images/demoEquine05.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ ]
+  }, {
+    "questionId" : "structure2./images/demoEquine05.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ ]
+  }, {
+    "questionId" : "zone./images/demoEquine05.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ ]
+  }, {
+    "questionId" : "plane./images/demoEquine09.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ ]
+  }, {
+    "questionId" : "structure0./images/demoEquine09.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ {
+      "questionId" : "AttachQ8",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "BonusQ3",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    } ]
+  }, {
+    "questionId" : "structure1./images/demoEquine09.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ ]
+  }, {
+    "questionId" : "structure3./images/demoEquine09.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ ]
+  }, {
+    "questionId" : "zone./images/demoEquine09.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ ]
+  }, {
+    "questionId" : "plane./images/demoEquine37.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ ]
+  }, {
+    "questionId" : "structure0./images/demoEquine37.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ ]
+  }, {
+    "questionId" : "zone./images/demoEquine37.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ ]
+  }, {
+    "questionId" : "plane./images/demoEquine32.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ ]
+  }, {
+    "questionId" : "structure0./images/demoEquine32.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ {
+      "questionId" : "AttachQ9",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "BonusQ4",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    } ]
+  }, {
+    "questionId" : "structure1./images/demoEquine32.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ ]
+  }, {
+    "questionId" : "structure2./images/demoEquine32.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ {
+      "questionId" : "AttachQ10",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "BonusQ5",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    } ]
+  }, {
+    "questionId" : "structure3./images/demoEquine32.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ {
+      "questionId" : "AttachQ11",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    } ]
+  }, {
+    "questionId" : "zone./images/demoEquine32.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ ]
+  } ]
+}

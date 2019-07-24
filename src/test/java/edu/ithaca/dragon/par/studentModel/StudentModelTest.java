@@ -26,10 +26,9 @@ public class StudentModelTest {
 
     @BeforeEach
     public void setUp() throws IOException{
-        questionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json"));
+        questionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json").loadQuestions());
         studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
         responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponse.class);
-
     }
 
     @AfterEach
