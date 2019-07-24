@@ -30,20 +30,34 @@ describe("ScoreDisplay", function () {
     });
     it("generateScoreByType", function () {
         var scoreJsonObj = {
-            "plane": 70,
-            "struct": 40,
-            "zone": 20
+            "plane": 85,
+            "struct": 58,
+            "zone": 20,
+            "xyz": -1
         };
-        expect(generateScoreByType(scoreJsonObj)).toBe('<i class=black>plane:</i> <i class=orange>70<i><br /><i class=black>struct:</i> <i class=red>40<i><br /><i class=black>zone:</i> <i class=red>20<i><br />');
-    });
-    /**it("setCurrentScore", function () {
-        var scoreJsonObj = {
-            "plane": "XOOX",
-            "struct": "O~~_",
-            "zone": "_X__"
-        };
+        let element = generateScoreByType(scoreJsonObj);
+        console.log(element);
+        expect(element.getAttribute("class")).toContain('textAlignRight');
 
-    });**/
+        expect(element.childNodes.item(0).getAttribute('class')).toContain('black');
+
+        expect(element.childNodes.item(0).textContent).toBe('plane: 85');
+        expect(element.childNodes.item(1).textContent).toBe('struct: 58');
+        expect(element.childNodes.item(2).textContent).toBe('zone: 20');
+        expect(element.childNodes.item(3).textContent).toBe('xyz: ');
+        expect(element.childNodes.item(2).textContent).not.toBe('plane: 85');
+
+        console.log(element.childNodes.item(0).childNodes.item(1));
+        expect(element.childNodes.item(0).childNodes.item(1).getAttribute("class")).toContain('green');
+
+        expect(element.childNodes.item(1).childNodes.item(1).getAttribute("class")).toContain('orange');
+
+        expect(element.childNodes.item(2).childNodes.item(1).getAttribute("class")).toContain('red');
+
+        expect(element.childNodes.item(3).childNodes.item(1).getAttribute("class")).not.toContain('red');
+
+
+    });
     it("buildElement", function () {
         let value = 'X';
         //expect(buildVisualSegment(value)).toBe('<div class="fas fa-times-circle red">');
