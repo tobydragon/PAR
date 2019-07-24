@@ -77,7 +77,7 @@ public class ParRestController {
     }
 
     @PostMapping("/logout")
-    public void logout(@RequestParam String userId){
+    public void logout(@RequestParam String userId) throws IOException{
         parServer.logout(userId);
     }
 

@@ -16,14 +16,12 @@ import java.util.Map;
 public class ParServer {
 
     protected QuestionPool questionPool;
-    private Map<String, StudentModel> studentModelMap;
     private StudentModelDatastore studentModelDatastore;
     private Integer windowSizeOverride;
 
     public ParServer(StudentModelDatastore studentModelDatastore) throws IOException {
         this.questionPool = new QuestionPool(studentModelDatastore.getAllQuestions());
         this.studentModelDatastore = studentModelDatastore;
-        studentModelMap = new HashMap<>();
         this.windowSizeOverride = null;
 
         checkIfWindowSizeIsValid(questionPool);
@@ -32,7 +30,6 @@ public class ParServer {
     public ParServer(StudentModelDatastore studentModelDatastore, int windowSizeOverride) throws IOException {
         this.questionPool = new QuestionPool(studentModelDatastore.getAllQuestions());
         this.studentModelDatastore = studentModelDatastore;
-        studentModelMap = new HashMap<>();
         this.windowSizeOverride = windowSizeOverride;
 
         checkIfWindowSizeIsValid(questionPool);
@@ -43,7 +40,7 @@ public class ParServer {
     //moving an unseen question from an unseen list to a seen list as well as adding an integer (1) to the times
     //seen arraylist.
     public ImageTask nextImageTask(String userId) throws IOException {
-        StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, studentModelDatastore);
+        StudentModel currentStudent = studentModelDatastore.getStudentModel(userId);
         ImageTask imageTask = TaskGenerator.makeTask(currentStudent);
 
         if (imageTask != null) {
@@ -54,15 +51,14 @@ public class ParServer {
     }
 
     public void imageTaskResponseSubmitted(ImageTaskResponse imageTaskResponse, String userId) throws IOException {
-        StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, studentModelDatastore);
+        StudentModel currentStudent = studentModelDatastore.getStudentModel(userId);
         currentStudent.imageTaskResponseSubmitted(imageTaskResponse, questionPool);
 
-        //save this response to file
-        studentModelDatastore.saveStudentModel(studentModelMap.get(userId));
+        studentModelDatastore.imageTaskResponseSubmitted(currentStudent, imageTaskResponse);
     }
 
     public double calcScore(String userId) throws IOException {
-        StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, studentModelDatastore);
+        StudentModel currentStudent = studentModelDatastore.getStudentModel(userId);
         return currentStudent.knowledgeScore();
     }
 
@@ -71,48 +67,18 @@ public class ParServer {
         return null;
     }
 
-    //Side effect: if a new model is created, it is added to the given studentModelMap
-    /**
-     * @param studentModelMap
-     * @param userId
-     * @return a StudentModel corresponding to the given userId that is also in the studentModelMap
-     * @post if there was no corresponding StudentModel, a new on will be created and added to the map
-     */
-    public static StudentModel getOrCreateStudentModel(Map<String, StudentModel> studentModelMap, String userId, StudentModelDatastore studentModelDatastore) throws IOException {
-        //try to find the student in the map
-        StudentModel studentModel = studentModelMap.get(userId);
-
-        //if the student wasn't in the map, try to load from file
-        if (studentModel == null) {
-            studentModel = studentModelDatastore.getStudentModel(userId);
-        }
-
-        //the student didn't have a file, create a new student
-        if (studentModel == null) {
-            studentModel = new StudentModel(userId, studentModelDatastore.getAllQuestions());
-
-            //if the student didn't have a file, create a new student
-            if (studentModel == null) {
-                studentModel = new StudentModel(userId, studentModelDatastore.getAllQuestions());
-            }
-            //add the student to the map
-            studentModelMap.put(userId, studentModel);
-        }
-        return studentModel;
-    }
-
-    public void logout(String userId) {
-        studentModelMap.remove(userId);
-    }
-
     public Map<String, Double> calcScoreByType(String userId) throws IOException {
-        StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, studentModelDatastore);
+        StudentModel currentStudent = studentModelDatastore.getStudentModel(userId);
         return currentStudent.knowledgeScoreByType();
     }
 
     public Map<EquineQuestionTypes, String> knowledgeBaseEstimate(String userId) throws IOException {
-        StudentModel currentStudent = getOrCreateStudentModel(studentModelMap, userId, studentModelDatastore);
+        StudentModel currentStudent = studentModelDatastore.getStudentModel(userId);
         return currentStudent.generateKnowledgeBaseMap();
+    }
+
+    public void logout(String userId) throws IOException{
+        studentModelDatastore.logout(userId);
     }
 
     public void checkIfWindowSizeIsValid(QuestionPool questionPool) {

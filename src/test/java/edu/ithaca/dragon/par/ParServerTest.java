@@ -22,50 +22,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ParServerTest {
 
     @Test
-    public void getOrCreateStudentModelTest() throws IOException {
-        StudentModelDatastore studentModelDatastore = new JsonStudentModelDatastore("src/test/resources/author/SampleQuestionPool.json", null);
-        StudentModel sm1 = new StudentModel("s1", studentModelDatastore.getAllQuestions().subList(0, 1));
-        StudentModel sm2 = new StudentModel("s2", studentModelDatastore.getAllQuestions().subList(0, 2));
-        StudentModel sm3 = new StudentModel("s3", studentModelDatastore.getAllQuestions());
-
-        Map<String, StudentModel> smMap = new HashMap<>();
-        smMap.put("s1", sm1);
-        smMap.put("s2", sm2);
-        smMap.put("s3", sm3);
-
-        StudentModel studentModel = ParServer.getOrCreateStudentModel(smMap, "s3", studentModelDatastore);
-        assertEquals("s3", studentModel.getUserId());
-        assertEquals(15, studentModel.getUnseenQuestionCount());
-
-        studentModel = ParServer.getOrCreateStudentModel(smMap, "s1", studentModelDatastore);
-        assertEquals("s1", studentModel.getUserId());
-        assertEquals(1, studentModel.getUnseenQuestionCount());
-
-        //check adding one
-        studentModel = ParServer.getOrCreateStudentModel(smMap, "s4", studentModelDatastore);
-        assertEquals("s4", studentModel.getUserId());
-        assertEquals(15, studentModel.getUnseenQuestionCount());
-        assertEquals(4, smMap.size());
-
-        //check an old one
-        studentModel = ParServer.getOrCreateStudentModel(smMap, "s2", studentModelDatastore);
-        assertEquals("s2", studentModel.getUserId());
-        assertEquals(2, studentModel.getUnseenQuestionCount());
-
-        //check getting the added one
-        studentModel = ParServer.getOrCreateStudentModel(smMap, "s4", studentModelDatastore);
-        assertEquals("s4", studentModel.getUserId());
-        assertEquals(15, studentModel.getUnseenQuestionCount());
-        assertEquals(4, smMap.size());
-
-        //check adding another one
-        studentModel = ParServer.getOrCreateStudentModel(smMap, "s5", studentModelDatastore);
-        assertEquals("s5", studentModel.getUserId());
-        assertEquals(15, studentModel.getUnseenQuestionCount());
-        assertEquals(5, smMap.size());
-    }
-
-    @Test
     public void nextImageTaskTest() throws IOException{
         StudentModelDatastore studentModelDatastore = new JsonStudentModelDatastore("src/test/resources/author/SampleQuestionPool3.json", null);
         ParServer parServer = new ParServer(studentModelDatastore);
