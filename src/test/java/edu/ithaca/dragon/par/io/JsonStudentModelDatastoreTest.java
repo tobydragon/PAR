@@ -70,7 +70,7 @@ public class JsonStudentModelDatastoreTest {
         assertEquals(18, studentModelDatastore.getStudentModel("TestUser102").getUserQuestionSet().getQuestionCounts().size());
         assertEquals(18, studentModelDatastore.getAllQuestions().size());
 
-        //TODO: does addQuestions have to check for questions that have already been added?
+        assertThrows(RuntimeException.class, ()->{studentModelDatastore.addQuestions(questions);});
 
     }
 }

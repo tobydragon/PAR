@@ -116,7 +116,8 @@ public class UserQuestionSet {
 
 
     public void addQuestion(Question q2) {
-
+        QuestionCount qcToAdd = new QuestionCount(q2);
+        questionCounts.add(qcToAdd);
     }
 }
 
