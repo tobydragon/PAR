@@ -54,7 +54,10 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
 
     public List<String> loadAllStudents() throws IOException{
         List<String> files = FileSystemUtil.findAllFileNamesInDir(studentModelFilePath, "json");
-        return null;
+        for (int i = 0; i < files.size(); i++){
+            files.set(i, files.get(i).replace(".json", ""));
+        }
+        return files;
     }
 
     public void logout(String userId) throws IOException{
