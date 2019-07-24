@@ -13,7 +13,7 @@ class InputDatalistResponseBoxDisplay {
         this.type = type;
         this.id = id;
         this.correctResponse = correctResponse;
-        console.log("the answer is: "+this.correctResponse);
+        console.log("the answer is: " + this.correctResponse);
         //don't currently need a pointer to this datalist
         let possibleResponsesDatalist = buildDatalistElement(id, defaultResponses);
         //need a pointer to this textbox to check answers
@@ -90,26 +90,6 @@ function checkAnyResponse(correctResponse, actualResponse) {
     } else if (ResponseResult.blank.trim().toLowerCase() === actualResponse.trim().toLowerCase()) {
         return ResponseResult.blank;
     } else {
-        return ResponseResult.incorrect;
-    }
-}
-
-function checkAnyResponseRewritten(correctResponse, actualResponse, element) {
-    if (correctResponse.trim().toLowerCase() === actualResponse.trim().toLowerCase()) {
-        element.classList.add("correct");
-        element.textContent = "Your answer is: Correct";
-        disableElement(element);
-        return ResponseResult.correct;
-    } else if (ResponseResult.unsure.trim().toLowerCase() === actualResponse.trim().toLowerCase()) {
-        element.classList.add("unsure");
-        element.textContent = "The correct answer is " + correctResponse;
-        disableElement(element);
-        return ResponseResult.unsure;
-    } else if (ResponseResult.blank.trim().toLowerCase() === actualResponse.trim().toLowerCase()) {
-        return ResponseResult.blank;
-    } else {
-        element.classList.add("incorrect");
-        element.textContent = "Your answer is: Incorrect";
         return ResponseResult.incorrect;
     }
 }
