@@ -6,7 +6,7 @@ class PageDisplay {
         //settings
         this.scoreType = pageSettings.scoreType;
         this.showScore = pageSettings.showScore;
-
+        this.imageTaskSettings=null;
     }
 
     setIsAuthor() {
@@ -14,19 +14,18 @@ class PageDisplay {
         if(!this.isAuthor){
             document.getElementById("submitAuthorButton").classList.add("hide");
         }
+        document.getElementById("authorReviewSubmitButton").classList.add("hide");
     }
 
     nextImageTask() {
-        var settings;
-
         try {
-            settings = readJson("api/getImageTaskSettings?userId=" + this.userId);
+            this.imageTaskSettings = readJson("api/getImageTaskSettings?userId=" + this.userId);
             if (this.isAuthor) {
                 var imageTaskJSON = readJson("api/nextAuthorImageTask?userId=" + this.userId);
             } else {
                 var imageTaskJSON = readJson("api/nextImageTask?userId=" + this.userId);
             }
-            this.imageTaskDisplay = new ImageTaskDisplay(imageTaskJSON, this.userId, settings, this.isAuthor);
+            this.imageTaskDisplay = new ImageTaskDisplay(imageTaskJSON, this.userId, this.imageTaskSettings, this.isAuthor);
 
         } catch (Exception) {
             window.onerror = function (msg) {
@@ -42,7 +41,20 @@ class PageDisplay {
     }
 
     authorSubmitFinal(){
+        //TODO need a url in rest controller that moves the questions the author has made over
+    }
 
+}
+
+function enterAuthorReview(listOfImageTasks, userId, imageTaskSettings, isAuthor){
+    document.getElementById("authorReviewSubmitButton").classList.remove("hide");
+    document.getElementById("submitButton").classList.add("hide");
+
+    //TODO need a url in the rest controller that returns all the image tasks that the author wants to submit
+    for(var i=0; i<listOfImageTasks.length; i++){
+        let current=listOfImageTasks[i];
+        let newImageTask= new ImageTaskDisplay(current.imageTaskJSON, userId, imageTaskSettings, isAuthor);
+        newImageTask.lockInCorrectAnswers();
     }
 }
 

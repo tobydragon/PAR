@@ -107,6 +107,14 @@ class ImageTaskDisplay {
         this.pageImage = new PageImage(imageUrl);
         this.displayImageUrl(imageUrl);
     }
+
+    lockInCorrectAnswers(){
+        for(var i=0; i<this.questionAreaDisp.length; i++){
+            let current= this.questionAreaDisp[i];
+            setSelectedIndex(current.answerBox.inputTextbox.dataset, current.answerBox.correctResponse);
+            disableElement(current.answerBox.inputTextbox);
+        }
+    }
 }
 
 function checkIfShouldAddFollowupQ(correctness) {

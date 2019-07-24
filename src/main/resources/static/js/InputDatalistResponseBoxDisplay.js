@@ -145,3 +145,12 @@ function buildInputTextbox(id, datalistId) {
 function disableElement(elementToDisable) {
     return elementToDisable.disabled = true;
 }
+
+function setSelectedIndex(datalist, answer) {
+    for ( var i = 0; i < datalist.options.length; i++ ) {
+        if (datalist.options[i].text === answer) {
+            datalist.options[i].selected = true;
+            return;
+        }
+    }
+}
