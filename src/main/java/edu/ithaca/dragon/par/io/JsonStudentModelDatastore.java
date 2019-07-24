@@ -41,4 +41,9 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
         String fullFilePath = studentModelFilePath + "/" +  studentModel.getUserId() + ".json";
         JsonUtil.toJsonFile(fullFilePath, new StudentModelRecord(studentModel));
     }
+
+    @Override
+    public void addQuestions(List<Question> questions) throws IOException{
+
+    }
 }

@@ -16,5 +16,7 @@ public interface StudentModelDatastore {
 
     void saveStudentModel(StudentModel studentModel) throws IOException;
 
+    void addQuestions(List<Question> questions) throws IOException;
+
 
 }

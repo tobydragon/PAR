@@ -41,4 +41,11 @@ public class JsonSpringStudentModelDatastore extends JsonSpringQuestionPoolDatas
         String fullFilePath = currentStudentModelDir + "/" +  studentModel.getUserId() + ".json";
         JsonSpringUtil.toFileSystemJson(fullFilePath, new StudentModelRecord(studentModel));
     }
+
+    @Override
+    public void addQuestions(List<Question> questions) throws IOException {
+
+    }
+
+
 }
