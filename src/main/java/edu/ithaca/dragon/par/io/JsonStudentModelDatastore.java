@@ -40,11 +40,17 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
     }
 
     @Override
-    public void imageTaskResponseSubmitted(StudentModel studentModel, ImageTaskResponse imageTaskResponse) throws IOException{
+    public void imageTaskResponseSubmitted(String userId, ImageTaskResponse imageTaskResponse) throws IOException{
+        //check if the filePath exists
         if(studentModelFilePath == null)
             throw new IOException("studentModelFilePath is null");
-        String fullFilePath = studentModelFilePath + "/" +  studentModel.getUserId() + ".json";
-        JsonUtil.toJsonFile(fullFilePath, new StudentModelRecord(studentModel));
+
+        StudentModel currentStudent = getStudentModel(userId);
+        currentStudent.imageTaskResponseSubmitted(imageTaskResponse, questionPool);
+
+        //write to file
+        String fullFilePath = studentModelFilePath + "/" +  currentStudent.getUserId() + ".json";
+        JsonUtil.toJsonFile(fullFilePath, new StudentModelRecord(currentStudent));
     }
 
     @Override

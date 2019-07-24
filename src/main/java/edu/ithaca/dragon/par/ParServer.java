@@ -51,10 +51,7 @@ public class ParServer {
     }
 
     public void imageTaskResponseSubmitted(ImageTaskResponse imageTaskResponse, String userId) throws IOException {
-        StudentModel currentStudent = studentModelDatastore.getStudentModel(userId);
-        currentStudent.imageTaskResponseSubmitted(imageTaskResponse, questionPool);
-
-        studentModelDatastore.imageTaskResponseSubmitted(currentStudent, imageTaskResponse);
+        studentModelDatastore.imageTaskResponseSubmitted(userId, imageTaskResponse);
     }
 
     public double calcScore(String userId) throws IOException {

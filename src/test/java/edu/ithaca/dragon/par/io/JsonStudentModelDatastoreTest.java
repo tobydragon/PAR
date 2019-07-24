@@ -21,13 +21,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class JsonStudentModelDatastoreTest {
 
     @Test
-    public void loadBadStudentModelTest() throws IOException{
-        //throws exception when StudentModelDatastore does not have a studentModelFilePath
-        StudentModelDatastore studentModelDatastoreA = new JsonStudentModelDatastore("src/test/resources/author/SampleQuestionPool.json", null);
-        assertNull(studentModelDatastoreA.getStudentModel("asd"));
-    }
-
-    @Test
     public void loadIndividualStudentTest() throws IOException{
         StudentModelDatastore studentModelDatastore = new JsonStudentModelDatastore("src/test/resources/author/SampleQuestionPool.json", "src/test/resources/author/students");
 
@@ -36,8 +29,8 @@ public class JsonStudentModelDatastoreTest {
         assertEquals("TestUser100", testUser100.getUserId());
 
         //try to load in a non-existing file
-        StudentModel notAUser = studentModelDatastore.getStudentModel("ThisIsNotAValidUserId");
-        assertNull(notAUser);
+        StudentModel testUser103 = studentModelDatastore.getStudentModel("TestUser103");
+        assertEquals("TestUser103", testUser103.getUserId());
     }
 
     @Test
@@ -59,8 +52,9 @@ public class JsonStudentModelDatastoreTest {
         //make a change to a user, log them out, then reload them to see if changes were saved
         assertEquals(0, studentModel1.getSeenQuestionCount());
         TaskGenerator.makeTask(studentModel1);
-        jsonStudentModelDatastore.imageTaskResponseSubmitted(studentModel1, new ImageTaskResponse("TestUser100", Arrays.asList("PlaneQ1"), Arrays.asList("longitudinal")));
+        jsonStudentModelDatastore.imageTaskResponseSubmitted(studentModel1.getUserId(), new ImageTaskResponse("TestUser100", Arrays.asList("PlaneQ1"), Arrays.asList("longitudinal")));
         assertEquals(1, studentModel1.getSeenQuestionCount());
+        //TODO: assert that studentModel.responseSet got updated when imageTaskResponseSubmitted was called
         jsonStudentModelDatastore.logout("TestUser100");
         StudentModel studentModel3 = jsonStudentModelDatastore.getOrCreateStudentModel("TestUser100");
         assertEquals(1, studentModel3.getSeenQuestionCount());
