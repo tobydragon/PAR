@@ -52,8 +52,9 @@ public class JsonStudentModelDatastoreTest {
         //make a change to a user, log them out, then reload them to see if changes were saved
         assertEquals(0, studentModel1.getSeenQuestionCount());
         TaskGenerator.makeTask(studentModel1);
-        jsonStudentModelDatastore.imageTaskResponseSubmitted(studentModel1, new ImageTaskResponse("TestUser100", Arrays.asList("PlaneQ1"), Arrays.asList("longitudinal")));
+        jsonStudentModelDatastore.imageTaskResponseSubmitted(studentModel1.getUserId(), new ImageTaskResponse("TestUser100", Arrays.asList("PlaneQ1"), Arrays.asList("longitudinal")));
         assertEquals(1, studentModel1.getSeenQuestionCount());
+        //TODO: assert that studentModel.responseSet got updated when imageTaskResponseSubmitted was called
         jsonStudentModelDatastore.logout("TestUser100");
         StudentModel studentModel3 = jsonStudentModelDatastore.getOrCreateStudentModel("TestUser100");
         assertEquals(1, studentModel3.getSeenQuestionCount());

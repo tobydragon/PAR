@@ -16,7 +16,7 @@ public interface StudentModelDatastore {
 
     public void addQuestions(List<Question> questions) throws IOException;
 
-    void imageTaskResponseSubmitted(StudentModel studentModel, ImageTaskResponse imageTaskResponse) throws IOException;
+    void imageTaskResponseSubmitted(String userId, ImageTaskResponse imageTaskResponse) throws IOException;
 
     void logout(String userId) throws IOException;
 }
