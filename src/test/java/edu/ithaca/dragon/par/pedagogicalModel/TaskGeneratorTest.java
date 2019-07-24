@@ -251,5 +251,4 @@ public class TaskGeneratorTest {
         assertEquals(1,imageTask.getTaskQuestions().size());
 
     }
-
 }
