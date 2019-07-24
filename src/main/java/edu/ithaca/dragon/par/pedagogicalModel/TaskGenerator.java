@@ -2,6 +2,7 @@ package edu.ithaca.dragon.par.pedagogicalModel;
 
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
+import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 
@@ -24,12 +25,12 @@ public class TaskGenerator {
                     //make and return an imageTask with the first question from the studentModels.unseenQuestions that matches the level
                     List<Question> unseen = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions();
                     for (int i = 0; i < unseen.size(); i++) {
-                        if (unseen.get(i).getType().equals("plane")) {
+                        if (unseen.get(i).getType().equals(EquineQuestionTypes.plane.toString())) {
                             return unseen.get(i);
                         }
                     }
 
-                    return getLeastSeenQuestion(studentModel, "plane");
+                    return getLeastSeenQuestion(studentModel, EquineQuestionTypes.plane.toString());
                 }
             }
         else if (level == 2) {
@@ -37,16 +38,16 @@ public class TaskGenerator {
                 //make and return an imageTask with the first question from the studentModels.unseenQuestions that matches the level
                 List<Question> unseen = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions();
                 for (int i = 0; i < unseen.size(); i++) {
-                    if (unseen.get(i).getType().equals("plane")) {
+                    if (unseen.get(i).getType().equals(EquineQuestionTypes.plane.toString())) {
                         return unseen.get(i);
                     }
                 }
                 for (int i = 0; i < unseen.size(); i++) {
-                    if (unseen.get(i).getType().equals("structure")) {
+                    if (unseen.get(i).getType().equals( EquineQuestionTypes.structure.toString())) {
                         return unseen.get(i);
                     }
                 }
-                return getLeastSeenQuestion(studentModel, "plane");
+                return getLeastSeenQuestion(studentModel,  EquineQuestionTypes.plane.toString());
             }
         }
         else if (level == 3) {
@@ -54,12 +55,12 @@ public class TaskGenerator {
                 //make and return an imageTask with the first question from the studentModels.unseenQuestions that matches the level
                 List<Question> unseen = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions();
                 for (int i = 0; i < unseen.size(); i++) {
-                    if (unseen.get(i).getType().equals("structure")) {
+                    if (unseen.get(i).getType().equals( EquineQuestionTypes.structure.toString())) {
                         return unseen.get(i);
                     }
                 }
 
-                return getLeastSeenQuestion(studentModel, "structure");
+                return getLeastSeenQuestion(studentModel,  EquineQuestionTypes.structure.toString());
             }
         }
 
@@ -68,17 +69,17 @@ public class TaskGenerator {
                 //make and return an imageTask with the first question from the studentModels.unseenQuestions that matches the level
                 List<Question> unseen = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions();
                 for (int i = 0; i < unseen.size(); i++) {
-                    if (unseen.get(i).getType().equals("structure")) {
+                    if (unseen.get(i).getType().equals( EquineQuestionTypes.structure.toString())) {
                         return unseen.get(i);
                     }
                 }
                 for (int i = 0; i < unseen.size(); i++) {
-                    if (unseen.get(i).getType().equals("attachment")) {
+                    if (unseen.get(i).getType().equals( EquineQuestionTypes.attachment.toString())) {
                         return unseen.get(i);
                     }
                 }
 
-                return getLeastSeenQuestion(studentModel, "structure");
+                return getLeastSeenQuestion(studentModel,  EquineQuestionTypes.structure.toString());
             }
 
         }
@@ -87,12 +88,12 @@ public class TaskGenerator {
                 //make and return an imageTask with the first question from the studentModels.unseenQuestions that matches the level
                 List<Question> unseen = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions();
                 for (int i = 0; i < unseen.size(); i++) {
-                    if (unseen.get(i).getType().equals("zone")) {
+                    if (unseen.get(i).getType().equals( EquineQuestionTypes.zone.toString())) {
                         return unseen.get(i);
                     }
                 }
 
-                return getLeastSeenQuestion(studentModel, "structure");
+                return getLeastSeenQuestion(studentModel,  EquineQuestionTypes.structure.toString());
             }
         }
         else if (level == 7) {
@@ -100,11 +101,11 @@ public class TaskGenerator {
                 //make and return an imageTask with the first question from the studentModels.unseenQuestions that matches the level
                 List<Question> unseen = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions();
                 for (int i = 0; i < unseen.size(); i++) {
-                    if (unseen.get(i).getType().equals("zone")) {
+                    if (unseen.get(i).getType().equals( EquineQuestionTypes.zone.toString())) {
                         return unseen.get(i);
                     }
                 }
-                return getLeastSeenQuestion(studentModel, "zone");
+                return getLeastSeenQuestion(studentModel,  EquineQuestionTypes.zone.toString());
             }
         }
         throw new RuntimeException("Level "+level+" is not valid");
@@ -138,22 +139,22 @@ public class TaskGenerator {
     public static List<Question> filterQuestions(int level, List<Question> questionList){
         //only levels 1 and 2 have plane questions
         if(level==3 || level==4 || level==5 || level==6 || level==7){
-            questionList = removeTypeFromQuestionList(questionList, "plane");
+            questionList = removeTypeFromQuestionList(questionList,  EquineQuestionTypes.plane.toString());
         }
 
         //only levels 2, 3, 4, and 5 have structure questions
         if(level==1 || level==7){
-            questionList = removeTypeFromQuestionList(questionList, "structure");
+            questionList = removeTypeFromQuestionList(questionList,  EquineQuestionTypes.structure.toString());
         }
 
         //only levels 4 and 5 have attachment questions
         if(level==1 || level==2 || level==3 || level==7){
-            questionList = removeTypeFromQuestionList(questionList, "attachment");
+            questionList = removeTypeFromQuestionList(questionList, EquineQuestionTypes.attachment.toString());
         }
 
         //only levels 5 and 6 have zone questions
         if(level==1 || level==2 || level==3 || level==4 || level==5){
-            questionList = removeTypeFromQuestionList(questionList, "zone");
+            questionList = removeTypeFromQuestionList(questionList,  EquineQuestionTypes.zone.toString());
         }
         return questionList;
     }
