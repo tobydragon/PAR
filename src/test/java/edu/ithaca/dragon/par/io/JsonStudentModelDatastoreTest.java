@@ -73,4 +73,14 @@ public class JsonStudentModelDatastoreTest {
         assertThrows(RuntimeException.class, ()->{studentModelDatastore.addQuestions(questions);});
 
     }
+
+    @Test
+    public void loadAllStudentsTest() throws IOException{
+        JsonStudentModelDatastore studentModelDatastore = new JsonStudentModelDatastore("src/test/resources/author/SampleQuestionPool.json", "src/test/resources/author/students");
+        List<String> usernames = studentModelDatastore.loadAllStudents();
+        assertEquals(3, usernames.size());
+        assertEquals("TestUser100", usernames.get(0));
+        assertEquals("TestUser101", usernames.get(1));
+        assertEquals("TestUser102", usernames.get(2));
+    }
 }

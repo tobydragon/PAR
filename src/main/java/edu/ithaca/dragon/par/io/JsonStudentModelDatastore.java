@@ -44,6 +44,12 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
 
     @Override
     public void addQuestions(List<Question> questions) throws IOException{
+        List<String> studentIds = loadAllStudents();
 
+    }
+
+    public List<String> loadAllStudents() throws IOException{
+        List<String> files = FileSystemUtil.findAllFileNamesInDir(studentModelFilePath, "json");
+        return null;
     }
 }
