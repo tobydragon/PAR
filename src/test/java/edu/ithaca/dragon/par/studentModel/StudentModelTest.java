@@ -1,5 +1,6 @@
 package edu.ithaca.dragon.par.studentModel;
 
+import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -196,6 +198,23 @@ public class StudentModelTest {
         m2.put(EquineQuestionTypes.attachment.toString(), 100.0);
         m2.put(EquineQuestionTypes.zone.toString(), 75.0);
         assertEquals(7, StudentModel.calcLevel(m2));
+
+    }
+
+    @Test
+    public void addQuestionTest() throws IOException{
+        List<Question> questions= JsonUtil.listFromJsonFile("src/test/resources/author/DemoQuestionPoolFollowup.json", Question.class);
+        StudentModel studentModel = new StudentModel("TestUser1", questions);
+        Question q = new Question("Question1", "What is this question?", "Good", "A very good one", Arrays.asList("A very good one", "A great one", ":("), "/images/AnImage");
+        studentModel.addQuestion(q);
+        assertEquals(48, studentModel.getUserQuestionSet().getTopLevelUnseenQuestions().size());
+        assertEquals(q, studentModel.getUserQuestionSet().getTopLevelUnseenQuestions().get(47));
+
+
+        Question q2 = new Question("Question2", "What is a question?", "Question", "Something important", Arrays.asList("Something important", ":)", ">:/"), "/images/aBetterImage");
+        studentModel.addQuestion(q2);
+        assertEquals(49, studentModel.getUserQuestionSet().getTopLevelUnseenQuestions().size());
+        assertEquals(q2, studentModel.getUserQuestionSet().getTopLevelUnseenQuestions().get(48));
 
     }
 }

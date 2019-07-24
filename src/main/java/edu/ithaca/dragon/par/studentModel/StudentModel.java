@@ -140,4 +140,7 @@ public class StudentModel {
                 && this.getUserQuestionSet().equals(other.getUserQuestionSet())
                 && this.getUserResponseSet().equals(other.getUserResponseSet());
     }
+
+    public void addQuestion(Question q) {
+    }
 }
