@@ -125,3 +125,13 @@ function buildInputTextbox(id, datalistId) {
 function disableElement(elementToDisable) {
     return elementToDisable.disabled = true;
 }
+
+function inputBoxExpand(listOfStrings) {
+    let highestCharCount = 0;
+    for (let aString of listOfStrings) {
+        if (aString.length > highestCharCount) {
+            highestCharCount = aString.length;
+        }
+    }
+    return highestCharCount;
+}
