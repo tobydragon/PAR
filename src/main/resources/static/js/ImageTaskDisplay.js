@@ -1,12 +1,12 @@
 class ImageTaskDisplay {
 
-    constructor(imageTaskJson, userId, imageTaskSettings, isAuthor) {
+    constructor(imageTaskJson, userId, imageTaskSettings, isAuthor, canvasName) {
         this.userId = userId;
         this.response = new Response(userId);
         if (imageTaskJson.imageUrl === "NoMoreQuestions") {
             //TODO
         } else {
-            this.createCanvas(imageTaskJson.imageUrl);
+            this.createCanvas(imageTaskJson.imageUrl, canvasName);
         }
         this.questionAreaDisp = new buildQuestionAreas(imageTaskJson.taskQuestions, this.response);
 
@@ -97,21 +97,21 @@ class ImageTaskDisplay {
         }
     }
 
-    createCanvas(imageUrl){
+    createCanvas(imageUrl, name){
         let newCanvas = document.createElement("CANVAS");
-        newCanvas.id= "myCanvas";
+        newCanvas.id= name;
         newCanvas.width= "1024";
         newCanvas.height= "768";
         newCanvas.classList.add("center-block");
         document.getElementById("canvasArea").appendChild(newCanvas);
-        this.pageImage = new PageImage(imageUrl);
+        this.pageImage = new PageImage(imageUrl, name);
         this.displayImageUrl(imageUrl);
     }
 
     lockInCorrectAnswers(){
         for(var i=0; i<this.questionAreaDisp.length; i++){
             let current= this.questionAreaDisp[i];
-            setSelectedIndex(current.answerBox.inputTextbox.dataset, current.answerBox.correctResponse);
+            //setSelectedIndex(current.answerBox.inputTextbox.dataset, current.answerBox.correctResponse);
             disableElement(current.answerBox.inputTextbox);
         }
     }

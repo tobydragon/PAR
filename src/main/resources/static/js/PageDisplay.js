@@ -25,7 +25,7 @@ class PageDisplay {
             } else {
                 var imageTaskJSON = readJson("api/nextImageTask?userId=" + this.userId);
             }
-            this.imageTaskDisplay = new ImageTaskDisplay(imageTaskJSON, this.userId, this.imageTaskSettings, this.isAuthor);
+            this.imageTaskDisplay = new ImageTaskDisplay(imageTaskJSON, this.userId, this.imageTaskSettings, this.isAuthor, "myCanvas");
 
         } catch (Exception) {
             window.onerror = function (msg) {
@@ -53,7 +53,8 @@ function enterAuthorReview(listOfImageTasks, userId, imageTaskSettings, isAuthor
     //TODO need a url in the rest controller that returns all the image tasks that the author wants to submit
     for(var i=0; i<listOfImageTasks.length; i++){
         let current=listOfImageTasks[i];
-        let newImageTask= new ImageTaskDisplay(current.imageTaskJSON, userId, imageTaskSettings, isAuthor);
+        let canvasName= "canvas"+i;
+        let newImageTask= new ImageTaskDisplay(current, userId, imageTaskSettings, isAuthor, canvasName);
         newImageTask.lockInCorrectAnswers();
     }
 }
