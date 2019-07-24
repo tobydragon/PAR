@@ -142,5 +142,6 @@ public class StudentModel {
     }
 
     public void addQuestion(Question q) {
+        getUserQuestionSet().addQuestion(q);
     }
 }
