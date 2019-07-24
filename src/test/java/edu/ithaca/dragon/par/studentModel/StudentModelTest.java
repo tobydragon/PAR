@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class StudentModelTest {
 
@@ -215,6 +216,8 @@ public class StudentModelTest {
         studentModel.addQuestion(q2);
         assertEquals(49, studentModel.getUserQuestionSet().getTopLevelUnseenQuestions().size());
         assertEquals(q2, studentModel.getUserQuestionSet().getTopLevelUnseenQuestions().get(48));
+
+        assertThrows(RuntimeException.class, ()->{studentModel.addQuestion(q2);});
 
     }
 }
