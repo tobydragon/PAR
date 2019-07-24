@@ -469,6 +469,7 @@ public class UserQuestionSetTest {
         assertEquals(49, studentModel.getUserQuestionSet().getTopLevelUnseenQuestions().size());
         assertEquals(q2, studentModel.getUserQuestionSet().getTopLevelUnseenQuestions().get(48));
 
+        assertThrows(RuntimeException.class, ()-> {studentModel.getUserQuestionSet().addQuestion(q2);});
     }
 
 }

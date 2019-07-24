@@ -115,8 +115,11 @@ public class UserQuestionSet {
     }
 
 
-    public void addQuestion(Question q2) {
-        QuestionCount qcToAdd = new QuestionCount(q2);
+    public void addQuestion(Question q) {
+        if (getQuestionCountFromId(q.getId(), getQuestionCounts())!=null){
+            throw new RuntimeException("Question "+q.getId()+" already exists in the UserQuestionSet");
+        }
+        QuestionCount qcToAdd = new QuestionCount(q);
         questionCounts.add(qcToAdd);
     }
 }
