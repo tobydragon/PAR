@@ -11,7 +11,7 @@ public class ParAuthoringServer {
 
     private AuthorDatastore authorDatastore;
 
-    public ParAuthoringServer(AuthorDatastore authorDatastore) throws IOException {
+    public ParAuthoringServer(AuthorDatastore authorDatastore) {
         this.authorDatastore = authorDatastore;
     }
 
@@ -43,6 +43,12 @@ public class ParAuthoringServer {
             }
         }
         return new Question(questionIn, answer, followupQuestions);
+    }
+
+    //removes and returns all questions that are authored (leaving a blank question file for authored questions)
+    //no effect on the templates
+    public List<Question> removeAllAuthoredQuestions() throws IOException{
+        return authorDatastore.removeAllAuthoredQuestions();
     }
 
 

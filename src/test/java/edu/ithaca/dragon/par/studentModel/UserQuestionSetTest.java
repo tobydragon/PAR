@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -451,6 +452,24 @@ public class UserQuestionSetTest {
 
 
 
+    }
+
+    @Test
+    public void addQuestionTest() throws IOException{
+        List<Question> questions= JsonUtil.listFromJsonFile("src/test/resources/author/DemoQuestionPoolFollowup.json", Question.class);
+        StudentModel studentModel = new StudentModel("TestUser1", questions);
+        Question q = new Question("Question1", "What is this question?", "Good", "A very good one", Arrays.asList("A very good one", "A great one", ":("), "/images/AnImage");
+        studentModel.getUserQuestionSet().addQuestion(q);
+        assertEquals(48, studentModel.getUserQuestionSet().getTopLevelUnseenQuestions().size());
+        assertEquals(q, studentModel.getUserQuestionSet().getTopLevelUnseenQuestions().get(47));
+
+
+        Question q2 = new Question("Question2", "What is a question?", "Question", "Something important", Arrays.asList("Something important", ":)", ">:/"), "/images/aBetterImage");
+        studentModel.getUserQuestionSet().addQuestion(q2);
+        assertEquals(49, studentModel.getUserQuestionSet().getTopLevelUnseenQuestions().size());
+        assertEquals(q2, studentModel.getUserQuestionSet().getTopLevelUnseenQuestions().get(48));
+
+        assertThrows(RuntimeException.class, ()-> {studentModel.getUserQuestionSet().addQuestion(q2);});
     }
 
 }

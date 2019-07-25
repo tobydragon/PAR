@@ -12,9 +12,9 @@ class FileSystemUtilTest {
     @Test
     void findAllFileNamesAndAddPathsToNamesInDirTest() throws IOException {
         List<String> names = FileSystemUtil.findAllFileNamesInDir("src/test/resources/author/students", "json");
-        assertEquals(2,names.size());
+        assertEquals(3,names.size());
         List<String> paths = FileSystemUtil.addPathToFilenames("src/test/resources/author/students", names);
-        assertEquals(2,paths.size());
+        assertEquals(3,paths.size());
 
         names = FileSystemUtil.findAllFileNamesInDir("src/test/resources/images", "jpg");
         assertEquals(10,names.size());

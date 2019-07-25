@@ -1,14 +1,18 @@
 package edu.ithaca.dragon.par.authorModel;
 
 import edu.ithaca.dragon.par.domainModel.Question;
+import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.io.ImageTask;
+import edu.ithaca.dragon.par.io.JsonQuestionPoolDatastore;
 import edu.ithaca.dragon.par.studentModel.QuestionCount;
 import edu.ithaca.dragon.util.JsonUtil;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class AuthorTaskGeneratorTest {
 
@@ -67,5 +71,29 @@ public class AuthorTaskGeneratorTest {
         question = questionCountList.get(12);
         sameUrl = AuthorTaskGenerator.getAllQuestionsWithSameUrl(question, authorModel);
         assertEquals(4, sameUrl.size());
+    }
+
+    @Test
+    public void urlsTest()throws IOException {
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
+        Set<String> urls = AuthorTaskGenerator.urls(questionPool);
+        assertEquals(10, urls.size());
+
+    }
+
+    @Test
+    public void authoredQuestionsTest()throws IOException{
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
+        List<ImageTask> authoredImageTasks=AuthorTaskGenerator.authoredQuestions(questionPool);
+
+        assertEquals(10,authoredImageTasks.size());
+        assertEquals(5,authoredImageTasks.get(0).getTaskQuestions().size());//should be 5 questions with this url
+        assertEquals(6,authoredImageTasks.get(1).getTaskQuestions().size());//should be 6 questions with this url
+        assertEquals(6,authoredImageTasks.get(9).getTaskQuestions().size());//should be 6 questions with this url
+
+
+
+
+
     }
 }
