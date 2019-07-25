@@ -1,5 +1,6 @@
 package edu.ithaca.dragon.par;
 
+import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.StudentModelDatastore;
@@ -11,6 +12,7 @@ import edu.ithaca.dragon.par.studentModel.UserResponseSet;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ParServer {
@@ -36,9 +38,7 @@ public class ParServer {
     }
 
     //side effects: generating an image task will  mark previously unseen questions as seen as well as
-    //increase the number of times seen for already seen questions. marking unseen questions as seen involves
-    //moving an unseen question from an unseen list to a seen list as well as adding an integer (1) to the times
-    //seen arraylist.
+    //increase the number of times seen for already seen questions.
     public ImageTask nextImageTask(String userId) throws IOException {
         StudentModel currentStudent = studentModelDatastore.getStudentModel(userId);
         ImageTask imageTask = TaskGenerator.makeTask(currentStudent);
@@ -88,6 +88,10 @@ public class ParServer {
                 throw new RuntimeException("The windownSize (Overriden) is too small for the given questionPool");
             }
         }
+    }
+
+    public void addQuestions(List<Question> questions) throws IOException{
+        studentModelDatastore.addQuestions(questions);
     }
 }
 

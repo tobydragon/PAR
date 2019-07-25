@@ -53,4 +53,11 @@ public class JsonQuestionPoolDatastore {
     private void overwriteQuestionPoolFile() throws IOException{
         JsonUtil.toJsonFile(questionFilePath, questionPool.getAllQuestions());
     }
+
+    protected void addQuestions(List<Question> questions) throws IOException{
+        for (Question question : questions){
+            questionPool.addQuestion(question);
+        }
+        overwriteQuestionPoolFile();
+    }
 }

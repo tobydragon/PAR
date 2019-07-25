@@ -2,10 +2,10 @@ package edu.ithaca.dragon.par;
 
 import edu.ithaca.dragon.par.authorModel.ParAuthoringServer;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
+import edu.ithaca.dragon.par.io.AuthorDatastore;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
-import edu.ithaca.dragon.par.io.springio.JsonSpringAuthorDatastore;
-import edu.ithaca.dragon.par.io.springio.JsonSpringStudentModelDatastore;
+import edu.ithaca.dragon.par.io.StudentModelDatastore;
 import edu.ithaca.dragon.util.DataUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,16 +21,9 @@ public class ParAuthorAndStudentServer {
     private ParAuthoringServer parAuthoringServer;
     private ParServer parServer;
 
-    ParAuthorAndStudentServer() throws IOException {
-        super();
-        try {
-            parServer = new ParServer(new JsonSpringStudentModelDatastore("localData/currentQuestionPool.json","author/DemoQuestionPool.json", "localData/students"));
-            parAuthoringServer = new ParAuthoringServer(new JsonSpringAuthorDatastore("localData/currentAuthoredQuestions.json", "author/AuthorQuestionsDefault.json",
-                    "localData/currentAuthorQuestionTemplates.json", "author/AuthorQuestionTemplatesDefault.json", "localData/currentAuthorModel.json" ));
-        }
-        catch(IOException e){
-            throw new RuntimeException("Server can't start without all necessary files loaded: ", e);
-        }
+    ParAuthorAndStudentServer(StudentModelDatastore studentModelDatastore, AuthorDatastore authorDatastore) throws IOException {
+            parServer = new ParServer(studentModelDatastore);
+            parAuthoringServer = new ParAuthoringServer(authorDatastore);
     }
 
     //----------- Student methods  --------------//
@@ -77,8 +70,8 @@ public class ParAuthorAndStudentServer {
 
     //----------- Student-Author Interacting methods  --------------//
 
-    public void transferAuthoredQuestionsToStudentServer(){
-
+    public void transferAuthoredQuestionsToStudentServer() throws IOException{
+        parServer.addQuestions(parAuthoringServer.removeAllAuthoredQuestions());
     }
 
 }

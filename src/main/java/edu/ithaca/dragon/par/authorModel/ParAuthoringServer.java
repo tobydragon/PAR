@@ -11,7 +11,7 @@ public class ParAuthoringServer {
 
     private AuthorDatastore authorDatastore;
 
-    public ParAuthoringServer(AuthorDatastore authorDatastore) throws IOException {
+    public ParAuthoringServer(AuthorDatastore authorDatastore) {
         this.authorDatastore = authorDatastore;
     }
 
