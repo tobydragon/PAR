@@ -1,6 +1,8 @@
 package edu.ithaca.dragon.par;
 
+import edu.ithaca.dragon.par.authorModel.AuthorTaskGenerator;
 import edu.ithaca.dragon.par.authorModel.ParAuthoringServer;
+import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.AuthorDatastore;
 import edu.ithaca.dragon.par.io.ImageTask;
@@ -12,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 public class ParAuthorAndStudentServer {
@@ -35,6 +38,7 @@ public class ParAuthorAndStudentServer {
     public void submitImageTaskResponse( ImageTaskResponse response) throws IOException {
             parServer.imageTaskResponseSubmitted(response, response.getUserId());
     }
+
 
     public void logout(String userId) throws IOException{
         parServer.logout(userId);
@@ -67,6 +71,10 @@ public class ParAuthorAndStudentServer {
             return ResponseEntity.notFound().build();
         }
     }
+    public List<ImageTask> authoredQuestions(QuestionPool questionPool) {
+        return parAuthoringServer.authoredQuestions(questionPool);
+    }
+
 
     //----------- Student-Author Interacting methods  --------------//
 

@@ -91,9 +91,5 @@ public class AuthorTaskGeneratorTest {
         assertEquals(6,authoredImageTasks.get(1).getTaskQuestions().size());//should be 6 questions with this url
         assertEquals(6,authoredImageTasks.get(9).getTaskQuestions().size());//should be 6 questions with this url
 
-
-
-
-
     }
 }

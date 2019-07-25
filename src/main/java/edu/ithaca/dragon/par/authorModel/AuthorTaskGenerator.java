@@ -39,7 +39,7 @@ public class AuthorTaskGenerator {
         }
         return urls;
     }
-    //TODO:MAKE RECURSIVE?
+
     public static List<ImageTask> authoredQuestions(QuestionPool questionPool){
         List<ImageTask> authoredQuestions=new ArrayList<>();
         List<Question> forTask;
