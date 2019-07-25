@@ -111,8 +111,12 @@ class ImageTaskDisplay {
     lockInCorrectAnswers(){
         for(var i=0; i<this.questionAreaDisp.length; i++){
             let current= this.questionAreaDisp[i];
-            //setSelectedIndex(current.answerBox.inputTextbox.dataset, current.answerBox.correctResponse);
+            current.answerBox.inputTextbox.value= current.answerBox.correctResponse;
             disableElement(current.answerBox.inputTextbox);
+            for(var x=0; x<current.followUpAreas.length; x++){
+                current.followUpAreas[x].answerBox.inputTextbox.value= current.followUpAreas[x].answerBox.correctResponse;
+                disableElement(current.followUpAreas[x].answerBox.inputTextbox);
+            }
         }
     }
 }

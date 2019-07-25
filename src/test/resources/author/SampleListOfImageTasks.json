@@ -1,38 +1,38 @@
 [
   {
-  "imageUrl" : "./images/demoEquine32.jpg",
+  "imageUrl" : "../../resources/images/demoEquine02.jpg",
   "taskQuestions" : [ {
     "id" : "PlaneQ1",
     "type" : "plane",
     "questionText" : "On which plane is the ultrasound taken?",
     "correctAnswer" : "Lateral",
     "possibleAnswers" : [ "Transverse", "Lateral" ],
-    "imageUrl" : "./images/demoEquine02.jpg"
+    "imageUrl" : "../../resources/images/demoEquine02.jpg"
   }, {
     "id" : "StructureQ1",
     "type" : "structure",
     "questionText" : "What structure is in the near field?",
     "correctAnswer" : "bone",
     "possibleAnswers" : [ "bone", "ligament", "tumor", "tendon" ],
-    "imageUrl" : "./images/demoEquine02.jpg"
+    "imageUrl" : "../../resources/images/demoEquine02.jpg"
   }, {
     "id" : "ZoneQ1",
     "type" : "zone",
     "questionText" : "In what zone is this ultrasound taken?",
     "correctAnswer" : "3c",
     "possibleAnswers" : [ "1a", "1b", "2a", "2b", "2c", "3a", "3b", "3c" ],
-    "imageUrl" : "./images/demoEquine02.jpg"
+    "imageUrl" : "../../resources/images/demoEquine02.jpg"
   } ]
 },
   {
-    "imageUrl" : "./images/demoEquine02.jpg\"",
+    "imageUrl" : "../../resources/images/demoEquine32.jpg",
     "taskQuestions" : [ {
       "id" : "PlaneQ1",
       "type" : "plane",
       "questionText" : "On which plane is the ultrasound taken?",
       "correctAnswer" : "Lateral",
       "possibleAnswers" : [ "Transverse", "Lateral" ],
-      "imageUrl" : "./images/demoEquine02.jpg"
+      "imageUrl" : "../../resources/images/demoEquine32.jpg"
     }, {
         "id": "structure3./images/demoEquine32.jpg",
         "type": "structure",
@@ -54,7 +54,7 @@
           "Palmar vessels (medial/lateral)",
           "Palmar metacarpal vessels (medial/lateral)"
         ],
-        "imageUrl": "./images/demoEquine32.jpg",
+        "imageUrl": "../../resources/images/demoEquine32.jpg",
         "followupQuestions": [
           {
             "id": "AttachQ11",
@@ -66,7 +66,7 @@
               "Type2",
               "Type3"
             ],
-            "imageUrl": "./images/demoEquine32.jpg",
+            "imageUrl": "../../resources/images/demoEquine32.jpg",
             "followupQuestions": []
           }
         ]
@@ -87,7 +87,7 @@
         "3B",
         "3C"
       ],
-      "imageUrl": "./images/demoEquine32.jpg",
+      "imageUrl": "../../resources/images/demoEquine32.jpg",
       "followupQuestions": []
     }, {
       "id": "plane./images/demoEquine32.jpg",
@@ -98,7 +98,7 @@
         "transverse",
         "longitudinal"
       ],
-      "imageUrl": "./images/demoEquine32.jpg",
+      "imageUrl": "../../resources/images/demoEquine32.jpg",
       "followupQuestions": []
     } ]
   }

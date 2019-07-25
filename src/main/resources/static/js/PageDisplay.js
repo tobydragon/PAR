@@ -44,13 +44,18 @@ class PageDisplay {
         //TODO need a url in rest controller that moves the questions the author has made over
     }
 
+    enterAuthorReview(){
+        //TODO need a url in the rest controller that returns all the image tasks that the author wants to submit
+        //let listOfImageTaska= readJson();
+        enterAuthorReview(listOfImageTasks, this.userId, this.imageTaskSettings, this.isAuthor);
+    }
+
 }
 
 function enterAuthorReview(listOfImageTasks, userId, imageTaskSettings, isAuthor){
     document.getElementById("authorReviewSubmitButton").classList.remove("hide");
     document.getElementById("submitButton").classList.add("hide");
 
-    //TODO need a url in the rest controller that returns all the image tasks that the author wants to submit
     for(var i=0; i<listOfImageTasks.length; i++){
         let current=listOfImageTasks[i];
         let canvasName= "canvas"+i;
