@@ -1,6 +1,7 @@
 package edu.ithaca.dragon.par.io;
 
 
+import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.pedagogicalModel.TaskGenerator;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 
@@ -78,5 +79,41 @@ public class JsonStudentModelDatastoreTest {
         assertEquals("TestUser100", usernames.get(0));
         assertEquals("TestUser101", usernames.get(1));
         assertEquals("TestUser102", usernames.get(2));
+    }
+
+    @Test
+    public void addQuestionsTest(@TempDir Path tempDir) throws IOException{
+        //make paths for copies of the files
+        Path currentQuestionPath = tempDir.resolve("currentQuestions.json");
+        Path currentStudentModelsPath = tempDir.resolve("currentStudentModels");
+        //copy the files to use to the paths (these temp files will change as work is done)
+        Files.copy(Paths.get("src/test/resources/author/SampleQuestionPool.json"), currentQuestionPath, StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(Paths.get("src/test/resources/author/students"), currentStudentModelsPath, StandardCopyOption.REPLACE_EXISTING);
+
+
+
+        Question q = new Question("Question1", "What is this question?", "Good", "A very good one", Arrays.asList("A very good one", "A great one", ":("), "/images/AnImage");
+        Question q2 = new Question("Question2", "What is a question?", "Question", "Something important", Arrays.asList("Something important", ":)", ">:/"), "/images/aBetterImage");
+        Question q3= new Question("Question3", "What is my purpose?", "Rhetorical", "To be a part of a list for testing", Arrays.asList("Something important", "N/A", "To be a part of a list for testing"), "/images/theBestImage");
+        List<Question> questions = new ArrayList<>();
+        questions.add(q);
+        questions.add(q2);
+        questions.add(q3);
+
+        StudentModelDatastore studentModelDatastore = new JsonStudentModelDatastore(currentQuestionPath.toString(), currentStudentModelsPath.toString());
+        assertEquals(15, studentModelDatastore.getStudentModel("TestUser100").getUserQuestionSet().getQuestionCounts().size());
+        assertEquals(15, studentModelDatastore.getStudentModel("TestUser101").getUserQuestionSet().getQuestionCounts().size());
+        assertEquals(15, studentModelDatastore.getStudentModel("TestUser102").getUserQuestionSet().getQuestionCounts().size());
+        assertEquals(15, studentModelDatastore.getAllQuestions().size());
+
+        studentModelDatastore.addQuestions(questions);
+        assertEquals(18, studentModelDatastore.getStudentModel("TestUser100").getUserQuestionSet().getQuestionCounts().size());
+        assertEquals(18, studentModelDatastore.getStudentModel("TestUser101").getUserQuestionSet().getQuestionCounts().size());
+        assertEquals(18, studentModelDatastore.getStudentModel("TestUser102").getUserQuestionSet().getQuestionCounts().size());
+        assertEquals(18, studentModelDatastore.getAllQuestions().size());
+
+
+        assertThrows(RuntimeException.class, ()->{studentModelDatastore.addQuestions(questions);});
+
     }
 }
