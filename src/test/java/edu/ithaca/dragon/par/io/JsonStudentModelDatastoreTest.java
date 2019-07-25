@@ -42,22 +42,32 @@ public class JsonStudentModelDatastoreTest {
         //load a user that already has a file
         StudentModel studentModel1 = jsonStudentModelDatastore.getOrCreateStudentModel("TestUser100");
         assertEquals("TestUser100", studentModel1.getUserId());
+        assertEquals(2, studentModel1.getSeenQuestionCount());
 
         //load a user that does not have a file
         StudentModel studentModel2 = jsonStudentModelDatastore.getOrCreateStudentModel("NewUser1");
         assertEquals("NewUser1", studentModel2.getUserId());
-        Path path1 = Paths.get("src/test/resources/author/students/NewUser1");
-        assertFalse(Files.exists(path1)); //a file should not have have been written until an imageTask is submitted
+        assertEquals(0, studentModel2.getSeenQuestionCount());
+
+        //a file should not have have been written until an imageTask is submitted
+        assertFalse(Files.exists(tempDir.resolve("NewUser1.json")));
+        TaskGenerator.makeTask(studentModel2);
+        assertEquals(1, studentModel2.getSeenQuestionCount());
+        jsonStudentModelDatastore.imageTaskResponseSubmitted(studentModel2.getUserId(), new ImageTaskResponse("NewUser1", Arrays.asList("PlaneQ1"), Arrays.asList("longitudinal")));
+        assertEquals(1, studentModel2.getResponseCount());
+        //a file should now been written
+        assertTrue(Files.exists(tempDir.resolve("NewUser1.json")));
 
         //make a change to a user, log them out, then reload them to see if changes were saved
-        assertEquals(0, studentModel1.getSeenQuestionCount());
         TaskGenerator.makeTask(studentModel1);
-        jsonStudentModelDatastore.imageTaskResponseSubmitted(studentModel1.getUserId(), new ImageTaskResponse("TestUser100", Arrays.asList("PlaneQ1"), Arrays.asList("longitudinal")));
-        assertEquals(1, studentModel1.getSeenQuestionCount());
-        //TODO: assert that studentModel.responseSet got updated when imageTaskResponseSubmitted was called
+        assertEquals(3, studentModel1.getSeenQuestionCount());
+        jsonStudentModelDatastore.imageTaskResponseSubmitted(studentModel1.getUserId(), new ImageTaskResponse("TestUser100", Arrays.asList("PlaneQ3"), Arrays.asList("longitudinal")));
+        assertEquals(1, studentModel1.getResponseCount());
+
         jsonStudentModelDatastore.logout("TestUser100");
         StudentModel studentModel3 = jsonStudentModelDatastore.getOrCreateStudentModel("TestUser100");
-        assertEquals(1, studentModel3.getSeenQuestionCount());
+        assertEquals(3, studentModel3.getSeenQuestionCount());
+        assertEquals(1, studentModel3.getResponseCount());
     }
 
     @Test

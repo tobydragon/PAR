@@ -4,11 +4,11 @@
     "userId" : "TestUser100",
     "questionCountRecords" : [ {
       "questionId" : "PlaneQ1",
-      "timesSeen" : 0,
+      "timesSeen" : 1,
       "followupCountRecords" : [ ]
     }, {
       "questionId" : "PlaneQ2",
-      "timesSeen" : 0,
+      "timesSeen" : 1,
       "followupCountRecords" : [ ]
     }, {
       "questionId" : "PlaneQ3",
