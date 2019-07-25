@@ -75,10 +75,16 @@ public class JsonStudentModelDatastoreTest {
     public void addQuestionsTest(@TempDir Path tempDir) throws IOException{
         //make paths for copies of the files
         Path currentQuestionPath = tempDir.resolve("currentQuestions.json");
-        Path currentStudentModelsPath = tempDir.resolve("currentStudentModels");
+        Path currentStudentModelsPath = Files.createTempDirectory("currentStudentModels");
+        Path fileToCreatePath = currentStudentModelsPath.resolve("TestUser100.json");
+        Path fileToCreatePath2 = currentStudentModelsPath.resolve("TestUser101.json");
+        Path fileToCreatePath3 = currentStudentModelsPath.resolve("TestUser102.json");
+
         //copy the files to use to the paths (these temp files will change as work is done)
         Files.copy(Paths.get("src/test/resources/author/SampleQuestionPool.json"), currentQuestionPath, StandardCopyOption.REPLACE_EXISTING);
-        Files.copy(Paths.get("src/test/resources/author/students"), currentStudentModelsPath, StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(Paths.get("src/test/resources/author/students/TestUser100.json"), fileToCreatePath, StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(Paths.get("src/test/resources/author/students/TestUser101.json"), fileToCreatePath2, StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(Paths.get("src/test/resources/author/students/TestUser102.json"), fileToCreatePath3, StandardCopyOption.REPLACE_EXISTING);
 
 
 

@@ -58,10 +58,10 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
         List<String> studentIds = loadAllStudents();
         for (int i = 0; i < questions.size(); i++){
             for (int j = 0; j<studentIds.size(); j++){
-                StudentModel currModel = getStudentModel(studentIds.get(j));
+                StudentModel currModel = getOrCreateStudentModel(studentIds.get(j));
                 currModel.addQuestion(questions.get(i));
-                questionPool.addQuestion(questions.get(i));
             }
+            questionPool.addQuestion(questions.get(i));
         }
 
     }
@@ -91,16 +91,12 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
         //if the student wasn't in the map, try to load from file
         if (studentModel == null) {
             studentModel = loadStudentModelFromFile(questionPool, studentModelFilePath, userId);
+            studentModelMap.put(userId, studentModel);
         }
 
         //the student didn't have a file, create a new student
         if (studentModel == null) {
             studentModel = new StudentModel(userId, getAllQuestions());
-
-            //if the student didn't have a file, create a new student
-            if (studentModel == null) {
-                studentModel = new StudentModel(userId, getAllQuestions());
-            }
             //add the student to the map
             studentModelMap.put(userId, studentModel);
         }
