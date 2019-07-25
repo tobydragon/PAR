@@ -45,6 +45,12 @@ public class ParAuthoringServer {
         return new Question(questionIn, answer, followupQuestions);
     }
 
+    //removes and returns all questions that are authored (leaving a blank question file for authored questions)
+    //no effect on the templates
+    public List<Question> removeAllAuthoredQuestions() throws IOException{
+        return authorDatastore.removeAllAuthoredQuestions();
+    }
+
 
     //TODO: these are only used for testing, can they be replaced somehow?
     public int getQuestionCount(){
