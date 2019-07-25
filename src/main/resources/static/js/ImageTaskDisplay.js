@@ -3,11 +3,12 @@ class ImageTaskDisplay {
     constructor(imageTaskJson, userId, imageTaskSettings, isAuthor, canvasName) {
         this.userId = userId;
         this.response = new Response(userId);
-        if (imageTaskJson.imageUrl === "NoMoreQuestions") {
-            //TODO
+        if (imageTaskJson.imageUrl === "noMoreQuestions") {
+            this.createCanvas("../images/ParLogo.png", canvasName);
         } else {
             this.createCanvas(imageTaskJson.imageUrl, canvasName);
         }
+        this.displayImageUrl(imageTaskJson.imageUrl);
         this.questionAreaDisp = new buildQuestionAreas(imageTaskJson.taskQuestions, this.response);
 
         //settings
@@ -114,7 +115,6 @@ class ImageTaskDisplay {
         newCanvas.classList.add("center-block");
         document.getElementById("canvasArea").appendChild(newCanvas);
         this.pageImage = new PageImage(imageUrl, name);
-        this.displayImageUrl(imageUrl);
     }
 
     lockInCorrectAnswers(){
