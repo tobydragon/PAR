@@ -56,6 +56,14 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
     @Override
     public void addQuestions(List<Question> questions) throws IOException {
         List<String> studentIds = loadAllStudents();
+        for (int i = 0; i < questions.size(); i++){
+            for (int j = 0; j<studentIds.size(); j++){
+                StudentModel currModel = getStudentModel(studentIds.get(j));
+                currModel.addQuestion(questions.get(i));
+                questionPool.addQuestion(questions.get(i));
+            }
+        }
+
     }
 
     public List<String> loadAllStudents() throws IOException{
