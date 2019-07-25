@@ -34,9 +34,9 @@ class InputDatalistResponseBoxDisplay {
 
         this.textArea.innerHTML = displayCheckedResponse(returnResponse, this.correctResponse, unsureShowsCorrect);
 
-        if (returnResponse === "correct") {
+        if (returnResponse === ResponseResult.correct) {
             disableElement(this.inputTextbox);
-        } else if (returnResponse === "unsure") {
+        } else if (returnResponse === ResponseResult.unsure) {
             disableElement(this.inputTextbox);
         }
         return returnResponse;
@@ -101,8 +101,11 @@ function buildDatalistElement(questionId, possibleResponses) {
     for (let optionText of possibleResponses) {
         datalist.appendChild(buildOptionElement(optionText));
     }
-    datalist.appendChild(buildOptionElement("unsure"));
     return datalist;
+}
+
+function buildUnsureElement() {
+
 }
 
 function buildOptionElement(optionText) {

@@ -3,14 +3,6 @@ class ImageTaskDisplay {
     constructor(imageTaskJson, userId, imageTaskSettings, isAuthor) {
         this.userId = userId;
         this.response = new Response(userId);
-        if (imageTaskJson.imageUrl === "NoMoreQuestions") {
-            //TODO
-        } else {
-            this.pageImage = new PageImage(imageTaskJson.imageUrl);
-            this.displayImageUrl(imageTaskJson.imageUrl);
-        }
-        this.questionAreaDisp = new buildQuestionAreas(imageTaskJson.taskQuestions, this.response);
-
         //settings
         this.unsureShowsCorrectAnswer = imageTaskSettings.unsureShowsCorrectAnswer;
         this.feedbackByType = imageTaskSettings.feedbackByType;
@@ -23,8 +15,21 @@ class ImageTaskDisplay {
         this.listOfCorrectAnswers = [];
         this.isAuthor = isAuthor;
 
+        if (imageTaskJson.imageUrl === "NoMoreQuestions") {
+            //TODO
+        } else {
+            this.pageImage = new PageImage(imageTaskJson.imageUrl);
+            this.displayImageUrl(imageTaskJson.imageUrl);
+        }
+        //buildQuestionAreasAuthor(this.isAuthor)
+        if (!isAuthor) {
+            addUnsureToAnswers(imageTaskJson.taskQuestions);
+        }
+
+        this.questionAreaDisp = new buildQuestionAreas(imageTaskJson.taskQuestions, this.response);
+
         for (var i = 0; i < this.questionAreaDisp.length; i++) {
-            if(isAuthor){
+            if (isAuthor) {
                 this.questionAreaDisp[i].addFollowupQuestions();
             }
             document.getElementById("questionSet").appendChild(this.questionAreaDisp[i].element);
@@ -89,13 +94,21 @@ class ImageTaskDisplay {
             addToResponseIds(this.response, current.element.id);
             let correctness = current.answerBox.checkCurrentResponse(this.response, this.unsureShowsCorrectAnswer);
             this.listOfCorrectAnswers.push(correctness);
-            if(checkIfShouldAddFollowupQ(correctness)){
+            if (checkIfShouldAddFollowupQ(correctness)) {
                 current.addFollowupQuestions();
             }
             if (this.haveSubmited) {
                 this.checkFollowUp(current);
             }
         }
+    }
+}
+
+function addUnsureToAnswers(questionObjectList) {
+    let questionAreaList = [];
+    for (let questionObject of questionObjectList) {
+        questionObject.possibleAnswers.push(ResponseResult.unsure);
+        addUnsureToAnswers(questionObject.followupQuestions);
     }
 }
 
