@@ -69,26 +69,9 @@ public class TaskGenerator {
                 List<Question> unseen = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions();
                 for (int i = 0; i < unseen.size(); i++) {
                     if (unseen.get(i).getType().equals("structure")) {
-                        return unseen.get(i);
-                    }
-                }
-                for (int i = 0; i < unseen.size(); i++) {
-                    if (unseen.get(i).getType().equals("attachment")) {
-                        return unseen.get(i);
-                    }
-                }
-
-                return getLeastSeenQuestion(studentModel, "structure");
-            }
-
-        }
-        if (level == 6) {
-            if (studentModel.getUnseenQuestionCount() > 0) {
-                //make and return an imageTask with the first question from the studentModels.unseenQuestions that matches the level
-                List<Question> unseen = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions();
-                for (int i = 0; i < unseen.size(); i++) {
-                    if (unseen.get(i).getType().equals("zone")) {
-                        return unseen.get(i);
+                        if (unseen.get(i).getFollowupQuestions().size() > 0) {
+                            return unseen.get(i);
+                        }
                     }
                 }
 
@@ -141,17 +124,17 @@ public class TaskGenerator {
             questionList = removeTypeFromQuestionList(questionList, "plane");
         }
 
-        //only levels 2, 3, 4, and 5 have structure questions
+        //only levels 2, 3, 4, 5, and 6 have structure questions
         if(level==1 || level==7){
             questionList = removeTypeFromQuestionList(questionList, "structure");
         }
 
-        //only levels 4 and 5 have attachment questions
+        //only levels 4, 5, and 6 have attachment questions
         if(level==1 || level==2 || level==3 || level==7){
             questionList = removeTypeFromQuestionList(questionList, "attachment");
         }
 
-        //only levels 5 and 6 have zone questions
+        //only levels 6 and 7 have zone questions
         if(level==1 || level==2 || level==3 || level==4 || level==5){
             questionList = removeTypeFromQuestionList(questionList, "zone");
         }
