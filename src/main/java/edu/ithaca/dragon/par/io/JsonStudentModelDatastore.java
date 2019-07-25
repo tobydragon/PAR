@@ -54,10 +54,10 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
         List<String> studentIds = loadAllStudents();
         for (int i = 0; i < questions.size(); i++){
             for (int j = 0; j<studentIds.size(); j++){
-                StudentModel currModel = getStudentModel(studentIds.get(j));
+                StudentModel currModel = getOrCreateStudentModel(studentIds.get(j));
                 currModel.addQuestion(questions.get(i));
-                questionPool.addQuestion(questions.get(i));
             }
+            questionPool.addQuestion(questions.get(i));
         }
 
     }
