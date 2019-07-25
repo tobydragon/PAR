@@ -41,10 +41,6 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
 
     @Override
     public void imageTaskResponseSubmitted(String userId, ImageTaskResponse imageTaskResponse) throws IOException{
-        //check if the filePath exists
-        if(studentModelFilePath == null)
-            throw new IOException("studentModelFilePath is null");
-
         StudentModel currentStudent = getStudentModel(userId);
         currentStudent.imageTaskResponseSubmitted(imageTaskResponse, questionPool);
 
@@ -75,10 +71,9 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
     }
 
     public void logout(String userId) throws IOException{
-        studentModelMap.remove(getStudentModel(userId));
+        studentModelMap.remove(userId);
     }
 
-    //Side effect: if a new model is created, it is added to the given studentModelMap
     /**
      * @param userId
      * @return a StudentModel corresponding to the given userId that is also in the studentModelMap
@@ -91,13 +86,11 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
         //if the student wasn't in the map, try to load from file
         if (studentModel == null) {
             studentModel = loadStudentModelFromFile(questionPool, studentModelFilePath, userId);
-            studentModelMap.put(userId, studentModel);
-        }
-
-        //the student didn't have a file, create a new student
-        if (studentModel == null) {
-            studentModel = new StudentModel(userId, getAllQuestions());
-            //add the student to the map
+            //the student didn't have a file, create a new student
+            if (studentModel == null) {
+                studentModel = new StudentModel(userId, getAllQuestions());
+            }
+            //either way if the object was created, add it to the map
             studentModelMap.put(userId, studentModel);
         }
         return studentModel;
