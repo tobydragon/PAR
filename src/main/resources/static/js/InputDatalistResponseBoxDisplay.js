@@ -17,7 +17,8 @@ class InputDatalistResponseBoxDisplay {
         //don't currently need a pointer to this datalist
         let possibleResponsesDatalist = buildDatalistElement(id, defaultResponses);
         //need a pointer to this textbox to check answers
-        this.inputTextbox = buildInputTextbox(id, possibleResponsesDatalist.getAttribute("id"));
+        let inputBoxSize = inputBoxAutoSize(defaultResponses);
+        this.inputTextbox = buildInputTextbox(id, possibleResponsesDatalist.getAttribute("id"), inputBoxSize);
         this.element = buildElement(id, possibleResponsesDatalist, this.inputTextbox);
 
         let feedbackTextArea = document.createElement("div");
@@ -114,11 +115,12 @@ function buildOptionElement(optionText) {
  * @param datalistId an id of a datalist tagged id that already exists in the document
  * @pre need to call buildDatalistElement before building this and use the id sent to buildDatalistElement
  */
-function buildInputTextbox(id, datalistId) {
+function buildInputTextbox(id, datalistId, size) {
     let inputTextbox = document.createElement("input");
     inputTextbox.type = "text";
     inputTextbox.setAttribute("id", id);
     inputTextbox.setAttribute("list", datalistId);
+    inputTextbox.setAttribute("size", size);
     return inputTextbox;
 }
 
@@ -126,12 +128,16 @@ function disableElement(elementToDisable) {
     return elementToDisable.disabled = true;
 }
 
-function inputBoxExpand(listOfStrings) {
+function inputBoxAutoSize(listOfStrings) {
     let highestCharCount = 0;
     for (let aString of listOfStrings) {
         if (aString.length > highestCharCount) {
             highestCharCount = aString.length;
         }
     }
+    //Margin size correcting
+    let diff = highestCharCount * 0.16;
+    Math.ceil(diff);
+    highestCharCount = highestCharCount - diff;
     return highestCharCount;
 }

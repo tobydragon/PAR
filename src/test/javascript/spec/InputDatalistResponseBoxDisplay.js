@@ -135,15 +135,15 @@ describe("InputDatalistResponseBoxDisplay", function () {
         expect(testElement.disabled).toBe(false);
         expect(disableElement(testElement)).toBe(true);
     });
-    it("inputBoxExapnd", function () {
+    it("inputBoxAutoSize", function () {
         let listOfStr0 = ["one", "three", "four"];
         let listOfStr1 = ["one", "the", "for"];
         let listOfStr2 = ["one", "three", " "];
         let listOfStr3 = ["o", "tw", "thr"];
 
-        expect(inputBoxExpand(listOfStr0)).toBe(5);
-        expect(inputBoxExpand(listOfStr1)).toBe(3);
-        expect(inputBoxExpand(listOfStr2)).toBe(5);
-        expect(inputBoxExpand(listOfStr3)).toBe(3);
+        expect(inputBoxAutoSize(listOfStr0)).toBe(4.2);
+        expect(inputBoxAutoSize(listOfStr1)).toBe(2.52);
+        expect(inputBoxAutoSize(listOfStr2)).toBe(4.2);
+        expect(inputBoxAutoSize(listOfStr3)).toBe(2.52);
     })
 });
