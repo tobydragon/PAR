@@ -43,6 +43,10 @@ h5 {
     margin-right: auto;
 }
 
+.pad5 {
+    padding: 5px;
+}
+
 .underline {
     text-decoration: underline;
 }
@@ -110,7 +114,7 @@ h5 {
     border-color: #274C72;
 }
 
-.login-input-box {
+.line-input-box {
     background: transparent;
     border: none;
     border-bottom: 1px solid;
@@ -125,7 +129,6 @@ h5 {
 }
 
 .par-teal {
-
     color: #138C9E;
 }
 

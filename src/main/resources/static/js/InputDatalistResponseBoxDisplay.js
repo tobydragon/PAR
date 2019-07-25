@@ -104,10 +104,6 @@ function buildDatalistElement(questionId, possibleResponses) {
     return datalist;
 }
 
-function buildUnsureElement() {
-
-}
-
 function buildOptionElement(optionText) {
     let optionElement = document.createElement("option");
     optionElement.setAttribute("value", optionText);
@@ -124,6 +120,9 @@ function buildInputTextbox(id, datalistId, size) {
     inputTextbox.setAttribute("id", id);
     inputTextbox.setAttribute("list", datalistId);
     inputTextbox.setAttribute("size", size);
+    inputTextbox.classList.add("line-input-box");
+
+
     return inputTextbox;
 }
 
@@ -142,5 +141,8 @@ function inputBoxAutoSize(listOfStrings) {
     let diff = highestCharCount * 0.16;
     Math.ceil(diff);
     highestCharCount = highestCharCount - diff;
+    if (highestCharCount <= 20) {
+        return 20;
+    }
     return highestCharCount;
 }
