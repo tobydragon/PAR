@@ -83,8 +83,6 @@ public class AuthorTaskGeneratorTest {
 
     @Test
     public void authoredQuestionsTest()throws IOException{
-        List<Question> questions = JsonUtil.listFromJsonFile("src/test/resources/author/DemoQuestionPoolFollowup.json", Question.class);
-
         QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
         List<ImageTask> authoredImageTasks=AuthorTaskGenerator.authoredQuestions(questionPool);
 
