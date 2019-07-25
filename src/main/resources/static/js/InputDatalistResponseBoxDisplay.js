@@ -27,7 +27,9 @@ class InputDatalistResponseBoxDisplay {
     }
 
     checkCurrentResponse(response, unsureShowsCorrect) {
-        response.addToResponseTexts(this.inputTextbox.value);
+        if(this.inputTextbox.value!== ResponseResult.blank) {
+            response.addToResponseTexts(this.inputTextbox.value);
+        }
         let returnResponse = checkAnyResponse(this.correctResponse, this.inputTextbox.value);
         addToTypesIncorrect(returnResponse, this.type, response.typesIncorrect);
 

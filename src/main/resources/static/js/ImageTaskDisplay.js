@@ -76,8 +76,11 @@ class ImageTaskDisplay {
 
     checkFollowUp(current) {
         for (var x = 0; x < current.followUpAreas.length; x++) {
-            this.listOfCorrectAnswers.push(current.followUpAreas[x].answerBox.checkCurrentResponse(this.response, this.unsureShowsCorrectAnswer));
-            addToResponseIds(this.response, current.followUpAreas[x].element.id);
+            let correctness=current.followUpAreas[x].answerBox.checkCurrentResponse(this.response, this.unsureShowsCorrectAnswer);
+            this.listOfCorrectAnswers.push(correctness);
+            if(correctness!== ResponseResult.blank) {
+                addToResponseIds(this.response, current.followUpAreas[x].element.id);
+            }
         }
     }
 
@@ -85,8 +88,10 @@ class ImageTaskDisplay {
         this.listOfCorrectAnswers = [];
         for (var i = 0; i < this.questionAreaDisp.length; i++) {
             let current = this.questionAreaDisp[i];
-            addToResponseIds(this.response, current.element.id);
             let correctness = current.answerBox.checkCurrentResponse(this.response, this.unsureShowsCorrectAnswer);
+            if(correctness!== ResponseResult.blank) {
+                addToResponseIds(this.response, current.element.id);
+            }
             this.listOfCorrectAnswers.push(correctness);
             if(checkIfShouldAddFollowupQ(correctness)){
                 current.addFollowupQuestions();
@@ -141,6 +146,9 @@ function submitResponse(response, isAuthor) {
         taskQuestionIds: response.taskQuestionIds,
         responseTexts: response.responseTexts
     };
+
+    console.log(response.taskQuestionIds);
+    console.log(response.responseTexts);
 
     if (isAuthor) {
         console.log(newResponse.responseTexts);
