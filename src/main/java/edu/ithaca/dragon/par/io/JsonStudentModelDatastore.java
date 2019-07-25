@@ -43,23 +43,20 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
     public void imageTaskResponseSubmitted(String userId, ImageTaskResponse imageTaskResponse) throws IOException{
         StudentModel currentStudent = getStudentModel(userId);
         currentStudent.imageTaskResponseSubmitted(imageTaskResponse, questionPool);
-
-        //write to file
-        String fullFilePath = studentModelFilePath + "/" +  currentStudent.getUserId() + ".json";
-        JsonUtil.toJsonFile(fullFilePath, new StudentModelRecord(currentStudent));
+        overwriteStudentFile(currentStudent, studentModelFilePath);
     }
 
     @Override
     public void addQuestions(List<Question> questions) throws IOException {
+        super.addQuestions(questions);
         List<String> studentIds = loadAllStudents();
-        for (int i = 0; i < questions.size(); i++){
-            for (int j = 0; j<studentIds.size(); j++){
-                StudentModel currModel = getOrCreateStudentModel(studentIds.get(j));
-                currModel.addQuestion(questions.get(i));
+        for (String studentId : studentIds){
+            StudentModel currModel = getOrCreateStudentModel(studentId);
+            for (Question question : questions){
+                currModel.addQuestion(question);
             }
-            questionPool.addQuestion(questions.get(i));
+            overwriteStudentFile(currModel, studentModelFilePath);
         }
-
     }
 
     public List<String> loadAllStudents() throws IOException{
@@ -94,5 +91,10 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
             studentModelMap.put(userId, studentModel);
         }
         return studentModel;
+    }
+
+    private static void overwriteStudentFile(StudentModel currentStudent, String studentModelFilePath) throws IOException{
+        String fullFilePath = studentModelFilePath + "/" + currentStudent.getUserId() + ".json";
+        JsonUtil.toJsonFile(fullFilePath, new StudentModelRecord(currentStudent));
     }
 }

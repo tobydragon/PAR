@@ -5,6 +5,7 @@ import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.util.JsonUtil;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class JsonQuestionPoolDatastore {
@@ -30,15 +31,33 @@ public class JsonQuestionPoolDatastore {
 
     public void addQuestion(Question newQuestion) throws IOException {
         questionPool.addQuestion(newQuestion);
-        JsonUtil.toJsonFile(questionFilePath, questionPool.getAllQuestions());
+        overwriteQuestionPoolFile();
     }
 
     public void removeQuestionById(String questionId) throws IOException {
         questionPool.removeQuestionById(questionId);
-        JsonUtil.toJsonFile(questionFilePath, questionPool.getAllQuestions());
+        overwriteQuestionPoolFile();
     }
 
     public int getQuestionCount(){
         return questionPool.getAllQuestions().size();
+    }
+
+    public List<Question> removeAllQuestions() throws IOException{
+        List<Question> allQuestions = getAllQuestions();
+        this.questionPool = new QuestionPool(new ArrayList<>());
+        overwriteQuestionPoolFile();
+        return allQuestions;
+    }
+
+    private void overwriteQuestionPoolFile() throws IOException{
+        JsonUtil.toJsonFile(questionFilePath, questionPool.getAllQuestions());
+    }
+
+    protected void addQuestions(List<Question> questions) throws IOException{
+        for (Question question : questions){
+            questionPool.addQuestion(question);
+        }
+        overwriteQuestionPoolFile();
     }
 }

@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface StudentModelDatastore {
 
-    List<Question> getAllQuestions() throws IOException;
+    List<Question> getAllQuestions();
 
     StudentModel getStudentModel(String userId) throws IOException;
 
