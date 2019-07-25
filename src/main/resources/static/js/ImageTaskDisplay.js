@@ -1,6 +1,6 @@
 class ImageTaskDisplay {
 
-    constructor(imageTaskJson, userId, imageTaskSettings, isAuthor, canvasName) {
+    constructor(imageTaskJson, userId, imageTaskSettings, isAuthor, canvasName, pageDisplaySettings) {
         this.userId = userId;
         this.response = new Response(userId);
         if (imageTaskJson.imageUrl === "noMoreQuestions") {
@@ -19,6 +19,7 @@ class ImageTaskDisplay {
         this.mustSubmitAnswersToContinue = imageTaskSettings.mustSubmitAnswersToContinue;
         this.haveSubmited = false;
         this.canGiveNoAnswer = imageTaskSettings.canGiveNoAnswer;
+        this.pageSettings= pageDisplaySettings;
 
         this.listOfCorrectAnswers = [];
         this.isAuthor = isAuthor;
@@ -51,7 +52,7 @@ class ImageTaskDisplay {
 
         if (canContinu) {
             this.displayFeedback();
-            this.haveSubmited = sendResponse(this.response, this.ableToResubmitAnswers, this.isAuthor);
+            this.haveSubmited = sendResponse(this.response, this.ableToResubmitAnswers, this.isAuthor, this.pageSettings);
         } else {
             document.getElementById("errorFeedback").innerHTML = "<font color=red>No response was recorded because you did not answer all the questions</font>";
         }
@@ -144,7 +145,7 @@ function addToResponseIds(response, id) {
     }
 }
 
-function submitResponse(response, isAuthor) {
+function submitResponse(response, isAuthor, pageSettings) {
     let newResponse = {
         userId: response.userId,
         taskQuestionIds: response.taskQuestionIds,
@@ -152,9 +153,9 @@ function submitResponse(response, isAuthor) {
     };
 
     if (isAuthor) {
-        submitToAPI("api/submitAuthorImageTaskResponse", newResponse);
+        submitToAPI("api/submitAuthorImageTaskResponse", newResponse,pageSettings.showScore ,pageSettings.scoreType ,this.userID );
     } else {
-        submitToAPI("api/recordResponse", newResponse);
+        submitToAPI("api/recordResponse", newResponse, pageSettings.showScore ,pageSettings.scoreType ,this.userID);
     }
 }
 
@@ -175,8 +176,8 @@ function giveFeedback(typesSeenForFeedback, feedbackByType) {
     return feedbackString;
 }
 
-function sendResponse(response, ableToResubmitAnswers, isAuthor) {
-    submitResponse(response, isAuthor);
+function sendResponse(response, ableToResubmitAnswers, isAuthor, pageSettings) {
+    submitResponse(response, isAuthor, pageSettings);
 
     if (!ableToResubmitAnswers) {
         document.getElementById("submitButton").classList.add("hide");
