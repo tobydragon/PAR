@@ -21,7 +21,7 @@ public class ParAuthorAndStudentServer {
     private ParAuthoringServer parAuthoringServer;
     private ParServer parServer;
 
-    ParAuthorAndStudentServer(StudentModelDatastore studentModelDatastore, AuthorDatastore authorDatastore) throws IOException {
+    public ParAuthorAndStudentServer(StudentModelDatastore studentModelDatastore, AuthorDatastore authorDatastore) throws IOException {
             parServer = new ParServer(studentModelDatastore);
             parAuthoringServer = new ParAuthoringServer(authorDatastore);
     }
@@ -32,7 +32,7 @@ public class ParAuthorAndStudentServer {
         return parServer.nextImageTask(userId);
     }
 
-    public void imageTaskResponseSubmitted( ImageTaskResponse response) throws IOException {
+    public void submitImageTaskResponse( ImageTaskResponse response) throws IOException {
             parServer.imageTaskResponseSubmitted(response, response.getUserId());
     }
 
