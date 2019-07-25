@@ -6,7 +6,6 @@ describe("ScoreDisplay", function () {
             "zone": "_X__"
         };
         let element = generateScoreElementByType(scoreJsonObj);
-        console.log(element);
         expect(element.getAttribute("class")).toContain('textAlignRight');
         expect(element.childNodes.item(0).getAttribute("class")).toContain('black');
         expect(element.childNodes.item(0).textContent).toBe('plane: ');
@@ -36,7 +35,6 @@ describe("ScoreDisplay", function () {
             "xyz": -1
         };
         let element = generateScoreByType(scoreJsonObj);
-        console.log(element);
         expect(element.getAttribute("class")).toContain('textAlignRight');
 
         expect(element.childNodes.item(0).getAttribute('class')).toContain('black');
@@ -47,7 +45,6 @@ describe("ScoreDisplay", function () {
         expect(element.childNodes.item(3).textContent).toBe('xyz: ');
         expect(element.childNodes.item(2).textContent).not.toBe('plane: 85');
 
-        console.log(element.childNodes.item(0).childNodes.item(1));
         expect(element.childNodes.item(0).childNodes.item(1).getAttribute("class")).toContain('green');
 
         expect(element.childNodes.item(1).childNodes.item(1).getAttribute("class")).toContain('orange');
