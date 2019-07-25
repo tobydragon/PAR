@@ -44,7 +44,10 @@ class InputDatalistResponseBoxDisplay {
     }
 
     recordCurrentResponse(response) {
-        response.addToResponseTexts(this.inputTextbox.value);
+        if(this.inputTextbox.value!== ResponseResult.blank) {
+            response.addToResponseTexts(this.inputTextbox.value);
+        }
+        return this.inputTextbox.value;
     }
 }
 

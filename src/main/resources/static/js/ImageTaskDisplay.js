@@ -59,11 +59,15 @@ class ImageTaskDisplay {
     authorSubmitResponses() {
         for (var i = 0; i < this.questionAreaDisp.length; i++) {
             let current = this.questionAreaDisp[i];
-            current.answerBox.recordCurrentResponse(this.response);
-            addToResponseIds(this.response, current.element.id);
+            let value= current.answerBox.recordCurrentResponse(this.response);
+            if(value!==ResponseResult.blank) {
+                addToResponseIds(this.response, current.element.id);
+            }
             for (var x = 0; x < current.followUpAreas.length; x++) {
-                addToResponseIds(this.response, current.followUpAreas[x].element.id);
-                current.followUpAreas[x].answerBox.recordCurrentResponse(this.response);
+                value= current.followUpAreas[x].answerBox.recordCurrentResponse(this.response);
+                if(value!==ResponseResult.blank) {
+                    addToResponseIds(this.response, current.followUpAreas[x].element.id);
+                }
             }
         }
     }
@@ -147,12 +151,7 @@ function submitResponse(response, isAuthor) {
         responseTexts: response.responseTexts
     };
 
-    console.log(response.taskQuestionIds);
-    console.log(response.responseTexts);
-
     if (isAuthor) {
-        console.log(newResponse.responseTexts);
-        console.log(newResponse.taskQuestionIds);
         submitToAPI("api/submitAuthorImageTaskResponse", newResponse);
     } else {
         submitToAPI("api/recordResponse", newResponse);
