@@ -76,7 +76,7 @@ public class TaskGenerator {
                         }
                     }
                 }
-                return getLeastSeenQuestion(studentModel,  EquineQuestionTypes.structure.toString());
+                return getLeastSeenQuestionWithAttachmentQuestions(studentModel.getUserQuestionSet().getTopLevelSeenQuestionCounts()).getQuestion();
             }
         }
         else if (level == 7) {
@@ -214,13 +214,13 @@ public class TaskGenerator {
      * This funtion is supposed to look through a list of questions and return the structure question
      * seen the least that contains followup questions.
      * @param questionCountList
-     * @return
+     * @return the least seen structure question that has followup questions.
      */
 
     public static QuestionCount getLeastSeenQuestionWithAttachmentQuestions(List<QuestionCount> questionCountList){
 
 
-
+        return null;
     }
 
 }

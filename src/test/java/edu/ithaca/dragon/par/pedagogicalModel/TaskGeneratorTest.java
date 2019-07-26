@@ -250,7 +250,17 @@ public class TaskGeneratorTest {
         question = TaskGenerator.getLeastSeenQuestionWithAttachmentQuestions(questionCountList);
         assertEquals("structure1./images/demoEquine02.jpg", question.getQuestion().getId());
         question.increaseTimesSeen();
+        questionCountList.set(7, question);
+
+        question = TaskGenerator.getLeastSeenQuestionWithAttachmentQuestions(questionCountList);
+        assertEquals("structure0./images/demoEquine04.jpg", question.getQuestion().getId());
+        question.increaseTimesSeen();
         questionCountList.set(2, question);
+
+        question = TaskGenerator.getLeastSeenQuestionWithAttachmentQuestions(questionCountList);
+        assertEquals("structure1./images/demoEquine02.jpg", question.getQuestion().getId());
+        question.increaseTimesSeen();
+        questionCountList.set(16, question);
 
     }
 
