@@ -2,7 +2,9 @@ package edu.ithaca.dragon.par.io;
 
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
-import edu.ithaca.dragon.util.JsonUtil;
+import edu.ithaca.dragon.util.JsonIoHelper;
+import edu.ithaca.dragon.util.JsonIoHelperDefault;
+import edu.ithaca.dragon.util.JsonIoUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,11 +13,56 @@ import java.util.List;
 public class JsonQuestionPoolDatastore {
     private String questionFilePath;
     protected QuestionPool questionPool;
+    private JsonIoUtil jsonIoUtil;
 
     public JsonQuestionPoolDatastore(String questionFilePath) throws IOException {
-        this.questionFilePath = questionFilePath;
-        this.questionPool = new QuestionPool(JsonUtil.listFromJsonFile(questionFilePath, Question.class));
+        this(questionFilePath, new JsonIoHelperDefault());
     }
+
+    public JsonQuestionPoolDatastore(String questionFilePath, JsonIoHelper jsonIoHelper) throws IOException {
+        this(questionFilePath, null, jsonIoHelper);
+    }
+
+    public JsonQuestionPoolDatastore(String questionFilePath, String defaultQuestionReadOnlyFilePath, JsonIoHelper jsonIoHelper) throws IOException {
+        this.jsonIoUtil = new JsonIoUtil(jsonIoHelper);
+        this.questionFilePath = questionFilePath;
+        if (defaultQuestionReadOnlyFilePath != null){
+            this.questionPool = new QuestionPool(jsonIoUtil.listFromFileOrCopyFromReadOnlyFile(questionFilePath, defaultQuestionReadOnlyFilePath, Question.class));
+        }
+        else {
+            this.questionPool = new QuestionPool(jsonIoUtil.listFromFile(questionFilePath, Question.class));
+        }
+    }
+
+    public void addQuestion(Question newQuestion) throws IOException {
+        questionPool.addQuestion(newQuestion);
+        overwriteQuestionPoolFile();
+    }
+
+    public void removeQuestionById(String questionId) throws IOException {
+        questionPool.removeQuestionById(questionId);
+        overwriteQuestionPoolFile();
+    }
+
+    public List<Question> removeAllQuestions() throws IOException{
+        List<Question> allQuestions = getAllQuestions();
+        this.questionPool = new QuestionPool(new ArrayList<>());
+        overwriteQuestionPoolFile();
+        return allQuestions;
+    }
+
+    protected void addQuestions(List<Question> questions) throws IOException{
+        for (Question question : questions){
+            questionPool.addQuestion(question);
+        }
+        overwriteQuestionPoolFile();
+    }
+
+    private void overwriteQuestionPoolFile() throws IOException{
+        jsonIoUtil.toFile(questionFilePath, questionPool.getAllQuestions());
+    }
+
+    //---------  accessors --------------//
 
     public List<Question> getAllQuestions(){
         return questionPool.getAllQuestions();
@@ -29,35 +76,9 @@ public class JsonQuestionPoolDatastore {
         return questionPool.getTopLevelQuestionById(questionId);
     }
 
-    public void addQuestion(Question newQuestion) throws IOException {
-        questionPool.addQuestion(newQuestion);
-        overwriteQuestionPoolFile();
-    }
-
-    public void removeQuestionById(String questionId) throws IOException {
-        questionPool.removeQuestionById(questionId);
-        overwriteQuestionPoolFile();
-    }
-
     public int getQuestionCount(){
         return questionPool.getAllQuestions().size();
     }
 
-    public List<Question> removeAllQuestions() throws IOException{
-        List<Question> allQuestions = getAllQuestions();
-        this.questionPool = new QuestionPool(new ArrayList<>());
-        overwriteQuestionPoolFile();
-        return allQuestions;
-    }
 
-    private void overwriteQuestionPoolFile() throws IOException{
-        JsonUtil.toJsonFile(questionFilePath, questionPool.getAllQuestions());
-    }
-
-    protected void addQuestions(List<Question> questions) throws IOException{
-        for (Question question : questions){
-            questionPool.addQuestion(question);
-        }
-        overwriteQuestionPoolFile();
-    }
 }
