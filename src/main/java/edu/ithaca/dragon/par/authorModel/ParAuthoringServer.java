@@ -1,6 +1,7 @@
 package edu.ithaca.dragon.par.authorModel;
 
 import edu.ithaca.dragon.par.domainModel.Question;
+import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.io.*;
 
 import java.io.IOException;
@@ -28,6 +29,10 @@ public class ParAuthoringServer {
                 authorDatastore.removeQuestionTemplateById(currQuestion.getId());
             }
         }
+    }
+
+    public List<ImageTask> authoredQuestions(QuestionPool questionPool) {
+        return AuthorTaskGenerator.authoredQuestions(questionPool);
     }
 
     public static Question buildQuestionFromTemplate(Question questionIn, ImageTaskResponse imageTaskResponse){

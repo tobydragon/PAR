@@ -5,7 +5,7 @@
     "attachment": "Read Page 394",
     "zone": "Rewatch <a href=https://www.youtube.com/watch?v=dQw4w9WgXcQ> this video </a>"},
   "ableToResubmitAnswers": "True",
-  "mustSubmitAnswersToContinue": "True",
-  "canGiveNoAnswer": "False",
+  "mustSubmitAnswersToContinue": "False",
+  "canGiveNoAnswer": "True",
   "willDisplayFeedback": "False"
 }

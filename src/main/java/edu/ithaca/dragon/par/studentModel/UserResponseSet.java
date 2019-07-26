@@ -21,7 +21,12 @@ public class UserResponseSet {
 
         if (index == -1) userResponses.add(response);
 
-        else userResponses.get(index).addNewResponse(response.getFirstResponse());
+        else {
+            userResponses.get(index).addNewResponse(response.getFirstResponse());//adds response to allResponses list
+            ResponsesPerQuestion response1=userResponses.get(index);//keeps new value
+            userResponses.remove(index);//removes old index
+            userResponses.add(response1);//updates to the last position (most recently answered)
+        }
     }
     public void addAllResponses(List<ResponsesPerQuestion> allResponsesIn) {
         for (int i = 0; i < allResponsesIn.size(); i++) {
@@ -120,7 +125,7 @@ public class UserResponseSet {
 
 
     private static  Map<String, List<ResponsesPerQuestion>> splitResponsesByType(List<ResponsesPerQuestion> responsesPerQuestions) {
-        Map<String, List<ResponsesPerQuestion>> responseByType = new HashMap<>();
+        Map<String, List<ResponsesPerQuestion>> responseByType = new LinkedHashMap<>();
         List<ResponsesPerQuestion> responsesPerQuestion = new ArrayList<>();
         //adds types to the map from EquineQuestionTypes and give each type a new empty list
         for (EquineQuestionTypes currType: EquineQuestionTypes.values()) {
@@ -153,7 +158,7 @@ public class UserResponseSet {
         return knowledgeBaseMap;
     }
 
-
+//TODO: CHECK BY TIMESTAMP INSTEAD OF LAST THREE IN LIST.
     private static String knowledgeBaseEstimate(List<ResponsesPerQuestion> allResponses, int responsesToConsider) {
         //return ____ if the list is empty
         if (allResponses.size() == 0)  return "____";
@@ -174,6 +179,7 @@ public class UserResponseSet {
         }
         return knowledgeBase;
     }
+
 
 
     @Override
