@@ -29,48 +29,50 @@ class CompleteDisplay {
         document.getElementById("UserId").innerHTML = "&nbsp" + this.userID;
     }
 
-    showScore() {
-        if (this.pageDisplay.showScore) {
-            this.displayScore(this.generateScore());
-        }
-    }
-
-    generateScore() {
-        if (this.pageDisplay.scoreType === "VisualByType") {
-            let visJSON = readJson("api/knowledgeBase?userId=" + this.userID);
-            return setCurrentScore(visJSON, this.pageDisplay.scoreType);
-        } else if (this.pageDisplay.scoreType === "NumberByType") {
-            let scoreJSON = readJson("api/calcScoreByType?userId=" + this.userID);
-            return setCurrentScore(scoreJSON, this.pageDisplay.scoreType);
-        }
-    }
-
-    displayScore(given) {
-        if (document.getElementById("score").hasChildNodes()) {
-            let node = document.getElementById("score").firstChild;
-            document.getElementById("score").removeChild(node);
-        }
-        document.getElementById("score").appendChild(given);
-    }
-
     nextImageTask() {
         document.getElementById("questionSet").innerText = "";
         this.pageDisplay.nextImageTask();
     }
 
     nextQuestion() {
+        document.getElementById("helpfulFeedback").innerHTML = " ";
         document.getElementById("errorFeedback").innerHTML = " ";
         if (!this.pageDisplay.imageTaskDisplay.mustSubmitAnswersToContinue) {
             this.nextImageTask();
-            this.showScore();
         } else {
             if (this.pageDisplay.imageTaskDisplay.haveSubmited) {
                 this.nextImageTask();
-                this.showScore();
             } else {
                 document.getElementById("errorFeedback").innerHTML = "<font color=red>Must submit answers to continue</font>";
             }
         }
     }
 
+    showScoreInner(){
+        showScoreOuter(this.pageDisplay.showScore, this.pageDisplay.scoreType, this.userID);
+    }
+}
+
+function showScoreOuter(showScore, scoreType, userId) {
+    if (showScore) {
+        displayScore(generateScore(scoreType, userId));
+    }
+}
+
+function displayScore(given) {
+    if (document.getElementById("score").hasChildNodes()) {
+        let node = document.getElementById("score").firstChild;
+        document.getElementById("score").removeChild(node);
+    }
+    document.getElementById("score").appendChild(given);
+}
+
+function  generateScore(scoreType, userID) {
+    if (scoreType === "VisualByType") {
+        let visJSON = readJson("api/knowledgeBase?userId=" + userID);
+        return setCurrentScore(visJSON, scoreType);
+    } else if (scoreType === "NumberByType") {
+        let scoreJSON = readJson("api/calcScoreByType?userId=" + userID);
+        return setCurrentScore(scoreJSON, scoreType);
+    }
 }

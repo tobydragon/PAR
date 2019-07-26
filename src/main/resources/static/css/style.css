@@ -28,7 +28,7 @@ h5 {
     font-family: 'Nanum Gothic', sans-serif;
 }
 
-#myCanvas {
+.canvas {
     width: 100%;
     height: 100%;
 }

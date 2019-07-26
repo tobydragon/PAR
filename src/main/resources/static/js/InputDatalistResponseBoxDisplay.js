@@ -28,7 +28,9 @@ class InputDatalistResponseBoxDisplay {
     }
 
     checkCurrentResponse(response, unsureShowsCorrect) {
-        response.addToResponseTexts(this.inputTextbox.value);
+        if(this.inputTextbox.value!== ResponseResult.blank) {
+            response.addToResponseTexts(this.inputTextbox.value);
+        }
         let returnResponse = checkAnyResponse(this.correctResponse, this.inputTextbox.value);
         addToTypesIncorrect(returnResponse, this.type, response.typesIncorrect);
 
@@ -43,7 +45,10 @@ class InputDatalistResponseBoxDisplay {
     }
 
     recordCurrentResponse(response) {
-        response.addToResponseTexts(this.inputTextbox.value);
+        if(this.inputTextbox.value!== ResponseResult.blank) {
+            response.addToResponseTexts(this.inputTextbox.value);
+        }
+        return this.inputTextbox.value;
     }
 }
 
@@ -129,6 +134,8 @@ function buildInputTextbox(id, datalistId, size) {
 function disableElement(elementToDisable) {
     return elementToDisable.disabled = true;
 }
+
+
 
 function inputBoxAutoSize(listOfStrings) {
     let highestCharCount = 0;

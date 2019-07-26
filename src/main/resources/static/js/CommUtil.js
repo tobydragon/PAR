@@ -19,14 +19,14 @@ function readJson(url) {
     return JSON.parse(request.response);
 }
 
-function submitToAPI(url, objectToSubmit) {
+function submitToAPI(url, objectToSubmit, showScore, scoreType, userId) {
     var request = new XMLHttpRequest();
     request.open("POST", url);
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     request.send(JSON.stringify(objectToSubmit));
     request.onreadystatechange = function () {
         if (request.status === 200) {
-            
+            showScoreOuter(showScore, scoreType, userId);
         } else {
             window.onerror = function (msg) {
                 location.replace('/error?message=' + msg);
