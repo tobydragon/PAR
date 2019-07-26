@@ -4,6 +4,7 @@ import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.ImageTask;
+import edu.ithaca.dragon.par.studentModel.QuestionCount;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 
 import java.util.ArrayList;
@@ -207,6 +208,19 @@ public class TaskGenerator {
             }
         }
         return seenQuestions.get(index);
+    }
+
+    /**
+     * This funtion is supposed to look through a list of questions and return the structure question
+     * seen the least that contains followup questions.
+     * @param questionCountList
+     * @return
+     */
+
+    public static QuestionCount getLeastSeenQuestionWithAttachmentQuestions(List<QuestionCount> questionCountList){
+
+
+
     }
 
 }

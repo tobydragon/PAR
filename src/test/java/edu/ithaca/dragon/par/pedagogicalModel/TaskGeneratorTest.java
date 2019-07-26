@@ -5,6 +5,7 @@ import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.JsonQuestionPoolDatastore;
+import edu.ithaca.dragon.par.studentModel.QuestionCount;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.util.JsonUtil;
 import org.junit.jupiter.api.Assertions;
@@ -235,21 +236,22 @@ public class TaskGeneratorTest {
         assertEquals("plane", recFollowups.getFollowupQuestions().get(2).getFollowupQuestions().get(0).getType());
         assertEquals(0, recFollowupsAfter.getFollowupQuestions().get(2).getFollowupQuestions().size());
     }
-    /*
+
     @Test
-    public void emptyQuestionSetTest()throws IOException {
-        Datastore datastore = new JsonDatastore("src/test/resources/author/simpleTestSet/currentQuestionPool.json", "src/test/resources/author/simpleTestSet/students");
-        StudentModel testUser2 = datastore.loadStudentModel("testUser2");
+    public void getLeastSeenQuestionWithAttachmentQuestionsTest() throws IOException{
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
+        List<QuestionCount> questionCountList = QuestionCount.questionToQuestionCount(questionPool.getAllQuestions());
 
-        ImageTask imageTask2 = TaskGenerator.makeTask(testUser2,1);
-        ImageTask imageTask = TaskGenerator.makeTask(testUser2,7);
+        QuestionCount question = TaskGenerator.getLeastSeenQuestionWithAttachmentQuestions(questionCountList);
+        assertEquals("structure0./images/demoEquine14.jpg", question.getQuestion().getId());
+        question.increaseTimesSeen();
+        questionCountList.set(2, question);
 
-        System.out.println(imageTask2.getTaskQuestions());
-        System.out.println(imageTask.getTaskQuestions());
-
-        assertEquals(1,imageTask.getTaskQuestions().size());
+        question = TaskGenerator.getLeastSeenQuestionWithAttachmentQuestions(questionCountList);
+        assertEquals("structure1./images/demoEquine02.jpg", question.getQuestion().getId());
+        question.increaseTimesSeen();
+        questionCountList.set(2, question);
 
     }
 
-     */
 }
