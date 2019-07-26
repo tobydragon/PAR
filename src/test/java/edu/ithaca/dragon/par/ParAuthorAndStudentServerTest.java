@@ -2,6 +2,8 @@ package edu.ithaca.dragon.par;
 
 import edu.ithaca.dragon.par.io.JsonAuthorDatastore;
 import edu.ithaca.dragon.par.io.JsonStudentModelDatastore;
+import edu.ithaca.dragon.util.JsonIoHelper;
+import edu.ithaca.dragon.util.JsonIoHelperDefault;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -20,16 +22,19 @@ class ParAuthorAndStudentServerTest {
     void transferAuthoredQuestionsToStudentServerTest(@TempDir Path tempDir) throws IOException {
         Path currentQuestionPath = tempDir.resolve("currentAuthorQuestions.json");
         Path currentQuestionTemplatePath = tempDir.resolve("currentQuestionTemplates.json");
-        Files.copy(Paths.get("src/test/resources/author/SampleQuestionPool.json"), currentQuestionPath, StandardCopyOption.REPLACE_EXISTING);
-        Files.copy(Paths.get("src/test/resources/author/DemoQuestionPoolTemplate.json"), currentQuestionTemplatePath, StandardCopyOption.REPLACE_EXISTING);
-        JsonAuthorDatastore jsonAuthorDatastore = new JsonAuthorDatastore(currentQuestionPath.toString(), currentQuestionTemplatePath.toString(), tempDir.resolve("currentAuthorModel.json").toString());
+        JsonAuthorDatastore jsonAuthorDatastore = new JsonAuthorDatastore(
+                currentQuestionPath.toString(), "src/test/resources/author/SampleQuestionPool.json",
+                currentQuestionTemplatePath.toString(), "src/test/resources/author/DemoQuestionPoolTemplate.json",
+                tempDir.resolve("currentAuthorModel.json").toString(), new JsonIoHelperDefault());
         assertEquals(15, jsonAuthorDatastore.getAllAuthoredQuestions().size());
 
-        Path currentStudentQuestionPath = tempDir.resolve("currentQuestions.json");
-        Files.copy(Paths.get("src/test/resources/author/DemoQuestionPoolFollowup.json"), currentStudentQuestionPath, StandardCopyOption.REPLACE_EXISTING);
         Path currentStudentModelDir = tempDir.resolve("students");
         assertTrue(new File(currentStudentModelDir.toString()).mkdir());
-        JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(currentStudentQuestionPath.toString(), currentStudentModelDir.toString());
+        JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
+                tempDir.resolve("currentQuestions.json").toString(),
+                "src/test/resources/author/DemoQuestionPoolFollowup.json",
+                new JsonIoHelperDefault(),
+                currentStudentModelDir.toString());
         assertEquals(47, jsonStudentDatastore.getAllQuestions().size());
 
         ParAuthorAndStudentServer parAuthorAndStudentServer = new ParAuthorAndStudentServer(jsonStudentDatastore, jsonAuthorDatastore);
@@ -40,7 +45,7 @@ class ParAuthorAndStudentServerTest {
 
         //load again from file to ensure changes are kept
         jsonAuthorDatastore = new JsonAuthorDatastore(currentQuestionPath.toString(), currentQuestionTemplatePath.toString(), tempDir.resolve("currentAuthorModel.json").toString());
-        jsonStudentDatastore = new JsonStudentModelDatastore(currentStudentQuestionPath.toString(), currentStudentModelDir.toString());
+        jsonStudentDatastore = new JsonStudentModelDatastore(tempDir.resolve("currentQuestions.json").toString(), currentStudentModelDir.toString());
 
         assertEquals(0, jsonAuthorDatastore.getAllAuthoredQuestions().size());
         assertEquals(62, jsonStudentDatastore.getAllQuestions().size());

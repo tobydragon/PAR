@@ -8,7 +8,6 @@ import edu.ithaca.dragon.par.io.JsonQuestionPoolDatastore;
 import edu.ithaca.dragon.par.studentModel.QuestionCount;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.util.JsonUtil;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -17,7 +16,6 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 
-import static junit.framework.TestCase.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TaskGeneratorTest {
