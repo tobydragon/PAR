@@ -75,16 +75,16 @@ public class AuthorTaskGeneratorTest {
 
     @Test
     public void urlsTest()throws IOException {
-        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
-        Set<String> urls = AuthorTaskGenerator.urls(questionPool);
+        List<Question> questions = JsonUtil.listFromJsonFile("src/test/resources/author/DemoQuestionPoolFollowup.json", Question.class);
+        Set<String> urls = AuthorTaskGenerator.urls(questions);
         assertEquals(10, urls.size());
 
     }
 
     @Test
     public void authoredQuestionsTest()throws IOException{
-        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
-        List<ImageTask> authoredImageTasks=AuthorTaskGenerator.authoredQuestions(questionPool);
+        List<Question> questions = JsonUtil.listFromJsonFile("src/test/resources/author/DemoQuestionPoolFollowup.json", Question.class);
+        List<ImageTask> authoredImageTasks=AuthorTaskGenerator.authoredQuestions(questions);
 
         assertEquals(10,authoredImageTasks.size());
         assertEquals(5,authoredImageTasks.get(0).getTaskQuestions().size());//should be 5 questions with this url

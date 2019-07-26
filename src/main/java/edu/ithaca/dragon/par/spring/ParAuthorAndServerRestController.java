@@ -130,7 +130,7 @@ public class ParAuthorAndServerRestController {
         }
     }
     @GetMapping("/authoredQuestions")
-    public List<ImageTask> authoredQuestions(@RequestParam QuestionPool questionPool){
-        return parServer.authoredQuestions(questionPool);
+    public List<ImageTask> authoredQuestions(){
+        return parServer.authoredQuestions();
     }
 }

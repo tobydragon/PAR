@@ -31,8 +31,8 @@ public class ParAuthoringServer {
         }
     }
 
-    public List<ImageTask> authoredQuestions(QuestionPool questionPool) {
-        return AuthorTaskGenerator.authoredQuestions(questionPool);
+    public List<ImageTask> authoredQuestions() {
+        return AuthorTaskGenerator.authoredQuestions(authorDatastore.getAllAuthoredQuestions());
     }
 
     public static Question buildQuestionFromTemplate(Question questionIn, ImageTaskResponse imageTaskResponse){

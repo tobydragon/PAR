@@ -32,24 +32,24 @@ public class AuthorTaskGenerator {
         return task;
     }
 
-    public static Set<String> urls(QuestionPool questionPool){
+    public static Set<String> urls(List<Question> questionList){
         Set<String> urls=new LinkedHashSet<>();
-        for(int i=0;i<questionPool.getAllQuestions().size()-1;i++){
-            urls.add(questionPool.getAllQuestions().get(i).getImageUrl());
+        for(int i=0;i<questionList.size()-1;i++){
+            urls.add(questionList.get(i).getImageUrl());
         }
         return urls;
     }
 
-    public static List<ImageTask> authoredQuestions(QuestionPool questionPool){
+    public static List<ImageTask> authoredQuestions(List<Question> questionList){
         List<ImageTask> authoredQuestions=new ArrayList<>();
         List<Question> forTask;
-        Set<String> urls=urls(questionPool);
+        Set<String> urls=urls(questionList);
 
         for (String currUrl:urls){
             forTask=new ArrayList<>();
-            for (int k = 0; k < questionPool.getAllQuestions().size(); k++) {
-                if(currUrl.equals(questionPool.getAllQuestions().get(k).getImageUrl())){
-                    forTask.add(questionPool.getAllQuestions().get(k));
+            for (int k = 0; k < questionList.size(); k++) {
+                if(currUrl.equals(questionList.get(k).getImageUrl())){
+                    forTask.add(questionList.get(k));
                 }
             }
             ImageTask task = new ImageTask(currUrl, forTask);
