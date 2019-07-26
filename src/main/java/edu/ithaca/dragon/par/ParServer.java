@@ -19,22 +19,10 @@ public class ParServer {
 
     protected QuestionPool questionPool;
     private StudentModelDatastore studentModelDatastore;
-    private Integer windowSizeOverride;
 
     public ParServer(StudentModelDatastore studentModelDatastore) throws IOException {
         this.questionPool = new QuestionPool(studentModelDatastore.getAllQuestions());
         this.studentModelDatastore = studentModelDatastore;
-        this.windowSizeOverride = null;
-
-        checkIfWindowSizeIsValid(questionPool);
-    }
-
-    public ParServer(StudentModelDatastore studentModelDatastore, int windowSizeOverride) throws IOException {
-        this.questionPool = new QuestionPool(studentModelDatastore.getAllQuestions());
-        this.studentModelDatastore = studentModelDatastore;
-        this.windowSizeOverride = windowSizeOverride;
-
-        checkIfWindowSizeIsValid(questionPool);
     }
 
     //side effects: generating an image task will  mark previously unseen questions as seen as well as
@@ -59,11 +47,6 @@ public class ParServer {
         return currentStudent.knowledgeScore();
     }
 
-    public static String sendNewImageTaskResponse(ImageTaskResponse response) throws IOException {
-        //update the data store with the new imageTaskResponse
-        return null;
-    }
-
     public Map<String, Double> calcScoreByType(String userId) throws IOException {
         StudentModel currentStudent = studentModelDatastore.getStudentModel(userId);
         return currentStudent.knowledgeScoreByType();
@@ -76,18 +59,6 @@ public class ParServer {
 
     public void logout(String userId) throws IOException{
         studentModelDatastore.logout(userId);
-    }
-
-    public void checkIfWindowSizeIsValid(QuestionPool questionPool) {
-        if (windowSizeOverride == null) {
-            if (!questionPool.checkWindowSize(UserResponseSet.windowSize)) {
-                throw new RuntimeException("The windownSize is too small for the given questionPool");
-            }
-        } else {
-            if (!questionPool.checkWindowSize(windowSizeOverride)) {
-                throw new RuntimeException("The windownSize (Overriden) is too small for the given questionPool");
-            }
-        }
     }
 
     public void addQuestions(List<Question> questions) throws IOException{

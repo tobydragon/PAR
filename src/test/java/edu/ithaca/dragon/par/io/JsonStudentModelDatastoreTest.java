@@ -2,12 +2,14 @@ package edu.ithaca.dragon.par.io;
 
 
 import edu.ithaca.dragon.par.domainModel.Question;
+import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.pedagogicalModel.TaskGenerator;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -23,7 +25,7 @@ public class JsonStudentModelDatastoreTest {
 
     @Test
     public void loadIndividualStudentTest() throws IOException{
-        StudentModelDatastore studentModelDatastore = new JsonStudentModelDatastore("src/test/resources/author/SampleQuestionPool.json", "src/test/resources/author/students");
+        StudentModelDatastore studentModelDatastore = new JsonStudentModelDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json", "src/test/resources/author/students");
 
         //load an existing file and make sure it exists
         StudentModel testUser100 = studentModelDatastore.getStudentModel("TestUser100");
@@ -36,7 +38,10 @@ public class JsonStudentModelDatastoreTest {
 
     @Test
     public void getOrCreateStudentModelTest(@TempDir Path tempDir) throws IOException{
-        JsonStudentModelDatastore jsonStudentModelDatastore = new JsonStudentModelDatastore("src/test/resources/author/SampleQuestionPool.json", tempDir.toString());
+//        JsonStudentModelDatastore jsonStudentModelDatastore = new JsonStudentModelDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json", "src/test/resources/author/students");
+//        StudentModel studentModel = jsonStudentModelDatastore.getOrCreateStudentModel("testUser1");
+//        jsonStudentModelDatastore.imageTaskResponseSubmitted(studentModel.getUserId(), new ImageTaskResponse("TestUser100", Arrays.asList("plane./images/demoEquine14.jpg"), Arrays.asList("longitudinal")));
+        JsonStudentModelDatastore jsonStudentModelDatastore = new JsonStudentModelDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json", tempDir.toString());
         Path newStudentPath = tempDir.resolve("TestUser100.json");
         Files.copy(Paths.get("src/test/resources/author/students/TestUser100.json"), newStudentPath, StandardCopyOption.REPLACE_EXISTING);
 
@@ -44,6 +49,7 @@ public class JsonStudentModelDatastoreTest {
         StudentModel studentModel1 = jsonStudentModelDatastore.getOrCreateStudentModel("TestUser100");
         assertEquals("TestUser100", studentModel1.getUserId());
         assertEquals(2, studentModel1.getSeenQuestionCount());
+        assertEquals(1, studentModel1.getResponseCount());
 
         //load a user that does not have a file
         StudentModel studentModel2 = jsonStudentModelDatastore.getOrCreateStudentModel("NewUser1");
@@ -54,7 +60,7 @@ public class JsonStudentModelDatastoreTest {
         assertFalse(Files.exists(tempDir.resolve("NewUser1.json")));
         TaskGenerator.makeTask(studentModel2);
         assertEquals(1, studentModel2.getSeenQuestionCount());
-        jsonStudentModelDatastore.imageTaskResponseSubmitted(studentModel2.getUserId(), new ImageTaskResponse("NewUser1", Arrays.asList("PlaneQ1"), Arrays.asList("longitudinal")));
+        jsonStudentModelDatastore.imageTaskResponseSubmitted(studentModel2.getUserId(), new ImageTaskResponse("NewUser1", Arrays.asList("plane./images/demoEquine04.jpg"), Arrays.asList("longitudinal")));
         assertEquals(1, studentModel2.getResponseCount());
         //a file should now been written
         assertTrue(Files.exists(tempDir.resolve("NewUser1.json")));
@@ -62,19 +68,18 @@ public class JsonStudentModelDatastoreTest {
         //make a change to a user, log them out, then reload them to see if changes were saved
         TaskGenerator.makeTask(studentModel1);
         assertEquals(3, studentModel1.getSeenQuestionCount());
-        jsonStudentModelDatastore.imageTaskResponseSubmitted(studentModel1.getUserId(), new ImageTaskResponse("TestUser100", Arrays.asList("PlaneQ3"), Arrays.asList("longitudinal")));
-        assertEquals(1, studentModel1.getResponseCount());
+        jsonStudentModelDatastore.imageTaskResponseSubmitted(studentModel1.getUserId(), new ImageTaskResponse("TestUser100", Arrays.asList("plane./images/demoEquine10.jpg"), Arrays.asList("longitudinal")));
+        assertEquals(2, studentModel1.getResponseCount());
 
         jsonStudentModelDatastore.logout("TestUser100");
         StudentModel studentModel3 = jsonStudentModelDatastore.getOrCreateStudentModel("TestUser100");
         assertEquals(3, studentModel3.getSeenQuestionCount());
-        assertEquals(1, studentModel3.getResponseCount());
+        assertEquals(2, studentModel3.getResponseCount());
     }
 
     @Test
-    public void loadAllStudentsTest() throws IOException{
-        JsonStudentModelDatastore studentModelDatastore = new JsonStudentModelDatastore("src/test/resources/author/SampleQuestionPool.json", "src/test/resources/author/students");
-        List<String> usernames = studentModelDatastore.loadAllStudents();
+    public void getAllSavedStudentIdsTest() throws IOException{
+        List<String> usernames = JsonStudentModelDatastore.getAllSavedStudentIds("src/test/resources/author/students");
         assertEquals(3, usernames.size());
         assertEquals("TestUser100", usernames.get(0));
         assertEquals("TestUser101", usernames.get(1));
@@ -83,20 +88,17 @@ public class JsonStudentModelDatastoreTest {
 
     @Test
     public void addQuestionsTest(@TempDir Path tempDir) throws IOException{
-        //make paths for copies of the files
         Path currentQuestionPath = tempDir.resolve("currentQuestions.json");
-        Path currentStudentModelsPath = Files.createTempDirectory("currentStudentModels");
-        Path fileToCreatePath = currentStudentModelsPath.resolve("TestUser100.json");
-        Path fileToCreatePath2 = currentStudentModelsPath.resolve("TestUser101.json");
-        Path fileToCreatePath3 = currentStudentModelsPath.resolve("TestUser102.json");
+        Files.copy(Paths.get("src/test/resources/author/DemoQuestionPoolFollowup.json"), currentQuestionPath, StandardCopyOption.REPLACE_EXISTING);
 
-        //copy the files to use to the paths (these temp files will change as work is done)
-        Files.copy(Paths.get("src/test/resources/author/SampleQuestionPool.json"), currentQuestionPath, StandardCopyOption.REPLACE_EXISTING);
-        Files.copy(Paths.get("src/test/resources/author/students/TestUser100.json"), fileToCreatePath, StandardCopyOption.REPLACE_EXISTING);
-        Files.copy(Paths.get("src/test/resources/author/students/TestUser101.json"), fileToCreatePath2, StandardCopyOption.REPLACE_EXISTING);
-        Files.copy(Paths.get("src/test/resources/author/students/TestUser102.json"), fileToCreatePath3, StandardCopyOption.REPLACE_EXISTING);
+        Path currentStudentModelsPath = tempDir.resolve("currentStudentModels");
+        assertTrue(new File(currentStudentModelsPath.toString()).mkdir());
 
-
+        StudentModelDatastore studentModelDatastore = new JsonStudentModelDatastore(currentQuestionPath.toString(), currentStudentModelsPath.toString());
+        assertEquals(47, studentModelDatastore.getStudentModel("TestUser100").getUserQuestionSet().getQuestionCounts().size());
+        assertEquals(47, studentModelDatastore.getStudentModel("TestUser101").getUserQuestionSet().getQuestionCounts().size());
+        assertEquals(47, studentModelDatastore.getStudentModel("TestUser102").getUserQuestionSet().getQuestionCounts().size());
+        assertEquals(47, studentModelDatastore.getAllQuestions().size());
 
         Question q = new Question("Question1", "What is this question?", "Good", "A very good one", Arrays.asList("A very good one", "A great one", ":("), "/images/AnImage");
         Question q2 = new Question("Question2", "What is a question?", "Question", "Something important", Arrays.asList("Something important", ":)", ">:/"), "/images/aBetterImage");
@@ -106,20 +108,36 @@ public class JsonStudentModelDatastoreTest {
         questions.add(q2);
         questions.add(q3);
 
-        StudentModelDatastore studentModelDatastore = new JsonStudentModelDatastore(currentQuestionPath.toString(), currentStudentModelsPath.toString());
-        assertEquals(15, studentModelDatastore.getStudentModel("TestUser100").getUserQuestionSet().getQuestionCounts().size());
-        assertEquals(15, studentModelDatastore.getStudentModel("TestUser101").getUserQuestionSet().getQuestionCounts().size());
-        assertEquals(15, studentModelDatastore.getStudentModel("TestUser102").getUserQuestionSet().getQuestionCounts().size());
-        assertEquals(15, studentModelDatastore.getAllQuestions().size());
-
         studentModelDatastore.addQuestions(questions);
-        assertEquals(18, studentModelDatastore.getStudentModel("TestUser100").getUserQuestionSet().getQuestionCounts().size());
-        assertEquals(18, studentModelDatastore.getStudentModel("TestUser101").getUserQuestionSet().getQuestionCounts().size());
-        assertEquals(18, studentModelDatastore.getStudentModel("TestUser102").getUserQuestionSet().getQuestionCounts().size());
-        assertEquals(18, studentModelDatastore.getAllQuestions().size());
 
+        assertEquals(50, studentModelDatastore.getStudentModel("TestUser100").getUserQuestionSet().getQuestionCounts().size());
+        assertEquals(50, studentModelDatastore.getStudentModel("TestUser101").getUserQuestionSet().getQuestionCounts().size());
+        assertEquals(50, studentModelDatastore.getStudentModel("TestUser102").getUserQuestionSet().getQuestionCounts().size());
+        assertEquals(50, studentModelDatastore.getAllQuestions().size());
 
         assertThrows(RuntimeException.class, ()->{studentModelDatastore.addQuestions(questions);});
 
+    }
+
+    @Test
+    public void checkWindowSizeTest() throws IOException{
+        QuestionPool qp = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/SampleQuestionPool3.json").getAllQuestions());
+        //This qp has 5 of each question
+
+        assertFalse(JsonStudentModelDatastore.isWindowSizeTooBig(0, qp.getAllQuestions()));
+        assertFalse(JsonStudentModelDatastore.isWindowSizeTooBig(1, qp.getAllQuestions()));
+        assertFalse(JsonStudentModelDatastore.isWindowSizeTooBig(5, qp.getAllQuestions()));
+        assertTrue(JsonStudentModelDatastore.isWindowSizeTooBig(6, qp.getAllQuestions()));
+        assertTrue(JsonStudentModelDatastore.isWindowSizeTooBig(10, qp.getAllQuestions()));
+
+        QuestionPool qp2 = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPool2.json").getAllQuestions());
+        //qp2 has 10 plane, 27 struct, 6 attachment, and 10 zone
+
+        assertFalse(JsonStudentModelDatastore.isWindowSizeTooBig(0, qp2.getAllQuestions()));
+        assertFalse(JsonStudentModelDatastore.isWindowSizeTooBig(5, qp2.getAllQuestions()));
+        assertFalse(JsonStudentModelDatastore.isWindowSizeTooBig(6, qp2.getAllQuestions()));
+        assertTrue(JsonStudentModelDatastore.isWindowSizeTooBig(10, qp2.getAllQuestions()));
+        assertTrue(JsonStudentModelDatastore.isWindowSizeTooBig(27, qp2.getAllQuestions()));
+        assertTrue(JsonStudentModelDatastore.isWindowSizeTooBig(100, qp2.getAllQuestions()));
     }
 }
