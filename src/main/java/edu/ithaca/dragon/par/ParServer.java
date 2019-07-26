@@ -17,11 +17,9 @@ import java.util.Map;
 
 public class ParServer {
 
-    protected QuestionPool questionPool;
     private StudentModelDatastore studentModelDatastore;
 
-    public ParServer(StudentModelDatastore studentModelDatastore) throws IOException {
-        this.questionPool = new QuestionPool(studentModelDatastore.getAllQuestions());
+    public ParServer(StudentModelDatastore studentModelDatastore) {
         this.studentModelDatastore = studentModelDatastore;
     }
 
