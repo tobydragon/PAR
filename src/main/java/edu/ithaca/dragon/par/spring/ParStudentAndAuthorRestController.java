@@ -37,7 +37,8 @@ public class ParStudentAndAuthorRestController {
             JsonAuthorDatastore jsonAuthorDatastore = new JsonAuthorDatastore(
                     "localData/currentAuthoredQuestions.json",
                     "localData/currentAuthorQuestionTemplates.json",
-                    "localData/currentAuthorModel.json");
+                    "localData/currentAuthorModel.json"
+                    );
             JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
                     "localData/currentQuestionPool.json",
                     "localData/students");

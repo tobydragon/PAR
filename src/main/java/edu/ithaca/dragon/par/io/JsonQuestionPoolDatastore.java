@@ -2,7 +2,9 @@ package edu.ithaca.dragon.par.io;
 
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
-import edu.ithaca.dragon.util.JsonUtil;
+import edu.ithaca.dragon.util.JsonIoHelper;
+import edu.ithaca.dragon.util.JsonIoHelperDefault;
+import edu.ithaca.dragon.util.JsonIoUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,10 +13,25 @@ import java.util.List;
 public class JsonQuestionPoolDatastore {
     private String questionFilePath;
     protected QuestionPool questionPool;
+    private JsonIoUtil jsonIoUtil;
 
     public JsonQuestionPoolDatastore(String questionFilePath) throws IOException {
+        this(questionFilePath, new JsonIoHelperDefault());
+    }
+
+    public JsonQuestionPoolDatastore(String questionFilePath, JsonIoHelper jsonIoHelper) throws IOException {
+        this(questionFilePath, null, jsonIoHelper);
+    }
+
+    public JsonQuestionPoolDatastore(String questionFilePath, String defaultQuestionReadOnlyFilePath, JsonIoHelper jsonIoHelper) throws IOException {
+        this.jsonIoUtil = new JsonIoUtil(jsonIoHelper);
         this.questionFilePath = questionFilePath;
-        this.questionPool = new QuestionPool(JsonUtil.listFromJsonFile(questionFilePath, Question.class));
+        if (defaultQuestionReadOnlyFilePath != null){
+            this.questionPool = new QuestionPool(jsonIoUtil.listFromFileOrCopyFromReadOnlyFile(questionFilePath, defaultQuestionReadOnlyFilePath, Question.class));
+        }
+        else {
+            this.questionPool = new QuestionPool(jsonIoUtil.listFromFile(questionFilePath, Question.class));
+        }
     }
 
     public void addQuestion(Question newQuestion) throws IOException {
@@ -42,7 +59,7 @@ public class JsonQuestionPoolDatastore {
     }
 
     private void overwriteQuestionPoolFile() throws IOException{
-        JsonUtil.toJsonFile(questionFilePath, questionPool.getAllQuestions());
+        jsonIoUtil.toFile(questionFilePath, questionPool.getAllQuestions());
     }
 
     //---------  accessors --------------//

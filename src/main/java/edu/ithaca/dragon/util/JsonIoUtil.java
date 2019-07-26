@@ -67,7 +67,7 @@ public class JsonIoUtil {
             return listFromFile(filePath, classToBeCreated);
         }
         catch (Exception e){
-            T defaultObject = fromReadOnlyFile(inputStreamPath, classToBeCreated);
+            List<T> defaultObject = listfromReadOnlyFile(inputStreamPath, classToBeCreated);
             toFile(filePath, defaultObject);
             return listFromFile(filePath, classToBeCreated);
         }
