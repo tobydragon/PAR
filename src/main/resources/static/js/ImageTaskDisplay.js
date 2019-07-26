@@ -120,7 +120,8 @@ class ImageTaskDisplay {
         newCanvas.id= name;
         newCanvas.width= "1024";
         newCanvas.height= "768";
-        newCanvas.classList.add("center-block");
+        //newCanvas.classList.add("center-block");
+        newCanvas.classList.add("canvas");
         document.getElementById("canvasArea").appendChild(newCanvas);
         this.pageImage = new PageImage(imageUrl, name);
     }
