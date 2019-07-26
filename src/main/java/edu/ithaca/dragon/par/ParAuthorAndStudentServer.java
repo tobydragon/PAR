@@ -71,8 +71,8 @@ public class ParAuthorAndStudentServer {
             return ResponseEntity.notFound().build();
         }
     }
-    public List<ImageTask> authoredQuestions(QuestionPool questionPool) {
-        return parAuthoringServer.authoredQuestions(questionPool);
+    public List<ImageTask> authoredQuestions( ) {
+        return parAuthoringServer.authoredQuestions();
     }
 
 

@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 public class ResponsesPerQuestion {
-    public static final long SECONDS_BETWEEN =30;
+    public static final long SECONDS_BETWEEN =30;//TODO
     private String questionId;
     private String userId;
     private Question question;
@@ -136,6 +136,9 @@ public class ResponsesPerQuestion {
         this.questionType = questionType;
     }
 
+    public long getTimeStamp(){
+        return allResponses.get(allResponsesSize()-1).getMillSeconds();
+    }
     @Override
     public boolean equals(Object otherObj){
         if(otherObj == null){

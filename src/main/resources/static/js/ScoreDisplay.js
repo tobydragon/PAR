@@ -11,62 +11,41 @@ class ScoreDisplay {
 function setCurrentScore(scoreObject, scoreType) {
     let scoreString = "";
     let outerNode = document.createElement('div');
-    if (scoreType === "ByType") {
-        //scoreString=generateScoreByType(scoreObject);
+    if (scoreType === "VisualByType") {
         scoreString = outerNode.appendChild(generateScoreElementByType(scoreObject));
     } else if (scoreType === "SingleScore") {
         scoreString = generateSinglescore(scoreObject);
     } else if (scoreType === "Level") {
         scoreString = generateScoreLevel(scoreObject);
+    } else if (scoreType === "NumberByType") {
+        scoreString = outerNode.appendChild(generateScoreByType(scoreObject));
     }
     return scoreString;
 }
 
+//for less spectacular, number score display.
 function generateScoreByType(scoreObject) {
-    //80-100 green
-    //79-50 orange
-    //49-0 red
-    var breakdownString = "";
-    for (var key in scoreObject) {
+    let scoreBuilder;
+    let outerNode = document.createElement('div');
+    outerNode.classList.add("textAlignRight");
+    let buildSegment;
+    for (let key in scoreObject) {
+        scoreBuilder = document.createElement('div');
         if (scoreObject.hasOwnProperty(key)) {
             let value = scoreObject[key];
-            if (value >= 80) {
-                breakdownString += "&nbsp <i class=black>" + key + ":</i> <i class=green>" + value + "<i>";
-            } else if (value <= 79 && value >= 50) {
-                breakdownString += "<i class=black>" + key + ":</i> <i class=orange>" + value + "<i>";
-            } else if (value <= 49) {
-                breakdownString += "<i class=black>" + key + ":</i> <i class=red>" + value + "<i>";
-            }
-        }
-        breakdownString += "<br />";
-    }
-    return breakdownString;
+            scoreBuilder.classList.add("black");
+            scoreBuilder.innerHTML = (key + ": ");
 
+            buildSegment = buildScoreSegment(value);
+            scoreBuilder.appendChild(buildSegment);
+        }
+        outerNode.appendChild(scoreBuilder);
+    }
+    return outerNode;
 }
-/**
-function generateScoreStringByType(scoreObject) {
-    var visString = "";
-    for (var key in scoreObject) { //key search
-        if (scoreObject.hasOwnProperty(key)) {
-            let value = scoreObject[key];
-            visString += "&nbsp <i class=black>" + key + ": </i>";
-            for (let i = 0; i < value.length; i++) { //value search on string
-                if (value[i] == "O") {
-                    visString += '<i class="fas fa-check-circle green"></i>';
-                } else if (value[i] == "X") {
-                    visString += '<i class="fas fa-times-circle red"></i>';
-                } else if (value[i] == "_") {
-                    visString += '<i class="fas fa-circle"></i>';
-                } else {
-                    visString += '<i class="fas fa-minus-circle yellow"></i>';
-                }
-            }
-            visString += '<br />';
-        }
-    }
-    return visString;
-}**/
 
+
+//for visualization w the circle score display
 function generateScoreElementByType(scoreObject) {
     let visualBuilder;
     let outerNode = document.createElement('div');
@@ -88,6 +67,23 @@ function generateScoreElementByType(scoreObject) {
     return outerNode;
 }
 
+//For number score by type
+function buildScoreSegment(value) {
+    let childElement = document.createElement('i');
+    if (value >= 80) {
+        childElement.classList.add("green");
+    } else if (value <= 79 && value >= 50) {
+        childElement.classList.add("orange");
+    } else if (value <= 49 && value >= 1) {
+        childElement.classList.add("red");
+    } else if (value == -1) {
+        value = '';
+    }
+    childElement.innerHTML = value;
+    return childElement;
+}
+
+//for visual score by type
 function buildVisualSegment(value) {
     let childElement = document.createElement('div');
     if (value === 'O') {

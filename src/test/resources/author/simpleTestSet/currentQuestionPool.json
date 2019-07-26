@@ -1,0 +1,184 @@
+[ {
+  "id" : "plane./images/demoEquine14.jpg",
+  "type" : "plane",
+  "questionText" : "On which plane is the ultrasound taken? 1",
+  "correctAnswer" : "longitudinal",
+  "possibleAnswers" : [ "wrong", "longitudinal" ],
+  "imageUrl" : "./images/demoEquine141.jpg",
+  "followupQuestions": []
+
+}, {
+  "id" : "structure0./images/demoEquine14.jpg",
+  "type" : "structure",
+  "questionText" : "What is the the hyperechoic structure? 1",
+  "correctAnswer" : "Palmar metacarpal vessels (medial/lateral)",
+  "possibleAnswers" : ["wrong","Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/demoEquine14.jpg",
+  "followupQuestions": []
+
+}, {
+  "id" : "structure2./images/demoEquine14.jpg",
+  "type" : "structure",
+  "questionText" : "What is the structure in the near field? 2",
+  "correctAnswer" : "Suspensory ligament (branches)",
+  "possibleAnswers" : [ "wrong", "Suspensory ligament (branches)"],
+  "imageUrl" : "./images/demoEquine14.jpg",
+  "followupQuestions": []
+
+
+},{
+    "id": "plane./images/demoEquine37.jpg",
+    "type": "plane",
+    "questionText": "On which plane is the ultrasound taken? 2",
+    "correctAnswer": "transverse",
+    "possibleAnswers": [
+      "transverse",
+      "wrong"
+    ],
+    "imageUrl": "./images/demoEquine37.jpg",
+    "followupQuestions": []
+  },{
+  "id" : "structure3./images/demoEquine14.jpg",
+  "type" : "structure",
+  "questionText" : "What is the in the far field? 3",
+  "correctAnswer" : "Metacarpus bone 3 (Third metacarpal bone)",
+  "possibleAnswers" : ["wrong", "Metacarpus bone 3 (Third metacarpal bone)"],
+  "imageUrl" : "./images/demoEquine14.jpg",
+  "followupQuestions": []
+
+}, {
+  "id" : "plane./images/demoEquine02.jpg",
+  "type" : "plane",
+  "questionText" : "On which plane is the ultrasound taken? 3",
+  "correctAnswer" : "longitudinal",
+  "possibleAnswers" : [ "wrong", "longitudinal" ],
+  "imageUrl" : "./images/demoEquine02.jpg",
+  "followupQuestions": []
+
+},
+  {
+  "id" : "structure0./images/demoEquine02.jpg",
+  "type" : "structure",
+  "questionText" : "What is the the hyperechoic structure? 4",
+  "correctAnswer" : "Superficial digital flexor tendon",
+  "possibleAnswers" :[ "wrong", "Superficial digital flexor tendon"],
+  "imageUrl" : "./images/demoEquine02.jpg",
+  "followupQuestions": [{
+
+    "id": "AttachQ1",
+    "type": "attachment",
+    "questionText": "Which attachment is this 1?",
+    "correctAnswer": "Type2",
+    "possibleAnswers": [
+      "Type1",
+      "Type2",
+      "Type3"
+    ],
+    "imageUrl": "./images/demoEquine14.jpg",
+    "followupQuestions": []
+  },
+    {
+      "id": "AttachQ2",
+      "type": "attachment",
+      "questionText": "Which attachment is this? 2",
+      "correctAnswer": "Type2",
+      "possibleAnswers": [
+        "Type1",
+        "Type2",
+        "Type3"
+      ],
+      "imageUrl": "./images/demoEquine14.jpg",
+      "followupQuestions": []
+    }]
+
+}, {"id": "AttachQ3",
+  "type": "attachment",
+  "questionText": "Which attachment is this? 3",
+  "correctAnswer": "Type2",
+  "possibleAnswers": [
+    "Type1",
+    "Type2",
+    "Type3"
+  ],
+  "imageUrl": "./images/demoEquine14.jpg",
+  "followupQuestions": []
+},{
+  "id": "AttachQ4",
+  "type": "attachment",
+  "questionText": "Which attachment is this? 4",
+  "correctAnswer": "Type2",
+  "possibleAnswers": [
+    "Type1",
+    "Type2",
+    "Type3"
+  ],
+  "imageUrl": "./images/demoEquine02.jpg",
+  "followupQuestions": []
+}
+, {
+  "id": "AttachQ5",
+  "type": "attachment",
+  "questionText": "Which attachment is this? 5",
+  "correctAnswer": "Type2",
+  "possibleAnswers": [
+    "Type1",
+    "Type2",
+    "Type3"
+  ],
+  "imageUrl": "./images/demoEquine04.jpg",
+  "followupQuestions": []
+},{
+  "id" : "plane./images/demoEquine13.jpg",
+  "type" : "plane",
+  "questionText" : "On which plane is the ultrasound taken? 4",
+  "correctAnswer" : "transverse",
+  "possibleAnswers" : [ "transverse", "wrong" ],
+  "imageUrl" : "./images/demoEquine13.jpg",
+  "followupQuestions": []
+
+}, {
+  "id" : "plane./images/demoEquine04.jpg",
+  "type" : "plane",
+  "questionText" : "On which plane is the ultrasound taken? 5",
+  "correctAnswer" : "longitudinal",
+  "possibleAnswers" : [ "wrong", "longitudinal" ],
+  "imageUrl" : "./images/demoEquine04.jpg",
+  "followupQuestions": []
+
+}, {
+  "id" : "zone./images/demoEquine05.jpg",
+  "type" : "zone",
+  "questionText" : "In which zone is the ultrasound taken? 1",
+  "correctAnswer" : "2B",
+  "possibleAnswers" : ["wrong", "2B" ],
+  "imageUrl" : "./images/demoEquine05.jpg",
+  "followupQuestions": []
+
+}, {
+  "id" : "zone./images/demoEquine09.jpg",
+  "type" : "zone",
+  "questionText" : "In which zone is the ultrasound taken? 2",
+  "correctAnswer" : "2",
+  "possibleAnswers" : [ "wrong", "2" ],
+  "imageUrl" : "./images/demoEquine09.jpg",
+  "followupQuestions": []
+
+}, {
+  "id" : "zone./images/demoEquine37.jpg",
+  "type" : "zone",
+  "questionText" : "in which zone is the ultrasound taken? 3",
+  "correctAnswer" : "3C",
+  "possibleAnswers" : [ "wrong", "3C" ],
+  "imageUrl" : "./images/demoEquine37.jpg",
+  "followupQuestions": []
+
+}, {
+  "id" : "zone./images/demoEquine32.jpg",
+  "type" : "zone",
+  "questionText" : "in which zone is the ultrasound taken? 4",
+  "correctAnswer" : "3A",
+  "possibleAnswers" : [ "wrong", "3A" ],
+  "imageUrl" : "./images/demoEquine32.jpg",
+  "followupQuestions": []
+
+}]
