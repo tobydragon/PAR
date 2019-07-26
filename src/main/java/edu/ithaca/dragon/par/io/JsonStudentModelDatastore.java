@@ -6,7 +6,9 @@ import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.par.studentModel.UserResponseSet;
 import edu.ithaca.dragon.util.FileSystemUtil;
-import edu.ithaca.dragon.util.JsonUtil;
+import edu.ithaca.dragon.util.JsonIoHelper;
+import edu.ithaca.dragon.util.JsonIoHelperDefault;
+import edu.ithaca.dragon.util.JsonIoUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,10 +20,18 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
 
     private String studentModelFilePath;
     private Map<String, StudentModel> studentModelMap;
+    JsonIoHelper jsonIoHelper;
+    JsonIoUtil jsonIoUtil;
 
     public JsonStudentModelDatastore(String questionFilePath, String studentModelFilePath) throws IOException {
-        super(questionFilePath);
+        this(questionFilePath, null, new JsonIoHelperDefault(), studentModelFilePath);
+    }
+
+    public JsonStudentModelDatastore(String questionFilePath, String defaultQuestionReadOnlyFilePath, JsonIoHelper jsonIoHelper, String studentModelFilePath) throws IOException {
+        super(questionFilePath, defaultQuestionReadOnlyFilePath, jsonIoHelper);
         this.studentModelFilePath = studentModelFilePath;
+        this.jsonIoHelper = jsonIoHelper;
+        this.jsonIoUtil = new JsonIoUtil(jsonIoHelper);
         studentModelMap = new HashMap<>();
 
         if (isWindowSizeTooBig(UserResponseSet.windowSize, questionPool.getAllQuestions())) {
@@ -29,16 +39,16 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
         }
     }
 
-    private static StudentModel loadStudentModelFromFile(QuestionPool questionPool, String studentModelFilePath, String userId) throws IOException{
+    private static StudentModel loadStudentModelFromFile(QuestionPool questionPool, String studentModelFilePath, String userId, JsonIoHelper jsonIoHelper, JsonIoUtil jsonIoUtil) throws IOException{
         String fullFileName = studentModelFilePath + "/" + userId + ".json";
 
         //check if file exists, return null if it doesn't
-        File checkFile = new File(fullFileName);
+        File checkFile = jsonIoHelper.getReadAndWriteFile(fullFileName);
         if(!checkFile.exists()){
             return null;
         }
 
-        StudentModelRecord SMR = JsonUtil.fromJsonFile(fullFileName, StudentModelRecord.class);
+        StudentModelRecord SMR = jsonIoUtil.fromFile(fullFileName, StudentModelRecord.class);
         return SMR.buildStudentModel(questionPool);
     }
 
@@ -51,7 +61,7 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
     public void imageTaskResponseSubmitted(String userId, ImageTaskResponse imageTaskResponse) throws IOException{
         StudentModel currentStudent = getStudentModel(userId);
         currentStudent.imageTaskResponseSubmitted(imageTaskResponse, questionPool);
-        overwriteStudentFile(currentStudent, studentModelFilePath);
+        overwriteStudentFile(currentStudent, studentModelFilePath, jsonIoUtil);
     }
 
     @Override
@@ -64,7 +74,7 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
             for (Question question : questions){
                 currModel.addQuestion(question);
             }
-            overwriteStudentFile(currModel, studentModelFilePath);
+            overwriteStudentFile(currModel, studentModelFilePath, jsonIoUtil);
         }
     }
 
@@ -91,7 +101,7 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
 
         //if the student wasn't in the map, try to load from file
         if (studentModel == null) {
-            studentModel = loadStudentModelFromFile(questionPool, studentModelFilePath, userId);
+            studentModel = loadStudentModelFromFile(questionPool, studentModelFilePath, userId, jsonIoHelper, jsonIoUtil);
             //the student didn't have a file, create a new student
             if (studentModel == null) {
                 studentModel = new StudentModel(userId, getAllQuestions());
@@ -102,9 +112,9 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
         return studentModel;
     }
 
-    private static void overwriteStudentFile(StudentModel currentStudent, String studentModelFilePath) throws IOException{
+    private static void overwriteStudentFile(StudentModel currentStudent, String studentModelFilePath, JsonIoUtil jsonIoUtil) throws IOException{
         String fullFilePath = studentModelFilePath + "/" + currentStudent.getUserId() + ".json";
-        JsonUtil.toJsonFile(fullFilePath, new StudentModelRecord(currentStudent));
+        jsonIoUtil.toFile(fullFilePath, new StudentModelRecord(currentStudent));
     }
 
     public static boolean isWindowSizeTooBig(int desiredWindowSize, List<Question> allQuestions){
