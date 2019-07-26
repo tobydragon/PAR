@@ -13,9 +13,7 @@ import edu.ithaca.dragon.par.io.springio.JsonSpringAuthorDatastore;
 import edu.ithaca.dragon.par.io.springio.JsonSpringStudentModelDatastore;
 import edu.ithaca.dragon.par.pedagogicalModel.ImageTaskSettings;
 import edu.ithaca.dragon.par.pedagogicalModel.PageSettings;
-import edu.ithaca.dragon.util.DataUtil;
-import edu.ithaca.dragon.util.JsonIoHelperSpring;
-import edu.ithaca.dragon.util.JsonSpringUtil;
+import edu.ithaca.dragon.util.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
@@ -31,9 +29,13 @@ public class ParStudentAndAuthorRestController {
     private final Logger logger = LogManager.getLogger(this.getClass());
 
     private ParAuthorAndStudentServer parServer;
+    private JsonIoHelper jsonIoHelper;
+    private JsonIoUtil jsonIoUtil;
 
     ParStudentAndAuthorRestController(){
         super();
+        jsonIoHelper = new JsonIoHelperSpring();
+        jsonIoUtil = new JsonIoUtil(jsonIoHelper);
         try {
             JsonAuthorDatastore jsonAuthorDatastore = new JsonAuthorDatastore(
                     "localData/currentAuthoredQuestions.json",
@@ -41,11 +43,11 @@ public class ParStudentAndAuthorRestController {
                     "localData/currentAuthorQuestionTemplates.json",
                     "author/AuthorQuestionTemplatesDefault.json",
                     "localData/currentAuthorModel.json",
-                    new JsonIoHelperSpring() );
+                    jsonIoHelper);
             JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
                     "localData/currentQuestionPool.json",
                     "author/DemoQuestionPool.json",
-                    new JsonIoHelperSpring(),
+                    jsonIoHelper,
                     "localData/students");
             parServer = new ParAuthorAndStudentServer(jsonStudentDatastore, jsonAuthorDatastore);
         }
@@ -62,17 +64,17 @@ public class ParStudentAndAuthorRestController {
     @GetMapping("/getPageSettings")
     public PageSettings getPageSettings(@RequestParam String userId) throws IOException  {
         if(userId.equals("author")){
-            return JsonSpringUtil.fromClassPathJson("author/AuthorPageSettingsExample.json", PageSettings.class);
+            return jsonIoUtil.fromReadOnlyFile("author/AuthorPageSettingsExample.json", PageSettings.class);
         }
-        return JsonSpringUtil.fromClassPathJson("author/PageSettingsExample.json", PageSettings.class);
+        return jsonIoUtil.fromReadOnlyFile("author/PageSettingsExample.json", PageSettings.class);
     }
 
     @GetMapping("/getImageTaskSettings")
     public ImageTaskSettings getImageTaskSettings(@RequestParam String userId) throws IOException  {
         if(userId.equals("author")){
-            return JsonSpringUtil.fromClassPathJson("author/AuthorSettingsExample.json", ImageTaskSettings.class);
+            return jsonIoUtil.fromReadOnlyFile("author/AuthorSettingsExample.json", ImageTaskSettings.class);
         }
-        return JsonSpringUtil.fromClassPathJson("author/SettingsExample.json", ImageTaskSettings.class);
+        return jsonIoUtil.fromReadOnlyFile("author/SettingsExample.json", ImageTaskSettings.class);
     }
 
     @GetMapping("/nextImageTask")
