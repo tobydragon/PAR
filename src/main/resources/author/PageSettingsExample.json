@@ -1,4 +1,4 @@
 {
-  "scoreType": "ByType",
-  "showScore": "True"
+    "scoreType": "VisualByType",
+    "showScore": "True"
 }

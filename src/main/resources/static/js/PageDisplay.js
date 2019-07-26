@@ -11,6 +11,9 @@ class PageDisplay {
 
     setIsAuthor() {
         this.isAuthor = setIsAuthor(this.userId);
+        if(!this.isAuthor){
+            document.getElementById("submitAuthorButton").classList.add("hide");
+        }
     }
 
     nextImageTask() {
@@ -36,6 +39,10 @@ class PageDisplay {
     logout() {
         this.userId = null;
         return location.replace('/login');
+    }
+
+    authorSubmitFinal(){
+
     }
 }
 

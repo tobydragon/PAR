@@ -19,6 +19,9 @@ class CompleteDisplay {
         this.pageSettings = readJson("api/getPageSettings?userId=" + this.userID);
         this.pageDisplay = new PageDisplay(this.pageSettings);
         this.pageDisplay.userId = this.userID;
+    }
+
+    setPageDisplayIsAuthor() {
         this.pageDisplay.setIsAuthor();
     }
 
@@ -33,8 +36,13 @@ class CompleteDisplay {
     }
 
     generateScore() {
-        let visJSON = readJson("api/knowledgeBase?userId=" + this.userID);
-        return setCurrentScore(visJSON, this.pageDisplay.scoreType);
+        if (this.pageDisplay.scoreType === "VisualByType") {
+            let visJSON = readJson("api/knowledgeBase?userId=" + this.userID);
+            return setCurrentScore(visJSON, this.pageDisplay.scoreType);
+        } else if (this.pageDisplay.scoreType === "NumberByType") {
+            let scoreJSON = readJson("api/calcScoreByType?userId=" + this.userID);
+            return setCurrentScore(scoreJSON, this.pageDisplay.scoreType);
+        }
     }
 
     displayScore(given) {
@@ -45,8 +53,8 @@ class CompleteDisplay {
         document.getElementById("score").appendChild(given);
     }
 
-    nextImageTask(){
-        document.getElementById("questionSet").innerText="";
+    nextImageTask() {
+        document.getElementById("questionSet").innerText = "";
         this.pageDisplay.nextImageTask();
     }
 

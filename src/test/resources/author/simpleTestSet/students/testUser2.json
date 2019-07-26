@@ -1,0 +1,252 @@
+{
+  "userId" : "testUser2",
+  "userQuestionSetRecord" : {
+    "userId" : "testUser2",
+    "questionCountRecords" : [ {
+      "questionId" : "plane./images/demoEquine14.jpg",
+      "timesSeen" : 2,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "structure0./images/demoEquine14.jpg",
+      "timesSeen" : 2,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "structure2./images/demoEquine14.jpg",
+      "timesSeen" : 2,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "plane./images/demoEquine37.jpg",
+      "timesSeen" : 1,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "structure3./images/demoEquine14.jpg",
+      "timesSeen" : 2,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "plane./images/demoEquine02.jpg",
+      "timesSeen" : 1,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "structure0./images/demoEquine02.jpg",
+      "timesSeen" : 1,
+      "followupCountRecords" : [ {
+        "questionId" : "AttachQ1",
+        "timesSeen" : 1,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "AttachQ2",
+        "timesSeen" : 1,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "AttachQ3",
+      "timesSeen" : 1,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "AttachQ4",
+      "timesSeen" : 1,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "AttachQ5",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "plane./images/demoEquine13.jpg",
+      "timesSeen" : 1,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "plane./images/demoEquine04.jpg",
+      "timesSeen" : 1,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "zone./images/demoEquine05.jpg",
+      "timesSeen" : 2,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "zone./images/demoEquine09.jpg",
+      "timesSeen" : 2,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "zone./images/demoEquine37.jpg",
+      "timesSeen" : 2,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "zone./images/demoEquine32.jpg",
+      "timesSeen" : 2,
+      "followupCountRecords" : [ ]
+    } ]
+  },
+  "userResponseSetRecord" : {
+    "userId" : "testUser2",
+    "responsesPerQuestionRecords" : [ {
+      "userId" : "testUser2",
+      "questionId" : "plane./images/demoEquine37.jpg",
+      "responseText" : "",
+      "allResponseTexts" : [ {
+        "responseText" : "",
+        "millSeconds" : 1563979161125
+      }, {
+        "responseText" : "transverse",
+        "millSeconds" : 1563979164287
+      } ]
+    }, {
+      "userId" : "testUser2",
+      "questionId" : "plane./images/demoEquine02.jpg",
+      "responseText" : "longitudinal",
+      "allResponseTexts" : [ {
+        "responseText" : "longitudinal",
+        "millSeconds" : 1563979168486
+      } ]
+    }, {
+      "userId" : "testUser2",
+      "questionId" : "plane./images/demoEquine13.jpg",
+      "responseText" : "transverse",
+      "allResponseTexts" : [ {
+        "responseText" : "transverse",
+        "millSeconds" : 1563979172701
+      } ]
+    }, {
+      "userId" : "testUser2",
+      "questionId" : "plane./images/demoEquine04.jpg",
+      "responseText" : "longitudinal",
+      "allResponseTexts" : [ {
+        "responseText" : "longitudinal",
+        "millSeconds" : 1563979176316
+      } ]
+    }, {
+      "userId" : "testUser2",
+      "questionId" : "plane./images/demoEquine14.jpg",
+      "responseText" : "longitudinal",
+      "allResponseTexts" : [ {
+        "responseText" : "longitudinal",
+        "millSeconds" : 1563979160259
+      }, {
+        "responseText" : "longitudinal",
+        "millSeconds" : 1563979186915
+      } ]
+    }, {
+      "userId" : "testUser2",
+      "questionId" : "structure0./images/demoEquine02.jpg",
+      "responseText" : "Superficial digital flexor tendon",
+      "allResponseTexts" : [ {
+        "responseText" : "Superficial digital flexor tendon",
+        "millSeconds" : 1563979223624
+      }, {
+        "responseText" : "Superficial digital flexor tendon",
+        "millSeconds" : 1563979228864
+      } ]
+    }, {
+      "userId" : "testUser2",
+      "questionId" : "AttachQ4",
+      "responseText" : "Type2",
+      "allResponseTexts" : [ {
+        "responseText" : "Type2",
+        "millSeconds" : 1563979223624
+      }, {
+        "responseText" : "Type2",
+        "millSeconds" : 1563979228864
+      } ]
+    }, {
+      "userId" : "testUser2",
+      "questionId" : "AttachQ1",
+      "responseText" : "Type2",
+      "allResponseTexts" : [ {
+        "responseText" : "Type2",
+        "millSeconds" : 1563979228864
+      } ]
+    }, {
+      "userId" : "testUser2",
+      "questionId" : "AttachQ2",
+      "responseText" : "Type2",
+      "allResponseTexts" : [ {
+        "responseText" : "Type2",
+        "millSeconds" : 1563979228864
+      } ]
+    }, {
+      "userId" : "testUser2",
+      "questionId" : "AttachQ3",
+      "responseText" : "Type2",
+      "allResponseTexts" : [ {
+        "responseText" : "Type2",
+        "millSeconds" : 1563979241125
+      } ]
+    }, {
+      "userId" : "testUser2",
+      "questionId" : "structure0./images/demoEquine14.jpg",
+      "responseText" : "Palmar metacarpal vessels (medial/lateral)",
+      "allResponseTexts" : [ {
+        "responseText" : "Palmar metacarpal vessels (medial/lateral)",
+        "millSeconds" : 1563979186915
+      }, {
+        "responseText" : "Palmar metacarpal vessels (medial/lateral)",
+        "millSeconds" : 1563979241125
+      } ]
+    }, {
+      "userId" : "testUser2",
+      "questionId" : "structure2./images/demoEquine14.jpg",
+      "responseText" : "Suspensory ligament (branches)",
+      "allResponseTexts" : [ {
+        "responseText" : "Suspensory ligament (branches)",
+        "millSeconds" : 1563979186915
+      }, {
+        "responseText" : "Suspensory ligament (branches)",
+        "millSeconds" : 1563979241125
+      } ]
+    }, {
+      "userId" : "testUser2",
+      "questionId" : "structure3./images/demoEquine14.jpg",
+      "responseText" : "Metacarpus bone 3 (Third metacarpal bone)",
+      "allResponseTexts" : [ {
+        "responseText" : "Metacarpus bone 3 (Third metacarpal bone)",
+        "millSeconds" : 1563979186915
+      }, {
+        "responseText" : "Metacarpus bone 3 (Third metacarpal bone)",
+        "millSeconds" : 1563979241125
+      } ]
+    }, {
+      "userId" : "testUser2",
+      "questionId" : "zone./images/demoEquine05.jpg",
+      "responseText" : "wrong",
+      "allResponseTexts" : [ {
+        "responseText" : "wrong",
+        "millSeconds" : 1563979246217
+      }, {
+        "responseText" : "wrong",
+        "millSeconds" : 1563979260138
+      } ]
+    }, {
+      "userId" : "testUser2",
+      "questionId" : "zone./images/demoEquine09.jpg",
+      "responseText" : "wrong",
+      "allResponseTexts" : [ {
+        "responseText" : "wrong",
+        "millSeconds" : 1563979249724
+      }, {
+        "responseText" : "wrong",
+        "millSeconds" : 1563979264073
+      } ]
+    }, {
+      "userId" : "testUser2",
+      "questionId" : "zone./images/demoEquine37.jpg",
+      "responseText" : "wrong",
+      "allResponseTexts" : [ {
+        "responseText" : "wrong",
+        "millSeconds" : 1563979253295
+      }, {
+        "responseText" : "wrong",
+        "millSeconds" : 1563979267913
+      } ]
+    }, {
+      "userId" : "testUser2",
+      "questionId" : "zone./images/demoEquine32.jpg",
+      "responseText" : "wrong",
+      "allResponseTexts" : [ {
+        "responseText" : "wrong",
+        "millSeconds" : 1563979256281
+      }, {
+        "responseText" : "3A",
+        "millSeconds" : 1563979273419
+      } ]
+    } ]
+  }
+}

@@ -2,13 +2,17 @@ package edu.ithaca.dragon.par.io;
 
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
+import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
+import edu.ithaca.dragon.par.studentModel.UserResponseSet;
 import edu.ithaca.dragon.util.FileSystemUtil;
 import edu.ithaca.dragon.util.JsonUtil;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore implements StudentModelDatastore {
 
@@ -19,6 +23,10 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
         super(questionFilePath);
         this.studentModelFilePath = studentModelFilePath;
         studentModelMap = new HashMap<>();
+
+        if (isWindowSizeTooBig(UserResponseSet.windowSize, questionPool.getAllQuestions())) {
+            throw new RuntimeException("The windowSize is too small for the given questionFile");
+        }
     }
 
     private static StudentModel loadStudentModelFromFile(QuestionPool questionPool, String studentModelFilePath, String userId) throws IOException{
@@ -49,7 +57,8 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
     @Override
     public void addQuestions(List<Question> questions) throws IOException {
         super.addQuestions(questions);
-        List<String> studentIds = loadAllStudents();
+        Set<String> studentIds = studentModelMap.keySet();
+        studentIds.addAll(getAllSavedStudentIds(studentModelFilePath));
         for (String studentId : studentIds){
             StudentModel currModel = getOrCreateStudentModel(studentId);
             for (Question question : questions){
@@ -59,7 +68,7 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
         }
     }
 
-    public List<String> loadAllStudents() throws IOException{
+    public static List<String> getAllSavedStudentIds(String studentModelFilePath) throws IOException{
         List<String> files = FileSystemUtil.findAllFileNamesInDir(studentModelFilePath, "json");
         for (int i = 0; i < files.size(); i++){
             files.set(i, files.get(i).replace(".json", ""));
@@ -96,5 +105,40 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
     private static void overwriteStudentFile(StudentModel currentStudent, String studentModelFilePath) throws IOException{
         String fullFilePath = studentModelFilePath + "/" + currentStudent.getUserId() + ".json";
         JsonUtil.toJsonFile(fullFilePath, new StudentModelRecord(currentStudent));
+    }
+
+    public static boolean isWindowSizeTooBig(int desiredWindowSize, List<Question> allQuestions){
+        if(desiredWindowSize<0){
+            return true;
+        }
+        //create parallel arrays of types and count of times seen
+        List<String> enumNames = Stream.of(EquineQuestionTypes.values()).map(Enum::name).collect(Collectors.toList());
+        List<Integer> typeCounts = new ArrayList<>();
+
+        //initialize typeCounts with 0s
+        for(int i=0; i<enumNames.size(); i++){
+            typeCounts.add(0);
+        }
+
+        isWindowSizeTooBig(enumNames, typeCounts, allQuestions);
+
+        //check if the typecounts are high enough
+        for(int i = 0; i<typeCounts.size();i++){
+            if(typeCounts.get(i) < desiredWindowSize)
+                return true;
+        }
+        return false;
+    }
+
+    public static void isWindowSizeTooBig(List<String> enumNames, List<Integer> typeCounts, List<Question> questionList){
+        for(Question currQuestion : questionList) {
+            isWindowSizeTooBig(enumNames, typeCounts, currQuestion.getFollowupQuestions());
+
+            for (int i = 0; i < enumNames.size(); i++) {
+                if (enumNames.get(i).equals(currQuestion.getType())) {
+                    typeCounts.set(i, typeCounts.get(i) + 1);
+                }
+            }
+        }
     }
 }

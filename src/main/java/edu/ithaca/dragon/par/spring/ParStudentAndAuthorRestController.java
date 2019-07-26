@@ -26,12 +26,12 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
-public class ParAuthorAndServerRestController {
+public class ParStudentAndAuthorRestController {
     private final Logger logger = LogManager.getLogger(this.getClass());
 
     private ParAuthorAndStudentServer parServer;
 
-    ParAuthorAndServerRestController(){
+    ParStudentAndAuthorRestController(){
         super();
         try {
             JsonAuthorDatastore jsonAuthorDatastore = new JsonAuthorDatastore(

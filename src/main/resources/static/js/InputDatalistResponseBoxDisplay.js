@@ -13,11 +13,12 @@ class InputDatalistResponseBoxDisplay {
         this.type = type;
         this.id = id;
         this.correctResponse = correctResponse;
-        console.log("the answer is: "+this.correctResponse);
+        console.log("the answer is: " + this.correctResponse);
         //don't currently need a pointer to this datalist
         let possibleResponsesDatalist = buildDatalistElement(id, defaultResponses);
         //need a pointer to this textbox to check answers
-        this.inputTextbox = buildInputTextbox(id, possibleResponsesDatalist.getAttribute("id"));
+        let inputBoxSize = inputBoxAutoSize(defaultResponses);
+        this.inputTextbox = buildInputTextbox(id, possibleResponsesDatalist.getAttribute("id"), inputBoxSize);
         this.element = buildElement(id, possibleResponsesDatalist, this.inputTextbox);
 
         let feedbackTextArea = document.createElement("div");
@@ -33,9 +34,9 @@ class InputDatalistResponseBoxDisplay {
 
         this.textArea.innerHTML = displayCheckedResponse(returnResponse, this.correctResponse, unsureShowsCorrect);
 
-        if (returnResponse === "correct") {
+        if (returnResponse === ResponseResult.correct) {
             disableElement(this.inputTextbox);
-        } else if (returnResponse === "unsure") {
+        } else if (returnResponse === ResponseResult.unsure) {
             disableElement(this.inputTextbox);
         }
         return returnResponse;
@@ -94,33 +95,12 @@ function checkAnyResponse(correctResponse, actualResponse) {
     }
 }
 
-function checkAnyResponseRewritten(correctResponse, actualResponse, element) {
-    if (correctResponse.trim().toLowerCase() === actualResponse.trim().toLowerCase()) {
-        element.classList.add("correct");
-        element.textContent = "Your answer is: Correct";
-        disableElement(element);
-        return ResponseResult.correct;
-    } else if (ResponseResult.unsure.trim().toLowerCase() === actualResponse.trim().toLowerCase()) {
-        element.classList.add("unsure");
-        element.textContent = "The correct answer is " + correctResponse;
-        disableElement(element);
-        return ResponseResult.unsure;
-    } else if (ResponseResult.blank.trim().toLowerCase() === actualResponse.trim().toLowerCase()) {
-        return ResponseResult.blank;
-    } else {
-        element.classList.add("incorrect");
-        element.textContent = "Your answer is: Incorrect";
-        return ResponseResult.incorrect;
-    }
-}
-
 function buildDatalistElement(questionId, possibleResponses) {
     let datalist = document.createElement("datalist");
     datalist.setAttribute("id", questionId + "Datalist");
     for (let optionText of possibleResponses) {
         datalist.appendChild(buildOptionElement(optionText));
     }
-    datalist.appendChild(buildOptionElement("unsure"));
     return datalist;
 }
 
@@ -134,14 +114,35 @@ function buildOptionElement(optionText) {
  * @param datalistId an id of a datalist tagged id that already exists in the document
  * @pre need to call buildDatalistElement before building this and use the id sent to buildDatalistElement
  */
-function buildInputTextbox(id, datalistId) {
+function buildInputTextbox(id, datalistId, size) {
     let inputTextbox = document.createElement("input");
     inputTextbox.type = "text";
     inputTextbox.setAttribute("id", id);
     inputTextbox.setAttribute("list", datalistId);
+    inputTextbox.setAttribute("size", size);
+    inputTextbox.classList.add("line-input-box");
+
+
     return inputTextbox;
 }
 
 function disableElement(elementToDisable) {
     return elementToDisable.disabled = true;
+}
+
+function inputBoxAutoSize(listOfStrings) {
+    let highestCharCount = 0;
+    for (let aString of listOfStrings) {
+        if (aString.length > highestCharCount) {
+            highestCharCount = aString.length;
+        }
+    }
+    //Margin size correcting
+    let diff = highestCharCount * 0.16;
+    Math.ceil(diff);
+    highestCharCount = highestCharCount - diff;
+    if (highestCharCount <= 20) {
+        return 20;
+    }
+    return highestCharCount;
 }

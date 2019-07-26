@@ -30,6 +30,8 @@ function buildQuestionAreaElement(id, questionText, answerBoxElement) {
 
     element.appendChild(questionTextArea);
     element.appendChild(answerBoxElement);
+    element.classList.add("pad5");
+
 
     return element;
 }
