@@ -42,7 +42,9 @@ class PageDisplay {
     }
 
     authorSubmitFinal(){
-        //TODO need a url in rest controller that moves the questions the author has made over
+        let request = new XMLHttpRequest();
+        request.open("GET", "/api/transferAuthoredQuestionsToStudents", false);
+        request.send(null);
     }
 
     enterAuthorReview(){
