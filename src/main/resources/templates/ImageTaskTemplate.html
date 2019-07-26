@@ -15,7 +15,7 @@
 
     <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
     <!-- My Project CSS -->
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="css/style.css">
     <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
     <!-- Main JS Files -->
     <script type="text/javascript" src="/js/CompleteDisplay.js"></script>
@@ -38,6 +38,7 @@
         let completeDisplay = new CompleteDisplay();
         completeDisplay.userID = userID;
         completeDisplay.createPageDisplay();
+
     </script>
 
     <!-- Nav Bar -->
@@ -57,9 +58,14 @@
             </div>
             <div class="col-1"></div>
             <div class="col-2 colVertCenter">
-                <button type="button" class="btn btn-primary" id="logoutButton" onclick="completeDisplay.pageDisplay.logout()">
-                    Logout
-                </button>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-primary" id="submitAuthorButton" onclick="completeDisplay.pageDisplay.authorSubmitFinal()">
+                        Add Questions to Pool
+                    </button>
+                    <button type="button" class="btn btn-primary" id="logoutButton" onclick="completeDisplay.pageDisplay.logout()">
+                        Logout
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -75,14 +81,14 @@
                 </canvas>
 
             </div>
-            <div class="col-4 text-center">
+            <div class="col-4">
                 <br />
-                <h1> Question Set</h1>
+                <h1 class="text-center"> Question Set</h1>
                 <form action="#" method="post" id="questionSetForm">
                     <div id="questionSet"> </div>
                 </form>
                 <br>
-                <i id="helpfulFeedback"> </i>
+                <i id="helpfulFeedback" class="text-center"> </i>
                 <div class="row">
                     <div class="col-12 text-center">
                         <div class="show">
@@ -95,7 +101,7 @@
                             <i id="errorFeedback"> </i>
                         </div>
                         <div class="row">
-                            <div class="col-12">
+                            <div class="col-12 text-center">
                                 <i id="Ids"> </i>
                             </div>
                         </div>
@@ -108,13 +114,17 @@
     </div>
 
     <script>
+        completeDisplay.setPageDisplayIsAuthor();
         completeDisplay.displayUserId();
         completeDisplay.showScore();
         completeDisplay.nextImageTask();
+
     </script>
     <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-</body></html>
+</body>
+
+</html>

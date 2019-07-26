@@ -3,10 +3,12 @@ package edu.ithaca.dragon.par.pedagogicalModel;
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
+import edu.ithaca.dragon.par.io.Datastore;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.JsonQuestionPoolDatastore;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.util.JsonUtil;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -234,4 +236,21 @@ public class TaskGeneratorTest {
         assertEquals("plane", recFollowups.getFollowupQuestions().get(2).getFollowupQuestions().get(0).getType());
         assertEquals(0, recFollowupsAfter.getFollowupQuestions().get(2).getFollowupQuestions().size());
     }
+    /*
+    @Test
+    public void emptyQuestionSetTest()throws IOException {
+        Datastore datastore = new JsonDatastore("src/test/resources/author/simpleTestSet/currentQuestionPool.json", "src/test/resources/author/simpleTestSet/students");
+        StudentModel testUser2 = datastore.loadStudentModel("testUser2");
+
+        ImageTask imageTask2 = TaskGenerator.makeTask(testUser2,1);
+        ImageTask imageTask = TaskGenerator.makeTask(testUser2,7);
+
+        System.out.println(imageTask2.getTaskQuestions());
+        System.out.println(imageTask.getTaskQuestions());
+
+        assertEquals(1,imageTask.getTaskQuestions().size());
+
+    }
+
+     */
 }
