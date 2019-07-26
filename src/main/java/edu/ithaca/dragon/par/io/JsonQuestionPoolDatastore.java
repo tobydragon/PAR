@@ -17,6 +17,36 @@ public class JsonQuestionPoolDatastore {
         this.questionPool = new QuestionPool(JsonUtil.listFromJsonFile(questionFilePath, Question.class));
     }
 
+    public void addQuestion(Question newQuestion) throws IOException {
+        questionPool.addQuestion(newQuestion);
+        overwriteQuestionPoolFile();
+    }
+
+    public void removeQuestionById(String questionId) throws IOException {
+        questionPool.removeQuestionById(questionId);
+        overwriteQuestionPoolFile();
+    }
+
+    public List<Question> removeAllQuestions() throws IOException{
+        List<Question> allQuestions = getAllQuestions();
+        this.questionPool = new QuestionPool(new ArrayList<>());
+        overwriteQuestionPoolFile();
+        return allQuestions;
+    }
+
+    protected void addQuestions(List<Question> questions) throws IOException{
+        for (Question question : questions){
+            questionPool.addQuestion(question);
+        }
+        overwriteQuestionPoolFile();
+    }
+
+    private void overwriteQuestionPoolFile() throws IOException{
+        JsonUtil.toJsonFile(questionFilePath, questionPool.getAllQuestions());
+    }
+
+    //---------  accessors --------------//
+
     public List<Question> getAllQuestions(){
         return questionPool.getAllQuestions();
     }
@@ -29,35 +59,9 @@ public class JsonQuestionPoolDatastore {
         return questionPool.getTopLevelQuestionById(questionId);
     }
 
-    public void addQuestion(Question newQuestion) throws IOException {
-        questionPool.addQuestion(newQuestion);
-        overwriteQuestionPoolFile();
-    }
-
-    public void removeQuestionById(String questionId) throws IOException {
-        questionPool.removeQuestionById(questionId);
-        overwriteQuestionPoolFile();
-    }
-
     public int getQuestionCount(){
         return questionPool.getAllQuestions().size();
     }
 
-    public List<Question> removeAllQuestions() throws IOException{
-        List<Question> allQuestions = getAllQuestions();
-        this.questionPool = new QuestionPool(new ArrayList<>());
-        overwriteQuestionPoolFile();
-        return allQuestions;
-    }
 
-    private void overwriteQuestionPoolFile() throws IOException{
-        JsonUtil.toJsonFile(questionFilePath, questionPool.getAllQuestions());
-    }
-
-    protected void addQuestions(List<Question> questions) throws IOException{
-        for (Question question : questions){
-            questionPool.addQuestion(question);
-        }
-        overwriteQuestionPoolFile();
-    }
 }
