@@ -11,9 +11,9 @@ describe("InputDatalistResponseBoxDisplay", function () {
         let element = buildDatalistElement("test1", ["1", "2", "3"]);
         expect(element.tagName.toLowerCase()).toBe("datalist");
         expect(element.id.toLowerCase()).toBe(("test1Datalist").toLowerCase());
-        expect(element.options.length).toBe(4);
+        expect(element.options.length).toBe(3);
         expect(element.options.item(0).value).toBe("1");
-        expect(element.options.item(element.options.length - 1).value).toBe("unsure");
+        expect(element.options.item(element.options.length - 1).value).toBe('3');
     });
 
     it("addToTypesIncorrect", function () {
@@ -135,4 +135,18 @@ describe("InputDatalistResponseBoxDisplay", function () {
         expect(testElement.disabled).toBe(false);
         expect(disableElement(testElement)).toBe(true);
     });
+    it("inputBoxAutoSize", function () {
+        let listOfStr0 = ["one", "three", "four", "asuperlongwordthatgoespasttwentyttt"];
+        let listOfStr1 = ["one", "the", "for"];
+        let listOfStr2 = ["one", "three", " "];
+        let listOfStr3 = ["o", "tw", "thr"];
+        let listOfStr4 = ["o"];
+        let listOfStr5 = ["lllllllloooooooonnng boi tada", "transverse", "zagga"];
+        expect(inputBoxAutoSize(listOfStr0)).toBe(29.4);
+        expect(inputBoxAutoSize(listOfStr1)).toBe(20);
+        expect(inputBoxAutoSize(listOfStr2)).toBe(20);
+        expect(inputBoxAutoSize(listOfStr3)).toBe(20);
+        expect(inputBoxAutoSize(listOfStr4)).toBe(20);
+        expect(inputBoxAutoSize(listOfStr5)).toBe(24.36);
+    })
 });

@@ -3,6 +3,7 @@ package edu.ithaca.dragon.par.spring;
 import edu.ithaca.dragon.par.ParAuthorAndStudentServer;
 import edu.ithaca.dragon.par.ParServer;
 import edu.ithaca.dragon.par.authorModel.ParAuthoringServer;
+import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
@@ -20,16 +21,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
-public class ParAuthorAndServerRestController {
+public class ParStudentAndAuthorRestController {
     private final Logger logger = LogManager.getLogger(this.getClass());
 
     private ParAuthorAndStudentServer parServer;
 
-    ParAuthorAndServerRestController(){
+    ParStudentAndAuthorRestController(){
         super();
         try {
             JsonAuthorDatastore jsonAuthorDatastore = new JsonAuthorDatastore(
@@ -126,5 +128,9 @@ public class ParAuthorAndServerRestController {
             logger.warn(e);
             return ResponseEntity.notFound().build();
         }
+    }
+    @GetMapping("/authoredQuestions")
+    public List<ImageTask> authoredQuestions(){
+        return parServer.authoredQuestions();
     }
 }

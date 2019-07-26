@@ -3,14 +3,6 @@ class ImageTaskDisplay {
     constructor(imageTaskJson, userId, imageTaskSettings, isAuthor, canvasName, pageDisplaySettings) {
         this.userId = userId;
         this.response = new Response(userId);
-        if (imageTaskJson.imageUrl === "noMoreQuestions") {
-            this.createCanvas("../images/ParLogo.png", canvasName);
-        } else {
-            this.createCanvas(imageTaskJson.imageUrl, canvasName);
-        }
-        this.displayImageUrl(imageTaskJson.imageUrl);
-        this.questionAreaDisp = new buildQuestionAreas(imageTaskJson.taskQuestions, this.response);
-
         //settings
         this.unsureShowsCorrectAnswer = imageTaskSettings.unsureShowsCorrectAnswer;
         this.feedbackByType = imageTaskSettings.feedbackByType;
@@ -24,8 +16,23 @@ class ImageTaskDisplay {
         this.listOfCorrectAnswers = [];
         this.isAuthor = isAuthor;
 
+        if (imageTaskJson.imageUrl === "noMoreQuestions") {
+            this.createCanvas("../images/ParLogo.png", canvasName);
+        } else {
+            this.createCanvas(imageTaskJson.imageUrl, canvasName);
+        }
+        this.displayImageUrl(imageTaskJson.imageUrl);
+        this.questionAreaDisp = new buildQuestionAreas(imageTaskJson.taskQuestions, this.response);
+
+        //buildQuestionAreasAuthor(this.isAuthor)
+        if (!isAuthor) {
+            addUnsureToAnswers(imageTaskJson.taskQuestions);
+        }
+
+        this.questionAreaDisp = new buildQuestionAreas(imageTaskJson.taskQuestions, this.response);
+
         for (var i = 0; i < this.questionAreaDisp.length; i++) {
-            if(isAuthor){
+            if (isAuthor) {
                 this.questionAreaDisp[i].addFollowupQuestions();
             }
             document.getElementById("questionSet").appendChild(this.questionAreaDisp[i].element);
@@ -99,7 +106,7 @@ class ImageTaskDisplay {
                 addToResponseIds(this.response, current.element.id);
             }
             this.listOfCorrectAnswers.push(correctness);
-            if(checkIfShouldAddFollowupQ(correctness)){
+            if (checkIfShouldAddFollowupQ(correctness)) {
                 current.addFollowupQuestions();
             }
             if (this.haveSubmited) {
@@ -128,6 +135,14 @@ class ImageTaskDisplay {
                 disableElement(current.followUpAreas[x].answerBox.inputTextbox);
             }
         }
+    }
+}
+
+function addUnsureToAnswers(questionObjectList) {
+    let questionAreaList = [];
+    for (let questionObject of questionObjectList) {
+        questionObject.possibleAnswers.push(ResponseResult.unsure);
+        addUnsureToAnswers(questionObject.followupQuestions);
     }
 }
 
