@@ -6,6 +6,7 @@ import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.pedagogicalModel.TaskGenerator;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 
+import edu.ithaca.dragon.util.JsonIoHelperDefault;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -38,9 +39,6 @@ public class JsonStudentModelDatastoreTest {
 
     @Test
     public void getOrCreateStudentModelTest(@TempDir Path tempDir) throws IOException{
-//        JsonStudentModelDatastore jsonStudentModelDatastore = new JsonStudentModelDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json", "src/test/resources/author/students");
-//        StudentModel studentModel = jsonStudentModelDatastore.getOrCreateStudentModel("testUser1");
-//        jsonStudentModelDatastore.imageTaskResponseSubmitted(studentModel.getUserId(), new ImageTaskResponse("TestUser100", Arrays.asList("plane./images/demoEquine14.jpg"), Arrays.asList("longitudinal")));
         JsonStudentModelDatastore jsonStudentModelDatastore = new JsonStudentModelDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json", tempDir.toString());
         Path newStudentPath = tempDir.resolve("TestUser100.json");
         Files.copy(Paths.get("src/test/resources/author/students/TestUser100.json"), newStudentPath, StandardCopyOption.REPLACE_EXISTING);
@@ -88,13 +86,13 @@ public class JsonStudentModelDatastoreTest {
 
     @Test
     public void addQuestionsTest(@TempDir Path tempDir) throws IOException{
-        Path currentQuestionPath = tempDir.resolve("currentQuestions.json");
-        Files.copy(Paths.get("src/test/resources/author/DemoQuestionPoolFollowup.json"), currentQuestionPath, StandardCopyOption.REPLACE_EXISTING);
-
         Path currentStudentModelsPath = tempDir.resolve("currentStudentModels");
         assertTrue(new File(currentStudentModelsPath.toString()).mkdir());
-
-        StudentModelDatastore studentModelDatastore = new JsonStudentModelDatastore(currentQuestionPath.toString(), currentStudentModelsPath.toString());
+        StudentModelDatastore studentModelDatastore = new JsonStudentModelDatastore(
+                tempDir.resolve("currentQuestions.json").toString(),
+                "src/test/resources/author/DemoQuestionPoolFollowup.json",
+                new JsonIoHelperDefault(),
+                currentStudentModelsPath.toString());
         assertEquals(47, studentModelDatastore.getStudentModel("TestUser100").getUserQuestionSet().getQuestionCounts().size());
         assertEquals(47, studentModelDatastore.getStudentModel("TestUser101").getUserQuestionSet().getQuestionCounts().size());
         assertEquals(47, studentModelDatastore.getStudentModel("TestUser102").getUserQuestionSet().getQuestionCounts().size());
@@ -116,7 +114,6 @@ public class JsonStudentModelDatastoreTest {
         assertEquals(50, studentModelDatastore.getAllQuestions().size());
 
         assertThrows(RuntimeException.class, ()->{studentModelDatastore.addQuestions(questions);});
-
     }
 
     @Test

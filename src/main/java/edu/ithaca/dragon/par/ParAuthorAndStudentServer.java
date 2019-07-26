@@ -1,6 +1,5 @@
 package edu.ithaca.dragon.par;
 
-import edu.ithaca.dragon.par.authorModel.AuthorTaskGenerator;
 import edu.ithaca.dragon.par.authorModel.ParAuthoringServer;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
@@ -8,6 +7,8 @@ import edu.ithaca.dragon.par.io.AuthorDatastore;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
 import edu.ithaca.dragon.par.io.StudentModelDatastore;
+import edu.ithaca.dragon.par.pedagogicalModel.TaskGenerator;
+import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.util.DataUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,38 +23,37 @@ public class ParAuthorAndStudentServer {
     private final Logger logger = LogManager.getLogger(this.getClass());
 
     private ParAuthoringServer parAuthoringServer;
-    private ParServer parServer;
+    private StudentModelDatastore studentModelDatastore;
 
     public ParAuthorAndStudentServer(StudentModelDatastore studentModelDatastore, AuthorDatastore authorDatastore) throws IOException {
-            parServer = new ParServer(studentModelDatastore);
+            this.studentModelDatastore = studentModelDatastore;
             parAuthoringServer = new ParAuthoringServer(authorDatastore);
     }
 
     //----------- Student methods  --------------//
 
     public ImageTask nextImageTask( String userId) throws IOException {
-        return parServer.nextImageTask(userId);
+        return TaskGenerator.makeTask(studentModelDatastore.getStudentModel(userId));
     }
 
     public void submitImageTaskResponse( ImageTaskResponse response) throws IOException {
-            parServer.imageTaskResponseSubmitted(response, response.getUserId());
+            studentModelDatastore.imageTaskResponseSubmitted(response.getUserId(), response);
     }
 
-
     public void logout(String userId) throws IOException{
-        parServer.logout(userId);
+        studentModelDatastore.logout(userId);
     }
 
     public String calcOverallKnowledgeEstimate(String userId) throws IOException {
-        return DataUtil.format(parServer.calcScore(userId));
+        return DataUtil.format(studentModelDatastore.getStudentModel(userId).knowledgeScore());
     }
 
     public Map<String, Double> calcKnowledgeEstimateByType(String userId) throws IOException{
-        return parServer.calcScoreByType(userId);
+        return studentModelDatastore.getStudentModel(userId).knowledgeScoreByType();
     }
 
     public Map<EquineQuestionTypes,String> calcKnowledgeEstimateStringsByType(String userId)throws IOException {
-        return parServer.knowledgeBaseEstimate(userId);
+        return studentModelDatastore.getStudentModel(userId).generateKnowledgeBaseMap();
     }
 
     //----------- Author methods  --------------//
@@ -79,7 +79,7 @@ public class ParAuthorAndStudentServer {
     //----------- Student-Author Interacting methods  --------------//
 
     public void transferAuthoredQuestionsToStudentServer() throws IOException{
-        parServer.addQuestions(parAuthoringServer.removeAllAuthoredQuestions());
+        studentModelDatastore.addQuestions(parAuthoringServer.removeAllAuthoredQuestions());
     }
 
 }
