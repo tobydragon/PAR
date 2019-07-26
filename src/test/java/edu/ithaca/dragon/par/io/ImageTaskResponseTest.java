@@ -33,7 +33,7 @@ public class ImageTaskResponseTest {
 
     @Test
     public void findResponseToQuestionTest() throws IOException{
-        QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").loadQuestions());
+        QuestionPool qp = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
         ImageTaskResponse responseSet = new ImageTaskResponse("response1",Arrays.asList("plane./images/demoEquine14.jpg","structure0./images/demoEquine14.jpg", "AttachQ1"),Arrays.asList("Lateral","bone","3c"));
         List<ImageTaskResponse> responsesToFile = Arrays.asList(responseSet);
         //test for sucsessfully getting the answer to a parent question

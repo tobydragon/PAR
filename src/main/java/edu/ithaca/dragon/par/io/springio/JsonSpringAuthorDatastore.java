@@ -73,4 +73,16 @@ public class JsonSpringAuthorDatastore implements AuthorDatastore {
     public int getQuestionTemplateCount(){
         return questionTemplatesDatastore.getQuestionCount();
     }
+
+    @Override
+    public List<Question> getAllAuthoredQuestions() {
+        //TODO
+        return null;
+    }
+
+    @Override
+    public List<Question> removeAllAuthoredQuestions() throws IOException {
+        //TODO
+        return null;
+    }
 }

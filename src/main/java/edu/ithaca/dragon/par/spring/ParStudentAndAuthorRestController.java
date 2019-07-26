@@ -1,10 +1,14 @@
 package edu.ithaca.dragon.par.spring;
 
+import edu.ithaca.dragon.par.ParAuthorAndStudentServer;
 import edu.ithaca.dragon.par.ParServer;
-import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.authorModel.ParAuthoringServer;
+import edu.ithaca.dragon.par.domainModel.QuestionPool;
+import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
+import edu.ithaca.dragon.par.io.JsonAuthorDatastore;
+import edu.ithaca.dragon.par.io.JsonStudentModelDatastore;
 import edu.ithaca.dragon.par.io.springio.JsonSpringAuthorDatastore;
 import edu.ithaca.dragon.par.io.springio.JsonSpringStudentModelDatastore;
 import edu.ithaca.dragon.par.pedagogicalModel.ImageTaskSettings;
@@ -17,22 +21,27 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
-//@RestController
-//@RequestMapping("/api")
-public class ParRestController {
+@RestController
+@RequestMapping("/api")
+public class ParStudentAndAuthorRestController {
     private final Logger logger = LogManager.getLogger(this.getClass());
 
-    private ParAuthoringServer parAuthoringServer;
-    private ParServer parServer;
+    private ParAuthorAndStudentServer parServer;
 
-    ParRestController(){
+    ParStudentAndAuthorRestController(){
         super();
         try {
-            parServer = new ParServer(new JsonSpringStudentModelDatastore("localData/currentQuestionPool.json","author/DemoQuestionPool.json", "localData/students"));
-            parAuthoringServer = new ParAuthoringServer(new JsonSpringAuthorDatastore("localData/currentAuthoredQuestions.json", "author/AuthorQuestionsDefault.json",
-                    "localData/currentAuthorQuestionTemplates.json", "author/AuthorQuestionTemplatesDefault.json", "localData/currentAuthorModel.json" ));
+            JsonAuthorDatastore jsonAuthorDatastore = new JsonAuthorDatastore(
+                    "localData/currentAuthoredQuestions.json",
+                    "localData/currentAuthorQuestionTemplates.json",
+                    "localData/currentAuthorModel.json");
+            JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
+                    "localData/currentQuestionPool.json",
+                    "localData/students");
+            parServer = new ParAuthorAndStudentServer(jsonStudentDatastore, jsonAuthorDatastore);
         }
         catch(IOException e){
             throw new RuntimeException("Server can't start without all necessary files loaded: ", e);
@@ -68,7 +77,7 @@ public class ParRestController {
     @PostMapping("/recordResponse")
     public ResponseEntity<String> recordResponse(@RequestBody ImageTaskResponse response) {
         try {
-            parServer.imageTaskResponseSubmitted(response, response.getUserId());
+            parServer.submitImageTaskResponse(response);
             return ResponseEntity.ok().body("ok");
         } catch (Exception e){
             logger.warn(e);
@@ -83,30 +92,45 @@ public class ParRestController {
 
     @GetMapping("/calcScore")
     public String calcScore(@RequestParam String userId) throws IOException {
-        return DataUtil.format(parServer.calcScore(userId));
+        return parServer.calcOverallKnowledgeEstimate(userId);
     }
 
     @GetMapping("/calcScoreByType")
     public Map<String, Double> calcScoreByType(@RequestParam String userId) throws IOException{
-        return parServer.calcScoreByType(userId);
+        return parServer.calcKnowledgeEstimateByType(userId);
     }
     @GetMapping("/knowledgeBase")
     public Map<EquineQuestionTypes,String> knowledgeBaseEstimate(@RequestParam String userId)throws IOException {
-        return parServer.knowledgeBaseEstimate(userId);
+        return parServer.calcKnowledgeEstimateStringsByType(userId);
     }
     @GetMapping("/nextAuthorImageTask")
     public ImageTask nextAuthorImageTask() throws IOException {
-        return parAuthoringServer.nextImageTaskTemplate();
+        return parServer.nextAuthorImageTask();
     }
 
     @PostMapping("/submitAuthorImageTaskResponse")
     public ResponseEntity<String> submitAuthorImageTaskResponse(@RequestBody ImageTaskResponse response) {
         try {
-            parAuthoringServer.imageTaskResponseSubmitted(response);
+            parServer.submitAuthorImageTaskResponse(response);
             return ResponseEntity.ok().body("ok");
         } catch (Exception e){
             logger.warn(e);
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/transferAuthoredQuestionsToStudents")
+    public ResponseEntity<String> transferAuthoredQuestionsToStudents() {
+        try {
+            parServer.transferAuthoredQuestionsToStudentServer();
+            return ResponseEntity.ok().body("ok");
+        } catch (Exception e){
+            logger.warn(e);
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @GetMapping("/authoredQuestions")
+    public List<ImageTask> authoredQuestions(@RequestParam QuestionPool questionPool){
+        return parServer.authoredQuestions(questionPool);
     }
 }

@@ -77,4 +77,16 @@ public class JsonAuthorDatastore implements AuthorDatastore {
     public int getQuestionTemplateCount(){
         return questionTemplatesDatastore.getQuestionCount();
     }
+
+    @Override
+    public List<Question> getAllAuthoredQuestions(){
+        return questionsDatastore.getAllQuestions();
+    }
+
+    //removes and returns all questions that are authored (leaving a blank question file for authored questions)
+    //no effect on the templates
+    @Override
+    public List<Question> removeAllAuthoredQuestions() throws IOException {
+        return questionsDatastore.removeAllQuestions();
+    }
 }

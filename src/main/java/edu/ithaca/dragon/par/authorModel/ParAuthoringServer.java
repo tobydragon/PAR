@@ -1,6 +1,7 @@
 package edu.ithaca.dragon.par.authorModel;
 
 import edu.ithaca.dragon.par.domainModel.Question;
+import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.io.*;
 
 import java.io.IOException;
@@ -11,7 +12,7 @@ public class ParAuthoringServer {
 
     private AuthorDatastore authorDatastore;
 
-    public ParAuthoringServer(AuthorDatastore authorDatastore) throws IOException {
+    public ParAuthoringServer(AuthorDatastore authorDatastore) {
         this.authorDatastore = authorDatastore;
     }
 
@@ -30,6 +31,10 @@ public class ParAuthoringServer {
         }
     }
 
+    public List<ImageTask> authoredQuestions(QuestionPool questionPool) {
+        return AuthorTaskGenerator.authoredQuestions(questionPool);
+    }
+
     public static Question buildQuestionFromTemplate(Question questionIn, ImageTaskResponse imageTaskResponse){
         String answer = imageTaskResponse.findResponseToQuestion(questionIn);
         if(answer == null){
@@ -43,6 +48,12 @@ public class ParAuthoringServer {
             }
         }
         return new Question(questionIn, answer, followupQuestions);
+    }
+
+    //removes and returns all questions that are authored (leaving a blank question file for authored questions)
+    //no effect on the templates
+    public List<Question> removeAllAuthoredQuestions() throws IOException{
+        return authorDatastore.removeAllAuthoredQuestions();
     }
 
 
