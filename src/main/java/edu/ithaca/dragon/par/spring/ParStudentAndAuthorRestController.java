@@ -14,6 +14,7 @@ import edu.ithaca.dragon.par.io.springio.JsonSpringStudentModelDatastore;
 import edu.ithaca.dragon.par.pedagogicalModel.ImageTaskSettings;
 import edu.ithaca.dragon.par.pedagogicalModel.PageSettings;
 import edu.ithaca.dragon.util.DataUtil;
+import edu.ithaca.dragon.util.JsonIoHelperSpring;
 import edu.ithaca.dragon.util.JsonSpringUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -36,11 +37,15 @@ public class ParStudentAndAuthorRestController {
         try {
             JsonAuthorDatastore jsonAuthorDatastore = new JsonAuthorDatastore(
                     "localData/currentAuthoredQuestions.json",
+                    "author/AuthorQuestionsDefault.json",
                     "localData/currentAuthorQuestionTemplates.json",
-                    "localData/currentAuthorModel.json"
-                    );
+                    "author/AuthorQuestionTemplatesDefault.json",
+                    "localData/currentAuthorModel.json",
+                    new JsonIoHelperSpring() );
             JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
                     "localData/currentQuestionPool.json",
+                    "author/DemoQuestionPool.json",
+                    new JsonIoHelperSpring(),
                     "localData/students");
             parServer = new ParAuthorAndStudentServer(jsonStudentDatastore, jsonAuthorDatastore);
         }

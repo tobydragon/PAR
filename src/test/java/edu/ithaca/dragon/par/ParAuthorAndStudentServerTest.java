@@ -28,11 +28,13 @@ class ParAuthorAndStudentServerTest {
                 tempDir.resolve("currentAuthorModel.json").toString(), new JsonIoHelperDefault());
         assertEquals(15, jsonAuthorDatastore.getAllAuthoredQuestions().size());
 
-        Path currentStudentQuestionPath = tempDir.resolve("currentQuestions.json");
-        Files.copy(Paths.get("src/test/resources/author/DemoQuestionPoolFollowup.json"), currentStudentQuestionPath, StandardCopyOption.REPLACE_EXISTING);
         Path currentStudentModelDir = tempDir.resolve("students");
         assertTrue(new File(currentStudentModelDir.toString()).mkdir());
-        JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(currentStudentQuestionPath.toString(), currentStudentModelDir.toString());
+        JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
+                tempDir.resolve("currentQuestions.json").toString(),
+                "src/test/resources/author/DemoQuestionPoolFollowup.json",
+                new JsonIoHelperDefault(),
+                currentStudentModelDir.toString());
         assertEquals(47, jsonStudentDatastore.getAllQuestions().size());
 
         ParAuthorAndStudentServer parAuthorAndStudentServer = new ParAuthorAndStudentServer(jsonStudentDatastore, jsonAuthorDatastore);
@@ -43,7 +45,7 @@ class ParAuthorAndStudentServerTest {
 
         //load again from file to ensure changes are kept
         jsonAuthorDatastore = new JsonAuthorDatastore(currentQuestionPath.toString(), currentQuestionTemplatePath.toString(), tempDir.resolve("currentAuthorModel.json").toString());
-        jsonStudentDatastore = new JsonStudentModelDatastore(currentStudentQuestionPath.toString(), currentStudentModelDir.toString());
+        jsonStudentDatastore = new JsonStudentModelDatastore(tempDir.resolve("currentQuestions.json").toString(), currentStudentModelDir.toString());
 
         assertEquals(0, jsonAuthorDatastore.getAllAuthoredQuestions().size());
         assertEquals(62, jsonStudentDatastore.getAllQuestions().size());
