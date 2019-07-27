@@ -79,9 +79,9 @@ public class JsonStudentModelDatastoreTest {
     public void getAllSavedStudentIdsTest() throws IOException{
         List<String> usernames = JsonStudentModelDatastore.getAllSavedStudentIds("src/test/resources/author/students");
         assertEquals(3, usernames.size());
-        assertEquals("TestUser100", usernames.get(0));
-        assertEquals("TestUser101", usernames.get(1));
-        assertEquals("TestUser102", usernames.get(2));
+        assertTrue(usernames.contains("TestUser100"));
+        assertTrue(usernames.contains("TestUser101"));
+        assertTrue(usernames.contains("TestUser102"));
     }
 
     @Test

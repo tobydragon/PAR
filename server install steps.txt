@@ -1,0 +1,16 @@
+git stash
+git checkout branch
+git pull
+git stash pop
+mvn test
+
+ps -A | grep java
+kill PID
+
+tar -czv target/localData
+
+rm -f localData/.json
+rm -f localData/students/*.json
+
+mvn install
+

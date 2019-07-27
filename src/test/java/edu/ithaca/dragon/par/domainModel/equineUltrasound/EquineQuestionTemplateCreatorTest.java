@@ -23,4 +23,11 @@ class EquineQuestionTemplateCreatorTest {
         List<Question> questions = EquineQuestionTemplateCreator.createQuestionsForImageList(Arrays.asList("equineTest1.jpg","equineTest2.jpg", "equineTest3.jpg" ));
         assertEquals(18, questions.size());
     }
+
+    @Test
+    void createAttachmentQuestionsListTest(){
+        List<Question> questions = EquineQuestionTemplateCreator.createAttachmentQuestionsList("equineTest.jpg", "structure1-equineTest.jpg");
+        assertEquals(2, questions.size());
+        System.out.println(questions.get(0));
+    }
 }

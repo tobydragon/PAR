@@ -10,6 +10,15 @@ import java.util.List;
 
 public class EquineQuestionTemplateCreator {
 
+    static int nextIdNumberToGive = 100;
+
+    private static String createQuestionId(String identifier){
+        String id = "" + nextIdNumberToGive + "-" +identifier;
+        nextIdNumberToGive++;
+        return id;
+    }
+
+    public static final String planeQuestion = "On which plane is the ultrasound taken?";
     public static final List<String> planeResponses = Arrays.asList("transverse", "longitudinal");
 
     public static final List<String> structureQuestions = Arrays.asList(
@@ -23,43 +32,75 @@ public class EquineQuestionTemplateCreator {
             "Deep digital flexor tendon",
             "Suspensory ligament (body)",
             "Suspensory ligament (branches)",
-            "Distal check ligament (We use Accessory ligament of the deep digital flexor tendon)",
+            "Distal check ligament (accessory ligament of the deep digital flexor tendon)",
             "Metacarpus bone 3 (Third metacarpal bone)",
             "Proximal sesamoid bones",
             "P1 (First phalanx)",
             "P2 (Second phalanx)",
-            "distal sesamoidean ligaments – straight and oblique)",
+            "Distal sesamoidean ligaments – straight and oblique)",
             "Palmar annular ligament",
             "Palmar ligament",
             "Palmar vessels (medial/lateral)",
             "Palmar metacarpal vessels (medial/lateral)");
 
-    public static final List<String> attachmentQuestions = Arrays.asList(
-            "What kind of near attachment is this?",
-            "What kind of middle attachment is this?",
-            "What kind of far attachment is this?");
+    public static final String attachmentQuestion0 = "What is this structure’s proximal attachment?";
 
-    public static final List<String> attachmentResponses = Arrays.asList(
-            "AttachmentAnswer1",
-            "AttachmentAnswer2",
-            "AttachmentAnswer3");
+    public static final List<String> attachment0Responses = Arrays.asList(
+            "Medial humeral epicondyle",
+            "Lateral humeral epicondyle",
+            "Both the proximal metacarpus 3 and distal row of carpal bones",
+            "Distal row of carpal bones",
+            "proximal metacarpus 3");
 
+    public static final String attachmentQuestion1 = "What is this structure’s distal attachment?";
+
+    public static final List<String> attachment1Responses = Arrays.asList(
+            "Proximal phalanx (P1)",
+            "Middle phalanx (P2)",
+            "Distal phalanx (P3)",
+            "Both proximal and middle phalanxes",
+            "Deep digital flexor tendon");
+
+    public static final String zoneQuestion = "In which zone is the ultrasound taken?";
     public static final List<String> zoneResponses = Arrays.asList("1", "1A", "1B", "2", "2A", "2B", "3", "3A", "3B", "3C");
 
     public static List<Question> createQuestionsForImage(String imagePath){
        List<Question> questions = new ArrayList<>();
-       questions.add(new Question("plane"+imagePath, "On which plane is the ultrasound taken?",
-               EquineQuestionTypes.plane.toString(), null, planeResponses, imagePath));
+       questions.add(new Question(createQuestionId(EquineQuestionTypes.plane.toString()+"-"+imagePath),
+               planeQuestion,
+               EquineQuestionTypes.plane.toString(),
+               null,
+               planeResponses,
+               imagePath));
        for (int i=0; i<structureQuestions.size(); i++){
-           ArrayList<Question> attachmentQuestionsToAdd = new ArrayList<>();
-           for(int j=0; j<attachmentQuestions.size(); j++){
-                attachmentQuestionsToAdd.add(new Question("attachment"+j+imagePath, attachmentQuestions.get(j), EquineQuestionTypes.attachment.toString(), null, attachmentResponses, imagePath));
-           }
-           questions.add(new Question("structure"+i+imagePath, structureQuestions.get(i), EquineQuestionTypes.structure.toString(), null, structureResponses, imagePath, attachmentQuestionsToAdd));
+           String structureId = EquineQuestionTypes.structure.toString()+i+"-"+imagePath;
+           List<Question> attachmentQuestionsToAdd = createAttachmentQuestionsList(imagePath, structureId);
+           questions.add(new Question(createQuestionId(structureId), structureQuestions.get(i), EquineQuestionTypes.structure.toString(), null, structureResponses, imagePath, attachmentQuestionsToAdd));
        }
-       questions.add(new Question("zone"+imagePath, "in which zone is the ultrasound taken?",
+       questions.add(new Question(createQuestionId(EquineQuestionTypes.zone.toString()+"-"+imagePath), zoneQuestion,
                 EquineQuestionTypes.zone.toString(), null, zoneResponses, imagePath));
        return questions;
+    }
+
+    public static List<Question> createAttachmentQuestionsList(String imagePath, String structureId){
+        List<Question> attachmentQuestions = new ArrayList<>();
+        attachmentQuestions.add(new Question(
+                createQuestionId(EquineQuestionTypes.attachment.toString()+"0-"+structureId),
+                attachmentQuestion0,
+                EquineQuestionTypes.attachment.toString(),
+                null,
+                attachment0Responses,
+                imagePath
+        ));
+        attachmentQuestions.add(new Question(
+                createQuestionId(EquineQuestionTypes.attachment.toString()+"1-"+structureId),
+                attachmentQuestion1,
+                EquineQuestionTypes.attachment.toString(),
+                null,
+                attachment1Responses,
+                imagePath
+        ));
+        return attachmentQuestions;
     }
 
     public static List<Question> createQuestionsForImageList(List<String> imagePathList) {
