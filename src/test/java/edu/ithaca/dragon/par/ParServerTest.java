@@ -19,7 +19,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-//TODO: move to ParAuthorAndStudentServerTest
+//TODO: move to ParStudentAndAuthorServerTest
 public class ParServerTest {
 
     @Test

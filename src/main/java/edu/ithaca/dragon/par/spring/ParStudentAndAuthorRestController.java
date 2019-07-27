@@ -1,16 +1,11 @@
 package edu.ithaca.dragon.par.spring;
 
-import edu.ithaca.dragon.par.ParAuthorAndStudentServer;
-import edu.ithaca.dragon.par.ParServer;
-import edu.ithaca.dragon.par.authorModel.ParAuthoringServer;
-import edu.ithaca.dragon.par.domainModel.QuestionPool;
+import edu.ithaca.dragon.par.ParStudentAndAuthorServer;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
 import edu.ithaca.dragon.par.io.JsonAuthorDatastore;
 import edu.ithaca.dragon.par.io.JsonStudentModelDatastore;
-import edu.ithaca.dragon.par.io.springio.JsonSpringAuthorDatastore;
-import edu.ithaca.dragon.par.io.springio.JsonSpringStudentModelDatastore;
 import edu.ithaca.dragon.par.pedagogicalModel.ImageTaskSettings;
 import edu.ithaca.dragon.par.pedagogicalModel.PageSettings;
 import edu.ithaca.dragon.util.*;
@@ -28,7 +23,7 @@ import java.util.Map;
 public class ParStudentAndAuthorRestController {
     private final Logger logger = LogManager.getLogger(this.getClass());
 
-    private ParAuthorAndStudentServer parServer;
+    private ParStudentAndAuthorServer parServer;
     private JsonIoHelper jsonIoHelper;
     private JsonIoUtil jsonIoUtil;
 
@@ -49,7 +44,7 @@ public class ParStudentAndAuthorRestController {
                     "author/DemoQuestionPool.json",
                     jsonIoHelper,
                     "localData/students");
-            parServer = new ParAuthorAndStudentServer(jsonStudentDatastore, jsonAuthorDatastore);
+            parServer = new ParStudentAndAuthorServer(jsonStudentDatastore, jsonAuthorDatastore);
         }
         catch(IOException e){
             throw new RuntimeException("Server can't start without all necessary files loaded: ", e);

@@ -1,31 +1,24 @@
 package edu.ithaca.dragon.par;
 
 import edu.ithaca.dragon.par.authorModel.ParAuthoringServer;
-import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.AuthorDatastore;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
 import edu.ithaca.dragon.par.io.StudentModelDatastore;
 import edu.ithaca.dragon.par.pedagogicalModel.TaskGenerator;
-import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.util.DataUtil;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.springframework.http.ResponseEntity;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-public class ParAuthorAndStudentServer {
-
-    private final Logger logger = LogManager.getLogger(this.getClass());
+public class ParStudentAndAuthorServer {
 
     private ParAuthoringServer parAuthoringServer;
     private StudentModelDatastore studentModelDatastore;
 
-    public ParAuthorAndStudentServer(StudentModelDatastore studentModelDatastore, AuthorDatastore authorDatastore) throws IOException {
+    public ParStudentAndAuthorServer(StudentModelDatastore studentModelDatastore, AuthorDatastore authorDatastore) throws IOException {
             this.studentModelDatastore = studentModelDatastore;
             parAuthoringServer = new ParAuthoringServer(authorDatastore);
     }
@@ -58,20 +51,14 @@ public class ParAuthorAndStudentServer {
 
     //----------- Author methods  --------------//
 
-    public ImageTask nextAuthorImageTask() throws IOException {
+    public ImageTask nextAuthorImageTask() {
         return parAuthoringServer.nextImageTaskTemplate();
     }
 
-    public ResponseEntity<String> submitAuthorImageTaskResponse(ImageTaskResponse response) {
-        try {
+    public void submitAuthorImageTaskResponse(ImageTaskResponse response) throws IOException{
             parAuthoringServer.imageTaskResponseSubmitted(response);
-            return ResponseEntity.ok().body("ok");
-        } catch (Exception e){
-            logger.warn(e);
-            return ResponseEntity.notFound().build();
-        }
     }
-    public List<ImageTask> authoredQuestions( ) {
+    public List<ImageTask> authoredQuestions(){
         return parAuthoringServer.authoredQuestions();
     }
 
