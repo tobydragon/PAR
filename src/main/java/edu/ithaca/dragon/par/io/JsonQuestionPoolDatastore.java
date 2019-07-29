@@ -5,12 +5,17 @@ import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.util.JsonIoHelper;
 import edu.ithaca.dragon.util.JsonIoHelperDefault;
 import edu.ithaca.dragon.util.JsonIoUtil;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class JsonQuestionPoolDatastore {
+    private Logger logger = LogManager.getLogger(this.getClass());
+
+
     private String questionFilePath;
     protected QuestionPool questionPool;
     private JsonIoUtil jsonIoUtil;
@@ -53,7 +58,13 @@ public class JsonQuestionPoolDatastore {
 
     protected void addQuestions(List<Question> questions) throws IOException{
         for (Question question : questions){
-            questionPool.addQuestion(question);
+            //TODO: figure out better how to handle questions with same ID
+            if (!questionPool.isIdTaken(question.getId())) {
+                questionPool.addQuestion(question);
+            }
+            else {
+                logger.error("Ignoring Question "+question.getId()+", another with same ID already exists in the JsonQuestionPoolDatastore.");
+            }
         }
         overwriteQuestionPoolFile();
     }
