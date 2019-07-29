@@ -44,7 +44,8 @@ h5 {
 }
 
 .tab {
-    margin-left: 2.5em; }
+    margin-left: 2.5em;
+}
 
 .pad5 {
     padding: 5px;
@@ -133,12 +134,6 @@ h5 {
 
 .par-teal {
     color: #138C9E;
-}
-
-.btn-logout {
-    color: #fff;
-    background-color: #AD2A37;
-    border-color: #AD2A37;
 }
 
 .btn-author {
