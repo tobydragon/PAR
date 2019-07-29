@@ -42,12 +42,13 @@ class PageDisplay {
     }
 
     authorSubmitFinal(){
+        document.getElementById("canvasArea").innerText = "";
         try {
             let request = new XMLHttpRequest();
             request.open("GET", "/api/transferAuthoredQuestionsToStudents", false);
             request.send(null);
 
-            document.getElementById("errorFeedback").innerHTML = "<font color=\"#663399\"> Response recorded</font>";
+            document.getElementById("errorFeedback").innerHTML = "<font color=\"#663399\"> Questions moved to student's pool</font>";
             document.getElementById("questionSet").innerText = "";
         } catch (Exception) {
             window.onerror = function (msg) {
@@ -57,6 +58,7 @@ class PageDisplay {
     }
 
     enterAuthorReview(){
+        document.getElementById("questionSet").innerHTML = " ";
         document.getElementById("canvasArea").innerText = "";
         let listOfImageTasks= readJson("/api/authoredQuestions");
         enterAuthorReview(listOfImageTasks, this.userId, this.imageTaskSettings, this.isAuthor, this.pageSettings);

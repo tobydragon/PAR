@@ -17,6 +17,7 @@ class QuestionAreaDisplay {
         if (followupElement.childNodes.length > 0) {
             this.element.appendChild(followupElement);
         }
+        followupElement.classList.add("tab");
         this.followup = followupElement;
     }
 }
