@@ -43,6 +43,9 @@ h5 {
     margin-right: auto;
 }
 
+.tab {
+    margin-left: 2.5em; }
+
 .pad5 {
     padding: 5px;
 }
