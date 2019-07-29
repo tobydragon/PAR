@@ -38,6 +38,7 @@
         let completeDisplay = new CompleteDisplay();
         completeDisplay.userID = userID;
         completeDisplay.createPageDisplay();
+
     </script>
 
     <!-- Nav Bar -->
@@ -48,23 +49,21 @@
                 <img src="/images/ParLogo.png" height="90%" width="70%" class="imgCenter img-fluid" alt="PAR_logo">
             </div>
             <div class="col-3 colVertCenter">
-                <i><b id="scoreTag">Knowledge Base: </b></i>
+                <i><b id="scoreTag">Progress: </b></i>
                 <div id="score"> </div>
             </div>
             <div class="col-3 colVertCenter">
                 <i><b class="size20">User ID: </b></i>
                 <div id="UserId" class="size20"> </div>
             </div>
-            <div class="col-1"></div>
-            <div class="col-2 colVertCenter">
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-primary" id="submitAuthorButton" onclick="completeDisplay.pageDisplay.enterAuthorReview()">
-                        Review and Submit Authored Questions
-                    </button>
-                    <button type="button" class="btn btn-primary" id="logoutButton" onclick="completeDisplay.pageDisplay.logout()">
-                        Logout
-                    </button>
-                </div>
+
+            <div class="col-3 colVertCenter">
+                <button type="button" class="btn btn-author" id="submitAuthorButton" onclick="completeDisplay.pageDisplay.enterAuthorReview()">
+                    Review and Submit Authored Questions
+                </button>
+                <button type="button" class="btn btn-dark" id="logoutButton" onclick="completeDisplay.pageDisplay.logout()">
+                    Logout
+                </button>
             </div>
         </div>
     </div>
@@ -117,6 +116,7 @@
         completeDisplay.displayUserId();
         completeDisplay.showScoreInner();
         completeDisplay.nextImageTask();
+
     </script>
     <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
