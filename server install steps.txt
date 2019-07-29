@@ -1,5 +1,6 @@
+cd PAR/
 git stash
-git checkout branch
+    - git checkout <branch>
 git pull
 git stash pop
 mvn test
@@ -8,14 +9,10 @@ ps -A | grep java
 kill PID
 
 tar -czv target/localData
-cd target
-rm -f localData/.json
-rm -f localData/students/*.json
-
-cd ..
+rm -f target/localData/*.json
+rm -f target/localData/students/*.json
 
 mvn install
 
 cd target
-
 sudo java -jar par-0.1.0.jar
