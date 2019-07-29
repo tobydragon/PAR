@@ -4,18 +4,18 @@ class PageDisplay {
         this.imageTaskDisplay = null;
         this.userId = null;
         //settings
-        this.pageSettings= pageSettings;
+        this.pageSettings = pageSettings;
         this.scoreType = pageSettings.scoreType;
         this.showScore = pageSettings.showScore;
-        this.imageTaskSettings=null;
+        this.imageTaskSettings = null;
     }
 
     setIsAuthor() {
         this.isAuthor = setIsAuthor(this.userId);
-        if(!this.isAuthor){
+        if (!this.isAuthor) {
             document.getElementById("submitAuthorButton").classList.add("hide");
         } else {
-            document.getElementById("scoreTag").innerText= "";
+            document.getElementById("scoreTag").innerText = "";
         }
         document.getElementById("authorReviewSubmitButton").classList.add("hide");
     }
@@ -43,7 +43,7 @@ class PageDisplay {
         return location.replace('/login');
     }
 
-    authorSubmitFinal(){
+    authorSubmitFinal() {
         document.getElementById("canvasArea").innerText = "";
         try {
             let request = new XMLHttpRequest();
@@ -59,42 +59,46 @@ class PageDisplay {
         }
     }
 
-    enterAuthorReview(){
+    enterAuthorReview() {
         document.getElementById("questionSet").innerHTML = " ";
         document.getElementById("canvasArea").innerText = "";
-        let listOfImageTasks= readJson("/api/authoredQuestions");
+        let listOfImageTasks = readJson("/api/authoredQuestions");
         enterAuthorReview(listOfImageTasks, this.userId, this.imageTaskSettings, this.isAuthor, this.pageSettings);
     }
 
 }
 
-function enterAuthorReview(listOfImageTasks, userId, imageTaskSettings, isAuthor, pageSettings){
+function enterAuthorReview(listOfImageTasks, userId, imageTaskSettings, isAuthor, pageSettings) {
     document.getElementById("authorReviewSubmitButton").classList.remove("hide");
     document.getElementById("submitButton").classList.add("hide");
 
-    for(var i=0; i<listOfImageTasks.length; i++){
-        let current=listOfImageTasks[i];
-        let canvasName= "canvas"+i;
-        if(i>0) {
+    for (var i = 0; i < listOfImageTasks.length; i++) {
+        let current = listOfImageTasks[i];
+        let canvasName = "canvas" + i;
+        if (i > 0) {
             formatAuthorReviewQuestions(i);
         }
-        let newImageTask= new ImageTaskDisplay(current, userId, imageTaskSettings, isAuthor, canvasName, pageSettings);
+        let newImageTask = new ImageTaskDisplay(current, userId, imageTaskSettings, isAuthor, canvasName, pageSettings);
         newImageTask.lockInCorrectAnswers();
     }
 }
 
-function formatAuthorReviewQuestions(number){
-    let space = document.createElement("br");
-    let space2 = document.createElement("br");
-    let space3 = document.createElement("br");
+function formatAuthorReviewQuestions(number) {
     let element = document.createElement("div");
     let header = document.createElement("h2");
     header.textContent = "Question Set " + (number + 1);
     element.appendChild(header);
-    document.getElementById("questionSet").appendChild(space);
-    document.getElementById("questionSet").appendChild(space2);
-    document.getElementById("questionSet").appendChild(space3);
     document.getElementById("questionSet").appendChild(element);
+}
+
+function reviewMode() {
+    let outerNode = document.createElement('div');
+    outerNode.classList.add('row');
+    let imageTaskElementHandler = document.createElement('div');
+    let imageTask = new ImageTaskDisplay();
+    imageTaskElementHandler.appendChild(imageTask);
+    outerNode.appendChild(imageTaskElementHandler);
+    return outerNode;
 }
 
 function logout() {
