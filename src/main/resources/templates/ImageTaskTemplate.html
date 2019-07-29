@@ -38,6 +38,7 @@
         let completeDisplay = new CompleteDisplay();
         completeDisplay.userID = userID;
         completeDisplay.createPageDisplay();
+
     </script>
 
     <!-- Nav Bar -->
@@ -56,15 +57,15 @@
                 <div id="UserId" class="size20"> </div>
             </div>
             <div class="col-1"></div>
-            <div class="col-2 colVertCenter">
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-primary" id="submitAuthorButton" onclick="completeDisplay.pageDisplay.enterAuthorReview()">
-                        Add Questions to Pool
-                    </button>
-                    <button type="button" class="btn btn-primary" id="logoutButton" onclick="completeDisplay.pageDisplay.logout()">
-                        Logout
-                    </button>
-                </div>
+            <div class="col-1 colVertCenter">
+                <button type="button" class="btn btn-author" id="submitAuthorButton" onclick="completeDisplay.pageDisplay.enterAuthorReview()">
+                    Add Questions to Pool
+                </button>
+            </div>
+            <div class="col-1 colVertCenter">
+                <button type="button" class="btn btn-logout" id="logoutButton" onclick="completeDisplay.pageDisplay.logout()">
+                    Logout
+                </button>
             </div>
         </div>
     </div>
@@ -117,6 +118,7 @@
         completeDisplay.displayUserId();
         completeDisplay.showScoreInner();
         completeDisplay.nextImageTask();
+
     </script>
     <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

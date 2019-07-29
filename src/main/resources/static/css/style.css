@@ -132,6 +132,18 @@ h5 {
     color: #138C9E;
 }
 
+.btn-logout {
+    color: #fff;
+    background-color: #AD2A37;
+    border-color: #AD2A37;
+}
+
+.btn-author {
+    color: #fff;
+    background-color: #218A39;
+    border-color: #218A39;
+}
+
 /* ---------------------------------------*
 /* Add spacing to text elements */
 
