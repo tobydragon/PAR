@@ -3,6 +3,7 @@ class ImageTaskDisplay {
     constructor(imageTaskJson, userId, imageTaskSettings, isAuthor, canvasName, pageDisplaySettings) {
         this.userId = userId;
         this.response = new Response(userId);
+        this.hasFolloup= false;
         //settings
         this.unsureShowsCorrectAnswer = imageTaskSettings.unsureShowsCorrectAnswer;
         this.feedbackByType = imageTaskSettings.feedbackByType;
@@ -103,6 +104,9 @@ class ImageTaskDisplay {
             this.listOfCorrectAnswers.push(correctness);
             if (checkIfShouldAddFollowupQ(correctness)) {
                 current.addFollowupQuestions();
+                if(current.followUpAreas.length>0){
+                    this.hasFolloup= true;
+                }
             }
             this.checkFollowUp(current);
         }
@@ -191,9 +195,10 @@ function giveFeedback(typesSeenForFeedback, feedbackByType) {
 function sendResponse(response, ableToResubmitAnswers, isAuthor, pageSettings) {
     submitResponse(response, isAuthor, pageSettings);
 
-    if (!ableToResubmitAnswers) {
+    if (!ableToResubmitAnswers && hasFollowup>1) {
         document.getElementById("submitButton").classList.add("hide");
     }
+
     document.getElementById("errorFeedback").innerHTML = "<font color=\"#663399\"> Response recorded</font>";
 
     return true;
