@@ -89,29 +89,22 @@ class ImageTaskDisplay {
 
     checkFollowUp(current) {
         for (var x = 0; x < current.followUpAreas.length; x++) {
-            let correctness=current.followUpAreas[x].answerBox.checkCurrentResponse(this.response, this.unsureShowsCorrectAnswer);
+            let correctness=current.followUpAreas[x].answerBox.checkCurrentResponse(this.response, this.unsureShowsCorrectAnswer, current.followUpAreas[x].element.id);
             this.listOfCorrectAnswers.push(correctness);
-            if(correctness!== ResponseResult.blank) {
-                addToResponseIds(this.response, current.followUpAreas[x].element.id);
-            }
         }
     }
 
     checkAnswers() {
+        this.response.taskQuestionIds= [];
         this.listOfCorrectAnswers = [];
         for (var i = 0; i < this.questionAreaDisp.length; i++) {
             let current = this.questionAreaDisp[i];
-            let correctness = current.answerBox.checkCurrentResponse(this.response, this.unsureShowsCorrectAnswer);
-            if(correctness!== ResponseResult.blank) {
-                addToResponseIds(this.response, current.element.id);
-            }
+            let correctness = current.answerBox.checkCurrentResponse(this.response, this.unsureShowsCorrectAnswer, current.element.id);
             this.listOfCorrectAnswers.push(correctness);
             if (checkIfShouldAddFollowupQ(correctness)) {
                 current.addFollowupQuestions();
             }
-            if (this.haveSubmited) {
-                this.checkFollowUp(current);
-            }
+            this.checkFollowUp(current);
         }
     }
 
@@ -167,6 +160,9 @@ function submitResponse(response, isAuthor, pageSettings) {
         taskQuestionIds: response.taskQuestionIds,
         responseTexts: response.responseTexts
     };
+
+    console.log(newResponse.taskQuestionIds);
+    console.log(newResponse.responseTexts);
 
     if (isAuthor) {
         submitToAPI("api/submitAuthorImageTaskResponse", newResponse,pageSettings.showScore ,pageSettings.scoreType ,this.userID );
