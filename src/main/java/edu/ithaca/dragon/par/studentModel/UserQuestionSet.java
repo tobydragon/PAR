@@ -1,12 +1,16 @@
 package edu.ithaca.dragon.par.studentModel;
 
 import edu.ithaca.dragon.par.domainModel.Question;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class UserQuestionSet {
+    private Logger logger = LogManager.getLogger(this.getClass());
+
     private String userId;
     private List<QuestionCount> questionCounts;
 
@@ -117,7 +121,8 @@ public class UserQuestionSet {
 
     public void addQuestion(Question q) {
         if (getQuestionCountFromId(q.getId(), getQuestionCounts())!=null){
-            throw new RuntimeException("Question "+q.getId()+" already exists in the UserQuestionSet");
+            //TODO: decide better how to handle mathicng ID numbers
+            logger.error("Ignoring Question "+q.getId()+", another with same ID already exists in the UserQuestionSet");
         }
         QuestionCount qcToAdd = new QuestionCount(q);
         questionCounts.add(qcToAdd);

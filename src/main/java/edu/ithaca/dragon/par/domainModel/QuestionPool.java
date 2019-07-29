@@ -32,6 +32,10 @@ public class QuestionPool {
         return q;
     }
 
+    public boolean isIdTaken(String idToCheck){
+        return getQuestionFromId(idToCheck, allQuestions) != null;
+    }
+
     public static Question getQuestionFromId(String questionIdIn, List<Question> questionList){
 
         for(Question q : questionList){
