@@ -34,6 +34,7 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
         this.jsonIoUtil = new JsonIoUtil(jsonIoHelper);
         studentModelMap = new HashMap<>();
 
+        //TODO: set best possible window size
         if (isWindowSizeTooBig(UserResponseSet.windowSize, questionPool.getAllQuestions())) {
             throw new RuntimeException("The windowSize is too small for the given questionFile");
         }
@@ -67,6 +68,7 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
     @Override
     public void addQuestions(List<Question> questions) throws IOException {
         super.addQuestions(questions);
+        //TODO: recalculate best possible window size
         Set<String> studentIds = studentModelMap.keySet();
         studentIds.addAll(getAllSavedStudentIds(studentModelFilePath));
         for (String studentId : studentIds){
@@ -74,6 +76,7 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
             for (Question question : questions){
                 currModel.addQuestion(question);
             }
+            //TODO: set studentModel's window size
             overwriteStudentFile(currModel, studentModelFilePath, jsonIoUtil);
         }
     }

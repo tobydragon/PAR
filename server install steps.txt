@@ -8,9 +8,14 @@ ps -A | grep java
 kill PID
 
 tar -czv target/localData
-
+cd target
 rm -f localData/.json
 rm -f localData/students/*.json
 
+cd ..
+
 mvn install
 
+cd target
+
+sudo java -jar par-0.1.0.jar

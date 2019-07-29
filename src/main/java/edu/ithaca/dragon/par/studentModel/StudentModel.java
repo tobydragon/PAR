@@ -126,7 +126,7 @@ public class StudentModel {
     }
 
     public Map<EquineQuestionTypes, String> generateKnowledgeBaseMap(){
-        return userResponseSet.generateKnowledgeBaseMap();
+        return userResponseSet.calcKnowledgeEstimateStringsByType();
     }
 
     @Override
