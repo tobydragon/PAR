@@ -98,15 +98,7 @@ class ImageTaskDisplay {
         }
     }
 
-    createCanvas(imageUrl, name) {
-        let newCanvas = document.createElement("CANVAS");
-        newCanvas.id = name;
-        newCanvas.width = "1024";
-        newCanvas.height = "768";
-        //newCanvas.classList.add("center-block");
-        newCanvas.classList.add("canvas");
-        this.pageImage = new PageImage(imageUrl, name);
-    }
+
 
     createQuestionAreaElement() {
         let outerQuestionNode = document.createElement('div');

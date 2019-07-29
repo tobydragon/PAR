@@ -29,8 +29,9 @@
     <div class="container-fluid">
         <div id="canvasElement"></div>
         <script>
-            let canvasDisplay = new PageImage('./imagesPARLogo.png', 'canvasElement');
+            let canvasDisplay = new PageImage('../../resources/images/ParLogo.png', 'canvas0');
             document.getElementById('canvasElement').appendChild(canvasDisplay.element);
+            canvasDisplay.loadImage();
         </script>
     </div>
 
