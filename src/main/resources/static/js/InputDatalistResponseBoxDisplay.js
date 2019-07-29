@@ -63,7 +63,7 @@ function buildElement(id, possibleResponseDatalist, inputTextbox) {
 }
 
 function addToTypesIncorrect(correctness, type, typesIncorrect) {
-    if (correctness === ResponseResult.correct) {
+    if (correctness === ResponseResult.correct || correctness===ResponseResult.blank) {
 
     } else {
         if (!typesIncorrect.includes(type)) {
