@@ -27,9 +27,10 @@ class InputDatalistResponseBoxDisplay {
         this.element.appendChild(feedbackTextArea);
     }
 
-    checkCurrentResponse(response, unsureShowsCorrect) {
+    checkCurrentResponse(response, unsureShowsCorrect, questionId) {
         if(this.inputTextbox.value!== ResponseResult.blank) {
             response.addToResponseTexts(this.inputTextbox.value);
+            addToResponseIds(response, questionId);
         }
         let returnResponse = checkAnyResponse(this.correctResponse, this.inputTextbox.value);
         addToTypesIncorrect(returnResponse, this.type, response.typesIncorrect);
