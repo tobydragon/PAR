@@ -46,6 +46,10 @@ class CompleteDisplay {
                 document.getElementById("errorFeedback").innerHTML = "<font color=red>Must submit answers to continue</font>";
             }
         }
+        if(this.pageDisplay.isAuthor){
+            document.getElementById("submitButton").classList.remove("hide");
+            document.getElementById("authorReviewSubmitButton").classList.add("hide");
+        }
     }
 
     showScoreInner(){
