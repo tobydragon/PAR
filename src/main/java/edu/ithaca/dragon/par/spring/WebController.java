@@ -11,6 +11,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Controller
 public class WebController implements WebMvcConfigurer {
 
+    @RequestMapping("/")
+    public String base(){
+        return "LoginPage";
+    }
+
     @RequestMapping("/login")
     public String login(){
         return "LoginPage";
