@@ -121,9 +121,9 @@ class ImageTaskDisplay {
         let canvasElement = document.createElement('div');
 
         if (this.imageUrl === "noMoreQuestions") {
-            this.createCanvas("../images/ParLogo.png", this.canvasName);
+            createCanvas("../images/ParLogo.png", this.canvasName);
         } else {
-            this.createCanvas(this.imageUrl, this.canvasName);
+            createCanvas(this.imageUrl, this.canvasName);
         }
         this.displayImageUrl(this.imageUrl);
 

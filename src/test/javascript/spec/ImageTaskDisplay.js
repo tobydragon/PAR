@@ -71,40 +71,9 @@ describe("ImageTaskDisplay", function () {
         expect(questionObjects[0].possibleAnswers).toContain(ResponseResult.unsure);
     });
     it("createCanvasElement", function () {
-        let imageTaskJson = {
-
-            "imageUrl": "../../resources/images/demoEquine02.jpg",
-            "taskQuestions": [{
-                "id": "PlaneQ1",
-                "type": "plane",
-                "questionText": "On which plane is the ultrasound taken?",
-                "correctAnswer": "Lateral",
-                "possibleAnswers": ["Transverse", "Lateral"],
-                "imageUrl": "../../resources/images/demoEquine02.jpg"
-            }]
-        }
-        let imageTaskSettings = {
-            unsureShowsCorrectAnswer: "False",
-            feedbackByType: {
-                "plane": "Look at chapter 12",
-                structure: "View notes from 9/25",
-                attachment: "Read Page 394",
-                zone: "Rewatch <a href=https://www.youtube.com/watch?v=dQw4w9WgXcQ> this video </a>"
-            },
-            ableToResubmitAnswers: "True",
-            mustSubmitAnswersToContinue: "False",
-            canGiveNoAnswer: "True",
-            willDisplayFeedback: "False"
-        };
-        let pageExampleSettings = {
-            "scoreType": "VisualByType",
-            "showScore": "True"
-        }
-
-        let imageTaskObject = new ImageTaskDisplay(imageTaskJson, "test", imageTaskSettings, true, "Canvas0", pageExampleSettings);
         let imageURL = "../images/PARLogo.png";
         let canvasName = "test";
-        let canvasElement = imageTaskObject.createCanvasElement(imageURL, canvasName);
+        let canvasElement = createCanvas(imageURL, canvasName);
         expect(canvasElement).toBe();
     });
     it("createQuestionAreaElement", function () {
