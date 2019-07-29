@@ -14,6 +14,8 @@ class PageDisplay {
         this.isAuthor = setIsAuthor(this.userId);
         if(!this.isAuthor){
             document.getElementById("submitAuthorButton").classList.add("hide");
+        } else {
+            document.getElementById("scoreTag").innerText= "";
         }
         document.getElementById("authorReviewSubmitButton").classList.add("hide");
     }
