@@ -70,7 +70,7 @@ public class TaskGenerator {
                 //make and return an imageTask with the first question from the studentModels.unseenQuestions that matches the level
                 List<Question> unseen = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions();
                 for (int i = 0; i < unseen.size(); i++) {
-                    if (unseen.get(i).getType().equals("structure")) {
+                    if (unseen.get(i).getType().equals(EquineQuestionTypes.structure.toString())) {
                         if (unseen.get(i).getFollowupQuestions().size() > 0) {
                             return unseen.get(i);
                         }
@@ -210,17 +210,32 @@ public class TaskGenerator {
         return seenQuestions.get(index);
     }
 
+
+    private static QuestionCount getLeastSeenQuestionWithFollowup(List<QuestionCount> questionCountList){
+        int index=0;
+        List<QuestionCount> questionsWithFollowup=new ArrayList<>();
+        for (int i=0;i<questionCountList.size();i++){
+            if(questionCountList.get(i).question.getFollowupQuestions().size()>=1){
+                questionsWithFollowup.add(questionCountList.get(i));
+            }
+        }
+        for(int i=0;i<questionsWithFollowup.size();i++){
+            if(questionsWithFollowup.get(i).timesSeen <questionsWithFollowup.get(index).timesSeen ){
+                index=i;
+            }
+        }
+        return questionsWithFollowup.get(index);
+    }
+
     /**
-     * This funtion is supposed to look through a list of questions and return the structure question
+     * This function is supposed to look through a list of questions and return the structure question
      * seen the least that contains followup questions.
      * @param questionCountList
      * @return the least seen structure question that has followup questions.
      */
 
     public static QuestionCount getLeastSeenQuestionWithAttachmentQuestions(List<QuestionCount> questionCountList){
-
-
-        return null;
+        return getLeastSeenQuestionWithFollowup(questionCountList);
     }
 
 }

@@ -13,6 +13,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -239,26 +240,32 @@ public class TaskGeneratorTest {
     public void getLeastSeenQuestionWithAttachmentQuestionsTest() throws IOException{
         QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
         List<QuestionCount> questionCountList = QuestionCount.questionToQuestionCount(questionPool.getAllQuestions());
+        List<String> questionIds=new ArrayList<>();
+        for(int i=0;i<8;i++){
+            QuestionCount question = TaskGenerator.getLeastSeenQuestionWithAttachmentQuestions(questionCountList);
+            question.increaseTimesSeen();
+            questionIds.add(question.getQuestion().getId());
+        }
+        assertEquals(Arrays.asList("structure0./images/demoEquine14.jpg","structure1./images/demoEquine02.jpg",
+                "structure0./images/demoEquine04.jpg", "structure3./images/demoEquine10.jpg",
+                "structure0./images/demoEquine09.jpg", "structure0./images/demoEquine32.jpg",
+                "structure2./images/demoEquine32.jpg", "structure3./images/demoEquine32.jpg"),questionIds);
 
         QuestionCount question = TaskGenerator.getLeastSeenQuestionWithAttachmentQuestions(questionCountList);
         assertEquals("structure0./images/demoEquine14.jpg", question.getQuestion().getId());
         question.increaseTimesSeen();
-        questionCountList.set(2, question);
 
         question = TaskGenerator.getLeastSeenQuestionWithAttachmentQuestions(questionCountList);
         assertEquals("structure1./images/demoEquine02.jpg", question.getQuestion().getId());
         question.increaseTimesSeen();
-        questionCountList.set(7, question);
 
         question = TaskGenerator.getLeastSeenQuestionWithAttachmentQuestions(questionCountList);
         assertEquals("structure0./images/demoEquine04.jpg", question.getQuestion().getId());
         question.increaseTimesSeen();
-        questionCountList.set(2, question);
 
         question = TaskGenerator.getLeastSeenQuestionWithAttachmentQuestions(questionCountList);
-        assertEquals("structure1./images/demoEquine02.jpg", question.getQuestion().getId());
+        assertEquals("structure3./images/demoEquine10.jpg", question.getQuestion().getId());
         question.increaseTimesSeen();
-        questionCountList.set(16, question);
 
     }
 
