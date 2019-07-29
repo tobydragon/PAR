@@ -124,16 +124,16 @@ class ImageTaskDisplay {
         return outerQuestionNode;
     }
 
-    createCanvasElement(imageUrl, canvasName) {
+    createCanvasElement() {
         let outerCanvasNode = document.createElement('div');
         let canvasElement = document.createElement('div');
 
-        if (imageUrl === "noMoreQuestions") {
+        if (this.imageUrl === "noMoreQuestions") {
             this.createCanvas("../images/ParLogo.png", this.canvasName);
         } else {
-            this.createCanvas(imageUrl, this.canvasName);
+            this.createCanvas(this.imageUrl, this.canvasName);
         }
-        this.displayImageUrl(imageUrl);
+        this.displayImageUrl(this.imageUrl);
 
         canvasElement.appendChild(newCanvas);
         outerCanvasNode.appendChild(canvasElement);
