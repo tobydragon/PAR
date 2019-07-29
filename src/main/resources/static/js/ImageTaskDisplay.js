@@ -10,7 +10,7 @@ class ImageTaskDisplay {
         this.willDisplayFeedback = imageTaskSettings.willDisplayFeedback;
         this.ableToResubmitAnswers = imageTaskSettings.ableToResubmitAnswers;
         this.mustSubmitAnswersToContinue = imageTaskSettings.mustSubmitAnswersToContinue;
-        this.haveSubmited = false;
+        this.haveSubmited = 0;
         this.canGiveNoAnswer = imageTaskSettings.canGiveNoAnswer;
         this.pageSettings= pageDisplaySettings;
 
@@ -60,7 +60,9 @@ class ImageTaskDisplay {
 
         if (canContinu) {
             this.displayFeedback();
-            this.haveSubmited = sendResponse(this.response, this.ableToResubmitAnswers, this.isAuthor, this.pageSettings);
+            sendResponse(this.response, this.ableToResubmitAnswers, this.isAuthor, this.pageSettings, this.hasFolloup, this.haveSubmited);
+            this.haveSubmited +=1;
+            this.hasFolloup=false;
         } else {
             document.getElementById("errorFeedback").innerHTML = "<font color=red>No response was recorded because you did not answer all the questions</font>";
         }
@@ -192,11 +194,17 @@ function giveFeedback(typesSeenForFeedback, feedbackByType) {
     return feedbackString;
 }
 
-function sendResponse(response, ableToResubmitAnswers, isAuthor, pageSettings) {
+function sendResponse(response, ableToResubmitAnswers, isAuthor, pageSettings, hasFollowup, timesSubmitted) {
     submitResponse(response, isAuthor, pageSettings);
 
-    if (!ableToResubmitAnswers && hasFollowup>1) {
-        document.getElementById("submitButton").classList.add("hide");
+    if (!ableToResubmitAnswers) {
+        if(hasFollowup){
+            if(timesSubmitted>0){
+                document.getElementById("submitButton").classList.add("hide");
+            }
+        }else {
+            document.getElementById("submitButton").classList.add("hide");
+        }
     }
 
     document.getElementById("errorFeedback").innerHTML = "<font color=\"#663399\"> Response recorded</font>";

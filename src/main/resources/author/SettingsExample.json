@@ -6,7 +6,7 @@
         "attachment": "Read <a href=https://extension.oregonstate.edu/sites/default/files/documents/1/horsehoofandleganatomy.pdf> this powerpoint </a> to review attachments",
         "zone": "Rewatch <a href=https://www.youtube.com/watch?v=dQw4w9WgXcQ> this video </a> to review zones"
     },
-    "ableToResubmitAnswers": "True",
+    "ableToResubmitAnswers": "False",
     "mustSubmitAnswersToContinue": "False",
     "canGiveNoAnswer": "True",
     "willDisplayFeedback": "True"
