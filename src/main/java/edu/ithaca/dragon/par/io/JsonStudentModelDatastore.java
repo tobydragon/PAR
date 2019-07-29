@@ -69,7 +69,8 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
     public void addQuestions(List<Question> questions) throws IOException {
         super.addQuestions(questions);
         //TODO: recalculate best possible window size
-        Set<String> studentIds = studentModelMap.keySet();
+        //TODO: test combinations of students in or not in memory / file
+        HashSet<String> studentIds = new HashSet<>(studentModelMap.keySet());
         studentIds.addAll(getAllSavedStudentIds(studentModelFilePath));
         for (String studentId : studentIds){
             StudentModel currModel = getOrCreateStudentModel(studentId);
