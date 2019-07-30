@@ -7,7 +7,7 @@ describe("Response", function () {
 
     it("addToResponseTexts", function () {
         let test= new Response("test1");
-        test.addToResponseTexts("longitudinal")
+        test.addToResponseTexts("longitudinal");
         expect(test.responseTexts.length).toBe(1);
     });
 

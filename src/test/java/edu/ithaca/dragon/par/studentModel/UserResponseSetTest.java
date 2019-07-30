@@ -4,15 +4,13 @@ import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
-import edu.ithaca.dragon.par.io.JsonDatastore;
+import edu.ithaca.dragon.par.io.JsonQuestionPoolDatastore;
 import edu.ithaca.dragon.util.DataUtil;
 import edu.ithaca.dragon.util.JsonUtil;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -52,7 +50,7 @@ public class UserResponseSetTest {
 
     @Test
     public void addAllResponseTest()throws IOException{
-        QuestionPool questionPool = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json").loadQuestions());
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/SampleQuestionPool.json").getAllQuestions());
         List<ImageTaskResponse> responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponse.class);
         List<ResponsesPerQuestion> responsesPerQuestions=StudentModel.createUserResponseObj(responsesFromFile.get(0),questionPool,"s1");
         UserResponseSet respSet=new UserResponseSet(responsesFromFile.get(0).getUserId());
@@ -117,11 +115,11 @@ public class UserResponseSetTest {
     }
 
     @Test
-    public void generateKnowledgeBaseMapTest()throws IOException{
+    public void calcKnowledgeEstimateStringsByTypeTest()throws IOException{
         List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/DemoQuestionPoolFollowup.json", Question.class);
         UserResponseSet userResponseSet = new UserResponseSet("TestUser1");
 
-        Map<EquineQuestionTypes, String> m1 = userResponseSet.generateKnowledgeBaseMap();
+        Map<EquineQuestionTypes, String> m1 = userResponseSet.calcKnowledgeEstimateStringsByType();
         assertEquals("____", m1.get(EquineQuestionTypes.plane));
         assertEquals("____", m1.get(EquineQuestionTypes.structure));
         assertEquals("____", m1.get(EquineQuestionTypes.attachment));
@@ -129,7 +127,7 @@ public class UserResponseSetTest {
 
         ResponsesPerQuestion response = new ResponsesPerQuestion("TestUser1", questionsFromFile.get(0),questionsFromFile.get(0).getCorrectAnswer());
         userResponseSet.addResponse(response);
-        m1 = userResponseSet.generateKnowledgeBaseMap();
+        m1 = userResponseSet.calcKnowledgeEstimateStringsByType();
         assertEquals("___O", m1.get(EquineQuestionTypes.plane));
         assertEquals("____", m1.get(EquineQuestionTypes.structure));
         assertEquals("____", m1.get(EquineQuestionTypes.attachment));
@@ -137,7 +135,7 @@ public class UserResponseSetTest {
 
         response = new ResponsesPerQuestion("TestUser1",questionsFromFile.get(1),questionsFromFile.get(1).getCorrectAnswer());
         userResponseSet.addResponse(response);
-        m1 = userResponseSet.generateKnowledgeBaseMap();
+        m1 = userResponseSet.calcKnowledgeEstimateStringsByType();
         assertEquals("___O", m1.get(EquineQuestionTypes.plane));
         assertEquals("___O", m1.get(EquineQuestionTypes.structure));
         assertEquals("____", m1.get(EquineQuestionTypes.attachment));
@@ -145,7 +143,7 @@ public class UserResponseSetTest {
 
         response = new ResponsesPerQuestion("TestUser1", questionsFromFile.get(2),"wrong");
         userResponseSet.addResponse(response);
-        m1 = userResponseSet.generateKnowledgeBaseMap();
+        m1 = userResponseSet.calcKnowledgeEstimateStringsByType();
         assertEquals("___O", m1.get(EquineQuestionTypes.plane));
         assertEquals("__OX", m1.get(EquineQuestionTypes.structure));
         assertEquals("____", m1.get(EquineQuestionTypes.attachment));
@@ -153,7 +151,7 @@ public class UserResponseSetTest {
 
         response = new ResponsesPerQuestion("TestUser1", questionsFromFile.get(1).getFollowupQuestions().get(0),"wrong");
         userResponseSet.addResponse(response);
-        m1 = userResponseSet.generateKnowledgeBaseMap();
+        m1 = userResponseSet.calcKnowledgeEstimateStringsByType();
         assertEquals("___O", m1.get(EquineQuestionTypes.plane));
         assertEquals("__OX", m1.get(EquineQuestionTypes.structure));
         assertEquals("___X", m1.get(EquineQuestionTypes.attachment));
@@ -161,7 +159,7 @@ public class UserResponseSetTest {
 
         response = new ResponsesPerQuestion("TestUser1", questionsFromFile.get(1).getFollowupQuestions().get(1),questionsFromFile.get(1).getFollowupQuestions().get(1).getCorrectAnswer());
         userResponseSet.addResponse(response);
-        m1 = userResponseSet.generateKnowledgeBaseMap();
+        m1 = userResponseSet.calcKnowledgeEstimateStringsByType();
         assertEquals("___O", m1.get(EquineQuestionTypes.plane));
         assertEquals("__OX", m1.get(EquineQuestionTypes.structure));
         assertEquals("__XO", m1.get(EquineQuestionTypes.attachment));
@@ -169,7 +167,7 @@ public class UserResponseSetTest {
 
         response = new ResponsesPerQuestion("TestUser1", questionsFromFile.get(4),questionsFromFile.get(4).getCorrectAnswer());
         userResponseSet.addResponse(response);
-        m1 = userResponseSet.generateKnowledgeBaseMap();
+        m1 = userResponseSet.calcKnowledgeEstimateStringsByType();
         assertEquals("___O", m1.get(EquineQuestionTypes.plane));
         assertEquals("__OX", m1.get(EquineQuestionTypes.structure));
         assertEquals("__XO", m1.get(EquineQuestionTypes.attachment));
@@ -177,7 +175,7 @@ public class UserResponseSetTest {
 
         response = new ResponsesPerQuestion("TestUser1", questionsFromFile.get(3),questionsFromFile.get(3).getCorrectAnswer());
         userResponseSet.addResponse(response);
-        m1 = userResponseSet.generateKnowledgeBaseMap();
+        m1 = userResponseSet.calcKnowledgeEstimateStringsByType();
         assertEquals("___O", m1.get(EquineQuestionTypes.plane));
         assertEquals("_OXO", m1.get(EquineQuestionTypes.structure));
         assertEquals("__XO", m1.get(EquineQuestionTypes.attachment));
@@ -185,7 +183,7 @@ public class UserResponseSetTest {
 
         response = new ResponsesPerQuestion("TestUser1", questionsFromFile.get(6),questionsFromFile.get(6).getCorrectAnswer());
         userResponseSet.addResponse(response);
-        m1 = userResponseSet.generateKnowledgeBaseMap();
+        m1 = userResponseSet.calcKnowledgeEstimateStringsByType();
         assertEquals("___O", m1.get(EquineQuestionTypes.plane));
         assertEquals("OXOO", m1.get(EquineQuestionTypes.structure));
         assertEquals("__XO", m1.get(EquineQuestionTypes.attachment));
@@ -193,7 +191,7 @@ public class UserResponseSetTest {
 
         response = new ResponsesPerQuestion("TestUser1", questionsFromFile.get(7),questionsFromFile.get(7).getCorrectAnswer());
         userResponseSet.addResponse(response);
-        m1 = userResponseSet.generateKnowledgeBaseMap();
+        m1 = userResponseSet.calcKnowledgeEstimateStringsByType();
         assertEquals("___O", m1.get(EquineQuestionTypes.plane));
         assertEquals("XOOO", m1.get(EquineQuestionTypes.structure));
         assertEquals("__XO", m1.get(EquineQuestionTypes.attachment));
@@ -201,7 +199,7 @@ public class UserResponseSetTest {
 
         response = new ResponsesPerQuestion("TestUser1", questionsFromFile.get(8),"wrong");
         userResponseSet.addResponse(response);
-        m1 = userResponseSet.generateKnowledgeBaseMap();
+        m1 = userResponseSet.calcKnowledgeEstimateStringsByType();
         assertEquals("___O", m1.get(EquineQuestionTypes.plane));
         assertEquals("OOOX", m1.get(EquineQuestionTypes.structure));
         assertEquals("__XO", m1.get(EquineQuestionTypes.attachment));

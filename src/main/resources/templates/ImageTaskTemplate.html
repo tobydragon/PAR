@@ -49,23 +49,21 @@
                 <img src="/images/ParLogo.png" height="90%" width="70%" class="imgCenter img-fluid" alt="PAR_logo">
             </div>
             <div class="col-3 colVertCenter">
-                <i><b id="scoreTag">Knowledge Base: </b></i>
+                <i><b id="scoreTag">Progress: </b></i>
                 <div id="score"> </div>
             </div>
             <div class="col-3 colVertCenter">
                 <i><b class="size20">User ID: </b></i>
                 <div id="UserId" class="size20"> </div>
             </div>
-            <div class="col-1"></div>
-            <div class="col-2 colVertCenter">
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-primary" id="submitAuthorButton" onclick="completeDisplay.pageDisplay.authorSubmitFinal()">
-                        Add Questions to Pool
-                    </button>
-                    <button type="button" class="btn btn-primary" id="logoutButton" onclick="completeDisplay.pageDisplay.logout()">
-                        Logout
-                    </button>
-                </div>
+
+            <div class="col-3 colVertCenter">
+                <button type="button" class="btn btn-author" id="submitAuthorButton" onclick="completeDisplay.pageDisplay.enterAuthorReview()">
+                    Review Authored Questions
+                </button>
+                <button type="button" class="btn btn-dark" id="logoutButton" onclick="completeDisplay.pageDisplay.logout()">
+                    Logout
+                </button>
             </div>
         </div>
     </div>
@@ -76,19 +74,17 @@
             <div class="col-1"></div>
 
             <div class="col-6 imgCenter">
-                <canvas id="myCanvas" width="1024" height="768" class="center-block">
-                    Your browser doesn't support Canvas.
-                </canvas>
-
+                <div id="canvasArea"> </div>
             </div>
-            <div class="col-4 text-center">
+
+            <div class="col-4">
                 <br />
-                <h1> Question Set</h1>
+                <h1 class="text-center"> Question Set</h1>
                 <form action="#" method="post" id="questionSetForm">
                     <div id="questionSet"> </div>
                 </form>
                 <br>
-                <i id="helpfulFeedback"> </i>
+                <i id="helpfulFeedback" class="text-center"> </i>
                 <div class="row">
                     <div class="col-12 text-center">
                         <div class="show">
@@ -96,12 +92,15 @@
                                 <button type="button" class="btn btn-primary" id="submitButton" onclick="completeDisplay.pageDisplay.imageTaskDisplay.submitAnswers()">
                                     Submit
                                 </button>
+                                <button type="button" class="btn btn-primary" id="authorReviewSubmitButton" onclick="completeDisplay.pageDisplay.authorSubmitFinal()">
+                                    Add Questions to Pool
+                                </button>
                             </i>
                             <button type="button" class="fas fa-arrow-circle-right btn btn-outline-dark" id="nextQuestionButton" onclick="completeDisplay.nextQuestion()"></button>
                             <i id="errorFeedback"> </i>
                         </div>
                         <div class="row">
-                            <div class="col-12">
+                            <div class="col-12 text-center">
                                 <i id="Ids"> </i>
                             </div>
                         </div>
@@ -109,14 +108,13 @@
                 </div>
             </div>
             <div class="col-1"></div>
-
         </div>
     </div>
 
     <script>
         completeDisplay.setPageDisplayIsAuthor();
         completeDisplay.displayUserId();
-        completeDisplay.showScore();
+        completeDisplay.showScoreInner();
         completeDisplay.nextImageTask();
 
     </script>

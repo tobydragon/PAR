@@ -14,36 +14,36 @@ describe("ImageTaskDisplay", function () {
         let test1 = new Response("test");
         addToResponseIds(test1, "\"zone./images/demoEquine14.jpg\"");
         expect(test1.taskQuestionIds.length).toBe(1);
-        expect(test1.taskQuestionIds).toEqual([ '"zone./images/demoEquine14.jpg"' ]);
+        expect(test1.taskQuestionIds).toEqual(['"zone./images/demoEquine14.jpg"']);
 
         addToResponseIds(test1, "\"zone./images/demoEquine14.jpg\"");
         expect(test1.taskQuestionIds.length).toBe(1);
-        expect(test1.taskQuestionIds).toEqual([ '"zone./images/demoEquine14.jpg"' ]);
+        expect(test1.taskQuestionIds).toEqual(['"zone./images/demoEquine14.jpg"']);
 
         addToResponseIds(test1, "\"plane./images/demoEquine02.jpg\"");
         expect(test1.taskQuestionIds.length).toBe(2);
-        expect(test1.taskQuestionIds).toEqual([ '"zone./images/demoEquine14.jpg"', '"plane./images/demoEquine02.jpg"' ]);
+        expect(test1.taskQuestionIds).toEqual(['"zone./images/demoEquine14.jpg"', '"plane./images/demoEquine02.jpg"']);
 
         addToResponseIds(test1, "\"plane./images/demoEquine02.jpg\"");
         expect(test1.taskQuestionIds.length).toBe(2);
-        expect(test1.taskQuestionIds).toEqual([ '"zone./images/demoEquine14.jpg"', '"plane./images/demoEquine02.jpg"' ]);
+        expect(test1.taskQuestionIds).toEqual(['"zone./images/demoEquine14.jpg"', '"plane./images/demoEquine02.jpg"']);
 
         addToResponseIds(test1, "\"BonusQ2\"");
         expect(test1.taskQuestionIds.length).toBe(3);
-        expect(test1.taskQuestionIds).toEqual([ '"zone./images/demoEquine14.jpg"', '"plane./images/demoEquine02.jpg"', '"BonusQ2"' ]);
+        expect(test1.taskQuestionIds).toEqual(['"zone./images/demoEquine14.jpg"', '"plane./images/demoEquine02.jpg"', '"BonusQ2"']);
     });
 
     it("giveFeedback", function () {
-        let feedbackByType= {
+        let feedbackByType = {
             plane: "Look at chapter 12",
             structure: "View notes from 9/25",
             attachment: "Read Page 394",
             zone: "Rewatch <a href=https://www.youtube.com/watch?v=dQw4w9WgXcQ> this video </a>"
         };
-        let test1=["plane"];
-        let test2=["plane", "structure"];
-        let test3=["plane", "structure", "attachment"];
-        let test4=["plane", "structure", "attachment", "zone"];
+        let test1 = ["plane"];
+        let test2 = ["plane", "structure"];
+        let test3 = ["plane", "structure", "attachment"];
+        let test4 = ["plane", "structure", "attachment", "zone"];
         expect(giveFeedback(test1, feedbackByType)).toBe("Feedback: Look at chapter 12");
         expect(giveFeedback(test2, feedbackByType)).toBe("Feedback: Look at chapter 12, View notes from 9/25");
         expect(giveFeedback(test3, feedbackByType)).toBe("Feedback: Look at chapter 12, View notes from 9/25, Read Page 394");
@@ -52,9 +52,9 @@ describe("ImageTaskDisplay", function () {
     });
 
     it("checkIfCanContinu", function () {
-        let test1= ["Correct","Incorrect","Incorrect","Incorrect","Correct"];
-        let test2= ["Correct","Incorrect","Incorrect","Incorrect","Correct", ""];
-        let test3= ["Correct","Incorrect","","","Incorrect","Incorrect","Correct"];
+        let test1 = ["Correct", "Incorrect", "Incorrect", "Incorrect", "Correct"];
+        let test2 = ["Correct", "Incorrect", "Incorrect", "Incorrect", "Correct", ""];
+        let test3 = ["Correct", "Incorrect", "", "", "Incorrect", "Incorrect", "Correct"];
         expect(checkIfCanContinu(true, test1)).toBe(true);
         expect(checkIfCanContinu(true, test2)).toBe(true);
         expect(checkIfCanContinu(true, test3)).toBe(true);
@@ -63,6 +63,12 @@ describe("ImageTaskDisplay", function () {
         expect(checkIfCanContinu(false, test2)).toBe(false);
         expect(checkIfCanContinu(false, test3)).toBe(false);
     });
+    it("addUnsureToAnswers", function () {
+        let questionObjects = readJson("../resources/author/DemoQuestionPoolFollowup.json");
+        console.log(questionObjects);
+        addUnsureToAnswers(questionObjects);
 
+        expect(questionObjects[0].possibleAnswers).toContain(ResponseResult.unsure);
+    });
 
 });

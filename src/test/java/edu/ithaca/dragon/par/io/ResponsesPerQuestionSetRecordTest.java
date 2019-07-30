@@ -3,7 +3,6 @@ package edu.ithaca.dragon.par.io;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.studentModel.UserResponseSet;
 import edu.ithaca.dragon.util.JsonUtil;
-import org.apache.catalina.User;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -20,7 +19,7 @@ public class ResponsesPerQuestionSetRecordTest {
     public void toJsonAndBackTest() throws IOException {
         List<ImageTaskResponse> responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponse.class);
         UserResponseSet que=new UserResponseSet(responsesFromFile.get(0).getUserId());
-        QuestionPool qp = new QuestionPool(new JsonDatastore("src/test/resources/author/SampleQuestionPool.json").loadQuestions());
+        QuestionPool qp = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/SampleQuestionPool.json").getAllQuestions());
 
 
         UserResponseSetRecord myURSR=new UserResponseSetRecord(que);

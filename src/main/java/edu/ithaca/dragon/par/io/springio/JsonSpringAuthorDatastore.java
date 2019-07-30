@@ -13,6 +13,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+
+//TODO: delete
 public class JsonSpringAuthorDatastore implements AuthorDatastore {
 
     private JsonSpringQuestionPoolDatastore questionsDatastore;
@@ -72,5 +74,17 @@ public class JsonSpringAuthorDatastore implements AuthorDatastore {
 
     public int getQuestionTemplateCount(){
         return questionTemplatesDatastore.getQuestionCount();
+    }
+
+    @Override
+    public List<Question> getAllAuthoredQuestions() {
+        //TODO
+        return null;
+    }
+
+    @Override
+    public List<Question> removeAllAuthoredQuestions() throws IOException {
+        //TODO
+        return null;
     }
 }

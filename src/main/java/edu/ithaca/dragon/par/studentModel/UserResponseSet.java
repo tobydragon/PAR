@@ -7,6 +7,7 @@ import java.util.*;
 public class UserResponseSet {
     private String userId;
     private List<ResponsesPerQuestion> userResponses;
+    //TODO: make a windowSize a property, gets set with constructor, has a setter method
     //windowSize is the amount of responses to look back on when calculating the understanding of a topic
     public static int windowSize = 4;
 
@@ -148,30 +149,29 @@ public class UserResponseSet {
     }
 
 
-    public Map<EquineQuestionTypes, String> generateKnowledgeBaseMap(){
+    public Map<EquineQuestionTypes, String> calcKnowledgeEstimateStringsByType(){
         Map<String, List<ResponsesPerQuestion>> responseByType = splitResponsesByType(userResponses);
         Map<EquineQuestionTypes,String> knowledgeBaseMap=new LinkedHashMap<>();
         for (EquineQuestionTypes currType : EquineQuestionTypes.values()) {
             List<ResponsesPerQuestion> quesList = responseByType.get(currType.toString());
-            knowledgeBaseMap.put(currType, knowledgeBaseEstimate(quesList,windowSize));
+            knowledgeBaseMap.put(currType, calcKnowledgeEstimateString(quesList,windowSize));
         }
         return knowledgeBaseMap;
     }
 
-//TODO: CHECK BY TIMESTAMP INSTEAD OF LAST THREE IN LIST.
-    private static String knowledgeBaseEstimate(List<ResponsesPerQuestion> allResponses, int responsesToConsider) {
-        //return ____ if the list is empty
+    private static String calcKnowledgeEstimateString(List<ResponsesPerQuestion> allResponses, int numOfRecentResponsesToConsider) {
+        //TODO: make this work with different window sizes
         if (allResponses.size() == 0)  return "____";
 
         String knowledgeBase="____";
         List<Double> scores=new ArrayList<>();
-        for (int i = allResponses.size() - 1, j = 0; j < responsesToConsider; i--, j++) {
+        for (int i = allResponses.size() - 1, j = 0; j < numOfRecentResponsesToConsider; i--, j++) {
             //scores are added backwards from the most recent to older responses
             if (i >= 0) scores.add(allResponses.get(i).knowledgeCalc());
         }
         //reads in the scores from the last element to first since the most recent response is at beginning of the list
         for(int i=scores.size()-1;i>-1;i--){
-            //re-writes the string knowledgeBaseEstimate i.e ____ -> ___O or ___X and so on
+            //re-writes the string calcKnowledgeEstimateString i.e ____ -> ___O or ___X and so on
 
             if(scores.get(i)==100) knowledgeBase=knowledgeBase.substring(1)+"O";
 

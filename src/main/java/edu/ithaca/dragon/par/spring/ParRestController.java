@@ -6,7 +6,7 @@ import edu.ithaca.dragon.par.authorModel.ParAuthoringServer;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
 import edu.ithaca.dragon.par.io.springio.JsonSpringAuthorDatastore;
-import edu.ithaca.dragon.par.io.springio.JsonSpringDatastore;
+import edu.ithaca.dragon.par.io.springio.JsonSpringStudentModelDatastore;
 import edu.ithaca.dragon.par.pedagogicalModel.ImageTaskSettings;
 import edu.ithaca.dragon.par.pedagogicalModel.PageSettings;
 import edu.ithaca.dragon.util.DataUtil;
@@ -19,8 +19,9 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.Map;
 
-@RestController
-@RequestMapping("/api")
+//TODO: delete
+//@RestController
+//@RequestMapping("/api")
 public class ParRestController {
     private final Logger logger = LogManager.getLogger(this.getClass());
 
@@ -30,7 +31,7 @@ public class ParRestController {
     ParRestController(){
         super();
         try {
-            parServer = new ParServer(new JsonSpringDatastore("localData/currentQuestionPool.json","author/DemoQuestionPool.json", "localData/students"));
+            parServer = new ParServer(new JsonSpringStudentModelDatastore("localData/currentQuestionPool.json","author/DemoQuestionPool.json", "localData/students"));
             parAuthoringServer = new ParAuthoringServer(new JsonSpringAuthorDatastore("localData/currentAuthoredQuestions.json", "author/AuthorQuestionsDefault.json",
                     "localData/currentAuthorQuestionTemplates.json", "author/AuthorQuestionTemplatesDefault.json", "localData/currentAuthorModel.json" ));
         }
@@ -77,7 +78,7 @@ public class ParRestController {
     }
 
     @PostMapping("/logout")
-    public void logout(@RequestParam String userId){
+    public void logout(@RequestParam String userId) throws IOException{
         parServer.logout(userId);
     }
 

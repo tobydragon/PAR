@@ -1,12 +1,12 @@
 {
-    "unsureShowsCorrectAnswer": "True",
+    "unsureShowsCorrectAnswer": "False",
     "feedbackByType": {
-        "plane": "Look at chapter 12",
-        "structure": "View notes from 9/25",
-        "attachment": "Read Page 394",
-        "zone": "Rewatch <a href=https://www.youtube.com/watch?v=dQw4w9WgXcQ> this video </a>"
+        "plane": "Read <a href=https://www.bwfurlong.com/2016/11/14/understanding-distal-limb-ultrasonography/> this article </a> to review planes",
+        "structure": "Rewatch <a href=https://www.youtube.com/watch?v=cU28mo_d3iw> this video </a> to review structure",
+        "attachment": "Read <a href=https://extension.oregonstate.edu/sites/default/files/documents/1/horsehoofandleganatomy.pdf> this powerpoint </a> to review attachments",
+        "zone": "Rewatch <a href=https://www.youtube.com/watch?v=dQw4w9WgXcQ> this video </a> to review zones"
     },
-    "ableToResubmitAnswers": "True",
+    "ableToResubmitAnswers": "False",
     "mustSubmitAnswersToContinue": "False",
     "canGiveNoAnswer": "True",
     "willDisplayFeedback": "True"

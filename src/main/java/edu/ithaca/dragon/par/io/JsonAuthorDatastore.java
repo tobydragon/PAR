@@ -3,7 +3,9 @@ package edu.ithaca.dragon.par.io;
 import edu.ithaca.dragon.par.authorModel.AuthorModel;
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.studentModel.QuestionCount;
-import edu.ithaca.dragon.util.JsonUtil;
+import edu.ithaca.dragon.util.JsonIoHelper;
+import edu.ithaca.dragon.util.JsonIoHelperDefault;
+import edu.ithaca.dragon.util.JsonIoUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,10 +17,22 @@ public class JsonAuthorDatastore implements AuthorDatastore {
     private JsonQuestionPoolDatastore questionTemplatesDatastore;
     private String authorFilepath;
     private AuthorModel authorModel;
+    private JsonIoUtil jsonIoUtil;
 
-    public JsonAuthorDatastore(String questionsFilePath, String questionTemplatesFilepath, String authorFilepath) throws IOException{
-        this.questionsDatastore = new JsonQuestionPoolDatastore(questionsFilePath);
-        this.questionTemplatesDatastore = new JsonQuestionPoolDatastore(questionTemplatesFilepath);
+    public JsonAuthorDatastore(String questionsFilePath, String questionTemplatesFilepath, String authorFilepath) throws IOException {
+        this(questionsFilePath, questionTemplatesFilepath, authorFilepath, new JsonIoHelperDefault());
+    }
+
+    public JsonAuthorDatastore(String questionsFilePath, String questionTemplatesFilepath, String authorFilepath, JsonIoHelper jsonIoHelper) throws IOException {
+        this(questionsFilePath, null, questionTemplatesFilepath, null, authorFilepath, jsonIoHelper);
+    }
+
+    public JsonAuthorDatastore(String questionsFilePath, String defaultQuestionsReadOnlyFilePath,
+                               String questionTemplatesFilepath, String defaultQuestionTemplatesReadOnlyFilePath,
+                               String authorFilepath, JsonIoHelper jsonIoHelper) throws IOException{
+        this.jsonIoUtil = new JsonIoUtil(jsonIoHelper);
+        this.questionsDatastore = new JsonQuestionPoolDatastore(questionsFilePath,defaultQuestionsReadOnlyFilePath, jsonIoHelper);
+        this.questionTemplatesDatastore = new JsonQuestionPoolDatastore(questionTemplatesFilepath, defaultQuestionTemplatesReadOnlyFilePath, jsonIoHelper);
         this.authorFilepath = authorFilepath;
         setUpAuthorModelProperties(authorFilepath, questionTemplatesDatastore.getAllQuestions());
     }
@@ -32,7 +46,7 @@ public class JsonAuthorDatastore implements AuthorDatastore {
             overwriteAuthorFile();
         }
         else {
-            authorModel = (JsonUtil.fromJsonFile(filepath, AuthorModelRecord.class).buildAuthorModel(questionTemplatesDatastore.getQuestionPool()));
+            authorModel = (jsonIoUtil.fromFile(filepath, AuthorModelRecord.class).buildAuthorModel(questionTemplatesDatastore.getQuestionPool()));
         }
     }
 
@@ -53,7 +67,7 @@ public class JsonAuthorDatastore implements AuthorDatastore {
     }
 
     private void overwriteAuthorFile() throws IOException{
-        JsonUtil.toJsonFile(authorFilepath, new AuthorModelRecord(authorModel));
+       jsonIoUtil.toFile(authorFilepath, new AuthorModelRecord(authorModel));
     }
 
     @Override
@@ -76,5 +90,17 @@ public class JsonAuthorDatastore implements AuthorDatastore {
     @Override
     public int getQuestionTemplateCount(){
         return questionTemplatesDatastore.getQuestionCount();
+    }
+
+    @Override
+    public List<Question> getAllAuthoredQuestions(){
+        return questionsDatastore.getAllQuestions();
+    }
+
+    //removes and returns all questions that are authored (leaving a blank question file for authored questions)
+    //no effect on the templates
+    @Override
+    public List<Question> removeAllAuthoredQuestions() throws IOException {
+        return questionsDatastore.removeAllQuestions();
     }
 }

@@ -17,6 +17,7 @@ class QuestionAreaDisplay {
         if (followupElement.childNodes.length > 0) {
             this.element.appendChild(followupElement);
         }
+        followupElement.classList.add("tab");
         this.followup = followupElement;
     }
 }
@@ -30,6 +31,8 @@ function buildQuestionAreaElement(id, questionText, answerBoxElement) {
 
     element.appendChild(questionTextArea);
     element.appendChild(answerBoxElement);
+    element.classList.add("pad5");
+
 
     return element;
 }

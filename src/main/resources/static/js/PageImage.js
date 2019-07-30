@@ -1,6 +1,6 @@
 class PageImage{
 
-    constructor(imageUrl) {
+    constructor(imageUrl, canvasName) {
         //Check to see if the canvas has a context
         if (!canvasSupport()) {
             return; //Canvas not supported so exit the function
@@ -21,7 +21,7 @@ class PageImage{
         }
 
         //Setup the canvas object
-        var theCanvas = document.getElementById("myCanvas"); //get the canvas element
+        var theCanvas = document.getElementById(canvasName); //get the canvas element
         var context = theCanvas.getContext("2d"); //get the context
         var canvasWidth = theCanvas.width; //get the width of the canvas
         var canvasHeight = theCanvas.height; //get the heigth of the canvas

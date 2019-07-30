@@ -28,7 +28,7 @@ h5 {
     font-family: 'Nanum Gothic', sans-serif;
 }
 
-#myCanvas {
+.canvas {
     width: 100%;
     height: 100%;
 }
@@ -41,6 +41,14 @@ h5 {
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+
+.tab {
+    margin-left: 2.5em;
+}
+
+.pad5 {
+    padding: 5px;
 }
 
 .underline {
@@ -110,7 +118,7 @@ h5 {
     border-color: #274C72;
 }
 
-.login-input-box {
+.line-input-box {
     background: transparent;
     border: none;
     border-bottom: 1px solid;
@@ -125,8 +133,13 @@ h5 {
 }
 
 .par-teal {
-
     color: #138C9E;
+}
+
+.btn-author {
+    color: #fff;
+    background-color: #218A39;
+    border-color: #218A39;
 }
 
 /* ---------------------------------------*
