@@ -7,9 +7,6 @@ import java.util.*;
 public class UserResponseSet {
     private String userId;
     private List<ResponsesPerQuestion> userResponses;
-    //TODO: make a windowSize a property, gets set with constructor, has a setter method
-    //windowSize is the amount of responses to look back on when calculating the understanding of a topic
-    public static int windowSize = 4;
 
     public UserResponseSet(String userIdIn) {
         this.userId = userIdIn;
@@ -80,18 +77,14 @@ public class UserResponseSet {
     }
 
 
-    public double knowledgeCalc() {
+    public double calcKnowledgeEstimate() {
         //TODO: should 12 be replaced by windowSize?
-        return knowledgeCalc(userResponses, 12);
+        return calcKnowledgeEstimate(userResponses, 12);
     }
 
 
-    /**
-     * @param responsesToConsider how many responses should the algorithm look back on to calculate the recent average?
-     * @return
-     */
-    public double knowledgeCalc(int responsesToConsider) {
-        return knowledgeCalc(userResponses, responsesToConsider);
+    public double calcKnowledgeEstimate(int responseCountToConsider) {
+        return calcKnowledgeEstimate(userResponses, responseCountToConsider);
     }
 
 
@@ -100,7 +93,7 @@ public class UserResponseSet {
      * @param responsesToConsider how many responses should the algorithm look back on
      * @return
      */
-    private static double knowledgeCalc(List<ResponsesPerQuestion> allResponses, int responsesToConsider) {
+    private static double calcKnowledgeEstimate(List<ResponsesPerQuestion> allResponses, int responsesToConsider) {
         //return -1 if the list is empty
         if (allResponses.size() == 0)
             return -1.0;
@@ -114,12 +107,12 @@ public class UserResponseSet {
     }
 
 
-    public Map<String, Double> knowledgeScoreByType() {
+    public Map<String, Double> calcKnowledgeEstimateByType(int numOfRecentResponsesToConsider) {
         Map<String, List<ResponsesPerQuestion>> responseByType = splitResponsesByType(userResponses);
         Map<String, Double> responseByTypeDouble = new LinkedHashMap<>();
         for (EquineQuestionTypes currType: EquineQuestionTypes.values()) {
             List<ResponsesPerQuestion> quesList = responseByType.get(currType.toString());
-            responseByTypeDouble.put(currType.toString(), knowledgeCalc(quesList, windowSize));
+            responseByTypeDouble.put(currType.toString(), calcKnowledgeEstimate(quesList, numOfRecentResponsesToConsider));
         }
         return responseByTypeDouble;
     }
@@ -149,38 +142,44 @@ public class UserResponseSet {
     }
 
 
-    public Map<EquineQuestionTypes, String> calcKnowledgeEstimateStringsByType(){
+    public Map<EquineQuestionTypes, String> calcKnowledgeEstimateStringsByType(int numOfRecentResponsesToConsider){
         Map<String, List<ResponsesPerQuestion>> responseByType = splitResponsesByType(userResponses);
         Map<EquineQuestionTypes,String> knowledgeBaseMap=new LinkedHashMap<>();
         for (EquineQuestionTypes currType : EquineQuestionTypes.values()) {
             List<ResponsesPerQuestion> quesList = responseByType.get(currType.toString());
-            knowledgeBaseMap.put(currType, calcKnowledgeEstimateString(quesList,windowSize));
+            knowledgeBaseMap.put(currType, calcKnowledgeEstimateString(quesList,numOfRecentResponsesToConsider));
         }
         return knowledgeBaseMap;
     }
 
-    private static String calcKnowledgeEstimateString(List<ResponsesPerQuestion> allResponses, int numOfRecentResponsesToConsider) {
-        //TODO: make this work with different window sizes
-        if (allResponses.size() == 0)  return "____";
-
-        String knowledgeBase="____";
-        List<Double> scores=new ArrayList<>();
-        for (int i = allResponses.size() - 1, j = 0; j < numOfRecentResponsesToConsider; i--, j++) {
-            //scores are added backwards from the most recent to older responses
-            if (i >= 0) scores.add(allResponses.get(i).knowledgeCalc());
+    public static String calcKnowledgeEstimateString(List<ResponsesPerQuestion> allResponses, int numOfRecentResponsesToConsider) {
+        String estimateString = "";
+        if (allResponses.size() >= numOfRecentResponsesToConsider ){
+            for( int i = allResponses.size()-numOfRecentResponsesToConsider; i<allResponses.size(); i++){
+                estimateString += convertNumEstimateToStringRepresentation(allResponses.get(i).knowledgeCalc());
+            }
+            return estimateString;
         }
-        //reads in the scores from the last element to first since the most recent response is at beginning of the list
-        for(int i=scores.size()-1;i>-1;i--){
-            //re-writes the string calcKnowledgeEstimateString i.e ____ -> ___O or ___X and so on
-
-            if(scores.get(i)==100) knowledgeBase=knowledgeBase.substring(1)+"O";
-
-            else knowledgeBase=knowledgeBase.substring(1)+"X";
+        else {
+            for( int i = 0; i<allResponses.size(); i++){
+                estimateString += convertNumEstimateToStringRepresentation(allResponses.get(i).knowledgeCalc());
+            }
+            int numBlank = numOfRecentResponsesToConsider-allResponses.size();
+            for (int i=0; i < numBlank; i++){
+                estimateString = "_" + estimateString;
+            }
+            return estimateString;
         }
-        return knowledgeBase;
     }
 
-
+    public static String convertNumEstimateToStringRepresentation(Double numEstimate){
+        if (numEstimate > 99){
+            return "O";
+        }
+        else {
+            return "X";
+        }
+    }
 
     @Override
     public boolean equals(Object otherObj) {

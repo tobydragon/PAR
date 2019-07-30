@@ -20,8 +20,9 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
 
     private String studentModelFilePath;
     private Map<String, StudentModel> studentModelMap;
-    JsonIoHelper jsonIoHelper;
-    JsonIoUtil jsonIoUtil;
+    private int minQuestionsPerType;
+    private JsonIoHelper jsonIoHelper;
+    private JsonIoUtil jsonIoUtil;
 
     public JsonStudentModelDatastore(String questionFilePath, String studentModelFilePath) throws IOException {
         this(questionFilePath, null, new JsonIoHelperDefault(), studentModelFilePath);
@@ -33,11 +34,7 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
         this.jsonIoHelper = jsonIoHelper;
         this.jsonIoUtil = new JsonIoUtil(jsonIoHelper);
         studentModelMap = new HashMap<>();
-
-        //TODO: set best possible window size
-        if (isWindowSizeTooBig(UserResponseSet.windowSize, questionPool.getAllQuestions())) {
-            throw new RuntimeException("The windowSize is too small for the given questionFile");
-        }
+        minQuestionsPerType = calcMinQuestionCountPerType(questionPool.getAllQuestions());
     }
 
     private static StudentModel loadStudentModelFromFile(QuestionPool questionPool, String studentModelFilePath, String userId, JsonIoHelper jsonIoHelper, JsonIoUtil jsonIoUtil) throws IOException{
@@ -59,16 +56,22 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
     }
 
     @Override
-    public void imageTaskResponseSubmitted(String userId, ImageTaskResponse imageTaskResponse) throws IOException{
+    public void submitImageTaskResponse(String userId, ImageTaskResponse imageTaskResponse) throws IOException{
         StudentModel currentStudent = getStudentModel(userId);
         currentStudent.imageTaskResponseSubmitted(imageTaskResponse, questionPool);
         overwriteStudentFile(currentStudent, studentModelFilePath, jsonIoUtil);
     }
 
     @Override
+    public int getMinQuestionCountPerType() {
+        return minQuestionsPerType;
+    }
+
+    @Override
     public void addQuestions(List<Question> questions) throws IOException {
         super.addQuestions(questions);
-        //TODO: recalculate best possible window size
+        minQuestionsPerType = calcMinQuestionCountPerType(questionPool.getAllQuestions());
+
         //TODO: test combinations of students in or not in memory / file
         HashSet<String> studentIds = new HashSet<>(studentModelMap.keySet());
         studentIds.addAll(getAllSavedStudentIds(studentModelFilePath));
@@ -121,37 +124,21 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
         jsonIoUtil.toFile(fullFilePath, new StudentModelRecord(currentStudent));
     }
 
-    public static boolean isWindowSizeTooBig(int desiredWindowSize, List<Question> allQuestions){
-        if(desiredWindowSize<0){
-            return true;
-        }
-        //create parallel arrays of types and count of times seen
-        List<String> enumNames = Stream.of(EquineQuestionTypes.values()).map(Enum::name).collect(Collectors.toList());
-        List<Integer> typeCounts = new ArrayList<>();
-
-        //initialize typeCounts with 0s
-        for(int i=0; i<enumNames.size(); i++){
-            typeCounts.add(0);
-        }
-
-        isWindowSizeTooBig(enumNames, typeCounts, allQuestions);
-
-        //check if the typecounts are high enough
-        for(int i = 0; i<typeCounts.size();i++){
-            if(typeCounts.get(i) < desiredWindowSize)
-                return true;
-        }
-        return false;
+    public static int calcMinQuestionCountPerType(List<Question> allQuestions){
+        Map<String, Integer> typeCounts = new HashMap<>();
+        populateQuestionByTypeCountMap(allQuestions, typeCounts);
+        return typeCounts.values().stream().mapToInt(v -> v).min().orElse(0);
     }
 
-    public static void isWindowSizeTooBig(List<String> enumNames, List<Integer> typeCounts, List<Question> questionList){
-        for(Question currQuestion : questionList) {
-            isWindowSizeTooBig(enumNames, typeCounts, currQuestion.getFollowupQuestions());
-
-            for (int i = 0; i < enumNames.size(); i++) {
-                if (enumNames.get(i).equals(currQuestion.getType())) {
-                    typeCounts.set(i, typeCounts.get(i) + 1);
-                }
+    public static void populateQuestionByTypeCountMap(List<Question> allQuestions,Map<String, Integer> typeCounts){
+        for (Question question : allQuestions){
+            populateQuestionByTypeCountMap(question.getFollowupQuestions(), typeCounts);
+            Integer count = typeCounts.get(question.getType());
+            if (count != null){
+                typeCounts.put(question.getType(), count+1);
+            }
+            else {
+                typeCounts.put(question.getType(), 1);
             }
         }
     }

@@ -117,11 +117,11 @@ public class TaskGenerator {
      * @param studentModel
      * @return
      */
-    public static ImageTask makeTask(StudentModel studentModel){
-        return makeTask(studentModel, StudentModel.calcLevel(studentModel.knowledgeScoreByType()));
+    public static ImageTask findLevelAndMakeTask(StudentModel studentModel, int questionCountPerTypeForAnalysis){
+        return makeTaskGivenLevel(studentModel, StudentModel.calcLevel(studentModel.calcKnowledgeEstimateByType(questionCountPerTypeForAnalysis)));
     }
 
-    public static ImageTask makeTask(StudentModel studentModel, int level){
+    public static ImageTask makeTaskGivenLevel(StudentModel studentModel, int level){
         checkStudentModel(studentModel);
 
         Question initialQuestion = TaskGenerator.getInitialQuestionForTask(studentModel, level);

@@ -25,49 +25,10 @@ public class StudentModel {
         this.userResponseSet = userResponseSet;
     }
 
-    public UserQuestionSet getUserQuestionSet() {
-        return userQuestionSet;
+    public void imageTaskResponseSubmitted(ImageTaskResponse imageTaskResponses, QuestionPool questions){
+        userResponseSet.addAllResponses(createUserResponseObj(imageTaskResponses,questions,this.userId));
     }
 
-    public UserResponseSet getUserResponseSet() {
-        return userResponseSet;
-    }
-
-    public void givenQuestion(String questionId){
-        userQuestionSet.increaseTimesSeen(questionId);
-    }
-
-    public int getSeenQuestionCount(){
-        return userQuestionSet.getTopLevelSeenQuestions().size();
-    }
-
-    public int getUnseenQuestionCount(){
-        return userQuestionSet.getTopLevelUnseenQuestions().size();
-    }
-
-    public int getResponseCount(){
-        return userResponseSet.getUserResponsesSize();
-    }
-
-    public String getUserId(){
-        return userId;
-    }
-
-    public double knowledgeScore(){
-        return userResponseSet.knowledgeCalc();
-    }
-
-    public Map<String,Double> knowledgeScoreByType(){
-        return userResponseSet.knowledgeScoreByType();
-    }
-
-    /**
-     * Creates a list of ResponsesPerQuestion objects
-     * @param imageTaskResponses: response submitted by the user
-     * @param questions: QuestionPool object
-     * @param userId: user ID
-     * @return: List of ResponsesPerQuestion objects
-     */
     public static List<ResponsesPerQuestion> createUserResponseObj(ImageTaskResponse imageTaskResponses, QuestionPool questions, String userId){
         List<ResponsesPerQuestion> userResponse =new ArrayList<>();
         ResponsesPerQuestion response; Question ques;
@@ -77,29 +38,6 @@ public class StudentModel {
             userResponse.add(response);
         }
         return userResponse;
-    }
-
-    /**
-     * Adds all responses from the imageTaskResponses to the UserResponseSet
-     * @param imageTaskResponses: response submitted by the user
-     * @param questions: QuestionPool object
-     */
-    public void imageTaskResponseSubmitted(ImageTaskResponse imageTaskResponses, QuestionPool questions){
-        userResponseSet.addAllResponses(createUserResponseObj(imageTaskResponses,questions,this.userId));
-    }
-
-    private static List<Double> orderedScores(Map<String, Double> scoresPerType){
-        List<Double> orderedScores=new ArrayList<>();
-        for(EquineQuestionTypes quesType: EquineQuestionTypes.values()){
-            if(scoresPerType.get(quesType.toString())==null){
-                orderedScores.add(-1.0);
-            }
-            else {
-                orderedScores.add(scoresPerType.get(quesType.toString()));
-            }
-        }
-
-        return orderedScores;//ordered list of scores
     }
 
     public static int calcLevel(Map<String, Double> scoresPerType) {
@@ -125,8 +63,18 @@ public class StudentModel {
         }
     }
 
-    public Map<EquineQuestionTypes, String> generateKnowledgeBaseMap(){
-        return userResponseSet.calcKnowledgeEstimateStringsByType();
+    private static List<Double> orderedScores(Map<String, Double> scoresPerType){
+        List<Double> orderedScores=new ArrayList<>();
+        for(EquineQuestionTypes quesType: EquineQuestionTypes.values()){
+            if(scoresPerType.get(quesType.toString())==null){
+                orderedScores.add(-1.0);
+            }
+            else {
+                orderedScores.add(scoresPerType.get(quesType.toString()));
+            }
+        }
+
+        return orderedScores;//ordered list of scores
     }
 
     @Override
@@ -141,7 +89,54 @@ public class StudentModel {
                 && this.getUserResponseSet().equals(other.getUserResponseSet());
     }
 
+    
+    public String getUserId(){
+        return userId;
+    }
+
+
+
     public void addQuestion(Question q) {
-        getUserQuestionSet().addQuestion(q);
+        userQuestionSet.addQuestion(q);
+    }
+
+    public UserQuestionSet getUserQuestionSet() {
+        return userQuestionSet;
+    }
+
+    public int getSeenQuestionCount(){
+        return userQuestionSet.getTopLevelSeenQuestions().size();
+    }
+
+    public int getUnseenQuestionCount(){
+        return userQuestionSet.getTopLevelUnseenQuestions().size();
+    }
+
+    public void increaseTimesSeen(String questionId){
+        userQuestionSet.increaseTimesSeen(questionId);
+    }
+
+
+
+
+    public UserResponseSet getUserResponseSet() {
+        return userResponseSet;
+    }
+
+    public Map<EquineQuestionTypes, String> calcKnowledgeEstimateStringsByType(int numOfRecentResponsesToConsider){
+        return userResponseSet.calcKnowledgeEstimateStringsByType(numOfRecentResponsesToConsider);
+    }
+
+    public int getResponseCount(){
+        return userResponseSet.getUserResponsesSize();
+    }
+
+
+    public double calcKnowledgeEstimate(){
+        return userResponseSet.calcKnowledgeEstimate();
+    }
+
+    public Map<String,Double> calcKnowledgeEstimateByType(int numOfRecentResponsesToConsider){
+        return userResponseSet.calcKnowledgeEstimateByType(numOfRecentResponsesToConsider);
     }
 }
