@@ -98,9 +98,7 @@ class ImageTaskDisplay {
             this.checkFollowUp(current);
         }
     }
-
-
-
+    
     createQuestionAreaElement() {
         let questionElement = document.createElement('div');
         questionElement.classList.add('col-4');

@@ -34,6 +34,7 @@ class PageDisplay {
                 var imageTaskJSON = readJson("api/nextImageTask?userId=" + this.userId);
             }
             this.imageTaskDisplay = new ImageTaskDisplay(imageTaskJSON, this.userId, this.imageTaskSettings, this.isAuthor, "myCanvas", this.pageSettings);
+            imageTaskHTML(this.imageTaskDisplay);
 
         } catch (Exception) {
             window.onerror = function (msg) {
@@ -86,6 +87,7 @@ function enterAuthorReview(listOfImageTasks, userId, imageTaskSettings, isAuthor
             formatAuthorReviewQuestions(i);
         }
         let newImageTask = new ImageTaskDisplay(current, userId, imageTaskSettings, isAuthor, canvasName, pageSettings);
+        imageTaskHTML(newImageTask);
         newImageTask.lockInCorrectAnswers();
     }
 }
@@ -98,10 +100,10 @@ function formatAuthorReviewQuestions(number) {
     document.getElementById("questionSet").appendChild(element);
 }
 
-function reviewMode(imageTaskObject) {
+function imageTaskHTML(imageTaskDisplayObject) {
     let outerNode = document.createElement('div');
     outerNode.classList.add('container-fluid');
-    outerNode.appendChild(imageTaskObject.createImageTaskElement());
+    outerNode.appendChild(imageTaskDisplayObject.createImageTaskElement());
     return outerNode;
 }
 

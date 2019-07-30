@@ -20,7 +20,7 @@ describe("PageDisplay", function () {
         };
         let imageTaskDisplayObject = new ImageTaskDisplay(listOfImageTasks[0], "testUser", imageTaskSettings, true, "canvas0", pageDisplaySettings);
         let pageDisplayObject = new PageDisplay(pageDisplaySettings);
-        let imageTaskElement = reviewMode(imageTaskDisplayObject);
+        let imageTaskElement = imageTaskHTML(imageTaskDisplayObject);
         console.log(imageTaskElement);
         expect(imageTaskElement.getAttribute('class')).toContain('container-fluid');
 
