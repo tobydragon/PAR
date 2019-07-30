@@ -65,10 +65,8 @@ describe("ImageTaskDisplay", function () {
     });
     it("addUnsureToAnswers", function () {
         let questionObjects = readJson("../resources/author/DemoQuestionPoolFollowup.json");
-        console.log(questionObjects);
         addUnsureToAnswers(questionObjects);
 
         expect(questionObjects[0].possibleAnswers).toContain(ResponseResult.unsure);
     });
-
 });
