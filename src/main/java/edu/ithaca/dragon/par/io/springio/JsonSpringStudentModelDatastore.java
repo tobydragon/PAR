@@ -43,8 +43,13 @@ public class JsonSpringStudentModelDatastore extends JsonSpringQuestionPoolDatas
     }
 
     @Override
-    public void imageTaskResponseSubmitted(String userId, ImageTaskResponse imageTaskResponse) throws IOException {
+    public void submitImageTaskResponse(String userId, ImageTaskResponse imageTaskResponse) throws IOException {
 
+    }
+
+    @Override
+    public int getMinQuestionCountPerType() {
+        return 0;
     }
 
     @Override
