@@ -142,39 +142,4 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
             }
         }
     }
-
-//    public static boolean isWindowSizeTooBig(int desiredWindowSize, List<Question> allQuestions){
-//        if(desiredWindowSize<0){
-//            return true;
-//        }
-//        //create parallel arrays of types and count of times seen
-//        List<String> enumNames = Stream.of(EquineQuestionTypes.values()).map(Enum::name).collect(Collectors.toList());
-//        List<Integer> typeCounts = new ArrayList<>();
-//
-//        //initialize typeCounts with 0s
-//        for(int i=0; i<enumNames.size(); i++){
-//            typeCounts.add(0);
-//        }
-//
-//        isWindowSizeTooBig(enumNames, typeCounts, allQuestions);
-//
-//        //check if the typecounts are high enough
-//        for(int i = 0; i<typeCounts.size();i++){
-//            if(typeCounts.get(i) < desiredWindowSize)
-//                return true;
-//        }
-//        return false;
-//    }
-//
-//    public static void isWindowSizeTooBig(List<String> enumNames, List<Integer> typeCounts, List<Question> questionList){
-//        for(Question currQuestion : questionList) {
-//            isWindowSizeTooBig(enumNames, typeCounts, currQuestion.getFollowupQuestions());
-//
-//            for (int i = 0; i < enumNames.size(); i++) {
-//                if (enumNames.get(i).equals(currQuestion.getType())) {
-//                    typeCounts.set(i, typeCounts.get(i) + 1);
-//                }
-//            }
-//        }
-//    }
 }
