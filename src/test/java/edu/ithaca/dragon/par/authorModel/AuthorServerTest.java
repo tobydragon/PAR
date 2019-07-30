@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ParAuthoringServerTest {
+public class AuthorServerTest {
 
     @Test
     public void imageTaskResponseSubmittedTest(@TempDir Path tempDir) throws IOException{
@@ -24,7 +24,7 @@ public class ParAuthoringServerTest {
         Files.copy(Paths.get("src/test/resources/author/SampleQuestionsEmpty.json"), currentQuestionPath, StandardCopyOption.REPLACE_EXISTING);
         Files.copy(Paths.get("src/test/resources/author/DemoQuestionPoolTemplate.json"), currentQuestionTemplatePath, StandardCopyOption.REPLACE_EXISTING);
 
-        ParAuthoringServer pas = new ParAuthoringServer(new JsonAuthorDatastore(currentQuestionPath.toString(),
+        AuthorServer pas = new AuthorServer(new JsonAuthorDatastore(currentQuestionPath.toString(),
                 currentQuestionTemplatePath.toString(), tempDir.resolve("currentAuthorModel.json").toString()));
 
         assertEquals(0, pas.getQuestionCount());
@@ -58,7 +58,7 @@ public class ParAuthoringServerTest {
         Files.copy(Paths.get("src/test/resources/author/SampleQuestionsEmpty.json"), currentQuestionPath, StandardCopyOption.REPLACE_EXISTING);
         Files.copy(Paths.get("src/test/resources/author/DemoQuestionPoolTemplate.json"), currentQuestionTemplatePath, StandardCopyOption.REPLACE_EXISTING);
 
-        ParAuthoringServer pas = new ParAuthoringServer(new JsonAuthorDatastore(currentQuestionPath.toString(),
+        AuthorServer pas = new AuthorServer(new JsonAuthorDatastore(currentQuestionPath.toString(),
                 currentQuestionTemplatePath.toString(), tempDir.resolve("currentAuthorModel.json").toString()));
 
         ImageTask imageTask = pas.nextImageTaskTemplate();
@@ -120,7 +120,7 @@ public class ParAuthoringServerTest {
         Files.copy(Paths.get("src/test/resources/author/SampleQuestionsEmpty.json"), currentQuestionPath, StandardCopyOption.REPLACE_EXISTING);
         Files.copy(Paths.get("src/test/resources/author/DemoQuestionPoolTemplateSmall.json"), currentQuestionTemplatePath, StandardCopyOption.REPLACE_EXISTING);
 
-        ParAuthoringServer pas = new ParAuthoringServer(new JsonAuthorDatastore(currentQuestionPath.toString(),
+        AuthorServer pas = new AuthorServer(new JsonAuthorDatastore(currentQuestionPath.toString(),
                 currentQuestionTemplatePath.toString(), tempDir.resolve("currentAuthorModel.json").toString()));
 
         ImageTask imageTask = pas.nextImageTaskTemplate();

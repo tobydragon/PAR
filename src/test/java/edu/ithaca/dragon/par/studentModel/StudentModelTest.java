@@ -49,9 +49,9 @@ public class StudentModelTest {
 
     @Test
     public void testPickingQuestionsAndReceivingResponses(){
-        studentModel.givenQuestion("PlaneQ1");
-        studentModel.givenQuestion("PlaneQ1");
-        studentModel.givenQuestion("ZoneQ1");
+        studentModel.increaseTimesSeen("PlaneQ1");
+        studentModel.increaseTimesSeen("PlaneQ1");
+        studentModel.increaseTimesSeen("ZoneQ1");
         assertEquals(2, studentModel.getSeenQuestionCount());
         assertEquals(13, studentModel.getUnseenQuestionCount());
 
