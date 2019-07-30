@@ -16,9 +16,11 @@ class PageDisplay {
             document.getElementById("submitAuthorButton").classList.add("hide");
             document.getElementById("createAuthorQButton").classList.add("hide");
         } else {
+            let destroy= document.getElementById("nextQuestionButton").classList.item(0);
+            document.getElementById("nextQuestionButton").classList.remove(destroy);
+            document.getElementById("nextQuestionButton").classList.add("hide");
             document.getElementById("scoreTag").innerText= "";
             disableElement(document.getElementById("createAuthorQButton"));
-            document.getElementById("nextQuestionButton").classList.add("hide");
         }
         document.getElementById("authorReviewSubmitButton").classList.add("hide");
     }
