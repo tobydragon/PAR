@@ -53,7 +53,6 @@ class ImageTaskDisplay {
             this.checkAnswers();
             canContinu = checkIfCanContinu(this.canGiveNoAnswer, this.listOfCorrectAnswers);
         } else {
-            console.log("author Submit response");
             this.authorSubmitResponses();
             canContinu = true;
         }

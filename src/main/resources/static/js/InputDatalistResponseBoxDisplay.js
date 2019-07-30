@@ -136,6 +136,10 @@ function disableElement(elementToDisable) {
     return elementToDisable.disabled = true;
 }
 
+function enableElement(elementToDisable) {
+    return elementToDisable.disabled = false;
+}
+
 
 
 function inputBoxAutoSize(listOfStrings) {

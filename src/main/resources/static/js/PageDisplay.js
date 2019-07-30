@@ -14,8 +14,11 @@ class PageDisplay {
         this.isAuthor = setIsAuthor(this.userId);
         if(!this.isAuthor){
             document.getElementById("submitAuthorButton").classList.add("hide");
+            document.getElementById("createAuthorQButton").classList.add("hide");
         } else {
             document.getElementById("scoreTag").innerText= "";
+            disableElement(document.getElementById("createAuthorQButton"));
+            document.getElementById("nextQuestionButton").classList.add("hide");
         }
         document.getElementById("authorReviewSubmitButton").classList.add("hide");
     }
@@ -60,6 +63,8 @@ class PageDisplay {
     }
 
     enterAuthorReview(){
+        enableElement(document.getElementById("createAuthorQButton"));
+        disableElement(document.getElementById("submitAuthorButton"));
         document.getElementById("questionSet").innerHTML = " ";
         document.getElementById("canvasArea").innerText = "";
         let listOfImageTasks= readJson("/api/authoredQuestions");

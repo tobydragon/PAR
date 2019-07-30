@@ -58,8 +58,11 @@
             </div>
 
             <div class="col-3 colVertCenter">
+                <button type="button" class="btn btn-author" id="createAuthorQButton" onclick="completeDisplay.enterAuthorWrite()">
+                    Author Questions
+                </button>
                 <button type="button" class="btn btn-author" id="submitAuthorButton" onclick="completeDisplay.pageDisplay.enterAuthorReview()">
-                    Review Authored Questions
+                    Review and Edit Questions
                 </button>
                 <button type="button" class="btn btn-dark" id="logoutButton" onclick="completeDisplay.pageDisplay.logout()">
                     Logout
@@ -89,7 +92,7 @@
                     <div class="col-12 text-center">
                         <div class="show">
                             <i id="submitButtonTag">
-                                <button type="button" class="btn btn-primary" id="submitButton" onclick="completeDisplay.pageDisplay.imageTaskDisplay.submitAnswers()">
+                                <button type="button" class="btn btn-primary" id="submitButton" onclick="completeDisplay.submitAnswers()">
                                     Submit
                                 </button>
                                 <button type="button" class="btn btn-primary" id="authorReviewSubmitButton" onclick="completeDisplay.pageDisplay.authorSubmitFinal()">

@@ -53,6 +53,19 @@ class CompleteDisplay {
         }
     }
 
+    submitAnswers(){
+        this.pageDisplay.imageTaskDisplay.submitAnswers();
+        if(this.pageDisplay.isAuthor){
+            this.nextQuestion();
+        }
+    }
+
+    enterAuthorWrite(){
+        enableElement(document.getElementById("submitAuthorButton"));
+        disableElement(document.getElementById("createAuthorQButton"));
+        this.nextQuestion();
+    }
+
     showScoreInner(){
         showScoreOuter(this.pageDisplay.showScore, this.pageDisplay.scoreType, this.userID);
     }
