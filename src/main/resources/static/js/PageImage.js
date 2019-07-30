@@ -7,11 +7,8 @@ class PageImage {
         }
         this.imageUrl = imageUrl;
         this.canvasName = canvasName;
-        console.log(canvasName);
         this.canvas = createCanvas(this.imageUrl, this.canvasName);
-
-        console.log(displayElement(createDisplayElement(this.canvas)));
-        this.element = displayElement(createDisplayElement(this.canvas));
+        this.element = createDisplayElement(this.canvas);
     }
     loadImage() {
         loadImageOnCanvas(this.imageUrl, this.canvas);
@@ -68,13 +65,6 @@ function createDisplayElement(canvas) {
     canvasDisplayElement.classList.add('col-12');
     canvasDisplayElement.appendChild(canvas);
     return canvasDisplayElement;
-}
-
-function displayElement(elementToDisplay) {
-    let outerNode = document.createElement('div');
-    outerNode.classList.add('row');
-    outerNode.appendChild(elementToDisplay);
-    return outerNode;
 }
 
 function canvasSupport() {

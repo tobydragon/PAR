@@ -94,9 +94,7 @@ function formatAuthorReviewQuestions(number) {
 function reviewMode(imageTaskObject) {
     let outerNode = document.createElement('div');
     outerNode.classList.add('container-fluid');
-    let imageTaskElementHandler = document.createElement('div');
-    imageTaskElementHandler.appendChild(imageTaskObject.createImageTaskElement());
-    outerNode.appendChild(imageTaskElementHandler);
+    outerNode.appendChild(imageTaskObject.createImageTaskElement());
     return outerNode;
 }
 

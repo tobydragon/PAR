@@ -4,6 +4,8 @@ class ImageTaskDisplay {
         this.userId = userId;
         this.response = new Response(userId);
         this.imageUrl = imageTaskJson.imageUrl;
+        this.imageTaskJson = imageTaskJson;
+        this.taskQuestions = imageTaskJson.taskQuestions;
         //settings
         this.unsureShowsCorrectAnswer = imageTaskSettings.unsureShowsCorrectAnswer;
         this.feedbackByType = imageTaskSettings.feedbackByType;
@@ -102,50 +104,49 @@ class ImageTaskDisplay {
 
 
     createQuestionAreaElement() {
-        let outerQuestionNode = document.createElement('div');
-        outerCanvasNode.classList.add('col-4');
         let questionElement = document.createElement('div');
-
-        this.questionAreaDisp = new buildQuestionAreas(imageTaskJson.taskQuestions, this.response);
+        questionElement.classList.add('col-4');
+        this.questionAreaDisp = new buildQuestionAreas(this.imageTaskJson.taskQuestions, this.response);
         for (var i = 0; i < this.questionAreaDisp.length; i++) {
-            if (isAuthor) {
+            if (this.isAuthor) {
                 this.questionAreaDisp[i].addFollowupQuestions();
             }
             questionElement.appendChild(this.questionAreaDisp[i].element);
         }
-
-        outerQuestionNode.appendChild(questionElement);
-        return outerQuestionNode;
+        return questionElement;
     }
 
     createCanvasElement() {
-        let outerCanvasNode = document.createElement('div');
-        outerCanvasNode.classList.add('col-6');
-        outerCanvasNode.classList.add('imgCenter');
         let canvasElement = document.createElement('div');
+        canvasElement.classList.add('col-6');
+        canvasElement.classList.add('imgCenter');
         let canvas;
         if (this.imageUrl === "noMoreQuestions") {
             canvas = new PageImage("../images/ParLogo.png", this.canvasName);
 
         } else {
-            console.log(this.imageUrl);
-            console.log(this.canvasName);
             canvas = new PageImage(this.imageUrl, this.canvasName);
         }
         this.displayImageUrl(this.imageUrl);
-        canvasElement.appendChild(canvas);
+        canvasElement.appendChild(canvas.element);
         canvas.loadImage();
-        outerCanvasNode.appendChild(canvasElement);
-        return outerCanvasNode;
+        return canvasElement;
     }
 
     createImageTaskElement() {
         let outerImageTaskNode = document.createElement('div');
         outerImageTaskNode.classList.add('row');
+
         let canvasNode = this.createCanvasElement();
         let questionAreaNode = this.createQuestionAreaElement();
+        let spaceNode0 = document.createElement('div');
+        spaceNode0.classList.add('col-1');
+        let spaceNode1 = document.createElement('div');
+        spaceNode1.classList.add('col-1');
+        outerImageTaskNode.appendChild(spaceNode0);
         outerImageTaskNode.appendChild(canvasNode);
         outerImageTaskNode.appendChild(questionAreaNode);
+        outerImageTaskNode.appendChild(spaceNode1);
         return outerImageTaskNode;
     }
 

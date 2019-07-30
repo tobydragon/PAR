@@ -1,6 +1,6 @@
 describe("PageDisplay", function () {
-    it("createImageTask", function () {
-        let questionObjects = readJson("../resources/author/DemoQuestionPoolFollowup.json");
+    it("createImageTaskElement", function () {
+        let listOfImageTasks = readJson("../resources/author/SampleListOfImageTasks.json");
         let imageTaskSettings = {
             unsureShowsCorrectAnswer: "False",
             feedbackByType: {
@@ -18,9 +18,22 @@ describe("PageDisplay", function () {
             "showScore": false,
             "scoreType": 'NumberByType'
         };
-        let imageTaskDisplayObject = new ImageTaskDisplay(questionObjects[0], "testUser", imageTaskSettings, true, "canvas0", pageDisplaySettings);
+        let imageTaskDisplayObject = new ImageTaskDisplay(listOfImageTasks[0], "testUser", imageTaskSettings, true, "canvas0", pageDisplaySettings);
         let pageDisplayObject = new PageDisplay(pageDisplaySettings);
         let imageTaskElement = reviewMode(imageTaskDisplayObject);
-        expect(imageTaskElement).toBe();
+        console.log(imageTaskElement);
+        expect(imageTaskElement.getAttribute('class')).toContain('container-fluid');
+
+        expect(imageTaskElement.childNodes.item(0).getAttribute('class')).toContain('row');
+
+        expect(imageTaskElement.childNodes.item(0).childNodes.item(0).getAttribute('class')).toContain('col-1');
+        expect(imageTaskElement.childNodes.item(0).childNodes.item(1).getAttribute('class')).toContain('col-6 imgCenter');
+        expect(imageTaskElement.childNodes.item(0).childNodes.item(1).childNodes.item(0).getAttribute('class')).toContain('col-12');
+        expect(imageTaskElement.childNodes.item(0).childNodes.item(1).childNodes.item(0).childNodes.item(0).getAttribute('class')).toContain('canvas');
+
+
+        expect(imageTaskElement.childNodes.item(0).childNodes.item(2).getAttribute('class')).toContain('col-4');
+
+
     });
 });
