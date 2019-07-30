@@ -55,7 +55,16 @@
             willDisplayFeedback: "False"
         };
 
-        enterAuthorReview(listOfImageTasks, "author", imageTaskSettings, true)
+        //enterAuthorReview(listOfImageTasks, "author", imageTaskSettings, true)
+
+        let pageDisplaySettings = {
+            "showScore": false,
+            "scoreType": 'NumberByType'
+        };
+        let imageTaskDisplayObject = new ImageTaskDisplay(listOfImageTasks[0], "testUser", imageTaskSettings, true, "canvas0", pageDisplaySettings);
+        let imageTaskElement = reviewMode(imageTaskDisplayObject);
+        console.log(imageTaskElement);
+        document.getElementById('imageTaskArea').appendChild(imageTaskElement);
     </script>
 
     <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
