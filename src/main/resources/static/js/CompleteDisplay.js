@@ -61,6 +61,7 @@ class CompleteDisplay {
     }
 
     enterAuthorWrite(){
+        document.getElementById("canvasArea").innerText = "";
         enableElement(document.getElementById("submitAuthorButton"));
         disableElement(document.getElementById("createAuthorQButton"));
         this.nextQuestion();
