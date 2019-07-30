@@ -159,8 +159,7 @@ public class UserResponseSet {
         return knowledgeBaseMap;
     }
 
-    private static String calcKnowledgeEstimateString(List<ResponsesPerQuestion> allResponses, int numOfRecentResponsesToConsider) {
-        //TODO: make this work with different window sizes
+    public static String calcKnowledgeEstimateString(List<ResponsesPerQuestion> allResponses, int numOfRecentResponsesToConsider) {
         if (allResponses.size() == 0)  return "____";
 
         String knowledgeBase="____";

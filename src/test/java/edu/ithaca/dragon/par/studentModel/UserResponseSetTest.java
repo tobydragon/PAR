@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -115,6 +116,56 @@ public class UserResponseSetTest {
     }
 
     @Test
+    public void calcKnowledgeEstimateStringByTypeTest()throws IOException{
+        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/DemoQuestionPoolFollowup.json", Question.class);
+        UserResponseSet allRight = new UserResponseSet("allRight");
+        for (Question questionFromFile : questionsFromFile ) {
+            allRight.addResponse(new ResponsesPerQuestion("allRight", questionFromFile, questionFromFile.getCorrectAnswer()));
+        }
+        UserResponseSet allWrong = new UserResponseSet("allWrong");
+        for (Question questionFromFile : questionsFromFile ) {
+            allWrong.addResponse(new ResponsesPerQuestion("allWrong", questionFromFile, "wrong"));
+        }
+        UserResponseSet everyOtherRight = new UserResponseSet("everyOtherRight");
+        boolean right = true;
+        for (Question questionFromFile : questionsFromFile ) {
+            if (right){
+                everyOtherRight.addResponse(new ResponsesPerQuestion("allRight", questionFromFile, questionFromFile.getCorrectAnswer()));
+                right = false;
+            }
+            else {
+                everyOtherRight.addResponse(new ResponsesPerQuestion("allWrong", questionFromFile, "wrong"));
+                right = true;
+            }
+        }
+
+        assertEquals("", UserResponseSet.calcKnowledgeEstimateString(new ArrayList<>(), 0));
+        assertEquals("", UserResponseSet.calcKnowledgeEstimateString(allRight.getUserResponses(), 0));
+        assertEquals("", UserResponseSet.calcKnowledgeEstimateString(allWrong.getUserResponses(), 0));
+        assertEquals("", UserResponseSet.calcKnowledgeEstimateString(everyOtherRight.getUserResponses(), 0));
+
+        assertEquals("_", UserResponseSet.calcKnowledgeEstimateString(new ArrayList<>(), 1));
+        assertEquals("O", UserResponseSet.calcKnowledgeEstimateString(allRight.getUserResponses(), 1));
+        assertEquals("X", UserResponseSet.calcKnowledgeEstimateString(allWrong.getUserResponses(), 1));
+        assertEquals("O", UserResponseSet.calcKnowledgeEstimateString(everyOtherRight.getUserResponses(), 1));
+
+        assertEquals("__", UserResponseSet.calcKnowledgeEstimateString(new ArrayList<>(), 2));
+        assertEquals("OO", UserResponseSet.calcKnowledgeEstimateString(allRight.getUserResponses(), 2));
+        assertEquals("XX", UserResponseSet.calcKnowledgeEstimateString(allWrong.getUserResponses(), 2));
+        assertEquals("XO", UserResponseSet.calcKnowledgeEstimateString(everyOtherRight.getUserResponses(), 2));
+
+        assertEquals("______", UserResponseSet.calcKnowledgeEstimateString(new ArrayList<>(), 6));
+        assertEquals("OOOOOO", UserResponseSet.calcKnowledgeEstimateString(allRight.getUserResponses(), 6));
+        assertEquals("XXXXXX", UserResponseSet.calcKnowledgeEstimateString(allWrong.getUserResponses(), 6));
+        assertEquals("XOXOXO", UserResponseSet.calcKnowledgeEstimateString(everyOtherRight.getUserResponses(), 6));
+
+        assertEquals("______", UserResponseSet.calcKnowledgeEstimateString(new ArrayList<>(), 6));
+        assertEquals("___OOO", UserResponseSet.calcKnowledgeEstimateString(allRight.getUserResponses().subList(0,3), 6));
+        assertEquals("___XXX", UserResponseSet.calcKnowledgeEstimateString(allWrong.getUserResponses().subList(0,3), 6));
+        assertEquals("___OXO", UserResponseSet.calcKnowledgeEstimateString(everyOtherRight.getUserResponses().subList(0,3), 6));
+    }
+
+    @Test
     public void calcKnowledgeEstimateStringsByTypeTest()throws IOException{
         List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/DemoQuestionPoolFollowup.json", Question.class);
         UserResponseSet userResponseSet = new UserResponseSet("TestUser1");
@@ -206,6 +257,8 @@ public class UserResponseSetTest {
         assertEquals("___O", m1.get(EquineQuestionTypes.zone));
 
     }
+
+    //TODO: why are these commented out?
     /*
     @Test
     public void splitResponsesByTypeTest()throws IOException{
