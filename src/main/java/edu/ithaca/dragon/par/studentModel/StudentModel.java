@@ -54,11 +54,11 @@ public class StudentModel {
     }
 
     public double knowledgeScore(){
-        return userResponseSet.knowledgeCalc();
+        return userResponseSet.calcKnowledgeEstimate();
     }
 
-    public Map<String,Double> knowledgeScoreByType(int numOfRecentResponsesToConsider){
-        return userResponseSet.knowledgeScoreByType(numOfRecentResponsesToConsider);
+    public Map<String,Double> calcKnowledgeEstimateByType(int numOfRecentResponsesToConsider){
+        return userResponseSet.calcKnowledgeEstimateByType(numOfRecentResponsesToConsider);
     }
 
     /**
@@ -125,7 +125,7 @@ public class StudentModel {
         }
     }
 
-    public Map<EquineQuestionTypes, String> generateKnowledgeBaseMap(int numOfRecentResponsesToConsider){
+    public Map<EquineQuestionTypes, String> calcKnowledgeEstimateStringsByType(int numOfRecentResponsesToConsider){
         return userResponseSet.calcKnowledgeEstimateStringsByType(numOfRecentResponsesToConsider);
     }
 

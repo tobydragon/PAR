@@ -14,7 +14,7 @@ public interface StudentModelDatastore {
 
     StudentModel getStudentModel(String userId) throws IOException;
 
-    void imageTaskResponseSubmitted(String userId, ImageTaskResponse imageTaskResponse) throws IOException;
+    void submitImageTaskResponse(String userId, ImageTaskResponse imageTaskResponse) throws IOException;
 
     int getMinQuestionCountPerType();
 

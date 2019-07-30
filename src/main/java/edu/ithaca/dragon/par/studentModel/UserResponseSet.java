@@ -77,18 +77,14 @@ public class UserResponseSet {
     }
 
 
-    public double knowledgeCalc() {
+    public double calcKnowledgeEstimate() {
         //TODO: should 12 be replaced by windowSize?
-        return knowledgeCalc(userResponses, 12);
+        return calcKnowledgeEstimate(userResponses, 12);
     }
 
 
-    /**
-     * @param responsesToConsider how many responses should the algorithm look back on to calculate the recent average?
-     * @return
-     */
-    public double knowledgeCalc(int responsesToConsider) {
-        return knowledgeCalc(userResponses, responsesToConsider);
+    public double calcKnowledgeEstimate(int responseCountToConsider) {
+        return calcKnowledgeEstimate(userResponses, responseCountToConsider);
     }
 
 
@@ -97,7 +93,7 @@ public class UserResponseSet {
      * @param responsesToConsider how many responses should the algorithm look back on
      * @return
      */
-    private static double knowledgeCalc(List<ResponsesPerQuestion> allResponses, int responsesToConsider) {
+    private static double calcKnowledgeEstimate(List<ResponsesPerQuestion> allResponses, int responsesToConsider) {
         //return -1 if the list is empty
         if (allResponses.size() == 0)
             return -1.0;
@@ -111,12 +107,12 @@ public class UserResponseSet {
     }
 
 
-    public Map<String, Double> knowledgeScoreByType(int numOfRecentResponsesToConsider) {
+    public Map<String, Double> calcKnowledgeEstimateByType(int numOfRecentResponsesToConsider) {
         Map<String, List<ResponsesPerQuestion>> responseByType = splitResponsesByType(userResponses);
         Map<String, Double> responseByTypeDouble = new LinkedHashMap<>();
         for (EquineQuestionTypes currType: EquineQuestionTypes.values()) {
             List<ResponsesPerQuestion> quesList = responseByType.get(currType.toString());
-            responseByTypeDouble.put(currType.toString(), knowledgeCalc(quesList, numOfRecentResponsesToConsider));
+            responseByTypeDouble.put(currType.toString(), calcKnowledgeEstimate(quesList, numOfRecentResponsesToConsider));
         }
         return responseByTypeDouble;
     }

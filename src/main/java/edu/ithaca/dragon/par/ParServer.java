@@ -35,7 +35,7 @@ public class ParServer {
     }
 
     public void imageTaskResponseSubmitted(ImageTaskResponse imageTaskResponse, String userId) throws IOException {
-        studentModelDatastore.imageTaskResponseSubmitted(userId, imageTaskResponse);
+        studentModelDatastore.submitImageTaskResponse(userId, imageTaskResponse);
     }
 
     public double calcScore(String userId) throws IOException {
@@ -45,12 +45,12 @@ public class ParServer {
 
     public Map<String, Double> calcScoreByType(String userId) throws IOException {
         StudentModel currentStudent = studentModelDatastore.getStudentModel(userId);
-        return null;//currentStudent.knowledgeScoreByType();
+        return null;//currentStudent.calcKnowledgeEstimateByType();
     }
 
     public Map<EquineQuestionTypes, String> knowledgeBaseEstimate(String userId) throws IOException {
         StudentModel currentStudent = studentModelDatastore.getStudentModel(userId);
-        return null;//currentStudent.generateKnowledgeBaseMap();
+        return null;//currentStudent.calcKnowledgeEstimateStringsByType();
     }
 
     public void logout(String userId) throws IOException{

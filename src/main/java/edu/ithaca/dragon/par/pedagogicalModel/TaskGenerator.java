@@ -118,7 +118,7 @@ public class TaskGenerator {
      * @return
      */
     public static ImageTask findLevelAndMakeTask(StudentModel studentModel, int questionCountPerTypeForAnalysis){
-        return makeTaskGivenLevel(studentModel, StudentModel.calcLevel(studentModel.knowledgeScoreByType(questionCountPerTypeForAnalysis)));
+        return makeTaskGivenLevel(studentModel, StudentModel.calcLevel(studentModel.calcKnowledgeEstimateByType(questionCountPerTypeForAnalysis)));
     }
 
     public static ImageTask makeTaskGivenLevel(StudentModel studentModel, int level){

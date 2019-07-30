@@ -36,7 +36,7 @@ public class ParStudentAndAuthorServer {
     }
 
     public void submitImageTaskResponse( ImageTaskResponse response) throws IOException {
-            studentModelDatastore.imageTaskResponseSubmitted(response.getUserId(), response);
+            studentModelDatastore.submitImageTaskResponse(response.getUserId(), response);
     }
 
     public void logout(String userId) throws IOException{
@@ -49,19 +49,19 @@ public class ParStudentAndAuthorServer {
 
     public Map<String, Double> calcKnowledgeEstimateByType(String userId) throws IOException{
         if (idealQuestionCountPerTypeForAnalysis <= studentModelDatastore.getMinQuestionCountPerType()){
-            return studentModelDatastore.getStudentModel(userId).knowledgeScoreByType(idealQuestionCountPerTypeForAnalysis);
+            return studentModelDatastore.getStudentModel(userId).calcKnowledgeEstimateByType(idealQuestionCountPerTypeForAnalysis);
         }
         else {
-            return studentModelDatastore.getStudentModel(userId).knowledgeScoreByType(studentModelDatastore.getMinQuestionCountPerType());
+            return studentModelDatastore.getStudentModel(userId).calcKnowledgeEstimateByType(studentModelDatastore.getMinQuestionCountPerType());
         }
     }
 
     public Map<EquineQuestionTypes,String> calcKnowledgeEstimateStringsByType(String userId)throws IOException {
         if (idealQuestionCountPerTypeForAnalysis <= studentModelDatastore.getMinQuestionCountPerType()){
-            return studentModelDatastore.getStudentModel(userId).generateKnowledgeBaseMap(idealQuestionCountPerTypeForAnalysis);
+            return studentModelDatastore.getStudentModel(userId).calcKnowledgeEstimateStringsByType(idealQuestionCountPerTypeForAnalysis);
         }
         else {
-            return studentModelDatastore.getStudentModel(userId).generateKnowledgeBaseMap(studentModelDatastore.getMinQuestionCountPerType());
+            return studentModelDatastore.getStudentModel(userId).calcKnowledgeEstimateStringsByType(studentModelDatastore.getMinQuestionCountPerType());
         }
     }
 
