@@ -7,6 +7,7 @@ import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
 import edu.ithaca.dragon.par.io.StudentModelDatastore;
 import edu.ithaca.dragon.par.pedagogicalModel.TaskGenerator;
+import edu.ithaca.dragon.par.pedagogicalModel.TaskGeneratorImp1;
 import edu.ithaca.dragon.util.DataUtil;
 
 import java.io.IOException;
@@ -17,21 +18,23 @@ public class ParStudentAndAuthorServer {
 
     private AuthorServer authorServer;
     private StudentModelDatastore studentModelDatastore;
+    private TaskGenerator taskGenerator;
     private static final int idealQuestionCountPerTypeForAnalysis = 4;
 
     public ParStudentAndAuthorServer(StudentModelDatastore studentModelDatastore, AuthorDatastore authorDatastore) throws IOException {
             this.studentModelDatastore = studentModelDatastore;
             authorServer = new AuthorServer(authorDatastore);
+            taskGenerator = new TaskGeneratorImp1();
     }
 
     //----------- Student methods  --------------//
 
     public ImageTask nextImageTask( String userId) throws IOException {
         if (idealQuestionCountPerTypeForAnalysis <= studentModelDatastore.getMinQuestionCountPerType()){
-            return TaskGenerator.findLevelAndMakeTask(studentModelDatastore.getStudentModel(userId), idealQuestionCountPerTypeForAnalysis);
+            return taskGenerator.makeTask(studentModelDatastore.getStudentModel(userId), idealQuestionCountPerTypeForAnalysis);
         }
         else {
-            return TaskGenerator.findLevelAndMakeTask(studentModelDatastore.getStudentModel(userId), studentModelDatastore.getMinQuestionCountPerType());
+            return taskGenerator.makeTask(studentModelDatastore.getStudentModel(userId), studentModelDatastore.getMinQuestionCountPerType());
         }
     }
 

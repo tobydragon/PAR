@@ -17,7 +17,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TaskGeneratorTest {
+public class TaskGeneratorImp1Test {
 
     @Test
     public void makeTaskWithSingleQuestionTest() throws IOException {
@@ -29,13 +29,13 @@ public class TaskGeneratorTest {
         assertEquals(15, studentModel.getUnseenQuestionCount());
 
         //make an imageTask and check aspects of it
-        Question task1Question = TaskGenerator.getInitialQuestionForTask(studentModel, 1);
+        Question task1Question = TaskGeneratorImp1.getInitialQuestionForTask(studentModel, 1);
         ImageTask task1 = new ImageTask(task1Question.getImageUrl(), Arrays.asList(task1Question));
         assertEquals("./images/demoEquine04.jpg", task1.getImageUrl());
         assertEquals(1, task1.getTaskQuestions().size());
 
         //make a new imageTask and check aspects of it
-        Question task2Question = TaskGenerator.getInitialQuestionForTask(studentModel, 1);
+        Question task2Question = TaskGeneratorImp1.getInitialQuestionForTask(studentModel, 1);
         ImageTask task2 = new ImageTask(task2Question.getImageUrl(), Arrays.asList(task1Question));
         assertEquals("./images/demoEquine04.jpg", task1.getImageUrl());
         assertEquals(1, task2.getTaskQuestions().size());
@@ -44,19 +44,20 @@ public class TaskGeneratorTest {
 
     @Test
     public void makeTaskTest() throws IOException{
+        TaskGenerator taskGenerator = new TaskGeneratorImp1();
         //set up questionPool and studentModel, create an imageTask with the studentModel
         QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPool.json").getAllQuestions());
         StudentModel studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
 
         //make an imageTask and check aspects of it
-        ImageTask task1 = TaskGenerator.findLevelAndMakeTask(studentModel, 4);
+        ImageTask task1 = taskGenerator.makeTask(studentModel, 4);
 
         assertEquals("./images/demoEquine14.jpg", task1.getImageUrl());
 
         assertEquals(1, task1.getTaskQuestions().size());
 
         //make a new imageTask and check aspects of it
-        ImageTask task2 = TaskGenerator.findLevelAndMakeTask(studentModel, 4);
+        ImageTask task2 = taskGenerator.makeTask(studentModel, 4);
         assertEquals("./images/demoEquine02.jpg", task2.getImageUrl());
         assertEquals(1, task2.getTaskQuestions().size());
     }
@@ -68,7 +69,7 @@ public class TaskGeneratorTest {
 
         //try to make a single Question
         try{
-            Question newQ = TaskGenerator.getInitialQuestionForTask(studentModel, 1);
+            Question newQ = TaskGeneratorImp1.getInitialQuestionForTask(studentModel, 1);
             fail();
         }catch(Exception ee){
 
@@ -76,7 +77,7 @@ public class TaskGeneratorTest {
 
         //try to make a task
         try{
-            ImageTask imageTask = TaskGenerator.findLevelAndMakeTask(studentModel, 4);
+            ImageTask imageTask = new TaskGeneratorImp1().makeTask(studentModel, 4);
             fail();
         }catch(Exception ee){
 
@@ -85,7 +86,7 @@ public class TaskGeneratorTest {
 
     @Test
     public void setTypeTest(){
-        //this test will be written once StudentModel has individual scores for each question and TaskGenerator
+        //this test will be written once StudentModel has individual scores for each question and TaskGeneratorImp1
         //can use those to determine level
         assertEquals(4,4);
     }
@@ -93,18 +94,18 @@ public class TaskGeneratorTest {
     @Test
     public void removeTypeTest() throws IOException{
         List<Question> questions= JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
-        questions = TaskGenerator.removeTypeFromQuestionList(questions, EquineQuestionTypes.plane.toString());
+        questions = TaskGeneratorImp1.removeTypeFromQuestionList(questions, EquineQuestionTypes.plane.toString());
         assertEquals(10, questions.size());
-        questions = TaskGenerator.removeTypeFromQuestionList(questions, EquineQuestionTypes.structure.toString());
+        questions = TaskGeneratorImp1.removeTypeFromQuestionList(questions, EquineQuestionTypes.structure.toString());
         assertEquals(5, questions.size());
-        questions = TaskGenerator.removeTypeFromQuestionList(questions, EquineQuestionTypes.zone.toString());
+        questions = TaskGeneratorImp1.removeTypeFromQuestionList(questions, EquineQuestionTypes.zone.toString());
         assertEquals(0, questions.size());
 
-        questions = TaskGenerator.removeTypeFromQuestionList(questions, EquineQuestionTypes.plane.toString());
+        questions = TaskGeneratorImp1.removeTypeFromQuestionList(questions, EquineQuestionTypes.plane.toString());
         assertEquals(0, questions.size());
-        questions = TaskGenerator.removeTypeFromQuestionList(questions, EquineQuestionTypes.structure.toString());
+        questions = TaskGeneratorImp1.removeTypeFromQuestionList(questions, EquineQuestionTypes.structure.toString());
         assertEquals(0, questions.size());
-        questions = TaskGenerator.removeTypeFromQuestionList(questions, EquineQuestionTypes.zone.toString());
+        questions = TaskGeneratorImp1.removeTypeFromQuestionList(questions, EquineQuestionTypes.zone.toString());
         assertEquals(0, questions.size());
 
 
@@ -117,32 +118,32 @@ public class TaskGeneratorTest {
 
         //first url
         Question q1 = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions().get(0);
-        List<Question> qs =TaskGenerator.addAllQuestions(studentModel, q1);
+        List<Question> qs = TaskGeneratorImp1.addAllQuestions(studentModel, q1);
         assertEquals(5, qs.size());
 
         //second url
         Question q2 = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions().get(5);
-        qs =TaskGenerator.addAllQuestions(studentModel, q2);
+        qs = TaskGeneratorImp1.addAllQuestions(studentModel, q2);
         assertEquals(6, qs.size());
 
         //third url
         Question q3 = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions().get(11);
-        qs =TaskGenerator.addAllQuestions(studentModel, q3);
+        qs = TaskGeneratorImp1.addAllQuestions(studentModel, q3);
         assertEquals(4, qs.size());
 
         //fourth url
         Question q4 = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions().get(15);
-        qs =TaskGenerator.addAllQuestions(studentModel, q4);
+        qs = TaskGeneratorImp1.addAllQuestions(studentModel, q4);
         assertEquals(3, qs.size());
         //repeat
-        qs =TaskGenerator.addAllQuestions(studentModel, q4);
+        qs = TaskGeneratorImp1.addAllQuestions(studentModel, q4);
         assertEquals(3, qs.size());
-        qs =TaskGenerator.addAllQuestions(studentModel, q4);
+        qs = TaskGeneratorImp1.addAllQuestions(studentModel, q4);
         assertEquals(3, qs.size());
 
         //last question
         Question q5 = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions().get(questionPool.getAllQuestions().size()-1);
-        qs =TaskGenerator.addAllQuestions(studentModel, q5);
+        qs = TaskGeneratorImp1.addAllQuestions(studentModel, q5);
         assertEquals(6, qs.size());
     }
 
@@ -151,37 +152,37 @@ public class TaskGeneratorTest {
        //plane only
         QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPool.json").getAllQuestions());
         List<Question> questionList = questionPool.getAllQuestions();
-        questionList = TaskGenerator.filterQuestions(1, questionList);
+        questionList = TaskGeneratorImp1.filterQuestions(1, questionList);
         assertEquals(10, questionList.size());
 
         //plane and structure only
         questionList = questionPool.getAllQuestions();
-        questionList = TaskGenerator.filterQuestions(2, questionList);
+        questionList = TaskGeneratorImp1.filterQuestions(2, questionList);
         assertEquals(37, questionList.size());
 
         //structure only
         questionList = questionPool.getAllQuestions();
-        questionList = TaskGenerator.filterQuestions(3, questionList);
+        questionList = TaskGeneratorImp1.filterQuestions(3, questionList);
         assertEquals(27, questionList.size());
 
         //structure and attachment only
         questionList = questionPool.getAllQuestions();
-        questionList = TaskGenerator.filterQuestions(4, questionList);
+        questionList = TaskGeneratorImp1.filterQuestions(4, questionList);
         assertEquals(27, questionList.size());
 
         //structure and attachment only
         questionList = questionPool.getAllQuestions();
-        questionList = TaskGenerator.filterQuestions(5, questionList);
+        questionList = TaskGeneratorImp1.filterQuestions(5, questionList);
         assertEquals(27, questionList.size());
 
         //structure, attachment, and zone only
         questionList = questionPool.getAllQuestions();
-        questionList = TaskGenerator.filterQuestions(6, questionList);
+        questionList = TaskGeneratorImp1.filterQuestions(6, questionList);
         assertEquals(37, questionList.size());
 
         //zone only
         questionList = questionPool.getAllQuestions();
-        questionList = TaskGenerator.filterQuestions(7, questionList);
+        questionList = TaskGeneratorImp1.filterQuestions(7, questionList);
         assertEquals(10, questionList.size());
     }
 
@@ -190,7 +191,7 @@ public class TaskGeneratorTest {
         QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
         StudentModel studentModel = new StudentModel("TestUser111", questionPool.getAllQuestions());
 
-        ImageTask imageTask = TaskGenerator.makeTaskGivenLevel(studentModel, 3);
+        ImageTask imageTask = TaskGeneratorImp1.makeTaskGivenLevel(studentModel, 3);
         //JsonUtil.toJsonFile("src/test/resources/autoGenerated/imageTaskWithFollowup.json", imageTask);
         assertEquals(3, imageTask.getTaskQuestions().size());
         assertEquals(0, imageTask.getTaskQuestions().get(0).getFollowupQuestions().size());
@@ -198,7 +199,7 @@ public class TaskGeneratorTest {
         //TODO: check increase of times seen
 
         studentModel = new StudentModel("TestUser112", questionPool.getAllQuestions());
-        imageTask = TaskGenerator.makeTaskGivenLevel(studentModel, 4);
+        imageTask = TaskGeneratorImp1.makeTaskGivenLevel(studentModel, 4);
         //JsonUtil.toJsonFile("src/test/resources/autoGenerated/imageTaskWithFollowup.json", imageTask);
         assertEquals(3, imageTask.getTaskQuestions().size());
         assertEquals(3, imageTask.getTaskQuestions().get(0).getFollowupQuestions().size());
@@ -216,19 +217,19 @@ public class TaskGeneratorTest {
         Question recFollowups = questionPool.getQuestionFromId("structure0./images/demoEquine14.jpg");
 
         //Trying to remove nonexistant followup questions should have no effect on the Question
-        Question noFollowsAfter = TaskGenerator.removeTypeFromQuestion(noFollowups, EquineQuestionTypes.attachment.toString());
+        Question noFollowsAfter = TaskGeneratorImp1.removeTypeFromQuestion(noFollowups, EquineQuestionTypes.attachment.toString());
         assertEquals(noFollowups, noFollowsAfter);
 
         //The method should not remove the base question
-        assertThrows(RuntimeException.class, () -> {Question noFollowsAfterPlane = TaskGenerator.removeTypeFromQuestion(noFollowups, "plane");});
+        assertThrows(RuntimeException.class, () -> {Question noFollowsAfterPlane = TaskGeneratorImp1.removeTypeFromQuestion(noFollowups, "plane");});
 
         //Removing attachment followups should create a question with no followups
-        Question twoFollowupsAfter = TaskGenerator.removeTypeFromQuestion(twoFollowups, EquineQuestionTypes.attachment.toString());
+        Question twoFollowupsAfter = TaskGeneratorImp1.removeTypeFromQuestion(twoFollowups, EquineQuestionTypes.attachment.toString());
         assertEquals(0, twoFollowupsAfter.getFollowupQuestions().size());
         assertFalse(twoFollowups == twoFollowupsAfter);
 
         //Removing a followup to a followup
-        Question recFollowupsAfter = TaskGenerator.removeTypeFromQuestion(recFollowups, EquineQuestionTypes.plane.toString());
+        Question recFollowupsAfter = TaskGeneratorImp1.removeTypeFromQuestion(recFollowups, EquineQuestionTypes.plane.toString());
         assertFalse(recFollowupsAfter == recFollowups);
         assertEquals("plane", recFollowups.getFollowupQuestions().get(2).getFollowupQuestions().get(0).getType());
         assertEquals(0, recFollowupsAfter.getFollowupQuestions().get(2).getFollowupQuestions().size());
@@ -239,8 +240,8 @@ public class TaskGeneratorTest {
         Datastore datastore = new JsonDatastore("src/test/resources/author/simpleTestSet/currentQuestionPool.json", "src/test/resources/author/simpleTestSet/students");
         StudentModel testUser2 = datastore.loadStudentModel("testUser2");
 
-        ImageTask imageTask2 = TaskGenerator.makeTaskGivenLevel(testUser2,1);
-        ImageTask imageTask = TaskGenerator.makeTaskGivenLevel(testUser2,7);
+        ImageTask imageTask2 = TaskGeneratorImp1.makeTaskGivenLevel(testUser2,1);
+        ImageTask imageTask = TaskGeneratorImp1.makeTaskGivenLevel(testUser2,7);
 
         System.out.println(imageTask2.getTaskQuestions());
         System.out.println(imageTask.getTaskQuestions());
