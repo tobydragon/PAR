@@ -1,5 +1,6 @@
 package edu.ithaca.dragon.par;
 
+import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.JsonAuthorDatastore;
 import edu.ithaca.dragon.par.io.JsonStudentModelDatastore;
 import edu.ithaca.dragon.util.JsonIoHelperDefault;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.io.TempDir;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -45,5 +47,36 @@ class ParStudentAndAuthorServerTest {
 
         assertEquals(0, jsonAuthorDatastore.getAllAuthoredQuestions().size());
         assertEquals(62, jsonStudentDatastore.getAllQuestions().size());
+    }
+
+    @Test
+    void windowSizeTests(@TempDir Path tempDir) throws IOException {
+        Path currentQuestionPath = tempDir.resolve("currentAuthorQuestions.json");
+        Path currentQuestionTemplatePath = tempDir.resolve("currentQuestionTemplates.json");
+        JsonAuthorDatastore jsonAuthorDatastore = new JsonAuthorDatastore(
+                currentQuestionPath.toString(), "src/test/resources/author/SampleQuestionPool.json",
+                currentQuestionTemplatePath.toString(), "src/test/resources/author/DemoQuestionPoolTemplate.json",
+                tempDir.resolve("currentAuthorModel.json").toString(), new JsonIoHelperDefault());
+
+        Path currentStudentModelDir = tempDir.resolve("students");
+        assertTrue(new File(currentStudentModelDir.toString()).mkdir());
+        JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
+                tempDir.resolve("currentQuestions.json").toString(),
+                "src/test/resources/author/SampleQuestionsEmpty.json",
+                new JsonIoHelperDefault(),
+                currentStudentModelDir.toString());
+
+        ParStudentAndAuthorServer parStudentAndAuthorServer = new ParStudentAndAuthorServer(jsonStudentDatastore, jsonAuthorDatastore);
+        Map<EquineQuestionTypes, String> estStrings = parStudentAndAuthorServer.calcKnowledgeEstimateStringsByType("no one");
+        assertEquals(4, estStrings.size());
+        assertEquals("", estStrings.get(EquineQuestionTypes.plane));
+        assertEquals("", estStrings.get(EquineQuestionTypes.attachment));
+
+        parStudentAndAuthorServer.transferAuthoredQuestionsToStudentServer();
+        estStrings = parStudentAndAuthorServer.calcKnowledgeEstimateStringsByType("no one");
+
+        assertEquals("____", estStrings.get(EquineQuestionTypes.plane));
+        assertEquals("____", estStrings.get(EquineQuestionTypes.attachment));
+
     }
 }

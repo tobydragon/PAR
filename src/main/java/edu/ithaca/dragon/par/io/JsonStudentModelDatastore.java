@@ -125,7 +125,6 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
     }
 
     public static int calcMinQuestionCountPerType(List<Question> allQuestions){
-
         Map<String, Integer> typeCounts = new HashMap<>();
         populateQuestionByTypeCountMap(allQuestions, typeCounts);
         return typeCounts.values().stream().mapToInt(v -> v).min().orElse(0);
