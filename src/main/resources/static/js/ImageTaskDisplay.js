@@ -26,6 +26,8 @@ class ImageTaskDisplay {
     }
 
     displayImageUrl(url) {
+        console.log(this.imageUrl);
+        console.log(typeof (url));
         document.getElementById("Ids").innerText = url;
     }
 
@@ -127,6 +129,7 @@ class ImageTaskDisplay {
         } else {
             canvas = new PageImage(this.imageUrl, this.canvasName);
         }
+        console.log(this.imageUrl);
         this.displayImageUrl(this.imageUrl);
         canvasElement.appendChild(canvas.element);
         canvas.loadImage();
