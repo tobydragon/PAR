@@ -27,6 +27,8 @@ class ImageTaskDisplay {
     }
 
     displayImageUrl(url) {
+        console.log(this.imageUrl);
+        console.log(typeof (url));
         document.getElementById("Ids").innerText = url;
     }
 
@@ -101,7 +103,8 @@ class ImageTaskDisplay {
     
     createQuestionAreaElement() {
         let questionElement = document.createElement('div');
-        questionElement.classList.add('col-4');
+        questionElement.setAttribute('id', 'questionSetForm');
+
         this.questionAreaDisp = new buildQuestionAreas(this.imageTaskJson.taskQuestions, this.response);
         for (var i = 0; i < this.questionAreaDisp.length; i++) {
             if (this.isAuthor) {
@@ -114,8 +117,7 @@ class ImageTaskDisplay {
 
     createCanvasElement() {
         let canvasElement = document.createElement('div');
-        canvasElement.classList.add('col-6');
-        canvasElement.classList.add('imgCenter');
+        canvasElement.setAttribute('id', 'canvasArea');
         let canvas;
         if (this.imageUrl === "noMoreQuestions") {
             canvas = new PageImage("../images/ParLogo.png", this.canvasName);
@@ -123,6 +125,7 @@ class ImageTaskDisplay {
         } else {
             canvas = new PageImage(this.imageUrl, this.canvasName);
         }
+        console.log(this.imageUrl);
         this.displayImageUrl(this.imageUrl);
         canvasElement.appendChild(canvas.element);
         canvas.loadImage();
@@ -134,14 +137,26 @@ class ImageTaskDisplay {
         outerImageTaskNode.classList.add('row');
 
         let canvasNode = this.createCanvasElement();
+        let canvasElementHandler = document.createElement('div');
+        canvasElementHandler.classList.add('col-6');
+        canvasElementHandler.classList.add('imgCenter');
+        canvasElementHandler.appendChild(canvasNode);
+
         let questionAreaNode = this.createQuestionAreaElement();
+        let questionAreaElementHandler = document.createElement('div');
+        questionAreaElementHandler.classList.add('col-4');
+        questionAreaElementHandler.appendChild(questionAreaNode);
+
+
         let spaceNode0 = document.createElement('div');
         spaceNode0.classList.add('col-1');
         let spaceNode1 = document.createElement('div');
         spaceNode1.classList.add('col-1');
+
+
         outerImageTaskNode.appendChild(spaceNode0);
-        outerImageTaskNode.appendChild(canvasNode);
-        outerImageTaskNode.appendChild(questionAreaNode);
+        outerImageTaskNode.appendChild(canvasElementHandler);
+        outerImageTaskNode.appendChild(questionAreaElementHandler);
         outerImageTaskNode.appendChild(spaceNode1);
         return outerImageTaskNode;
     }
