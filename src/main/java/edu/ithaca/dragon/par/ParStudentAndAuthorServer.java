@@ -17,6 +17,7 @@ public class ParStudentAndAuthorServer {
 
     private ParAuthoringServer parAuthoringServer;
     private StudentModelDatastore studentModelDatastore;
+    private static final int idealQuestionCountPerTypeForAnalysis = 4;
 
     public ParStudentAndAuthorServer(StudentModelDatastore studentModelDatastore, AuthorDatastore authorDatastore) throws IOException {
             this.studentModelDatastore = studentModelDatastore;
@@ -26,7 +27,12 @@ public class ParStudentAndAuthorServer {
     //----------- Student methods  --------------//
 
     public ImageTask nextImageTask( String userId) throws IOException {
-        return TaskGenerator.makeTask(studentModelDatastore.getStudentModel(userId));
+        if (idealQuestionCountPerTypeForAnalysis <= studentModelDatastore.getMinQuestionCountPerType()){
+            return TaskGenerator.findLevelAndMakeTask(studentModelDatastore.getStudentModel(userId), idealQuestionCountPerTypeForAnalysis);
+        }
+        else {
+            return TaskGenerator.findLevelAndMakeTask(studentModelDatastore.getStudentModel(userId), studentModelDatastore.getMinQuestionCountPerType());
+        }
     }
 
     public void submitImageTaskResponse( ImageTaskResponse response) throws IOException {
@@ -42,11 +48,21 @@ public class ParStudentAndAuthorServer {
     }
 
     public Map<String, Double> calcKnowledgeEstimateByType(String userId) throws IOException{
-        return studentModelDatastore.getStudentModel(userId).knowledgeScoreByType();
+        if (idealQuestionCountPerTypeForAnalysis <= studentModelDatastore.getMinQuestionCountPerType()){
+            return studentModelDatastore.getStudentModel(userId).knowledgeScoreByType(idealQuestionCountPerTypeForAnalysis);
+        }
+        else {
+            return studentModelDatastore.getStudentModel(userId).knowledgeScoreByType(studentModelDatastore.getMinQuestionCountPerType());
+        }
     }
 
     public Map<EquineQuestionTypes,String> calcKnowledgeEstimateStringsByType(String userId)throws IOException {
-        return studentModelDatastore.getStudentModel(userId).generateKnowledgeBaseMap();
+        if (idealQuestionCountPerTypeForAnalysis <= studentModelDatastore.getMinQuestionCountPerType()){
+            return studentModelDatastore.getStudentModel(userId).generateKnowledgeBaseMap(idealQuestionCountPerTypeForAnalysis);
+        }
+        else {
+            return studentModelDatastore.getStudentModel(userId).generateKnowledgeBaseMap(studentModelDatastore.getMinQuestionCountPerType());
+        }
     }
 
     //----------- Author methods  --------------//

@@ -48,6 +48,11 @@ public class JsonSpringStudentModelDatastore extends JsonSpringQuestionPoolDatas
     }
 
     @Override
+    public int getMinQuestionCountPerType() {
+        return 0;
+    }
+
+    @Override
     public void logout(String userId) throws IOException {
 
     }

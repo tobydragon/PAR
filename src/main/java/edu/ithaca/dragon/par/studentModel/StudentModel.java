@@ -57,8 +57,8 @@ public class StudentModel {
         return userResponseSet.knowledgeCalc();
     }
 
-    public Map<String,Double> knowledgeScoreByType(){
-        return userResponseSet.knowledgeScoreByType();
+    public Map<String,Double> knowledgeScoreByType(int numOfRecentResponsesToConsider){
+        return userResponseSet.knowledgeScoreByType(numOfRecentResponsesToConsider);
     }
 
     /**
@@ -125,8 +125,8 @@ public class StudentModel {
         }
     }
 
-    public Map<EquineQuestionTypes, String> generateKnowledgeBaseMap(){
-        return userResponseSet.calcKnowledgeEstimateStringsByType();
+    public Map<EquineQuestionTypes, String> generateKnowledgeBaseMap(int numOfRecentResponsesToConsider){
+        return userResponseSet.calcKnowledgeEstimateStringsByType(numOfRecentResponsesToConsider);
     }
 
     @Override
