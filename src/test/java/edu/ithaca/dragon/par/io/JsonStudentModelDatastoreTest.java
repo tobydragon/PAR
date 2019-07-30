@@ -6,6 +6,7 @@ import edu.ithaca.dragon.par.pedagogicalModel.TaskGenerator;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 
 import edu.ithaca.dragon.util.JsonIoHelperDefault;
+import edu.ithaca.dragon.util.JsonIoHelperSpring;
 import edu.ithaca.dragon.util.JsonIoUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -131,5 +132,24 @@ public class JsonStudentModelDatastoreTest {
         assertEquals(7, JsonStudentModelDatastore.calcMinQuestionCountPerType(questions));
 
         assertEquals(0, JsonStudentModelDatastore.calcMinQuestionCountPerType(new ArrayList<>()));
+    }
+
+    @Test
+    public void copyDefaultQuestionsTest(@TempDir Path tempDir) throws IOException{
+        Path currentQuestionFile = tempDir.resolve("CurrentTestQuestionFile.json");
+        assertFalse(currentQuestionFile.toFile().exists());
+
+        File studentDir = tempDir.resolve("testStudents").toFile();
+        studentDir.mkdir();
+        StudentModelDatastore studentModelDatastore = new JsonStudentModelDatastore(currentQuestionFile.toString(), "src/test/resources/author/DemoQuestionPool.json", new JsonIoHelperDefault(), studentDir.toString());
+
+        assertTrue(currentQuestionFile.toFile().exists());
+        assertEquals(47, studentModelDatastore.getAllQuestions().size());
+    }
+
+    @Test
+    public void useCurrentQuestionsTest(@TempDir Path tempDir) throws IOException{
+        StudentModelDatastore studentModelDatastore = new JsonStudentModelDatastore("src/test/resources/author/DemoQuestionPool.json", "bad path", new JsonIoHelperDefault(), tempDir.toString());
+        assertEquals(47, studentModelDatastore.getAllQuestions().size());
     }
 }

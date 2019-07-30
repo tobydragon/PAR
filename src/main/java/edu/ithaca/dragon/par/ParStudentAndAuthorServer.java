@@ -1,6 +1,6 @@
 package edu.ithaca.dragon.par;
 
-import edu.ithaca.dragon.par.authorModel.ParAuthoringServer;
+import edu.ithaca.dragon.par.authorModel.AuthorServer;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.AuthorDatastore;
 import edu.ithaca.dragon.par.io.ImageTask;
@@ -15,13 +15,13 @@ import java.util.Map;
 
 public class ParStudentAndAuthorServer {
 
-    private ParAuthoringServer parAuthoringServer;
+    private AuthorServer authorServer;
     private StudentModelDatastore studentModelDatastore;
     private static final int idealQuestionCountPerTypeForAnalysis = 4;
 
     public ParStudentAndAuthorServer(StudentModelDatastore studentModelDatastore, AuthorDatastore authorDatastore) throws IOException {
             this.studentModelDatastore = studentModelDatastore;
-            parAuthoringServer = new ParAuthoringServer(authorDatastore);
+            authorServer = new AuthorServer(authorDatastore);
     }
 
     //----------- Student methods  --------------//
@@ -44,7 +44,7 @@ public class ParStudentAndAuthorServer {
     }
 
     public String calcOverallKnowledgeEstimate(String userId) throws IOException {
-        return DataUtil.format(studentModelDatastore.getStudentModel(userId).knowledgeScore());
+        return DataUtil.format(studentModelDatastore.getStudentModel(userId).calcKnowledgeEstimate());
     }
 
     public Map<String, Double> calcKnowledgeEstimateByType(String userId) throws IOException{
@@ -68,21 +68,21 @@ public class ParStudentAndAuthorServer {
     //----------- Author methods  --------------//
 
     public ImageTask nextAuthorImageTask() {
-        return parAuthoringServer.nextImageTaskTemplate();
+        return authorServer.nextImageTaskTemplate();
     }
 
     public void submitAuthorImageTaskResponse(ImageTaskResponse response) throws IOException{
-            parAuthoringServer.imageTaskResponseSubmitted(response);
+            authorServer.imageTaskResponseSubmitted(response);
     }
     public List<ImageTask> authoredQuestions(){
-        return parAuthoringServer.authoredQuestions();
+        return authorServer.authoredQuestions();
     }
 
 
     //----------- Student-Author Interacting methods  --------------//
 
     public void transferAuthoredQuestionsToStudentServer() throws IOException{
-        studentModelDatastore.addQuestions(parAuthoringServer.removeAllAuthoredQuestions());
+        studentModelDatastore.addQuestions(authorServer.removeAllAuthoredQuestions());
     }
 
 }

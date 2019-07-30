@@ -8,11 +8,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ParAuthoringServer {
+public class AuthorServer {
 
     private AuthorDatastore authorDatastore;
 
-    public ParAuthoringServer(AuthorDatastore authorDatastore) {
+    public AuthorServer(AuthorDatastore authorDatastore) {
         this.authorDatastore = authorDatastore;
     }
 
