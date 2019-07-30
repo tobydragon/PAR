@@ -7,20 +7,20 @@ class PageImage {
         }
         this.imageUrl = imageUrl;
         this.canvasName = canvasName;
-        this.canvas = createCanvas(this.imageUrl, this.canvasName);
-        this.element = createDisplayElement(this.canvas);
+        this.element = createCanvas(this.imageUrl, this.canvasName);
+
     }
     loadImage() {
-        loadImageOnCanvas(this.imageUrl, this.canvas);
+        loadImageOnCanvas(this.imageUrl, this.element);
     }
 }
 
-function loadImageOnCanvas(imageUrl, canvas) {
+function loadImageOnCanvas(imageUrl, element) {
 
     //Setup the canvas object
-    let context = canvas.getContext("2d"); //get the context
-    let canvasWidth = canvas.width; //get the width of the canvas
-    let canvasHeight = canvas.height; //get the heigth of the canvas
+    let context = element.getContext("2d"); //get the context
+    let canvasWidth = element.width; //get the width of the canvas
+    let canvasHeight = element.height; //get the heigth of the canvas
     let canvasColor = "white"; // set the default canvas bg color
 
     function clearCanvas(canvasColor) {
@@ -58,13 +58,6 @@ function createCanvas(imageUrl, name) {
     newCanvas.height = "768";
     newCanvas.classList.add("canvas");
     return newCanvas;
-}
-
-function createDisplayElement(canvas) {
-    let canvasDisplayElement = document.createElement('div');
-    canvasDisplayElement.classList.add('col-12');
-    canvasDisplayElement.appendChild(canvas);
-    return canvasDisplayElement;
 }
 
 function canvasSupport() {
