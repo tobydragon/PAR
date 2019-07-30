@@ -34,7 +34,8 @@ class PageDisplay {
                 var imageTaskJSON = readJson("api/nextImageTask?userId=" + this.userId);
             }
             this.imageTaskDisplay = new ImageTaskDisplay(imageTaskJSON, this.userId, this.imageTaskSettings, this.isAuthor, "myCanvas", this.pageSettings);
-            imageTaskHTML(this.imageTaskDisplay);
+            let element= imageTaskHTML(this.imageTaskDisplay);
+            document.getElementById('imageTaskArea').appendChild(element);
 
         } catch (Exception) {
             window.onerror = function (msg) {
@@ -68,8 +69,7 @@ class PageDisplay {
     enterAuthorReview(){
         enableElement(document.getElementById("createAuthorQButton"));
         disableElement(document.getElementById("submitAuthorButton"));
-        document.getElementById("questionSet").innerHTML = " ";
-        document.getElementById("canvasArea").innerText = "";
+        document.getElementById('imageTaskArea').innerHTML = " ";
         let listOfImageTasks = readJson("/api/authoredQuestions");
         enterAuthorReview(listOfImageTasks, this.userId, this.imageTaskSettings, this.isAuthor, this.pageSettings);
     }
@@ -83,11 +83,9 @@ function enterAuthorReview(listOfImageTasks, userId, imageTaskSettings, isAuthor
     for (var i = 0; i < listOfImageTasks.length; i++) {
         let current = listOfImageTasks[i];
         let canvasName = "canvas" + i;
-        if (i > 0) {
-            formatAuthorReviewQuestions(i);
-        }
         let newImageTask = new ImageTaskDisplay(current, userId, imageTaskSettings, isAuthor, canvasName, pageSettings);
-        imageTaskHTML(newImageTask);
+        let element= imageTaskHTML(newImageTask);
+        document.getElementById('imageTaskArea').appendChild(element);
         newImageTask.lockInCorrectAnswers();
     }
 }

@@ -30,7 +30,7 @@ class CompleteDisplay {
     }
 
     nextImageTask() {
-        document.getElementById("questionSet").innerText = "";
+        document.getElementById('imageTaskArea').innerText = "";
         this.pageDisplay.nextImageTask();
     }
 
