@@ -3,6 +3,7 @@ class ImageTaskDisplay {
     constructor(imageTaskJson, userId, imageTaskSettings, isAuthor, canvasName, pageDisplaySettings) {
         this.userId = userId;
         this.response = new Response(userId);
+        this.imageUrl = imageTaskJson.imageUrl;
         //settings
         this.unsureShowsCorrectAnswer = imageTaskSettings.unsureShowsCorrectAnswer;
         this.feedbackByType = imageTaskSettings.feedbackByType;
@@ -102,6 +103,7 @@ class ImageTaskDisplay {
 
     createQuestionAreaElement() {
         let outerQuestionNode = document.createElement('div');
+        outerCanvasNode.classList.add('col-4');
         let questionElement = document.createElement('div');
 
         this.questionAreaDisp = new buildQuestionAreas(imageTaskJson.taskQuestions, this.response);
@@ -118,24 +120,30 @@ class ImageTaskDisplay {
 
     createCanvasElement() {
         let outerCanvasNode = document.createElement('div');
+        outerCanvasNode.classList.add('col-6');
+        outerCanvasNode.classList.add('imgCenter');
         let canvasElement = document.createElement('div');
-
+        let canvas;
         if (this.imageUrl === "noMoreQuestions") {
-            createCanvas("../images/ParLogo.png", this.canvasName);
+            canvas = new PageImage("../images/ParLogo.png", this.canvasName);
+
         } else {
-            createCanvas(this.imageUrl, this.canvasName);
+            console.log(this.imageUrl);
+            console.log(this.canvasName);
+            canvas = new PageImage(this.imageUrl, this.canvasName);
         }
         this.displayImageUrl(this.imageUrl);
-
-        canvasElement.appendChild(newCanvas);
+        canvasElement.appendChild(canvas);
+        canvas.loadImage();
         outerCanvasNode.appendChild(canvasElement);
         return outerCanvasNode;
     }
 
     createImageTaskElement() {
         let outerImageTaskNode = document.createElement('div');
-        let canvasNode = createCanvasElement(this.imageURL, this.canvasName);
-        let questionAreaNode = createQuestionAreaElement();
+        outerImageTaskNode.classList.add('row');
+        let canvasNode = this.createCanvasElement();
+        let questionAreaNode = this.createQuestionAreaElement();
         outerImageTaskNode.appendChild(canvasNode);
         outerImageTaskNode.appendChild(questionAreaNode);
         return outerImageTaskNode;

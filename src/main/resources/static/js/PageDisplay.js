@@ -91,12 +91,11 @@ function formatAuthorReviewQuestions(number) {
     document.getElementById("questionSet").appendChild(element);
 }
 
-function reviewMode() {
+function reviewMode(imageTaskObject) {
     let outerNode = document.createElement('div');
-    outerNode.classList.add('row');
+    outerNode.classList.add('container-fluid');
     let imageTaskElementHandler = document.createElement('div');
-    let imageTask = new ImageTaskDisplay();
-    imageTaskElementHandler.appendChild(imageTask);
+    imageTaskElementHandler.appendChild(imageTaskObject.createImageTaskElement());
     outerNode.appendChild(imageTaskElementHandler);
     return outerNode;
 }

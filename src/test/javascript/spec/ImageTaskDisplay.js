@@ -65,20 +65,8 @@ describe("ImageTaskDisplay", function () {
     });
     it("addUnsureToAnswers", function () {
         let questionObjects = readJson("../resources/author/DemoQuestionPoolFollowup.json");
-        console.log(questionObjects);
         addUnsureToAnswers(questionObjects);
 
         expect(questionObjects[0].possibleAnswers).toContain(ResponseResult.unsure);
-    });
-    it("createCanvasElement", function () {
-        let imageURL = "../images/PARLogo.png";
-        let canvasName = "test";
-        let canvasElement = createCanvas(imageURL, canvasName);
-        expect(canvasElement).toBe();
-    });
-    it("createQuestionAreaElement", function () {
-        let imageTaskObject = new ImageTaskDisplay();
-        let questionElement = imageTaskObject.createQuestionAreaElement();
-        expect(questionElement).toBe();
     });
 });

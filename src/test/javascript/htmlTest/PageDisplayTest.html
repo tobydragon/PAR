@@ -1,8 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Test123</title>
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
+    <!-- My Project CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
     <script type="text/javascript" src="../../../main/resources/static/js/CompleteDisplay.js"></script>
     <script type="text/javascript" src="../../../main/resources/static/js/PageDisplay.js"></script>
     <script type="text/javascript" src="../../../main/resources/static/js/ImageTaskDisplay.js"></script>
@@ -14,34 +23,43 @@
     <script type="text/javascript" src="../../../main/resources/static/js/InputDatalistResponseBoxDisplay.js"></script>
     <script type="text/javascript" src="../../../main/resources/static/js/Modernizr.js"></script>
 </head>
+
 <body>
 
-<div id="canvasArea"> </div>
-<div id="questionSet"> </div>
-<i id="Ids"> </i>
+    <div id="canvasArea"> </div>
+    <div id="questionSet"> </div>
+    <div id="imageTaskArea"></div>
+    <i id="Ids"> </i>
 
-<button type="button" class="btn btn-primary" id="submitButton" onclick="completeDisplay.pageDisplay.imageTaskDisplay.submitAnswers()">
-    Submit
-</button>
-<button type="button" class="btn btn-primary" id="authorReviewSubmitButton" onclick="completeDisplay.pageDisplay.authorSubmitFinal()">
-    Submit
-</button>
+    <button type="button" class="btn btn-primary" id="submitButton" onclick="completeDisplay.pageDisplay.imageTaskDisplay.submitAnswers()">
+        Submit
+    </button>
+    <button type="button" class="btn btn-primary" id="authorReviewSubmitButton" onclick="completeDisplay.pageDisplay.authorSubmitFinal()">
+        Submit
+    </button>
 
-<script>
-    document.getElementById("authorReviewSubmitButton").classList.add("hide");
-    let listOfImageTasks = readJson("../../resources/author/SampleListOfImageTasks.json");
-    let imageTaskSettings = {
-        unsureShowsCorrectAnswer: "False",
-        feedbackByType: {"plane": "Look at chapter 12",
-            structure: "View notes from 9/25",
-            attachment: "Read Page 394",
-            zone: "Rewatch <a href=https://www.youtube.com/watch?v=dQw4w9WgXcQ> this video </a>"},
-        ableToResubmitAnswers: "True",
-        mustSubmitAnswersToContinue: "False",
-        canGiveNoAnswer: "True",
-        willDisplayFeedback: "False"
-    };
+    <script>
+        document.getElementById("authorReviewSubmitButton").classList.add("hide");
+        let listOfImageTasks = readJson("../../resources/author/SampleListOfImageTasks.json");
+        let imageTaskSettings = {
+            unsureShowsCorrectAnswer: "False",
+            feedbackByType: {
+                "plane": "Look at chapter 12",
+                structure: "View notes from 9/25",
+                attachment: "Read Page 394",
+                zone: "Rewatch <a href=https://www.youtube.com/watch?v=dQw4w9WgXcQ> this video </a>"
+            },
+            ableToResubmitAnswers: "True",
+            mustSubmitAnswersToContinue: "False",
+            canGiveNoAnswer: "True",
+            willDisplayFeedback: "False"
+        };
 
-    enterAuthorReview(listOfImageTasks, "author", imageTaskSettings, true)
-</script>
+        enterAuthorReview(listOfImageTasks, "author", imageTaskSettings, true)
+    </script>
+
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body></html>

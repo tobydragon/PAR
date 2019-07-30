@@ -142,11 +142,13 @@ describe("InputDatalistResponseBoxDisplay", function () {
         let listOfStr3 = ["o", "tw", "thr"];
         let listOfStr4 = ["o"];
         let listOfStr5 = ["lllllllloooooooonnng boi tada", "transverse", "zagga"];
+        let listOfStr6 = ["lllllllloooooooonnng boi tada", "transverse", "Both the zip (and the -zorp) act in such a way a _WIDE_ boy cannot possibly; well; understand!"];
         expect(inputBoxAutoSize(listOfStr0)).toBe(29.4);
         expect(inputBoxAutoSize(listOfStr1)).toBe(20);
         expect(inputBoxAutoSize(listOfStr2)).toBe(20);
         expect(inputBoxAutoSize(listOfStr3)).toBe(20);
         expect(inputBoxAutoSize(listOfStr4)).toBe(20);
         expect(inputBoxAutoSize(listOfStr5)).toBe(24.36);
+        expect(inputBoxAutoSize(listOfStr6)).toBe(78.96);
     })
 });

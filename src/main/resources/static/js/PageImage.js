@@ -66,7 +66,6 @@ function createCanvas(imageUrl, name) {
 function createDisplayElement(canvas) {
     let canvasDisplayElement = document.createElement('div');
     canvasDisplayElement.classList.add('col-12');
-    console.log(canvas);
     canvasDisplayElement.appendChild(canvas);
     return canvasDisplayElement;
 }
