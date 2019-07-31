@@ -70,7 +70,37 @@ describe("ImageTaskDisplay", function () {
         expect(questionObjects[0].possibleAnswers).toContain(ResponseResult.unsure);
     });
 
-    it('createSubmitButtonElement', function () {
+
+    it('createQuestionAreaElement Test', function () {
+        let listOfImageTasks = readJson("../resources/author/SampleListOfImageTasks.json");
+        let imageTaskSettings = readJson("../../main/resources/author/SettingsExample.json");
+        let pageSettings = readJson("../../main/resources/author/PageSettingsExample.json");
+
+        let imageTaskDisplayObject = new ImageTaskDisplay(listOfImageTasks[0], "testUser", imageTaskSettings, true, "canvas0", pageSettings);
+
+        let questionAreaElement = imageTaskDisplayObject.createQuestionAreaElement();
+
+        expect(questionAreaElement.getAttribute('id')).toBe('questionSetForm');
+        expect(questionAreaElement.childNodes.item(0).getAttribute('id')).toBe('questionSet');
+        expect(questionAreaElement.childNodes.item(0).childElementCount).toBe(3);
+        expect(questionAreaElement.childNodes.item(0).childNodes.item(0).getAttribute('id')).toBe('PlaneQ1');
+    });
+
+    it("createCanvasElement Test", function () {
+        let listOfImageTasks = readJson("../resources/author/SampleListOfImageTasks.json");
+        let imageTaskSettings = readJson("../../main/resources/author/SettingsExample.json");
+        let pageSettings = readJson("../../main/resources/author/PageSettingsExample.json");
+
+        let imageTaskDisplayObject = new ImageTaskDisplay(listOfImageTasks[0], "testUser", imageTaskSettings, true, "canvas0", pageSettings);
+
+        let canvasTestElement = imageTaskDisplayObject.createCanvasElement();
+
+        expect(canvasTestElement.getAttribute('id')).toContain('canvasArea');
+        expect(canvasTestElement.childNodes.item(0).getAttribute('id')).toBe('canvas0');
+        expect(canvasTestElement.childNodes.item(0).getAttribute('class')).toBe('canvas');
+    });
+
+    it('createSubmitButtonElement Test', function () {
         let listOfImageTasks = readJson("../resources/author/SampleListOfImageTasks.json");
         let imageTaskSettings = readJson("../../main/resources/author/SettingsExample.json");
         let pageSettings = readJson("../../main/resources/author/PageSettingsExample.json");
@@ -91,5 +121,28 @@ describe("ImageTaskDisplay", function () {
         expect(submitButtonTestElement.childNodes.item(0).childNodes.item(1).childNodes.item(0).getAttribute('class')).toContain('col-12 text-center');
         expect(submitButtonTestElement.childNodes.item(0).childNodes.item(1).childNodes.item(0).childNodes.item(0).getAttribute('id')).toContain('Ids');
 
+    });
+    it("createImageTaskElement", function () {
+        let listOfImageTasks = readJson("../resources/author/SampleListOfImageTasks.json");
+        let imageTaskSettings = readJson("../../main/resources/author/SettingsExample.json");
+        let pageSettings = readJson("../../main/resources/author/PageSettingsExample.json");
+
+        let imageTaskDisplayObject = new ImageTaskDisplay(listOfImageTasks[0], "testUser", imageTaskSettings, true, "canvas0", pageSettings);
+
+        let imageTaskElement = imageTaskDisplayObject.createImageTaskElement();
+
+        console.log(imageTaskElement);
+
+        expect(imageTaskElement.getAttribute('class')).toContain('row');
+
+        expect(imageTaskElement.childNodes.item(0).getAttribute('class')).toContain('col-1');
+        expect(imageTaskElement.childNodes.item(1).getAttribute('class')).toContain('col-6 imgCenter');
+        expect(imageTaskElement.childNodes.item(1).childNodes.item(0).getAttribute('id')).toContain('canvasArea');
+        expect(imageTaskElement.childNodes.item(1).childNodes.item(0).childNodes.item(0).getAttribute('class')).toContain('canvas');
+
+
+        expect(imageTaskElement.childNodes.item(2).getAttribute('class')).toContain('col-4');
+
+        expect(imageTaskElement.childNodes.item(3).getAttribute('class')).toContain('col-1');
     });
 });
