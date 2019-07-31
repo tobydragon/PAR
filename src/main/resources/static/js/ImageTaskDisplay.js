@@ -1,6 +1,6 @@
 class ImageTaskDisplay {
 
-    constructor(imageTaskJson, userId, imageTaskSettings, isAuthor, canvasName, pageDisplaySettings) {
+    constructor(imageTaskJson, userId, imageTaskSettings, isAuthor, canvasName, pageDisplaySettings, counter) {
         this.userId = userId;
         this.response = new Response(userId);
         this.hasFolloup = false;
@@ -19,6 +19,7 @@ class ImageTaskDisplay {
         this.canvasName = canvasName;
         this.listOfCorrectAnswers = [];
         this.isAuthor = isAuthor;
+        this.counter = counter;
 
         //buildQuestionAreasAuthor(this.isAuthor)
         if (!isAuthor) {
@@ -27,13 +28,13 @@ class ImageTaskDisplay {
     }
 
     displayImageUrl() {
-        document.getElementById("Ids").innerText = this.imageUrl;
+        document.getElementById("Ids" + this.counter).innerText = this.imageUrl;
     }
 
     submitAnswers() {
         this.response.responseTexts = [];
         let canContinu;
-        document.getElementById("errorFeedback").innerHTML = " ";
+        document.getElementById("errorFeedback" + this.counter).innerHTML = " ";
 
         if (!this.isAuthor) {
             this.checkAnswers();
@@ -49,7 +50,7 @@ class ImageTaskDisplay {
             this.haveSubmited += 1;
             this.hasFolloup = false;
         } else {
-            document.getElementById("errorFeedback").innerHTML = "<font color=red>No response was recorded because you did not answer all the questions</font>";
+            document.getElementById("errorFeedback" + this.counter).innerHTML = "<font color=red>No response was recorded because you did not answer all the questions</font>";
         }
     }
 
@@ -71,7 +72,7 @@ class ImageTaskDisplay {
 
     displayFeedback() {
         if (this.willDisplayFeedback) {
-            document.getElementById("helpfulFeedback").innerHTML = giveFeedback(this.response.typesIncorrect, this.feedbackByType);
+            document.getElementById("helpfulFeedback" + this.counter).innerHTML = giveFeedback(this.response.typesIncorrect, this.feedbackByType);
         }
     }
 
@@ -127,6 +128,7 @@ class ImageTaskDisplay {
             canvas = new PageImage("../images/ParLogo.png", this.canvasName);
 
         } else {
+
             canvas = new PageImage(this.imageUrl, this.canvasName);
         }
         canvasElement.appendChild(canvas.element);
@@ -152,19 +154,9 @@ class ImageTaskDisplay {
         submitButtonElement.setAttribute('type', 'button');
         submitButtonElement.classList.add('btn');
         submitButtonElement.classList.add('btn-primary');
-        submitButtonElement.setAttribute('id', 'submitButton');
-        submitButtonElement.setAttribute('onclick', 'completeDisplay.pageDisplay.imageTaskDisplay.submitAnswers()');
+        submitButtonElement.setAttribute('id', 'submitButton'+this.counter);
+        submitButtonElement.setAttribute('onclick', 'completeDisplay.submitAnswers()');
         submitButtonElement.textContent = 'Submit';
-
-        let authorButtonElement = document.createElement('button');
-        authorButtonElement.setAttribute('type', 'button');
-        authorButtonElement.classList.add('btn');
-        authorButtonElement.classList.add('btn-primary');
-        authorButtonElement.classList.add('hide');
-        authorButtonElement.setAttribute('id', 'authorReviewSubmitButton');
-        authorButtonElement.setAttribute('onclick', 'completeDisplay.pageDisplay.authorSubmitFinal()');
-        authorButtonElement.textContent = 'Add Questions To Pool';
-
 
         let nextQuestionButtonElement = document.createElement('button');
         nextQuestionButtonElement.setAttribute('type', 'button');
@@ -172,17 +164,16 @@ class ImageTaskDisplay {
         nextQuestionButtonElement.classList.add('fa-arrow-circle-right');
         nextQuestionButtonElement.classList.add('btn');
         nextQuestionButtonElement.classList.add('btn-outline-dark');
-        nextQuestionButtonElement.setAttribute('id', 'nextQuestionButton');
+        nextQuestionButtonElement.setAttribute('id', 'nextQuestionButton'+this.counter);
         nextQuestionButtonElement.setAttribute('onclick', 'completeDisplay.nextQuestion()');
 
 
         tagElement.appendChild(submitButtonElement);
-        tagElement.appendChild(authorButtonElement);
         tagElement.appendChild(nextQuestionButtonElement);
 
 
         let errorFeedbackElement = document.createElement('i');
-        errorFeedbackElement.setAttribute('id', 'errorFeedback');
+        errorFeedbackElement.setAttribute('id', 'errorFeedback' + this.counter);
 
         showElement.appendChild(tagElement);
         showElement.appendChild(errorFeedbackElement);
@@ -196,7 +187,7 @@ class ImageTaskDisplay {
         idColElement.classList.add('text-center');
 
         let idElement = document.createElement('i');
-        idElement.setAttribute('id', 'Ids');
+        idElement.setAttribute('id', 'Ids' + this.counter);
 
         idColElement.appendChild(idElement);
         idRowElement.appendChild(idColElement);
@@ -215,15 +206,12 @@ class ImageTaskDisplay {
         let outerImageTaskNode = document.createElement('div');
         outerImageTaskNode.classList.add('row');
 
-
         let canvasNode = this.createCanvasElement();
-
 
         let canvasElementHandler = document.createElement('div');
         canvasElementHandler.classList.add('col-6');
         canvasElementHandler.classList.add('imgCenter');
         canvasElementHandler.appendChild(canvasNode);
-
 
         let questionAreaNode = this.createQuestionAreaElement();
         let questionAreaElementHandler = document.createElement('div');
@@ -232,34 +220,30 @@ class ImageTaskDisplay {
         questionTitleElement.classList.add('text-center');
         questionTitleElement.textContent = "Question Set";
 
-
         let feedbackElement = document.createElement('i');
-        feedbackElement.setAttribute('id', 'helpfulFeedback');
+        feedbackElement.setAttribute('id', 'helpfulFeedback' + this.counter);
         feedbackElement.classList.add('text-center');
 
-
         let submitButtonElement = this.createSubmitButtonElement();
-
 
         questionAreaElementHandler.appendChild(questionTitleElement);
         questionAreaElementHandler.appendChild(questionAreaNode);
         questionAreaElementHandler.appendChild(feedbackElement);
         questionAreaElementHandler.appendChild(submitButtonElement);
 
-
         let spaceNode0 = document.createElement('div');
         spaceNode0.classList.add('col-1');
         let spaceNode1 = document.createElement('div');
         spaceNode1.classList.add('col-1');
 
+        outerImageTaskNode.appendChild(spaceNode0);
+        outerImageTaskNode.appendChild(canvasElementHandler);
+        outerImageTaskNode.appendChild(questionAreaElementHandler);
+        outerImageTaskNode.appendChild(spaceNode1);
 
         outerImageTaskNode.appendChild(spaceNode0);
-
-
         outerImageTaskNode.appendChild(canvasElementHandler);
-
         outerImageTaskNode.appendChild(questionAreaElementHandler);
-
         outerImageTaskNode.appendChild(spaceNode1);
 
         return outerImageTaskNode;
@@ -276,7 +260,6 @@ class ImageTaskDisplay {
             }
         }
     }
-
 }
 
 function addUnsureToAnswers(questionObjectList) {
