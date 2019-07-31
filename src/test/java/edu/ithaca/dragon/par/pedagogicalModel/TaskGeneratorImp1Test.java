@@ -5,6 +5,8 @@ import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.JsonQuestionPoolDatastore;
+import edu.ithaca.dragon.par.io.JsonStudentModelDatastore;
+import edu.ithaca.dragon.par.studentModel.QuestionCount;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.util.JsonUtil;
 import org.junit.jupiter.api.Test;
@@ -247,38 +249,38 @@ public class TaskGeneratorImp1Test {
         assertEquals("plane", recFollowups.getFollowupQuestions().get(2).getFollowupQuestions().get(0).getType());
         assertEquals(0, recFollowupsAfter.getFollowupQuestions().get(2).getFollowupQuestions().size());
     }
-//test should fail due to recursion issue
+
     @Test
     public void equineQuestionTypesMapTest() throws IOException{
         QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFewFollowups.json").getAllQuestions());
         StudentModel studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
-        Map<EquineQuestionTypes,List<Question>> equineQuestionMap=new LevelTaskGenerator().equineQuestionTypesMap(studentModel);
-        assertEquals(4,equineQuestionMap.size());
-        //do bonus and attachment not being recorded
-        assertEquals(13,equineQuestionMap.get(EquineQuestionTypes.plane).size());
-        assertEquals(27,equineQuestionMap.get(EquineQuestionTypes.structure).size());
-        assertEquals(7,equineQuestionMap.get(EquineQuestionTypes.attachment).size());
-        assertEquals(10,equineQuestionMap.get(EquineQuestionTypes.zone).size());
+        Map<String,List<QuestionCount>> questionByTypesMap=new LinkedHashMap<>();
+        new LevelTaskGenerator().questionByTypeMap(studentModel.getUserQuestionSet().getQuestionCounts(),questionByTypesMap);
 
-        System.out.println(equineQuestionMap.get(EquineQuestionTypes.attachment).size());
+        assertEquals(4,questionByTypesMap.size());
+        //do bonus and attachment not being recorded
+        assertEquals(13,questionByTypesMap.get(EquineQuestionTypes.plane.toString()).size());
+        assertEquals(27,questionByTypesMap.get(EquineQuestionTypes.structure.toString()).size());
+        assertEquals(7,questionByTypesMap.get(EquineQuestionTypes.attachment.toString()).size());
+        assertEquals(10,questionByTypesMap.get(EquineQuestionTypes.zone.toString()).size());
     }
-/*
+
     @Test
     public void emptyQuestionSetTest()throws IOException {
-        Datastore datastore = new JsonDatastore("src/test/resources/author/simpleTestSet/currentQuestionPool.json", "src/test/resources/author/simpleTestSet/students");
-        StudentModel testUser2 = datastore.loadStudentModel("testUser2");
+        JsonStudentModelDatastore datastore = new JsonStudentModelDatastore("src/test/resources/author/simpleTestSet/currentQuestionPool.json", "src/test/resources/author/simpleTestSet/students");
+        StudentModel testUser2 = datastore.getOrCreateStudentModel("testUser2");
 
-        ImageTask imageTask2 = TaskGeneratorImp1.makeTaskGivenLevel(testUser2,1);
-        ImageTask imageTask = TaskGeneratorImp1.makeTaskGivenLevel(testUser2,7);
+        ImageTask imageTask = new LevelTaskGenerator().makeTask(testUser2,4);
+        ImageTask imageTask2 = new LevelTaskGenerator().makeTask(testUser2,4);
 
-        System.out.println(imageTask2.getTaskQuestions());
-        System.out.println(imageTask.getTaskQuestions());
+        //System.out.println(imageTask2.getTaskQuestions());
+        //System.out.println(imageTask.getTaskQuestions());
 
         assertEquals(1,imageTask.getTaskQuestions().size());
 
     }
 
- */
+
 
 
 }

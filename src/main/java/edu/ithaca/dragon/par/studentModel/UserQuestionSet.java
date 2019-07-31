@@ -40,6 +40,16 @@ public class UserQuestionSet {
         return seen;
     }
 
+    public List<QuestionCount> getTopLevelSeenQuestionCounts(){
+        List<QuestionCount> seen = new ArrayList<>();
+        for (QuestionCount currQuestion: questionCounts){
+            if (currQuestion.getTimesSeen()>0){
+                seen.add(currQuestion);
+            }
+        }
+        return seen;
+    }
+
     public List<Question> getTopLevelUnseenQuestions(){
         List<Question> unseen = new ArrayList<>();
         for (QuestionCount currQuestion: questionCounts){
