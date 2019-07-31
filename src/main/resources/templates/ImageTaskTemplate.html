@@ -38,7 +38,6 @@
         let completeDisplay = new CompleteDisplay();
         completeDisplay.userID = userID;
         completeDisplay.createPageDisplay();
-
     </script>
 
     <!-- Nav Bar -->
@@ -71,7 +70,14 @@
         </div>
     </div>
     <!-- Image Task -->
-    <div id='imageTaskArea'> </div>
+    <div class="container-fluid">
+        <br />
+        <div id='imageTaskArea'> </div>
+        <i id="helpfulFeedback" class="text-center"> </i>
+        <i id="errorFeedback"> </i>
+        <i id="Ids"> </i>
+
+    </div>
 
     <script>
         completeDisplay.setPageDisplayIsAuthor();
@@ -79,6 +85,7 @@
         completeDisplay.showScoreInner();
         console.log('completeDisplay.nextImageTask()');
         completeDisplay.nextImageTask();
+        completeDisplay.pageDisplay.authorEffects();
         console.log('we out of that func');
 
     </script>
