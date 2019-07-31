@@ -13,7 +13,9 @@ import org.junit.jupiter.api.io.TempDir;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -39,6 +41,17 @@ public class TaskGeneratorImp1Test {
         ImageTask task2 = new ImageTask(task2Question.getImageUrl(), Arrays.asList(task1Question));
         assertEquals("./images/demoEquine04.jpg", task1.getImageUrl());
         assertEquals(1, task2.getTaskQuestions().size());
+
+    }
+//TODO:TEST CURRENTLY FAILS WITH ORIGINAL CHOOSE TOP LEVEL QUESTION
+    @Test
+    public void makeTaskWithSingleQuestionTestBreak() throws IOException{
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/SampleQuestionPool.json").getAllQuestions());
+        StudentModel studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
+        studentModel.getUserQuestionSet().increaseTimesSeenAllQuestions(studentModel.getUserQuestionSet().getTopLevelUnseenQuestions());
+        Question task1Question = TaskGeneratorImp1.getInitialQuestionForTask(studentModel, 1);
+        ImageTask task1 = new ImageTask(task1Question.getImageUrl(), Arrays.asList(task1Question));
+        assertEquals("./images/demoEquine04.jpg", task1.getImageUrl());
 
     }
 
@@ -221,7 +234,7 @@ public class TaskGeneratorImp1Test {
         assertEquals(noFollowups, noFollowsAfter);
 
         //The method should not remove the base question
-        assertThrows(RuntimeException.class, () -> {Question noFollowsAfterPlane = TaskGeneratorImp1.removeTypeFromQuestion(noFollowups, "plane");});
+        assertThrows(RuntimeException.class, () -> {Question noFollowsAfterPlane = TaskGeneratorImp1.removeTypeFromQuestion(noFollowups, EquineQuestionTypes.plane.toString());});
 
         //Removing attachment followups should create a question with no followups
         Question twoFollowupsAfter = TaskGeneratorImp1.removeTypeFromQuestion(twoFollowups, EquineQuestionTypes.attachment.toString());
@@ -233,6 +246,21 @@ public class TaskGeneratorImp1Test {
         assertFalse(recFollowupsAfter == recFollowups);
         assertEquals("plane", recFollowups.getFollowupQuestions().get(2).getFollowupQuestions().get(0).getType());
         assertEquals(0, recFollowupsAfter.getFollowupQuestions().get(2).getFollowupQuestions().size());
+    }
+//test should fail due to recursion issue
+    @Test
+    public void equineQuestionTypesMapTest() throws IOException{
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFewFollowups.json").getAllQuestions());
+        StudentModel studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
+        Map<EquineQuestionTypes,List<Question>> equineQuestionMap=new LevelTaskGenerator().equineQuestionTypesMap(studentModel);
+        assertEquals(4,equineQuestionMap.size());
+        //do bonus and attachment not being recorded
+        assertEquals(13,equineQuestionMap.get(EquineQuestionTypes.plane).size());
+        assertEquals(27,equineQuestionMap.get(EquineQuestionTypes.structure).size());
+        assertEquals(7,equineQuestionMap.get(EquineQuestionTypes.attachment).size());
+        assertEquals(10,equineQuestionMap.get(EquineQuestionTypes.zone).size());
+
+        System.out.println(equineQuestionMap.get(EquineQuestionTypes.attachment).size());
     }
 /*
     @Test
