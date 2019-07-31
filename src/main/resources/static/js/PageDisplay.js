@@ -111,7 +111,14 @@ function setIsAuthor(userId) {
     }
 }
 
-function createMoveQuestionsToPoolButton(){
+function createMoveQuestionsToPoolButton() {
+    let outerMoveButtonNode = document.createElement('div');
+    outerMoveButtonNode.classList.add('row');
+
+    let innerMoveButtonNode = document.createElement('div');
+    innerMoveButtonNode.classList.add('col-12');
+    innerMoveButtonNode.classList.add('text-center');
+
     let authorButtonElement = document.createElement('button');
     authorButtonElement.setAttribute('type', 'button');
     authorButtonElement.classList.add('btn');
@@ -119,5 +126,8 @@ function createMoveQuestionsToPoolButton(){
     authorButtonElement.setAttribute('id', 'authorReviewSubmitButton');
     authorButtonElement.setAttribute('onclick', 'completeDisplay.pageDisplay.authorSubmitFinal()');
     authorButtonElement.textContent = 'Add Questions To Pool';
-    return authorButtonElement;
+
+    innerMoveButtonNode.appendChild(authorButtonElement);
+    outerMoveButtonNode.appendChild(innerMoveButtonNode);
+    return outerMoveButtonNode;
 }
