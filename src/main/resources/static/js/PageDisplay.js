@@ -22,7 +22,7 @@ class PageDisplay {
             document.getElementById("scoreTag").innerText= "";
             disableElement(document.getElementById("createAuthorQButton"));
         }
-        document.getElementById("authorReviewSubmitButton").classList.add("hide");
+
     }
 
     nextImageTask() {
