@@ -35,7 +35,6 @@ class CompleteDisplay {
     }
 
     nextQuestion() {
-        document.getElementById("submitButton").classList.remove("hide");
         document.getElementById("helpfulFeedback").innerHTML = " ";
         document.getElementById("errorFeedback").innerHTML = " ";
         if (!this.pageDisplay.imageTaskDisplay.mustSubmitAnswersToContinue) {
@@ -61,7 +60,7 @@ class CompleteDisplay {
     }
 
     enterAuthorWrite(){
-        document.getElementById("canvasArea").innerText = "";
+        document.getElementById('imageTaskArea').innerText = "";
         enableElement(document.getElementById("submitAuthorButton"));
         disableElement(document.getElementById("createAuthorQButton"));
         this.nextQuestion();
