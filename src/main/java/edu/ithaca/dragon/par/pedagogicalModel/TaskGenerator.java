@@ -29,6 +29,7 @@ public class TaskGenerator {
                         return unseen.get(i);
                     }
                 }
+                return getLeastSeenQuestion(studentModel, EquineQuestionTypes.plane.toString());
             } else {
                 return getLeastSeenQuestion(studentModel, EquineQuestionTypes.plane.toString());
             }
