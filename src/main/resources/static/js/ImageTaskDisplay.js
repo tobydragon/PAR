@@ -242,7 +242,7 @@ class ImageTaskDisplay {
         console.log('we here qTE');
 
         let feedbackElement = document.createElement('i');
-        feedbackElement.setAttribute('id', 'helpFulFeedback');
+        feedbackElement.setAttribute('id', 'helpfulFeedback');
         feedbackElement.classList.add('text-center');
 
         console.log('we here fE');

@@ -89,8 +89,6 @@ class PageDisplay {
 }
 
 function enterAuthorReview(listOfImageTasks, userId, imageTaskSettings, isAuthor, pageSettings) {
-    //document.getElementById("authorReviewSubmitButton").classList.remove("hide");
-    //document.getElementById("submitButton").classList.add("hide");
 
     for (var i = 0; i < listOfImageTasks.length; i++) {
         let current = listOfImageTasks[i];
