@@ -53,7 +53,7 @@ class CompleteDisplay {
         }
     }
 
-    enterAuthorWrite(){
+    enterAuthorWrite() {
         document.getElementById('imageTaskArea').innerText = "";
         enableElement(document.getElementById("submitAuthorButton"));
         disableElement(document.getElementById("createAuthorQButton"));

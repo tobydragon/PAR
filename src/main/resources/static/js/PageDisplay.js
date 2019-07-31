@@ -14,7 +14,7 @@ class PageDisplay {
         this.isAuthor = setIsAuthor(this.userId);
     }
 
-    authorEffects(){
+    authorEffects() {
         if (!this.isAuthor) {
             document.getElementById("submitAuthorButton").classList.add("hide");
             document.getElementById("createAuthorQButton").classList.add("hide");
@@ -32,11 +32,11 @@ class PageDisplay {
             } else {
                 var imageTaskJSON = readJson("api/nextImageTask?userId=" + this.userId);
             }
-            this.imageTaskDisplay = new ImageTaskDisplay(imageTaskJSON, this.userId, this.imageTaskSettings, this.isAuthor, "myCanvas", this.pageSettings);
+            this.imageTaskDisplay = new ImageTaskDisplay(imageTaskJSON, this.userId, this.imageTaskSettings, this.isAuthor, "myCanvas", this.pageSettings, 0);
+            //0 used for counter as 1 image task doesnt need an incrementing value
             let element = imageTaskHTML(this.imageTaskDisplay);
             document.getElementById('imageTaskArea').appendChild(element);
             this.imageTaskDisplay.displayImageUrl();
-
 
         } catch (Exception) {
             window.onerror = function (msg) {
@@ -81,7 +81,7 @@ function enterAuthorReview(listOfImageTasks, userId, imageTaskSettings, isAuthor
     for (var i = 0; i < listOfImageTasks.length; i++) {
         let current = listOfImageTasks[i];
         let canvasName = "canvas" + i;
-        let newImageTask = new ImageTaskDisplay(current, userId, imageTaskSettings, isAuthor, canvasName, pageSettings);
+        let newImageTask = new ImageTaskDisplay(current, userId, imageTaskSettings, isAuthor, canvasName, pageSettings, i);
         let element = imageTaskHTML(newImageTask);
         document.getElementById('imageTaskArea').appendChild(element);
         newImageTask.displayImageUrl();
