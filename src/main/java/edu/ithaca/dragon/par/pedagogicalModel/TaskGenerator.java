@@ -20,19 +20,19 @@ public class TaskGenerator {
     public static Question getInitialQuestionForTask(StudentModel studentModel, int level){
         checkStudentModel(studentModel);
 
-            if (level == 1) {
-                if (studentModel.getUnseenQuestionCount() > 0) {
-                    //make and return an imageTask with the first question from the studentModels.unseenQuestions that matches the level
-                    List<Question> unseen = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions();
-                    for (int i = 0; i < unseen.size(); i++) {
-                        if (unseen.get(i).getType().equals(EquineQuestionTypes.plane.toString())) {
-                            return unseen.get(i);
-                        }
+        if (level == 1) {
+            if (studentModel.getUnseenQuestionCount() > 0) {
+                //make and return an imageTask with the first question from the studentModels.unseenQuestions that matches the level
+                List<Question> unseen = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions();
+                for (int i = 0; i < unseen.size(); i++) {
+                    if (unseen.get(i).getType().equals(EquineQuestionTypes.plane.toString())) {
+                        return unseen.get(i);
                     }
-
-                    return getLeastSeenQuestion(studentModel, EquineQuestionTypes.plane.toString());
                 }
+            } else {
+                return getLeastSeenQuestion(studentModel, EquineQuestionTypes.plane.toString());
             }
+        }
         else if (level == 2) {
             if (studentModel.getUnseenQuestionCount() > 0) {
                 //make and return an imageTask with the first question from the studentModels.unseenQuestions that matches the level
@@ -48,6 +48,8 @@ public class TaskGenerator {
                     }
                 }
                 return getLeastSeenQuestion(studentModel,  EquineQuestionTypes.plane.toString());
+            } else {
+                return getLeastSeenQuestion(studentModel, EquineQuestionTypes.plane.toString());
             }
         }
         else if (level == 3) {
@@ -61,6 +63,8 @@ public class TaskGenerator {
                 }
 
                 return getLeastSeenQuestion(studentModel,  EquineQuestionTypes.structure.toString());
+            } else {
+                return getLeastSeenQuestion(studentModel, EquineQuestionTypes.structure.toString());
             }
         }
 
@@ -80,21 +84,10 @@ public class TaskGenerator {
                 }
 
                 return getLeastSeenQuestion(studentModel,  EquineQuestionTypes.structure.toString());
+            } else {
+                return getLeastSeenQuestion(studentModel, EquineQuestionTypes.structure.toString());
             }
 
-        }
-        if (level == 6) {
-            if (studentModel.getUnseenQuestionCount() > 0) {
-                //make and return an imageTask with the first question from the studentModels.unseenQuestions that matches the level
-                List<Question> unseen = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions();
-                for (int i = 0; i < unseen.size(); i++) {
-                    if (unseen.get(i).getType().equals( EquineQuestionTypes.zone.toString())) {
-                        return unseen.get(i);
-                    }
-                }
-
-                return getLeastSeenQuestion(studentModel,  EquineQuestionTypes.structure.toString());
-            }
         }
         else if (level == 7) {
             if (studentModel.getUnseenQuestionCount() > 0) {
@@ -106,6 +99,8 @@ public class TaskGenerator {
                     }
                 }
                 return getLeastSeenQuestion(studentModel,  EquineQuestionTypes.zone.toString());
+            } else {
+                return getLeastSeenQuestion(studentModel, EquineQuestionTypes.zone.toString());
             }
         }
         throw new RuntimeException("Level "+level+" is not valid");
@@ -122,17 +117,21 @@ public class TaskGenerator {
     }
 
     public static ImageTask makeTaskGivenLevel(StudentModel studentModel, int level){
-        checkStudentModel(studentModel);
+        if(studentModel.getUnseenQuestionCount() == 0 && studentModel.getSeenQuestionCount() == 0){
+            return new ImageTask("noMoreQuestions", new ArrayList<>());
+        }
+        else {
 
-        Question initialQuestion = TaskGenerator.getInitialQuestionForTask(studentModel, level);
-        List<Question> questionList = TaskGenerator.addAllQuestions(studentModel, initialQuestion);
-        questionList = TaskGenerator.filterQuestions(level, questionList);
+            Question initialQuestion = TaskGenerator.getInitialQuestionForTask(studentModel, level);
+            List<Question> questionList = TaskGenerator.addAllQuestions(studentModel, initialQuestion);
+            questionList = TaskGenerator.filterQuestions(level, questionList);
 
-        ImageTask imageTask = new ImageTask(initialQuestion.getImageUrl(), questionList);
+            ImageTask imageTask = new ImageTask(initialQuestion.getImageUrl(), questionList);
 
-        //let studentModel know that unseen questions are seen
-        studentModel.getUserQuestionSet().increaseTimesSeenAllQuestions(questionList);
-        return imageTask;
+            //let studentModel know that unseen questions are seen
+            studentModel.getUserQuestionSet().increaseTimesSeenAllQuestions(questionList);
+            return imageTask;
+        }
     }
 //TODO
 
