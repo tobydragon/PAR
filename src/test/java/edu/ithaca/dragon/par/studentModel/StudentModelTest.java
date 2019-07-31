@@ -132,7 +132,7 @@ public class StudentModelTest {
 
         m2=new HashMap<>();
         m2.put(EquineQuestionTypes.plane.toString(), 100.0);
-        m2.put(EquineQuestionTypes.structure.toString(), 74.0);
+        m2.put(EquineQuestionTypes.structure.toString(), 59.0);
         m2.put(EquineQuestionTypes.attachment.toString(), -1.0);
         m2.put(EquineQuestionTypes.zone.toString(), -1.0);
         assertEquals(3, StudentModel.calcLevel(m2));
