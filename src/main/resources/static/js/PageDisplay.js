@@ -135,7 +135,7 @@ function createMoveQuestionsToPoolButton() {
     innerMoveButtonNode.appendChild(authorButtonElement);
     outerMoveButtonNode.appendChild(innerMoveButtonNode);
 
-    let spaceNode = document.appendChild('br');
+    let spaceNode = document.createElement('br');
     outerMoveButtonNode.appendChild(spaceNode);
     return outerMoveButtonNode;
 }
