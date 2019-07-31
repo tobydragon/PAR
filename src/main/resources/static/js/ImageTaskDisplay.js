@@ -142,7 +142,6 @@ class ImageTaskDisplay {
 
         let submitButtonColumnHandlerElement = document.createElement('div');
         submitButtonColumnHandlerElement.classList.add('col-12');
-        submitButtonColumnHandlerElement.classList.add('text-center');
 
         let showElement = document.createElement('div');
         showElement.classList.add('show');
@@ -154,7 +153,7 @@ class ImageTaskDisplay {
         submitButtonElement.setAttribute('type', 'button');
         submitButtonElement.classList.add('btn');
         submitButtonElement.classList.add('btn-primary');
-        submitButtonElement.setAttribute('id', 'submitButton'+this.counter);
+        submitButtonElement.setAttribute('id', 'submitButton' + this.counter);
         submitButtonElement.setAttribute('onclick', 'completeDisplay.submitAnswers()');
         submitButtonElement.textContent = 'Submit';
 
@@ -164,7 +163,7 @@ class ImageTaskDisplay {
         nextQuestionButtonElement.classList.add('fa-arrow-circle-right');
         nextQuestionButtonElement.classList.add('btn');
         nextQuestionButtonElement.classList.add('btn-outline-dark');
-        nextQuestionButtonElement.setAttribute('id', 'nextQuestionButton'+this.counter);
+        nextQuestionButtonElement.setAttribute('id', 'nextQuestionButton' + this.counter);
         nextQuestionButtonElement.setAttribute('onclick', 'completeDisplay.nextQuestion()');
 
 
@@ -291,6 +290,7 @@ function submitResponse(response, isAuthor, pageSettings) {
         responseTexts: response.responseTexts
     };
 
+
     if (isAuthor) {
         submitToAPI("api/submitAuthorImageTaskResponse", newResponse, pageSettings.showScore, pageSettings.scoreType, this.userID);
     } else {
@@ -328,7 +328,11 @@ function sendResponse(response, ableToResubmitAnswers, isAuthor, pageSettings, h
         }
     }
 
-    document.getElementById("errorFeedback"+0).innerHTML = "<font color=\"#663399\"> Response recorded</font>";
+    if(response.responseTexts.length===0){
+        document.getElementById("errorFeedback"+0).innerHTML = "<font color=\"#663399\"> No Response recorded, as there were no responses given</font>";
+    } else {
+        document.getElementById("errorFeedback" + 0).innerHTML = "<font color=\"#663399\"> Response recorded</font>";
+    }
 
     return true;
 }
