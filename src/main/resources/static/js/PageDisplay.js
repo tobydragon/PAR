@@ -81,7 +81,7 @@ function enterAuthorReview(listOfImageTasks, userId, imageTaskSettings, isAuthor
     for (var i = 0; i < listOfImageTasks.length; i++) {
         let current = listOfImageTasks[i];
         let canvasName = "canvas" + i;
-        let newImageTask = new ImageTaskDisplay(current, userId, imageTaskSettings, isAuthor, canvasName, pageSettings);
+        let newImageTask = new ImageTaskDisplay(current, userId, imageTaskSettings, isAuthor, canvasName, pageSettings, i);
         let element = imageTaskHTML(newImageTask);
         document.getElementById('imageTaskArea').appendChild(element);
         newImageTask.displayImageUrl();

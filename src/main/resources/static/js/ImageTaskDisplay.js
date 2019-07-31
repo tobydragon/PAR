@@ -1,6 +1,6 @@
 class ImageTaskDisplay {
 
-    constructor(imageTaskJson, userId, imageTaskSettings, isAuthor, canvasName, pageDisplaySettings) {
+    constructor(imageTaskJson, userId, imageTaskSettings, isAuthor, canvasName, pageDisplaySettings, counter) {
         this.userId = userId;
         this.response = new Response(userId);
         this.hasFolloup = false;
@@ -19,6 +19,7 @@ class ImageTaskDisplay {
         this.canvasName = canvasName;
         this.listOfCorrectAnswers = [];
         this.isAuthor = isAuthor;
+        this.counter = counter;
 
         //buildQuestionAreasAuthor(this.isAuthor)
         if (!isAuthor) {
@@ -27,13 +28,13 @@ class ImageTaskDisplay {
     }
 
     displayImageUrl() {
-        document.getElementById("Ids").innerText = this.imageUrl;
+        document.getElementById("Ids" + this.counter).innerText = this.imageUrl;
     }
 
     submitAnswers() {
         this.response.responseTexts = [];
         let canContinu;
-        document.getElementById("errorFeedback").innerHTML = " ";
+        document.getElementById("errorFeedback" + this.counter).innerHTML = " ";
 
         if (!this.isAuthor) {
             this.checkAnswers();
@@ -49,7 +50,7 @@ class ImageTaskDisplay {
             this.haveSubmited += 1;
             this.hasFolloup = false;
         } else {
-            document.getElementById("errorFeedback").innerHTML = "<font color=red>No response was recorded because you did not answer all the questions</font>";
+            document.getElementById("errorFeedback" + this.counter).innerHTML = "<font color=red>No response was recorded because you did not answer all the questions</font>";
         }
     }
 
@@ -71,7 +72,7 @@ class ImageTaskDisplay {
 
     displayFeedback() {
         if (this.willDisplayFeedback) {
-            document.getElementById("helpfulFeedback").innerHTML = giveFeedback(this.response.typesIncorrect, this.feedbackByType);
+            document.getElementById("helpfulFeedback" + this.counter).innerHTML = giveFeedback(this.response.typesIncorrect, this.feedbackByType);
         }
     }
 
@@ -183,7 +184,7 @@ class ImageTaskDisplay {
 
 
         let errorFeedbackElement = document.createElement('i');
-        errorFeedbackElement.setAttribute('id', 'errorFeedback');
+        errorFeedbackElement.setAttribute('id', 'errorFeedback' + this.counter);
 
         showElement.appendChild(tagElement);
         showElement.appendChild(errorFeedbackElement);
@@ -197,7 +198,7 @@ class ImageTaskDisplay {
         idColElement.classList.add('text-center');
 
         let idElement = document.createElement('i');
-        idElement.setAttribute('id', 'Ids');
+        idElement.setAttribute('id', 'Ids' + this.counter);
 
         idColElement.appendChild(idElement);
         idRowElement.appendChild(idColElement);
@@ -216,40 +217,13 @@ class ImageTaskDisplay {
         let outerImageTaskNode = document.createElement('div');
         outerImageTaskNode.classList.add('row');
 
-        <<
-        <<
-        <<
-        < HEAD
         let canvasNode = this.createCanvasElement();
 
-        ===
-        ===
-        =
-
-        let canvasNode = this.createCanvasElement();
-
-
-        >>>
-        >>>
-        >
-        origin / workFlowOverhaul
         let canvasElementHandler = document.createElement('div');
         canvasElementHandler.classList.add('col-6');
         canvasElementHandler.classList.add('imgCenter');
         canvasElementHandler.appendChild(canvasNode);
 
-        <<
-        <<
-        <<
-        < HEAD
-            ===
-            ===
-            =
-
-            >>>
-            >>>
-            >
-            origin / workFlowOverhaul
         let questionAreaNode = this.createQuestionAreaElement();
         let questionAreaElementHandler = document.createElement('div');
         questionAreaElementHandler.classList.add('col-4');
@@ -257,85 +231,32 @@ class ImageTaskDisplay {
         questionTitleElement.classList.add('text-center');
         questionTitleElement.textContent = "Question Set";
 
-        <<
-        <<
-        <<
-        < HEAD
-            ===
-            ===
-            =
-
-            >>>
-            >>>
-            >
-            origin / workFlowOverhaul
         let feedbackElement = document.createElement('i');
-        feedbackElement.setAttribute('id', 'helpfulFeedback');
+        feedbackElement.setAttribute('id', 'helpfulFeedback' + this.counter);
         feedbackElement.classList.add('text-center');
 
-        <<
-        <<
-        <<
-        < HEAD
         let submitButtonElement = this.createSubmitButtonElement();
 
-        ===
-        ===
-        =
-
-        let submitButtonElement = this.createSubmitButtonElement();
-
-
-        >>>
-        >>>
-        >
-        origin / workFlowOverhaul
         questionAreaElementHandler.appendChild(questionTitleElement);
         questionAreaElementHandler.appendChild(questionAreaNode);
         questionAreaElementHandler.appendChild(feedbackElement);
         questionAreaElementHandler.appendChild(submitButtonElement);
 
-        <<
-        <<
-        <<
-        < HEAD
-            ===
-            ===
-            =
-
-            >>>
-            >>>
-            >
-            origin / workFlowOverhaul
         let spaceNode0 = document.createElement('div');
         spaceNode0.classList.add('col-1');
         let spaceNode1 = document.createElement('div');
         spaceNode1.classList.add('col-1');
 
-        <<
-        <<
-        <<
-        < HEAD
         outerImageTaskNode.appendChild(spaceNode0);
         outerImageTaskNode.appendChild(canvasElementHandler);
         outerImageTaskNode.appendChild(questionAreaElementHandler);
-        outerImageTaskNode.appendChild(spaceNode1); ===
-        ===
-        =
-
-        outerImageTaskNode.appendChild(spaceNode0);
-
-
-        outerImageTaskNode.appendChild(canvasElementHandler);
-
-        outerImageTaskNode.appendChild(questionAreaElementHandler);
-
         outerImageTaskNode.appendChild(spaceNode1);
 
-        >>>
-        >>>
-        >
-        origin / workFlowOverhaul
+        outerImageTaskNode.appendChild(spaceNode0);
+        outerImageTaskNode.appendChild(canvasElementHandler);
+        outerImageTaskNode.appendChild(questionAreaElementHandler);
+        outerImageTaskNode.appendChild(spaceNode1);
+
         return outerImageTaskNode;
     }
 
@@ -350,7 +271,6 @@ class ImageTaskDisplay {
             }
         }
     }
-
 }
 
 function addUnsureToAnswers(questionObjectList) {
