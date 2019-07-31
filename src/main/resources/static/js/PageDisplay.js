@@ -25,7 +25,6 @@ class PageDisplay {
     }
 
     nextImageTask() {
-        console.log('we in page display');
         try {
             this.imageTaskSettings = readJson("api/getImageTaskSettings?userId=" + this.userId);
             if (this.isAuthor) {
@@ -34,17 +33,9 @@ class PageDisplay {
                 var imageTaskJSON = readJson("api/nextImageTask?userId=" + this.userId);
             }
             this.imageTaskDisplay = new ImageTaskDisplay(imageTaskJSON, this.userId, this.imageTaskSettings, this.isAuthor, "myCanvas", this.pageSettings);
-            console.log(this.imageTaskDisplay);
-            console.log(typeof (this.imageTaskDisplay));
-            console.log(typeof (imageTaskHTML(this.imageTaskDisplay)));
             let element = imageTaskHTML(this.imageTaskDisplay);
-            console.log('out of imageTaskHTML');
-            console.log(element);
-            console.log(typeof (element));
-            console.log(typeof (document.getElementById('imageTaskArea')));
             document.getElementById('imageTaskArea').appendChild(element);
             this.imageTaskDisplay.displayImageUrl();
-            console.log('called the append');
 
 
         } catch (Exception) {
@@ -93,8 +84,6 @@ function enterAuthorReview(listOfImageTasks, userId, imageTaskSettings, isAuthor
         let canvasName = "canvas" + i;
         let newImageTask = new ImageTaskDisplay(current, userId, imageTaskSettings, isAuthor, canvasName, pageSettings);
         let element = imageTaskHTML(newImageTask);
-        console.log(element);
-        console.log(typeof (element));
         document.getElementById('imageTaskArea').appendChild(element);
         newImageTask.displayImageUrl();
         newImageTask.lockInCorrectAnswers();
@@ -110,17 +99,11 @@ function formatAuthorReviewQuestions(number) {
 }
 
 function imageTaskHTML(imageTaskDisplayObject) {
-    console.log('we in iT_HTML');
     let outerNode = document.createElement('div');
     outerNode.classList.add('container-fluid');
     let spaceNode = document.createElement('br');
     outerNode.append(spaceNode);
-    console.log(outerNode);
-    console.log(typeof (outerNode));
     outerNode.appendChild(imageTaskDisplayObject.createImageTaskElement());
-    console.log('called append child on cITE');
-    console.log(outerNode);
-    console.log(typeof (outerNode));
     return outerNode;
 }
 

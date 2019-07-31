@@ -120,23 +120,17 @@ class ImageTaskDisplay {
     }
 
     createCanvasElement() {
-        console.log('we in cCE');
         let canvasElement = document.createElement('div');
         canvasElement.setAttribute('id', 'canvasArea');
-        console.log(canvasElement);
         let canvas;
         if (this.imageUrl === "noMoreQuestions") {
             canvas = new PageImage("../images/ParLogo.png", this.canvasName);
 
         } else {
             canvas = new PageImage(this.imageUrl, this.canvasName);
-            console.log(canvas);
         }
-        console.log(this.imageUrl);
         canvasElement.appendChild(canvas.element);
         canvas.loadImage();
-        console.log(canvasElement);
-        console.log(typeof (canvasElement));
         return canvasElement;
     }
 
@@ -217,24 +211,19 @@ class ImageTaskDisplay {
 
 
     createImageTaskElement() {
-        console.log('we in cITE in ITD');
 
         let outerImageTaskNode = document.createElement('div');
         outerImageTaskNode.classList.add('row');
 
-        console.log('we here oITN');
 
         let canvasNode = this.createCanvasElement();
 
-        console.log(canvasNode);
-        console.log(typeof (canvasNode));
 
         let canvasElementHandler = document.createElement('div');
         canvasElementHandler.classList.add('col-6');
         canvasElementHandler.classList.add('imgCenter');
         canvasElementHandler.appendChild(canvasNode);
 
-        console.log('we here cEH');
 
         let questionAreaNode = this.createQuestionAreaElement();
         let questionAreaElementHandler = document.createElement('div');
@@ -243,53 +232,35 @@ class ImageTaskDisplay {
         questionTitleElement.classList.add('text-center');
         questionTitleElement.textContent = "Question Set";
 
-        console.log('we here qTE');
 
         let feedbackElement = document.createElement('i');
         feedbackElement.setAttribute('id', 'helpfulFeedback');
         feedbackElement.classList.add('text-center');
 
-        console.log('we here fE');
 
         let submitButtonElement = this.createSubmitButtonElement();
 
-        console.log('we here sBE');
 
         questionAreaElementHandler.appendChild(questionTitleElement);
         questionAreaElementHandler.appendChild(questionAreaNode);
         questionAreaElementHandler.appendChild(feedbackElement);
         questionAreaElementHandler.appendChild(submitButtonElement);
 
-        console.log('we here qAEH');
 
         let spaceNode0 = document.createElement('div');
         spaceNode0.classList.add('col-1');
         let spaceNode1 = document.createElement('div');
         spaceNode1.classList.add('col-1');
 
-        console.log('we here sN0/1');
 
         outerImageTaskNode.appendChild(spaceNode0);
 
-        console.log('we here append sN1/2');
-
-        console.log(outerImageTaskNode);
-        console.log(typeof (outerImageTaskNode));
 
         outerImageTaskNode.appendChild(canvasElementHandler);
 
-        console.log(outerImageTaskNode);
-        console.log(typeof (outerImageTaskNode));
-
         outerImageTaskNode.appendChild(questionAreaElementHandler);
 
-        console.log(outerImageTaskNode);
-        console.log(typeof (outerImageTaskNode));
-
         outerImageTaskNode.appendChild(spaceNode1);
-
-        console.log(outerImageTaskNode);
-        console.log(typeof (outerImageTaskNode));
 
         return outerImageTaskNode;
     }
