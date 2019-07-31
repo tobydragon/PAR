@@ -6,7 +6,6 @@ class PageImage {
             return; //Canvas not supported so exit the function
         }
         this.imageUrl = imageUrl;
-        console.log(this.imageUrl);
         this.canvasName = canvasName;
         this.element = createCanvas(this.imageUrl, this.canvasName);
 

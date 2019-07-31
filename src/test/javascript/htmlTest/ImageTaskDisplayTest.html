@@ -34,10 +34,6 @@
     let pageSettings = readJson("../../../main/resources/author/PageSettingsExample.json");
 
     let imageTaskDisplayObject = new ImageTaskDisplay(listOfImageTasks[0], "testUser", imageTaskSettings, true, "canvas0", pageSettings);
-    console.log(listOfImageTasks[0]);
-    console.log(typeof(imageTaskSettings));
-    console.log(typeof(pageSettings));
-    console.log(imageTaskDisplayObject);
     let imageTaskElement = imageTaskDisplayObject.createImageTaskElement();
     console.log(imageTaskElement);
     document.getElementById('imageTaskArea').appendChild(imageTaskElement);

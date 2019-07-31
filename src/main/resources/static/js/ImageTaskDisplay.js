@@ -3,7 +3,7 @@ class ImageTaskDisplay {
     constructor(imageTaskJson, userId, imageTaskSettings, isAuthor, canvasName, pageDisplaySettings) {
         this.userId = userId;
         this.response = new Response(userId);
-        this.hasFolloup= false;
+        this.hasFolloup = false;
         this.imageUrl = imageTaskJson.imageUrl;
         this.imageTaskJson = imageTaskJson;
         this.taskQuestions = imageTaskJson.taskQuestions;
@@ -27,8 +27,6 @@ class ImageTaskDisplay {
     }
 
     displayImageUrl(url) {
-        console.log(this.imageUrl);
-        console.log(typeof (url));
         document.getElementById("Ids").innerText = url;
     }
 
@@ -48,8 +46,8 @@ class ImageTaskDisplay {
         if (canContinu) {
             this.displayFeedback();
             sendResponse(this.response, this.ableToResubmitAnswers, this.isAuthor, this.pageSettings, this.hasFolloup, this.haveSubmited);
-            this.haveSubmited +=1;
-            this.hasFolloup=false;
+            this.haveSubmited += 1;
+            this.hasFolloup = false;
         } else {
             document.getElementById("errorFeedback").innerHTML = "<font color=red>No response was recorded because you did not answer all the questions</font>";
         }
@@ -79,13 +77,13 @@ class ImageTaskDisplay {
 
     checkFollowUp(current) {
         for (var x = 0; x < current.followUpAreas.length; x++) {
-            let correctness=current.followUpAreas[x].answerBox.checkCurrentResponse(this.response, this.unsureShowsCorrectAnswer, current.followUpAreas[x].element.id);
+            let correctness = current.followUpAreas[x].answerBox.checkCurrentResponse(this.response, this.unsureShowsCorrectAnswer, current.followUpAreas[x].element.id);
             this.listOfCorrectAnswers.push(correctness);
         }
     }
 
     checkAnswers() {
-        this.response.taskQuestionIds= [];
+        this.response.taskQuestionIds = [];
         this.listOfCorrectAnswers = [];
         for (var i = 0; i < this.questionAreaDisp.length; i++) {
             let current = this.questionAreaDisp[i];
@@ -93,14 +91,14 @@ class ImageTaskDisplay {
             this.listOfCorrectAnswers.push(correctness);
             if (checkIfShouldAddFollowupQ(correctness)) {
                 current.addFollowupQuestions();
-                if(current.followUpAreas.length>0){
-                    this.hasFolloup= true;
+                if (current.followUpAreas.length > 0) {
+                    this.hasFolloup = true;
                 }
             }
             this.checkFollowUp(current);
         }
     }
-    
+
     createQuestionAreaElement() {
         let outerQuestionSetNode = document.createElement('form');
         outerQuestionSetNode.setAttribute('action', '#');
@@ -215,14 +213,24 @@ class ImageTaskDisplay {
 
 
     createImageTaskElement() {
+        console.log('we in cITE in ITD');
+
         let outerImageTaskNode = document.createElement('div');
         outerImageTaskNode.classList.add('row');
 
+        console.log('we here oITN');
+
         let canvasNode = this.createCanvasElement();
+
+        console.log(canvasNode);
+        console.log(typeof (canvasNode));
+
         let canvasElementHandler = document.createElement('div');
         canvasElementHandler.classList.add('col-6');
         canvasElementHandler.classList.add('imgCenter');
         canvasElementHandler.appendChild(canvasNode);
+
+        console.log('we here cEH');
 
         let questionAreaNode = this.createQuestionAreaElement();
         let questionAreaElementHandler = document.createElement('div');
@@ -231,28 +239,54 @@ class ImageTaskDisplay {
         questionTitleElement.classList.add('text-center');
         questionTitleElement.textContent = "Question Set";
 
+        console.log('we here qTE');
+
         let feedbackElement = document.createElement('i');
         feedbackElement.setAttribute('id', 'helpFulFeedback');
         feedbackElement.classList.add('text-center');
 
+        console.log('we here fE');
+
         let submitButtonElement = this.createSubmitButtonElement();
+
+        console.log('we here sBE');
 
         questionAreaElementHandler.appendChild(questionTitleElement);
         questionAreaElementHandler.appendChild(questionAreaNode);
         questionAreaElementHandler.appendChild(feedbackElement);
         questionAreaElementHandler.appendChild(submitButtonElement);
 
+        console.log('we here qAEH');
 
         let spaceNode0 = document.createElement('div');
         spaceNode0.classList.add('col-1');
         let spaceNode1 = document.createElement('div');
         spaceNode1.classList.add('col-1');
 
+        console.log('we here sN0/1');
 
         outerImageTaskNode.appendChild(spaceNode0);
+
+        console.log('we here append sN1/2');
+
+        console.log(outerImageTaskNode);
+        console.log(typeof (outerImageTaskNode));
+
         outerImageTaskNode.appendChild(canvasElementHandler);
+
+        console.log(outerImageTaskNode);
+        console.log(typeof (outerImageTaskNode));
+
         outerImageTaskNode.appendChild(questionAreaElementHandler);
+
+        console.log(outerImageTaskNode);
+        console.log(typeof (outerImageTaskNode));
+
         outerImageTaskNode.appendChild(spaceNode1);
+
+        console.log(outerImageTaskNode);
+        console.log(typeof (outerImageTaskNode));
+
         return outerImageTaskNode;
     }
 
@@ -327,11 +361,11 @@ function sendResponse(response, ableToResubmitAnswers, isAuthor, pageSettings, h
     submitResponse(response, isAuthor, pageSettings);
 
     if (!ableToResubmitAnswers) {
-        if(hasFollowup){
-            if(timesSubmitted>0){
+        if (hasFollowup) {
+            if (timesSubmitted > 0) {
                 document.getElementById("submitButton").classList.add("hide");
             }
-        }else {
+        } else {
             document.getElementById("submitButton").classList.add("hide");
         }
     }

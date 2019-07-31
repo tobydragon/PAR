@@ -71,46 +71,15 @@
         </div>
     </div>
     <!-- Image Task -->
-    <div class="container-fluid">
-        <br />
-        <div class="row">
-            <div class="col-1"></div>
-
-            <div class="col-6 imgCenter">
-                <div id='imageTaskArea'> </div>
-            </div>
-
-                <i id="helpfulFeedback" class="text-center"> </i>
-            <div class="row">
-                <div class="col-12 text-center">
-                    <div class="show">
-                        <i id="submitButtonTag">
-                            <button type="button" class="btn btn-primary" id="submitButton" onclick="completeDisplay.submitAnswers()">
-                                Submit
-                            </button>
-                            <button type="button" class="btn btn-primary" id="authorReviewSubmitButton" onclick="completeDisplay.pageDisplay.authorSubmitFinal()">
-                                Add Questions to Pool
-                            </button>
-                        </i>
-                        <button type="button" class="fas fa-arrow-circle-right btn btn-outline-dark" id="nextQuestionButton" onclick="completeDisplay.nextQuestion()"></button>
-                        <i id="errorFeedback"> </i>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 text-center">
-                            <i id="Ids"> </i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-1"></div>
-        </div>
-    </div>
+    <div id='imageTaskArea'> </div>
 
     <script>
         completeDisplay.setPageDisplayIsAuthor();
         completeDisplay.displayUserId();
         completeDisplay.showScoreInner();
+        console.log('completeDisplay.nextImageTask()');
         completeDisplay.nextImageTask();
+        console.log('we out of that func');
 
     </script>
     <!-- - - - - - - - - - - - - - - - - - - - - - - - -->

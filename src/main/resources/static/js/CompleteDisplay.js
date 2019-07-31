@@ -30,8 +30,12 @@ class CompleteDisplay {
     }
 
     nextImageTask() {
+        console.log('we in CD nIT');
+        console.log(typeof (document.getElementById('imageTaskArea')));
         document.getElementById('imageTaskArea').innerText = "";
+        console.log('bouta call page display');
         this.pageDisplay.nextImageTask();
+        console.log('called page display');
     }
 
     nextQuestion() {
@@ -47,27 +51,27 @@ class CompleteDisplay {
                 document.getElementById("errorFeedback").innerHTML = "<font color=red>Must submit answers to continue</font>";
             }
         }
-        if(this.pageDisplay.isAuthor){
+        if (this.pageDisplay.isAuthor) {
             document.getElementById("submitButton").classList.remove("hide");
             document.getElementById("authorReviewSubmitButton").classList.add("hide");
         }
     }
 
-    submitAnswers(){
+    submitAnswers() {
         this.pageDisplay.imageTaskDisplay.submitAnswers();
-        if(this.pageDisplay.isAuthor){
+        if (this.pageDisplay.isAuthor) {
             this.nextQuestion();
         }
     }
 
-    enterAuthorWrite(){
+    enterAuthorWrite() {
         document.getElementById("canvasArea").innerText = "";
         enableElement(document.getElementById("submitAuthorButton"));
         disableElement(document.getElementById("createAuthorQButton"));
         this.nextQuestion();
     }
 
-    showScoreInner(){
+    showScoreInner() {
         showScoreOuter(this.pageDisplay.showScore, this.pageDisplay.scoreType, this.userID);
     }
 }
@@ -86,7 +90,7 @@ function displayScore(given) {
     document.getElementById("score").appendChild(given);
 }
 
-function  generateScore(scoreType, userID) {
+function generateScore(scoreType, userID) {
     if (scoreType === "VisualByType") {
         let visJSON = readJson("api/knowledgeBase?userId=" + userID);
         return setCurrentScore(visJSON, scoreType);
