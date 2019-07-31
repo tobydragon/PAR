@@ -1,5 +1,5 @@
 var User;
-var bottomText = ["Ready... Set... PAR!", "You're going to be amazing!", "A PAR employee will never ask for your password", "Are you a dedicated horse person?", "Are you ready to rumble?????", "Lights, Camera, HORSES!", "Yaay!!!", "Now with 100% more Horses!", "920814850!", "Horses go NEIGH!", "Baked with love and bytes!", "Dogmouth!", "<a href=https://i.redd.it/a0kz1rzdnxh21.jpg> a normal horse </a>"];
+var bottomText = ["Ready... Set... PAR!", "You're going to be amazing!", "A PAR employee will never ask for your password", "Time to rock the show!"];
 
 
 function getRandomNumber(num) {
