@@ -86,6 +86,10 @@ function enterAuthorReview(listOfImageTasks, userId, imageTaskSettings, isAuthor
         document.getElementById('imageTaskArea').appendChild(element);
         newImageTask.displayImageUrl();
         newImageTask.lockInCorrectAnswers();
+        document.getElementById('submitButton'+i).classList.add("hide");
+        let destroy= document.getElementById('nextQuestionButton'+i).classList.item(0);
+        document.getElementById('nextQuestionButton'+i).classList.remove(destroy);
+        document.getElementById('nextQuestionButton'+i).classList.add("hide");
     }
     document.getElementById('imageTaskArea').appendChild(createMoveQuestionsToPoolButton());
 }
