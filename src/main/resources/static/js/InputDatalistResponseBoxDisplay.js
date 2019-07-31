@@ -148,8 +148,8 @@ function inputBoxAutoSize(listOfStrings) {
     }
     //Margin size correcting
     let diff = highestCharCount * 0.16;
-    Math.ceil(diff);
     highestCharCount = highestCharCount - diff;
+    highestCharCount = Math.ceil(highestCharCount);
     if (highestCharCount <= 20) {
         return 20;
     }
