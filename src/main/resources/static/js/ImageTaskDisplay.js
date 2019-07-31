@@ -102,8 +102,13 @@ class ImageTaskDisplay {
     }
     
     createQuestionAreaElement() {
+        let outerQuestionSetNode = document.createElement('form');
+        outerQuestionSetNode.setAttribute('action', '#');
+        outerQuestionSetNode.setAttribute('method', 'post');
+        outerQuestionSetNode.setAttribute('id', 'questionSetForm');
+
         let questionElement = document.createElement('div');
-        questionElement.setAttribute('id', 'questionSetForm');
+        questionElement.setAttribute('id', 'questionSet');
 
         this.questionAreaDisp = new buildQuestionAreas(this.imageTaskJson.taskQuestions, this.response);
         for (var i = 0; i < this.questionAreaDisp.length; i++) {
@@ -112,7 +117,8 @@ class ImageTaskDisplay {
             }
             questionElement.appendChild(this.questionAreaDisp[i].element);
         }
-        return questionElement;
+        outerQuestionSetNode.appendChild(questionElement);
+        return outerQuestionSetNode;
     }
 
     createCanvasElement() {
@@ -132,6 +138,82 @@ class ImageTaskDisplay {
         return canvasElement;
     }
 
+    createSubmitButtonElement() {
+        let outerSubmitRowElement = document.createElement('div');
+        outerSubmitRowElement.classList.add('row');
+
+        let submitButtonColumnHandlerElement = document.createElement('div');
+        submitButtonColumnHandlerElement.classList.add('col-12');
+        submitButtonColumnHandlerElement.classList.add('text-center');
+
+        let showElement = document.createElement('div');
+        showElement.classList.add('show');
+
+        let tagElement = document.createElement('i');
+        tagElement.setAttribute('id', 'submitButtonTag');
+
+        let submitButtonElement = document.createElement('button');
+        submitButtonElement.setAttribute('type', 'button');
+        submitButtonElement.classList.add('btn');
+        submitButtonElement.classList.add('btn-primary');
+        submitButtonElement.setAttribute('id', 'submitButton');
+        submitButtonElement.setAttribute('onclick', 'completeDisplay.pageDisplay.imageTaskDisplay.submitAnswers()');
+        submitButtonElement.textContent = 'Submit';
+
+        let authorButtonElement = document.createElement('button');
+        authorButtonElement.setAttribute('type', 'button');
+        authorButtonElement.classList.add('btn');
+        authorButtonElement.classList.add('btn-primary');
+        authorButtonElement.classList.add('hide');
+        authorButtonElement.setAttribute('id', 'authorReviewSubmitButton');
+        authorButtonElement.setAttribute('onclick', 'completeDisplay.pageDisplay.authorSubmitFinal()');
+        authorButtonElement.textContent = 'Add Questions To Pool';
+
+
+        let nextQuestionButtonElement = document.createElement('button');
+        nextQuestionButtonElement.setAttribute('type', 'button');
+        nextQuestionButtonElement.classList.add('fas');
+        nextQuestionButtonElement.classList.add('fa-arrow-circle-right');
+        nextQuestionButtonElement.classList.add('btn');
+        nextQuestionButtonElement.classList.add('btn-outline-dark');
+        nextQuestionButtonElement.setAttribute('id', 'nextQuestionButton');
+        nextQuestionButtonElement.setAttribute('onclick', 'completeDisplay.nextQuestion()');
+
+
+        tagElement.appendChild(submitButtonElement);
+        tagElement.appendChild(authorButtonElement);
+        tagElement.appendChild(nextQuestionButtonElement);
+
+
+        let errorFeedbackElement = document.createElement('i');
+        errorFeedbackElement.setAttribute('id', 'errorFeedback');
+
+        showElement.appendChild(tagElement);
+        showElement.appendChild(errorFeedbackElement);
+
+
+        let idRowElement = document.createElement('div');
+        idRowElement.classList.add('row');
+
+        let idColElement = document.createElement('div');
+        idColElement.classList.add('col-12');
+        idColElement.classList.add('text-center');
+
+        let idElement = document.createElement('i');
+        idElement.setAttribute('id', 'Ids');
+
+        idColElement.appendChild(idElement);
+        idRowElement.appendChild(idColElement);
+
+        submitButtonColumnHandlerElement.appendChild(showElement);
+        submitButtonColumnHandlerElement.appendChild(idRowElement);
+
+        outerSubmitRowElement.appendChild(submitButtonColumnHandlerElement);
+
+        return outerSubmitRowElement;
+    }
+
+
     createImageTaskElement() {
         let outerImageTaskNode = document.createElement('div');
         outerImageTaskNode.classList.add('row');
@@ -145,7 +227,20 @@ class ImageTaskDisplay {
         let questionAreaNode = this.createQuestionAreaElement();
         let questionAreaElementHandler = document.createElement('div');
         questionAreaElementHandler.classList.add('col-4');
+        let questionTitleElement = document.createElement('h1');
+        questionTitleElement.classList.add('text-center');
+        questionTitleElement.textContent = "Question Set";
+
+        let feedbackElement = document.createElement('i');
+        feedbackElement.setAttribute('id', 'helpFulFeedback');
+        feedbackElement.classList.add('text-center');
+
+        let submitButtonElement = this.createSubmitButtonElement();
+
+        questionAreaElementHandler.appendChild(questionTitleElement);
         questionAreaElementHandler.appendChild(questionAreaNode);
+        questionAreaElementHandler.appendChild(feedbackElement);
+        questionAreaElementHandler.appendChild(submitButtonElement);
 
 
         let spaceNode0 = document.createElement('div');

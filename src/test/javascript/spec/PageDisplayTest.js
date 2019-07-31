@@ -28,7 +28,7 @@ describe("PageDisplay", function () {
 
         expect(imageTaskElement.childNodes.item(0).childNodes.item(0).getAttribute('class')).toContain('col-1');
         expect(imageTaskElement.childNodes.item(0).childNodes.item(1).getAttribute('class')).toContain('col-6 imgCenter');
-        expect(imageTaskElement.childNodes.item(0).childNodes.item(1).childNodes.item(0).getAttribute('class')).toContain('col-12');
+        expect(imageTaskElement.childNodes.item(0).childNodes.item(1).childNodes.item(0).getAttribute('id')).toContain('canvasArea');
         expect(imageTaskElement.childNodes.item(0).childNodes.item(1).childNodes.item(0).childNodes.item(0).getAttribute('class')).toContain('canvas');
 
 

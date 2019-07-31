@@ -69,4 +69,26 @@ describe("ImageTaskDisplay", function () {
 
         expect(questionObjects[0].possibleAnswers).toContain(ResponseResult.unsure);
     });
+
+    it('createSubmitButtonElement', function () {
+        let listOfImageTasks = readJson("../resources/author/SampleListOfImageTasks.json");
+        let imageTaskSettings = readJson("../../main/resources/author/SettingsExample.json");
+        let pageSettings = readJson("../../main/resources/author/PageSettingsExample.json");
+
+        let imageTaskDisplayObject = new ImageTaskDisplay(listOfImageTasks[0], "testUser", imageTaskSettings, true, "canvas0", pageSettings);
+
+        let submitButtonTestElement = imageTaskDisplayObject.createSubmitButtonElement();
+
+        expect(submitButtonTestElement.getAttribute('class')).toContain('row');
+        expect(submitButtonTestElement.childNodes.item(0).getAttribute('class')).toContain('col-12 text-center');
+        expect(submitButtonTestElement.childNodes.item(0).childNodes.item(0).getAttribute('class')).toContain('show');
+
+        expect(submitButtonTestElement.childNodes.item(0).childNodes.item(0).childNodes.item(0).getAttribute('id')).toContain('submitButtonTag');
+        expect(submitButtonTestElement.childNodes.item(0).childNodes.item(0).childNodes.item(1).getAttribute('type')).toContain('button');
+        expect(submitButtonTestElement.childNodes.item(0).childNodes.item(0).childNodes.item(1).getAttribute('class')).toContain('fas fa-arrow-circle-right btn btn-outline-dark');
+
+
+
+
+    });
 });
