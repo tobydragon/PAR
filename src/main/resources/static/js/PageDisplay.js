@@ -52,7 +52,7 @@ class PageDisplay {
     }
 
     authorSubmitFinal() {
-        document.getElementById("canvasArea").innerText = "";
+        document.getElementById('imageTaskArea').innerText = "";
         try {
             let request = new XMLHttpRequest();
             request.open("GET", "/api/transferAuthoredQuestionsToStudents", false);
@@ -65,6 +65,7 @@ class PageDisplay {
                 location.replace('/error?message=' + msg);
             }
         }
+        document.getElementById('imageTaskArea').innerText = "Questions Submitted";
     }
 
     enterAuthorReview() {

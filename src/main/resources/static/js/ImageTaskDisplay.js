@@ -328,7 +328,7 @@ function sendResponse(response, ableToResubmitAnswers, isAuthor, pageSettings, h
         }
     }
 
-    document.getElementById("errorFeedback").innerHTML = "<font color=\"#663399\"> Response recorded</font>";
+    document.getElementById("errorFeedback"+0).innerHTML = "<font color=\"#663399\"> Response recorded</font>";
 
     return true;
 }
