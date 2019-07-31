@@ -120,19 +120,24 @@ class ImageTaskDisplay {
     }
 
     createCanvasElement() {
+        console.log('we in cCE');
         let canvasElement = document.createElement('div');
         canvasElement.setAttribute('id', 'canvasArea');
+        console.log(canvasElement);
         let canvas;
         if (this.imageUrl === "noMoreQuestions") {
             canvas = new PageImage("../images/ParLogo.png", this.canvasName);
 
         } else {
             canvas = new PageImage(this.imageUrl, this.canvasName);
+            console.log(canvas);
         }
         console.log(this.imageUrl);
         this.displayImageUrl(this.imageUrl);
         canvasElement.appendChild(canvas.element);
         canvas.loadImage();
+        console.log(canvasElement);
+        console.log(typeof (canvasElement));
         return canvasElement;
     }
 
