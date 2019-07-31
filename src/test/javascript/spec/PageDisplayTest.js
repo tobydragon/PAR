@@ -27,13 +27,6 @@ describe("PageDisplay", function () {
         expect(imageTaskElement.getAttribute('class')).toContain('container-fluid');
         expect(imageTaskElement.childNodes.item(1).getAttribute('class')).toContain('row');
 
-        expect(imageTaskElement.childNodes.item(1).childNodes.item(0).getAttribute('class')).toContain('col-1');
-        expect(imageTaskElement.childNodes.item(1).childNodes.item(1).getAttribute('class')).toContain('col-6 imgCenter');
-        expect(imageTaskElement.childNodes.item(1).childNodes.item(1).childNodes.item(0).getAttribute('id')).toContain('canvasArea');
-        expect(imageTaskElement.childNodes.item(1).childNodes.item(1).childNodes.item(0).childNodes.item(0).getAttribute('class')).toContain('canvas');
-
-
-        expect(imageTaskElement.childNodes.item(1).childNodes.item(2).getAttribute('class')).toContain('col-4');
 
 
     });
