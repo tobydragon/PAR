@@ -47,11 +47,11 @@ describe("InputDatalistResponseBoxDisplay", function () {
         expect(testList.length).toBe(6);
 
         addToTypesIncorrect("", "plane2", testList);
-        expect(testList.length).toBe(7);
+        expect(testList.length).toBe(6);
         addToTypesIncorrect("", "ZONE2", testList);
-        expect(testList.length).toBe(8);
+        expect(testList.length).toBe(6);
         addToTypesIncorrect("", "2", testList);
-        expect(testList.length).toBe(9);
+        expect(testList.length).toBe(6);
     });
 
     it("displayCheckedResponse", function () {

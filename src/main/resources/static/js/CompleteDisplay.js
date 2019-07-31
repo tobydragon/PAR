@@ -35,8 +35,6 @@ class CompleteDisplay {
     }
 
     nextQuestion() {
-        document.getElementById("helpfulFeedback").innerHTML = " ";
-        document.getElementById("errorFeedback").innerHTML = " ";
         if (!this.pageDisplay.imageTaskDisplay.mustSubmitAnswersToContinue) {
             this.nextImageTask();
         } else {

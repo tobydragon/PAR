@@ -26,8 +26,8 @@ class ImageTaskDisplay {
         }
     }
 
-    displayImageUrl(url) {
-        document.getElementById("Ids").innerText = url;
+    displayImageUrl() {
+        document.getElementById("Ids").innerText = this.imageUrl;
     }
 
     submitAnswers() {
@@ -130,7 +130,6 @@ class ImageTaskDisplay {
 
             canvas = new PageImage(this.imageUrl, this.canvasName);
         }
-        this.displayImageUrl(this.imageUrl);
         canvasElement.appendChild(canvas.element);
         canvas.loadImage();
         return canvasElement;
@@ -217,13 +216,40 @@ class ImageTaskDisplay {
         let outerImageTaskNode = document.createElement('div');
         outerImageTaskNode.classList.add('row');
 
+        <<
+        <<
+        <<
+        < HEAD
         let canvasNode = this.createCanvasElement();
 
+        ===
+        ===
+        =
+
+        let canvasNode = this.createCanvasElement();
+
+
+        >>>
+        >>>
+        >
+        origin / workFlowOverhaul
         let canvasElementHandler = document.createElement('div');
         canvasElementHandler.classList.add('col-6');
         canvasElementHandler.classList.add('imgCenter');
         canvasElementHandler.appendChild(canvasNode);
 
+        <<
+        <<
+        <<
+        < HEAD
+            ===
+            ===
+            =
+
+            >>>
+            >>>
+            >
+            origin / workFlowOverhaul
         let questionAreaNode = this.createQuestionAreaElement();
         let questionAreaElementHandler = document.createElement('div');
         questionAreaElementHandler.classList.add('col-4');
@@ -231,26 +257,85 @@ class ImageTaskDisplay {
         questionTitleElement.classList.add('text-center');
         questionTitleElement.textContent = "Question Set";
 
+        <<
+        <<
+        <<
+        < HEAD
+            ===
+            ===
+            =
+
+            >>>
+            >>>
+            >
+            origin / workFlowOverhaul
         let feedbackElement = document.createElement('i');
         feedbackElement.setAttribute('id', 'helpfulFeedback');
         feedbackElement.classList.add('text-center');
 
+        <<
+        <<
+        <<
+        < HEAD
         let submitButtonElement = this.createSubmitButtonElement();
 
+        ===
+        ===
+        =
+
+        let submitButtonElement = this.createSubmitButtonElement();
+
+
+        >>>
+        >>>
+        >
+        origin / workFlowOverhaul
         questionAreaElementHandler.appendChild(questionTitleElement);
         questionAreaElementHandler.appendChild(questionAreaNode);
         questionAreaElementHandler.appendChild(feedbackElement);
         questionAreaElementHandler.appendChild(submitButtonElement);
 
+        <<
+        <<
+        <<
+        < HEAD
+            ===
+            ===
+            =
+
+            >>>
+            >>>
+            >
+            origin / workFlowOverhaul
         let spaceNode0 = document.createElement('div');
         spaceNode0.classList.add('col-1');
         let spaceNode1 = document.createElement('div');
         spaceNode1.classList.add('col-1');
 
+        <<
+        <<
+        <<
+        < HEAD
         outerImageTaskNode.appendChild(spaceNode0);
         outerImageTaskNode.appendChild(canvasElementHandler);
         outerImageTaskNode.appendChild(questionAreaElementHandler);
+        outerImageTaskNode.appendChild(spaceNode1); ===
+        ===
+        =
+
+        outerImageTaskNode.appendChild(spaceNode0);
+
+
+        outerImageTaskNode.appendChild(canvasElementHandler);
+
+        outerImageTaskNode.appendChild(questionAreaElementHandler);
+
         outerImageTaskNode.appendChild(spaceNode1);
+
+        >>>
+        >>>
+        >
+        origin / workFlowOverhaul
         return outerImageTaskNode;
     }
 
