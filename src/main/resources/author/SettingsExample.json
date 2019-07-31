@@ -1,10 +1,10 @@
 {
-    "unsureShowsCorrectAnswer": "False",
+    "unsureShowsCorrectAnswer": "True",
     "feedbackByType": {
-        "plane": "Read <a href=https://www.bwfurlong.com/2016/11/14/understanding-distal-limb-ultrasonography/> this article </a> to review planes",
-        "structure": "Rewatch <a href=https://www.youtube.com/watch?v=cU28mo_d3iw> this video </a> to review structure",
-        "attachment": "Read <a href=https://extension.oregonstate.edu/sites/default/files/documents/1/horsehoofandleganatomy.pdf> this powerpoint </a> to review attachments",
-        "zone": "Rewatch <a href=https://www.youtube.com/watch?v=cU28mo_d3iw> this video </a> to review zones"
+        "plane": "Read <a href=https://www.bwfurlong.com/2016/11/14/understanding-distal-limb-ultrasonography/ target=\"_blank\"> this article </a> to review planes",
+        "structure": "Rewatch <a href=https://www.youtube.com/watch?v=cU28mo_d3iw target=\"_blank\"> this video </a> to review structure",
+        "attachment": "Read <a href=https://extension.oregonstate.edu/sites/default/files/documents/1/horsehoofandleganatomy.pdf target=\"_blank\"> this powerpoint </a> to review attachments",
+        "zone": "Rewatch <a href=https://www.youtube.com/watch?v=cU28mo_d3iw target=\"_blank\"> this video </a> to review zones"
     },
     "ableToResubmitAnswers": "True",
     "mustSubmitAnswersToContinue": "False",

@@ -291,6 +291,7 @@ function submitResponse(response, isAuthor, pageSettings) {
         responseTexts: response.responseTexts
     };
 
+
     if (isAuthor) {
         submitToAPI("api/submitAuthorImageTaskResponse", newResponse, pageSettings.showScore, pageSettings.scoreType, this.userID);
     } else {
@@ -328,7 +329,12 @@ function sendResponse(response, ableToResubmitAnswers, isAuthor, pageSettings, h
         }
     }
 
-    document.getElementById("errorFeedback"+0).innerHTML = "<font color=\"#663399\"> Response recorded</font>";
+    console.log(response.responseTexts);
+    if(response.responseTexts.length===0){
+        document.getElementById("errorFeedback"+0).innerHTML = "<font color=\"#663399\"> No Response recorded, as there were no responses given</font>";
+    } else {
+        document.getElementById("errorFeedback" + 0).innerHTML = "<font color=\"#663399\"> Response recorded</font>";
+    }
 
     return true;
 }
