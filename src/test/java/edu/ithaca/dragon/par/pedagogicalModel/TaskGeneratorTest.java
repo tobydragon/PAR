@@ -74,13 +74,9 @@ public class TaskGeneratorTest {
 
         }
 
-        //try to make a task
-        try{
-            ImageTask imageTask = TaskGenerator.findLevelAndMakeTask(studentModel, 4);
-            fail();
-        }catch(Exception ee){
+        ImageTask imageTask = TaskGenerator.findLevelAndMakeTask(studentModel, 4);
+        assertEquals("noMoreQuestions", imageTask.getImageUrl());
 
-        }
     }
 
     @Test
