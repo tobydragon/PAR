@@ -153,18 +153,8 @@ class ImageTaskDisplay {
         submitButtonElement.classList.add('btn');
         submitButtonElement.classList.add('btn-primary');
         submitButtonElement.setAttribute('id', 'submitButton');
-        submitButtonElement.setAttribute('onclick', 'completeDisplay.pageDisplay.imageTaskDisplay.submitAnswers()');
+        submitButtonElement.setAttribute('onclick', 'completeDisplay.submitAnswers()');
         submitButtonElement.textContent = 'Submit';
-
-        let authorButtonElement = document.createElement('button');
-        authorButtonElement.setAttribute('type', 'button');
-        authorButtonElement.classList.add('btn');
-        authorButtonElement.classList.add('btn-primary');
-        authorButtonElement.classList.add('hide');
-        authorButtonElement.setAttribute('id', 'authorReviewSubmitButton');
-        authorButtonElement.setAttribute('onclick', 'completeDisplay.pageDisplay.authorSubmitFinal()');
-        authorButtonElement.textContent = 'Add Questions To Pool';
-
 
         let nextQuestionButtonElement = document.createElement('button');
         nextQuestionButtonElement.setAttribute('type', 'button');
@@ -177,7 +167,6 @@ class ImageTaskDisplay {
 
 
         tagElement.appendChild(submitButtonElement);
-        tagElement.appendChild(authorButtonElement);
         tagElement.appendChild(nextQuestionButtonElement);
 
 

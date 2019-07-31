@@ -78,7 +78,6 @@ class PageDisplay {
 }
 
 function enterAuthorReview(listOfImageTasks, userId, imageTaskSettings, isAuthor, pageSettings) {
-
     for (var i = 0; i < listOfImageTasks.length; i++) {
         let current = listOfImageTasks[i];
         let canvasName = "canvas" + i;
@@ -88,14 +87,7 @@ function enterAuthorReview(listOfImageTasks, userId, imageTaskSettings, isAuthor
         newImageTask.displayImageUrl();
         newImageTask.lockInCorrectAnswers();
     }
-}
-
-function formatAuthorReviewQuestions(number) {
-    let element = document.createElement("div");
-    let header = document.createElement("h2");
-    header.textContent = "Question Set " + (number + 1);
-    element.appendChild(header);
-    document.getElementById("questionSet").appendChild(element);
+    document.getElementById('imageTaskArea').appendChild(createMoveQuestionsToPoolButton());
 }
 
 function imageTaskHTML(imageTaskDisplayObject) {
@@ -117,4 +109,15 @@ function setIsAuthor(userId) {
     } else {
         return false;
     }
+}
+
+function createMoveQuestionsToPoolButton(){
+    let authorButtonElement = document.createElement('button');
+    authorButtonElement.setAttribute('type', 'button');
+    authorButtonElement.classList.add('btn');
+    authorButtonElement.classList.add('btn-primary');
+    authorButtonElement.setAttribute('id', 'authorReviewSubmitButton');
+    authorButtonElement.setAttribute('onclick', 'completeDisplay.pageDisplay.authorSubmitFinal()');
+    authorButtonElement.textContent = 'Add Questions To Pool';
+    return authorButtonElement;
 }
