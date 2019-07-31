@@ -26,8 +26,8 @@ class ImageTaskDisplay {
         }
     }
 
-    displayImageUrl(url) {
-        document.getElementById("Ids").innerText = url;
+    displayImageUrl() {
+        document.getElementById("Ids").innerText = this.imageUrl;
     }
 
     submitAnswers() {
@@ -133,7 +133,6 @@ class ImageTaskDisplay {
             console.log(canvas);
         }
         console.log(this.imageUrl);
-        this.displayImageUrl(this.imageUrl);
         canvasElement.appendChild(canvas.element);
         canvas.loadImage();
         console.log(canvasElement);

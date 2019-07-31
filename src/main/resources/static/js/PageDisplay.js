@@ -46,6 +46,7 @@ class PageDisplay {
             console.log(typeof (element));
             console.log(typeof (document.getElementById('imageTaskArea')));
             document.getElementById('imageTaskArea').appendChild(element);
+            this.imageTaskDisplay.displayImageUrl();
             console.log('called the append');
 
 
@@ -98,6 +99,7 @@ function enterAuthorReview(listOfImageTasks, userId, imageTaskSettings, isAuthor
         console.log(element);
         console.log(typeof (element));
         document.getElementById('imageTaskArea').appendChild(element);
+        newImageTask.displayImageUrl();
         newImageTask.lockInCorrectAnswers();
     }
 }
