@@ -127,38 +127,38 @@ public class TaskGeneratorImp1Test {
     }
 
     @Test
-    public void addAllQuestionsTest()throws IOException{
+    public void buildQuestionListWithSameUrlTest()throws IOException{
         QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPool.json").getAllQuestions());
         StudentModel studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
 
         //first url
         Question q1 = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions().get(0);
-        List<Question> qs = TaskGeneratorImp1.addAllQuestions(studentModel, q1);
+        List<Question> qs = TaskGeneratorImp1.buildQuestionListWithSameUrl(studentModel, q1);
         assertEquals(5, qs.size());
 
         //second url
         Question q2 = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions().get(5);
-        qs = TaskGeneratorImp1.addAllQuestions(studentModel, q2);
+        qs = TaskGeneratorImp1.buildQuestionListWithSameUrl(studentModel, q2);
         assertEquals(6, qs.size());
 
         //third url
         Question q3 = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions().get(11);
-        qs = TaskGeneratorImp1.addAllQuestions(studentModel, q3);
+        qs = TaskGeneratorImp1.buildQuestionListWithSameUrl(studentModel, q3);
         assertEquals(4, qs.size());
 
         //fourth url
         Question q4 = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions().get(15);
-        qs = TaskGeneratorImp1.addAllQuestions(studentModel, q4);
+        qs = TaskGeneratorImp1.buildQuestionListWithSameUrl(studentModel, q4);
         assertEquals(3, qs.size());
         //repeat
-        qs = TaskGeneratorImp1.addAllQuestions(studentModel, q4);
+        qs = TaskGeneratorImp1.buildQuestionListWithSameUrl(studentModel, q4);
         assertEquals(3, qs.size());
-        qs = TaskGeneratorImp1.addAllQuestions(studentModel, q4);
+        qs = TaskGeneratorImp1.buildQuestionListWithSameUrl(studentModel, q4);
         assertEquals(3, qs.size());
 
         //last question
         Question q5 = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions().get(questionPool.getAllQuestions().size()-1);
-        qs = TaskGeneratorImp1.addAllQuestions(studentModel, q5);
+        qs = TaskGeneratorImp1.buildQuestionListWithSameUrl(studentModel, q5);
         assertEquals(6, qs.size());
     }
 
@@ -280,7 +280,22 @@ public class TaskGeneratorImp1Test {
 
     }
 
+    @Test
+    public void checkIfAllTypesInQuesListTest()throws IOException{
+        JsonStudentModelDatastore datastore = new JsonStudentModelDatastore("src/test/resources/author/simpleTestSet/currentQuestionPool.json", "src/test/resources/author/simpleTestSet/students");
+        StudentModel testUser2 = datastore.getOrCreateStudentModel("testUser2");
 
+        assertEquals(true,LevelTaskGenerator.checkIfAllTypesInQuesList(Arrays.asList(EquineQuestionTypes.plane.toString(),EquineQuestionTypes.plane.toString()),testUser2,testUser2.getUserQuestionSet().getQuestionCounts().get(3).getQuestion()));
+        assertEquals(false,LevelTaskGenerator.checkIfAllTypesInQuesList(Arrays.asList(EquineQuestionTypes.plane.toString(),EquineQuestionTypes.structure.toString()),testUser2,testUser2.getUserQuestionSet().getQuestionCounts().get(3).getQuestion()));
+        assertEquals(true,LevelTaskGenerator.checkIfAllTypesInQuesList(Arrays.asList(EquineQuestionTypes.plane.toString(),EquineQuestionTypes.structure.toString()),testUser2,testUser2.getUserQuestionSet().getQuestionCounts().get(0).getQuestion()));
+        assertEquals(true,LevelTaskGenerator.checkIfAllTypesInQuesList(Arrays.asList(EquineQuestionTypes.structure.toString(),EquineQuestionTypes.attachment.toString()),testUser2,testUser2.getUserQuestionSet().getQuestionCounts().get(1).getQuestion()));
 
+    }
 
+//TODO:FINISH TEST
+    @Test
+    public void leastSeenQuestionTest()throws IOException{
+        JsonStudentModelDatastore datastore = new JsonStudentModelDatastore("src/test/resources/author/simpleTestSet/currentQuestionPool.json", "src/test/resources/author/simpleTestSet/students");
+        StudentModel testUser2 = datastore.getOrCreateStudentModel("testUser2");
+    }
 }

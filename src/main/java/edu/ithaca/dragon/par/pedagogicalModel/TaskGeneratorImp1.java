@@ -18,7 +18,7 @@ public class TaskGeneratorImp1 implements TaskGenerator {
         TaskGeneratorImp1.checkStudentModel(studentModel);
 
         Question initialQuestion = TaskGeneratorImp1.getInitialQuestionForTask(studentModel, level);
-        List<Question> questionList = TaskGeneratorImp1.addAllQuestions(studentModel, initialQuestion);
+        List<Question> questionList = TaskGeneratorImp1.buildQuestionListWithSameUrl(studentModel, initialQuestion);
         questionList = TaskGeneratorImp1.filterQuestions(level, questionList);
 
         ImageTask imageTask = new ImageTask(initialQuestion.getImageUrl(), questionList);
@@ -197,7 +197,7 @@ public class TaskGeneratorImp1 implements TaskGenerator {
     /**
      * Creates a list of questions that have the questionUrl out of questionList
      */
-    public static List<Question> addAllQuestions(StudentModel studentModel, Question initialQuestion){
+    public static List<Question> buildQuestionListWithSameUrl(StudentModel studentModel, Question initialQuestion){
         //put initialQuestion, unseenQuestions and seenQuestions all in a list
         List<Question> unseenQuestionsWithCorrectUrl = QuestionPool.getTopLevelQuestionsFromUrl(studentModel.getUserQuestionSet().getTopLevelUnseenQuestions(), initialQuestion.getImageUrl());
         List<Question> seenQuestionsWithCorrectUrl = QuestionPool.getTopLevelQuestionsFromUrl(studentModel.getUserQuestionSet().getTopLevelSeenQuestions(), initialQuestion.getImageUrl());

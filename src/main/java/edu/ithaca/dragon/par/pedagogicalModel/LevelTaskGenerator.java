@@ -1,6 +1,7 @@
 package edu.ithaca.dragon.par.pedagogicalModel;
 
 import edu.ithaca.dragon.par.domainModel.Question;
+import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.studentModel.QuestionCount;
@@ -36,8 +37,8 @@ public class LevelTaskGenerator implements TaskGenerator {
         int studentLevel=StudentModel.calcLevel(studentModel.calcKnowledgeEstimateByType(questionCountPerTypeForAnalysis));
         List<String> levelTypes=levelMap.get(studentLevel);
 
-        Question initialQuestion=leastSeenQuestion(questionTypesListMap.get(levelTypes.get(0)));
-        List<Question> questionList = TaskGeneratorImp1.addAllQuestions(studentModel, initialQuestion);
+        Question initialQuestion=leastSeenQuestion(levelTypes,questionTypesListMap.get(levelTypes.get(0)),studentModel);
+        List<Question> questionList = buildQuestionListWithSameUrl2(studentModel, initialQuestion);
         questionList = TaskGeneratorImp1.filterQuestions(studentLevel, questionList);
         ImageTask imageTask = new ImageTask(initialQuestion.getImageUrl(), questionList);
 
@@ -46,21 +47,48 @@ public class LevelTaskGenerator implements TaskGenerator {
         return imageTask;
     }
 
-    private static Question leastSeenQuestion(List<QuestionCount> questionCountList){
+    public static Question leastSeenQuestion(List<String> types,List<QuestionCount> questionCountList,StudentModel studentModel){
         int index=0;
         for(int i=0;i<questionCountList.size();i++){
             if(questionCountList.get(i).timesSeen <questionCountList.get(index).timesSeen ){
-                index=i;
+                if(checkIfAllTypesInQuesList(types,studentModel,questionCountList.get(i).getQuestion()))
+                    index=i;
             }
         }
         return questionCountList.get(index).getQuestion();
+    }
+
+    public static boolean checkIfAllTypesInQuesList(List<String> types,StudentModel studentModel,Question question){
+        Set<String> typesPresent=new LinkedHashSet<>();
+        List<Question> questionList = buildQuestionListWithSameUrl2(studentModel, question);
+        for(Question currQuestion: questionList){
+            typesPresent.add(currQuestion.getType());
+        }
+        for(String currType:types){
+            if(!typesPresent.contains(currType)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    //TODO:REWRITE SO ALL QUESTIONS ARE GIVEN FROM TOP TO BOTTOM NO MATTER IF THEY'RE SEEN OR UNSEEN
+    public static List<Question> buildQuestionListWithSameUrl2(StudentModel studentModel, Question initialQuestion){
+        //put initialQuestion, unseenQuestions and seenQuestions all in a list
+        List<Question> unseenQuestionsWithCorrectUrl = QuestionPool.getTopLevelQuestionsFromUrl(studentModel.getUserQuestionSet().getTopLevelUnseenQuestions(), initialQuestion.getImageUrl());
+        List<Question> seenQuestionsWithCorrectUrl = QuestionPool.getTopLevelQuestionsFromUrl(studentModel.getUserQuestionSet().getTopLevelSeenQuestions(), initialQuestion.getImageUrl());
+        List<Question> questionList = new ArrayList<>();
+        questionList.addAll(unseenQuestionsWithCorrectUrl);
+        questionList.addAll(seenQuestionsWithCorrectUrl);
+
+        return questionList;
     }
 
 
 
 
     public  void questionByTypeMap(List<QuestionCount> questionCountList, Map<String,List<QuestionCount>> questionTypesListMap ){
-
             for(QuestionCount questionCount:questionCountList){
                 if(questionTypesListMap.get(questionCount.getQuestion().getType())==null){
                     List<QuestionCount> questions=new ArrayList<>();
@@ -71,9 +99,8 @@ public class LevelTaskGenerator implements TaskGenerator {
                 //makes recursive call for follow ups
                 questionByTypeMap(questionCount.getFollowupCounts(),questionTypesListMap);
             }
-
-
     }
+
 
     private static QuestionCount getLeastSeenQuestionWithFollowup(List<QuestionCount> questionCountList){
         int index=0;
@@ -90,14 +117,12 @@ public class LevelTaskGenerator implements TaskGenerator {
         }
         return questionsWithFollowup.get(index);
     }
-
     /**
      * This function is supposed to look through a list of questions and return the structure question
      * seen the least that contains followup questions.
      * @param questionCountList
      * @return the least seen structure question that has followup questions.
      */
-
     public static QuestionCount getLeastSeenQuestionWithAttachmentQuestions(List<QuestionCount> questionCountList){
         return getLeastSeenQuestionWithFollowup(questionCountList);
     }

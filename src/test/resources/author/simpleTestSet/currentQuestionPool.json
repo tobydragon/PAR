@@ -4,7 +4,7 @@
   "questionText" : "On which plane is the ultrasound taken? 1",
   "correctAnswer" : "longitudinal",
   "possibleAnswers" : [ "wrong", "longitudinal" ],
-  "imageUrl" : "./images/demoEquine141.jpg",
+  "imageUrl" : "./images/demoEquine14.jpg",
   "followupQuestions": []
 
 }, {
