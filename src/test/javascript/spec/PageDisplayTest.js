@@ -22,8 +22,6 @@ describe("PageDisplay", function () {
         let pageDisplayObject = new PageDisplay(pageDisplaySettings);
         let imageTaskElement = imageTaskHTML(imageTaskDisplayObject);
 
-        console.log(imageTaskElement);
-
         expect(imageTaskElement.getAttribute('class')).toContain('container-fluid');
         expect(imageTaskElement.childNodes.item(1).getAttribute('class')).toContain('row');
 
