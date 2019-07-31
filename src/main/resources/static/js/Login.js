@@ -1,5 +1,5 @@
 var User;
-var bottomText = ["Ready... Set... PAR!", "You're going to be amazing!", "A PAR employee will never ask for your password", "Now with 100% more Horses!", "Baked with love and bytes!"];
+var bottomText = ["Ready... Set... PAR!", "You're going to be amazing!", "A PAR employee will never ask for your password", "Time to rock the show!"];
 
 
 function getRandomNumber(num) {
