@@ -84,11 +84,12 @@ describe("ImageTaskDisplay", function () {
         expect(submitButtonTestElement.childNodes.item(0).childNodes.item(0).getAttribute('class')).toContain('show');
 
         expect(submitButtonTestElement.childNodes.item(0).childNodes.item(0).childNodes.item(0).getAttribute('id')).toContain('submitButtonTag');
-        expect(submitButtonTestElement.childNodes.item(0).childNodes.item(0).childNodes.item(1).getAttribute('type')).toContain('button');
-        expect(submitButtonTestElement.childNodes.item(0).childNodes.item(0).childNodes.item(1).getAttribute('class')).toContain('fas fa-arrow-circle-right btn btn-outline-dark');
+        expect(submitButtonTestElement.childNodes.item(0).childNodes.item(0).childNodes.item(0).childNodes.item(0).getAttribute('type')).toContain('button');
+        expect(submitButtonTestElement.childNodes.item(0).childNodes.item(0).childNodes.item(0).childNodes.item(1).getAttribute('type')).toContain('button');
+        expect(submitButtonTestElement.childNodes.item(0).childNodes.item(0).childNodes.item(0).childNodes.item(2).getAttribute('class')).toContain('fas fa-arrow-circle-right btn btn-outline-dark');
 
-
-
+        expect(submitButtonTestElement.childNodes.item(0).childNodes.item(1).childNodes.item(0).getAttribute('class')).toContain('col-12 text-center');
+        expect(submitButtonTestElement.childNodes.item(0).childNodes.item(1).childNodes.item(0).childNodes.item(0).getAttribute('id')).toContain('Ids');
 
     });
 });
