@@ -110,7 +110,7 @@ describe("ImageTaskDisplay", function () {
         let submitButtonTestElement = imageTaskDisplayObject.createSubmitButtonElement();
 
         expect(submitButtonTestElement.getAttribute('class')).toContain('row');
-        expect(submitButtonTestElement.childNodes.item(0).getAttribute('class')).toContain('col-12 text-center');
+        expect(submitButtonTestElement.childNodes.item(0).getAttribute('class')).toContain('col-12');
         expect(submitButtonTestElement.childNodes.item(0).childNodes.item(0).getAttribute('class')).toContain('show');
 
         expect(submitButtonTestElement.childNodes.item(0).childNodes.item(0).childNodes.item(0).getAttribute('id')).toContain('submitButtonTag');
