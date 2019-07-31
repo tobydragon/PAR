@@ -32,7 +32,8 @@ class PageDisplay {
             } else {
                 var imageTaskJSON = readJson("api/nextImageTask?userId=" + this.userId);
             }
-            this.imageTaskDisplay = new ImageTaskDisplay(imageTaskJSON, this.userId, this.imageTaskSettings, this.isAuthor, "myCanvas", this.pageSettings);
+            this.imageTaskDisplay = new ImageTaskDisplay(imageTaskJSON, this.userId, this.imageTaskSettings, this.isAuthor, "myCanvas", this.pageSettings, 0);
+            //0 used for counter as 1 image task doesnt need an incrementing value
             let element = imageTaskHTML(this.imageTaskDisplay);
             document.getElementById('imageTaskArea').appendChild(element);
             this.imageTaskDisplay.displayImageUrl();
