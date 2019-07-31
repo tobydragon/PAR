@@ -30,12 +30,8 @@ class CompleteDisplay {
     }
 
     nextImageTask() {
-        console.log('we in CD nIT');
-        console.log(typeof (document.getElementById('imageTaskArea')));
         document.getElementById('imageTaskArea').innerText = "";
-        console.log('bouta call page display');
         this.pageDisplay.nextImageTask();
-        console.log('called page display');
     }
 
     nextQuestion() {
@@ -63,7 +59,7 @@ class CompleteDisplay {
         }
     }
 
-    enterAuthorWrite(){
+    enterAuthorWrite() {
         document.getElementById('imageTaskArea').innerText = "";
         enableElement(document.getElementById("submitAuthorButton"));
         disableElement(document.getElementById("createAuthorQButton"));
