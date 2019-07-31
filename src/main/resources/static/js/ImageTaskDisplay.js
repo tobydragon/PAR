@@ -328,8 +328,7 @@ function sendResponse(response, ableToResubmitAnswers, isAuthor, pageSettings, h
             document.getElementById("submitButton").classList.add("hide");
         }
     }
-
-    console.log(response.responseTexts);
+    
     if(response.responseTexts.length===0){
         document.getElementById("errorFeedback"+0).innerHTML = "<font color=\"#663399\"> No Response recorded, as there were no responses given</font>";
     } else {
