@@ -116,7 +116,7 @@ describe("ImageTaskDisplay", function () {
         expect(submitButtonTestElement.childNodes.item(0).childNodes.item(0).childNodes.item(0).getAttribute('id')).toContain('submitButtonTag');
         expect(submitButtonTestElement.childNodes.item(0).childNodes.item(0).childNodes.item(0).childNodes.item(0).getAttribute('type')).toContain('button');
         expect(submitButtonTestElement.childNodes.item(0).childNodes.item(0).childNodes.item(0).childNodes.item(1).getAttribute('type')).toContain('button');
-        expect(submitButtonTestElement.childNodes.item(0).childNodes.item(0).childNodes.item(0).childNodes.item(2).getAttribute('class')).toContain('fas fa-arrow-circle-right btn btn-outline-dark');
+        expect(submitButtonTestElement.childNodes.item(0).childNodes.item(0).childNodes.item(0).childNodes.item(1).getAttribute('class')).toContain('fas fa-arrow-circle-right btn btn-outline-dark');
 
         expect(submitButtonTestElement.childNodes.item(0).childNodes.item(1).childNodes.item(0).getAttribute('class')).toContain('col-12 text-center');
         expect(submitButtonTestElement.childNodes.item(0).childNodes.item(1).childNodes.item(0).childNodes.item(0).getAttribute('id')).toContain('Ids');
@@ -131,15 +131,12 @@ describe("ImageTaskDisplay", function () {
 
         let imageTaskElement = imageTaskDisplayObject.createImageTaskElement();
 
-        console.log(imageTaskElement);
-
         expect(imageTaskElement.getAttribute('class')).toContain('row');
 
         expect(imageTaskElement.childNodes.item(0).getAttribute('class')).toContain('col-1');
         expect(imageTaskElement.childNodes.item(1).getAttribute('class')).toContain('col-6 imgCenter');
         expect(imageTaskElement.childNodes.item(1).childNodes.item(0).getAttribute('id')).toContain('canvasArea');
         expect(imageTaskElement.childNodes.item(1).childNodes.item(0).childNodes.item(0).getAttribute('class')).toContain('canvas');
-
 
         expect(imageTaskElement.childNodes.item(2).getAttribute('class')).toContain('col-4');
 
