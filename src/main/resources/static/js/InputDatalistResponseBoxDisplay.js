@@ -27,13 +27,12 @@ class InputDatalistResponseBoxDisplay {
         this.element.appendChild(feedbackTextArea);
     }
 
-    checkCurrentResponse(response, unsureShowsCorrect, questionId) {
+    checkCurrentResponse(response, unsureShowsCorrect, responseList) {
         if (this.inputTextbox.value !== ResponseResult.blank) {
-            response.addToResponseTexts(this.inputTextbox.value);
-            addToResponseIds(response, questionId);
+            response.setResponseText(this.inputTextbox.value);
         }
         let returnResponse = checkAnyResponse(this.correctResponse, this.inputTextbox.value);
-        addToTypesIncorrect(returnResponse, this.type, response.typesIncorrect);
+        addToTypesIncorrect(returnResponse, this.type, responseList.typesIncorrect);
 
         this.textArea.innerHTML = displayCheckedResponse(returnResponse, this.correctResponse, unsureShowsCorrect);
 
@@ -47,7 +46,7 @@ class InputDatalistResponseBoxDisplay {
 
     recordCurrentResponse(response) {
         if (this.inputTextbox.value !== ResponseResult.blank) {
-            response.addToResponseTexts(this.inputTextbox.value);
+            response.setResponseText(this.inputTextbox.value);
         }
         return this.inputTextbox.value;
     }

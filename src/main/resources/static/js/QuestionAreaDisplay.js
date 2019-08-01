@@ -1,9 +1,10 @@
 class QuestionAreaDisplay {
-    constructor(questionObject, response) {
+    constructor(questionObject, response, responseList) {
+        this.response= response;
         this.answerBox = new InputDatalistResponseBoxDisplay(questionObject.id + "ResponseBox", questionObject.possibleAnswers, questionObject.correctAnswer, questionObject.type);
         this.element = buildQuestionAreaElement(questionObject.id, questionObject.questionText, this.answerBox.element);
         if (questionObject.hasOwnProperty("followupQuestions")) {
-            this.followUpAreas = buildQuestionAreas(questionObject.followupQuestions, response);
+            this.followUpAreas = buildQuestionAreas(questionObject.followupQuestions, responseList);
         } else {
             this.followUpAreas = [];
         }
@@ -19,6 +20,14 @@ class QuestionAreaDisplay {
         }
         followupElement.classList.add("tab");
         this.followup = followupElement;
+    }
+
+    recordCurrentResponse(){
+        return this.answerBox.recordCurrentResponse(this.response);
+    }
+
+    checkCurrentResponse(unsureShowsCorrectAnswer, responseList){
+        return this.answerBox.checkCurrentResponse(this.response, unsureShowsCorrectAnswer, responseList);
     }
 }
 
@@ -37,10 +46,11 @@ function buildQuestionAreaElement(id, questionText, answerBoxElement) {
     return element;
 }
 
-function buildQuestionAreas(questionObjectList, response) {
+function buildQuestionAreas(questionObjectList, responseList) {
     let questionAreaList = [];
     for (let questionObject of questionObjectList) {
-        questionAreaList.push(new QuestionAreaDisplay(questionObject, response));
+        let newResponse= responseList.addToQuestionResponses(questionObject.id);
+        questionAreaList.push(new QuestionAreaDisplay(questionObject, newResponse, responseList));
     }
     return questionAreaList;
 }
