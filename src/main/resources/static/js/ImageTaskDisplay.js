@@ -292,6 +292,9 @@ function createOldResponse(responses){
         responseTexts: responseTexts
     };
 
+    console.log(newResponse.responseTexts);
+    console.log(newResponse.taskQuestionIds);
+
     return newResponse;
 }
 
