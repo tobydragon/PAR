@@ -1,7 +1,8 @@
 # PAR
-PAR: the Practice Assessment and Review system
+## PAR: the Practice Assessment and Review system
 
-Description:
+### Description:
+
 PAR: The Practice, Assessment, and Review System is an intelligent tutoring system built to aid in the teaching and learning of course material through images and associated questions. 
 The system works by quantifying a student’s understanding of a topic based on their responses to questions. With this information, the system can intelligently give new questions and offer help based on their previous responses.
 
