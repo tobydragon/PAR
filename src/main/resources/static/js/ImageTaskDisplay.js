@@ -101,7 +101,7 @@ class ImageTaskDisplay {
 
         let questionElement = document.createElement('div');
         questionElement.setAttribute('id', 'questionSet');
-        
+
         this.questionAreaDisp = new buildQuestionAreas(this.imageTaskJson.taskQuestions, this.responses);
         for (var i = 0; i < this.questionAreaDisp.length; i++) {
             if (this.isAuthor) {
@@ -276,19 +276,21 @@ function authorSubmitResponse(responses, pageSettings){
 }
 
 function createOldResponse(responses){
-    let newResponse = {
-        userId: responses.userId,
-        taskQuestionIds: [],
-        responseTexts: []
-    };
-    for(var i=0; i<responses.length; i++){
-        let questionResponse= responses[i];
-        newResponse.responseTexts.add(questionResponse.responseText);
-        newResponse.taskQuestionIds.add(questionResponse.id);
+    let responseTexts= [];
+    let questionIds= [];
+    for(let i=0; i<responses.questionResponses.length; i++){
+        let questionResponse= responses.questionResponses[i];
+        if(questionResponse.responseText!=null) {
+            responseTexts.push(questionResponse.responseText);
+            questionIds.push(questionResponse.id);
+        }
     }
 
-    console.log(newResponse.responseTexts);
-    console.log(newResponse.taskQuestionIds);
+    let newResponse = {
+        userId: responses.userId,
+        taskQuestionIds: questionIds,
+        responseTexts: responseTexts
+    };
 
     return newResponse;
 }
@@ -338,8 +340,8 @@ function sendResponse(responses, ableToResubmitAnswers, isAuthor, pageSettings, 
 
 function displayResponseFeedback(responses){
     let responseTexts= [];
-    for(var i=0; i<responses.length; i++){
-        let questionResponse= responses[i];
+    for(let i=0; i<responses.questionResponses.length; i++){
+        let questionResponse= responses.questionResponses[i];
         if(questionResponse.responseText!=null) {
             responseTexts.push(questionResponse.responseText)
         }
