@@ -130,18 +130,6 @@ class ImageTaskDisplay {
     }
 
     createSubmitButtonElement() {
-        let outerSubmitRowElement = document.createElement('div');
-        outerSubmitRowElement.classList.add('row');
-
-        let submitButtonColumnHandlerElement = document.createElement('div');
-        submitButtonColumnHandlerElement.classList.add('col-12');
-
-        let showElement = document.createElement('div');
-        showElement.classList.add('show');
-
-        let tagElement = document.createElement('i');
-        tagElement.setAttribute('id', 'submitButtonTag');
-
         let submitButtonElement = document.createElement('button');
         submitButtonElement.setAttribute('type', 'button');
         submitButtonElement.classList.add('btn');
@@ -150,6 +138,9 @@ class ImageTaskDisplay {
         submitButtonElement.setAttribute('onclick', 'completeDisplay.submitAnswers()');
         submitButtonElement.textContent = 'Submit';
 
+        return submitButtonElement;
+    }
+    createNextQuestionElement() {
         let nextQuestionButtonElement = document.createElement('button');
         nextQuestionButtonElement.setAttribute('type', 'button');
         nextQuestionButtonElement.classList.add('fas');
@@ -159,18 +150,9 @@ class ImageTaskDisplay {
         nextQuestionButtonElement.setAttribute('id', 'nextQuestionButton' + this.counter);
         nextQuestionButtonElement.setAttribute('onclick', 'completeDisplay.nextQuestion()');
 
-
-        tagElement.appendChild(submitButtonElement);
-        tagElement.appendChild(nextQuestionButtonElement);
-
-
-        let errorFeedbackElement = document.createElement('i');
-        errorFeedbackElement.setAttribute('id', 'errorFeedback' + this.counter);
-
-        showElement.appendChild(tagElement);
-        showElement.appendChild(errorFeedbackElement);
-
-
+        return nextQuestionButtonElement;
+    }
+    createIdRowElement() {
         let idRowElement = document.createElement('div');
         idRowElement.classList.add('row');
 
@@ -184,10 +166,26 @@ class ImageTaskDisplay {
         idColElement.appendChild(idElement);
         idRowElement.appendChild(idColElement);
 
-        submitButtonColumnHandlerElement.appendChild(showElement);
-        submitButtonColumnHandlerElement.appendChild(idRowElement);
+        return idRowElement;
+    }
 
-        outerSubmitRowElement.appendChild(submitButtonColumnHandlerElement);
+    createSubmitButtonRowElement() {
+        let outerSubmitRowElement = document.createElement('div');
+        outerSubmitRowElement.classList.add('row');
+
+        let submitRowColumnHandlerElement = document.createElement('div');
+        submitRowColumnHandlerElement.classList.add('col-12');
+
+        submitRowColumnHandlerElement.appendChild(this.createSubmitButtonElement());
+        submitRowColumnHandlerElement.appendChild(this.createNextQuestionElement());
+
+        let errorFeedbackElement = document.createElement('i');
+        errorFeedbackElement.setAttribute('id', 'errorFeedback' + this.counter);
+
+        submitRowColumnHandlerElement.appendChild(errorFeedbackElement);
+
+        outerSubmitRowElement.appendChild(submitRowColumnHandlerElement);
+        outerSubmitRowElement.appendChild(this.createIdRowElement());
 
         return outerSubmitRowElement;
     }
@@ -216,12 +214,10 @@ class ImageTaskDisplay {
         feedbackElement.setAttribute('id', 'helpfulFeedback' + this.counter);
         feedbackElement.classList.add('text-center');
 
-        let submitButtonElement = this.createSubmitButtonElement();
-
         questionAreaElementHandler.appendChild(questionTitleElement);
         questionAreaElementHandler.appendChild(questionAreaNode);
         questionAreaElementHandler.appendChild(feedbackElement);
-        questionAreaElementHandler.appendChild(submitButtonElement);
+        questionAreaElementHandler.appendChild(this.createSubmitButtonRowElement());
 
         let spaceNode0 = document.createElement('div');
         spaceNode0.classList.add('col-1');
