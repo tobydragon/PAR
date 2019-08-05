@@ -5,7 +5,7 @@ import edu.ithaca.dragon.par.domainModel.Question;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ImageTaskResponseImp1 {
+public class ImageTaskResponseImp1 implements ImageTaskReponse{
     private String userId;
     private List<String> taskQuestionIds;
     private List<String> responseTexts;
