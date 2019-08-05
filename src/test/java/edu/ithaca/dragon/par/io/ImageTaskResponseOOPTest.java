@@ -2,9 +2,12 @@ package edu.ithaca.dragon.par.io;
 
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
+import edu.ithaca.dragon.util.JsonUtil;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 
@@ -24,5 +27,18 @@ public class ImageTaskResponseOOPTest {
 
         //getting null for a question that doesn't exist
         assertEquals(null, responseSet.findResponseToQuestion(new Question("notAValidQuestion", "notAValidQuestion", "notAValidQuestion", "notAValidQuestion", Arrays.asList("notAValidQuestion","notAValidQuestion2"), "notAValidQuestion")));
+    }
+
+    @Test
+    public void toJsonAndBackTest(@TempDir Path tempDir) throws IOException {
+        QuestionPool qp = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
+        ImageTaskResponseOOP responseSet = new ImageTaskResponseOOP("response1", Arrays.asList("plane./images/demoEquine14.jpg","structure0./images/demoEquine14.jpg", "AttachQ1"),Arrays.asList("Lateral","bone","3c"));
+
+        Path path = tempDir.resolve("ImageTaskResponseOOP.json");
+        JsonUtil.toJsonFile(path.toString(), responseSet);
+
+        ImageTaskResponseOOP newResponseSet = JsonUtil.fromJsonFile(path.toString(), ImageTaskResponseOOP.class);
+        assertEquals(responseSet.getUserId(), newResponseSet.getUserId());
+        assertEquals(responseSet.getResponseTexts().size(), newResponseSet.getResponseTexts().size());
     }
 }
