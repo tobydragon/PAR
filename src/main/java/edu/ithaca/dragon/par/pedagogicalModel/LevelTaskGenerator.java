@@ -10,7 +10,6 @@ import edu.ithaca.dragon.par.studentModel.StudentModel;
 import java.util.*;
 
 public class LevelTaskGenerator implements TaskGenerator {
-
     private static final Map<Integer, List<String>> levelMap=makeLevelMap();
 
     private static Map<Integer, List<String>> makeLevelMap() {

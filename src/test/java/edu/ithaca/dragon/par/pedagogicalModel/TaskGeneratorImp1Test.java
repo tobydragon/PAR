@@ -45,17 +45,6 @@ public class TaskGeneratorImp1Test {
         assertEquals(1, task2.getTaskQuestions().size());
 
     }
-//TODO:TEST CURRENTLY FAILS WITH ORIGINAL CHOOSE TOP LEVEL QUESTION
-    @Test
-    public void makeTaskWithSingleQuestionTestBreak() throws IOException{
-        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/SampleQuestionPool.json").getAllQuestions());
-        StudentModel studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
-        studentModel.getUserQuestionSet().increaseTimesSeenAllQuestions(studentModel.getUserQuestionSet().getTopLevelUnseenQuestions());
-        Question task1Question = TaskGeneratorImp1.getInitialQuestionForTask(studentModel, 1);
-        ImageTask task1 = new ImageTask(task1Question.getImageUrl(), Arrays.asList(task1Question));
-        assertEquals("./images/demoEquine04.jpg", task1.getImageUrl());
-
-    }
 
     @Test
     public void makeTaskTest() throws IOException{
@@ -250,6 +239,25 @@ public class TaskGeneratorImp1Test {
         assertEquals(0, recFollowupsAfter.getFollowupQuestions().get(2).getFollowupQuestions().size());
     }
 
+
+    @Test    //TODO:TEST CURRENTLY FAILS WITH ORIGINAL CHOOSE TOP LEVEL QUESTION
+    public void makeTaskWithSingleQuestionTestBreak() throws IOException{
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/SampleQuestionPool.json").getAllQuestions());
+        StudentModel studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
+        studentModel.getUserQuestionSet().increaseTimesSeenAllQuestions(studentModel.getUserQuestionSet().getTopLevelUnseenQuestions());
+        Question task1Question = TaskGeneratorImp1.getInitialQuestionForTask(studentModel, 1);
+        ImageTask task1 = new ImageTask(task1Question.getImageUrl(), Arrays.asList(task1Question));
+        assertEquals("./images/demoEquine04.jpg", task1.getImageUrl());
+
+    }
+
+
+/*
+                                    All the new tests for LevelTaskGenerator
+                     *side note - should attachment questions be seen over structure at level 5 and 6?*
+ */
+
+
     @Test
     public void equineQuestionTypesMapTest() throws IOException{
         QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFewFollowups.json").getAllQuestions());
@@ -292,7 +300,6 @@ public class TaskGeneratorImp1Test {
 
     }
 
-
     @Test
     public void leastSeenQuestionTest()throws IOException{
         JsonStudentModelDatastore datastore = new JsonStudentModelDatastore("src/test/resources/author/simpleTestSet/currentQuestionPool.json", "src/test/resources/author/simpleTestSet/students");
@@ -315,4 +322,76 @@ public class TaskGeneratorImp1Test {
         assertEquals( "zone./images/demoEquine05.jpg",LevelTaskGenerator.leastSeenQuestion(Arrays.asList(EquineQuestionTypes.zone.toString()),testUser2,questionTypesListMap).getId());
 
     }
+
+    @Test
+    public void makeTaskImp2Test() throws IOException{
+        TaskGenerator taskGenerator = new LevelTaskGenerator();
+        //set up questionPool and studentModel, create an imageTask with the studentModel
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPool.json").getAllQuestions());
+        StudentModel studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
+
+        //make an imageTask and check aspects of it
+        ImageTask task1 = taskGenerator.makeTask(studentModel, 4);
+
+        assertEquals("./images/demoEquine14.jpg", task1.getImageUrl());
+
+        assertEquals(1, task1.getTaskQuestions().size());
+
+        //make a new imageTask and check aspects of it
+        ImageTask task2 = taskGenerator.makeTask(studentModel, 4);
+        assertEquals("./images/demoEquine02.jpg", task2.getImageUrl());
+        assertEquals(1, task2.getTaskQuestions().size());
+    }
+
+    @Test
+    public void makeTaskWithSingleQuestionImp2Test() throws IOException {
+        //set up questionPool and studentModel, create an imageTask with the studentModel
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/SampleQuestionPool.json").getAllQuestions());
+        StudentModel studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
+
+        //no questions have been seen
+        assertEquals(15, studentModel.getUnseenQuestionCount());
+
+        //make an imageTask and check aspects of it
+        Map<String,List<QuestionCount>> questionTypesListMap=new LinkedHashMap<>();
+        LevelTaskGenerator.questionByTypeMap(studentModel.getUserQuestionSet().getQuestionCounts(),questionTypesListMap);
+        Question task1Question = LevelTaskGenerator.leastSeenQuestion(Arrays.asList(EquineQuestionTypes.plane.toString()),studentModel, questionTypesListMap);
+
+        ImageTask task1 = new ImageTask(task1Question.getImageUrl(), Arrays.asList(task1Question));
+        assertEquals("./images/demoEquine04.jpg", task1.getImageUrl());
+        assertEquals(1, task1.getTaskQuestions().size());
+
+        //make a new imageTask and check aspects of it
+        Question task2Question = LevelTaskGenerator.leastSeenQuestion(Arrays.asList(EquineQuestionTypes.plane.toString()),studentModel, questionTypesListMap);
+        ImageTask task2 = new ImageTask(task2Question.getImageUrl(), Arrays.asList(task1Question));
+        assertEquals("./images/demoEquine04.jpg", task1.getImageUrl());
+        assertEquals(1, task2.getTaskQuestions().size());
+
+    }
+
+    @Test
+    public void studentModelWithNoQuestionsImp2Test() throws IOException{
+        QuestionPool emptyQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/SampleQuestionsEmpty.json").getAllQuestions());
+        StudentModel studentModel = new StudentModel("TestUser1", emptyQP.getAllQuestions());
+
+        //try to make a single Question
+        try{
+            Map<String,List<QuestionCount>> questionTypesListMap=new LinkedHashMap<>();
+            LevelTaskGenerator.questionByTypeMap(studentModel.getUserQuestionSet().getQuestionCounts(),questionTypesListMap);
+            Question newQ = LevelTaskGenerator.leastSeenQuestion(Arrays.asList(EquineQuestionTypes.plane.toString()),studentModel, questionTypesListMap);
+            fail();
+        }catch(Exception ee){
+
+        }
+
+        //try to make a task
+        try{
+            ImageTask imageTask = new LevelTaskGenerator().makeTask(studentModel, 4);
+            fail();
+        }catch(Exception ee){
+
+        }
+    }
+
+
 }
