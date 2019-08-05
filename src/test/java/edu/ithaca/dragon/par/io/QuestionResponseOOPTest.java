@@ -14,9 +14,10 @@ public class QuestionResponseOOPTest {
     @Test
     public void toAndFromJsonTest(@TempDir Path tempDir) throws IOException {
         QuestionResponseOOP questionResponseOOP = new QuestionResponseOOP("Q1", "A");
-        JsonUtil.toJsonFile(tempDir.toString(), questionResponseOOP);
+        Path newQuestionResponseOOPPath = tempDir.resolve("questionResponseOOP.json");
+        JsonUtil.toJsonFile(newQuestionResponseOOPPath.toString(), questionResponseOOP);
 
-        QuestionResponseOOP questionResponseOOP1 = JsonUtil.fromJsonFile(tempDir.toString(), QuestionResponseOOP.class);
+        QuestionResponseOOP questionResponseOOP1 = JsonUtil.fromJsonFile(newQuestionResponseOOPPath.toString(), QuestionResponseOOP.class);
         assertEquals(questionResponseOOP.questionId, questionResponseOOP1.questionId);
         assertEquals(questionResponseOOP.responseText, questionResponseOOP1.responseText);
     }

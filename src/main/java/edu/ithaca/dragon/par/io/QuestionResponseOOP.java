@@ -4,8 +4,11 @@ public class QuestionResponseOOP {
     String questionId;
     String responseText;
 
-    QuestionResponseOOP(String questionIdIn, String responseTextIn){
+    QuestionResponseOOP(){}
 
+    QuestionResponseOOP(String questionIdIn, String responseTextIn){
+        this.questionId = questionIdIn;
+        this.responseText = responseTextIn;
     }
 
     public String getQuestionId() {
