@@ -20,30 +20,35 @@ public class ImageTaskResponseOOP implements ImageTaskReponse {
     }
 
     public List<String> getTaskQuestionIds() {
-        return null;
-    }
-
-    public void setTaskQuestionIds(List<String> taskQuestionIds) {
-
+        List<String> questionIds = new ArrayList<>();
+        for(QuestionResponseOOP questionResponseOOP : questionResponses){
+            questionIds.add(questionResponseOOP.questionId);
+        }
+        return questionIds;
     }
 
     public List<String> getResponseTexts() {
-        return null;
-    }
-
-    public void setResponseTexts(List<String> responseTexts) {
-
+        List<String> responseTexts = new ArrayList<>();
+        for(QuestionResponseOOP questionResponseOOP : questionResponses){
+            responseTexts.add(questionResponseOOP.responseText);
+        }
+        return responseTexts;
     }
 
     public String getUserId() {
-        return null;
+        return userId;
     }
 
     public void setUserId(String userId) {
-
+        this.userId = userId;
     }
 
     public String findResponseToQuestion(Question question) {
+        for(QuestionResponseOOP questionResponseOOP : questionResponses) {
+            if(question.getId().equals(questionResponseOOP.questionId)){
+                return questionResponseOOP.responseText;
+            }
+        }
         return null;
     }
 }
