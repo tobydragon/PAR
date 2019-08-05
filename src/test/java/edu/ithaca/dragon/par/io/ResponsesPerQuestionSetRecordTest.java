@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ResponsesPerQuestionSetRecordTest {
     @Test
     public void toJsonAndBackTest() throws IOException {
-        List<ImageTaskResponse> responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponse.class);
+        List<ImageTaskResponseImp1> responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponseImp1.class);
         UserResponseSet que=new UserResponseSet(responsesFromFile.get(0).getUserId());
         QuestionPool qp = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/SampleQuestionPool.json").getAllQuestions());
 

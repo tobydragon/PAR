@@ -4,7 +4,7 @@ import edu.ithaca.dragon.par.authorModel.AuthorServer;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.AuthorDatastore;
 import edu.ithaca.dragon.par.io.ImageTask;
-import edu.ithaca.dragon.par.io.ImageTaskResponse;
+import edu.ithaca.dragon.par.io.ImageTaskResponseImp1;
 import edu.ithaca.dragon.par.io.StudentModelDatastore;
 import edu.ithaca.dragon.par.pedagogicalModel.TaskGenerator;
 import edu.ithaca.dragon.util.DataUtil;
@@ -35,7 +35,7 @@ public class ParStudentAndAuthorServer {
         }
     }
 
-    public void submitImageTaskResponse( ImageTaskResponse response) throws IOException {
+    public void submitImageTaskResponse( ImageTaskResponseImp1 response) throws IOException {
             studentModelDatastore.submitImageTaskResponse(response.getUserId(), response);
     }
 
@@ -71,7 +71,7 @@ public class ParStudentAndAuthorServer {
         return authorServer.nextImageTaskTemplate();
     }
 
-    public void submitAuthorImageTaskResponse(ImageTaskResponse response) throws IOException{
+    public void submitAuthorImageTaskResponse(ImageTaskResponseImp1 response) throws IOException{
             authorServer.imageTaskResponseSubmitted(response);
     }
     public List<ImageTask> authoredQuestions(){

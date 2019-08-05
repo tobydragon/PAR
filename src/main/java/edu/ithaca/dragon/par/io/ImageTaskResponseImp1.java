@@ -5,17 +5,17 @@ import edu.ithaca.dragon.par.domainModel.Question;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ImageTaskResponse {
+public class ImageTaskResponseImp1 {
     private String userId;
     private List<String> taskQuestionIds;
     private List<String> responseTexts;
 
-    public ImageTaskResponse(){
+    public ImageTaskResponseImp1(){
         this.userId=null;
         taskQuestionIds=new ArrayList<>();
         responseTexts=new ArrayList<>();
     }
-    public ImageTaskResponse(String userIdIn,List<String> taskQuestionIdsIn,List<String> responseTextsIn){
+    public ImageTaskResponseImp1(String userIdIn, List<String> taskQuestionIdsIn, List<String> responseTextsIn){
         this.userId=userIdIn;
         taskQuestionIds=taskQuestionIdsIn;
         responseTexts=responseTextsIn;
@@ -60,10 +60,10 @@ public class ImageTaskResponse {
         if(otherObj == null){
             return false;
         }
-        if(!ImageTaskResponse.class.isAssignableFrom(otherObj.getClass())){
+        if(!ImageTaskResponseImp1.class.isAssignableFrom(otherObj.getClass())){
             return false;
         }
-        ImageTaskResponse other = (ImageTaskResponse) otherObj;
+        ImageTaskResponseImp1 other = (ImageTaskResponseImp1) otherObj;
         return this.getResponseTexts().equals(other.getResponseTexts())
                 && this.getTaskQuestionIds().equals(other.getTaskQuestionIds())
                 && this.getUserId().equals(other.getUserId());

@@ -1,11 +1,9 @@
 package edu.ithaca.dragon.par.io;
 
-import edu.ithaca.dragon.par.authorModel.AuthorModel;
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 
 import java.io.IOException;
-import java.util.Collection;
 import java.util.List;
 
 public interface StudentModelDatastore {
@@ -14,7 +12,7 @@ public interface StudentModelDatastore {
 
     StudentModel getStudentModel(String userId) throws IOException;
 
-    void submitImageTaskResponse(String userId, ImageTaskResponse imageTaskResponse) throws IOException;
+    void submitImageTaskResponse(String userId, ImageTaskResponseImp1 imageTaskResponseImp1) throws IOException;
 
     int getMinQuestionCountPerType();
 

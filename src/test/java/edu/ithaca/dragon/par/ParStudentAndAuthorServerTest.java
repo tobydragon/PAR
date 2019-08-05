@@ -2,7 +2,6 @@ package edu.ithaca.dragon.par;
 
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.*;
-import edu.ithaca.dragon.util.DataUtil;
 import edu.ithaca.dragon.util.JsonIoHelperDefault;
 import edu.ithaca.dragon.util.JsonIoUtil;
 import org.junit.jupiter.api.Test;
@@ -127,14 +126,14 @@ class ParStudentAndAuthorServerTest {
 
         ParStudentAndAuthorServer parStudentAndAuthorServer = new ParStudentAndAuthorServer(jsonStudentDatastore, null);
 
-        ImageTaskResponse responseSet2=new ImageTaskResponse("response1", Arrays.asList("PlaneQ1", "PlaneQ2", "PlaneQ3", "PlaneQ4", "PlaneQ5", "StructureQ1", "StructureQ2", "StructureQ3", "StructureQ4", "StructureQ5", "ZoneQ1", "ZoneQ2", "ZoneQ3", "ZoneQ4", "ZoneQ5"),Arrays.asList("Latera", "Transvers", "Latera", "Latera", "Transvers", "bone", "ligament", "tendon", "bone", "tumor", "3c", "1b", "3c", "2a", "2b"));
-        ImageTaskResponse responseSet3=new ImageTaskResponse("response1", Arrays.asList("PlaneQ1", "PlaneQ2", "PlaneQ3", "PlaneQ4", "PlaneQ5", "StructureQ1", "StructureQ2", "StructureQ3", "StructureQ4", "StructureQ5", "ZoneQ1", "ZoneQ2", "ZoneQ3", "ZoneQ4", "ZoneQ5"),Arrays.asList("I'm","bad","student","I'm","bad","student","I'm","bad","student","I'm","bad","student","I'm","bad","student"));
-        List<ImageTaskResponse> responsesFromFile = new JsonIoUtil(new JsonIoHelperDefault()).listFromFile("src/test/resources/author/SampleResponses.json", ImageTaskResponse.class);
+        ImageTaskResponseImp1 responseSet2=new ImageTaskResponseImp1("response1", Arrays.asList("PlaneQ1", "PlaneQ2", "PlaneQ3", "PlaneQ4", "PlaneQ5", "StructureQ1", "StructureQ2", "StructureQ3", "StructureQ4", "StructureQ5", "ZoneQ1", "ZoneQ2", "ZoneQ3", "ZoneQ4", "ZoneQ5"),Arrays.asList("Latera", "Transvers", "Latera", "Latera", "Transvers", "bone", "ligament", "tendon", "bone", "tumor", "3c", "1b", "3c", "2a", "2b"));
+        ImageTaskResponseImp1 responseSet3=new ImageTaskResponseImp1("response1", Arrays.asList("PlaneQ1", "PlaneQ2", "PlaneQ3", "PlaneQ4", "PlaneQ5", "StructureQ1", "StructureQ2", "StructureQ3", "StructureQ4", "StructureQ5", "ZoneQ1", "ZoneQ2", "ZoneQ3", "ZoneQ4", "ZoneQ5"),Arrays.asList("I'm","bad","student","I'm","bad","student","I'm","bad","student","I'm","bad","student","I'm","bad","student"));
+        List<ImageTaskResponseImp1> responsesFromFile = new JsonIoUtil(new JsonIoHelperDefault()).listFromFile("src/test/resources/author/SampleResponses.json", ImageTaskResponseImp1.class);
 
         //star student
-        ImageTaskResponse imageTaskResponse = responsesFromFile.get(0);
-        imageTaskResponse.setUserId("s1");
-        parStudentAndAuthorServer.submitImageTaskResponse(imageTaskResponse);//gives responses from response file
+        ImageTaskResponseImp1 imageTaskResponseImp1 = responsesFromFile.get(0);
+        imageTaskResponseImp1.setUserId("s1");
+        parStudentAndAuthorServer.submitImageTaskResponse(imageTaskResponseImp1);//gives responses from response file
         assertEquals("100.000",parStudentAndAuthorServer.calcOverallKnowledgeEstimate("s1"));
 
 
@@ -143,15 +142,15 @@ class ParStudentAndAuthorServerTest {
         assertEquals("83.333",parStudentAndAuthorServer.calcOverallKnowledgeEstimate("s2"));
         //score should stay the same even when the correct answers are entered afterwards since they were all answered in a
         //time window that didnt exceed 30 seconds
-        imageTaskResponse.setUserId("s2");
-        parStudentAndAuthorServer.submitImageTaskResponse(imageTaskResponse);
+        imageTaskResponseImp1.setUserId("s2");
+        parStudentAndAuthorServer.submitImageTaskResponse(imageTaskResponseImp1);
         assertEquals("83.333",parStudentAndAuthorServer.calcOverallKnowledgeEstimate("s2"));
-        parStudentAndAuthorServer.submitImageTaskResponse(imageTaskResponse);
+        parStudentAndAuthorServer.submitImageTaskResponse(imageTaskResponseImp1);
         assertEquals("83.333",parStudentAndAuthorServer.calcOverallKnowledgeEstimate("s2"));
 
 
         //score should go way down since they had it, but then got it wrong within 30 seconds
-        imageTaskResponse.setUserId("s3");
+        imageTaskResponseImp1.setUserId("s3");
         parStudentAndAuthorServer.submitImageTaskResponse(responsesFromFile.get(0));//gives responses from file
         assertEquals("100.000",parStudentAndAuthorServer.calcOverallKnowledgeEstimate("s3"));
         responseSet3.setUserId("s3");

@@ -3,7 +3,7 @@ package edu.ithaca.dragon.par.spring;
 import edu.ithaca.dragon.par.ParStudentAndAuthorServer;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.ImageTask;
-import edu.ithaca.dragon.par.io.ImageTaskResponse;
+import edu.ithaca.dragon.par.io.ImageTaskResponseImp1;
 import edu.ithaca.dragon.par.io.JsonAuthorDatastore;
 import edu.ithaca.dragon.par.io.JsonStudentModelDatastore;
 import edu.ithaca.dragon.par.pedagogicalModel.ImageTaskSettings;
@@ -78,7 +78,7 @@ public class ParStudentAndAuthorRestController {
     }
 
     @PostMapping("/recordResponse")
-    public ResponseEntity<String> recordResponse(@RequestBody ImageTaskResponse response) {
+    public ResponseEntity<String> recordResponse(@RequestBody ImageTaskResponseImp1 response) {
         try {
             parServer.submitImageTaskResponse(response);
             return ResponseEntity.ok().body("ok");
@@ -112,7 +112,7 @@ public class ParStudentAndAuthorRestController {
     }
 
     @PostMapping("/submitAuthorImageTaskResponse")
-    public ResponseEntity<String> submitAuthorImageTaskResponse(@RequestBody ImageTaskResponse response) {
+    public ResponseEntity<String> submitAuthorImageTaskResponse(@RequestBody ImageTaskResponseImp1 response) {
         try {
             parServer.submitAuthorImageTaskResponse(response);
             return ResponseEntity.ok().body("ok");

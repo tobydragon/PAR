@@ -6,7 +6,6 @@ import edu.ithaca.dragon.par.pedagogicalModel.TaskGenerator;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 
 import edu.ithaca.dragon.util.JsonIoHelperDefault;
-import edu.ithaca.dragon.util.JsonIoHelperSpring;
 import edu.ithaca.dragon.util.JsonIoUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -59,7 +58,7 @@ public class JsonStudentModelDatastoreTest {
         assertFalse(Files.exists(tempDir.resolve("NewUser1.json")));
         TaskGenerator.findLevelAndMakeTask(studentModel2, 4);
         assertEquals(1, studentModel2.getSeenQuestionCount());
-        jsonStudentModelDatastore.submitImageTaskResponse(studentModel2.getUserId(), new ImageTaskResponse("NewUser1", Arrays.asList("plane./images/demoEquine04.jpg"), Arrays.asList("longitudinal")));
+        jsonStudentModelDatastore.submitImageTaskResponse(studentModel2.getUserId(), new ImageTaskResponseImp1("NewUser1", Arrays.asList("plane./images/demoEquine04.jpg"), Arrays.asList("longitudinal")));
         assertEquals(1, studentModel2.getResponseCount());
         //a file should now been written
         assertTrue(Files.exists(tempDir.resolve("NewUser1.json")));
@@ -67,7 +66,7 @@ public class JsonStudentModelDatastoreTest {
         //make a change to a user, log them out, then reload them to see if changes were saved
         TaskGenerator.findLevelAndMakeTask(studentModel1, 4);
         assertEquals(3, studentModel1.getSeenQuestionCount());
-        jsonStudentModelDatastore.submitImageTaskResponse(studentModel1.getUserId(), new ImageTaskResponse("TestUser100", Arrays.asList("plane./images/demoEquine10.jpg"), Arrays.asList("longitudinal")));
+        jsonStudentModelDatastore.submitImageTaskResponse(studentModel1.getUserId(), new ImageTaskResponseImp1("TestUser100", Arrays.asList("plane./images/demoEquine10.jpg"), Arrays.asList("longitudinal")));
         assertEquals(2, studentModel1.getResponseCount());
 
         jsonStudentModelDatastore.logout("TestUser100");

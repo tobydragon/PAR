@@ -1,7 +1,6 @@
 package edu.ithaca.dragon.par.authorModel;
 
 import edu.ithaca.dragon.par.domainModel.Question;
-import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.io.*;
 
 import java.io.IOException;
@@ -20,11 +19,11 @@ public class AuthorServer {
         return AuthorTaskGenerator.makeTaskTemplate(authorDatastore.getAuthorModel());
     }
 
-    public void imageTaskResponseSubmitted(ImageTaskResponse imageTaskResponse) throws IOException{
-        for(String currId : imageTaskResponse.getTaskQuestionIds()){
+    public void imageTaskResponseSubmitted(ImageTaskResponseImp1 imageTaskResponseImp1) throws IOException{
+        for(String currId : imageTaskResponseImp1.getTaskQuestionIds()){
             Question currQuestion = authorDatastore.findTopLevelQuestionTemplateById(currId);
             if(currQuestion != null){
-                Question newQuestion = buildQuestionFromTemplate(currQuestion, imageTaskResponse);
+                Question newQuestion = buildQuestionFromTemplate(currQuestion, imageTaskResponseImp1);
                 authorDatastore.addQuestion(newQuestion);
                 authorDatastore.removeQuestionTemplateById(currQuestion.getId());
             }
@@ -35,14 +34,14 @@ public class AuthorServer {
         return AuthorTaskGenerator.authoredQuestions(authorDatastore.getAllAuthoredQuestions());
     }
 
-    public static Question buildQuestionFromTemplate(Question questionIn, ImageTaskResponse imageTaskResponse){
-        String answer = imageTaskResponse.findResponseToQuestion(questionIn);
+    public static Question buildQuestionFromTemplate(Question questionIn, ImageTaskResponseImp1 imageTaskResponseImp1){
+        String answer = imageTaskResponseImp1.findResponseToQuestion(questionIn);
         if(answer == null){
             return null;
         }
         List<Question> followupQuestions = new ArrayList<>();
         for(Question currFollowup : questionIn.getFollowupQuestions()){
-            Question newFollowUp = buildQuestionFromTemplate(currFollowup, imageTaskResponse);
+            Question newFollowUp = buildQuestionFromTemplate(currFollowup, imageTaskResponseImp1);
             if (newFollowUp != null) {
                 followupQuestions.add(newFollowUp);
             }
