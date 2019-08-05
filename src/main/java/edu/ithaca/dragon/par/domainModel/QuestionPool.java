@@ -1,12 +1,8 @@
 package edu.ithaca.dragon.par.domainModel;
 
-import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class QuestionPool {
 
@@ -78,6 +74,8 @@ public class QuestionPool {
         }
         return toReturn;
     }
+
+
 
     public List<Question> getQuestionsFromUrl(String questionUrl){
         return QuestionPool.getQuestionsWithUrl(allQuestions, questionUrl);

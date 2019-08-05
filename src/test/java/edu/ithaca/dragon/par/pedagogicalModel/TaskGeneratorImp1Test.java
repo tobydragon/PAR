@@ -292,10 +292,27 @@ public class TaskGeneratorImp1Test {
 
     }
 
-//TODO:FINISH TEST
+
     @Test
     public void leastSeenQuestionTest()throws IOException{
         JsonStudentModelDatastore datastore = new JsonStudentModelDatastore("src/test/resources/author/simpleTestSet/currentQuestionPool.json", "src/test/resources/author/simpleTestSet/students");
         StudentModel testUser2 = datastore.getOrCreateStudentModel("testUser2");
+
+        Map<String,List<QuestionCount>> questionTypesListMap=new LinkedHashMap<>();
+        LevelTaskGenerator.questionByTypeMap(testUser2.getUserQuestionSet().getQuestionCounts(),questionTypesListMap);
+
+        assertEquals("plane./images/demoEquine02.jpg",LevelTaskGenerator.leastSeenQuestion(Arrays.asList(EquineQuestionTypes.plane.toString(),EquineQuestionTypes.structure.toString()),testUser2,questionTypesListMap).getId());
+        assertEquals("plane./images/demoEquine13.jpg",LevelTaskGenerator.leastSeenQuestion(Arrays.asList(EquineQuestionTypes.plane.toString()),testUser2,questionTypesListMap).getId());
+        assertEquals( "structure0./images/demoEquine02.jpg",LevelTaskGenerator.leastSeenQuestion(Arrays.asList(EquineQuestionTypes.structure.toString()),testUser2,questionTypesListMap).getId());
+        assertEquals( "structure0./images/demoEquine02.jpg",LevelTaskGenerator.leastSeenQuestion(Arrays.asList(EquineQuestionTypes.structure.toString(),EquineQuestionTypes.attachment.toString()),testUser2,questionTypesListMap).getId());
+        assertEquals( "AttachQ5",LevelTaskGenerator.leastSeenQuestion(Arrays.asList(EquineQuestionTypes.attachment.toString()),testUser2,questionTypesListMap).getId());
+        try{
+            LevelTaskGenerator.leastSeenQuestion(Arrays.asList(EquineQuestionTypes.attachment.toString(),EquineQuestionTypes.zone.toString()),testUser2,questionTypesListMap).getId();
+            fail();
+        }catch(Exception ee){
+
+        }
+        assertEquals( "zone./images/demoEquine05.jpg",LevelTaskGenerator.leastSeenQuestion(Arrays.asList(EquineQuestionTypes.zone.toString()),testUser2,questionTypesListMap).getId());
+
     }
 }

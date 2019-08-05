@@ -30,6 +30,19 @@ public class UserQuestionSet {
 
     public List<QuestionCount> getQuestionCounts(){ return questionCounts; }
 
+    //TODO NEW
+    public List<Question> getAllQuestionsAndFollowUps(){
+        List<Question> allQuestions=new ArrayList<>();
+        for(QuestionCount currQuestion: questionCounts){
+            allQuestions.add(currQuestion.getQuestion());
+            if(currQuestion.getQuestion().getFollowupQuestions().size()>0){
+                allQuestions.addAll(currQuestion.getQuestion().getFollowupQuestions());
+            }
+        }
+        return allQuestions;
+    }
+
+
     public List<Question> getTopLevelSeenQuestions(){
         List<Question> seen = new ArrayList<>();
         for (QuestionCount currQuestion: questionCounts){

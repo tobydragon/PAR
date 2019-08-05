@@ -29,7 +29,8 @@ public class LevelTaskGenerator implements TaskGenerator {
     }
 
     public LevelTaskGenerator(){}
-
+//TODO:PUT A TRY CATCH?
+    //TODO:TEST makeTask
     @Override
     public ImageTask makeTask(StudentModel studentModel, int questionCountPerTypeForAnalysis) {
         Map<String,List<QuestionCount>> questionTypesListMap=new LinkedHashMap<>();
@@ -37,7 +38,7 @@ public class LevelTaskGenerator implements TaskGenerator {
         int studentLevel=StudentModel.calcLevel(studentModel.calcKnowledgeEstimateByType(questionCountPerTypeForAnalysis));
         List<String> levelTypes=levelMap.get(studentLevel);
 
-        Question initialQuestion=leastSeenQuestion(levelTypes,questionTypesListMap.get(levelTypes.get(0)),studentModel);
+        Question initialQuestion=leastSeenQuestion(levelTypes,studentModel,questionTypesListMap);
         List<Question> questionList = buildQuestionListWithSameUrl2(studentModel, initialQuestion);
         questionList = TaskGeneratorImp1.filterQuestions(studentLevel, questionList);
         ImageTask imageTask = new ImageTask(initialQuestion.getImageUrl(), questionList);
@@ -47,15 +48,22 @@ public class LevelTaskGenerator implements TaskGenerator {
         return imageTask;
     }
 
-    public static Question leastSeenQuestion(List<String> types,List<QuestionCount> questionCountList,StudentModel studentModel){
+    public static Question leastSeenQuestion(List<String> types,StudentModel studentModel,Map<String,List<QuestionCount>> questionTypesListMap){
+        List<QuestionCount> typeQuestions=questionTypesListMap.get(types.get(0));
+
         int index=0;
-        for(int i=0;i<questionCountList.size();i++){
-            if(questionCountList.get(i).timesSeen <questionCountList.get(index).timesSeen ){
-                if(checkIfAllTypesInQuesList(types,studentModel,questionCountList.get(i).getQuestion()))
-                    index=i;
+
+        for(int i=0;i<typeQuestions.size();i++){
+            if(checkIfAllTypesInQuesList(types,studentModel,typeQuestions.get(i).getQuestion())) {
+                if(typeQuestions.get(i).timesSeen <typeQuestions.get(index).timesSeen || !checkIfAllTypesInQuesList(types,studentModel,typeQuestions.get(index).getQuestion())) {
+                    index = i;
+                }
             }
         }
-        return questionCountList.get(index).getQuestion();
+        if(!checkIfAllTypesInQuesList(types,studentModel,typeQuestions.get(index).getQuestion())){
+            throw new RuntimeException("Questions not present for the type(s)");
+        }
+        return typeQuestions.get(index).getQuestion();
     }
 
     public static boolean checkIfAllTypesInQuesList(List<String> types,StudentModel studentModel,Question question){
@@ -75,20 +83,14 @@ public class LevelTaskGenerator implements TaskGenerator {
 
     //TODO:REWRITE SO ALL QUESTIONS ARE GIVEN FROM TOP TO BOTTOM NO MATTER IF THEY'RE SEEN OR UNSEEN
     public static List<Question> buildQuestionListWithSameUrl2(StudentModel studentModel, Question initialQuestion){
-        //put initialQuestion, unseenQuestions and seenQuestions all in a list
-        List<Question> unseenQuestionsWithCorrectUrl = QuestionPool.getTopLevelQuestionsFromUrl(studentModel.getUserQuestionSet().getTopLevelUnseenQuestions(), initialQuestion.getImageUrl());
-        List<Question> seenQuestionsWithCorrectUrl = QuestionPool.getTopLevelQuestionsFromUrl(studentModel.getUserQuestionSet().getTopLevelSeenQuestions(), initialQuestion.getImageUrl());
-        List<Question> questionList = new ArrayList<>();
-        questionList.addAll(unseenQuestionsWithCorrectUrl);
-        questionList.addAll(seenQuestionsWithCorrectUrl);
-
+        List<Question> questionList = QuestionPool.getTopLevelQuestionsFromUrl(studentModel.getUserQuestionSet().getAllQuestionsAndFollowUps(), initialQuestion.getImageUrl());
         return questionList;
     }
 
 
 
 
-    public  void questionByTypeMap(List<QuestionCount> questionCountList, Map<String,List<QuestionCount>> questionTypesListMap ){
+    public  static void questionByTypeMap(List<QuestionCount> questionCountList, Map<String,List<QuestionCount>> questionTypesListMap ){
             for(QuestionCount questionCount:questionCountList){
                 if(questionTypesListMap.get(questionCount.getQuestion().getType())==null){
                     List<QuestionCount> questions=new ArrayList<>();

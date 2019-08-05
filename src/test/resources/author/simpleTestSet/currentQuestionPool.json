@@ -74,7 +74,7 @@
       "Type2",
       "Type3"
     ],
-    "imageUrl": "./images/demoEquine14.jpg",
+    "imageUrl": "./images/demoEquine08.jpg",
     "followupQuestions": []
   },
     {
@@ -100,7 +100,7 @@
     "Type2",
     "Type3"
   ],
-  "imageUrl": "./images/demoEquine14.jpg",
+  "imageUrl": "./images/demoEquine02.jpg",
   "followupQuestions": []
 },{
   "id": "AttachQ4",
@@ -112,7 +112,7 @@
     "Type2",
     "Type3"
   ],
-  "imageUrl": "./images/demoEquine02.jpg",
+  "imageUrl": "./images/demoEquine08.jpg",
   "followupQuestions": []
 }
 , {
