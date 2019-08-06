@@ -1,6 +1,8 @@
 package edu.ithaca.dragon.par.studentModel;
 
+import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
+import edu.ithaca.dragon.par.io.StudentReport;
 
 import java.util.*;
 
@@ -26,12 +28,12 @@ public class UserResponseSet {
             userResponses.add(response1);//updates to the last position (most recently answered)
         }
     }
+
     public void addAllResponses(List<ResponsesPerQuestion> allResponsesIn) {
         for (int i = 0; i < allResponsesIn.size(); i++) {
             addResponse(allResponsesIn.get(i));
         }
     }
-
 
     private int sameResponseCheck(ResponsesPerQuestion response) {
         if (userResponses.isEmpty()) {
@@ -46,11 +48,9 @@ public class UserResponseSet {
         return -1;
     }
 
-
     public int getUserResponsesSize() {
         return userResponses.size();
     }
-
 
     public int countTotalResponses() {
         int count = 0;
@@ -60,33 +60,30 @@ public class UserResponseSet {
         return count;
     }
 
-
     public void setUserResponses(List<ResponsesPerQuestion> userResponsesIn) {
         this.userResponses = userResponsesIn;
     }
+
     public List<ResponsesPerQuestion> getUserResponses() {
         return userResponses;
     }
 
-
     public void setUserId(String userIdIn) {
         this.userId = userIdIn;
     }
+
     public String getUserId() {
         return userId;
     }
-
 
     public double calcKnowledgeEstimate() {
         //TODO: should 12 be replaced by windowSize?
         return calcKnowledgeEstimate(userResponses, 12);
     }
 
-
     public double calcKnowledgeEstimate(int responseCountToConsider) {
         return calcKnowledgeEstimate(userResponses, responseCountToConsider);
     }
-
 
     /**
      * @param allResponses
@@ -106,7 +103,6 @@ public class UserResponseSet {
         return (scoreBeforeDivision / responsesToConsider);
     }
 
-
     public Map<String, Double> calcKnowledgeEstimateByType(int numOfRecentResponsesToConsider) {
         Map<String, List<ResponsesPerQuestion>> responseByType = splitResponsesByType(userResponses);
         Map<String, Double> responseByTypeDouble = new LinkedHashMap<>();
@@ -117,8 +113,7 @@ public class UserResponseSet {
         return responseByTypeDouble;
     }
 
-
-    private static  Map<String, List<ResponsesPerQuestion>> splitResponsesByType(List<ResponsesPerQuestion> responsesPerQuestions) {
+    public static  Map<String, List<ResponsesPerQuestion>> splitResponsesByType(List<ResponsesPerQuestion> responsesPerQuestions) {
         Map<String, List<ResponsesPerQuestion>> responseByType = new LinkedHashMap<>();
         List<ResponsesPerQuestion> responsesPerQuestion = new ArrayList<>();
         //adds types to the map from EquineQuestionTypes and give each type a new empty list
@@ -140,7 +135,6 @@ public class UserResponseSet {
         }
         return responseByType;
     }
-
 
     public Map<EquineQuestionTypes, String> calcKnowledgeEstimateStringsByType(int numOfRecentResponsesToConsider){
         Map<String, List<ResponsesPerQuestion>> responseByType = splitResponsesByType(userResponses);
@@ -179,7 +173,55 @@ public class UserResponseSet {
         else {
             return "X";
         }
+
     }
+
+    /*
+                                 Building StudentReport
+     */
+
+    public Map<String,Integer> allResponsesPerType(Map<String, List<ResponsesPerQuestion>> responseByType){
+        Map<String,Integer> responsesPerType=new LinkedHashMap<>();
+        int responseCount;
+        for(String currType:responseByType.keySet()){
+            responseCount=0;
+            for(int i=0;i<responseByType.get(currType).size();i++){
+                responseCount=responseCount+responseByType.get(currType).get(i).getAllResponses().size();
+            }
+            responsesPerType.put(currType,responseCount);
+        }
+        return responsesPerType;
+    }
+
+    public static Map<String, Integer> numberOfQuestionsPerType(Map<String, List<QuestionCount>> questionTypesListMap) {
+        Map<String, Integer> numberOfQuestionsPerType=new LinkedHashMap<>();
+        for(String currType:questionTypesListMap.keySet())
+            numberOfQuestionsPerType.put(currType,questionTypesListMap.get(currType).size());
+
+    return numberOfQuestionsPerType;
+    }
+
+    public Map<String, Integer> numOfQuestionsAnswered(Map<String, List<ResponsesPerQuestion>> splitResponsesByType) {
+        Map<String, Integer> numOfQuestionsAnswered=new LinkedHashMap<>();
+        for(String currType:splitResponsesByType.keySet()){
+            numOfQuestionsAnswered.put(currType,splitResponsesByType.get(currType).size());
+        }
+        return numOfQuestionsAnswered;
+    }
+    public StudentReport buildStudentReport(Map<String,List<QuestionCount>> questionTypesListMap,int numOfRecentResponsesToConsider){
+        Map<String, List<ResponsesPerQuestion>> splitResponsesByType=splitResponsesByType(userResponses);
+        Map<String,Integer> responsesPerType=allResponsesPerType(splitResponsesByType);
+        Map<String,Integer> questionsPerType=numberOfQuestionsPerType(questionTypesListMap);
+        Map<String,Double> currScoreForEachType=calcKnowledgeEstimateByType(numOfRecentResponsesToConsider);
+        Map<String,Integer> numberOfQuestionsAnswered=numOfQuestionsAnswered(splitResponsesByType);
+
+        //StudentReport studentReport=new StudentReport(userId,)
+
+        return null;
+    }
+
+
+
 
     @Override
     public boolean equals(Object otherObj) {

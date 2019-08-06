@@ -263,7 +263,7 @@ public class TaskGeneratorImp1Test {
         QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFewFollowups.json").getAllQuestions());
         StudentModel studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
         Map<String,List<QuestionCount>> questionByTypesMap=new LinkedHashMap<>();
-        new LevelTaskGenerator().questionByTypeMap(studentModel.getUserQuestionSet().getQuestionCounts(),questionByTypesMap);
+        StudentModel.questionByTypeMap(studentModel.getUserQuestionSet().getQuestionCounts(),questionByTypesMap);
 
         assertEquals(4,questionByTypesMap.size());
         //do bonus and attachment not being recorded
@@ -306,7 +306,7 @@ public class TaskGeneratorImp1Test {
         StudentModel testUser2 = datastore.getOrCreateStudentModel("testUser2");
 
         Map<String,List<QuestionCount>> questionTypesListMap=new LinkedHashMap<>();
-        LevelTaskGenerator.questionByTypeMap(testUser2.getUserQuestionSet().getQuestionCounts(),questionTypesListMap);
+        StudentModel.questionByTypeMap(testUser2.getUserQuestionSet().getQuestionCounts(),questionTypesListMap);
 
         assertEquals("plane./images/demoEquine02.jpg",LevelTaskGenerator.leastSeenQuestion(Arrays.asList(EquineQuestionTypes.plane.toString(),EquineQuestionTypes.structure.toString()),testUser2,questionTypesListMap).getId());
         assertEquals("plane./images/demoEquine13.jpg",LevelTaskGenerator.leastSeenQuestion(Arrays.asList(EquineQuestionTypes.plane.toString()),testUser2,questionTypesListMap).getId());
@@ -354,7 +354,7 @@ public class TaskGeneratorImp1Test {
 
         //make an imageTask and check aspects of it
         Map<String,List<QuestionCount>> questionTypesListMap=new LinkedHashMap<>();
-        LevelTaskGenerator.questionByTypeMap(studentModel.getUserQuestionSet().getQuestionCounts(),questionTypesListMap);
+        StudentModel.questionByTypeMap(studentModel.getUserQuestionSet().getQuestionCounts(),questionTypesListMap);
         Question task1Question = LevelTaskGenerator.leastSeenQuestion(Arrays.asList(EquineQuestionTypes.plane.toString()),studentModel, questionTypesListMap);
 
         ImageTask task1 = new ImageTask(task1Question.getImageUrl(), Arrays.asList(task1Question));
@@ -377,7 +377,7 @@ public class TaskGeneratorImp1Test {
         //try to make a single Question
         try{
             Map<String,List<QuestionCount>> questionTypesListMap=new LinkedHashMap<>();
-            LevelTaskGenerator.questionByTypeMap(studentModel.getUserQuestionSet().getQuestionCounts(),questionTypesListMap);
+            StudentModel.questionByTypeMap(studentModel.getUserQuestionSet().getQuestionCounts(),questionTypesListMap);
             Question newQ = LevelTaskGenerator.leastSeenQuestion(Arrays.asList(EquineQuestionTypes.plane.toString()),studentModel, questionTypesListMap);
             fail();
         }catch(Exception ee){

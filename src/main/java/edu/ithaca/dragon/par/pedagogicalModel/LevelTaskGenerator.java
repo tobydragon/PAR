@@ -33,7 +33,7 @@ public class LevelTaskGenerator implements TaskGenerator {
     @Override
     public ImageTask makeTask(StudentModel studentModel, int questionCountPerTypeForAnalysis) {
         Map<String,List<QuestionCount>> questionTypesListMap=new LinkedHashMap<>();
-        questionByTypeMap(studentModel.getUserQuestionSet().getQuestionCounts(),questionTypesListMap);
+        StudentModel.questionByTypeMap(studentModel.getUserQuestionSet().getQuestionCounts(),questionTypesListMap);
         int studentLevel=StudentModel.calcLevel(studentModel.calcKnowledgeEstimateByType(questionCountPerTypeForAnalysis));
         List<String> levelTypes=levelMap.get(studentLevel);
 
@@ -79,29 +79,10 @@ public class LevelTaskGenerator implements TaskGenerator {
         return true;
     }
 
-
-    //TODO:REWRITE SO ALL QUESTIONS ARE GIVEN FROM TOP TO BOTTOM NO MATTER IF THEY'RE SEEN OR UNSEEN
     public static List<Question> buildQuestionListWithSameUrl2(StudentModel studentModel, Question initialQuestion){
         List<Question> questionList = QuestionPool.getTopLevelQuestionsFromUrl(studentModel.getUserQuestionSet().getAllQuestionsAndFollowUps(), initialQuestion.getImageUrl());
         return questionList;
     }
-
-
-
-
-    public  static void questionByTypeMap(List<QuestionCount> questionCountList, Map<String,List<QuestionCount>> questionTypesListMap ){
-            for(QuestionCount questionCount:questionCountList){
-                if(questionTypesListMap.get(questionCount.getQuestion().getType())==null){
-                    List<QuestionCount> questions=new ArrayList<>();
-                    questions.add(questionCount);
-                    questionTypesListMap.put(questionCount.getQuestion().getType(),questions);
-                }
-                else questionTypesListMap.get(questionCount.getQuestion().getType()).add(questionCount);
-                //makes recursive call for follow ups
-                questionByTypeMap(questionCount.getFollowupCounts(),questionTypesListMap);
-            }
-    }
-
 
     private static QuestionCount getLeastSeenQuestionWithFollowup(List<QuestionCount> questionCountList){
         int index=0;

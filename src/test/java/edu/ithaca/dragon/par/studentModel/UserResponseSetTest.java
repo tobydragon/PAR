@@ -5,14 +5,14 @@ import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
 import edu.ithaca.dragon.par.io.JsonQuestionPoolDatastore;
+import edu.ithaca.dragon.par.io.UserResponseSetRecord;
 import edu.ithaca.dragon.util.DataUtil;
 import edu.ithaca.dragon.util.JsonUtil;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 
@@ -257,30 +257,66 @@ public class UserResponseSetTest {
 
     }
 
-    //TODO: why are these commented out?
-    /*
     @Test
-    public void splitResponsesByTypeTest()throws IOException{
-        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
-        List<ImageTaskResponse> responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponse.class);
-        UserResponseSet respSet=new UserResponseSet(responsesFromFile.get(0).getUserId());
-        List<ResponsesPerQuestion> userResponse =new ArrayList<>();
-        for(int i=0;i<questionsFromFile.size();i++){
-            ResponsesPerQuestion response = new ResponsesPerQuestion(responsesFromFile.get(0).getUserId(), questionsFromFile.get(i),responsesFromFile.get(0).getResponseTexts().get(i));
-            userResponse.add(response);
+    public void allResponsesPerTypeTest() throws IOException{
+        List<ResponsesPerQuestion> responsesPerQuestions=JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponsePerQuestionSet.json",ResponsesPerQuestion.class);
+        UserResponseSet userResponseSet=new UserResponseSet(responsesPerQuestions.get(0).getUserId());
+
+        for(ResponsesPerQuestion responsesPerQuestion:responsesPerQuestions){
+            userResponseSet.addResponse(responsesPerQuestion);
         }
-        respSet.addAllResponses(userResponse);
-        //UserResponseSet userResponseSet=new UserResponseSet("TestUser1");
-        Map<String, List<ResponsesPerQuestion>> responseByType = respSet.splitResponsesByType(respSet.getUserResponses());
-        //assertEquals(Arrays.asList("plane", "structure", "attachment", "zone"),responseByType.keySet());
-        for (EquineQuestionTypes currType: EquineQuestionTypes.values()) {
-            System.out.println(responseByType.get(currType.toString()).size());
-        }
-        System.out.println(responsesFromFile.get(0).getResponseTexts().size());
+
+        Map<String, List<ResponsesPerQuestion>> responseByType = userResponseSet.splitResponsesByType(userResponseSet.getUserResponses());
+        Map<String,Integer> responsesPerType=userResponseSet.allResponsesPerType(responseByType);
+
+        assertEquals(5,responsesPerType.get(EquineQuestionTypes.plane.toString()).intValue());
+        assertEquals(6,responsesPerType.get(EquineQuestionTypes.structure.toString()).intValue());
+        assertEquals(2,responsesPerType.get(EquineQuestionTypes.attachment.toString()).intValue());
+        assertEquals(7,responsesPerType.get(EquineQuestionTypes.zone.toString()).intValue());
 
     }
 
- */
+    @Test
+    public void numberOfQuestionsPerTypeTest()throws IOException{
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFewFollowups.json").getAllQuestions());
+        StudentModel studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
+        Map<String, List<QuestionCount>> questionTypesListMap=new LinkedHashMap<>();
+        StudentModel.questionByTypeMap(studentModel.getUserQuestionSet().getQuestionCounts(),questionTypesListMap);
+        Map<String, Integer> numberOfQuestionsPerType=UserResponseSet.numberOfQuestionsPerType(questionTypesListMap);
+
+        assertEquals(13,numberOfQuestionsPerType.get(EquineQuestionTypes.plane.toString()).intValue());
+        assertEquals(27,numberOfQuestionsPerType.get(EquineQuestionTypes.structure.toString()).intValue());
+        assertEquals(7,numberOfQuestionsPerType.get(EquineQuestionTypes.attachment.toString()).intValue());
+        assertEquals(10,numberOfQuestionsPerType.get(EquineQuestionTypes.zone.toString()).intValue());
+
+    }
+
+
+    @Test
+    public void numberOfQuestionsAnsweredByTypeTest()throws IOException{
+        List<ResponsesPerQuestion> responsesPerQuestions=JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponsePerQuestionSet.json",ResponsesPerQuestion.class);
+        UserResponseSet userResponseSet=new UserResponseSet(responsesPerQuestions.get(0).getUserId());
+
+        for(ResponsesPerQuestion responsesPerQuestion:responsesPerQuestions){
+            userResponseSet.addResponse(responsesPerQuestion);
+        }
+
+        Map<String, List<ResponsesPerQuestion>> responseByType = userResponseSet.splitResponsesByType(userResponseSet.getUserResponses());
+        Map<String,Integer> numberOfQuestionsAnsweredByType=userResponseSet.numOfQuestionsAnswered(responseByType);
+
+        assertEquals(5,numberOfQuestionsAnsweredByType.get(EquineQuestionTypes.plane.toString()).intValue());
+        assertEquals(5,numberOfQuestionsAnsweredByType.get(EquineQuestionTypes.structure.toString()).intValue());
+        assertEquals(2,numberOfQuestionsAnsweredByType.get(EquineQuestionTypes.attachment.toString()).intValue());
+        assertEquals(5,numberOfQuestionsAnsweredByType.get(EquineQuestionTypes.zone.toString()).intValue());
+
+
+    }
+
+
+
+    //TODO: why are these commented out?
+
+
     /*
     @Test
     public void knowledgeBaseCalcTest()throws IOException{

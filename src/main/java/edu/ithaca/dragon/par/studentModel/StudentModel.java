@@ -4,6 +4,7 @@ import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
+import edu.ithaca.dragon.par.io.StudentReport;
 
 import java.util.*;
 
@@ -134,6 +135,19 @@ public class StudentModel {
 
     public double calcKnowledgeEstimate(){
         return userResponseSet.calcKnowledgeEstimate();
+    }
+
+    public static void questionByTypeMap(List<QuestionCount> questionCountList, Map<String,List<QuestionCount>> questionTypesListMap ){
+        for(QuestionCount questionCount:questionCountList){
+            if(questionTypesListMap.get(questionCount.getQuestion().getType())==null){
+                List<QuestionCount> questions=new ArrayList<>();
+                questions.add(questionCount);
+                questionTypesListMap.put(questionCount.getQuestion().getType(),questions);
+            }
+            else questionTypesListMap.get(questionCount.getQuestion().getType()).add(questionCount);
+            //makes recursive call for follow ups
+            questionByTypeMap(questionCount.getFollowupCounts(),questionTypesListMap);
+        }
     }
 
     public Map<String,Double> calcKnowledgeEstimateByType(int numOfRecentResponsesToConsider){
