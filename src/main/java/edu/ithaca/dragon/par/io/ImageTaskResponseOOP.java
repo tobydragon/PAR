@@ -24,23 +24,12 @@ public class ImageTaskResponseOOP{
         }
     }
 
-    /**
-     * Converts questionResponses into a list of strings of which questionIds and their responses are alternated
-     * Ex: ["Q1", "responseToQ1", "Q2", "responseToQ2"]
-     */
-    public List<String> getQuestionResponses(){
-        List<String> toReturn = new ArrayList<>();
-        for(QuestionResponseOOP questionResponseOOP : questionResponses){
-            toReturn.add(questionResponseOOP.questionId);
-            toReturn.add(questionResponseOOP.responseText);
-        }
-        return toReturn;
+    public List<QuestionResponseOOP> getQuestionResponses(){
+        return questionResponses;
     }
 
-    public void setQuestionResponses(List<String> questionResponsesIn) {
-        for(int i=0; i<questionResponsesIn.size(); i=i+2){
-            questionResponses.add(new QuestionResponseOOP(questionResponsesIn.get(i), questionResponsesIn.get(i+1)));
-        }
+    public void setQuestionResponses(List<QuestionResponseOOP> questionResponsesIn) {
+        questionResponses = questionResponsesIn;
     }
 
     @JsonIgnore
