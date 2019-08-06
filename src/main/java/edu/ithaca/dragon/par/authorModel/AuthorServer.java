@@ -19,11 +19,11 @@ public class AuthorServer {
         return AuthorTaskGenerator.makeTaskTemplate(authorDatastore.getAuthorModel());
     }
 
-    public void imageTaskResponseSubmitted(ImageTaskResponseImp1 imageTaskResponseImp1) throws IOException{
-        for(String currId : imageTaskResponseImp1.getTaskQuestionIds()){
+    public void imageTaskResponseSubmitted(ImageTaskResponseOOP imageTaskResponse) throws IOException{
+        for(String currId : imageTaskResponse.getTaskQuestionIds()){
             Question currQuestion = authorDatastore.findTopLevelQuestionTemplateById(currId);
             if(currQuestion != null){
-                Question newQuestion = buildQuestionFromTemplate(currQuestion, imageTaskResponseImp1);
+                Question newQuestion = buildQuestionFromTemplate(currQuestion, imageTaskResponse);
                 authorDatastore.addQuestion(newQuestion);
                 authorDatastore.removeQuestionTemplateById(currQuestion.getId());
             }
@@ -34,14 +34,14 @@ public class AuthorServer {
         return AuthorTaskGenerator.authoredQuestions(authorDatastore.getAllAuthoredQuestions());
     }
 
-    public static Question buildQuestionFromTemplate(Question questionIn, ImageTaskResponseImp1 imageTaskResponseImp1){
-        String answer = imageTaskResponseImp1.findResponseToQuestion(questionIn);
+    public static Question buildQuestionFromTemplate(Question questionIn, ImageTaskResponseOOP imageTaskResponse){
+        String answer = imageTaskResponse.findResponseToQuestion(questionIn);
         if(answer == null){
             return null;
         }
         List<Question> followupQuestions = new ArrayList<>();
         for(Question currFollowup : questionIn.getFollowupQuestions()){
-            Question newFollowUp = buildQuestionFromTemplate(currFollowup, imageTaskResponseImp1);
+            Question newFollowUp = buildQuestionFromTemplate(currFollowup, imageTaskResponse);
             if (newFollowUp != null) {
                 followupQuestions.add(newFollowUp);
             }

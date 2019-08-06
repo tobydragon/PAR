@@ -52,9 +52,9 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
     }
 
     @Override
-    public void submitImageTaskResponse(String userId, ImageTaskResponseImp1 imageTaskResponseImp1) throws IOException{
+    public void submitImageTaskResponse(String userId, ImageTaskResponseOOP imageTaskResponse) throws IOException{
         StudentModel currentStudent = getStudentModel(userId);
-        currentStudent.imageTaskResponseSubmitted(imageTaskResponseImp1, questionPool);
+        currentStudent.imageTaskResponseSubmitted(imageTaskResponse, questionPool);
         overwriteStudentFile(currentStudent, studentModelFilePath, jsonIoUtil);
     }
 

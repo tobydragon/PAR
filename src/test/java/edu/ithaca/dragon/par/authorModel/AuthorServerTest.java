@@ -30,7 +30,7 @@ public class AuthorServerTest {
         assertEquals(0, pas.getQuestionCount());
         assertEquals(47, pas.getQuestionTemplateCount());
 
-        ImageTaskResponseImp1 imageTaskResponseImp11 = new ImageTaskResponseImp1("User1", Arrays.asList("plane./images/demoEquine14.jpg", "structure0./images/demoEquine14.jpg", "AttachQ1", "AttachQ2"), Arrays.asList("longitudinal", "Superficial digital flexor tendon", "AttachType1", "AttachType2"));
+        ImageTaskResponseOOP imageTaskResponseImp11 = new ImageTaskResponseOOP("User1", Arrays.asList("plane./images/demoEquine14.jpg", "structure0./images/demoEquine14.jpg", "AttachQ1", "AttachQ2"), Arrays.asList("longitudinal", "Superficial digital flexor tendon", "AttachType1", "AttachType2"));
         pas.imageTaskResponseSubmitted(imageTaskResponseImp11);
 
         assertEquals(45, pas.getQuestionTemplateCount());
@@ -38,7 +38,7 @@ public class AuthorServerTest {
         assertEquals(2, pas.findTopLevelQuestionById("structure0./images/demoEquine14.jpg").getFollowupQuestions().size());
         assertEquals("longitudinal", pas.findTopLevelQuestionById("plane./images/demoEquine14.jpg").getCorrectAnswer());
 
-        ImageTaskResponseImp1 imageTaskResponseImp12 = new ImageTaskResponseImp1("User1", Arrays.asList("structure2./images/demoEquine14.jpg", "structure3./images/demoEquine14.jpg", "zone./images/demoEquine14.jpg"), Arrays.asList("Metacarple Bone 3", "Superficial digital flexor tendon", "3a"));
+        ImageTaskResponseOOP imageTaskResponseImp12 = new ImageTaskResponseOOP("User1", Arrays.asList("structure2./images/demoEquine14.jpg", "structure3./images/demoEquine14.jpg", "zone./images/demoEquine14.jpg"), Arrays.asList("Metacarple Bone 3", "Superficial digital flexor tendon", "3a"));
         pas.imageTaskResponseSubmitted(imageTaskResponseImp12);
 
         assertEquals(42, pas.getQuestionTemplateCount());
@@ -126,12 +126,12 @@ public class AuthorServerTest {
         ImageTask imageTask = pas.nextImageTaskTemplate();
         assertEquals("./images/demoEquine14.jpg", imageTask.getImageUrl());
         assertEquals(5, imageTask.getTaskQuestions().size());
-        pas.imageTaskResponseSubmitted(new ImageTaskResponseImp1("Author1", Arrays.asList("plane./images/demoEquine14.jpg", "structure0./images/demoEquine14.jpg", "AttachQ1", "AttachQ2"), Arrays.asList("longitudinal", "Superficial digital flexor endon", "Type1", "Type2")));
+        pas.imageTaskResponseSubmitted(new ImageTaskResponseOOP("Author1", Arrays.asList("plane./images/demoEquine14.jpg", "structure0./images/demoEquine14.jpg", "AttachQ1", "AttachQ2"), Arrays.asList("longitudinal", "Superficial digital flexor endon", "Type1", "Type2")));
 
         ImageTask imageTask2 = pas.nextImageTaskTemplate();
         assertEquals("./images/demoEquine04.jpg", imageTask2.getImageUrl());
         assertEquals(3, imageTask2.getTaskQuestions().size());
-        pas.imageTaskResponseSubmitted(new ImageTaskResponseImp1("Author1", Arrays.asList("plane./images/demoEquine04.jpg", "structure0./images/demoEquine04.jpg", "AttachQ5", "zone./images/demoEquine04.jpg"), Arrays.asList("longitudinal", "Superficial digital flexor endon", "Type1", "3c")));
+        pas.imageTaskResponseSubmitted(new ImageTaskResponseOOP("Author1", Arrays.asList("plane./images/demoEquine04.jpg", "structure0./images/demoEquine04.jpg", "AttachQ5", "zone./images/demoEquine04.jpg"), Arrays.asList("longitudinal", "Superficial digital flexor endon", "Type1", "3c")));
 
         ImageTask imageTask3 = pas.nextImageTaskTemplate();
         assertEquals("./images/demoEquine14.jpg", imageTask3.getImageUrl());
@@ -140,7 +140,7 @@ public class AuthorServerTest {
         ImageTask imageTask4 = pas.nextImageTaskTemplate();
         assertEquals("./images/demoEquine14.jpg", imageTask4.getImageUrl());
         assertEquals(3, imageTask3.getTaskQuestions().size());
-        pas.imageTaskResponseSubmitted(new ImageTaskResponseImp1("Author1", Arrays.asList("structure2./images/demoEquine14.jpg","structure3./images/demoEquine14.jpg", "zone./images/demoEquine14.jpg"), Arrays.asList("Suspensory ligament (branches)", "Proximal sesamoid bones", "1A")));
+        pas.imageTaskResponseSubmitted(new ImageTaskResponseOOP("Author1", Arrays.asList("structure2./images/demoEquine14.jpg","structure3./images/demoEquine14.jpg", "zone./images/demoEquine14.jpg"), Arrays.asList("Suspensory ligament (branches)", "Proximal sesamoid bones", "1A")));
 
         //no more template questions
         ImageTask imageTask5 = pas.nextImageTaskTemplate();
