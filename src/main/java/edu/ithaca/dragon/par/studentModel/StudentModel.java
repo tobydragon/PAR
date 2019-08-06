@@ -90,12 +90,9 @@ public class StudentModel {
                 && this.getUserResponseSet().equals(other.getUserResponseSet());
     }
 
-    
     public String getUserId(){
         return userId;
     }
-
-
 
     public void addQuestion(Question q) {
         userQuestionSet.addQuestion(q);
@@ -117,9 +114,6 @@ public class StudentModel {
         userQuestionSet.increaseTimesSeen(questionId);
     }
 
-
-
-
     public UserResponseSet getUserResponseSet() {
         return userResponseSet;
     }
@@ -131,7 +125,6 @@ public class StudentModel {
     public int getResponseCount(){
         return userResponseSet.getUserResponsesSize();
     }
-
 
     public double calcKnowledgeEstimate(){
         return userResponseSet.calcKnowledgeEstimate();
@@ -152,5 +145,11 @@ public class StudentModel {
 
     public Map<String,Double> calcKnowledgeEstimateByType(int numOfRecentResponsesToConsider){
         return userResponseSet.calcKnowledgeEstimateByType(numOfRecentResponsesToConsider);
+    }
+
+    public StudentReport studentReport(int numOfRecentResponsesToConsider){
+        Map<String,List<QuestionCount>> questionTypesListMap=new LinkedHashMap<>();
+        questionByTypeMap(userQuestionSet.getQuestionCounts(),questionTypesListMap);
+        return userResponseSet.buildStudentReport(questionTypesListMap,numOfRecentResponsesToConsider);
     }
 }

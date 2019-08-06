@@ -208,16 +208,15 @@ public class UserResponseSet {
         }
         return numOfQuestionsAnswered;
     }
+
     public StudentReport buildStudentReport(Map<String,List<QuestionCount>> questionTypesListMap,int numOfRecentResponsesToConsider){
+
         Map<String, List<ResponsesPerQuestion>> splitResponsesByType=splitResponsesByType(userResponses);
         Map<String,Integer> responsesPerType=allResponsesPerType(splitResponsesByType);
         Map<String,Integer> questionsPerType=numberOfQuestionsPerType(questionTypesListMap);
-        Map<String,Double> currScoreForEachType=calcKnowledgeEstimateByType(numOfRecentResponsesToConsider);
         Map<String,Integer> numberOfQuestionsAnswered=numOfQuestionsAnswered(splitResponsesByType);
-
-        //StudentReport studentReport=new StudentReport(userId,)
-
-        return null;
+        Map<String,Double> currScoreForEachType=calcKnowledgeEstimateByType(numOfRecentResponsesToConsider);
+        return new StudentReport(userId,currScoreForEachType,responsesPerType,questionsPerType,numberOfQuestionsAnswered);
     }
 
 
