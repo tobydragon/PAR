@@ -1,5 +1,4 @@
 {
   "userId" : "response1",
-  "taskQuestionIds" : [ "PlaneQ1", "PlaneQ2", "PlaneQ3", "PlaneQ4", "PlaneQ5", "StructureQ1", "StructureQ2", "StructureQ3", "StructureQ4", "StructureQ5", "ZoneQ1", "ZoneQ2", "ZoneQ3", "ZoneQ4", "ZoneQ5" ],
-  "responseTexts" : [ "Lateral", "Transverse", "Lateral", "Lateral", "Transverse", "bone", "ligament", "tendon", "bone", "tumor", "3c", "1b", "3c", "2a", "2b" ]
+  "questionResponses" : [ "PlaneQ1", "Lateral", "PlaneQ2", "Transverse", "PlaneQ3", "Lateral", "PlaneQ4", "Lateral", "PlaneQ5", "Transverse", "StructureQ1", "bone", "StructureQ2","ligament", "StructureQ3", "tendon", "StructureQ4","bone", "StructureQ5", "tumor", "ZoneQ1", "3c", "ZoneQ2", "1b", "ZoneQ3", "3c", "ZoneQ4", "2a", "ZoneQ5", "2b" ]
 }
