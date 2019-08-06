@@ -1,0 +1,131 @@
+[ {
+  "userId" : "TestUser-A",
+  "scorePerType" : {
+    "plane" : 100.0,
+    "structure" : 100.0,
+    "attachment" : 100.0,
+    "zone" : 50.0
+  },
+  "responsesPerType" : {
+    "plane" : 5,
+    "structure" : 6,
+    "attachment" : 2,
+    "zone" : 7
+  },
+  "questionsPerTypeTotal" : {
+    "plane" : 5,
+    "structure" : 5,
+    "attachment" : 2,
+    "zone" : 5
+  },
+  "numberOfQuestionsAnswered" : {
+    "plane" : 5,
+    "structure" : 5,
+    "attachment" : 2,
+    "zone" : 5
+  }
+}, {
+  "userId" : "TestUser-B",
+  "scorePerType" : {
+    "plane" : 100.0,
+    "structure" : 100.0,
+    "attachment" : 100.0,
+    "zone" : 50.0
+  },
+  "responsesPerType" : {
+    "plane" : 5,
+    "structure" : 6,
+    "attachment" : 2,
+    "zone" : 7
+  },
+  "questionsPerTypeTotal" : {
+    "plane" : 5,
+    "structure" : 5,
+    "attachment" : 2,
+    "zone" : 5
+  },
+  "numberOfQuestionsAnswered" : {
+    "plane" : 5,
+    "structure" : 5,
+    "attachment" : 2,
+    "zone" : 5
+  }
+}, {
+  "userId" : "TestUser-C",
+  "scorePerType" : {
+    "plane" : 100.0,
+    "structure" : 100.0,
+    "attachment" : 100.0,
+    "zone" : 50.0
+  },
+  "responsesPerType" : {
+    "plane" : 5,
+    "structure" : 6,
+    "attachment" : 2,
+    "zone" : 7
+  },
+  "questionsPerTypeTotal" : {
+    "plane" : 5,
+    "structure" : 5,
+    "attachment" : 2,
+    "zone" : 5
+  },
+  "numberOfQuestionsAnswered" : {
+    "plane" : 5,
+    "structure" : 5,
+    "attachment" : 2,
+    "zone" : 5
+  }
+}, {
+  "userId" : "TestUser-D",
+  "scorePerType" : {
+    "plane" : 100.0,
+    "structure" : 100.0,
+    "attachment" : 100.0,
+    "zone" : 50.0
+  },
+  "responsesPerType" : {
+    "plane" : 5,
+    "structure" : 6,
+    "attachment" : 2,
+    "zone" : 7
+  },
+  "questionsPerTypeTotal" : {
+    "plane" : 5,
+    "structure" : 5,
+    "attachment" : 2,
+    "zone" : 5
+  },
+  "numberOfQuestionsAnswered" : {
+    "plane" : 5,
+    "structure" : 5,
+    "attachment" : 2,
+    "zone" : 5
+  }
+}, {
+  "userId" : "TestUser-E",
+  "scorePerType" : {
+    "plane" : 100.0,
+    "structure" : 100.0,
+    "attachment" : 100.0,
+    "zone" : 50.0
+  },
+  "responsesPerType" : {
+    "plane" : 5,
+    "structure" : 6,
+    "attachment" : 2,
+    "zone" : 7
+  },
+  "questionsPerTypeTotal" : {
+    "plane" : 5,
+    "structure" : 5,
+    "attachment" : 2,
+    "zone" : 5
+  },
+  "numberOfQuestionsAnswered" : {
+    "plane" : 5,
+    "structure" : 5,
+    "attachment" : 2,
+    "zone" : 5
+  }
+} ]

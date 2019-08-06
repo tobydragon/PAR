@@ -68,7 +68,6 @@ public class UserResponseSetTest {
 
     }
 
-
     @Test
     public void knowledgeCalcTest() throws IOException{
         List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
@@ -291,7 +290,6 @@ public class UserResponseSetTest {
 
     }
 
-
     @Test
     public void numberOfQuestionsAnsweredByTypeTest()throws IOException{
         List<ResponsesPerQuestion> responsesPerQuestions=JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponsePerQuestionSet.json",ResponsesPerQuestion.class);
@@ -311,6 +309,7 @@ public class UserResponseSetTest {
 
 
     }
+
 
 
 

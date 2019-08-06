@@ -2,15 +2,14 @@ package edu.ithaca.dragon.par;
 
 import edu.ithaca.dragon.par.authorModel.AuthorServer;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
-import edu.ithaca.dragon.par.io.AuthorDatastore;
-import edu.ithaca.dragon.par.io.ImageTask;
-import edu.ithaca.dragon.par.io.ImageTaskResponse;
-import edu.ithaca.dragon.par.io.StudentModelDatastore;
+import edu.ithaca.dragon.par.io.*;
 import edu.ithaca.dragon.par.pedagogicalModel.TaskGenerator;
 import edu.ithaca.dragon.par.pedagogicalModel.TaskGeneratorImp1;
+import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.util.DataUtil;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -88,4 +87,21 @@ public class ParStudentAndAuthorServer {
         studentModelDatastore.addQuestions(authorServer.removeAllAuthoredQuestions());
     }
 
+    //----------- Teacher methods-report  --------------//
+
+    public TeacherReport getTeacherReport()throws IOException{
+        List<StudentModel> studentModels=new ArrayList<>();
+        studentModels.addAll(studentModelDatastore.getAllStudentModels());
+        List<StudentReport> studentReports=new ArrayList<>();
+
+        for(StudentModel studentModel:studentModels) {
+            if (idealQuestionCountPerTypeForAnalysis <= studentModelDatastore.getMinQuestionCountPerType())
+                studentReports.add(studentModelDatastore.getStudentModel(studentModel.getUserId()).getStudentReport(idealQuestionCountPerTypeForAnalysis));
+            else
+                studentReports.add(studentModelDatastore.getStudentModel(studentModel.getUserId()).getStudentReport(studentModelDatastore.getMinQuestionCountPerType()));
+        }
+        TeacherReport teacherReport=new TeacherReport(studentReports);
+
+        return teacherReport;
+    }
 }

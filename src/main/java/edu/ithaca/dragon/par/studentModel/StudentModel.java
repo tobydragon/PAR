@@ -147,7 +147,7 @@ public class StudentModel {
         return userResponseSet.calcKnowledgeEstimateByType(numOfRecentResponsesToConsider);
     }
 
-    public StudentReport studentReport(int numOfRecentResponsesToConsider){
+    public StudentReport getStudentReport(int numOfRecentResponsesToConsider){
         Map<String,List<QuestionCount>> questionTypesListMap=new LinkedHashMap<>();
         questionByTypeMap(userQuestionSet.getQuestionCounts(),questionTypesListMap);
         return userResponseSet.buildStudentReport(questionTypesListMap,numOfRecentResponsesToConsider);

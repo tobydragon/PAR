@@ -56,6 +56,17 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
     }
 
     @Override
+    public List<StudentModel> getAllStudentModels()throws IOException{
+        List<StudentModel> studentModels=new ArrayList<>();
+        HashSet<String> studentIds = new HashSet<>(studentModelMap.keySet());
+        for(String currId:studentIds){
+            StudentModel studentModel=getOrCreateStudentModel(currId);
+            studentModels.add(studentModel);
+        }
+        return studentModels;
+    }
+
+    @Override
     public void submitImageTaskResponse(String userId, ImageTaskResponse imageTaskResponse) throws IOException{
         StudentModel currentStudent = getStudentModel(userId);
         currentStudent.imageTaskResponseSubmitted(imageTaskResponse, questionPool);
