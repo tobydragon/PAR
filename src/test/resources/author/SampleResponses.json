@@ -80,18 +80,18 @@
     "responseText" : "tumor"
   }, {
     "questionId" : "ZoneQ1",
-    "responseText" : "3c"
+    "responseText" : "3cx"
   }, {
     "questionId" : "ZoneQ2",
-    "responseText" : "1b"
+    "responseText" : "1bx"
   }, {
     "questionId" : "ZoneQ3",
-    "responseText" : "3c"
+    "responseText" : "3cx"
   }, {
     "questionId" : "ZoneQ4",
-    "responseText" : "2a"
+    "responseText" : "2ax"
   }, {
     "questionId" : "ZoneQ5",
-    "responseText" : "2b"
+    "responseText" : "2bx"
   } ]
 }]
