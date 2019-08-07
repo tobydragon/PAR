@@ -254,7 +254,6 @@ public class TaskGeneratorImp1Test {
 
 /*
                                     All the new tests for LevelTaskGenerator
-                     *side note - should attachment questions be seen over structure at level 5 and 6?*
  */
 
 
@@ -271,6 +270,20 @@ public class TaskGeneratorImp1Test {
         assertEquals(27,questionByTypesMap.get(EquineQuestionTypes.structure.toString()).size());
         assertEquals(7,questionByTypesMap.get(EquineQuestionTypes.attachment.toString()).size());
         assertEquals(10,questionByTypesMap.get(EquineQuestionTypes.zone.toString()).size());
+    }
+
+    @Test
+    public void makeTaskWithSingleQuestionTestFix() throws IOException{
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/SampleQuestionPool.json").getAllQuestions());
+        StudentModel studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
+        studentModel.getUserQuestionSet().increaseTimesSeenAllQuestions(studentModel.getUserQuestionSet().getTopLevelUnseenQuestions());
+        Map<String,List<QuestionCount>> questionByTypesMap=new LinkedHashMap<>();
+        StudentModel.questionByTypeMap(studentModel.getUserQuestionSet().getQuestionCounts(),questionByTypesMap);
+
+        Question task1Question = LevelTaskGenerator.leastSeenQuestion(Arrays.asList(EquineQuestionTypes.plane.toString()),studentModel, questionByTypesMap);
+        ImageTask task1 = new ImageTask(task1Question.getImageUrl(), Arrays.asList(task1Question));
+        assertEquals("./images/demoEquine04.jpg", task1.getImageUrl());
+
     }
 
     @Test
@@ -308,7 +321,7 @@ public class TaskGeneratorImp1Test {
         Map<String,List<QuestionCount>> questionTypesListMap=new LinkedHashMap<>();
         StudentModel.questionByTypeMap(testUser2.getUserQuestionSet().getQuestionCounts(),questionTypesListMap);
 
-        assertEquals("plane./images/demoEquine02.jpg",LevelTaskGenerator.leastSeenQuestion(Arrays.asList(EquineQuestionTypes.plane.toString(),EquineQuestionTypes.structure.toString()),testUser2,questionTypesListMap).getId());
+        assertEquals("plane./images/demoEquine14.jpg",LevelTaskGenerator.leastSeenQuestion(Arrays.asList(EquineQuestionTypes.plane.toString(),EquineQuestionTypes.structure.toString()),testUser2,questionTypesListMap).getId());
         assertEquals("plane./images/demoEquine13.jpg",LevelTaskGenerator.leastSeenQuestion(Arrays.asList(EquineQuestionTypes.plane.toString()),testUser2,questionTypesListMap).getId());
         assertEquals( "structure0./images/demoEquine02.jpg",LevelTaskGenerator.leastSeenQuestion(Arrays.asList(EquineQuestionTypes.structure.toString()),testUser2,questionTypesListMap).getId());
         assertEquals( "structure0./images/demoEquine02.jpg",LevelTaskGenerator.leastSeenQuestion(Arrays.asList(EquineQuestionTypes.structure.toString(),EquineQuestionTypes.attachment.toString()),testUser2,questionTypesListMap).getId());
@@ -393,5 +406,40 @@ public class TaskGeneratorImp1Test {
         }
     }
 
+    @Test
+    public void buildQuestionListWithSameUrlImp2Test()throws IOException{
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPool.json").getAllQuestions());
+        StudentModel studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
+
+        //first url
+        Question q1 = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions().get(0);
+        List<Question> qs = LevelTaskGenerator.buildQuestionListWithSameUrl2(studentModel, q1);
+        assertEquals(5, qs.size());
+
+        //second url
+        Question q2 = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions().get(5);
+        qs = LevelTaskGenerator.buildQuestionListWithSameUrl2(studentModel, q2);
+        assertEquals(6, qs.size());
+
+        //third url
+        Question q3 = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions().get(11);
+        qs = LevelTaskGenerator.buildQuestionListWithSameUrl2(studentModel, q3);
+        assertEquals(4, qs.size());
+
+        //fourth url
+        Question q4 = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions().get(15);
+        qs = LevelTaskGenerator.buildQuestionListWithSameUrl2(studentModel, q4);
+        assertEquals(3, qs.size());
+        //repeat
+        qs = LevelTaskGenerator.buildQuestionListWithSameUrl2(studentModel, q4);
+        assertEquals(3, qs.size());
+        qs = LevelTaskGenerator.buildQuestionListWithSameUrl2(studentModel, q4);
+        assertEquals(3, qs.size());
+
+        //last question
+        Question q5 = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions().get(questionPool.getAllQuestions().size()-1);
+        qs = LevelTaskGenerator.buildQuestionListWithSameUrl2(studentModel, q5);
+        assertEquals(6, qs.size());
+    }
 
 }

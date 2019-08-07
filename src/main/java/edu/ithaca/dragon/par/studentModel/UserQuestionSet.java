@@ -31,13 +31,13 @@ public class UserQuestionSet {
     public List<QuestionCount> getQuestionCounts(){ return questionCounts; }
 
     //TODO NEW
-    public List<Question> getAllQuestionsAndFollowUps(){
+    public List<Question> getAllQuestions(){
         List<Question> allQuestions=new ArrayList<>();
         for(QuestionCount currQuestion: questionCounts){
             allQuestions.add(currQuestion.getQuestion());
-            if(currQuestion.getQuestion().getFollowupQuestions().size()>0){
-                allQuestions.addAll(currQuestion.getQuestion().getFollowupQuestions());
-            }
+           // if(currQuestion.getQuestion().getFollowupQuestions().size()>0){
+          //      allQuestions.addAll(currQuestion.getQuestion().getFollowupQuestions());
+         //   }
         }
         return allQuestions;
     }

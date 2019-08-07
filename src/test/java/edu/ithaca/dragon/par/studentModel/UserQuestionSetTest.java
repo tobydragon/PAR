@@ -411,11 +411,12 @@ public class UserQuestionSetTest {
         assertEquals(3, len);
     }
     @Test
-    public void getAllQuestionsAndFollowUpsTest() throws IOException{
+    public void getAllQuestionsTest() throws IOException{
         List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/simpleTestSet/currentQuestionPool.json", Question.class);
         UserQuestionSet que = UserQuestionSet.buildNewUserQuestionSetFromQuestions("1", questionsFromFile);
-        List<Question> allQuestions = que.getAllQuestionsAndFollowUps();
-        assertEquals(18,allQuestions.size());
+        List<Question> allQuestions = que.getAllQuestions();
+        que.increaseTimesSeenAllQuestions(allQuestions);
+        assertEquals(16,allQuestions.size());
 
     }
 

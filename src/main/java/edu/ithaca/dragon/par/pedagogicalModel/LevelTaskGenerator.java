@@ -28,7 +28,7 @@ public class LevelTaskGenerator implements TaskGenerator {
     }
 
     public LevelTaskGenerator(){}
-//TODO:PUT A TRY CATCH?
+
     //TODO:TEST makeTask
     @Override
     public ImageTask makeTask(StudentModel studentModel, int questionCountPerTypeForAnalysis) {
@@ -80,7 +80,7 @@ public class LevelTaskGenerator implements TaskGenerator {
     }
 
     public static List<Question> buildQuestionListWithSameUrl2(StudentModel studentModel, Question initialQuestion){
-        List<Question> questionList = QuestionPool.getTopLevelQuestionsFromUrl(studentModel.getUserQuestionSet().getAllQuestionsAndFollowUps(), initialQuestion.getImageUrl());
+        List<Question> questionList = QuestionPool.getTopLevelQuestionsFromUrl(studentModel.getUserQuestionSet().getAllQuestions(), initialQuestion.getImageUrl());
         return questionList;
     }
 
