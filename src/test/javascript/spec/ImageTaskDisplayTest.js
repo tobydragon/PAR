@@ -10,28 +10,6 @@ describe("ImageTaskDisplay", function () {
         expect(checkIfShouldAddFollowupQ("true")).toBe(false);
     });
 
-    it("addToResponseIds", function () {
-        let test1 = new Response("test");
-        addToResponseIds(test1, "\"zone./images/demoEquine14.jpg\"");
-        expect(test1.taskQuestionIds.length).toBe(1);
-        expect(test1.taskQuestionIds).toEqual(['"zone./images/demoEquine14.jpg"']);
-
-        addToResponseIds(test1, "\"zone./images/demoEquine14.jpg\"");
-        expect(test1.taskQuestionIds.length).toBe(1);
-        expect(test1.taskQuestionIds).toEqual(['"zone./images/demoEquine14.jpg"']);
-
-        addToResponseIds(test1, "\"plane./images/demoEquine02.jpg\"");
-        expect(test1.taskQuestionIds.length).toBe(2);
-        expect(test1.taskQuestionIds).toEqual(['"zone./images/demoEquine14.jpg"', '"plane./images/demoEquine02.jpg"']);
-
-        addToResponseIds(test1, "\"plane./images/demoEquine02.jpg\"");
-        expect(test1.taskQuestionIds.length).toBe(2);
-        expect(test1.taskQuestionIds).toEqual(['"zone./images/demoEquine14.jpg"', '"plane./images/demoEquine02.jpg"']);
-
-        addToResponseIds(test1, "\"BonusQ2\"");
-        expect(test1.taskQuestionIds.length).toBe(3);
-        expect(test1.taskQuestionIds).toEqual(['"zone./images/demoEquine14.jpg"', '"plane./images/demoEquine02.jpg"', '"BonusQ2"']);
-    });
 
     it("giveFeedback", function () {
         let feedbackByType = {
