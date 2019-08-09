@@ -130,17 +130,8 @@ public class StudentModel {
         return userResponseSet.calcKnowledgeEstimate();
     }
 
-    public static void questionByTypeMap(List<QuestionCount> questionCountList, Map<String,List<QuestionCount>> questionTypesListMap ){
-        for(QuestionCount questionCount:questionCountList){
-            if(questionTypesListMap.get(questionCount.getQuestion().getType())==null){
-                List<QuestionCount> questions=new ArrayList<>();
-                questions.add(questionCount);
-                questionTypesListMap.put(questionCount.getQuestion().getType(),questions);
-            }
-            else questionTypesListMap.get(questionCount.getQuestion().getType()).add(questionCount);
-            //makes recursive call for follow ups
-            questionByTypeMap(questionCount.getFollowupCounts(),questionTypesListMap);
-        }
+    public Map<String,List<QuestionCount>> questionCountsByTypeMap (){
+        return userQuestionSet.questionCountsByTypeMap();
     }
 
     public Map<String,Double> calcKnowledgeEstimateByType(int numOfRecentResponsesToConsider){
@@ -148,8 +139,6 @@ public class StudentModel {
     }
 
     public StudentReport getStudentReport(int numOfRecentResponsesToConsider){
-        Map<String,List<QuestionCount>> questionTypesListMap=new LinkedHashMap<>();
-        questionByTypeMap(userQuestionSet.getQuestionCounts(),questionTypesListMap);
-        return userResponseSet.buildStudentReport(questionTypesListMap,numOfRecentResponsesToConsider);
+        return userResponseSet.buildStudentReport(userQuestionSet.questionCountsByTypeMap(),numOfRecentResponsesToConsider);
     }
 }

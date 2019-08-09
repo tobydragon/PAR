@@ -5,7 +5,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class UserQuestionSet {
@@ -149,6 +151,25 @@ public class UserQuestionSet {
         }
         QuestionCount qcToAdd = new QuestionCount(q);
         questionCounts.add(qcToAdd);
+    }
+
+    public Map<String,List<QuestionCount>> questionCountsByTypeMap (){
+        Map<String,List<QuestionCount>> questionTypesListMapToUpdate = new LinkedHashMap<>();
+        questionCountsByTypeMap(this.questionCounts, questionTypesListMapToUpdate);
+        return questionTypesListMapToUpdate;
+    }
+
+    public static void questionCountsByTypeMap(List<QuestionCount> questionCountList, Map<String,List<QuestionCount>> questionTypesListMap ){
+        for(QuestionCount questionCount:questionCountList){
+            if(questionTypesListMap.get(questionCount.getQuestion().getType())==null){
+                List<QuestionCount> questions=new ArrayList<>();
+                questions.add(questionCount);
+                questionTypesListMap.put(questionCount.getQuestion().getType(),questions);
+            }
+            else questionTypesListMap.get(questionCount.getQuestion().getType()).add(questionCount);
+            //makes recursive call for follow ups
+            questionCountsByTypeMap(questionCount.getFollowupCounts(),questionTypesListMap);
+        }
     }
 }
 

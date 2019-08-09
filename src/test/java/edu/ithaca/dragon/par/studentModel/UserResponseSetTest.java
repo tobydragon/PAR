@@ -279,8 +279,7 @@ public class UserResponseSetTest {
     public void numberOfQuestionsPerTypeTest()throws IOException{
         QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFewFollowups.json").getAllQuestions());
         StudentModel studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
-        Map<String, List<QuestionCount>> questionTypesListMap=new LinkedHashMap<>();
-        StudentModel.questionByTypeMap(studentModel.getUserQuestionSet().getQuestionCounts(),questionTypesListMap);
+        Map<String, List<QuestionCount>> questionTypesListMap=studentModel.questionCountsByTypeMap();
         Map<String, Integer> numberOfQuestionsPerType=UserResponseSet.numberOfQuestionsPerType(questionTypesListMap);
 
         assertEquals(13,numberOfQuestionsPerType.get(EquineQuestionTypes.plane.toString()).intValue());
