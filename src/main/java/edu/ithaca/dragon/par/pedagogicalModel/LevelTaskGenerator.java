@@ -2,6 +2,7 @@ package edu.ithaca.dragon.par.pedagogicalModel;
 
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
+import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.studentModel.QuestionCount;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
@@ -19,7 +20,7 @@ public class LevelTaskGenerator implements TaskGenerator {
     //TODO:TEST makeTask
     @Override
     public ImageTask makeTask(StudentModel studentModel, int questionCountPerTypeForAnalysis) {
-        int studentLevel=StudentModel.calcLevel(studentModel.calcKnowledgeEstimateByType(questionCountPerTypeForAnalysis));
+        int studentLevel = calcLevel(studentModel.calcKnowledgeEstimateByType(questionCountPerTypeForAnalysis));
         List<String> levelTypes= levelToTypesMap.get(studentLevel);
 
         Question initialQuestion= leastSeenQuestionWithTypesNeeded(levelTypes,studentModel);
@@ -66,6 +67,44 @@ public class LevelTaskGenerator implements TaskGenerator {
             }
         }
         return true;
+    }
+
+    public static int calcLevel(Map<String, Double> scoresPerType) {
+        List<Double> orderedScores = orderedScores(scoresPerType);
+        int level = 1;//sets score to one
+
+        if (orderedScores.get(0) < 60)
+            return level;//if user has score less than 75 on plane , returns level 1
+
+        else {
+            for(int i = 0; i < orderedScores.size()-1; i++) {
+
+                if (orderedScores.get(i) >= 60 && orderedScores.get(i) < 100) {//if score is less than 100 and greater than 74, adds a level
+                    level = level + 1;
+                    return level;//returns level in this case
+                }
+
+                else if (orderedScores.get(i) == 100)
+                    level = level + 2;//if score is 100, adds 2 to level/skips a level
+            }
+
+            return level;
+        }
+    }
+
+    //TODO: abstract this into the domain package
+    private static List<Double> orderedScores(Map<String, Double> scoresPerType){
+        List<Double> orderedScores=new ArrayList<>();
+        for(EquineQuestionTypes quesType: EquineQuestionTypes.values()){
+            if(scoresPerType.get(quesType.toString())==null){
+                orderedScores.add(-1.0);
+            }
+            else {
+                orderedScores.add(scoresPerType.get(quesType.toString()));
+            }
+        }
+
+        return orderedScores;//ordered list of scores
     }
 
 }

@@ -21,7 +21,7 @@ public class TaskGeneratorImp1 implements TaskGenerator {
      * @return
      */
     public ImageTask makeTask(StudentModel studentModel, int questionCountPerTypeForAnalysis){
-        return makeTaskGivenLevel(studentModel, StudentModel.calcLevel(studentModel.calcKnowledgeEstimateByType(questionCountPerTypeForAnalysis)));
+        return makeTaskGivenLevel(studentModel, LevelTaskGenerator.calcLevel(studentModel.calcKnowledgeEstimateByType(questionCountPerTypeForAnalysis)));
     }
 
     /**
@@ -127,7 +127,7 @@ public class TaskGeneratorImp1 implements TaskGenerator {
      * @return
      */
     public static ImageTask findLevelAndMakeTask(StudentModel studentModel, int questionCountPerTypeForAnalysis){
-        return makeTaskGivenLevel(studentModel, StudentModel.calcLevel(studentModel.calcKnowledgeEstimateByType(questionCountPerTypeForAnalysis)));
+        return makeTaskGivenLevel(studentModel, LevelTaskGenerator.calcLevel(studentModel.calcKnowledgeEstimateByType(questionCountPerTypeForAnalysis)));
     }
 
     public static ImageTask makeTaskGivenLevel(StudentModel studentModel, int level){
