@@ -30,14 +30,11 @@ class CompleteDisplay {
     }
 
     nextImageTask() {
-        document.getElementById("questionSet").innerText = "";
+        document.getElementById('imageTaskArea').innerText = "";
         this.pageDisplay.nextImageTask();
     }
 
     nextQuestion() {
-        document.getElementById("submitButton").classList.remove("hide");
-        document.getElementById("helpfulFeedback").innerHTML = " ";
-        document.getElementById("errorFeedback").innerHTML = " ";
         if (!this.pageDisplay.imageTaskDisplay.mustSubmitAnswersToContinue) {
             this.nextImageTask();
         } else {
@@ -47,13 +44,23 @@ class CompleteDisplay {
                 document.getElementById("errorFeedback").innerHTML = "<font color=red>Must submit answers to continue</font>";
             }
         }
-        if(this.pageDisplay.isAuthor){
-            document.getElementById("submitButton").classList.remove("hide");
-            document.getElementById("authorReviewSubmitButton").classList.add("hide");
+    }
+
+    submitAnswers() {
+        this.pageDisplay.imageTaskDisplay.submitAnswers();
+        if (this.pageDisplay.isAuthor) {
+            this.nextQuestion();
         }
     }
 
-    showScoreInner(){
+    enterAuthorWrite() {
+        document.getElementById('imageTaskArea').innerText = "";
+        enableElement(document.getElementById("submitAuthorButton"));
+        disableElement(document.getElementById("createAuthorQButton"));
+        this.nextQuestion();
+    }
+
+    showScoreInner() {
         showScoreOuter(this.pageDisplay.showScore, this.pageDisplay.scoreType, this.userID);
     }
 }
@@ -72,7 +79,7 @@ function displayScore(given) {
     document.getElementById("score").appendChild(given);
 }
 
-function  generateScore(scoreType, userID) {
+function generateScore(scoreType, userID) {
     if (scoreType === "VisualByType") {
         let visJSON = readJson("api/knowledgeBase?userId=" + userID);
         return setCurrentScore(visJSON, scoreType);

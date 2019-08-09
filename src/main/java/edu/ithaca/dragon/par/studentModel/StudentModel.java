@@ -45,13 +45,13 @@ public class StudentModel {
         List<Double> orderedScores = orderedScores(scoresPerType);
         int level = 1;//sets score to one
 
-        if (orderedScores.get(0) < 75)
+        if (orderedScores.get(0) < 60)
             return level;//if user has score less than 75 on plane , returns level 1
 
         else {
             for(int i = 0; i < orderedScores.size()-1; i++) {
 
-                if (orderedScores.get(i) > 74 && orderedScores.get(i) < 100) {//if score is less than 100 and greater than 74, adds a level
+                if (orderedScores.get(i) >= 60 && orderedScores.get(i) < 100) {//if score is less than 100 and greater than 74, adds a level
                     level = level + 1;
                     return level;//returns level in this case
                 }

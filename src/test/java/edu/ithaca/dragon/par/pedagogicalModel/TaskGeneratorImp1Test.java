@@ -79,13 +79,10 @@ public class TaskGeneratorImp1Test {
 
         }
 
-        //try to make a task
-        try{
-            ImageTask imageTask = new TaskGeneratorImp1().makeTask(studentModel, 4);
-            fail();
-        }catch(Exception ee){
 
-        }
+        ImageTask imageTask = new TaskGeneratorImp1().makeTask(studentModel, 4);
+        assertEquals("noMoreQuestions", imageTask.getImageUrl());
+
     }
 
     @Test
@@ -122,32 +119,32 @@ public class TaskGeneratorImp1Test {
 
         //first url
         Question q1 = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions().get(0);
-        List<Question> qs = TaskGeneratorImp1.buildQuestionListWithSameUrl(studentModel, q1);
+        List<Question> qs = TaskGeneratorImp1.addAllQuestions(studentModel, q1);
         assertEquals(5, qs.size());
 
         //second url
         Question q2 = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions().get(5);
-        qs = TaskGeneratorImp1.buildQuestionListWithSameUrl(studentModel, q2);
+        qs = TaskGeneratorImp1.addAllQuestions(studentModel, q2);
         assertEquals(6, qs.size());
 
         //third url
         Question q3 = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions().get(11);
-        qs = TaskGeneratorImp1.buildQuestionListWithSameUrl(studentModel, q3);
+        qs = TaskGeneratorImp1.addAllQuestions(studentModel, q3);
         assertEquals(4, qs.size());
 
         //fourth url
         Question q4 = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions().get(15);
-        qs = TaskGeneratorImp1.buildQuestionListWithSameUrl(studentModel, q4);
+        qs = TaskGeneratorImp1.addAllQuestions(studentModel, q4);
         assertEquals(3, qs.size());
         //repeat
-        qs = TaskGeneratorImp1.buildQuestionListWithSameUrl(studentModel, q4);
+        qs = TaskGeneratorImp1.addAllQuestions(studentModel, q4);
         assertEquals(3, qs.size());
-        qs = TaskGeneratorImp1.buildQuestionListWithSameUrl(studentModel, q4);
+        qs = TaskGeneratorImp1.addAllQuestions(studentModel, q4);
         assertEquals(3, qs.size());
 
         //last question
         Question q5 = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions().get(questionPool.getAllQuestions().size()-1);
-        qs = TaskGeneratorImp1.buildQuestionListWithSameUrl(studentModel, q5);
+        qs = TaskGeneratorImp1.addAllQuestions(studentModel, q5);
         assertEquals(6, qs.size());
     }
 

@@ -4,20 +4,24 @@ class PageDisplay {
         this.imageTaskDisplay = null;
         this.userId = null;
         //settings
-        this.pageSettings= pageSettings;
+        this.pageSettings = pageSettings;
         this.scoreType = pageSettings.scoreType;
         this.showScore = pageSettings.showScore;
-        this.imageTaskSettings=null;
+        this.imageTaskSettings = null;
     }
 
     setIsAuthor() {
         this.isAuthor = setIsAuthor(this.userId);
-        if(!this.isAuthor){
+    }
+
+    authorEffects() {
+        if (!this.isAuthor) {
             document.getElementById("submitAuthorButton").classList.add("hide");
+            document.getElementById("createAuthorQButton").classList.add("hide");
         } else {
-            document.getElementById("scoreTag").innerText= "";
+            document.getElementById("scoreTag").innerText = "";
+            disableElement(document.getElementById("createAuthorQButton"));
         }
-        document.getElementById("authorReviewSubmitButton").classList.add("hide");
     }
 
     nextImageTask() {
@@ -28,7 +32,11 @@ class PageDisplay {
             } else {
                 var imageTaskJSON = readJson("api/nextImageTask?userId=" + this.userId);
             }
-            this.imageTaskDisplay = new ImageTaskDisplay(imageTaskJSON, this.userId, this.imageTaskSettings, this.isAuthor, "myCanvas", this.pageSettings);
+            this.imageTaskDisplay = new ImageTaskDisplay(imageTaskJSON, this.userId, this.imageTaskSettings, this.isAuthor, "myCanvas", this.pageSettings, 0);
+            //0 used for counter as 1 image task doesnt need an incrementing value
+            let element = imageTaskHTML(this.imageTaskDisplay);
+            document.getElementById('imageTaskArea').appendChild(element);
+            this.imageTaskDisplay.displayImageUrl();
 
         } catch (Exception) {
             window.onerror = function (msg) {
@@ -43,8 +51,8 @@ class PageDisplay {
         return location.replace('/login');
     }
 
-    authorSubmitFinal(){
-        document.getElementById("canvasArea").innerText = "";
+    authorSubmitFinal() {
+        document.getElementById('imageTaskArea').innerText = "";
         try {
             let request = new XMLHttpRequest();
             request.open("GET", "/api/transferAuthoredQuestionsToStudents", false);
@@ -57,44 +65,43 @@ class PageDisplay {
                 location.replace('/error?message=' + msg);
             }
         }
+        document.getElementById('imageTaskArea').innerText = "Questions Submitted";
     }
 
-    enterAuthorReview(){
-        document.getElementById("questionSet").innerHTML = " ";
-        document.getElementById("canvasArea").innerText = "";
-        let listOfImageTasks= readJson("/api/authoredQuestions");
+    enterAuthorReview() {
+        enableElement(document.getElementById("createAuthorQButton"));
+        disableElement(document.getElementById("submitAuthorButton"));
+        document.getElementById('imageTaskArea').innerHTML = " ";
+        let listOfImageTasks = readJson("/api/authoredQuestions");
         enterAuthorReview(listOfImageTasks, this.userId, this.imageTaskSettings, this.isAuthor, this.pageSettings);
     }
 
 }
 
-function enterAuthorReview(listOfImageTasks, userId, imageTaskSettings, isAuthor, pageSettings){
-    document.getElementById("authorReviewSubmitButton").classList.remove("hide");
-    document.getElementById("submitButton").classList.add("hide");
-
-    for(var i=0; i<listOfImageTasks.length; i++){
-        let current=listOfImageTasks[i];
-        let canvasName= "canvas"+i;
-        if(i>0) {
-            formatAuthorReviewQuestions(i);
-        }
-        let newImageTask= new ImageTaskDisplay(current, userId, imageTaskSettings, isAuthor, canvasName, pageSettings);
+function enterAuthorReview(listOfImageTasks, userId, imageTaskSettings, isAuthor, pageSettings) {
+    for (var i = 0; i < listOfImageTasks.length; i++) {
+        let current = listOfImageTasks[i];
+        let canvasName = "canvas" + i;
+        let newImageTask = new ImageTaskDisplay(current, userId, imageTaskSettings, isAuthor, canvasName, pageSettings, i);
+        let element = imageTaskHTML(newImageTask);
+        document.getElementById('imageTaskArea').appendChild(element);
+        newImageTask.displayImageUrl();
         newImageTask.lockInCorrectAnswers();
+        document.getElementById('submitButton' + i).classList.add("hide");
+        let destroy = document.getElementById('nextQuestionButton' + i).classList.item(0);
+        document.getElementById('nextQuestionButton' + i).classList.remove(destroy);
+        document.getElementById('nextQuestionButton' + i).classList.add("hide");
     }
+    document.getElementById('imageTaskArea').appendChild(createMoveQuestionsToPoolButton());
 }
 
-function formatAuthorReviewQuestions(number){
-    let space = document.createElement("br");
-    let space2 = document.createElement("br");
-    let space3 = document.createElement("br");
-    let element = document.createElement("div");
-    let header = document.createElement("h2");
-    header.textContent = "Question Set " + (number + 1);
-    element.appendChild(header);
-    document.getElementById("questionSet").appendChild(space);
-    document.getElementById("questionSet").appendChild(space2);
-    document.getElementById("questionSet").appendChild(space3);
-    document.getElementById("questionSet").appendChild(element);
+function imageTaskHTML(imageTaskDisplayObject) {
+    let outerNode = document.createElement('div');
+    outerNode.classList.add('container-fluid');
+    let spaceNode = document.createElement('br');
+    outerNode.append(spaceNode);
+    outerNode.appendChild(imageTaskDisplayObject.createImageTaskElement());
+    return outerNode;
 }
 
 function logout() {
@@ -107,4 +114,28 @@ function setIsAuthor(userId) {
     } else {
         return false;
     }
+}
+
+function createMoveQuestionsToPoolButton() {
+    let outerMoveButtonNode = document.createElement('div');
+    outerMoveButtonNode.classList.add('row');
+
+    let innerMoveButtonNode = document.createElement('div');
+    innerMoveButtonNode.classList.add('col-12');
+    innerMoveButtonNode.classList.add('text-center');
+
+    let authorButtonElement = document.createElement('button');
+    authorButtonElement.setAttribute('type', 'button');
+    authorButtonElement.classList.add('btn');
+    authorButtonElement.classList.add('btn-primary');
+    authorButtonElement.setAttribute('id', 'authorReviewSubmitButton');
+    authorButtonElement.setAttribute('onclick', 'completeDisplay.pageDisplay.authorSubmitFinal()');
+    authorButtonElement.textContent = 'Add Questions To Pool';
+
+    innerMoveButtonNode.appendChild(authorButtonElement);
+    outerMoveButtonNode.appendChild(innerMoveButtonNode);
+
+    let spaceNode = document.createElement('br');
+    outerMoveButtonNode.appendChild(spaceNode);
+    return outerMoveButtonNode;
 }

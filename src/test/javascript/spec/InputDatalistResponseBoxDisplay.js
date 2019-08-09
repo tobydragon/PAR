@@ -47,11 +47,11 @@ describe("InputDatalistResponseBoxDisplay", function () {
         expect(testList.length).toBe(6);
 
         addToTypesIncorrect("", "plane2", testList);
-        expect(testList.length).toBe(7);
+        expect(testList.length).toBe(6);
         addToTypesIncorrect("", "ZONE2", testList);
-        expect(testList.length).toBe(8);
+        expect(testList.length).toBe(6);
         addToTypesIncorrect("", "2", testList);
-        expect(testList.length).toBe(9);
+        expect(testList.length).toBe(6);
     });
 
     it("displayCheckedResponse", function () {
@@ -142,11 +142,13 @@ describe("InputDatalistResponseBoxDisplay", function () {
         let listOfStr3 = ["o", "tw", "thr"];
         let listOfStr4 = ["o"];
         let listOfStr5 = ["lllllllloooooooonnng boi tada", "transverse", "zagga"];
-        expect(inputBoxAutoSize(listOfStr0)).toBe(29.4);
+        let listOfStr6 = ["lllllllloooooooonnng boi tada", "transverse", "Both the zip (and the -zorp) act in such a way a _WIDE_ boy cannot possibly; well; understand!"];
+        expect(inputBoxAutoSize(listOfStr0)).toBe(30);
         expect(inputBoxAutoSize(listOfStr1)).toBe(20);
         expect(inputBoxAutoSize(listOfStr2)).toBe(20);
         expect(inputBoxAutoSize(listOfStr3)).toBe(20);
         expect(inputBoxAutoSize(listOfStr4)).toBe(20);
-        expect(inputBoxAutoSize(listOfStr5)).toBe(24.36);
+        expect(inputBoxAutoSize(listOfStr5)).toBe(25);
+        expect(inputBoxAutoSize(listOfStr6)).toBe(79);
     })
 });

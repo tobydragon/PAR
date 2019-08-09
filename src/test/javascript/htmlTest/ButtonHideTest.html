@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Oh Boy</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
+    <!-- My Project CSS -->
+    <link rel="stylesheet" href="../../../main/resources/static/css/style.css">
+
+    <script src="https://kit.fontawesome.com/f9199bcaa3.js"></script>
+
+</head>
+<body>
+<button type="button" class="fas fa-arrow-circle-right btn btn-outline-dark" id="theButton" onclick="doNothing()"> </button>
+
+<button type="button" class="btn btn-primary" id="hideButton" onclick="hideIt()">
+    Hide that button
+</button>
+
+<button type="button" class="btn btn-primary" id="newButton" onclick="hideIt()">
+   Secondary
+</button>
+
+<script>
+    function doNothing(){
+
+    }
+
+    function hideIt(){
+        let destroy= document.getElementById("theButton").classList.item(0);
+        document.getElementById("theButton").classList.remove(destroy);
+        document.getElementById("theButton").classList.add("hide");
+
+        document.getElementById("newButton").classList.add("hide");
+        console.log("try");
+    }
+</script>
+
+</body>
+</html>

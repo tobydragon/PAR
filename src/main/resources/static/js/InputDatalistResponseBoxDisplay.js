@@ -28,7 +28,7 @@ class InputDatalistResponseBoxDisplay {
     }
 
     checkCurrentResponse(response, unsureShowsCorrect, questionId) {
-        if(this.inputTextbox.value!== ResponseResult.blank) {
+        if (this.inputTextbox.value !== ResponseResult.blank) {
             response.addToResponseTexts(this.inputTextbox.value);
             addToResponseIds(response, questionId);
         }
@@ -46,7 +46,7 @@ class InputDatalistResponseBoxDisplay {
     }
 
     recordCurrentResponse(response) {
-        if(this.inputTextbox.value!== ResponseResult.blank) {
+        if (this.inputTextbox.value !== ResponseResult.blank) {
             response.addToResponseTexts(this.inputTextbox.value);
         }
         return this.inputTextbox.value;
@@ -63,7 +63,7 @@ function buildElement(id, possibleResponseDatalist, inputTextbox) {
 }
 
 function addToTypesIncorrect(correctness, type, typesIncorrect) {
-    if (correctness === ResponseResult.correct || correctness===ResponseResult.blank) {
+    if (correctness === ResponseResult.correct || correctness === ResponseResult.blank) {
 
     } else {
         if (!typesIncorrect.includes(type)) {
@@ -128,7 +128,6 @@ function buildInputTextbox(id, datalistId, size) {
     inputTextbox.setAttribute("size", size);
     inputTextbox.classList.add("line-input-box");
 
-
     return inputTextbox;
 }
 
@@ -136,7 +135,9 @@ function disableElement(elementToDisable) {
     return elementToDisable.disabled = true;
 }
 
-
+function enableElement(elementToDisable) {
+    return elementToDisable.disabled = false;
+}
 
 function inputBoxAutoSize(listOfStrings) {
     let highestCharCount = 0;
@@ -147,8 +148,8 @@ function inputBoxAutoSize(listOfStrings) {
     }
     //Margin size correcting
     let diff = highestCharCount * 0.16;
-    Math.ceil(diff);
     highestCharCount = highestCharCount - diff;
+    highestCharCount = Math.ceil(highestCharCount);
     if (highestCharCount <= 20) {
         return 20;
     }

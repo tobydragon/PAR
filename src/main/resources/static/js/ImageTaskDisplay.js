@@ -1,9 +1,12 @@
 class ImageTaskDisplay {
 
-    constructor(imageTaskJson, userId, imageTaskSettings, isAuthor, canvasName, pageDisplaySettings) {
+    constructor(imageTaskJson, userId, imageTaskSettings, isAuthor, canvasName, pageDisplaySettings, counter) {
         this.userId = userId;
         this.response = new Response(userId);
-        this.hasFolloup= false;
+        this.hasFolloup = false;
+        this.imageUrl = imageTaskJson.imageUrl;
+        this.imageTaskJson = imageTaskJson;
+        this.taskQuestions = imageTaskJson.taskQuestions;
         //settings
         this.unsureShowsCorrectAnswer = imageTaskSettings.unsureShowsCorrectAnswer;
         this.feedbackByType = imageTaskSettings.feedbackByType;
@@ -12,48 +15,31 @@ class ImageTaskDisplay {
         this.mustSubmitAnswersToContinue = imageTaskSettings.mustSubmitAnswersToContinue;
         this.haveSubmited = 0;
         this.canGiveNoAnswer = imageTaskSettings.canGiveNoAnswer;
-        this.pageSettings= pageDisplaySettings;
-
+        this.pageSettings = pageDisplaySettings;
+        this.canvasName = canvasName;
         this.listOfCorrectAnswers = [];
         this.isAuthor = isAuthor;
-
-        if (imageTaskJson.imageUrl === "noMoreQuestions") {
-            this.createCanvas("../images/ParLogo.png", canvasName);
-        } else {
-            this.createCanvas(imageTaskJson.imageUrl, canvasName);
-        }
-        this.displayImageUrl(imageTaskJson.imageUrl);
-        this.questionAreaDisp = new buildQuestionAreas(imageTaskJson.taskQuestions, this.response);
+        this.counter = counter;
 
         //buildQuestionAreasAuthor(this.isAuthor)
         if (!isAuthor) {
             addUnsureToAnswers(imageTaskJson.taskQuestions);
         }
-
-        this.questionAreaDisp = new buildQuestionAreas(imageTaskJson.taskQuestions, this.response);
-
-        for (var i = 0; i < this.questionAreaDisp.length; i++) {
-            if (isAuthor) {
-                this.questionAreaDisp[i].addFollowupQuestions();
-            }
-            document.getElementById("questionSet").appendChild(this.questionAreaDisp[i].element);
-        }
     }
 
-    displayImageUrl(url) {
-        document.getElementById("Ids").innerText = url;
+    displayImageUrl() {
+        document.getElementById("Ids" + this.counter).innerText = this.imageUrl;
     }
 
     submitAnswers() {
         this.response.responseTexts = [];
         let canContinu;
-        document.getElementById("errorFeedback").innerHTML = " ";
+        document.getElementById("errorFeedback" + this.counter).innerHTML = " ";
 
         if (!this.isAuthor) {
             this.checkAnswers();
             canContinu = checkIfCanContinu(this.canGiveNoAnswer, this.listOfCorrectAnswers);
         } else {
-            console.log("author Submit response");
             this.authorSubmitResponses();
             canContinu = true;
         }
@@ -61,23 +47,23 @@ class ImageTaskDisplay {
         if (canContinu) {
             this.displayFeedback();
             sendResponse(this.response, this.ableToResubmitAnswers, this.isAuthor, this.pageSettings, this.hasFolloup, this.haveSubmited);
-            this.haveSubmited +=1;
-            this.hasFolloup=false;
+            this.haveSubmited += 1;
+            this.hasFolloup = false;
         } else {
-            document.getElementById("errorFeedback").innerHTML = "<font color=red>No response was recorded because you did not answer all the questions</font>";
+            document.getElementById("errorFeedback" + this.counter).innerHTML = "<font color=red>No response was recorded because you did not answer all the questions</font>";
         }
     }
 
     authorSubmitResponses() {
         for (var i = 0; i < this.questionAreaDisp.length; i++) {
             let current = this.questionAreaDisp[i];
-            let value= current.answerBox.recordCurrentResponse(this.response);
-            if(value!==ResponseResult.blank) {
+            let value = current.answerBox.recordCurrentResponse(this.response);
+            if (value !== ResponseResult.blank) {
                 addToResponseIds(this.response, current.element.id);
             }
             for (var x = 0; x < current.followUpAreas.length; x++) {
-                value= current.followUpAreas[x].answerBox.recordCurrentResponse(this.response);
-                if(value!==ResponseResult.blank) {
+                value = current.followUpAreas[x].answerBox.recordCurrentResponse(this.response);
+                if (value !== ResponseResult.blank) {
                     addToResponseIds(this.response, current.followUpAreas[x].element.id);
                 }
             }
@@ -86,19 +72,19 @@ class ImageTaskDisplay {
 
     displayFeedback() {
         if (this.willDisplayFeedback) {
-            document.getElementById("helpfulFeedback").innerHTML = giveFeedback(this.response.typesIncorrect, this.feedbackByType);
+            document.getElementById("helpfulFeedback" + this.counter).innerHTML = giveFeedback(this.response.typesIncorrect, this.feedbackByType);
         }
     }
 
     checkFollowUp(current) {
         for (var x = 0; x < current.followUpAreas.length; x++) {
-            let correctness=current.followUpAreas[x].answerBox.checkCurrentResponse(this.response, this.unsureShowsCorrectAnswer, current.followUpAreas[x].element.id);
+            let correctness = current.followUpAreas[x].answerBox.checkCurrentResponse(this.response, this.unsureShowsCorrectAnswer, current.followUpAreas[x].element.id);
             this.listOfCorrectAnswers.push(correctness);
         }
     }
 
     checkAnswers() {
-        this.response.taskQuestionIds= [];
+        this.response.taskQuestionIds = [];
         this.listOfCorrectAnswers = [];
         for (var i = 0; i < this.questionAreaDisp.length; i++) {
             let current = this.questionAreaDisp[i];
@@ -106,32 +92,165 @@ class ImageTaskDisplay {
             this.listOfCorrectAnswers.push(correctness);
             if (checkIfShouldAddFollowupQ(correctness)) {
                 current.addFollowupQuestions();
-                if(current.followUpAreas.length>0){
-                    this.hasFolloup= true;
+                if (current.followUpAreas.length > 0) {
+                    this.hasFolloup = true;
                 }
             }
             this.checkFollowUp(current);
         }
     }
 
-    createCanvas(imageUrl, name){
-        let newCanvas = document.createElement("CANVAS");
-        newCanvas.id= name;
-        newCanvas.width= "1024";
-        newCanvas.height= "768";
-        //newCanvas.classList.add("center-block");
-        newCanvas.classList.add("canvas");
-        document.getElementById("canvasArea").appendChild(newCanvas);
-        this.pageImage = new PageImage(imageUrl, name);
+    createQuestionAreaElement() {
+        let outerQuestionSetNode = document.createElement('form');
+        outerQuestionSetNode.setAttribute('action', '#');
+        outerQuestionSetNode.setAttribute('method', 'post');
+        outerQuestionSetNode.setAttribute('id', 'questionSetForm');
+
+        let questionElement = document.createElement('div');
+        questionElement.setAttribute('id', 'questionSet');
+
+        this.questionAreaDisp = new buildQuestionAreas(this.imageTaskJson.taskQuestions, this.response);
+        for (var i = 0; i < this.questionAreaDisp.length; i++) {
+            if (this.isAuthor) {
+                this.questionAreaDisp[i].addFollowupQuestions();
+            }
+            questionElement.appendChild(this.questionAreaDisp[i].element);
+        }
+        outerQuestionSetNode.appendChild(questionElement);
+        return outerQuestionSetNode;
     }
 
-    lockInCorrectAnswers(){
-        for(var i=0; i<this.questionAreaDisp.length; i++){
-            let current= this.questionAreaDisp[i];
-            current.answerBox.inputTextbox.value= current.answerBox.correctResponse;
+    createCanvasElement() {
+        let canvasElement = document.createElement('div');
+        canvasElement.setAttribute('id', 'canvasArea');
+        let canvas;
+        if (this.imageUrl === "noMoreQuestions") {
+            canvas = new PageImage("../images/ParLogo.png", this.canvasName);
+
+        } else {
+
+            canvas = new PageImage(this.imageUrl, this.canvasName);
+        }
+        canvasElement.appendChild(canvas.element);
+        canvas.loadImage();
+        return canvasElement;
+    }
+
+    createSubmitButtonElement() {
+        let submitButtonElement = document.createElement('button');
+        submitButtonElement.setAttribute('type', 'button');
+        submitButtonElement.classList.add('btn');
+        submitButtonElement.classList.add('btn-primary');
+        submitButtonElement.setAttribute('id', 'submitButton' + this.counter);
+        submitButtonElement.setAttribute('onclick', 'completeDisplay.submitAnswers()');
+        submitButtonElement.textContent = 'Submit';
+
+        return submitButtonElement;
+    }
+    createNextQuestionElement() {
+        let nextQuestionButtonElement = document.createElement('button');
+        nextQuestionButtonElement.setAttribute('type', 'button');
+        nextQuestionButtonElement.classList.add('fas');
+        nextQuestionButtonElement.classList.add('fa-arrow-circle-right');
+        nextQuestionButtonElement.classList.add('btn');
+        nextQuestionButtonElement.classList.add('btn-outline-dark');
+        nextQuestionButtonElement.setAttribute('id', 'nextQuestionButton' + this.counter);
+        nextQuestionButtonElement.setAttribute('onclick', 'completeDisplay.nextQuestion()');
+
+        return nextQuestionButtonElement;
+    }
+    createIdRowElement() {
+        let idRowElement = document.createElement('div');
+        idRowElement.classList.add('row');
+
+        let idColElement = document.createElement('div');
+        idColElement.classList.add('col-12');
+        idColElement.classList.add('text-center');
+
+        let idElement = document.createElement('i');
+        idElement.setAttribute('id', 'Ids' + this.counter);
+
+        idColElement.appendChild(idElement);
+        idRowElement.appendChild(idColElement);
+
+        return idRowElement;
+    }
+
+    createSubmitButtonRowElement() {
+        let outerSubmitRowElement = document.createElement('div');
+        outerSubmitRowElement.classList.add('row');
+
+        let submitRowColumnHandlerElement = document.createElement('div');
+        submitRowColumnHandlerElement.classList.add('col-12');
+
+        submitRowColumnHandlerElement.appendChild(this.createSubmitButtonElement());
+        submitRowColumnHandlerElement.appendChild(this.createNextQuestionElement());
+
+        let errorFeedbackElement = document.createElement('i');
+        errorFeedbackElement.setAttribute('id', 'errorFeedback' + this.counter);
+
+        submitRowColumnHandlerElement.appendChild(errorFeedbackElement);
+
+        outerSubmitRowElement.appendChild(submitRowColumnHandlerElement);
+        outerSubmitRowElement.appendChild(this.createIdRowElement());
+
+        return outerSubmitRowElement;
+    }
+
+
+    createImageTaskElement() {
+
+        let outerImageTaskNode = document.createElement('div');
+        outerImageTaskNode.classList.add('row');
+
+        let canvasNode = this.createCanvasElement();
+
+        let canvasElementHandler = document.createElement('div');
+        canvasElementHandler.classList.add('col-6');
+        canvasElementHandler.classList.add('imgCenter');
+        canvasElementHandler.appendChild(canvasNode);
+
+        let questionAreaNode = this.createQuestionAreaElement();
+        let questionAreaElementHandler = document.createElement('div');
+        questionAreaElementHandler.classList.add('col-4');
+        let questionTitleElement = document.createElement('h1');
+        questionTitleElement.classList.add('text-center');
+        questionTitleElement.textContent = "Question Set";
+
+        let feedbackElement = document.createElement('i');
+        feedbackElement.setAttribute('id', 'helpfulFeedback' + this.counter);
+        feedbackElement.classList.add('text-center');
+
+        questionAreaElementHandler.appendChild(questionTitleElement);
+        questionAreaElementHandler.appendChild(questionAreaNode);
+        questionAreaElementHandler.appendChild(feedbackElement);
+        questionAreaElementHandler.appendChild(this.createSubmitButtonRowElement());
+
+        let spaceNode0 = document.createElement('div');
+        spaceNode0.classList.add('col-1');
+        let spaceNode1 = document.createElement('div');
+        spaceNode1.classList.add('col-1');
+
+        outerImageTaskNode.appendChild(spaceNode0);
+        outerImageTaskNode.appendChild(canvasElementHandler);
+        outerImageTaskNode.appendChild(questionAreaElementHandler);
+        outerImageTaskNode.appendChild(spaceNode1);
+
+        outerImageTaskNode.appendChild(spaceNode0);
+        outerImageTaskNode.appendChild(canvasElementHandler);
+        outerImageTaskNode.appendChild(questionAreaElementHandler);
+        outerImageTaskNode.appendChild(spaceNode1);
+
+        return outerImageTaskNode;
+    }
+
+    lockInCorrectAnswers() {
+        for (var i = 0; i < this.questionAreaDisp.length; i++) {
+            let current = this.questionAreaDisp[i];
+            current.answerBox.inputTextbox.value = current.answerBox.correctResponse;
             disableElement(current.answerBox.inputTextbox);
-            for(var x=0; x<current.followUpAreas.length; x++){
-                current.followUpAreas[x].answerBox.inputTextbox.value= current.followUpAreas[x].answerBox.correctResponse;
+            for (var x = 0; x < current.followUpAreas.length; x++) {
+                current.followUpAreas[x].answerBox.inputTextbox.value = current.followUpAreas[x].answerBox.correctResponse;
                 disableElement(current.followUpAreas[x].answerBox.inputTextbox);
             }
         }
@@ -167,13 +286,11 @@ function submitResponse(response, isAuthor, pageSettings) {
         responseTexts: response.responseTexts
     };
 
-    console.log(newResponse.taskQuestionIds);
-    console.log(newResponse.responseTexts);
 
     if (isAuthor) {
-        submitToAPI("api/submitAuthorImageTaskResponse", newResponse,pageSettings.showScore ,pageSettings.scoreType ,this.userID );
+        submitToAPI("api/submitAuthorImageTaskResponse", newResponse, pageSettings.showScore, pageSettings.scoreType, this.userID);
     } else {
-        submitToAPI("api/recordResponse", newResponse, pageSettings.showScore ,pageSettings.scoreType ,this.userID);
+        submitToAPI("api/recordResponse", newResponse, pageSettings.showScore, pageSettings.scoreType, this.userID);
     }
 }
 
@@ -198,16 +315,20 @@ function sendResponse(response, ableToResubmitAnswers, isAuthor, pageSettings, h
     submitResponse(response, isAuthor, pageSettings);
 
     if (!ableToResubmitAnswers) {
-        if(hasFollowup){
-            if(timesSubmitted>0){
+        if (hasFollowup) {
+            if (timesSubmitted > 0) {
                 document.getElementById("submitButton").classList.add("hide");
             }
-        }else {
+        } else {
             document.getElementById("submitButton").classList.add("hide");
         }
     }
 
-    document.getElementById("errorFeedback").innerHTML = "<font color=\"#663399\"> Response recorded</font>";
+    if (response.responseTexts.length === 0) {
+        document.getElementById("errorFeedback" + 0).innerHTML = "<font color=\"#663399\"> No Response recorded, as there were no responses given</font>";
+    } else {
+        document.getElementById("errorFeedback" + 0).innerHTML = "<font color=\"#663399\"> Response recorded</font>";
+    }
 
     return true;
 }

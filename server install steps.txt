@@ -1,12 +1,13 @@
 cd PAR/
 git stash
-    - git checkout <branch>
+    git fetch
+    git checkout <branch>
 git pull
 git stash pop
 mvn test
 
 ps -A | grep java
-kill PID
+sudo kill PID
 
 tar -czv target/localData
 rm -f target/localData/*.json

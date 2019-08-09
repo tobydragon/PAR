@@ -14,20 +14,6 @@ public class TaskGeneratorImp1 implements TaskGenerator {
 
     public TaskGeneratorImp1(){}
 
-    public static ImageTask makeTaskGivenLevel(StudentModel studentModel, int level){
-        TaskGeneratorImp1.checkStudentModel(studentModel);
-
-        Question initialQuestion = TaskGeneratorImp1.getInitialQuestionForTask(studentModel, level);
-        List<Question> questionList = TaskGeneratorImp1.buildQuestionListWithSameUrl(studentModel, initialQuestion);
-        questionList = TaskGeneratorImp1.filterQuestions(level, questionList);
-
-        ImageTask imageTask = new ImageTask(initialQuestion.getImageUrl(), questionList);
-
-        //let studentModel know that unseen questions are seen
-        studentModel.getUserQuestionSet().increaseTimesSeenAllQuestions(questionList);
-        return imageTask;
-    }
-
     /**
      * Generates a Task with Questions that share the same URL
      * Currently includes questions that may have duplicate types
@@ -47,19 +33,20 @@ public class TaskGeneratorImp1 implements TaskGenerator {
     public static Question getInitialQuestionForTask(StudentModel studentModel, int level){
         checkStudentModel(studentModel);
 
-            if (level == 1) {
-                if (studentModel.getUnseenQuestionCount() > 0) {
-                    //make and return an imageTask with the first question from the studentModels.unseenQuestions that matches the level
-                    List<Question> unseen = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions();
-                    for (int i = 0; i < unseen.size(); i++) {
-                        if (unseen.get(i).getType().equals(EquineQuestionTypes.plane.toString())) {
-                            return unseen.get(i);
-                        }
+        if (level == 1) {
+            if (studentModel.getUnseenQuestionCount() > 0) {
+                //make and return an imageTask with the first question from the studentModels.unseenQuestions that matches the level
+                List<Question> unseen = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions();
+                for (int i = 0; i < unseen.size(); i++) {
+                    if (unseen.get(i).getType().equals(EquineQuestionTypes.plane.toString())) {
+                        return unseen.get(i);
                     }
-
-                    return getLeastSeenQuestion(studentModel, EquineQuestionTypes.plane.toString());
                 }
+                return getLeastSeenQuestion(studentModel, EquineQuestionTypes.plane.toString());
+            } else {
+                return getLeastSeenQuestion(studentModel, EquineQuestionTypes.plane.toString());
             }
+        }
         else if (level == 2) {
             if (studentModel.getUnseenQuestionCount() > 0) {
                 //make and return an imageTask with the first question from the studentModels.unseenQuestions that matches the level
@@ -75,6 +62,8 @@ public class TaskGeneratorImp1 implements TaskGenerator {
                     }
                 }
                 return getLeastSeenQuestion(studentModel,  EquineQuestionTypes.plane.toString());
+            } else {
+                return getLeastSeenQuestion(studentModel, EquineQuestionTypes.plane.toString());
             }
         }
         else if (level == 3) {
@@ -88,6 +77,8 @@ public class TaskGeneratorImp1 implements TaskGenerator {
                 }
 
                 return getLeastSeenQuestion(studentModel,  EquineQuestionTypes.structure.toString());
+            } else {
+                return getLeastSeenQuestion(studentModel, EquineQuestionTypes.structure.toString());
             }
         }
 
@@ -107,21 +98,10 @@ public class TaskGeneratorImp1 implements TaskGenerator {
                 }
 
                 return getLeastSeenQuestion(studentModel,  EquineQuestionTypes.structure.toString());
+            } else {
+                return getLeastSeenQuestion(studentModel, EquineQuestionTypes.structure.toString());
             }
 
-        }
-        if (level == 6) {
-            if (studentModel.getUnseenQuestionCount() > 0) {
-                //make and return an imageTask with the first question from the studentModels.unseenQuestions that matches the level
-                List<Question> unseen = studentModel.getUserQuestionSet().getTopLevelUnseenQuestions();
-                for (int i = 0; i < unseen.size(); i++) {
-                    if (unseen.get(i).getType().equals( EquineQuestionTypes.zone.toString())) {
-                        return unseen.get(i);
-                    }
-                }
-
-                return getLeastSeenQuestion(studentModel,  EquineQuestionTypes.structure.toString());
-            }
         }
         else if (level == 7) {
             if (studentModel.getUnseenQuestionCount() > 0) {
@@ -133,13 +113,41 @@ public class TaskGeneratorImp1 implements TaskGenerator {
                     }
                 }
                 return getLeastSeenQuestion(studentModel,  EquineQuestionTypes.zone.toString());
+            } else {
+                return getLeastSeenQuestion(studentModel, EquineQuestionTypes.zone.toString());
             }
         }
         throw new RuntimeException("Level "+level+" is not valid");
     }
 
+    /**
+     * Generates a Task with Questions that share the same URL
+     * Currently includes questions that may have duplicate types
+     * @param studentModel
+     * @return
+     */
+    public static ImageTask findLevelAndMakeTask(StudentModel studentModel, int questionCountPerTypeForAnalysis){
+        return makeTaskGivenLevel(studentModel, StudentModel.calcLevel(studentModel.calcKnowledgeEstimateByType(questionCountPerTypeForAnalysis)));
+    }
 
-    //TODO
+    public static ImageTask makeTaskGivenLevel(StudentModel studentModel, int level){
+        if(studentModel.getUnseenQuestionCount() == 0 && studentModel.getSeenQuestionCount() == 0){
+            return new ImageTask("noMoreQuestions", new ArrayList<>());
+        }
+        else {
+
+            Question initialQuestion = TaskGeneratorImp1.getInitialQuestionForTask(studentModel, level);
+            List<Question> questionList = TaskGeneratorImp1.addAllQuestions(studentModel, initialQuestion);
+            questionList = TaskGeneratorImp1.filterQuestions(level, questionList);
+
+            ImageTask imageTask = new ImageTask(initialQuestion.getImageUrl(), questionList);
+
+            //let studentModel know that unseen questions are seen
+            studentModel.getUserQuestionSet().increaseTimesSeenAllQuestions(questionList);
+            return imageTask;
+        }
+    }
+//TODO
 
     public static List<Question> filterQuestions(int level, List<Question> questionList){
         //only levels 1 and 2 have plane questions
@@ -197,7 +205,7 @@ public class TaskGeneratorImp1 implements TaskGenerator {
     /**
      * Creates a list of questions that have the questionUrl out of questionList
      */
-    public static List<Question> buildQuestionListWithSameUrl(StudentModel studentModel, Question initialQuestion){
+    public static List<Question> addAllQuestions(StudentModel studentModel, Question initialQuestion){
         //put initialQuestion, unseenQuestions and seenQuestions all in a list
         List<Question> unseenQuestionsWithCorrectUrl = QuestionPool.getTopLevelQuestionsFromUrl(studentModel.getUserQuestionSet().getTopLevelUnseenQuestions(), initialQuestion.getImageUrl());
         List<Question> seenQuestionsWithCorrectUrl = QuestionPool.getTopLevelQuestionsFromUrl(studentModel.getUserQuestionSet().getTopLevelSeenQuestions(), initialQuestion.getImageUrl());
