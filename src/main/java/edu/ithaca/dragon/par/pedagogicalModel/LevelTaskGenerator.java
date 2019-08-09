@@ -10,24 +10,12 @@ import edu.ithaca.dragon.par.studentModel.StudentModel;
 import java.util.*;
 
 public class LevelTaskGenerator implements TaskGenerator {
-    private static final Map<Integer, List<String>> levelMap=makeLevelMap();
 
-    private static Map<Integer, List<String>> makeLevelMap() {
-        Map<Integer,List<String>> levelMap=new LinkedHashMap<>();
-        if(levelMap.isEmpty()) {
-            levelMap.put(1, Arrays.asList(EquineQuestionTypes.plane.toString()));
-            levelMap.put(2, Arrays.asList(EquineQuestionTypes.plane.toString(), EquineQuestionTypes.structure.toString()));
-            levelMap.put(3, Arrays.asList(EquineQuestionTypes.structure.toString()));
-            levelMap.put(4, Arrays.asList(EquineQuestionTypes.structure.toString(),EquineQuestionTypes.attachment.toString()));
-            levelMap.put(5, Arrays.asList(EquineQuestionTypes.attachment.toString()));
-            levelMap.put(6, Arrays.asList(EquineQuestionTypes.attachment.toString(),EquineQuestionTypes.zone.toString()));
-            levelMap.put(7,Arrays.asList(EquineQuestionTypes.zone.toString()));
+    private Map<Integer, List<String>> levelToTypesMap;
 
-        }
-        return levelMap;
+    public LevelTaskGenerator(Map<Integer, List<String>> levelToTypesMap){
+        this.levelToTypesMap = levelToTypesMap;
     }
-
-    public LevelTaskGenerator(){}
 
     //TODO:TEST makeTask
     @Override
@@ -35,7 +23,7 @@ public class LevelTaskGenerator implements TaskGenerator {
         Map<String,List<QuestionCount>> questionTypesListMap=new LinkedHashMap<>();
         StudentModel.questionByTypeMap(studentModel.getUserQuestionSet().getQuestionCounts(),questionTypesListMap);
         int studentLevel=StudentModel.calcLevel(studentModel.calcKnowledgeEstimateByType(questionCountPerTypeForAnalysis));
-        List<String> levelTypes=levelMap.get(studentLevel);
+        List<String> levelTypes= levelToTypesMap.get(studentLevel);
 
         Question initialQuestion=leastSeenQuestion(levelTypes,studentModel,questionTypesListMap);
         List<Question> questionList = buildQuestionListWithSameUrl2(studentModel, initialQuestion);
