@@ -59,6 +59,7 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
     public List<StudentModel> getAllStudentModels()throws IOException{
         List<StudentModel> studentModels=new ArrayList<>();
         HashSet<String> studentIds = new HashSet<>(studentModelMap.keySet());
+        studentIds.addAll(getAllSavedStudentIds(studentModelFilePath));
         for(String currId:studentIds){
             StudentModel studentModel=getOrCreateStudentModel(currId);
             studentModels.add(studentModel);
@@ -84,10 +85,9 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
         minQuestionsPerType = calcMinQuestionCountPerType(questionPool.getAllQuestions());
 
         //TODO: test combinations of students in or not in memory / file
-        HashSet<String> studentIds = new HashSet<>(studentModelMap.keySet());
-        studentIds.addAll(getAllSavedStudentIds(studentModelFilePath));
-        for (String studentId : studentIds){
-            StudentModel currModel = getOrCreateStudentModel(studentId);
+        List<StudentModel> studentModels=getAllStudentModels();
+        for (StudentModel studentModel : studentModels){
+            StudentModel currModel = getOrCreateStudentModel(studentModel.getUserId());
             for (Question question : questions){
                 currModel.addQuestion(question);
             }
