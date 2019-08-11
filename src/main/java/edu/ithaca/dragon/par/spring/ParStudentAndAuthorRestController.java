@@ -136,7 +136,7 @@ public class ParStudentAndAuthorRestController {
 
     @GetMapping("/teacherReport")
     public TeacherReport getTeacherReport()throws IOException{
-        return parServer.getTeacherReport();
+        return parServer.buildTeacherReport();
     }
 
 }

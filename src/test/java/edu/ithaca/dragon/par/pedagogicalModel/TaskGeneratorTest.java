@@ -14,7 +14,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TaskGeneratorTest {
 
     //TODO: tests should be more thorough
-
     public void makeTaskTest(TaskGenerator taskGenerator) throws IOException {
         //set up questionPool and studentModel, create an imageTask with the studentModel
         QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPool.json").getAllQuestions());

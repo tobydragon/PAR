@@ -101,7 +101,7 @@ public class StudentModel {
         return userResponseSet.calcKnowledgeEstimateByType(numOfRecentResponsesToConsider);
     }
 
-    public StudentReport getStudentReport(int numOfRecentResponsesToConsider){
+    public StudentReport buildStudentReport(int numOfRecentResponsesToConsider){
         return userResponseSet.buildStudentReport(userQuestionSet.questionCountsByTypeMap(),numOfRecentResponsesToConsider);
     }
 }

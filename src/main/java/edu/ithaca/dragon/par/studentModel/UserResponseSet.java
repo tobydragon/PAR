@@ -85,20 +85,15 @@ public class UserResponseSet {
         return calcKnowledgeEstimate(userResponses, responseCountToConsider);
     }
 
-    /**
-     * @param allResponses
-     * @param responsesToConsider how many responses should the algorithm look back on
-     * @return
-     */
     private static double calcKnowledgeEstimate(List<ResponsesPerQuestion> allResponses, int responsesToConsider) {
-        //return -1 if the list is empty
-        if (allResponses.size() == 0)
+        if (allResponses.size() == 0) {
             return -1.0;
+        }
         double scoreBeforeDivision = 0;
         for (int i = allResponses.size() - 1, j = 0; j < responsesToConsider; i--, j++) {
-
-            if (i >= 0) scoreBeforeDivision += allResponses.get(i).knowledgeCalc();
-
+            if (i >= 0) {
+                scoreBeforeDivision += allResponses.get(i).knowledgeCalc();
+            }
         }
         return (scoreBeforeDivision / responsesToConsider);
     }

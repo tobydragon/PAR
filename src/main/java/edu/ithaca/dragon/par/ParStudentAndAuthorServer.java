@@ -67,6 +67,19 @@ public class ParStudentAndAuthorServer {
         }
     }
 
+    public TeacherReport buildTeacherReport()throws IOException{
+        List<StudentModel> studentModels=new ArrayList<>(studentModelDatastore.getAllStudentModels());
+        List<StudentReport> studentReports=new ArrayList<>();
+
+        for(StudentModel studentModel:studentModels) {
+            if (idealQuestionCountPerTypeForAnalysis <= studentModelDatastore.getMinQuestionCountPerType())
+                studentReports.add(studentModel.buildStudentReport(idealQuestionCountPerTypeForAnalysis));
+            else
+                studentReports.add(studentModel.buildStudentReport(studentModelDatastore.getMinQuestionCountPerType()));
+        }
+        return new TeacherReport(studentReports);
+    }
+
     //----------- Author methods  --------------//
 
     public ImageTask nextAuthorImageTask() {
@@ -87,21 +100,4 @@ public class ParStudentAndAuthorServer {
         studentModelDatastore.addQuestions(authorServer.removeAllAuthoredQuestions());
     }
 
-    //----------- Teacher methods-report  --------------//
-
-    public TeacherReport getTeacherReport()throws IOException{
-        List<StudentModel> studentModels=new ArrayList<>();
-        studentModels.addAll(studentModelDatastore.getAllStudentModels());
-        List<StudentReport> studentReports=new ArrayList<>();
-
-        for(StudentModel studentModel:studentModels) {
-            if (idealQuestionCountPerTypeForAnalysis <= studentModelDatastore.getMinQuestionCountPerType())
-                studentReports.add(studentModelDatastore.getStudentModel(studentModel.getUserId()).getStudentReport(idealQuestionCountPerTypeForAnalysis));
-            else
-                studentReports.add(studentModelDatastore.getStudentModel(studentModel.getUserId()).getStudentReport(studentModelDatastore.getMinQuestionCountPerType()));
-        }
-        TeacherReport teacherReport=new TeacherReport(studentReports);
-
-        return teacherReport;
-    }
 }
