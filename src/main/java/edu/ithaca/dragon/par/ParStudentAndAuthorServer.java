@@ -9,6 +9,7 @@ import edu.ithaca.dragon.par.io.StudentModelDatastore;
 import edu.ithaca.dragon.par.pedagogicalModel.TaskGenerator;
 import edu.ithaca.dragon.util.DataUtil;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -28,10 +29,14 @@ public class ParStudentAndAuthorServer {
 
     public ImageTask nextImageTask( String userId) throws IOException {
         if (idealQuestionCountPerTypeForAnalysis <= studentModelDatastore.getMinQuestionCountPerType()){
-            return TaskGenerator.findLevelAndMakeTask(studentModelDatastore.getStudentModel(userId), idealQuestionCountPerTypeForAnalysis);
+            ImageTask imageTask = TaskGenerator.findLevelAndMakeTask(studentModelDatastore.getStudentModel(userId), idealQuestionCountPerTypeForAnalysis);
+            studentModelDatastore.increaseTimesSeen(userId, imageTask.getTaskQuestions());
+            return imageTask;
         }
         else {
-            return TaskGenerator.findLevelAndMakeTask(studentModelDatastore.getStudentModel(userId), studentModelDatastore.getMinQuestionCountPerType());
+            ImageTask imageTask = TaskGenerator.findLevelAndMakeTask(studentModelDatastore.getStudentModel(userId), studentModelDatastore.getMinQuestionCountPerType());
+            studentModelDatastore.increaseTimesSeen(userId, imageTask.getTaskQuestions());
+            return imageTask;
         }
     }
 
