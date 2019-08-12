@@ -159,4 +159,34 @@ class ParStudentAndAuthorServerTest {
         assertEquals("0.000",parStudentAndAuthorServer.calcOverallKnowledgeEstimate("s3"));
 
     }
+
+
+    @Test
+    public void increaseTimesSeenTest(@TempDir Path tempDir) throws IOException{
+
+        //set up
+        Path currentStudentModelDir = tempDir.resolve("students");
+        assertTrue(new File(currentStudentModelDir.toString()).mkdir());
+        JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
+                tempDir.resolve("currentQuestions.json").toString(),
+                "src/test/resources/author/SampleQuestionPool3.json",
+                new JsonIoHelperDefault(),
+                currentStudentModelDir.toString());
+        ParStudentAndAuthorServer parStudentAndAuthorServer = new ParStudentAndAuthorServer(jsonStudentDatastore, null);
+
+        //user has seen no questions
+        assertEquals(0,jsonStudentDatastore.getOrCreateStudentModel("testUser111").getSeenQuestionCount());
+
+        //calling nextImageTask should increase timesSeen
+        parStudentAndAuthorServer.nextImageTask("testUser111");
+        assertEquals(1,jsonStudentDatastore.getOrCreateStudentModel("testUser111").getSeenQuestionCount());
+
+        //even after logging out, the increase of timesSeen should have been saved
+        parStudentAndAuthorServer.logout("testUser111");
+        assertEquals(1,jsonStudentDatastore.getOrCreateStudentModel("testUser111").getSeenQuestionCount());
+
+        //submitting answers should not increase timesSeen
+        parStudentAndAuthorServer.submitImageTaskResponse(new ImageTaskResponse("testUser111", Arrays.asList("PlaneQ1"), Arrays.asList("Longitudinal")));
+        assertEquals(1,jsonStudentDatastore.getOrCreateStudentModel("testUser111").getSeenQuestionCount());
+    }
 }
