@@ -63,6 +63,11 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
     }
 
     @Override
+    public void increaseTimesSeen(String userId, List<Question> questions) {
+
+    }
+
+    @Override
     public int getMinQuestionCountPerType() {
         return minQuestionsPerType;
     }
