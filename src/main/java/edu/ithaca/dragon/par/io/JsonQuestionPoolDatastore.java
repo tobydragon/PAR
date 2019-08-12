@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JsonQuestionPoolDatastore {
+public class JsonQuestionPoolDatastore implements QuestionPoolDatastore {
     private Logger logger = LogManager.getLogger(this.getClass());
 
 
