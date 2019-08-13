@@ -47,7 +47,7 @@ public class AuthorServer {
                 followupQuestions.add(newFollowUp);
             }
         }
-        return new Question(questionIn, answer, followupQuestions);
+        return new Question(questionIn, answer.toLowerCase(), followupQuestions);
     }
 
     //removes and returns all questions that are authored (leaving a blank question file for authored questions)
