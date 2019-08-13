@@ -2,8 +2,9 @@ package edu.ithaca.dragon.par.io;
 
 
 import edu.ithaca.dragon.par.domainModel.Question;
+import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
+import edu.ithaca.dragon.par.pedagogicalModel.LevelTaskGenerator;
 import edu.ithaca.dragon.par.pedagogicalModel.TaskGenerator;
-import edu.ithaca.dragon.par.pedagogicalModel.TaskGeneratorImp1;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 
 import edu.ithaca.dragon.util.JsonIoHelperDefault;
@@ -40,7 +41,7 @@ public class JsonStudentModelDatastoreTest {
 
     @Test
     public void getOrCreateStudentModelTest(@TempDir Path tempDir) throws IOException{
-        TaskGenerator taskGenerator = new TaskGeneratorImp1();
+        TaskGenerator taskGenerator = new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap());
 
         JsonStudentModelDatastore jsonStudentModelDatastore = new JsonStudentModelDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json", tempDir.toString());
         Path newStudentPath = tempDir.resolve("TestUser100.json");
@@ -68,13 +69,13 @@ public class JsonStudentModelDatastoreTest {
 
         //make a change to a user, log them out, then reload them to see if changes were saved
         taskGenerator.makeTask(studentModel1, 4);
-        assertEquals(3, studentModel1.getSeenQuestionCount());
+        assertEquals(2, studentModel1.getSeenQuestionCount());
         jsonStudentModelDatastore.submitImageTaskResponse(studentModel1.getUserId(), new ImageTaskResponse("TestUser100", Arrays.asList("plane./images/demoEquine10.jpg"), Arrays.asList("longitudinal")));
         assertEquals(2, studentModel1.getResponseCount());
 
         jsonStudentModelDatastore.logout("TestUser100");
         StudentModel studentModel3 = jsonStudentModelDatastore.getOrCreateStudentModel("TestUser100");
-        assertEquals(3, studentModel3.getSeenQuestionCount());
+        assertEquals(2, studentModel3.getSeenQuestionCount());
         assertEquals(2, studentModel3.getResponseCount());
     }
 

@@ -17,15 +17,17 @@ public class LevelTaskGenerator implements TaskGenerator {
         this.levelToTypesMap = levelToTypesMap;
     }
 
-    //TODO:TEST makeTask
+    //TODO: test makeTask more thoroughly
     @Override
     public ImageTask makeTask(StudentModel studentModel, int questionCountPerTypeForAnalysis) {
         int studentLevel = calcLevel(studentModel.calcKnowledgeEstimateByType(questionCountPerTypeForAnalysis));
-        List<String> levelTypes= levelToTypesMap.get(studentLevel);
+        return makeTaskGivenLevel(studentModel, levelToTypesMap.get(studentLevel), studentLevel);
+    }
 
+    public static ImageTask makeTaskGivenLevel(StudentModel studentModel, List<String> levelTypes, int level) {
         Question initialQuestion= leastSeenQuestionWithTypesNeeded(levelTypes,studentModel);
         List<Question> questionList = QuestionPool.getTopLevelQuestionsFromUrl(studentModel.getUserQuestionSet().getAllQuestions(), initialQuestion.getImageUrl());
-        questionList = filterQuestions(studentLevel, questionList);
+        questionList = filterQuestions(level, questionList);
         ImageTask imageTask = new ImageTask(initialQuestion.getImageUrl(), questionList);
 
         studentModel.getUserQuestionSet().increaseTimesSeenAllQuestions(questionList);

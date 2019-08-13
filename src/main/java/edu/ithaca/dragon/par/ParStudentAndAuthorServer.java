@@ -5,7 +5,6 @@ import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.*;
 import edu.ithaca.dragon.par.pedagogicalModel.LevelTaskGenerator;
 import edu.ithaca.dragon.par.pedagogicalModel.TaskGenerator;
-import edu.ithaca.dragon.par.pedagogicalModel.TaskGeneratorImp1;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.par.studentModel.StudentReportCreator;
 import edu.ithaca.dragon.util.DataUtil;

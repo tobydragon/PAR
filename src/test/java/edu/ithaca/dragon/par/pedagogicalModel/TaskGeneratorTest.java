@@ -35,8 +35,4 @@ public class TaskGeneratorTest {
         makeTaskTest(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()));
     }
 
-    @Test
-    public void taskGeneratorImp1Tests() throws IOException{
-        makeTaskTest(new TaskGeneratorImp1());
-    }
 }
