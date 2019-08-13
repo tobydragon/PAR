@@ -3,6 +3,7 @@ package edu.ithaca.dragon.par;
 import edu.ithaca.dragon.par.authorModel.AuthorServer;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.*;
+import edu.ithaca.dragon.par.pedagogicalModel.LevelTaskGenerator;
 import edu.ithaca.dragon.par.pedagogicalModel.TaskGenerator;
 import edu.ithaca.dragon.par.pedagogicalModel.TaskGeneratorImp1;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
@@ -21,10 +22,10 @@ public class ParStudentAndAuthorServer {
     private TaskGenerator taskGenerator;
     private static final int idealQuestionCountPerTypeForAnalysis = 4;
 
-    public ParStudentAndAuthorServer(StudentModelDatastore studentModelDatastore, AuthorDatastore authorDatastore) throws IOException {
+    public ParStudentAndAuthorServer(StudentModelDatastore studentModelDatastore, AuthorDatastore authorDatastore){
             this.studentModelDatastore = studentModelDatastore;
             authorServer = new AuthorServer(authorDatastore);
-            taskGenerator = new TaskGeneratorImp1();
+            taskGenerator = new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap());
     }
 
     //----------- Student methods  --------------//
