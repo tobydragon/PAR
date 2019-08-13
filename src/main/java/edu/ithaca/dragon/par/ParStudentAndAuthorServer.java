@@ -6,6 +6,7 @@ import edu.ithaca.dragon.par.io.*;
 import edu.ithaca.dragon.par.pedagogicalModel.TaskGenerator;
 import edu.ithaca.dragon.par.pedagogicalModel.TaskGeneratorImp1;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
+import edu.ithaca.dragon.par.studentModel.StudentReportCreator;
 import edu.ithaca.dragon.util.DataUtil;
 
 import java.io.IOException;
@@ -73,9 +74,9 @@ public class ParStudentAndAuthorServer {
 
         for(StudentModel studentModel:studentModels) {
             if (idealQuestionCountPerTypeForAnalysis <= studentModelDatastore.getMinQuestionCountPerType())
-                studentReports.add(studentModel.buildStudentReport(idealQuestionCountPerTypeForAnalysis));
+                studentReports.add(StudentReportCreator.buildStudentReport(studentModel.getUserResponseSet(), studentModel.questionCountsByTypeMap(), idealQuestionCountPerTypeForAnalysis));
             else
-                studentReports.add(studentModel.buildStudentReport(studentModelDatastore.getMinQuestionCountPerType()));
+                studentReports.add(StudentReportCreator.buildStudentReport(studentModel.getUserResponseSet(), studentModel.questionCountsByTypeMap(), studentModelDatastore.getMinQuestionCountPerType()));
         }
         return new TeacherReport(studentReports);
     }

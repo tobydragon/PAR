@@ -8,7 +8,7 @@ public class StudentReport {
     private Map<String,Integer> responsesPerType;
     private Map<String,Integer> questionsPerTypeTotal;
     private Map<String,Integer> numberOfQuestionsAnswered;
-//TODO:add to this
+
     public StudentReport(){ }
 
     //TODO: ADD A QUESTIONS ANSWERED?

@@ -256,62 +256,6 @@ public class UserResponseSetTest {
 
     }
 
-    @Test
-    public void allResponsesPerTypeTest() throws IOException{
-        List<ResponsesPerQuestion> responsesPerQuestions=JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponsePerQuestionSet.json",ResponsesPerQuestion.class);
-        UserResponseSet userResponseSet=new UserResponseSet(responsesPerQuestions.get(0).getUserId());
-
-        for(ResponsesPerQuestion responsesPerQuestion:responsesPerQuestions){
-            userResponseSet.addResponse(responsesPerQuestion);
-        }
-
-        Map<String, List<ResponsesPerQuestion>> responseByType = userResponseSet.splitResponsesByType(userResponseSet.getUserResponses());
-        Map<String,Integer> responsesPerType=userResponseSet.allResponsesPerType(responseByType);
-
-        assertEquals(5,responsesPerType.get(EquineQuestionTypes.plane.toString()).intValue());
-        assertEquals(6,responsesPerType.get(EquineQuestionTypes.structure.toString()).intValue());
-        assertEquals(2,responsesPerType.get(EquineQuestionTypes.attachment.toString()).intValue());
-        assertEquals(7,responsesPerType.get(EquineQuestionTypes.zone.toString()).intValue());
-
-    }
-
-    @Test
-    public void numberOfQuestionsPerTypeTest()throws IOException{
-        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFewFollowups.json").getAllQuestions());
-        StudentModel studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
-        Map<String, List<QuestionCount>> questionTypesListMap=studentModel.questionCountsByTypeMap();
-        Map<String, Integer> numberOfQuestionsPerType=UserResponseSet.numberOfQuestionsPerType(questionTypesListMap);
-
-        assertEquals(13,numberOfQuestionsPerType.get(EquineQuestionTypes.plane.toString()).intValue());
-        assertEquals(27,numberOfQuestionsPerType.get(EquineQuestionTypes.structure.toString()).intValue());
-        assertEquals(7,numberOfQuestionsPerType.get(EquineQuestionTypes.attachment.toString()).intValue());
-        assertEquals(10,numberOfQuestionsPerType.get(EquineQuestionTypes.zone.toString()).intValue());
-
-    }
-
-    @Test
-    public void numberOfQuestionsAnsweredByTypeTest()throws IOException{
-        List<ResponsesPerQuestion> responsesPerQuestions=JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponsePerQuestionSet.json",ResponsesPerQuestion.class);
-        UserResponseSet userResponseSet=new UserResponseSet(responsesPerQuestions.get(0).getUserId());
-
-        for(ResponsesPerQuestion responsesPerQuestion:responsesPerQuestions){
-            userResponseSet.addResponse(responsesPerQuestion);
-        }
-
-        Map<String, List<ResponsesPerQuestion>> responseByType = userResponseSet.splitResponsesByType(userResponseSet.getUserResponses());
-        Map<String,Integer> numberOfQuestionsAnsweredByType=userResponseSet.numOfQuestionsAnswered(responseByType);
-
-        assertEquals(5,numberOfQuestionsAnsweredByType.get(EquineQuestionTypes.plane.toString()).intValue());
-        assertEquals(5,numberOfQuestionsAnsweredByType.get(EquineQuestionTypes.structure.toString()).intValue());
-        assertEquals(2,numberOfQuestionsAnsweredByType.get(EquineQuestionTypes.attachment.toString()).intValue());
-        assertEquals(5,numberOfQuestionsAnsweredByType.get(EquineQuestionTypes.zone.toString()).intValue());
-
-
-    }
-
-
-
-
     //TODO: why are these commented out?
 
 

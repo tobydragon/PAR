@@ -100,8 +100,4 @@ public class StudentModel {
     public Map<String,Double> calcKnowledgeEstimateByType(int numOfRecentResponsesToConsider){
         return userResponseSet.calcKnowledgeEstimateByType(numOfRecentResponsesToConsider);
     }
-
-    public StudentReport buildStudentReport(int numOfRecentResponsesToConsider){
-        return userResponseSet.buildStudentReport(userQuestionSet.questionCountsByTypeMap(),numOfRecentResponsesToConsider);
-    }
 }

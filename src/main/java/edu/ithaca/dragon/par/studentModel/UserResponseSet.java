@@ -171,52 +171,6 @@ public class UserResponseSet {
 
     }
 
-    /*
-                                 Building StudentReport
-     */
-
-    public Map<String,Integer> allResponsesPerType(Map<String, List<ResponsesPerQuestion>> responseByType){
-        Map<String,Integer> responsesPerType=new LinkedHashMap<>();
-        int responseCount;
-        for(String currType:responseByType.keySet()){
-            responseCount=0;
-            for(int i=0;i<responseByType.get(currType).size();i++){
-                responseCount=responseCount+responseByType.get(currType).get(i).getAllResponses().size();
-            }
-            responsesPerType.put(currType,responseCount);
-        }
-        return responsesPerType;
-    }
-
-    public static Map<String, Integer> numberOfQuestionsPerType(Map<String, List<QuestionCount>> questionTypesListMap) {
-        Map<String, Integer> numberOfQuestionsPerType=new LinkedHashMap<>();
-        for(String currType:questionTypesListMap.keySet())
-            numberOfQuestionsPerType.put(currType,questionTypesListMap.get(currType).size());
-
-    return numberOfQuestionsPerType;
-    }
-
-    public Map<String, Integer> numOfQuestionsAnswered(Map<String, List<ResponsesPerQuestion>> splitResponsesByType) {
-        Map<String, Integer> numOfQuestionsAnswered=new LinkedHashMap<>();
-        for(String currType:splitResponsesByType.keySet()){
-            numOfQuestionsAnswered.put(currType,splitResponsesByType.get(currType).size());
-        }
-        return numOfQuestionsAnswered;
-    }
-
-    public StudentReport buildStudentReport(Map<String,List<QuestionCount>> questionTypesListMap,int numOfRecentResponsesToConsider){
-
-        Map<String, List<ResponsesPerQuestion>> splitResponsesByType=splitResponsesByType(userResponses);
-        Map<String,Integer> responsesPerType=allResponsesPerType(splitResponsesByType);
-        Map<String,Integer> questionsPerType=numberOfQuestionsPerType(questionTypesListMap);
-        Map<String,Integer> numberOfQuestionsAnswered=numOfQuestionsAnswered(splitResponsesByType);
-        Map<String,Double> currScoreForEachType=calcKnowledgeEstimateByType(numOfRecentResponsesToConsider);
-        return new StudentReport(userId,currScoreForEachType,responsesPerType,questionsPerType,numberOfQuestionsAnswered);
-    }
-
-
-
-
     @Override
     public boolean equals(Object otherObj) {
         if (otherObj == null) {
