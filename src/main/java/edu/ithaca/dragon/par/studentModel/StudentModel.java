@@ -33,7 +33,7 @@ public class StudentModel {
         List<ResponsesPerQuestion> userResponse =new ArrayList<>();
         ResponsesPerQuestion response; Question ques;
         for(int i=0;i<imageTaskResponses.getTaskQuestionIds().size();i++){
-            ques=questions.getQuestionFromId(imageTaskResponses.getTaskQuestionIds().get(i));//finds question in QuestionPool creates a question object
+            ques=questions.getQuestionFromId(imageTaskResponses.getTaskQuestionIds().get(i), questions.getAllQuestions());//finds question in QuestionPool creates a question object
             response=new ResponsesPerQuestion(userId,ques,imageTaskResponses.getResponseTexts().get(i));//creates new response object
             userResponse.add(response);
         }

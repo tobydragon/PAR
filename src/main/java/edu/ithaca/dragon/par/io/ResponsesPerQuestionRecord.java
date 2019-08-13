@@ -29,7 +29,7 @@ public class ResponsesPerQuestionRecord {
         }
     }
      public ResponsesPerQuestion buildResponsesPerQuestionRecord(QuestionPool questionPool){
-        Question question =questionPool.getQuestionFromId(questionId);
+        Question question =questionPool.getQuestionFromId(questionId, questionPool.getAllQuestions());
         ResponsesPerQuestion responsesPerQuestion=new ResponsesPerQuestion(userId,question,responseText);
         responsesPerQuestion.setAllResponses(allResponseTexts);
         return responsesPerQuestion;
