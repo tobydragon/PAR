@@ -18,6 +18,8 @@ public interface StudentModelDatastore {
 
     void submitImageTaskResponse(String userId, ImageTaskResponse imageTaskResponse) throws IOException;
 
+    void increaseTimesSeen(String userId, List<Question> questions) throws IOException;
+
     int getMinQuestionCountPerType();
 
     void addQuestions(List<Question> questions) throws IOException;

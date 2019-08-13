@@ -148,4 +148,26 @@ public class AuthorServerTest {
         assertEquals(0, imageTask5.getTaskQuestions().size());
     }
 
+    @Test
+    public void ignoreCaseForSubmittedAnswersTest(@TempDir Path tempDir) throws IOException{
+        //make paths for copies of the files
+        Path currentQuestionPath = tempDir.resolve("currentQuestions.json");
+        Path currentQuestionTemplatePath = tempDir.resolve("currentQuestionTemplates.json");
+        //copy the files to use to the paths (these temp files will change as work is done)
+        Files.copy(Paths.get("src/test/resources/author/SampleQuestionsEmpty.json"), currentQuestionPath, StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(Paths.get("src/test/resources/author/DemoQuestionPoolTemplate.json"), currentQuestionTemplatePath, StandardCopyOption.REPLACE_EXISTING);
+
+        AuthorServer pas = new AuthorServer(new JsonAuthorDatastore(currentQuestionPath.toString(),
+                currentQuestionTemplatePath.toString(), tempDir.resolve("currentAuthorModel.json").toString()));
+
+        assertEquals(0, pas.getQuestionCount());
+        assertEquals(47, pas.getQuestionTemplateCount());
+
+        ImageTaskResponse imageTaskResponse1 = new ImageTaskResponse("User1", Arrays.asList("plane./images/demoEquine14.jpg", "structure0./images/demoEquine14.jpg", "AttachQ1", "AttachQ2"), Arrays.asList("LongiTudinal", "Superficial digital flexor tendon", "AttachType1", "AttachType2"));
+        pas.imageTaskResponseSubmitted(imageTaskResponse1);
+
+        //Even though a response was submitted with Caps, it should be stored all lower case
+        assertEquals("longitudinal", pas.findTopLevelQuestionById("plane./images/demoEquine14.jpg").getCorrectAnswer());
+    }
+
 }

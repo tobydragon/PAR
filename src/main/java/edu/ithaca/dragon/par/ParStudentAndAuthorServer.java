@@ -9,6 +9,7 @@ import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.par.studentModel.StudentReportCreator;
 import edu.ithaca.dragon.util.DataUtil;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +32,14 @@ public class ParStudentAndAuthorServer {
 
     public ImageTask nextImageTask( String userId) throws IOException {
         if (idealQuestionCountPerTypeForAnalysis <= studentModelDatastore.getMinQuestionCountPerType()){
-            return taskGenerator.makeTask(studentModelDatastore.getStudentModel(userId), idealQuestionCountPerTypeForAnalysis);
+            ImageTask imageTask = taskGenerator.makeTask(studentModelDatastore.getStudentModel(userId), idealQuestionCountPerTypeForAnalysis);
+            studentModelDatastore.increaseTimesSeen(userId, imageTask.getTaskQuestions());
+            return imageTask;
         }
         else {
-            return taskGenerator.makeTask(studentModelDatastore.getStudentModel(userId), studentModelDatastore.getMinQuestionCountPerType());
+            ImageTask imageTask = taskGenerator.makeTask(studentModelDatastore.getStudentModel(userId), studentModelDatastore.getMinQuestionCountPerType());
+            studentModelDatastore.increaseTimesSeen(userId, imageTask.getTaskQuestions());
+            return imageTask;
         }
     }
 
