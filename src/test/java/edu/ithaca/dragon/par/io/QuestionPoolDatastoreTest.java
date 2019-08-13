@@ -1,5 +1,6 @@
 package edu.ithaca.dragon.par.io;
 
+import edu.ithaca.dragon.par.domainModel.Question;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -8,6 +9,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Arrays;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class QuestionPoolDatastoreTest {
 
@@ -22,7 +26,13 @@ public class QuestionPoolDatastoreTest {
         //TODO: Test the hibernate implementation
     }
 
-    public void interfaceTest(QuestionPoolDatastore questionPoolDatastore){
+    public void interfaceTest(QuestionPoolDatastore questionPoolDatastore) throws IOException{
+        int numOfQuestions = questionPoolDatastore.getAllQuestions().size();
+
+        //add question
+        questionPoolDatastore.addQuestion(new Question("NewQuestion", "NewQuestion", "Plane", "A", Arrays.asList("A", "B"), "...", Arrays.asList(new Question("NewFollowup", "NewFollowup", "Plane", "B", Arrays.asList("A", "B", "C"), "..."))));
+        assertEquals(numOfQuestions+1, questionPoolDatastore.getAllQuestions().size());
+
 
     }
 

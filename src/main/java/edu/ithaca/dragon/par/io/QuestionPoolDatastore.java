@@ -11,4 +11,6 @@ public interface QuestionPoolDatastore {
 
     void removeQuestionById(String questionId) throws IOException;
     List<Question> removeAllQuestions() throws IOException;
+
+    List<Question> getAllQuestions();
 }
