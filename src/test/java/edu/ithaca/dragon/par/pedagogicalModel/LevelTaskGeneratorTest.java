@@ -6,8 +6,8 @@ import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.JsonQuestionPoolDatastore;
 import edu.ithaca.dragon.par.io.JsonStudentModelDatastore;
-import edu.ithaca.dragon.par.studentModel.QuestionCount;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
+import edu.ithaca.dragon.util.JsonUtil;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -35,8 +35,6 @@ public class LevelTaskGeneratorTest {
         StudentModel testUser2 = datastore.getOrCreateStudentModel("testUser2");
 
         ImageTask imageTask = new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()).makeTask(testUser2,4);
-        ImageTask imageTask2 = new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()).makeTask(testUser2,4);
-
         assertEquals(1,imageTask.getTaskQuestions().size());
 
     }
@@ -257,6 +255,52 @@ public class LevelTaskGeneratorTest {
         m2.put(EquineQuestionTypes.attachment.toString(), 100.0);
         m2.put(EquineQuestionTypes.zone.toString(), 75.0);
         assertEquals(7, LevelTaskGenerator.calcLevel(m2));
+
+    }
+
+    @Test
+    public void removeTypeFromQuestionTest() throws IOException{
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
+        Question noFollowups = questionPool.getQuestionFromId("plane./images/demoEquine14.jpg");
+        Question twoFollowups = questionPool.getQuestionFromId("structure3./images/demoEquine10.jpg");
+        Question recFollowups = questionPool.getQuestionFromId("structure0./images/demoEquine14.jpg");
+
+        //Trying to remove nonexistant followup questions should have no effect on the Question
+        Question noFollowsAfter = LevelTaskGenerator.removeTypeFromQuestion(noFollowups, EquineQuestionTypes.attachment.toString());
+        assertEquals(noFollowups, noFollowsAfter);
+
+        //The method should not remove the base question
+        assertThrows(RuntimeException.class, () -> {Question noFollowsAfterPlane = LevelTaskGenerator.removeTypeFromQuestion(noFollowups, EquineQuestionTypes.plane.toString());});
+
+        //Removing attachment followups should create a question with no followups
+        Question twoFollowupsAfter = LevelTaskGenerator.removeTypeFromQuestion(twoFollowups, EquineQuestionTypes.attachment.toString());
+        assertEquals(0, twoFollowupsAfter.getFollowupQuestions().size());
+        assertFalse(twoFollowups == twoFollowupsAfter);
+
+        //Removing a followup to a followup
+        Question recFollowupsAfter = LevelTaskGenerator.removeTypeFromQuestion(recFollowups, EquineQuestionTypes.plane.toString());
+        assertFalse(recFollowupsAfter == recFollowups);
+        assertEquals("plane", recFollowups.getFollowupQuestions().get(2).getFollowupQuestions().get(0).getType());
+        assertEquals(0, recFollowupsAfter.getFollowupQuestions().get(2).getFollowupQuestions().size());
+    }
+
+    @Test
+    public void removeTypeTest() throws IOException{
+        List<Question> questions= JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
+        questions = LevelTaskGenerator.removeTypeFromQuestionList(questions, EquineQuestionTypes.plane.toString());
+        assertEquals(10, questions.size());
+        questions = LevelTaskGenerator.removeTypeFromQuestionList(questions, EquineQuestionTypes.structure.toString());
+        assertEquals(5, questions.size());
+        questions = LevelTaskGenerator.removeTypeFromQuestionList(questions, EquineQuestionTypes.zone.toString());
+        assertEquals(0, questions.size());
+
+        questions = LevelTaskGenerator.removeTypeFromQuestionList(questions, EquineQuestionTypes.plane.toString());
+        assertEquals(0, questions.size());
+        questions = LevelTaskGenerator.removeTypeFromQuestionList(questions, EquineQuestionTypes.structure.toString());
+        assertEquals(0, questions.size());
+        questions = LevelTaskGenerator.removeTypeFromQuestionList(questions, EquineQuestionTypes.zone.toString());
+        assertEquals(0, questions.size());
+
 
     }
 

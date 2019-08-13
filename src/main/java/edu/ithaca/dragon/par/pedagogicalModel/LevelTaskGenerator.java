@@ -25,7 +25,7 @@ public class LevelTaskGenerator implements TaskGenerator {
 
         Question initialQuestion= leastSeenQuestionWithTypesNeeded(levelTypes,studentModel);
         List<Question> questionList = QuestionPool.getTopLevelQuestionsFromUrl(studentModel.getUserQuestionSet().getAllQuestions(), initialQuestion.getImageUrl());
-        questionList = TaskGeneratorImp1.filterQuestions(studentLevel, questionList);
+        questionList = filterQuestions(studentLevel, questionList);
         ImageTask imageTask = new ImageTask(initialQuestion.getImageUrl(), questionList);
 
         studentModel.getUserQuestionSet().increaseTimesSeenAllQuestions(questionList);
@@ -105,6 +105,52 @@ public class LevelTaskGenerator implements TaskGenerator {
         }
 
         return orderedScores;//ordered list of scores
+    }
+
+    public static List<Question> filterQuestions(int level, List<Question> questionList){
+        if(level > 2){
+            questionList = removeTypeFromQuestionList(questionList,  EquineQuestionTypes.plane.toString());
+        }
+        if(level < 2 || level > 6){
+            questionList = removeTypeFromQuestionList(questionList,  EquineQuestionTypes.structure.toString());
+        }
+        if(level < 4 || level > 6){
+            questionList = removeTypeFromQuestionList(questionList, EquineQuestionTypes.attachment.toString());
+        }
+        if(level < 6){
+            questionList = removeTypeFromQuestionList(questionList,  EquineQuestionTypes.zone.toString());
+        }
+        return questionList;
+    }
+
+    public static List<Question> removeTypeFromQuestionList(List<Question> questions, String type){
+        List<Question> newList = new ArrayList<>();
+        for(Question currQuestion: questions){
+            if(!currQuestion.getType().equals(type)){
+                Question cleanQuestion = removeTypeFromQuestion(currQuestion, type);
+                newList.add(cleanQuestion);
+            }
+        }
+        return newList;
+    }
+
+    public static Question removeTypeFromQuestion(Question question, String type){
+        if(!question.getType().equals(type)) {
+            if (question.getFollowupQuestions().size() != 0){
+                List<Question> cleanFollowups = new ArrayList<>();
+                for (Question followupQuestion : question.getFollowupQuestions()){
+                    if (!followupQuestion.getType().equals(type)) {
+                        Question cleanFollowUp = removeTypeFromQuestion(followupQuestion, type);
+                        cleanFollowups.add(cleanFollowUp);
+                    }
+                }
+                return new Question(question, cleanFollowups);
+            }
+            return question;
+        }
+        else{
+            throw new RuntimeException("root question matches type, cannot remove itself");
+        }
     }
 
 }
