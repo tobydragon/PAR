@@ -5,14 +5,14 @@ import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.ImageTaskResponse;
 import edu.ithaca.dragon.par.io.JsonQuestionPoolDatastore;
+import edu.ithaca.dragon.par.io.UserResponseSetRecord;
 import edu.ithaca.dragon.util.DataUtil;
 import edu.ithaca.dragon.util.JsonUtil;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 
@@ -67,7 +67,6 @@ public class UserResponseSetTest {
 
 
     }
-
 
     @Test
     public void knowledgeCalcTest() throws IOException{
@@ -258,29 +257,8 @@ public class UserResponseSetTest {
     }
 
     //TODO: why are these commented out?
-    /*
-    @Test
-    public void splitResponsesByTypeTest()throws IOException{
-        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
-        List<ImageTaskResponse> responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponse.class);
-        UserResponseSet respSet=new UserResponseSet(responsesFromFile.get(0).getUserId());
-        List<ResponsesPerQuestion> userResponse =new ArrayList<>();
-        for(int i=0;i<questionsFromFile.size();i++){
-            ResponsesPerQuestion response = new ResponsesPerQuestion(responsesFromFile.get(0).getUserId(), questionsFromFile.get(i),responsesFromFile.get(0).getResponseTexts().get(i));
-            userResponse.add(response);
-        }
-        respSet.addAllResponses(userResponse);
-        //UserResponseSet userResponseSet=new UserResponseSet("TestUser1");
-        Map<String, List<ResponsesPerQuestion>> responseByType = respSet.splitResponsesByType(respSet.getUserResponses());
-        //assertEquals(Arrays.asList("plane", "structure", "attachment", "zone"),responseByType.keySet());
-        for (EquineQuestionTypes currType: EquineQuestionTypes.values()) {
-            System.out.println(responseByType.get(currType.toString()).size());
-        }
-        System.out.println(responsesFromFile.get(0).getResponseTexts().size());
 
-    }
 
- */
     /*
     @Test
     public void knowledgeBaseCalcTest()throws IOException{

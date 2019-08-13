@@ -1,6 +1,8 @@
 package edu.ithaca.dragon.par.studentModel;
 
+import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
+import edu.ithaca.dragon.par.io.StudentReport;
 
 import java.util.*;
 
@@ -26,12 +28,12 @@ public class UserResponseSet {
             userResponses.add(response1);//updates to the last position (most recently answered)
         }
     }
+
     public void addAllResponses(List<ResponsesPerQuestion> allResponsesIn) {
         for (int i = 0; i < allResponsesIn.size(); i++) {
             addResponse(allResponsesIn.get(i));
         }
     }
-
 
     private int sameResponseCheck(ResponsesPerQuestion response) {
         if (userResponses.isEmpty()) {
@@ -46,11 +48,9 @@ public class UserResponseSet {
         return -1;
     }
 
-
     public int getUserResponsesSize() {
         return userResponses.size();
     }
-
 
     public int countTotalResponses() {
         int count = 0;
@@ -60,52 +60,43 @@ public class UserResponseSet {
         return count;
     }
 
-
     public void setUserResponses(List<ResponsesPerQuestion> userResponsesIn) {
         this.userResponses = userResponsesIn;
     }
+
     public List<ResponsesPerQuestion> getUserResponses() {
         return userResponses;
     }
 
-
     public void setUserId(String userIdIn) {
         this.userId = userIdIn;
     }
+
     public String getUserId() {
         return userId;
     }
-
 
     public double calcKnowledgeEstimate() {
         //TODO: should 12 be replaced by windowSize?
         return calcKnowledgeEstimate(userResponses, 12);
     }
 
-
     public double calcKnowledgeEstimate(int responseCountToConsider) {
         return calcKnowledgeEstimate(userResponses, responseCountToConsider);
     }
 
-
-    /**
-     * @param allResponses
-     * @param responsesToConsider how many responses should the algorithm look back on
-     * @return
-     */
     private static double calcKnowledgeEstimate(List<ResponsesPerQuestion> allResponses, int responsesToConsider) {
-        //return -1 if the list is empty
-        if (allResponses.size() == 0)
+        if (allResponses.size() == 0) {
             return -1.0;
+        }
         double scoreBeforeDivision = 0;
         for (int i = allResponses.size() - 1, j = 0; j < responsesToConsider; i--, j++) {
-
-            if (i >= 0) scoreBeforeDivision += allResponses.get(i).knowledgeCalc();
-
+            if (i >= 0) {
+                scoreBeforeDivision += allResponses.get(i).knowledgeCalc();
+            }
         }
         return (scoreBeforeDivision / responsesToConsider);
     }
-
 
     public Map<String, Double> calcKnowledgeEstimateByType(int numOfRecentResponsesToConsider) {
         Map<String, List<ResponsesPerQuestion>> responseByType = splitResponsesByType(userResponses);
@@ -117,8 +108,7 @@ public class UserResponseSet {
         return responseByTypeDouble;
     }
 
-
-    private static  Map<String, List<ResponsesPerQuestion>> splitResponsesByType(List<ResponsesPerQuestion> responsesPerQuestions) {
+    public static  Map<String, List<ResponsesPerQuestion>> splitResponsesByType(List<ResponsesPerQuestion> responsesPerQuestions) {
         Map<String, List<ResponsesPerQuestion>> responseByType = new LinkedHashMap<>();
         List<ResponsesPerQuestion> responsesPerQuestion = new ArrayList<>();
         //adds types to the map from EquineQuestionTypes and give each type a new empty list
@@ -140,7 +130,6 @@ public class UserResponseSet {
         }
         return responseByType;
     }
-
 
     public Map<EquineQuestionTypes, String> calcKnowledgeEstimateStringsByType(int numOfRecentResponsesToConsider){
         Map<String, List<ResponsesPerQuestion>> responseByType = splitResponsesByType(userResponses);
@@ -179,6 +168,7 @@ public class UserResponseSet {
         else {
             return "X";
         }
+
     }
 
     @Override

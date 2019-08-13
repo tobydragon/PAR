@@ -2,10 +2,7 @@ package edu.ithaca.dragon.par.spring;
 
 import edu.ithaca.dragon.par.ParStudentAndAuthorServer;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
-import edu.ithaca.dragon.par.io.ImageTask;
-import edu.ithaca.dragon.par.io.ImageTaskResponse;
-import edu.ithaca.dragon.par.io.JsonAuthorDatastore;
-import edu.ithaca.dragon.par.io.JsonStudentModelDatastore;
+import edu.ithaca.dragon.par.io.*;
 import edu.ithaca.dragon.par.pedagogicalModel.ImageTaskSettings;
 import edu.ithaca.dragon.par.pedagogicalModel.PageSettings;
 import edu.ithaca.dragon.util.*;
@@ -136,4 +133,10 @@ public class ParStudentAndAuthorRestController {
     public List<ImageTask> authoredQuestions(){
         return parServer.authoredQuestions();
     }
+
+    @GetMapping("/teacherReport")
+    public TeacherReport getTeacherReport()throws IOException{
+        return parServer.buildTeacherReport();
+    }
+
 }

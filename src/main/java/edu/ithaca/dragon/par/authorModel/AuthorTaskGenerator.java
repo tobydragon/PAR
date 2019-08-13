@@ -16,7 +16,7 @@ public class AuthorTaskGenerator {
 
     public static ImageTask makeTaskTemplate(AuthorModel authorModel){
         if (authorModel.getQuestionCountList().size()<1){
-            return new ImageTask("noMoreQuestions", new ArrayList<>());
+            return new ImageTask("noMoreQuestions", new ArrayList<>());//TODO:NEED LINE
         }
 
         QuestionCount initialQuestion = getInitialQuestion(authorModel.getQuestionCountList());

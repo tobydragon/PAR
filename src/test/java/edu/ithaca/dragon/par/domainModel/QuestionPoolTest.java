@@ -96,4 +96,33 @@ public class QuestionPoolTest {
         assertNull(qp.getTopLevelQuestionById("AttachQ1"));
         assertNull(qp.getTopLevelQuestionById("badId"));
     }
+
+    @Test
+    public void buildQuestionListWithSameUrlImp2Test()throws IOException{
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPool.json").getAllQuestions());
+        //first url
+        Question q = questionPool.getAllQuestions().get(0);
+        List<Question> qs = QuestionPool.getTopLevelQuestionsFromUrl(questionPool.getAllQuestions(), q.getImageUrl());
+        assertEquals(5, qs.size());
+
+        //second url
+        q = questionPool.getAllQuestions().get(5);
+        qs = QuestionPool.getTopLevelQuestionsFromUrl(questionPool.getAllQuestions(), q.getImageUrl());
+        assertEquals(6, qs.size());
+
+        //third url
+        q = questionPool.getAllQuestions().get(11);
+        qs = QuestionPool.getTopLevelQuestionsFromUrl(questionPool.getAllQuestions(), q.getImageUrl());
+        assertEquals(4, qs.size());
+
+        //fourth url
+        q = questionPool.getAllQuestions().get(15);
+        qs = QuestionPool.getTopLevelQuestionsFromUrl(questionPool.getAllQuestions(), q.getImageUrl());
+        assertEquals(3, qs.size());
+
+        //last question
+        q = questionPool.getAllQuestions().get(questionPool.getAllQuestions().size()-1);
+        qs = QuestionPool.getTopLevelQuestionsFromUrl(questionPool.getAllQuestions(), q.getImageUrl());
+        assertEquals(6, qs.size());
+    }
 }

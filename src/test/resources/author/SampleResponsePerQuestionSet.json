@@ -1,0 +1,343 @@
+[ {
+  "questionId" : "PlaneQ1",
+  "userId" : "response1",
+  "question" : {
+    "id" : "PlaneQ1",
+    "type" : "plane",
+    "questionText" : "On which plane is the ultrasound taken?",
+    "correctAnswer" : "Lateral",
+    "possibleAnswers" : [ "Transverse", "Lateral" ],
+    "imageUrl" : "./images/demoEquine04.jpg",
+    "followupQuestions" : [ ]
+  },
+  "firstResponse" : "Lateral",
+  "questionType" : "plane",
+  "allResponses" : [ {
+    "responseText" : "Lateral",
+    "millSeconds" : 1565104213517
+  } ]
+}, {
+  "questionId" : "PlaneQ2",
+  "userId" : "response1",
+  "question" : {
+    "id" : "PlaneQ2",
+    "type" : "plane",
+    "questionText" : "On which plane is the ultrasound taken?",
+    "correctAnswer" : "Transverse",
+    "possibleAnswers" : [ "Transverse", "Lateral" ],
+    "imageUrl" : "./images/demoEquine02.jpg",
+    "followupQuestions" : [ ]
+  },
+  "firstResponse" : "Transverse",
+  "questionType" : "plane",
+  "allResponses" : [ {
+    "responseText" : "Transverse",
+    "millSeconds" : 1565104213517
+  } ]
+}, {
+  "questionId" : "PlaneQ3",
+  "userId" : "response1",
+  "question" : {
+    "id" : "PlaneQ3",
+    "type" : "plane",
+    "questionText" : "On which plane is the ultrasound taken?",
+    "correctAnswer" : "Lateral",
+    "possibleAnswers" : [ "Transverse", "Lateral" ],
+    "imageUrl" : "./images/demoEquine05.jpg",
+    "followupQuestions" : [ ]
+  },
+  "firstResponse" : "Lateral",
+  "questionType" : "plane",
+  "allResponses" : [ {
+    "responseText" : "Lateral",
+    "millSeconds" : 1565104213517
+  } ]
+}, {
+  "questionId" : "PlaneQ4",
+  "userId" : "response1",
+  "question" : {
+    "id" : "PlaneQ4",
+    "type" : "plane",
+    "questionText" : "On which plane is the ultrasound taken?",
+    "correctAnswer" : "Lateral",
+    "possibleAnswers" : [ "Transverse", "Lateral" ],
+    "imageUrl" : "./images/demoEquine09.jpg",
+    "followupQuestions" : [ ]
+  },
+  "firstResponse" : "Lateral",
+  "questionType" : "plane",
+  "allResponses" : [ {
+    "responseText" : "Lateral",
+    "millSeconds" : 1565104213517
+  } ]
+}, {
+  "questionId" : "PlaneQ5",
+  "userId" : "response1",
+  "question" : {
+    "id" : "PlaneQ5",
+    "type" : "plane",
+    "questionText" : "On which plane is the ultrasound taken?",
+    "correctAnswer" : "Transverse",
+    "possibleAnswers" : [ "Transverse", "Lateral" ],
+    "imageUrl" : "./images/demoEquine10.jpg",
+    "followupQuestions" : [ ]
+  },
+  "firstResponse" : "Transverse",
+  "questionType" : "plane",
+  "allResponses" : [ {
+    "responseText" : "Transverse",
+    "millSeconds" : 1565104213517
+  } ]
+}, {
+  "questionId" : "StructureQ1",
+  "userId" : "response1",
+  "question" : {
+    "id" : "StructureQ1",
+    "type" : "structure",
+    "questionText" : "What structure is in the near field?",
+    "correctAnswer" : "bone",
+    "possibleAnswers" : [ "bone", "ligament", "tumor", "tendon" ],
+    "imageUrl" : "./images/demoEquine04.jpg",
+    "followupQuestions" : [ ]
+  },
+  "firstResponse" : "bone",
+  "questionType" : "structure",
+  "allResponses" : [ {
+    "responseText" : "bone",
+    "millSeconds" : 1565104213517
+  } ]
+}, {
+  "questionId" : "StructureQ2",
+  "userId" : "response1",
+  "question" : {
+    "id" : "StructureQ2",
+    "type" : "structure",
+    "questionText" : "What structure is in the near field?",
+    "correctAnswer" : "ligament",
+    "possibleAnswers" : [ "bone", "ligament", "tumor", "tendon" ],
+    "imageUrl" : "./images/demoEquine09.jpg",
+    "followupQuestions" : [ ]
+  },
+  "firstResponse" : "ligament",
+  "questionType" : "structure",
+  "allResponses" : [ {
+    "responseText" : "ligament",
+    "millSeconds" : 1565104213517
+  } ]
+}, {
+  "questionId" : "StructureQ3",
+  "userId" : "response1",
+  "question" : {
+    "id" : "StructureQ3",
+    "type" : "structure",
+    "questionText" : "What structure is in the near field?",
+    "correctAnswer" : "tendon",
+    "possibleAnswers" : [ "bone", "ligament", "tumor", "tendon" ],
+    "imageUrl" : "./images/demoEquine04.jpg",
+    "followupQuestions" : [{
+      "id": "AttachQ1",
+      "type": "attachment",
+      "questionText": "Which attachment is this 1?",
+      "correctAnswer": "Type2",
+      "possibleAnswers": [
+        "Type1",
+        "Type2",
+        "Type3"
+      ],
+      "imageUrl": "./images/demoEquine08.jpg",
+      "followupQuestions": []
+      },
+      {
+        "id": "AttachQ2",
+        "type": "attachment",
+        "questionText": "Which attachment is this? 2",
+        "correctAnswer": "Type2",
+        "possibleAnswers": [
+          "Type1",
+          "Type2",
+          "Type3"
+        ],
+        "imageUrl": "./images/demoEquine14.jpg",
+        "followupQuestions": []
+      }]
+  },
+  "firstResponse" : "tendon",
+  "questionType" : "structure",
+  "allResponses" : [ {
+    "responseText" : "tendon",
+    "millSeconds" : 1565104213517
+  } ]
+  },
+  {
+    "questionId" : "AttachQ1",
+    "userId" :"response1",
+    "question" : {
+      "id": "AttachQ1",
+      "type": "attachment",
+      "questionText": "Which attachment is this 1?",
+      "correctAnswer": "Type2",
+      "possibleAnswers": ["Type1", "Type2", "Type3"],
+      "imageUrl": "./images/demoEquine08.jpg",
+      "followupQuestions": []
+    },
+    "firstResponse" :"Type2",
+    "questionType" : "attachment",
+    "allResponses" : [ {
+      "responseText" : "Type2",
+      "millSeconds" : 1565104213517
+    } ]
+  },
+{
+    "questionId" : "AttachQ2",
+    "userId" :"response1",
+    "question" : {
+      "id": "AttachQ2",
+      "type": "attachment",
+      "questionText": "Which attachment is this? 2",
+      "correctAnswer": "Type2",
+      "possibleAnswers": ["Type1", "Type2", "Type3"],
+      "imageUrl": "./images/demoEquine14.jpg",
+      "followupQuestions": []
+    },
+    "firstResponse" :"Type2",
+    "questionType" : "attachment",
+    "allResponses" : [ {
+      "responseText" : "Type2",
+      "millSeconds" : 1565104213517
+    } ]
+  },{
+  "questionId" : "StructureQ4",
+  "userId" : "response1",
+  "question" : {
+    "id" : "StructureQ4",
+    "type" : "structure",
+    "questionText" : "What structure is in the near field?",
+    "correctAnswer" : "bone",
+    "possibleAnswers" : [ "bone", "ligament", "tumor", "tendon" ],
+    "imageUrl" : "./images/demoEquine05.jpg",
+    "followupQuestions" : [ ]
+  },
+  "firstResponse" : "bone",
+  "questionType" : "structure",
+  "allResponses" : [ {
+    "responseText" : "bone",
+    "millSeconds" : 1565104213517
+  } ,{
+    "responseText" : "bone",
+    "millSeconds" : 1565104777517
+  }]
+}, {
+  "questionId" : "StructureQ5",
+  "userId" : "response1",
+  "question" : {
+    "id" : "StructureQ5",
+    "type" : "structure",
+    "questionText" : "What structure is in the near field?",
+    "correctAnswer" : "tumor",
+    "possibleAnswers" : [ "bone", "ligament", "tumor", "tendon" ],
+    "imageUrl" : "./images/demoEquine05.jpg",
+    "followupQuestions" : [ ]
+  },
+  "firstResponse" : "tumor",
+  "questionType" : "structure",
+  "allResponses" : [ {
+    "responseText" : "tumor",
+    "millSeconds" : 1565104213517
+  } ]
+}, {
+  "questionId" : "ZoneQ1",
+  "userId" : "response1",
+  "question" : {
+    "id" : "ZoneQ1",
+    "type" : "zone",
+    "questionText" : "In what zone is this ultrasound taken?",
+    "correctAnswer" : "3c",
+    "possibleAnswers" : [ "1a", "1b", "2a", "2b", "2c", "3a", "3b", "3c" ],
+    "imageUrl" : "./images/demoEquine02.jpg",
+    "followupQuestions" : [ ]
+  },
+  "firstResponse" : "3c",
+  "questionType" : "zone",
+  "allResponses" : [ {
+    "responseText" : "3c",
+    "millSeconds" : 1565104213517
+  } ]
+}, {
+  "questionId" : "ZoneQ2",
+  "userId" : "response1",
+  "question" : {
+    "id" : "ZoneQ2",
+    "type" : "zone",
+    "questionText" : "In what zone is this ultrasound taken?",
+    "correctAnswer" : "1b",
+    "possibleAnswers" : [ "1a", "1b", "2a", "2b", "2c", "3a", "3b", "3c" ],
+    "imageUrl" : "./images/demoEquine05.jpg",
+    "followupQuestions" : [ ]
+  },
+  "firstResponse" : "1b",
+  "questionType" : "zone",
+  "allResponses" : [ {
+    "responseText" : "1b",
+    "millSeconds" : 1565104213517
+  } ]
+}, {
+  "questionId" : "ZoneQ3",
+  "userId" : "response1",
+  "question" : {
+    "id" : "ZoneQ3",
+    "type" : "zone",
+    "questionText" : "In what zone is this ultrasound taken?",
+    "correctAnswer" : "3c",
+    "possibleAnswers" : [ "1a", "1b", "2a", "2b", "2c", "3a", "3b", "3c" ],
+    "imageUrl" : "./images/demoEquine09.jpg",
+    "followupQuestions" : [ ]
+  },
+  "firstResponse" : "3c",
+  "questionType" : "zone",
+  "allResponses" : [ {
+    "responseText" : "3c",
+    "millSeconds" : 1565104213517
+  } ]
+}, {
+  "questionId" : "ZoneQ4",
+  "userId" : "response1",
+  "question" : {
+    "id" : "ZoneQ4",
+    "type" : "zone",
+    "questionText" : "In what zone is this ultrasound taken?",
+    "correctAnswer" : "2a",
+    "possibleAnswers" : [ "1a", "1b", "2a", "2b", "2c", "3a", "3b", "3c" ],
+    "imageUrl" : "./images/demoEquine11.jpg",
+    "followupQuestions" : [ ]
+  },
+  "firstResponse" : "2a",
+  "questionType" : "zone",
+  "allResponses" : [ {
+    "responseText" : "2a",
+    "millSeconds" : 1565104213517
+  } ]
+}, {
+  "questionId" : "ZoneQ5",
+  "userId" : "response1",
+  "question" : {
+    "id" : "ZoneQ5",
+    "type" : "zone",
+    "questionText" : "In what zone is this ultrasound taken?",
+    "correctAnswer" : "2b",
+    "possibleAnswers" : [ "1a", "1b", "2a", "2b", "2c", "3a", "3b", "3c" ],
+    "imageUrl" : "./images/demoEquine10.jpg",
+    "followupQuestions" : [ ]
+  },
+  "firstResponse" : "2b",
+  "questionType" : "zone",
+  "allResponses" : [ {
+    "responseText" : "2b",
+    "millSeconds" : 1565104213517
+  },{
+    "responseText" : "2c",
+    "millSeconds" : 1565104273517
+  },{
+    "responseText" : "2d",
+    "millSeconds" : 1565104573517
+    }]
+} ]

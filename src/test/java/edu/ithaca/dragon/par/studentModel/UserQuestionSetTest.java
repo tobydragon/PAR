@@ -1,6 +1,7 @@
 package edu.ithaca.dragon.par.studentModel;
 
 import edu.ithaca.dragon.par.domainModel.Question;
+import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.UserQuestionSetRecord;
 import edu.ithaca.dragon.util.JsonUtil;
 
@@ -10,6 +11,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 
 import org.junit.jupiter.api.Test;
@@ -410,7 +412,15 @@ public class UserQuestionSetTest {
         len = seenList.size();
         assertEquals(3, len);
     }
+    @Test
+    public void getAllQuestionsTest() throws IOException{
+        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/simpleTestSet/currentQuestionPool.json", Question.class);
+        UserQuestionSet que = UserQuestionSet.buildNewUserQuestionSetFromQuestions("1", questionsFromFile);
+        List<Question> allQuestions = que.getAllQuestions();
+        que.increaseTimesSeenAllQuestions(allQuestions);
+        assertEquals(16,allQuestions.size());
 
+    }
 
 
     @Test
@@ -471,6 +481,21 @@ public class UserQuestionSetTest {
 
         //TODO: see implementation for detail
         //assertThrows(RuntimeException.class, ()-> {studentModel.getUserQuestionSet().addQuestion(q2);});
+    }
+
+    @Test
+    public void questionTypesMapTest() throws IOException{
+        List<Question> questions= JsonUtil.listFromJsonFile("src/test/resources/author/DemoQuestionPoolFewFollowups.json", Question.class);
+        UserQuestionSet que1 = UserQuestionSet.buildNewUserQuestionSetFromQuestions("1", questions);
+
+        Map<String,List<QuestionCount>> questionByTypesMap= que1.questionCountsByTypeMap();
+
+        assertEquals(4,questionByTypesMap.size());
+        //do bonus and attachment not being recorded
+        assertEquals(13,questionByTypesMap.get(EquineQuestionTypes.plane.toString()).size());
+        assertEquals(27,questionByTypesMap.get(EquineQuestionTypes.structure.toString()).size());
+        assertEquals(7,questionByTypesMap.get(EquineQuestionTypes.attachment.toString()).size());
+        assertEquals(10,questionByTypesMap.get(EquineQuestionTypes.zone.toString()).size());
     }
 
 }
