@@ -1,7 +1,6 @@
 package edu.ithaca.dragon.par.authorModel;
 
 import edu.ithaca.dragon.par.domainModel.Question;
-import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.io.*;
 
 import java.io.IOException;
@@ -20,7 +19,7 @@ public class AuthorServer {
         return AuthorTaskGenerator.makeTaskTemplate(authorDatastore.getAuthorModel());
     }
 
-    public void imageTaskResponseSubmitted(ImageTaskResponse imageTaskResponse) throws IOException{
+    public void imageTaskResponseSubmitted(ImageTaskResponseOOP imageTaskResponse) throws IOException{
         for(String currId : imageTaskResponse.getTaskQuestionIds()){
             Question currQuestion = authorDatastore.findTopLevelQuestionTemplateById(currId);
             if(currQuestion != null){
@@ -35,7 +34,7 @@ public class AuthorServer {
         return AuthorTaskGenerator.authoredQuestions(authorDatastore.getAllAuthoredQuestions());
     }
 
-    public static Question buildQuestionFromTemplate(Question questionIn, ImageTaskResponse imageTaskResponse){
+    public static Question buildQuestionFromTemplate(Question questionIn, ImageTaskResponseOOP imageTaskResponse){
         String answer = imageTaskResponse.findResponseToQuestion(questionIn);
         if(answer == null){
             return null;

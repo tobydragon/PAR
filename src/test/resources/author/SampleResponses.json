@@ -1,11 +1,97 @@
-[ {
+[{
   "userId" : "response1",
-  "taskQuestionIds" : [ "PlaneQ1", "PlaneQ2", "PlaneQ3", "PlaneQ4", "PlaneQ5", "StructureQ1", "StructureQ2", "StructureQ3", "StructureQ4", "StructureQ5", "ZoneQ1", "ZoneQ2", "ZoneQ3", "ZoneQ4", "ZoneQ5" ],
-  "responseTexts" : [ "Lateral", "Transverse", "Lateral", "Lateral", "Transverse", "bone", "ligament", "tendon", "bone", "tumor", "3c", "1b", "3c", "2a", "2b" ]
-} ,
-  {
-    "userId" : "response1",
-    "taskQuestionIds" : [ "PlaneQ1", "PlaneQ2", "PlaneQ3", "PlaneQ4", "PlaneQ5", "StructureQ1", "StructureQ2", "StructureQ3", "StructureQ4", "StructureQ5", "ZoneQ1", "ZoneQ2", "ZoneQ3", "ZoneQ4", "ZoneQ5" ],
-    "responseTexts" : [ "hi", "its", "me", "Lateral", "Transverse", "bone", "ligament", "tendon", "bone", "tumor", "3c1", "1b1", "3c1", "2a1", "2b1" ]
-  }
-]
+  "questionResponses" : [ {
+    "questionId" : "PlaneQ1",
+    "responseText" : "Lateral"
+  }, {
+    "questionId" : "PlaneQ2",
+    "responseText" : "Transverse"
+  }, {
+    "questionId" : "PlaneQ3",
+    "responseText" : "Lateral"
+  }, {
+    "questionId" : "PlaneQ4",
+    "responseText" : "Lateral"
+  }, {
+    "questionId" : "PlaneQ5",
+    "responseText" : "Transverse"
+  }, {
+    "questionId" : "StructureQ1",
+    "responseText" : "bone"
+  }, {
+    "questionId" : "StructureQ2",
+    "responseText" : "ligament"
+  }, {
+    "questionId" : "StructureQ3",
+    "responseText" : "tendon"
+  }, {
+    "questionId" : "StructureQ4",
+    "responseText" : "bone"
+  }, {
+    "questionId" : "StructureQ5",
+    "responseText" : "tumor"
+  }, {
+    "questionId" : "ZoneQ1",
+    "responseText" : "3c"
+  }, {
+    "questionId" : "ZoneQ2",
+    "responseText" : "1b"
+  }, {
+    "questionId" : "ZoneQ3",
+    "responseText" : "3c"
+  }, {
+    "questionId" : "ZoneQ4",
+    "responseText" : "2a"
+  }, {
+    "questionId" : "ZoneQ5",
+    "responseText" : "2b"
+  } ]
+}, {
+  "userId" : "response1",
+  "questionResponses" : [ {
+    "questionId" : "PlaneQ1",
+    "responseText" : "hi"
+  }, {
+    "questionId" : "PlaneQ2",
+    "responseText" : "its"
+  }, {
+    "questionId" : "PlaneQ3",
+    "responseText" : "me"
+  }, {
+    "questionId" : "PlaneQ4",
+    "responseText" : "Lateral"
+  }, {
+    "questionId" : "PlaneQ5",
+    "responseText" : "Transverse"
+  }, {
+    "questionId" : "StructureQ1",
+    "responseText" : "bone"
+  }, {
+    "questionId" : "StructureQ2",
+    "responseText" : "ligament"
+  }, {
+    "questionId" : "StructureQ3",
+    "responseText" : "tendon"
+  }, {
+    "questionId" : "StructureQ4",
+    "responseText" : "bone"
+  }, {
+    "questionId" : "StructureQ5",
+    "responseText" : "tumor"
+  }, {
+    "questionId" : "ZoneQ1",
+    "responseText" : "3cx"
+  }, {
+    "questionId" : "ZoneQ2",
+    "responseText" : "1bx"
+  }, {
+    "questionId" : "ZoneQ3",
+    "responseText" : "3cx"
+  }, {
+    "questionId" : "ZoneQ4",
+    "responseText" : "2ax"
+  }, {
+    "questionId" : "ZoneQ5",
+    "responseText" : "2bx"
+  } ]
+}]

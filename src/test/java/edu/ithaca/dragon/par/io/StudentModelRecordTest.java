@@ -42,8 +42,8 @@ public class StudentModelRecordTest {
     public void busyModelToFile() throws IOException {
         QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/SampleQuestionPool.json").getAllQuestions());
         StudentModel studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
-        List<ImageTaskResponse> responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponse.class);
-        ImageTaskResponse responseSet3=new ImageTaskResponse("response1", Arrays.asList("PlaneQ1","StructureQ1","ZoneQ1"),Arrays.asList("I'm","bad","student"));
+        List<ImageTaskResponseOOP> responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponseOOP.class);
+        ImageTaskResponseOOP responseSet3=new ImageTaskResponseOOP("response1", Arrays.asList("PlaneQ1","StructureQ1","ZoneQ1"),Arrays.asList("I'm","bad","student"));
         //terrible student
         studentModel.imageTaskResponseSubmitted(responsesFromFile.get(0),questionPool);
         studentModel.imageTaskResponseSubmitted(responsesFromFile.get(0),questionPool);

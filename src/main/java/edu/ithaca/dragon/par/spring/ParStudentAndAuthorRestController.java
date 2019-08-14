@@ -75,7 +75,7 @@ public class ParStudentAndAuthorRestController {
     }
 
     @PostMapping("/recordResponse")
-    public ResponseEntity<String> recordResponse(@RequestBody ImageTaskResponse response) {
+    public ResponseEntity<String> recordResponse(@RequestBody ImageTaskResponseOOP response) {
         try {
             parServer.submitImageTaskResponse(response);
             return ResponseEntity.ok().body("ok");
@@ -109,7 +109,7 @@ public class ParStudentAndAuthorRestController {
     }
 
     @PostMapping("/submitAuthorImageTaskResponse")
-    public ResponseEntity<String> submitAuthorImageTaskResponse(@RequestBody ImageTaskResponse response) {
+    public ResponseEntity<String> submitAuthorImageTaskResponse(@RequestBody ImageTaskResponseOOP response) {
         try {
             parServer.submitAuthorImageTaskResponse(response);
             return ResponseEntity.ok().body("ok");

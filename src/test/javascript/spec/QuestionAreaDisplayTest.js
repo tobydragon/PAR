@@ -11,7 +11,7 @@ describe("QuestionAreaDisplay", function () {
 
     it("buildQuestionAreas", function () {
         let questionObjects = readJson("../resources/author/DemoQuestionPool.json");
-        let testResponse = new Response("tester");
+        let testResponse = new NewResponse("tester");
         let questionAreas = buildQuestionAreas(questionObjects, testResponse);
         expect(questionAreas.length).toBe(47);
         expect(questionAreas[0].element.getAttribute("id")).toBe("plane./images/demoEquine14.jpg");
@@ -20,7 +20,7 @@ describe("QuestionAreaDisplay", function () {
 
     it("addFollowupQuestions", function () {
         let questionObjects = readJson("../resources/author/DemoQuestionPoolFollowup.json");
-        let testResponse = new Response("tester");
+        let testResponse = new NewResponse("tester");
         let questionAreas = buildQuestionAreas(questionObjects, testResponse);
         let questionWithFollowup = questionAreas[1];
         expect(questionWithFollowup.element.childNodes.length).toBe(2);

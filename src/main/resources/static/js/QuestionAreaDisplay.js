@@ -1,9 +1,15 @@
 class QuestionAreaDisplay {
-    constructor(questionObject, response) {
+    constructor(questionObject, response, responseList) {
+        this.response= response;
         this.answerBox = new InputDatalistResponseBoxDisplay(questionObject.id + "ResponseBox", questionObject.possibleAnswers, questionObject.correctAnswer, questionObject.type);
-        this.element = buildQuestionAreaElement(questionObject.id, questionObject.questionText, this.answerBox.element);
+        if(questionObject.questionText!=null) {
+            this.questionTextArea = buildQuestionAreaElementUnchangable(questionObject.questionText);
+        } else {
+            this.questionTextArea= createQuestionTextInputElement();
+        }
+        this.element = buildQuestionAreaElement(questionObject.id, this.questionTextArea, this.answerBox.element);
         if (questionObject.hasOwnProperty("followupQuestions")) {
-            this.followUpAreas = buildQuestionAreas(questionObject.followupQuestions, response);
+            this.followUpAreas = buildQuestionAreas(questionObject.followupQuestions, responseList);
         } else {
             this.followUpAreas = [];
         }
@@ -20,14 +26,22 @@ class QuestionAreaDisplay {
         followupElement.classList.add("tab");
         this.followup = followupElement;
     }
+
+    recordCurrentResponse(){
+        if(this.questionTextArea==="questionTextAreaInput"){
+            this.response.setQuestionText(this.questionTextArea.value);
+        }
+        return this.answerBox.recordCurrentResponse(this.response);
+    }
+
+    checkCurrentResponse(unsureShowsCorrectAnswer, responseList){
+        return this.answerBox.checkCurrentResponse(this.response, unsureShowsCorrectAnswer, responseList);
+    }
 }
 
-function buildQuestionAreaElement(id, questionText, answerBoxElement) {
+function buildQuestionAreaElement(id, questionTextArea, answerBoxElement) {
     let element = document.createElement("div");
     element.setAttribute("id", id);
-
-    let questionTextArea = document.createElement("text");
-    questionTextArea.textContent = questionText;
 
     element.appendChild(questionTextArea);
     element.appendChild(answerBoxElement);
@@ -37,10 +51,27 @@ function buildQuestionAreaElement(id, questionText, answerBoxElement) {
     return element;
 }
 
-function buildQuestionAreas(questionObjectList, response) {
+function buildQuestionAreaElementUnchangable(questionText){
+    let questionTextArea = document.createElement("text");
+    questionTextArea.textContent = questionText;
+    questionTextArea.id= "questionTextAreaFixed";
+    return questionTextArea;
+}
+
+function createQuestionTextInputElement(){
+    let input = document.createElement("input");
+    input.type = "text";
+    input.value= "What structure is circled?";
+    input.size= 50;
+    input.id= "questionTextAreaInput";
+    return input;
+}
+
+function buildQuestionAreas(questionObjectList, responseList) {
     let questionAreaList = [];
     for (let questionObject of questionObjectList) {
-        questionAreaList.push(new QuestionAreaDisplay(questionObject, response));
+        let newResponse= responseList.addToQuestionResponses(questionObject.id);
+        questionAreaList.push(new QuestionAreaDisplay(questionObject, newResponse, responseList));
     }
     return questionAreaList;
 }
