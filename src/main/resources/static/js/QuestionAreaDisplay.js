@@ -4,9 +4,11 @@ class QuestionAreaDisplay {
         this.answerBox = new InputDatalistResponseBoxDisplay(questionObject.id + "ResponseBox", questionObject.possibleAnswers, questionObject.correctAnswer, questionObject.type);
         if(questionObject.questionText!=null) {
             this.questionTextArea = buildQuestionAreaElementUnchangable(questionObject.questionText);
+            console.log(this.questionTextArea instanceof Element);
         } else {
             this.questionTextArea= createQuestionTextInputElement();
         }
+        console.log(this.questionTextArea instanceof Element);
         this.element = buildQuestionAreaElement(questionObject.id, this.questionTextArea, this.answerBox.element);
         if (questionObject.hasOwnProperty("followupQuestions")) {
             this.followUpAreas = buildQuestionAreas(questionObject.followupQuestions, responseList);
@@ -28,7 +30,7 @@ class QuestionAreaDisplay {
     }
 
     recordCurrentResponse(){
-        if(this.questionTextArea==="questionTextAreaInput"){
+        if(this.questionTextArea.id==="questionTextAreaInput"){
             this.response.setQuestionText(this.questionTextArea.value);
         }
         return this.answerBox.recordCurrentResponse(this.response);
@@ -42,7 +44,8 @@ class QuestionAreaDisplay {
 function buildQuestionAreaElement(id, questionTextArea, answerBoxElement) {
     let element = document.createElement("div");
     element.setAttribute("id", id);
-
+    console.log(questionTextArea);
+    console.log(questionTextArea instanceof Node);
     element.appendChild(questionTextArea);
     element.appendChild(answerBoxElement);
     element.classList.add("pad5");
@@ -52,10 +55,10 @@ function buildQuestionAreaElement(id, questionTextArea, answerBoxElement) {
 }
 
 function buildQuestionAreaElementUnchangable(questionText){
-    let questionTextArea = document.createElement("text");
-    questionTextArea.textContent = questionText;
-    questionTextArea.id= "questionTextAreaFixed";
-    return questionTextArea;
+    let questionTextAreaUnchangable = document.createElement("text");
+    questionTextAreaUnchangable.textContent = questionText;
+    questionTextAreaUnchangable.id= "questionTextAreaFixed";
+    return questionTextAreaUnchangable;
 }
 
 function createQuestionTextInputElement(){
