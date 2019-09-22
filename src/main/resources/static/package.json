@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "create": "webpack",
+    "start": "webpack-dev-server --open"
   },
   "keywords": [],
   "author": "",
@@ -12,5 +14,12 @@
   "dependencies": {
     "react": "^16.9.0",
     "react-dom": "^16.9.0"
+  },
+"babel":{
+    "presets" : [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ]
   }
+
 }
