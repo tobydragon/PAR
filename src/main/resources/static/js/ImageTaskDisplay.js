@@ -271,6 +271,13 @@ function authorSubmitResponse(responses, pageSettings){
     submitToAPI("api/submitAuthorImageTaskResponse", newResponse, pageSettings.showScore, pageSettings.scoreType, this.userID);
 }
 
+function createNewResponse(responses){
+    let newResponse={
+        userId: responses.userId,
+        questionResponses: responses.questionResponses
+    };
+    return newResponse;
+}
 function createOldResponse(responses){
     let responseTexts= [];
     let questionIds= [];
