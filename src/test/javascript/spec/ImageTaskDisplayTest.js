@@ -118,4 +118,8 @@ describe("ImageTaskDisplay", function () {
 
         expect(imageTaskElement.childNodes.item(3).getAttribute('class')).toContain('col-1');
     });
+    it("createNewResponse Test", function() {
+       let newResponses= new NewResponse();
+        expect(createNewResponse(newResponses)).toNotBe('null');
+    });
 });
