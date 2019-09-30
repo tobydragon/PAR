@@ -64,7 +64,7 @@ class CompleteDisplay {
         showScoreOuter(this.pageDisplay.showScore, this.pageDisplay.scoreType, this.userID);
     }
 }
-
+//todo remove ths when it breaks
 function showScoreOuter(showScore, scoreType, userId) {
     if (showScore) {
         displayScore(generateScore(scoreType, userId));
