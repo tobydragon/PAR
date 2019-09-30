@@ -1,6 +1,6 @@
 class QuestionResponse{
-    constructor(id){
-        this.id= id;
+    constructor(questionId){
+        this.questionId= questionId;
         this.responseText= null;
     }
 

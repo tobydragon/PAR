@@ -266,7 +266,7 @@ function checkIfShouldAddFollowupQ(correctness) {
 }
 
 function authorSubmitResponse(responses, pageSettings){
-    let newResponse= createOldResponse(responses);
+    let newResponse= createNewResponse(responses);
 
     submitToAPI("api/submitAuthorImageTaskResponse", newResponse, pageSettings.showScore, pageSettings.scoreType, this.userID);
 }
@@ -276,8 +276,11 @@ function createNewResponse(responses){
         userId: responses.userId,
         questionResponses: responses.questionResponses
     };
+    console.log(newResponse);
     return newResponse;
+
 }
+/**
 function createOldResponse(responses){
     let responseTexts= [];
     let questionIds= [];
@@ -300,9 +303,9 @@ function createOldResponse(responses){
 
     return newResponse;
 }
-
+**/
 function submitResponse(responses, pageSettings) {
-    let newResponse= createOldResponse(responses);
+    let newResponse= createNewResponse(responses);
 
     submitToAPI("api/recordResponse", newResponse, pageSettings.showScore, pageSettings.scoreType, this.userID);
 }
