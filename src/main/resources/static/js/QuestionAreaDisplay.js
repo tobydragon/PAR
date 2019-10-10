@@ -4,11 +4,9 @@ class QuestionAreaDisplay {
         this.answerBox = new InputDatalistResponseBoxDisplay(questionObject.id + "ResponseBox", questionObject.possibleAnswers, questionObject.correctAnswer, questionObject.type);
         if(questionObject.questionText!=null) {
             this.questionTextArea = buildQuestionAreaElementUnchangable(questionObject.questionText);
-            console.log(this.questionTextArea instanceof Element);
         } else {
             this.questionTextArea= createQuestionTextInputElement();
         }
-        console.log(this.questionTextArea instanceof Element);
         this.element = buildQuestionAreaElement(questionObject.id, this.questionTextArea, this.answerBox.element);
         if (questionObject.hasOwnProperty("followupQuestions")) {
             this.followUpAreas = buildQuestionAreas(questionObject.followupQuestions, responseList);
@@ -44,8 +42,6 @@ class QuestionAreaDisplay {
 function buildQuestionAreaElement(id, questionTextArea, answerBoxElement) {
     let element = document.createElement("div");
     element.setAttribute("id", id);
-    console.log(questionTextArea);
-    console.log(questionTextArea instanceof Node);
     element.appendChild(questionTextArea);
     element.appendChild(answerBoxElement);
     element.classList.add("pad5");

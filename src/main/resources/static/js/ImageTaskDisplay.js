@@ -20,7 +20,7 @@ class ImageTaskDisplay {
         this.isAuthor = isAuthor;
         this.counter = counter;
 
-        this.responses= new NewResponse(userId);
+        this.responses= new QuestionResponseList(userId);
 
         //buildQuestionAreasAuthor(this.isAuthor)
         if (!isAuthor) {

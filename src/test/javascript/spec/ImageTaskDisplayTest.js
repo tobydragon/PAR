@@ -119,7 +119,8 @@ describe("ImageTaskDisplay", function () {
         expect(imageTaskElement.childNodes.item(3).getAttribute('class')).toContain('col-1');
     });
     it("createNewResponse", function() {
-       let newResponses= new NewResponse("responses","0");
-        expect(createNewResponse(newResponses)).toNotBe('null');
+       let newResponses= new QuestionResponseList("responses","0");
+       console.log(typeof(createNewResponse("x","0'")));
+        expect(createNewResponse(newResponses)).not.toBe(null);
     });
 });

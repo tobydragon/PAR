@@ -18,7 +18,7 @@
     <script type="text/javascript" src="../../../main/resources/static/js/CommUtil.js"></script>
     <script type="text/javascript" src="../../../main/resources/static/js/ScoreDisplay.js"></script>
     <script type="text/javascript" src="../../../main/resources/static/js/QuestionAreaDisplay.js"></script>
-    <script type="text/javascript" src="../../../main/resources/static/js/NewResponse.js"></script>
+    <script type="text/javascript" src="../../../main/resources/static/js/QuestionResponseList.js"></script>
     <script type="text/javascript" src="../../../main/resources/static/js/QuestionResponse.js"></script>
     <script type="text/javascript" src="../../../main/resources/static/js/PageImage.js"></script>
     <script type="text/javascript" src="../../../main/resources/static/js/InputDatalistResponseBoxDisplay.js"></script>
@@ -34,7 +34,7 @@
     let imageTaskSettings = readJson("../../../main/resources/author/SettingsExample.json");
     let pageSettings = readJson("../../../main/resources/author/PageSettingsExample.json");
 
-    let respnonses= new NewResponse("test");
+    let respnonses= new QuestionResponseList("test");
     let outerQuestionSetNode = document.createElement('form');
     outerQuestionSetNode.setAttribute('action', '#');
     outerQuestionSetNode.setAttribute('method', 'post');

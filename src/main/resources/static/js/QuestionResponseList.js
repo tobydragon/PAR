@@ -1,4 +1,4 @@
-class NewResponse{
+class QuestionResponseList{
     constructor(userID){
         this.userId= userID;
         this.questionResponses= [];
