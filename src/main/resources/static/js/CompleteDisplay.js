@@ -15,9 +15,6 @@ class CompleteDisplay {
                 location.replace('/error?message=' + msg);
             }
         }
-//todo fix the page settings function calls
-        this.pageSettings = readJson("api/getPageSettings?userId=" + this.userID);
-        this.pageDisplay = new PageDisplay(this.pageSettings);
         this.pageDisplay.userId = this.userID;
     }
 

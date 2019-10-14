@@ -154,3 +154,20 @@ function inputBoxAutoSize(listOfStrings) {
     }
     return highestCharCount;
 }
+
+function giveFeedback(typesSeenForFeedback, feedbackByType) {
+    var feedbackString = "";
+    if (typesSeenForFeedback.length > 0) {
+        feedbackString = "Feedback: ";
+    }
+    for (var i = 0; i < typesSeenForFeedback.length; i++) {
+        var type = typesSeenForFeedback[i];
+        var response = feedbackByType[type];
+        if (i < typesSeenForFeedback.length - 1) {
+            response += ", ";
+        }
+        feedbackString += response;
+    }
+
+    return feedbackString;
+}

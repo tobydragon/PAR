@@ -280,51 +280,11 @@ function createNewResponse(responses){
     return newResponse;
 
 }
-/**
-function createOldResponse(responses){
-    let responseTexts= [];
-    let questionIds= [];
-    for(let i=0; i<responses.questionResponses.length; i++){
-        let questionResponse= responses.questionResponses[i];
-        if(questionResponse.responseText!=null) {
-            responseTexts.push(questionResponse.responseText);
-            questionIds.push(questionResponse.id);
-        }
-    }
 
-    let newResponse = {
-        userId: responses.userId,
-        taskQuestionIds: questionIds,
-        responseTexts: responseTexts
-    };
-
-    console.log(newResponse.responseTexts);
-    console.log(newResponse.taskQuestionIds);
-
-    return newResponse;
-}
-**/
 function submitResponse(responses, pageSettings) {
     let newResponse= createNewResponse(responses);
 
     submitToAPI("api/recordResponse", newResponse, pageSettings.showScore, pageSettings.scoreType, this.userID);
-}
-
-function giveFeedback(typesSeenForFeedback, feedbackByType) {
-    var feedbackString = "";
-    if (typesSeenForFeedback.length > 0) {
-        feedbackString = "Feedback: ";
-    }
-    for (var i = 0; i < typesSeenForFeedback.length; i++) {
-        var type = typesSeenForFeedback[i];
-        var response = feedbackByType[type];
-        if (i < typesSeenForFeedback.length - 1) {
-            response += ", ";
-        }
-        feedbackString += response;
-    }
-
-    return feedbackString;
 }
 
 function sendResponse(responses, ableToResubmitAnswers, isAuthor, pageSettings, hasFollowup, timesSubmitted) {
