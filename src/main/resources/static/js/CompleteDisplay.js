@@ -15,21 +15,27 @@ class CompleteDisplay {
                 location.replace('/error?message=' + msg);
             }
         }
+        this.pageDisplay = new PageDisplay(this.pageSettings);
         this.pageDisplay.userId = this.userID;
     }
+/*
 
     setPageDisplayIsAuthor() {
         this.pageDisplay.setIsAuthor();
     }
+*/
 
-    displayUserId() {
+    /*displayUserId() {
         document.getElementById("UserId").innerHTML = "&nbsp" + this.userID;
-    }
+    }*/
+/*
 
     nextImageTask() {
         document.getElementById('imageTaskArea').innerText = "";
         this.pageDisplay.nextImageTask();
     }
+*/
+/*
 
     nextQuestion() {
         if (!this.pageDisplay.imageTaskDisplay.mustSubmitAnswersToContinue) {
@@ -42,33 +48,34 @@ class CompleteDisplay {
             }
         }
     }
-
+*/
+/* //todo figure out what to do about this.
     submitAnswers() {
         this.pageDisplay.imageTaskDisplay.submitAnswers();
         if (this.pageDisplay.isAuthor) {
             this.nextQuestion();
         }
-    }
-
+    }*/
+/*
     enterAuthorWrite() {
         document.getElementById('imageTaskArea').innerText = "";
         enableElement(document.getElementById("submitAuthorButton"));
         disableElement(document.getElementById("createAuthorQButton"));
         this.nextQuestion();
-    }
-
+    }*/
+/*
     showScoreInner() {
         showScoreOuter(this.pageDisplay.showScore, this.pageDisplay.scoreType, this.userID);
-    }
+    }*/
 }
 //todo remove ths when it breaks
-function showScoreOuter(showScore, scoreType, userId) {
+/*function showScoreOuter(showScore, scoreType, userId) {
     if (showScore) {
         displayScore(generateScore(scoreType, userId));
     }
-}
+}*/
 
-function displayScore(given) {
+/*function displayScore(given) {
     if (document.getElementById("score").hasChildNodes()) {
         let node = document.getElementById("score").firstChild;
         document.getElementById("score").removeChild(node);
@@ -84,4 +91,4 @@ function generateScore(scoreType, userID) {
         let scoreJSON = readJson("api/calcScoreByType?userId=" + userID);
         return setCurrentScore(scoreJSON, scoreType);
     }
-}
+}*/

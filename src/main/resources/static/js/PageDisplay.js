@@ -9,9 +9,20 @@ class PageDisplay {
         this.showScore = pageSettings.showScore;
         this.imageTaskSettings = null;
     }
+    createPageDisplay(){
+        this.setIsAuthor();
+        this.displayUserId();
+        this.prepareScore();
+        document.getElementById('imageTaskArea').innerText = "";
+        this.nextImageTask();
+        this.authorEffects();
 
+    }
     setIsAuthor() {
         this.isAuthor = setIsAuthor(this.userId);
+    }
+    displayUserId() {
+        document.getElementById("UserId").innerHTML = "&nbsp" + this.userID;
     }
 
     authorEffects() {
@@ -68,6 +79,25 @@ class PageDisplay {
         document.getElementById('imageTaskArea').innerText = "Questions Submitted";
     }
 
+    nextQuestion() {
+        if (!this.pageDisplay.imageTaskDisplay.mustSubmitAnswersToContinue) {
+            this.nextImageTask();
+        } else {
+            if (this.pageDisplay.imageTaskDisplay.haveSubmited) {
+                this.nextImageTask();
+            } else {
+                document.getElementById("errorFeedback").innerHTML = "<font color=red>Must submit answers to continue</font>";
+            }
+        }
+    }
+
+    enterAuthorWrite() {
+        document.getElementById('imageTaskArea').innerText = "";
+        enableElement(document.getElementById("submitAuthorButton"));
+        disableElement(document.getElementById("createAuthorQButton"));
+        this.nextQuestion();
+    }
+
     enterAuthorReview() {
         enableElement(document.getElementById("createAuthorQButton"));
         disableElement(document.getElementById("submitAuthorButton"));
@@ -76,6 +106,29 @@ class PageDisplay {
         enterAuthorReview(listOfImageTasks, this.userId, this.imageTaskSettings, this.isAuthor, this.pageSettings);
     }
 
+    prepareScore() {
+        if (this.showScore) {
+            displayScore(generateScore(this.scoreType, this.userId));
+        }
+    }
+}
+
+function displayScore(given) {
+    if (document.getElementById("score").hasChildNodes()) {
+        let node = document.getElementById("score").firstChild;
+        document.getElementById("score").removeChild(node);
+    }
+    document.getElementById("score").appendChild(given);
+}
+
+function generateScore(scoreType, userID) {
+    if (scoreType === "VisualByType") {
+        let visJSON = readJson("api/knowledgeBase?userId=" + userID);
+        return setCurrentScore(visJSON, scoreType);
+    } else if (scoreType === "NumberByType") {
+        let scoreJSON = readJson("api/calcScoreByType?userId=" + userID);
+        return setCurrentScore(scoreJSON, scoreType);
+    }
 }
 
 function enterAuthorReview(listOfImageTasks, userId, imageTaskSettings, isAuthor, pageSettings) {
