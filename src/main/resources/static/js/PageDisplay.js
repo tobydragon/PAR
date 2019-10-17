@@ -80,10 +80,10 @@ class PageDisplay {
     }
 
     nextQuestion() {
-        if (!this.pageDisplay.imageTaskDisplay.mustSubmitAnswersToContinue) {
+        if (!this.imageTaskDisplay.mustSubmitAnswersToContinue) {
             this.nextImageTask();
         } else {
-            if (this.pageDisplay.imageTaskDisplay.haveSubmited) {
+            if (this.imageTaskDisplay.haveSubmited) {
                 this.nextImageTask();
             } else {
                 document.getElementById("errorFeedback").innerHTML = "<font color=red>Must submit answers to continue</font>";

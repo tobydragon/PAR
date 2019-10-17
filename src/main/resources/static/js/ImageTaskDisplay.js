@@ -135,7 +135,7 @@ class ImageTaskDisplay {
         submitButtonElement.classList.add('btn');
         submitButtonElement.classList.add('btn-primary');
         submitButtonElement.setAttribute('id', 'submitButton' + this.counter);
-        submitButtonElement.setAttribute('onclick', 'completeDisplay.submitAnswers()');
+        submitButtonElement.setAttribute('onclick', 'completeDisplay.pageDisplay.imageTaskDisplay.submitAnswers()');
         submitButtonElement.textContent = 'Submit';
 
         return submitButtonElement;
@@ -148,7 +148,7 @@ class ImageTaskDisplay {
         nextQuestionButtonElement.classList.add('btn');
         nextQuestionButtonElement.classList.add('btn-outline-dark');
         nextQuestionButtonElement.setAttribute('id', 'nextQuestionButton' + this.counter);
-        nextQuestionButtonElement.setAttribute('onclick', 'completeDisplay.nextQuestion()');
+        nextQuestionButtonElement.setAttribute('onclick', 'completeDisplay.pageDisplay.nextQuestion()');
 
         return nextQuestionButtonElement;
     }
