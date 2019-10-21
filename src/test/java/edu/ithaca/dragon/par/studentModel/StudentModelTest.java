@@ -79,10 +79,16 @@ public class StudentModelTest {
 
     @Test
     public void imageTaskResponseSubmittedTest() throws IOException{
+        // submit responses to 15 questions
         studentModel.imageTaskResponseSubmitted(responsesFromFile.get(0),questionPool);
-        assertEquals(studentModel.getResponseCount(), 15);
-    }
+        assertEquals(15, studentModel.getResponseCount());
+        assertEquals(15, studentModel.countTotalResponsesFromUserResponseSet());
 
+        // submit 15 new responses to the 15 questions that have already been responded to
+        studentModel.imageTaskResponseSubmitted(responsesFromFile.get(1),questionPool);
+        assertEquals(15, studentModel.getResponseCount());
+        assertEquals(30, studentModel.countTotalResponsesFromUserResponseSet());
+    }
     @Test
     public void addQuestionTest() throws IOException{
         List<Question> questions= JsonUtil.listFromJsonFile("src/test/resources/author/DemoQuestionPoolFollowup.json", Question.class);
