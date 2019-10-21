@@ -65,25 +65,30 @@ public class EquineQuestionTemplateCreator {
     public static final List<String> zoneResponses = Arrays.asList("1", "1A", "1B", "2", "2A", "2B", "3", "3A", "3B", "3C");
 
     public static List<Question> createQuestionsForImage(String imagePath){
-       List<Question> questions = new ArrayList<>();
-       questions.add(new Question(createQuestionId(EquineQuestionTypes.plane.toString()+"-"+imagePath),
-               planeQuestion,
-               EquineQuestionTypes.plane.toString(),
-               null,
-               planeResponses,
-               imagePath));
-       for (int i=0; i<structureQuestions.size(); i++){
-           String structureId = EquineQuestionTypes.structure.toString()+i+"-"+imagePath;
-           List<Question> attachmentQuestionsToAdd = createAttachmentQuestionsList(imagePath, structureId);
-           questions.add(new Question(createQuestionId(structureId), structureQuestions.get(i), EquineQuestionTypes.structure.toString(), null, structureResponses, imagePath, attachmentQuestionsToAdd));
-       }
-       questions.add(new Question(createQuestionId(EquineQuestionTypes.zone.toString()+"-"+imagePath), zoneQuestion,
-                EquineQuestionTypes.zone.toString(), null, zoneResponses, imagePath));
-       return questions;
+        return createQuestionsForImage(imagePath, 0);
     }
 
-    public static List<Question> createQuestionsForImage(String imagePath, int numberOfBlankQuestions){
-        return null;
+    public static List<Question> createQuestionsForImage(String imagePath, int numOfCustomQuestions){
+        List<Question> questions = new ArrayList<>();
+        questions.add(new Question(createQuestionId(EquineQuestionTypes.plane.toString()+"-"+imagePath),
+                planeQuestion,
+                EquineQuestionTypes.plane.toString(),
+                null,
+                planeResponses,
+                imagePath));
+        for (int i=0; i<structureQuestions.size(); i++){
+            String structureId = EquineQuestionTypes.structure.toString()+i+"-"+imagePath;
+            List<Question> attachmentQuestionsToAdd = createAttachmentQuestionsList(imagePath, structureId);
+            questions.add(new Question(createQuestionId(structureId), structureQuestions.get(i), EquineQuestionTypes.structure.toString(), null, structureResponses, imagePath, attachmentQuestionsToAdd));
+        }
+        for (int i=0; i<numOfCustomQuestions; i++){
+            String blankId = "custom"+i+"-"+imagePath;
+            //TODO: currently the list of possible answers is null, this should probably be replaced by a list of possible answers
+            questions.add(new Question(createQuestionId(blankId), null, EquineQuestionTypes.structure.toString(), null, null, imagePath));
+        }
+        questions.add(new Question(createQuestionId(EquineQuestionTypes.zone.toString()+"-"+imagePath), zoneQuestion,
+                EquineQuestionTypes.zone.toString(), null, zoneResponses, imagePath));
+        return questions;
     }
 
     public static List<Question> createAttachmentQuestionsList(String imagePath, String structureId){
