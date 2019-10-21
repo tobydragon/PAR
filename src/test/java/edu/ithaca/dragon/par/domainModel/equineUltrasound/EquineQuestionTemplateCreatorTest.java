@@ -16,6 +16,12 @@ class EquineQuestionTemplateCreatorTest {
     void createQuestionsForImageTest() throws IOException {
         List<Question> questions = EquineQuestionTemplateCreator.createQuestionsForImage("equineTest.jpg");
         assertEquals(6, questions.size());
+
+        //Create Questions with null question and answer Text
+        List<Question> questions2 = EquineQuestionTemplateCreator.createQuestionsForImage("equineTest2.jpg", 2);
+        assertEquals(8, questions2.size());
+        List<Question> questions3 = EquineQuestionTemplateCreator.createQuestionsForImage("equineTest3.jpg", 4);
+        assertEquals(10, questions3.size());
     }
 
     @Test

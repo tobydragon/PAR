@@ -30,8 +30,10 @@ public class StudentModel {
     }
 
     public static List<ResponsesPerQuestion> createUserResponseObj(ImageTaskResponseOOP imageTaskResponses, QuestionPool questions, String userId){
-        List<ResponsesPerQuestion> userResponse =new ArrayList<>();
-        ResponsesPerQuestion response; Question ques;
+        List<ResponsesPerQuestion> userResponse = new ArrayList<>();
+        // TODO why are these declared outside of the for loop
+        ResponsesPerQuestion response;
+        Question ques;
         for(int i = 0; i< imageTaskResponses.getTaskQuestionIds().size(); i++){
             ques=questions.getQuestionFromId(imageTaskResponses.getTaskQuestionIds().get(i));//finds question in QuestionPool creates a question object
             response=new ResponsesPerQuestion(userId,ques, imageTaskResponses.getResponseTexts().get(i));//creates new response object
@@ -86,6 +88,10 @@ public class StudentModel {
 
     public int getResponseCount(){
         return userResponseSet.getUserResponsesSize();
+    }
+
+    public int countTotalResponsesFromUserResponseSet(){
+        return userResponseSet.countTotalResponses();
     }
 
     public double calcKnowledgeEstimate(){

@@ -82,6 +82,10 @@ public class EquineQuestionTemplateCreator {
        return questions;
     }
 
+    public static List<Question> createQuestionsForImage(String imagePath, int numberOfBlankQuestions){
+        return null;
+    }
+
     public static List<Question> createAttachmentQuestionsList(String imagePath, String structureId){
         List<Question> attachmentQuestions = new ArrayList<>();
         attachmentQuestions.add(new Question(
