@@ -113,9 +113,13 @@ public class EquineQuestionTemplateCreator {
     }
 
     public static List<Question> createQuestionsForImageList(List<String> imagePathList) {
+        return createQuestionsForImageList(imagePathList, 0);
+    }
+
+    public static List<Question> createQuestionsForImageList(List<String> imagePathList, int numOfCustomQuestions) {
         List<Question> questions = new ArrayList<>();
         for (String imagePath: imagePathList){
-            questions.addAll(createQuestionsForImage(imagePath));
+            questions.addAll(createQuestionsForImage(imagePath, numOfCustomQuestions));
         }
         return questions;
     }
