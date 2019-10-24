@@ -84,7 +84,7 @@ public class EquineQuestionTemplateCreator {
         for (int i=0; i<numOfCustomQuestions; i++){
             String blankId = "custom"+i+"-"+imagePath;
             //TODO: currently the list of possible answers is null, this should probably be replaced by a list of possible answers
-            questions.add(new Question(createQuestionId(blankId), null, EquineQuestionTypes.structure.toString(), null, null, imagePath));
+            questions.add(new Question(createQuestionId(blankId), null, EquineQuestionTypes.structure.toString(), null, structureResponses, imagePath));
         }
         questions.add(new Question(createQuestionId(EquineQuestionTypes.zone.toString()+"-"+imagePath), zoneQuestion,
                 EquineQuestionTypes.zone.toString(), null, zoneResponses, imagePath));
