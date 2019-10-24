@@ -48,7 +48,7 @@ describe("PageDisplay", function () {
         let imageTaskDisplayObject = new ImageTaskDisplay(listOfImageTasks[0], "testUser", imageTaskSettings, true, "canvas0", pageDisplaySettings);
         let pageDisplayObject = new PageDisplay(pageDisplaySettings);
 
-        let createPageDisplay=new PageDisplay.createPageDisplay();
+        let createPageDisplay=pageDisplayObject.createPageDisplay();
         expect(createPageDisplay).not.toBe(null);
     });
 });

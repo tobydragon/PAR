@@ -22,7 +22,7 @@ class PageDisplay {
         this.isAuthor = setIsAuthor(this.userId);
     }
     displayUserId() {
-        document.getElementById("UserId").innerHTML = "&nbsp" + this.userID;
+        document.getElementById("UserId").innerHTML = "&nbsp" + this.userId;
     }
 
     authorEffects() {
