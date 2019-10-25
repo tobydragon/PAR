@@ -62,8 +62,13 @@ public class JsonAuthorDatastore implements AuthorDatastore {
     }
 
     @Override
-    public void addQuestion(Question question) throws IOException{
+    public void addQuestionToQuestionsDatastore(Question question) throws IOException{
         questionsDatastore.addQuestion(question);
+    }
+
+    @Override
+    public void addQuestionToQuestionTemplateDatastore(Question question) throws IOException{
+        questionTemplatesDatastore.addQuestion(question);
     }
 
     private void overwriteAuthorFile() throws IOException{

@@ -24,7 +24,7 @@ public class AuthorServer {
             Question currQuestion = authorDatastore.findTopLevelQuestionTemplateById(currId);
             if(currQuestion != null){
                 Question newQuestion = buildQuestionFromTemplate(currQuestion, imageTaskResponse);
-                authorDatastore.addQuestion(newQuestion);
+                authorDatastore.addQuestionToQuestionsDatastore(newQuestion);
                 authorDatastore.removeQuestionTemplateById(currQuestion.getId());
             }
         }
