@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -170,4 +171,49 @@ public class AuthorServerTest {
         assertEquals("longitudinal", pas.findTopLevelQuestionById("plane./images/demoEquine14.jpg").getCorrectAnswer());
     }
 
+    @Test
+    public void customQuestionSubmissionTest(@TempDir Path tempDir) throws IOException{
+        //set up authorDatastore files and the AuthorServer
+        Path currentQuestionPath = tempDir.resolve("currentQuestions.json");
+        Path currentQuestionTemplatePath = tempDir.resolve("currentQuestionTemplates.json");
+        Files.copy(Paths.get("src/test/resources/author/SampleQuestionsEmpty.json"), currentQuestionPath, StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(Paths.get("src/test/resources/author/DemoQuestionPoolTemplateWithCustom.json"), currentQuestionTemplatePath, StandardCopyOption.REPLACE_EXISTING);
+
+        AuthorServer pas = new AuthorServer(new JsonAuthorDatastore(currentQuestionPath.toString(),
+                currentQuestionTemplatePath.toString(), tempDir.resolve("currentAuthorModel.json").toString()));
+
+        assertEquals(0, pas.getQuestionCount());
+        assertEquals(48, pas.getQuestionTemplateCount());
+
+        //submit an itr that has normal questions and a custom question
+        QuestionResponseOOP qr1 = new QuestionResponseOOP("plane./images/demoEquine14.jpg", "longitudinal");
+        QuestionResponseOOP qr2 = new QuestionResponseOOP("custom0./images/demoEquine14.jpg", "Is this a custom question?", "Yes, it is!");
+        ImageTaskResponseOOP itr1 = new ImageTaskResponseOOP();
+        itr1.setQuestionResponses(new ArrayList<>(Arrays.asList(qr1, qr2)));
+        pas.imageTaskResponseSubmitted(itr1);
+
+        assertEquals(2, pas.getQuestionCount());
+        assertEquals(46, pas.getQuestionTemplateCount());
+
+
+
+
+
+        //TODO: this was written to test if already submitted questions could have their answers changed, and proves that they currently cannot
+//        //submit a normal itr
+//        ImageTaskResponseOOP itr1 = new ImageTaskResponseOOP("User1", Arrays.asList("plane./images/demoEquine14.jpg"), Arrays.asList("longitudinal"));
+//        pas.imageTaskResponseSubmitted(itr1);
+//        assertEquals(1, pas.getQuestionCount());
+//        assertEquals(47, pas.getQuestionTemplateCount());
+//        assertEquals("longitudinal", pas.findTopLevelQuestionById("plane./images/demoEquine14.jpg").getCorrectAnswer());
+//
+//        //re-answer a question and check if the answer has changed
+//        ImageTaskResponseOOP itr2 = new ImageTaskResponseOOP("User1", Arrays.asList("plane./images/demoEquine14.jpg"), Arrays.asList("transverse"));
+//        pas.imageTaskResponseSubmitted(itr2);
+//        assertEquals(1, pas.getQuestionCount());
+//        assertEquals(47, pas.getQuestionTemplateCount());
+//        assertEquals("transverse", pas.findTopLevelQuestionById("plane./images/demoEquine14.jpg").getCorrectAnswer());
+
+
+    }
 }
