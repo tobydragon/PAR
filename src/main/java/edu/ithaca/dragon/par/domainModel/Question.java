@@ -77,9 +77,13 @@ public class Question {
         }
         Question other = (Question) otherObj;
 
-        if (this.getCorrectAnswer()==null && ((Question) otherObj).getCorrectAnswer()==null){
+        if (this.getQuestionText() != ((Question) otherObj).getQuestionText()){
+            return false;
+        }
+
+        if (this.getCorrectAnswer()==null && ((Question) otherObj).getCorrectAnswer()==null) {
             return this.getId().equals(other.getId())
-                    && this.getQuestionText().equals(other.getQuestionText())
+                    //&& this.getQuestionText().equals(other.getQuestionText())
                     && this.getType().equals(other.getType())
                     && this.getPossibleAnswers().equals(other.getPossibleAnswers())
                     && this.getImageUrl().equals(other.getImageUrl());

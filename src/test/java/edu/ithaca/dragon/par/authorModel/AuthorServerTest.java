@@ -194,6 +194,8 @@ public class AuthorServerTest {
 
         assertEquals(2, pas.getQuestionCount());
         assertEquals(46, pas.getQuestionTemplateCount());
+        assertEquals("Is this a custom question?", pas.findTopLevelQuestionById("custom0./images/demoEquine14.jpg").getQuestionText());
+        assertEquals("yes, it is!", pas.findTopLevelQuestionById("custom0./images/demoEquine14.jpg").getCorrectAnswer());
 
 
 
