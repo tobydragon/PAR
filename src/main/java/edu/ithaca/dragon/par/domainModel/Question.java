@@ -36,6 +36,11 @@ public class Question {
         this(toCopy.id, toCopy.questionText, toCopy.type, correctAnswer, new ArrayList<>(toCopy.possibleAnswers), toCopy.imageUrl, differentFollowups);
     }
 
+    //used for AuthorServer.buildQuestionFromTemplate for custom questions
+    public Question(Question toCopy, String questionText, String correctAnswer, List<Question> differentFollowups){
+        this(toCopy.id, questionText, toCopy.type, correctAnswer, new ArrayList<>(toCopy.possibleAnswers), toCopy.imageUrl, differentFollowups);
+    }
+
     public Question(Question toCopy, List<Question> differentFollowups){
         this(toCopy.id, toCopy.questionText, toCopy.type, toCopy.correctAnswer, new ArrayList<>(toCopy.possibleAnswers), toCopy.imageUrl, differentFollowups);
     }
@@ -76,14 +81,14 @@ public class Question {
             return false;
         }
         Question other = (Question) otherObj;
-
-        if (this.getQuestionText() != ((Question) otherObj).getQuestionText()){
-            return false;
-        }
+//
+//        if (this.getQuestionText() != ((Question) otherObj).getQuestionText()){
+//            return false;
+//        }
 
         if (this.getCorrectAnswer()==null && ((Question) otherObj).getCorrectAnswer()==null) {
             return this.getId().equals(other.getId())
-                    //&& this.getQuestionText().equals(other.getQuestionText())
+                    && this.getQuestionText().equals(other.getQuestionText())
                     && this.getType().equals(other.getType())
                     && this.getPossibleAnswers().equals(other.getPossibleAnswers())
                     && this.getImageUrl().equals(other.getImageUrl());

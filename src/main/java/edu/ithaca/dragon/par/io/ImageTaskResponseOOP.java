@@ -67,6 +67,16 @@ public class ImageTaskResponseOOP{
         return null;
     }
 
+    public String findQuestionTextOfQuestion(Question question) {
+        for(QuestionResponseOOP questionResponseOOP : questionResponses) {
+            if(question.getId().equals(questionResponseOOP.questionId)){
+                return questionResponseOOP.questionText;
+            }
+        }
+        return null;
+    }
+
+
     @Override
     public boolean equals(Object otherObj){
         if(otherObj == null){

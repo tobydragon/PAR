@@ -194,6 +194,8 @@ public class AuthorServerTest {
 
         assertEquals(2, pas.getQuestionCount());
         assertEquals(46, pas.getQuestionTemplateCount());
+        assertEquals("On which plane is the ultrasound taken?", pas.findTopLevelQuestionById("plane./images/demoEquine14.jpg").getQuestionText());
+        assertEquals("longitudinal", pas.findTopLevelQuestionById("plane./images/demoEquine14.jpg").getCorrectAnswer());
         assertEquals("Is this a custom question?", pas.findTopLevelQuestionById("custom0./images/demoEquine14.jpg").getQuestionText());
         assertEquals("yes, it is!", pas.findTopLevelQuestionById("custom0./images/demoEquine14.jpg").getCorrectAnswer());
 

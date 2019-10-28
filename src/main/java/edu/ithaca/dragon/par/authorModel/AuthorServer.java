@@ -35,6 +35,7 @@ public class AuthorServer {
     }
 
     public static Question buildQuestionFromTemplate(Question questionIn, ImageTaskResponseOOP imageTaskResponse){
+        String questionText = imageTaskResponse.findQuestionTextOfQuestion(questionIn);
         String answer = imageTaskResponse.findResponseToQuestion(questionIn);
         if(answer == null){
             return null;
@@ -46,7 +47,10 @@ public class AuthorServer {
                 followupQuestions.add(newFollowUp);
             }
         }
-        return new Question(questionIn, answer.toLowerCase(), followupQuestions);
+        if (questionText == null)
+            return new Question(questionIn, answer.toLowerCase(), followupQuestions);
+        else //it is a custom question
+            return new Question(questionIn, questionText, answer.toLowerCase(), followupQuestions);
     }
 
     //removes and returns all questions that are authored (leaving a blank question file for authored questions)
