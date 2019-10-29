@@ -81,10 +81,10 @@ public class Question {
             return false;
         }
         Question other = (Question) otherObj;
-//
-//        if (this.getQuestionText() != ((Question) otherObj).getQuestionText()){
-//            return false;
-//        }
+
+        if (this.getQuestionText() == null) {
+            return ((Question) otherObj).getQuestionText() == null;
+        }
 
         if (this.getCorrectAnswer()==null && ((Question) otherObj).getCorrectAnswer()==null) {
             return this.getId().equals(other.getId())

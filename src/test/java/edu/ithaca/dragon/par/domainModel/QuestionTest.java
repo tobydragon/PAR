@@ -86,6 +86,12 @@ public class QuestionTest {
         Question planeQdiffAns = new Question("PlaneQ1", "On which plane is the ultrasound taken?", EquineQuestionTypes.plane.toString(),
                 "Lateral", Arrays.asList("Transverse", "Lateral", "Other Answer"), "../static/images/equine02.jpg");
         assertNotEquals(planeQ, planeQdiffAns);
+
+        Question customQ = new Question("cust1", null, EquineQuestionTypes.structure.toString(), null, Arrays.asList("Yes", "No"), "..customURL");
+        Question customQ2 = new Question("cust1", null, EquineQuestionTypes.structure.toString(), null, Arrays.asList("Yes", "No"), "..customURL");
+        Question customQWithQText = new Question("cust1", "Is this a custom Question?", EquineQuestionTypes.structure.toString(), "Yes", Arrays.asList("Yes", "No"), "..customURL");
+        assertEquals(customQ, customQ2);
+        assertNotEquals(customQ, customQWithQText);
     }
 
     @Test
