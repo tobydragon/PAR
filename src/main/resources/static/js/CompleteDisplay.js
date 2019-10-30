@@ -17,6 +17,7 @@ class CompleteDisplay {
         }
         this.pageDisplay = new PageDisplay(this.pageSettings);
         this.pageDisplay.userId = this.userID;
+        this.pageDisplay.createPageDisplay();
     }
 /*
 
