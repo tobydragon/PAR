@@ -64,7 +64,8 @@ function buildQuestionAreaElementUnchangable(questionText){
 function createQuestionTextInputElement(){
     let input = document.createElement("input");
     input.type = "text";
-    input.value= "What structure is circled?";
+    input.setAttribute('placeholder', 'Enter question here');
+    console.log('here in cQTIE');
     input.size= 50;
     input.id= "questionTextAreaInput";
     return input;

@@ -132,7 +132,7 @@ public class EquineQuestionTemplateCreator {
         try {
             List<String> imageFilePaths = FileSystemUtil.addPathToFilenames(imagePathForJavascript,
                     FileSystemUtil.findAllFileNamesInDir(imageFilePath, ".jpg"));
-            List<Question> generatedQuestions = createQuestionsForImageList(imageFilePaths);
+            List<Question> generatedQuestions = createQuestionsForImageList(imageFilePaths, 2);
             JsonUtil.toJsonFile(questionFileToCreate, generatedQuestions);
         }
         catch(Exception e){
