@@ -278,7 +278,10 @@ function addToResponseIds(response, id) {
         response.addToQuestionIds(id);
     }
 }
-
+function makeBetterResponse(oldResponse){
+    let newResponse= ImageTaskResponse(oldResponse);
+    return newResponse;
+}
 function submitResponse(response, isAuthor, pageSettings) {
    /* let newResponse = {
         userId: response.userId,
