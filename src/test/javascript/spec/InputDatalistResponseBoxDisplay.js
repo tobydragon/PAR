@@ -114,7 +114,7 @@ describe("InputDatalistResponseBoxDisplay", function () {
         document.getElementById("testArea").appendChild(textEntryResponseBox.element);
         document.getElementById("testArea").style.display = "none";
         textEntryResponseBox.inputTextbox.value = "low";
-        let test = new Response("test1");
+        let test = new Response("test1",[],[]);
         let unsureShowsCorrect = false;
 
         expect(textEntryResponseBox.checkCurrentResponse(test, unsureShowsCorrect)).toBe(ResponseResult.correct, unsureShowsCorrect);

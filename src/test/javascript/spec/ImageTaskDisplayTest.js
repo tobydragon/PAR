@@ -11,7 +11,7 @@ describe("ImageTaskDisplay", function () {
     });
 
     it("addToResponseIds", function () {
-        let test1 = new Response("test");
+        let test1 = new Response("test",[],[]);
         addToResponseIds(test1, "\"zone./images/demoEquine14.jpg\"");
         expect(test1.taskQuestionIds.length).toBe(1);
         expect(test1.taskQuestionIds).toEqual(['"zone./images/demoEquine14.jpg"']);
@@ -139,5 +139,21 @@ describe("ImageTaskDisplay", function () {
         expect(imageTaskElement.childNodes.item(2).getAttribute('class')).toContain('col-4');
 
         expect(imageTaskElement.childNodes.item(3).getAttribute('class')).toContain('col-1');
+    });
+    it("submitResponse", function(){
+        let pageSettings = readJson("../../main/resources/author/PageSettingsExample.json");
+        let testResponse={
+          userId: "test",
+          taskQuestionIds: [0,1],
+          responseTexts: ["Yes","No"]
+        };
+        let userId="test";
+        let taskQuestionIds=[0,1];
+        let responseTexts=["Yes","No"];
+        let testResponse1= new Response(userId,taskQuestionIds,responseTexts);
+        console.log(testResponse);
+        console.log(testResponse1);
+        expect(submitResponse(testResponse,false,pageSettings)).not.toBe(null);
+        expect(submitResponse(testResponse1,false,pageSettings)).not.toBe(null);
     });
 });

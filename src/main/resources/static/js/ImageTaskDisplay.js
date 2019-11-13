@@ -2,7 +2,7 @@ class ImageTaskDisplay {
 
     constructor(imageTaskJson, userId, imageTaskSettings, isAuthor, canvasName, pageDisplaySettings, counter) {
         this.userId = userId;
-        this.response = new Response(userId);
+        this.response = new Response(userId,null, null);
         this.hasFolloup = false;
         this.imageUrl = imageTaskJson.imageUrl;
         this.imageTaskJson = imageTaskJson;
@@ -280,12 +280,13 @@ function addToResponseIds(response, id) {
 }
 
 function submitResponse(response, isAuthor, pageSettings) {
-    let newResponse = {
+   /* let newResponse = {
         userId: response.userId,
         taskQuestionIds: response.taskQuestionIds,
         responseTexts: response.responseTexts
-    };
-
+    }; */
+    let newResponse= new Response(response.userId,response.taskQuestionIds,response.responseTexts);
+    console.log(newResponse);
 
     if (isAuthor) {
         submitToAPI("api/submitAuthorImageTaskResponse", newResponse, pageSettings.showScore, pageSettings.scoreType, this.userID);
