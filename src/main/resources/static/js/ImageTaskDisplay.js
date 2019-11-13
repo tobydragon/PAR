@@ -288,8 +288,15 @@ function submitResponse(response, isAuthor, pageSettings) {
         taskQuestionIds: response.taskQuestionIds,
         responseTexts: response.responseTexts
     }; */
-    let newResponse= new Response(response.userId,response.taskQuestionIds,response.responseTexts);
-    console.log(newResponse);
+   let newStyleSwitch=false;
+   if(newStyleSwitch){
+       let newResponse=makeBetterResponse(response);
+       console.log(newResponse);
+   } else {
+       let newResponse= new Response(response.userId,response.taskQuestionIds,response.responseTexts);
+       console.log(newResponse);
+   }
+
 
     if (isAuthor) {
         submitToAPI("api/submitAuthorImageTaskResponse", newResponse, pageSettings.showScore, pageSettings.scoreType, this.userID);
