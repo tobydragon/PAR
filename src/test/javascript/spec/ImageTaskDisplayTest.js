@@ -156,4 +156,14 @@ describe("ImageTaskDisplay", function () {
         expect(submitResponse(testResponse,false,pageSettings)).not.toBe(null);
         expect(submitResponse(testResponse1,false,pageSettings)).not.toBe(null);
     });
+    it("makeBetterResponse", function(){
+        let userId="test";
+        let taskQuestionIds=[0,1];
+        let responseTexts=["Yes","No"];
+        let response=new Response(userId,taskQuestionIds,responseTexts);
+        expect(makeBetterResponse(response)).not.toBe(null);
+        let responseList=null;
+        let newAndBetterImageTaskResponse= new ImageTaskResponse(userId,responseList);
+        expect(makeBetterResponse(response)).toMatch(newAndBetterImageTaskResponse);
+    });
 });
