@@ -279,8 +279,8 @@ function addToResponseIds(response, id) {
     }
 }
 function makeBetterResponse(oldResponse){
-    let newResponse= ImageTaskResponse(oldResponse);
-    return newResponse;
+    let ITRobj= ImageTaskResponse(oldResponse);
+    return ITRobj.addToResponseList();
 }
 function submitResponse(response, isAuthor, pageSettings) {
    /* let newResponse = {
