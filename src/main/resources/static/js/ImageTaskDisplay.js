@@ -2,7 +2,7 @@ class ImageTaskDisplay {
 
     constructor(imageTaskJson, userId, imageTaskSettings, isAuthor, canvasName, pageDisplaySettings, counter) {
         this.userId = userId;
-        this.response = new Response(userId,null, null);
+        this.response = new Response(this.userId);
         this.hasFolloup = false;
         this.imageUrl = imageTaskJson.imageUrl;
         this.imageTaskJson = imageTaskJson;
