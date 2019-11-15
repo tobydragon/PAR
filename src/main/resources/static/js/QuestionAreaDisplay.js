@@ -2,11 +2,11 @@ class QuestionAreaDisplay {
     constructor(questionObject, response) {
         this.answerBox = new InputDatalistResponseBoxDisplay(questionObject.id + "ResponseBox", questionObject.possibleAnswers, questionObject.correctAnswer, questionObject.type);
         if(questionObject.questionText!=null){
-            this.element=buildCustomQuestionAreaElement(questionObject.questionText)
+            this.questionTextArea=buildCustomQuestionAreaElement(questionObject.questionText)
         }else{
-            this.element = buildQuestionAreaElement(questionObject.id, questionObject.questionText, this.answerBox.element);
+            this.questionTextArea=buildQuestionAreaElement();
         }
-
+        this.element = buildQuestionAreaElement(questionObject.id, this.questionTextArea, this.answerBox.element);
         if (questionObject.hasOwnProperty("followupQuestions")) {
             this.followUpAreas = buildQuestionAreas(questionObject.followupQuestions, response);
         } else {
