@@ -285,11 +285,6 @@ function makeBetterResponse(oldResponse){
     return ITRobj.addToResponseList();
 }
 function submitResponse(response, isAuthor, pageSettings) {
-   /* let newResponse = {
-        userId: response.userId,
-        taskQuestionIds: response.taskQuestionIds,
-        responseTexts: response.responseTexts
-    }; */
    //toggle this from true to false for old response creation, or true for new response list creation
    let newStyleSwitch=true;
    let newResponse;
