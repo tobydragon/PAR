@@ -1,9 +1,9 @@
 class Response{
 
-    constructor(userID, taskQuestionIds, responseTexts){
+    constructor(userID){
         this.userId= userID;
-        this.taskQuestionIds = taskQuestionIds;
-        this.responseTexts= responseTexts;
+        this.taskQuestionIds = [];
+        this.responseTexts=[];
         this.typesIncorrect= [];
     }
 

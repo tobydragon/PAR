@@ -297,7 +297,11 @@ function submitResponse(response, isAuthor, pageSettings) {
        newResponse=makeBetterResponse(response);
        console.log(newResponse);
    } else {
-       newResponse= new Response(response.userId,response.taskQuestionIds,response.responseTexts);
+       newResponse = {
+        userId: response.userId,
+        taskQuestionIds: response.taskQuestionIds,
+        responseTexts: response.responseTexts
+    };
        console.log(newResponse);
    }
 
