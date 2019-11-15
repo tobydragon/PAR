@@ -1,7 +1,12 @@
 class QuestionAreaDisplay {
     constructor(questionObject, response) {
         this.answerBox = new InputDatalistResponseBoxDisplay(questionObject.id + "ResponseBox", questionObject.possibleAnswers, questionObject.correctAnswer, questionObject.type);
-        this.element = buildQuestionAreaElement(questionObject.id, questionObject.questionText, this.answerBox.element);
+        if(questionObject.questionText!=null){
+            this.element=buildCustomQuestionAreaElement(questionObject.questionText)
+        }else{
+            this.element = buildQuestionAreaElement(questionObject.id, questionObject.questionText, this.answerBox.element);
+        }
+
         if (questionObject.hasOwnProperty("followupQuestions")) {
             this.followUpAreas = buildQuestionAreas(questionObject.followupQuestions, response);
         } else {
@@ -21,7 +26,12 @@ class QuestionAreaDisplay {
         this.followup = followupElement;
     }
 }
-
+function buildCustomQuestionAreaElement(questionText){
+    let customQuestionTextElement = document.createElement("text");
+    customQuestionTextElement.textContent = questionText;
+    customQuestionTextElement.id= "questionTextAreaFixed";
+    return customQuestionTextElement;
+}
 function buildQuestionAreaElement(id, questionText, answerBoxElement) {
     let element = document.createElement("div");
     element.setAttribute("id", id);
