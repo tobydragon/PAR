@@ -1,14 +1,10 @@
 class QuestionResponse{
-    constructor(questionId){
-        this.questionId= questionId;
-        this.responseText= null;
+    constructor(questionId,answerText,questionText=null){
+        this.questionId=questionId;
+        this.answerText=answerText;
+        if(questionText!=null){
+            this.questionText=questionText;
+        }
     }
 
-    setResponseText(response){
-        this.responseText= response;
-    }
-
-    setQuestionText(question){
-        this.questionText= question;
-    }
 }

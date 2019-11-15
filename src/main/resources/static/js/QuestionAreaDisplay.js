@@ -1,17 +1,9 @@
 class QuestionAreaDisplay {
-    constructor(questionObject, response, responseList) {
-        this.response= response;
+    constructor(questionObject, response) {
         this.answerBox = new InputDatalistResponseBoxDisplay(questionObject.id + "ResponseBox", questionObject.possibleAnswers, questionObject.correctAnswer, questionObject.type);
-        if(questionObject.questionText!=null) {
-            this.questionTextArea = buildQuestionAreaElementUnchangable(questionObject.questionText);
-            console.log(this.questionTextArea instanceof Element);
-        } else {
-            this.questionTextArea= createQuestionTextInputElement();
-        }
-        console.log(this.questionTextArea instanceof Element);
-        this.element = buildQuestionAreaElement(questionObject.id, this.questionTextArea, this.answerBox.element);
+        this.element = buildQuestionAreaElement(questionObject.id, questionObject.questionText, this.answerBox.element);
         if (questionObject.hasOwnProperty("followupQuestions")) {
-            this.followUpAreas = buildQuestionAreas(questionObject.followupQuestions, responseList);
+            this.followUpAreas = buildQuestionAreas(questionObject.followupQuestions, response);
         } else {
             this.followUpAreas = [];
         }
@@ -28,24 +20,15 @@ class QuestionAreaDisplay {
         followupElement.classList.add("tab");
         this.followup = followupElement;
     }
-
-    recordCurrentResponse(){
-        if(this.questionTextArea.id==="questionTextAreaInput"){
-            this.response.setQuestionText(this.questionTextArea.value);
-        }
-        return this.answerBox.recordCurrentResponse(this.response);
-    }
-
-    checkCurrentResponse(unsureShowsCorrectAnswer, responseList){
-        return this.answerBox.checkCurrentResponse(this.response, unsureShowsCorrectAnswer, responseList);
-    }
 }
 
-function buildQuestionAreaElement(id, questionTextArea, answerBoxElement) {
+function buildQuestionAreaElement(id, questionText, answerBoxElement) {
     let element = document.createElement("div");
     element.setAttribute("id", id);
-    console.log(questionTextArea);
-    console.log(questionTextArea instanceof Node);
+
+    let questionTextArea = document.createElement("text");
+    questionTextArea.textContent = questionText;
+
     element.appendChild(questionTextArea);
     element.appendChild(answerBoxElement);
     element.classList.add("pad5");
@@ -54,28 +37,10 @@ function buildQuestionAreaElement(id, questionTextArea, answerBoxElement) {
     return element;
 }
 
-function buildQuestionAreaElementUnchangable(questionText){
-    let questionTextAreaUnchangable = document.createElement("text");
-    questionTextAreaUnchangable.textContent = questionText;
-    questionTextAreaUnchangable.id= "questionTextAreaFixed";
-    return questionTextAreaUnchangable;
-}
-
-function createQuestionTextInputElement(){
-    let input = document.createElement("input");
-    input.type = "text";
-    input.setAttribute('placeholder', 'Enter question here');
-    console.log('here in cQTIE');
-    input.size= 50;
-    input.id= "questionTextAreaInput";
-    return input;
-}
-
-function buildQuestionAreas(questionObjectList, responseList) {
+function buildQuestionAreas(questionObjectList, response) {
     let questionAreaList = [];
     for (let questionObject of questionObjectList) {
-        let newResponse= responseList.addToQuestionResponses(questionObject.id);
-        questionAreaList.push(new QuestionAreaDisplay(questionObject, newResponse, responseList));
+        questionAreaList.push(new QuestionAreaDisplay(questionObject, response));
     }
     return questionAreaList;
 }

@@ -114,21 +114,20 @@ describe("InputDatalistResponseBoxDisplay", function () {
         document.getElementById("testArea").appendChild(textEntryResponseBox.element);
         document.getElementById("testArea").style.display = "none";
         textEntryResponseBox.inputTextbox.value = "low";
-        let testList = new NewResponse("test1");
-        let test= testList.addToQuestionResponses("id");
+        let test = new Response("test1",[],[]);
         let unsureShowsCorrect = false;
 
-        expect(textEntryResponseBox.checkCurrentResponse(test, unsureShowsCorrect, testList)).toBe(ResponseResult.correct, unsureShowsCorrect);
+        expect(textEntryResponseBox.checkCurrentResponse(test, unsureShowsCorrect)).toBe(ResponseResult.correct, unsureShowsCorrect);
         textEntryResponseBox.inputTextbox.value = "low ";
-        expect(textEntryResponseBox.checkCurrentResponse(test, unsureShowsCorrect, testList)).toBe(ResponseResult.correct, unsureShowsCorrect);
+        expect(textEntryResponseBox.checkCurrentResponse(test, unsureShowsCorrect)).toBe(ResponseResult.correct, unsureShowsCorrect);
         textEntryResponseBox.inputTextbox.value = "LOW";
-        expect(textEntryResponseBox.checkCurrentResponse(test, unsureShowsCorrect, testList)).toBe(ResponseResult.correct, unsureShowsCorrect);
+        expect(textEntryResponseBox.checkCurrentResponse(test, unsureShowsCorrect)).toBe(ResponseResult.correct, unsureShowsCorrect);
         textEntryResponseBox.inputTextbox.value = "HIGH";
-        expect(textEntryResponseBox.checkCurrentResponse(test, unsureShowsCorrect, testList)).toBe(ResponseResult.incorrect, unsureShowsCorrect);
+        expect(textEntryResponseBox.checkCurrentResponse(test, unsureShowsCorrect)).toBe(ResponseResult.incorrect, unsureShowsCorrect);
         textEntryResponseBox.inputTextbox.value = "high";
-        expect(textEntryResponseBox.checkCurrentResponse(test, unsureShowsCorrect, testList)).toBe(ResponseResult.incorrect, unsureShowsCorrect);
+        expect(textEntryResponseBox.checkCurrentResponse(test, unsureShowsCorrect)).toBe(ResponseResult.incorrect, unsureShowsCorrect);
         textEntryResponseBox.inputTextbox.value = "something";
-        expect(textEntryResponseBox.checkCurrentResponse(test, unsureShowsCorrect, testList)).toBe(ResponseResult.incorrect, unsureShowsCorrect);
+        expect(textEntryResponseBox.checkCurrentResponse(test, unsureShowsCorrect)).toBe(ResponseResult.incorrect, unsureShowsCorrect);
     });
     it("disableElement", function () {
         let testElement = document.createElement('button');

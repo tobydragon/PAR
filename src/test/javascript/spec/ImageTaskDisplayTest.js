@@ -10,6 +10,28 @@ describe("ImageTaskDisplay", function () {
         expect(checkIfShouldAddFollowupQ("true")).toBe(false);
     });
 
+    it("addToResponseIds", function () {
+        let test1 = new Response("test",[],[]);
+        addToResponseIds(test1, "\"zone./images/demoEquine14.jpg\"");
+        expect(test1.taskQuestionIds.length).toBe(1);
+        expect(test1.taskQuestionIds).toEqual(['"zone./images/demoEquine14.jpg"']);
+
+        addToResponseIds(test1, "\"zone./images/demoEquine14.jpg\"");
+        expect(test1.taskQuestionIds.length).toBe(1);
+        expect(test1.taskQuestionIds).toEqual(['"zone./images/demoEquine14.jpg"']);
+
+        addToResponseIds(test1, "\"plane./images/demoEquine02.jpg\"");
+        expect(test1.taskQuestionIds.length).toBe(2);
+        expect(test1.taskQuestionIds).toEqual(['"zone./images/demoEquine14.jpg"', '"plane./images/demoEquine02.jpg"']);
+
+        addToResponseIds(test1, "\"plane./images/demoEquine02.jpg\"");
+        expect(test1.taskQuestionIds.length).toBe(2);
+        expect(test1.taskQuestionIds).toEqual(['"zone./images/demoEquine14.jpg"', '"plane./images/demoEquine02.jpg"']);
+
+        addToResponseIds(test1, "\"BonusQ2\"");
+        expect(test1.taskQuestionIds.length).toBe(3);
+        expect(test1.taskQuestionIds).toEqual(['"zone./images/demoEquine14.jpg"', '"plane./images/demoEquine02.jpg"', '"BonusQ2"']);
+    });
 
     it("giveFeedback", function () {
         let feedbackByType = {
@@ -118,8 +140,49 @@ describe("ImageTaskDisplay", function () {
 
         expect(imageTaskElement.childNodes.item(3).getAttribute('class')).toContain('col-1');
     });
-    it("createNewResponse", function() {
-       let newResponses= new NewResponse("responses","0");
-        expect(createNewResponse(newResponses)).toNotBe('null');
+    it("submitResponse", function(){
+        let pageSettings = readJson("../../main/resources/author/PageSettingsExample.json");
+        let testResponse={
+          userId: "test",
+          taskQuestionIds: [0,1],
+          responseTexts: ["Yes","No"]
+        };
+        let userId="test";
+        let taskQuestionIds=[0,1];
+        let responseTexts=["Yes","No"];
+        let testResponse1= new Response(userId,taskQuestionIds,responseTexts);
+        console.log(testResponse);
+        console.log(testResponse1);
+        expect(submitResponse(testResponse,false,pageSettings)).not.toBe(null);
+        expect(submitResponse(testResponse1,false,pageSettings)).not.toBe(null);
+    });
+    it("makeBetterResponse", function(){
+        let userId="test";
+        let taskQuestionId=1;
+        let responseText="Yes";
+        let response=new QuestionResponse(taskQuestionId,responseText);
+
+        let userIdNewResp="bilbo";
+        let questionIdNewResp=5;
+        let responseTextNewResp="mitochondria are the powerhouse of the cell";
+        let newResponse=new QuestionResponse(questionIdNewResp,responseTextNewResp);
+
+        let responseList=[];
+        responseList.push(response);
+        responseList.push(newResponse);
+
+        expect(makeBetterResponse(response)).not.toBeNull();
+
+        let newAndBetterImageTaskResponse= new ImageTaskResponse(userId,response);
+        expect(newAndBetterImageTaskResponse.responseList).not.toBeNull();
+        console.log(newAndBetterImageTaskResponse.responseList);
+
+        let ITRResponseList= new ImageTaskResponse(userIdNewResp,responseList);
+        console.log(ITRResponseList.responseList);
+        expect(ITRResponseList.responseList).not.toBeNull();
+        expect(ITRResponseList.responseList.length).toBe(2);
+        expect(ITRResponseList.responseList[0].questionId).toBe(1);
+        expect(ITRResponseList.responseList[1].questionId).toBe(5);
+
     });
 });
