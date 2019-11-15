@@ -279,7 +279,9 @@ function addToResponseIds(response, id) {
     }
 }
 function makeBetterResponse(oldResponse){
-    let ITRobj= ImageTaskResponse(oldResponse);
+    let oldResponseListHolder=[];
+    oldResponseListHolder.push(oldResponse);
+    let ITRobj= new ImageTaskResponse(oldResponse.userId, oldResponseListHolder);
     return ITRobj.addToResponseList();
 }
 function submitResponse(response, isAuthor, pageSettings) {
@@ -288,12 +290,13 @@ function submitResponse(response, isAuthor, pageSettings) {
         taskQuestionIds: response.taskQuestionIds,
         responseTexts: response.responseTexts
     }; */
-   let newStyleSwitch=false;
+   let newStyleSwitch=true;
+   let newResponse;
    if(newStyleSwitch){
-       let newResponse=makeBetterResponse(response);
+       newResponse=makeBetterResponse(response);
        console.log(newResponse);
    } else {
-       let newResponse= new Response(response.userId,response.taskQuestionIds,response.responseTexts);
+       newResponse= new Response(response.userId,response.taskQuestionIds,response.responseTexts);
        console.log(newResponse);
    }
 
