@@ -290,6 +290,7 @@ function submitResponse(response, isAuthor, pageSettings) {
         taskQuestionIds: response.taskQuestionIds,
         responseTexts: response.responseTexts
     }; */
+   //toggle this from true to false for old response creation, or true for new response list creation
    let newStyleSwitch=true;
    let newResponse;
    if(newStyleSwitch){
