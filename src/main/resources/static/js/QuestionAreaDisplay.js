@@ -1,12 +1,7 @@
 class QuestionAreaDisplay {
     constructor(questionObject, response) {
         this.answerBox = new InputDatalistResponseBoxDisplay(questionObject.id + "ResponseBox", questionObject.possibleAnswers, questionObject.correctAnswer, questionObject.type);
-        if(questionObject.questionText!=null){
-            this.questionTextArea=buildCustomQuestionAreaElement(questionObject.questionText)
-        }else{
-            this.questionTextArea=createQuestionTextInputElement();
-        }
-        this.element = buildQuestionAreaElement(questionObject.id, this.questionTextArea, this.answerBox.element);
+        this.element = buildQuestionAreaElement(questionObject.id, questionObject.questionText, this.answerBox.element);
         if (questionObject.hasOwnProperty("followupQuestions")) {
             this.followUpAreas = buildQuestionAreas(questionObject.followupQuestions, response);
         } else {
@@ -26,12 +21,7 @@ class QuestionAreaDisplay {
         this.followup = followupElement;
     }
 }
-function buildCustomQuestionAreaElement(questionText){
-    let customQuestionTextElement = document.createElement("text");
-    customQuestionTextElement.textContent = questionText;
-    customQuestionTextElement.id= "questionTextAreaFixed";
-    return customQuestionTextElement;
-}
+
 function buildQuestionAreaElement(id, questionText, answerBoxElement) {
     let element = document.createElement("div");
     element.setAttribute("id", id);
@@ -47,15 +37,6 @@ function buildQuestionAreaElement(id, questionText, answerBoxElement) {
     return element;
 }
 
-function createQuestionTextInputElement(){
-    let input = document.createElement("input");
-    input.type = "text";
-    input.setAttribute('placeholder', 'Enter question here');
-    console.log('here in cQTIE');
-    input.size= 50;
-    input.id= "questionTextAreaInput";
-    return input;
-}
 function buildQuestionAreas(questionObjectList, response) {
     let questionAreaList = [];
     for (let questionObject of questionObjectList) {
