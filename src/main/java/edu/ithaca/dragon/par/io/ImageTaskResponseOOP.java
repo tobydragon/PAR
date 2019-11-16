@@ -45,7 +45,7 @@ public class ImageTaskResponseOOP{
     public List<String> getResponseTexts() {
         List<String> responseTexts = new ArrayList<>();
         for(QuestionResponseOOP questionResponseOOP : questionResponses){
-            responseTexts.add(questionResponseOOP.responseText);
+            responseTexts.add(questionResponseOOP.answerText);
         }
         return responseTexts;
     }
@@ -61,7 +61,7 @@ public class ImageTaskResponseOOP{
     public String findResponseToQuestion(Question question) {
         for(QuestionResponseOOP questionResponseOOP : questionResponses) {
             if(question.getId().equals(questionResponseOOP.questionId)){
-                return questionResponseOOP.responseText;
+                return questionResponseOOP.answerText;
             }
         }
         return null;
@@ -89,5 +89,9 @@ public class ImageTaskResponseOOP{
         return this.getResponseTexts().equals(other.getResponseTexts())
                 && this.getTaskQuestionIds().equals(other.getTaskQuestionIds())
                 && this.getUserId().equals(other.getUserId());
+    }
+
+    public String toString(){
+        return userId + ": " + questionResponses.toString();
     }
 }

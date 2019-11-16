@@ -3,7 +3,6 @@ import edu.ithaca.dragon.par.domainModel.Question;
 
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class ResponsesPerQuestion {
@@ -37,14 +36,18 @@ public class ResponsesPerQuestion {
     public double knowledgeCalc(){
        double score=0;
        if(allResponsesSize()==1) {
-           if (allResponses.get(0).getResponseText().equals(question.getCorrectAnswer())) score = 100;
-           else score = 0;
+           if (allResponses.get(0).getAnswerText().equals(question.getCorrectAnswer())){
+               score = 100;
+           }
+           else{
+               score = 0;
+           }
        }
         if(allResponsesSize()>1) {
             //if the timestamp difference is > or == 30 seconds
             if (checkTimeStampDifference(allResponses.get(allResponsesSize() - 1).getMillSeconds(), allResponses.get(allResponsesSize() - 2).getMillSeconds())) {
                 //check the answer if its right or wrong/ not dependent on previous answers
-                if (allResponses.get(allResponsesSize() - 1).getResponseText().equals(question.getCorrectAnswer())) {
+                if (allResponses.get(allResponsesSize() - 1).getAnswerText().equals(question.getCorrectAnswer())) {
                     score = 100;
                 }
                 else score = 0;
@@ -55,7 +58,7 @@ public class ResponsesPerQuestion {
                 List<QuestionResponse> questionResponses = answersWithSameTimeStamp(allResponses);
                 for (int k = 0; k < questionResponses.size() ; k++) {
                     //if any of the answers are wrong within this list then you receive a 0
-                    if (!questionResponses.get(k).getResponseText().equals(question.getCorrectAnswer()))
+                    if (!questionResponses.get(k).getAnswerText().equals(question.getCorrectAnswer()))
                         score = 0;
                     }
                 }

@@ -19,6 +19,6 @@ public class QuestionResponseOOPTest {
 
         QuestionResponseOOP questionResponseOOP1 = JsonUtil.fromJsonFile(newQuestionResponseOOPPath.toString(), QuestionResponseOOP.class);
         assertEquals(questionResponseOOP.questionId, questionResponseOOP1.questionId);
-        assertEquals(questionResponseOOP.responseText, questionResponseOOP1.responseText);
+        assertEquals(questionResponseOOP.answerText, questionResponseOOP1.answerText);
     }
 }

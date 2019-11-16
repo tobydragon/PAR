@@ -280,11 +280,12 @@ function addToResponseIds(response, id) {
 }
 
 function submitResponse(response, isAuthor, pageSettings) {
-    newResponse = {
+    let oldResponse = {
         userId: response.userId,
-        taskQuestionIds: response.taskQuestionIds,
+        questionIds: response.taskQuestionIds,
         responseTexts: response.responseTexts
     };
+    let newResponse = new ImageTaskResponse(oldResponse);
     console.log(newResponse);
 
     if (isAuthor) {

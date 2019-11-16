@@ -77,6 +77,7 @@ public class ParStudentAndAuthorRestController {
     @PostMapping("/recordResponse")
     public ResponseEntity<String> recordResponse(@RequestBody ImageTaskResponseOOP response) {
         try {
+            logger.info(response.toString());
             parServer.submitImageTaskResponse(response);
             return ResponseEntity.ok().body("ok");
         } catch (Exception e){

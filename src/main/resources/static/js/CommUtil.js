@@ -26,6 +26,7 @@ function submitToAPI(url, objectToSubmit, showScore, scoreType, userId) {
     request.send(JSON.stringify(objectToSubmit));
     request.onreadystatechange = function () {
         if (request.status === 200) {
+            console.log("submitToAPI: server responded")
             showScoreOuter(showScore, scoreType, userId);
         } else {
             window.onerror = function (msg) {
