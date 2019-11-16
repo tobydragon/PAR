@@ -156,33 +156,4 @@ describe("ImageTaskDisplay", function () {
         expect(submitResponse(testResponse,false,pageSettings)).not.toBe(null);
         expect(submitResponse(testResponse1,false,pageSettings)).not.toBe(null);
     });
-    it("makeBetterResponse", function(){
-        let userId="test";
-        let taskQuestionId=1;
-        let responseText="Yes";
-        let response=new QuestionResponse(taskQuestionId,responseText);
-
-        let userIdNewResp="bilbo";
-        let questionIdNewResp=5;
-        let responseTextNewResp="mitochondria are the powerhouse of the cell";
-        let newResponse=new QuestionResponse(questionIdNewResp,responseTextNewResp);
-
-        let responseList=[];
-        responseList.push(response);
-        responseList.push(newResponse);
-
-        expect(makeBetterResponse(response)).not.toBeNull();
-
-        let newAndBetterImageTaskResponse= new ImageTaskResponse(userId,response);
-        expect(newAndBetterImageTaskResponse.responseList).not.toBeNull();
-        console.log(newAndBetterImageTaskResponse.responseList);
-
-        let ITRResponseList= new ImageTaskResponse(userIdNewResp,responseList);
-        console.log(ITRResponseList.responseList);
-        expect(ITRResponseList.responseList).not.toBeNull();
-        expect(ITRResponseList.responseList.length).toBe(2);
-        expect(ITRResponseList.responseList[0].questionId).toBe(1);
-        expect(ITRResponseList.responseList[1].questionId).toBe(5);
-
-    });
 });

@@ -1,16 +1,9 @@
 class ImageTaskResponse{
-    constructor(userId, responseList){
-        this.userId=userId;
-        this.responseList=responseList;
-        if(responseList.length===1){
-            this.oldResponse=responseList[0];
+    constructor(oldResponse){
+        this.userId=oldResponse.userId;
+        this.questionResponses = [];
+        for (let i=0; i<oldResponse.questionIds.length; i++){
+            this.questionResponses.push(new QuestionResponse(oldResponse.questionIds[i], oldResponse.responseTexts[i]));
         }
-        this.newResponse= null;
     }
-    addToResponseList() {
-        this.newResponse= new QuestionResponse(this.oldResponse.taskQuestionIds,this.oldResponse.responseTexts,this.oldResponse.questionText);
-        this.responseList.push(this.newResponse);
-        return this.responseList;
-}
-
 }

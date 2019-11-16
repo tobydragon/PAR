@@ -278,28 +278,14 @@ function addToResponseIds(response, id) {
         response.addToQuestionIds(id);
     }
 }
-function makeBetterResponse(oldResponse){
-    let oldResponseListHolder=[];
-    oldResponseListHolder.push(oldResponse);
-    let ITRobj= new ImageTaskResponse(oldResponse.userId, oldResponseListHolder);
-    return ITRobj.addToResponseList();
-}
+
 function submitResponse(response, isAuthor, pageSettings) {
-   //toggle this from true to false for old response creation, or true for new response list creation
-   let newStyleSwitch=true;
-   let newResponse;
-   if(newStyleSwitch){
-       newResponse=makeBetterResponse(response);
-       console.log(newResponse);
-   } else {
-       newResponse = {
+    newResponse = {
         userId: response.userId,
         taskQuestionIds: response.taskQuestionIds,
         responseTexts: response.responseTexts
     };
-       console.log(newResponse);
-   }
-
+    console.log(newResponse);
 
     if (isAuthor) {
         submitToAPI("api/submitAuthorImageTaskResponse", newResponse, pageSettings.showScore, pageSettings.scoreType, this.userID);
