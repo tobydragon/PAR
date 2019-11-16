@@ -5,6 +5,7 @@ class Response{
         this.taskQuestionIds = [];
         this.responseTexts=[];
         this.typesIncorrect= [];
+        this.questionTexts=[]
     }
 
     addToResponseTexts(userResponse){
@@ -13,5 +14,9 @@ class Response{
 
     addToQuestionIds(questionId){
         this.taskQuestionIds.push(questionId);
+    }
+
+    addToQuestionTexts(questionText){
+        this.questionTexts.push(questionText);
     }
 }
