@@ -1,6 +1,18 @@
 'use strict';
 
 describe("AnswerView", function () {
+    it('getCurrentAnswer', function(){
+        let qaModel = {
+            id: "question31",
+            defaultAnswers: ["transverse", "Both proximal and middle phalanxes"],
+            correctAnswer: "transverse"
+        };
+        let badAnswer="some string";
+       let ansViewObj= new AnswerView(qaModel);
+       expect(ansViewObj.getCurrentAnswer()).not.toBe(null);
+       expect(ansViewObj.getCurrentAnswer()).not.toBe(badAnswer);
+       expect(ansViewObj.getCurrentAnswer()).toBe(ansViewObj.inputTextbox.value);
+    });
     it("buildOptionElement", function () {
         let element = buildOptionElement("nope");
         expect(element.tagName.toLowerCase()).toBe("option");
