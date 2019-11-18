@@ -1,6 +1,48 @@
 'use strict';
 
 describe("AnswerView", function () {
+    it('getCurrentAnswer', function(){
+        let qaModel = {
+            id: "question31",
+            defaultAnswers: ["transverse", "Both proximal and middle phalanxes"],
+            correctAnswer: "transverse"
+        };
+       let ansViewObj= new AnswerView(qaModel);
+       let badAnswer="some string";
+       expect(ansViewObj.getCurrentAnswer()).not.toBe(null);
+       expect(ansViewObj.getCurrentAnswer()).not.toBe(badAnswer);
+       expect(ansViewObj.getCurrentAnswer()).toBe(ansViewObj.inputTextbox.value);
+    });
+    it("checkAnswerAndUpdateView", function(){
+        let qaModel = {
+            id: "question48",
+            defaultAnswers: ["transverse", "Suspensory ligament (body)","proximal bone"],
+            correctAnswer: "proximal bone"
+        };
+        let ansViewObj= new AnswerView(qaModel);
+        ansViewObj.qaModel.correctResponse="proximal bone";
+        //with incorrect value
+        ansViewObj.inputTextbox.value="longitudinal";
+        expect(ansViewObj.checkAnswerAndUpdateView()).toBe("incorrect");
+        expect(ansViewObj.checkAnswerAndUpdateView()).not.toBe("correct");
+        expect(ansViewObj.checkAnswerAndUpdateView()).not.toBe("");
+        //with correct value
+        ansViewObj.inputTextbox.value="proximal bone";
+        expect(ansViewObj.checkAnswerAndUpdateView()).not.toBe("incorrect");
+        expect(ansViewObj.checkAnswerAndUpdateView()).toBe("correct");
+        expect(ansViewObj.checkAnswerAndUpdateView()).not.toBe("");
+        //with blank
+        ansViewObj.inputTextbox.value="";
+        expect(ansViewObj.checkAnswerAndUpdateView()).not.toBe("incorrect");
+        expect(ansViewObj.checkAnswerAndUpdateView()).not.toBe("correct");
+        expect(ansViewObj.checkAnswerAndUpdateView()).toBe("");
+        //with unsure
+        ansViewObj.inputTextbox.value="unsure";
+        expect(ansViewObj.checkAnswerAndUpdateView()).not.toBe("incorrect");
+        expect(ansViewObj.checkAnswerAndUpdateView()).not.toBe("correct");
+        expect(ansViewObj.checkAnswerAndUpdateView()).not.toBe("");
+        expect(ansViewObj.checkAnswerAndUpdateView()).toBe("unsure");
+    });
     it("buildOptionElement", function () {
         let element = buildOptionElement("nope");
         expect(element.tagName.toLowerCase()).toBe("option");
