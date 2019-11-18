@@ -46,6 +46,7 @@ class ImageTaskDisplay {
 
         if (canContinu) {
             this.displayFeedback();
+            //TODO: here we should get a response object from the questionAreaDisp field
             sendResponse(this.response, this.ableToResubmitAnswers, this.isAuthor, this.pageSettings, this.hasFolloup, this.haveSubmited);
             this.haveSubmited += 1;
             this.hasFolloup = false;
@@ -57,7 +58,8 @@ class ImageTaskDisplay {
     authorSubmitResponses() {
         for (var i = 0; i < this.questionAreaDisp.length; i++) {
             let current = this.questionAreaDisp[i];
-            let value = current.answerBox.recordCurrentResponse(this.response);
+            //need to check for questionBox
+            let value = current.recordCurrentResponse(this.response);
             if (value !== ResponseResult.blank) {
                 addToResponseIds(this.response, current.element.id);
             }
@@ -109,7 +111,7 @@ class ImageTaskDisplay {
         let questionElement = document.createElement('div');
         questionElement.setAttribute('id', 'questionSet');
 
-        this.questionAreaDisp = new buildQuestionAreas(this.imageTaskJson.taskQuestions, this.response);
+        this.questionAreaDisp = buildQuestionAreas(this.imageTaskJson.taskQuestions, this.response);
         for (var i = 0; i < this.questionAreaDisp.length; i++) {
             if (this.isAuthor) {
                 this.questionAreaDisp[i].addFollowupQuestions();
@@ -283,8 +285,10 @@ function submitResponse(response, isAuthor, pageSettings) {
     let oldResponse = {
         userId: response.userId,
         questionIds: response.taskQuestionIds,
-        responseTexts: response.responseTexts
+        responseTexts: response.responseTexts,
+        questionTexts: response.questionTexts
     };
+    console.log(oldResponse);
     let newResponse = new ImageTaskResponse(oldResponse);
     console.log(newResponse);
 

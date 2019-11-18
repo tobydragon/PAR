@@ -1,11 +1,11 @@
 class QuestionAreaDisplay {
     constructor(questionObject, response, responseList) {
-        this.response= response;
+        this.response = response;
         this.answerBox = new InputDatalistResponseBoxDisplay(questionObject.id + "ResponseBox", questionObject.possibleAnswers, questionObject.correctAnswer, questionObject.type);
-        if(questionObject.questionText!=null) {
+        if (questionObject.questionText != null) {
             this.questionTextArea = buildQuestionAreaElementUnchangable(questionObject.questionText);
         } else {
-            this.questionTextArea= createQuestionTextInputElement();
+            this.questionTextArea = createQuestionTextInputElement();
         }
         this.element = buildQuestionAreaElement(questionObject.id, this.questionTextArea, this.answerBox.element);
         if (questionObject.hasOwnProperty("followupQuestions")) {
@@ -27,16 +27,23 @@ class QuestionAreaDisplay {
         this.followup = followupElement;
     }
 
-    recordCurrentResponse(){
-        if(this.questionTextArea==="questionTextAreaInput"){
-            this.response.setQuestionText(this.questionTextArea.value);
+    recordCurrentResponse(response) {
+        let answer = this.answerBox.recordCurrentResponse(response)
+        if (answer !== ResponseResult.blank) {
+            if (this.questionTextArea === "questionTextAreaInput") {
+                response.addToQuestionTexts(this.questionTextArea.value);
+            }
+            else {
+                response.addToQuestionTexts(null);
+            }
         }
-        return this.answerBox.recordCurrentResponse(this.response);
+        return answer;
     }
 
-    checkCurrentResponse(unsureShowsCorrectAnswer, responseList){
+    checkCurrentResponse(unsureShowsCorrectAnswer, responseList) {
         return this.answerBox.checkCurrentResponse(this.response, unsureShowsCorrectAnswer, responseList);
     }
+
 }
 
 function buildQuestionAreaElement(id, questionTextArea, answerBoxElement) {
@@ -70,8 +77,9 @@ function createQuestionTextInputElement(){
 function buildQuestionAreas(questionObjectList, responseList) {
     let questionAreaList = [];
     for (let questionObject of questionObjectList) {
-        let newResponse= responseList.addToQuestionTexts(questionObject.id);
+        let newResponse= new Response(id); //responseList.addToQuestionIds(questionObject.id);
         questionAreaList.push(new QuestionAreaDisplay(questionObject, newResponse, responseList));
     }
     return questionAreaList;
 }
+
