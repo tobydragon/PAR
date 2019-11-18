@@ -7,73 +7,52 @@ const ResponseResult = {
     blank: ""
 };
 
-class InputDatalistResponseBoxDisplay {
+class AnswerView {
 
-    constructor(id, defaultResponses, correctResponse, type) {
-        this.type = type;
-        this.id = id;
-        this.correctResponse = correctResponse;
-        console.log("the answer is: " + this.correctResponse);
-        //don't currently need a pointer to this datalist
-        let possibleResponsesDatalist = buildDatalistElement(id, defaultResponses);
+    constructor(qaModel, qaSettings=null) {
+        this.qaModel = qaModel;
+        this.qaSettings = qaSettings;
+        this.id = qaModel.id + "AnswerView";
+        //let because don't need a pointer to this currently...
+        let possibleResponsesDatalist = buildDatalistElement(this.id, qaModel.defaultAnswers);
+        let inputBoxSize = calcTextSizeFromPossStrings(qaModel.defaultAnswers);
+
         //need a pointer to this textbox to check answers
-        let inputBoxSize = inputBoxAutoSize(defaultResponses);
-        this.inputTextbox = buildInputTextbox(id, possibleResponsesDatalist.getAttribute("id"), inputBoxSize);
-        this.element = buildElement(id, possibleResponsesDatalist, this.inputTextbox);
+        this.inputTextbox = buildInputTextbox(this.id, possibleResponsesDatalist.getAttribute("id"), inputBoxSize);
+        this.feedbackArea = buildFeedbackArea();
+        this.element = buildElement(this.id, possibleResponsesDatalist, this.inputTextbox, this.feedbackArea);
 
-        let feedbackTextArea = document.createElement("div");
-        feedbackTextArea.id = "feedbackTextArea";
-        this.textArea = feedbackTextArea;
-        this.element.appendChild(feedbackTextArea);
     }
 
-    checkCurrentResponse(response, unsureShowsCorrect, questionId) {
-        if (this.inputTextbox.value !== ResponseResult.blank) {
-            response.addToResponseTexts(this.inputTextbox.value);
-            addToResponseIds(response, questionId);
-        }
-        let returnResponse = checkAnyResponse(this.correctResponse, this.inputTextbox.value);
-        addToTypesIncorrect(returnResponse, this.type, response.typesIncorrect);
+    getCurrentAnswer(){
+        return this.inputTextbox.value;
+    }
 
-        this.textArea.innerHTML = displayCheckedResponse(returnResponse, this.correctResponse, unsureShowsCorrect);
+    checkAnswerAndUpdateView() {
+        let returnResponse = checkAnyResponse(this.qaModel.correctResponse, this.inputTextbox.value);
+        this.feedbackArea.innerHTML = makeFeedbackHtml(returnResponse, this.qaModel.correctResponse, this.qaSettings.unsureShowsCorrect);
 
         if (returnResponse === ResponseResult.correct) {
             disableElement(this.inputTextbox);
         } else if (returnResponse === ResponseResult.unsure) {
             disableElement(this.inputTextbox);
         }
+
         return returnResponse;
     }
 
-    recordCurrentResponse(response) {
-        if (this.inputTextbox.value !== ResponseResult.blank) {
-            response.addToResponseTexts(this.inputTextbox.value);
-        }
-        return this.inputTextbox.value;
-    }
 }
 
-function buildElement(id, possibleResponseDatalist, inputTextbox) {
+function buildElement(id, possibleResponseDatalist, inputTextbox, feedbackArea) {
     let element = document.createElement("div");
     element.setAttribute("id", id);
     element.appendChild(possibleResponseDatalist);
     element.appendChild(inputTextbox);
-
+    element.appendChild(feedbackArea);
     return element;
 }
 
-function addToTypesIncorrect(correctness, type, typesIncorrect) {
-    if (correctness === ResponseResult.correct || correctness === ResponseResult.blank) {
-
-    } else {
-        if (!typesIncorrect.includes(type)) {
-            typesIncorrect.push(type);
-        }
-    }
-
-}
-
-function displayCheckedResponse(correctness, correctResponse, unsureShowsCorrect) {
+function makeFeedbackHtml(correctness, correctResponse, unsureShowsCorrect) {
     if (correctness === ResponseResult.correct) {
         return '<font color=\"green\">Your answer is: Correct</font>';
     } else if (correctness === ResponseResult.unsure) {
@@ -123,7 +102,7 @@ function buildOptionElement(optionText) {
 function buildInputTextbox(id, datalistId, size) {
     let inputTextbox = document.createElement("input");
     inputTextbox.type = "text";
-    inputTextbox.setAttribute("id", id);
+    inputTextbox.setAttribute("id", id+"inputBox");
     inputTextbox.setAttribute("list", datalistId);
     inputTextbox.setAttribute("size", size);
     inputTextbox.classList.add("line-input-box");
@@ -139,7 +118,7 @@ function enableElement(elementToDisable) {
     return elementToDisable.disabled = false;
 }
 
-function inputBoxAutoSize(listOfStrings) {
+function calcTextSizeFromPossStrings(listOfStrings) {
     let highestCharCount = 0;
     for (let aString of listOfStrings) {
         if (aString.length > highestCharCount) {
@@ -154,4 +133,10 @@ function inputBoxAutoSize(listOfStrings) {
         return 20;
     }
     return highestCharCount;
+}
+
+function buildFeedbackArea(){
+    let feedbackTextArea = document.createElement("div");
+    feedbackTextArea.id = "feedbackTextArea";
+    return feedbackTextArea;
 }

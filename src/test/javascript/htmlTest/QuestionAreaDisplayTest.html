@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>TextEntryAnswerTest</title>
-    <script type="text/javascript" src="../../../main/resources/static/js/InputDatalistResponseBoxDisplay.js"></script>
-    <script type="text/javascript" src="../../../main/resources/static/js/QuestionAreaDisplay.js"></script>
+    <script type="text/javascript" src="../../../main/resources/static/js/AnswerView.js"></script>
+    <script type="text/javascript" src="../../../main/resources/static/js/QuestionAndAnswerView.js"></script>
     <script type="text/javascript" src="../../../main/resources/static/js/CommUtil.js"></script>
 
 </head>
@@ -15,7 +15,7 @@
     </div>
     <script>
         let questionObjects = readJson("../../resources/author/DemoQuestionPoolFollowup.json");
-        test = new QuestionAreaDisplay(questionObjects[1]);
+        test = new QuestionAndAnswerView(questionObjects[1]);
         test.addFollowupQuestions();
         document.getElementById("test").appendChild(test.element);
 

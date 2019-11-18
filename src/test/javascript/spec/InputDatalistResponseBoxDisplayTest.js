@@ -1,6 +1,6 @@
 'use strict';
 
-describe("InputDatalistResponseBoxDisplay", function () {
+describe("AnswerView", function () {
     it("buildOptionElement", function () {
         let element = buildOptionElement("nope");
         expect(element.tagName.toLowerCase()).toBe("option");
@@ -54,26 +54,26 @@ describe("InputDatalistResponseBoxDisplay", function () {
         expect(testList.length).toBe(6);
     });
 
-    it("displayCheckedResponse", function () {
-        let textEntryResponseBox = new InputDatalistResponseBoxDisplay("test1", ["high", "middle", "low"], "low");
+    it("makeFeedbackHtml", function () {
+        let textEntryResponseBox = new AnswerView("test1", ["high", "middle", "low"], "low");
         document.getElementById("testArea").appendChild(textEntryResponseBox.element);
         document.getElementById("testArea").style.display = "none";
 
-        expect(displayCheckedResponse("correct", "Long", true)).toBe('<font color=\"green\">Your answer is: Correct</font>');
-        expect(displayCheckedResponse("correct", "Long", false)).toBe('<font color=\"green\">Your answer is: Correct</font>');
+        expect(makeFeedbackHtml("correct", "Long", true)).toBe('<font color=\"green\">Your answer is: Correct</font>');
+        expect(makeFeedbackHtml("correct", "Long", false)).toBe('<font color=\"green\">Your answer is: Correct</font>');
 
-        expect(displayCheckedResponse("unsure", "Long", true)).toBe("<font color=\"#663399\">The correct answer is Long</font>");
-        expect(displayCheckedResponse("unsure", "Long", false)).toBe("");
+        expect(makeFeedbackHtml("unsure", "Long", true)).toBe("<font color=\"#663399\">The correct answer is Long</font>");
+        expect(makeFeedbackHtml("unsure", "Long", false)).toBe("");
 
-        expect(displayCheckedResponse("", "Long", true)).toBe("");
-        expect(displayCheckedResponse("", "Long", false)).toBe("");
+        expect(makeFeedbackHtml("", "Long", true)).toBe("");
+        expect(makeFeedbackHtml("", "Long", false)).toBe("");
 
-        expect(displayCheckedResponse("incorrect", "Long", true)).toBe('<font color=\"red\">Your answer is: Incorrect</font>');
-        expect(displayCheckedResponse("incorrect", "Long", false)).toBe('<font color=\"red\">Your answer is: Incorrect</font>');
+        expect(makeFeedbackHtml("incorrect", "Long", true)).toBe('<font color=\"red\">Your answer is: Incorrect</font>');
+        expect(makeFeedbackHtml("incorrect", "Long", false)).toBe('<font color=\"red\">Your answer is: Incorrect</font>');
     });
 
     it("checkAnyResponse", function () {
-        let textEntryResponseBox = new InputDatalistResponseBoxDisplay("test1", ["high", "middle", "low"], "low");
+        let textEntryResponseBox = new AnswerView("test1", ["high", "middle", "low"], "low");
 
         expect(checkAnyResponse("a", "a")).toBe(ResponseResult.correct);
         expect(checkAnyResponse(" a ", "a")).toBe(ResponseResult.correct);
@@ -110,7 +110,7 @@ describe("InputDatalistResponseBoxDisplay", function () {
     });
 
     it("checkThisResponse", function () {
-        let textEntryResponseBox = new InputDatalistResponseBoxDisplay("test1", ["high", "middle", "low"], "low");
+        let textEntryResponseBox = new AnswerView("test1", ["high", "middle", "low"], "low");
         document.getElementById("testArea").appendChild(textEntryResponseBox.element);
         document.getElementById("testArea").style.display = "none";
         textEntryResponseBox.inputTextbox.value = "low";
@@ -135,7 +135,7 @@ describe("InputDatalistResponseBoxDisplay", function () {
         expect(testElement.disabled).toBe(false);
         expect(disableElement(testElement)).toBe(true);
     });
-    it("inputBoxAutoSize", function () {
+    it("calcTextSizeFromPossStrings", function () {
         let listOfStr0 = ["one", "three", "four", "asuperlongwordthatgoespasttwentyttt"];
         let listOfStr1 = ["one", "the", "for"];
         let listOfStr2 = ["one", "three", " "];
@@ -143,12 +143,12 @@ describe("InputDatalistResponseBoxDisplay", function () {
         let listOfStr4 = ["o"];
         let listOfStr5 = ["lllllllloooooooonnng boi tada", "transverse", "zagga"];
         let listOfStr6 = ["lllllllloooooooonnng boi tada", "transverse", "Both the zip (and the -zorp) act in such a way a _WIDE_ boy cannot possibly; well; understand!"];
-        expect(inputBoxAutoSize(listOfStr0)).toBe(30);
-        expect(inputBoxAutoSize(listOfStr1)).toBe(20);
-        expect(inputBoxAutoSize(listOfStr2)).toBe(20);
-        expect(inputBoxAutoSize(listOfStr3)).toBe(20);
-        expect(inputBoxAutoSize(listOfStr4)).toBe(20);
-        expect(inputBoxAutoSize(listOfStr5)).toBe(25);
-        expect(inputBoxAutoSize(listOfStr6)).toBe(79);
+        expect(calcTextSizeFromPossStrings(listOfStr0)).toBe(30);
+        expect(calcTextSizeFromPossStrings(listOfStr1)).toBe(20);
+        expect(calcTextSizeFromPossStrings(listOfStr2)).toBe(20);
+        expect(calcTextSizeFromPossStrings(listOfStr3)).toBe(20);
+        expect(calcTextSizeFromPossStrings(listOfStr4)).toBe(20);
+        expect(calcTextSizeFromPossStrings(listOfStr5)).toBe(25);
+        expect(calcTextSizeFromPossStrings(listOfStr6)).toBe(79);
     })
 });

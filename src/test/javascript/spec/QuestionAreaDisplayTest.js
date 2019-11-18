@@ -1,6 +1,6 @@
 'use strict';
 
-describe("QuestionAreaDisplay", function () {
+describe("QuestionAndAnswerView", function () {
     it("buildQuestionAreaElement", function () {
         let element = buildQuestionAreaElement("ao", "Is this a question?", document.createElement("text"));
         expect(element.tagName.toLowerCase()).toBe("div");

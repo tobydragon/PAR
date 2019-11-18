@@ -1,7 +1,6 @@
-class QuestionAreaDisplay {
-    constructor(questionObject, response, responseList) {
-        this.response= response;
-        this.answerBox = new InputDatalistResponseBoxDisplay(questionObject.id + "ResponseBox", questionObject.possibleAnswers, questionObject.correctAnswer, questionObject.type);
+class QuestionAndAnswerView {
+    constructor(questionAndAnswerModel) {
+        this.answerBox = new AnswerView(questionAndAnswerModel.id + "AnswerView", questionObject.possibleAnswers, questionObject.correctAnswer, questionObject.type);
         if(questionObject.questionText!=null) {
             this.questionTextArea = buildQuestionAreaElementUnchangable(questionObject.questionText);
         } else {
@@ -71,7 +70,7 @@ function buildQuestionAreas(questionObjectList, responseList) {
     let questionAreaList = [];
     for (let questionObject of questionObjectList) {
         let newResponse= responseList.addToQuestionTexts(questionObject.id);
-        questionAreaList.push(new QuestionAreaDisplay(questionObject, newResponse, responseList));
+        questionAreaList.push(new QuestionAndAnswerView(questionObject, newResponse, responseList));
     }
     return questionAreaList;
 }

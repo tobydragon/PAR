@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TextEntryAnswerTest</title>
+    <script type="text/javascript" src="../../../main/resources/static/js/AnswerView.js"></script>
+    <link rel="stylesheet" href="../../../main/resources/static/css/style.css">
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
+</head>
+
+<body>
+    <div id="response">
+    </div>
+    <script>
+        qaModel = {
+            id: "question31",
+            defaultAnswers: ["transverse", "Both proximal and middle phalanxes"],
+            correctAnswer: "transverse"
+
+        };
+        answerTest = new AnswerView(qaModel);
+        document.getElementById("response").appendChild(answerTest.element);
+    </script>
+</body></html>
