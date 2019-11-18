@@ -7,9 +7,13 @@ const ResponseResult = {
     blank: ""
 };
 
+const defaultQaSettings = {
+    unsureShowsCorrect: true
+};
+
 class AnswerView {
 
-    constructor(qaModel, qaSettings=null) {
+    constructor(qaModel, qaSettings=defaultQaSettings) {
         this.qaModel = qaModel;
         this.qaSettings = qaSettings;
         this.id = qaModel.id + "AnswerView";
@@ -29,8 +33,8 @@ class AnswerView {
     }
 
     checkAnswerAndUpdateView() {
-        let returnResponse = checkAnyResponse(this.qaModel.correctResponse, this.inputTextbox.value);
-        this.feedbackArea.innerHTML = makeFeedbackHtml(returnResponse, this.qaModel.correctResponse, this.qaSettings.unsureShowsCorrect);
+        let returnResponse = checkAnyResponse(this.qaModel.correctAnswer, this.inputTextbox.value);
+        this.feedbackArea.innerHTML = makeFeedbackHtml(returnResponse, this.qaModel.correctAnswer, this.qaSettings.unsureShowsCorrect);
 
         if (returnResponse === ResponseResult.correct) {
             disableElement(this.inputTextbox);

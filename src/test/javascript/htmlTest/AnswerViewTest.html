@@ -18,10 +18,11 @@
             correctAnswer: "transverse"
 
         };
+        x=5;
         answerTest = new AnswerView(qaModel);
         document.getElementById("response").appendChild(answerTest.element);
     </script>
-    <button type="button" class="btn btn-login" id="checkButton" onclick="answerText.checkAnswerAndUpdateView()">
+    <button type="button" class="btn btn-login" id="checkButton" onclick="answerTest.checkAnswerAndUpdateView()">
         Test Check and update
     </button>
 </body></html>
