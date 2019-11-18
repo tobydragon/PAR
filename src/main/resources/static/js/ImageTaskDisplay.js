@@ -345,3 +345,12 @@ function checkIfCanContinu(canGiveNoAnswer, listOfCorrectAnswers) {
         return true;
     }
 }
+
+function buildQuestionAreas(questionObjectList, responseList) {
+    let questionAreaList = [];
+    for (let questionObject of questionObjectList) {
+        let newResponse= responseList.addToQuestionTexts(questionObject.id);
+        questionAreaList.push(new QuestionAndAnswerView(questionObject, newResponse, responseList));
+    }
+    return questionAreaList;
+}
