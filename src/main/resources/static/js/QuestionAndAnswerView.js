@@ -7,7 +7,7 @@ class QuestionAndAnswerView {
     }
 
     getResponse(){
-        if (this.answerView.getCurrentAnswer() === ResponseResult.blank){
+        if (this.answerView.getCurrentAnswer() === ResponseResult.blank || this.questionView.getResponse() === ResponseResult.blank){
             return null;
         }
         else {

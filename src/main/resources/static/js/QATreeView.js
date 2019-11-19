@@ -10,14 +10,19 @@ class QATreeView {
         this.element = buildQATreeViewElement(qaModel.id + "QATreeView", this.qaView.element);
     }
 
-    showFollowupQuestions() {
+    showNextLevelFollowupQuestions() {
         this.element.appendChild(buildQATreeListElement(this.followupQATreeViews));
     }
+
+    showAllLevelFollowupQuestions(){
+        showAllLevelFollowupQuestions(this);
+    }
+
 
     checkAnswersAndUpdateView(){
         let result = this.qaView.checkAnswerAndUpdateView();
         if (result === ResponseResult.correct){
-            this.showFollowupQuestions();
+            this.showNextLevelFollowupQuestions();
         }
         for (let followupView of this.followupQATreeViews) {
             followupView.checkAnswersAndUpdateView();
@@ -62,5 +67,12 @@ function putNonBlankResponsesInFlatList(qaTreeView, questionResponseList){
         for (let followup of qaTreeView.followupQATreeViews) {
             putNonBlankResponsesInFlatList(followup, questionResponseList);
         }
+    }
+}
+
+function showAllLevelFollowupQuestions(qaTreeView){
+    qaTreeView.showNextLevelFollowupQuestions();
+    for (let followup of qaTreeView.followupQATreeViews) {
+        showAllLevelFollowupQuestions(followup);
     }
 }

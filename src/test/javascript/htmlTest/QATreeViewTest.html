@@ -17,7 +17,7 @@
     <script>
         qaModel = {
             id: "qaTop0",
-            questionText:"q0",
+            questionText:null,
             defaultAnswers: ["right", "wrong", "neither"],
             correctAnswer: "right",
             followupQuestions: [
@@ -36,7 +36,7 @@
                     followupQuestions: [
                         {
                             id: "q021",
-                            questionText: "q021",
+                            questionText: null,
                             defaultAnswers: ["right", "wrong", "neither"],
                             correctAnswer: "wrong",
                             followupQuestions: []
@@ -57,7 +57,7 @@
                 },
                 {
                     id: "q03",
-                    questionText: "q03",
+                    questionText: null,
                     defaultAnswers: ["xx", "yy", "zz"],
                     correctAnswer: "xx"
                 }
@@ -67,7 +67,7 @@
         test = new QATreeView(qaModel);
         document.getElementById("response").appendChild(test.element);
     </script>
-    <button type="button" class="btn btn-login" id="showButton" onclick="test.showFollowupQuestions()">
+    <button type="button" class="btn btn-login" id="showButton" onclick="test.showAllLevelFollowupQuestions()">
         show followups
     </button>
     <button type="button" class="btn btn-login" id="logButton" onclick="console.log(test.getResponse())">
