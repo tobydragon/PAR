@@ -11,15 +11,7 @@ class QuestionAndAnswerView {
             return null;
         }
         else {
-            let response = {
-                questionId: this.qaModel.id
-            };
-            let questionTextResponse = this.questionView.getResponse();
-            if (questionTextResponse !== null) {
-                response.questionText = questionTextResponse;
-            }
-            response.answerText = this.answerView.getCurrentAnswer();
-            return response;
+            return new QuestionResponse(this.qaModel.id, this.answerView.getCurrentAnswer(), this.questionView.getResponse());
         }
     }
 
