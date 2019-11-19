@@ -3,7 +3,7 @@ class QuestionAndAnswerView {
         this.qaModel = qaModel;
         this.questionView = new QuestionView(qaModel.questionText);
         this.answerView = new AnswerView(qaModel);
-        this.element = buildQuestionAreaElement(qaModel.id + "QuestionAndAnswerView", this.questionView.element, this.answerView.element);
+        this.element = buildQuestionAndAnswerViewElement(qaModel.id + "QuestionAndAnswerView", this.questionView.element, this.answerView.element);
     }
 
     getResponse(){
@@ -17,9 +17,13 @@ class QuestionAndAnswerView {
         response.answerText = this.answerView.getCurrentAnswer();
         return response;
     }
+
+    checkAnswerAndUpdateView(){
+        return this.answerView.checkAnswerAndUpdateView();
+    }
 }
 
-function buildQuestionAreaElement(id, questionView, answerView) {
+function buildQuestionAndAnswerViewElement(id, questionView, answerView) {
     let element = document.createElement("div");
     element.setAttribute("id", id);
     element.appendChild(questionView);

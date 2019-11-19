@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TextEntryAnswerTest</title>
+    <script type="text/javascript" src="../../../main/resources/static/js/AnswerView.js"></script>
+    <script type="text/javascript" src="../../../main/resources/static/js/QuestionView.js"></script>
+    <script type="text/javascript" src="../../../main/resources/static/js/QuestionAndAnswerView.js"></script>
+    <script type="text/javascript" src="../../../main/resources/static/js/QATreeView.js"></script>
+    <link rel="stylesheet" href="../../../main/resources/static/css/style.css">
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
+</head>
+
+<body>
+    <div id="response">
+    </div>
+    <script>
+        qaModel = {
+            id: "qaTop0",
+            questionText:"q0",
+            defaultAnswers: ["right", "wrong", "neither"],
+            correctAnswer: "right",
+            followupQuestions: [
+                {
+                    id: "q01",
+                    questionText: "q01",
+                    defaultAnswers: ["right", "wrong", "neither"],
+                    correctAnswer: "wrong",
+                    followupQuestions: []
+                },
+                {
+                    id: "q02",
+                    questionText: "q02",
+                    defaultAnswers: ["aa", "bb", "cc"],
+                    correctAnswer: "cc",
+                    followupQuestions: [
+                        {
+                            id: "q021",
+                            questionText: "q021",
+                            defaultAnswers: ["right", "wrong", "neither"],
+                            correctAnswer: "wrong",
+                            followupQuestions: []
+                        },
+                        {
+                            id: "q022",
+                            questionText: "q022",
+                            defaultAnswers: ["aa", "bb", "cc"],
+                            correctAnswer: "cc",
+                        },
+                        {
+                            id: "q023",
+                            questionText: "q023",
+                            defaultAnswers: ["xx", "yy", "zz"],
+                            correctAnswer: "xx"
+                        }
+                    ]
+                },
+                {
+                    id: "q03",
+                    questionText: "q03",
+                    defaultAnswers: ["xx", "yy", "zz"],
+                    correctAnswer: "xx"
+                }
+            ]
+
+        };
+        test = new QATreeView(qaModel);
+        document.getElementById("response").appendChild(test.element);
+    </script>
+    <button type="button" class="btn btn-login" id="showButton" onclick="test.showFollowupQuestions()">
+        show followups
+    </button>
+    <button type="button" class="btn btn-login" id="logButton" onclick="test.getResponse()">
+        log response
+    </button>
+    <button type="button" class="btn btn-login" id="checkButton" onclick="test.checkAnswersAndUpdateView()">
+        check and update
+    </button>
+</body></html>
