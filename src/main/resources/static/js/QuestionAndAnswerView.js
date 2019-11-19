@@ -1,8 +1,21 @@
 class QuestionAndAnswerView {
     constructor(qaModel) {
+        this.qaModel = qaModel;
         this.questionView = new QuestionView(qaModel.questionText);
         this.answerView = new AnswerView(qaModel);
         this.element = buildQuestionAreaElement(qaModel.id + "QuestionAndAnswerView", this.questionView.element, this.answerView.element);
+    }
+
+    getResponse(){
+        let response =  {
+            questionId: qaModel.id
+        };
+        let questionTextResponse = this.questionView.getResponse();
+        if (questionTextResponse !== null){
+          response.questionText = questionTextResponse;
+        }
+        response.answerText = this.answerView.getCurrentAnswer();
+        return response;
     }
 }
 

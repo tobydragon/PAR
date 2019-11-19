@@ -2,10 +2,21 @@ class QuestionView{
 
     constructor(questionText=null){
         if (questionText === null){
+            this.questionIsInput = true;
             this.element = createQuestionTextInputElement();
         }
         else {
-            this.element = buildQuestionAreaElementUnchangable();
+            this.questionIsInput = false;
+            this.element = buildQuestionAreaElementUnchangable(questionText);
+        }
+    }
+
+    getResponse(){
+        if (this.questionIsInput){
+            return this.element.value;
+        }
+        else {
+            return null;
         }
     }
 }

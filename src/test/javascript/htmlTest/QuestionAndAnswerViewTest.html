@@ -16,7 +16,7 @@
     <script>
         qaModel = {
             id: "qa31",
-            questionText:null,
+            questionText:"A question for you",
             defaultAnswers: ["transverse", "Both proximal and middle phalanxes"],
             correctAnswer: "transverse"
 
@@ -24,7 +24,7 @@
         test = new QuestionAndAnswerView(qaModel);
         document.getElementById("response").appendChild(test.element);
     </script>
-    <button type="button" class="btn btn-login" id="checkButton" onclick="test.checkAnswerAndUpdateView()">
-        Test Check and update
+    <button type="button" class="btn btn-login" id="checkButton" onclick="console.log(test.getResponse())">
+        check response
     </button>
 </body></html>
