@@ -4,10 +4,13 @@ describe("AnswerView", function () {
     it('getCurrentAnswer', function(){
         let qaModel = {
             id: "question31",
-            defaultAnswers: ["transverse", "Both proximal and middle phalanxes"],
+            possibleAnswers: ["transverse", "Both proximal and middle phalanxes"],
             correctAnswer: "transverse"
         };
-       let ansViewObj= new AnswerView(qaModel);
+        const defaultQaSettings = {
+            unsureShowsCorrect: true
+        };
+       let ansViewObj= new AnswerView(qaModel, defaultQaSettings);
        let badAnswer="some string";
        expect(ansViewObj.getCurrentAnswer()).not.toBe(null);
        expect(ansViewObj.getCurrentAnswer()).not.toBe(badAnswer);
@@ -16,10 +19,13 @@ describe("AnswerView", function () {
     it("checkAnswerAndUpdateView", function(){
         let qaModel = {
             id: "question48",
-            defaultAnswers: ["transverse", "Suspensory ligament (body)","proximal bone"],
+            possibleAnswers: ["transverse", "Suspensory ligament (body)","proximal bone"],
             correctAnswer: "proximal bone"
         };
-        let ansViewObj= new AnswerView(qaModel);
+        const defaultQaSettings = {
+            unsureShowsCorrect: true
+        };
+        let ansViewObj= new AnswerView(qaModel, defaultQaSettings);
         ansViewObj.qaModel.correctResponse="proximal bone";
         //with incorrect value
         ansViewObj.inputTextbox.value="longitudinal";
