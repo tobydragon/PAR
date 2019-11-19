@@ -51,6 +51,14 @@ function buildQATreeViewList(qaModelList) {
     return qaTreeViewList;
 }
 
+function getResponsesFromAllQATreesInFlatList(qaTreeViewList){
+    let responses = [];
+    for (let qaTreeView of qaTreeViewList){
+        putNonBlankResponsesInFlatList(qaTreeView, responses);
+    }
+    return responses;
+}
+
 function buildQATreeListElement(qaTreeViewList){
     let listElement = document.createElement("div");
     for (let followupQATreeView of qaTreeViewList) {

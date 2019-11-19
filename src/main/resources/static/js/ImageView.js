@@ -1,9 +1,12 @@
-class PageImage {
+class ImageView {
 
     constructor(imageUrl, canvasName) {
         //Check to see if the canvas has a context
         if (!canvasSupport()) {
             return; //Canvas not supported so exit the function
+        }
+        if (imageUrl === "noMoreQuestions") {
+            imageUrl = "../images/ParLogo.png";
         }
         this.imageUrl = imageUrl;
         this.canvasName = canvasName;

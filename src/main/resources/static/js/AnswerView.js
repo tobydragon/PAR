@@ -18,8 +18,8 @@ class AnswerView {
         this.qaSettings = qaSettings;
         this.id = qaModel.id + "AnswerView";
         //let because don't need a pointer to this currently...
-        let possibleResponsesDatalist = buildDatalistElement(this.id, qaModel.defaultAnswers);
-        let inputBoxSize = calcTextSizeFromPossStrings(qaModel.defaultAnswers);
+        let possibleResponsesDatalist = buildDatalistElement(this.id, qaModel.possibleAnswers);
+        let inputBoxSize = calcTextSizeFromPossStrings(qaModel.possibleAnswers);
 
         //need a pointer to this textbox to check answers
         this.inputTextbox = buildInputTextbox(this.id, possibleResponsesDatalist.getAttribute("id"), inputBoxSize);

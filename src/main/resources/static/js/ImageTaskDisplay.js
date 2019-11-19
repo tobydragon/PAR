@@ -125,11 +125,11 @@ class ImageTaskDisplay {
         canvasElement.setAttribute('id', 'canvasArea');
         let canvas;
         if (this.imageUrl === "noMoreQuestions") {
-            canvas = new PageImage("../images/ParLogo.png", this.canvasName);
+            canvas = new ImageView("../images/ParLogo.png", this.canvasName);
 
         } else {
 
-            canvas = new PageImage(this.imageUrl, this.canvasName);
+            canvas = new ImageView(this.imageUrl, this.canvasName);
         }
         canvasElement.appendChild(canvas.element);
         canvas.loadImage();
