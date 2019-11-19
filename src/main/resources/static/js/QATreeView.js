@@ -15,10 +15,19 @@ class QATreeView {
     }
 
     checkAnswersAndUpdateView(){
-        this.qaView.checkAnswerAndUpdateView();
+        let result = this.qaView.checkAnswerAndUpdateView();
+        if (result === ResponseResult.correct){
+            this.showFollowupQuestions();
+        }
         for (let followupView of this.followupQATreeViews) {
             followupView.checkAnswersAndUpdateView();
         }
+    }
+
+    getResponse(){
+        let response = [];
+        putNonBlankResponsesInFlatList(this, response);
+        return response;
     }
 }
 
@@ -44,4 +53,14 @@ function buildQATreeListElement(qaTreeViewList){
     }
     listElement.classList.add("tab");
     return listElement;
+}
+
+function putNonBlankResponsesInFlatList(qaTreeView, questionResponseList){
+    let currentResponse = qaTreeView.qaView.getResponse();
+    if (currentResponse != null) {
+        questionResponseList.push(currentResponse);
+        for (let followup of qaTreeView.followupQATreeViews) {
+            putNonBlankResponsesInFlatList(followup, questionResponseList);
+        }
+    }
 }

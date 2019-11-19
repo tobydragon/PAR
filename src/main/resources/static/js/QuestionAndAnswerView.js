@@ -7,15 +7,20 @@ class QuestionAndAnswerView {
     }
 
     getResponse(){
-        let response =  {
-            questionId: qaModel.id
-        };
-        let questionTextResponse = this.questionView.getResponse();
-        if (questionTextResponse !== null){
-          response.questionText = questionTextResponse;
+        if (this.answerView.getCurrentAnswer() === ResponseResult.blank){
+            return null;
         }
-        response.answerText = this.answerView.getCurrentAnswer();
-        return response;
+        else {
+            let response = {
+                questionId: this.qaModel.id
+            };
+            let questionTextResponse = this.questionView.getResponse();
+            if (questionTextResponse !== null) {
+                response.questionText = questionTextResponse;
+            }
+            response.answerText = this.answerView.getCurrentAnswer();
+            return response;
+        }
     }
 
     checkAnswerAndUpdateView(){
