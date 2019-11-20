@@ -27,5 +27,10 @@ public class WebController implements WebMvcConfigurer {
         return "ImageTaskTemplate";
     }
 
+    @GetMapping("/studentView")
+    public String studentView(){
+        return "StudentView";
+    }
+
 
 }
