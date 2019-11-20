@@ -45,4 +45,7 @@ describe("QuestionAndAnswerView", function () {
     //     questionNoFollowup.addFollowupQuestions();
     //     expect(questionNoFollowup.element.childNodes.length).toBe(2);
     // });
+    it("getResponse",function(){
+
+    });
 });
