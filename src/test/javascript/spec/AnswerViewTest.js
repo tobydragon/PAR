@@ -4,10 +4,13 @@ describe("AnswerView", function () {
     it('getCurrentAnswer', function(){
         let qaModel = {
             id: "question31",
-            defaultAnswers: ["transverse", "Both proximal and middle phalanxes"],
+            possibleAnswers: ["transverse", "Both proximal and middle phalanxes"],
             correctAnswer: "transverse"
         };
-       let ansViewObj= new AnswerView(qaModel);
+        const defaultQaSettings = {
+            unsureShowsCorrect: true
+        };
+       let ansViewObj= new AnswerView(qaModel, defaultQaSettings);
        let badAnswer="some string";
        expect(ansViewObj.getCurrentAnswer()).not.toBe(null);
        expect(ansViewObj.getCurrentAnswer()).not.toBe(badAnswer);
@@ -16,10 +19,13 @@ describe("AnswerView", function () {
     it("checkAnswerAndUpdateView", function(){
         let qaModel = {
             id: "question48",
-            defaultAnswers: ["transverse", "Suspensory ligament (body)","proximal bone"],
+            possibleAnswers: ["transverse", "Suspensory ligament (body)","proximal bone"],
             correctAnswer: "proximal bone"
         };
-        let ansViewObj= new AnswerView(qaModel);
+        const defaultQaSettings = {
+            unsureShowsCorrect: true
+        };
+        let ansViewObj= new AnswerView(qaModel, defaultQaSettings);
         ansViewObj.qaModel.correctResponse="proximal bone";
         //with incorrect value
         ansViewObj.inputTextbox.value="longitudinal";
@@ -57,47 +63,16 @@ describe("AnswerView", function () {
         expect(element.options.item(0).value).toBe("1");
         expect(element.options.item(element.options.length - 1).value).toBe('3');
     });
-
-    it("addToTypesIncorrect", function () {
-        let testList = [];
-        addToTypesIncorrect("correct", "plane", testList);
-        expect(testList.length).toBe(0);
-        addToTypesIncorrect("correct", "ZONE", testList);
-        expect(testList.length).toBe(0);
-        addToTypesIncorrect("correct", "", testList);
-        expect(testList.length).toBe(0);
-
-        addToTypesIncorrect("incorrect", "plane", testList);
-        expect(testList.length).toBe(1);
-        addToTypesIncorrect("incorrect", "ZONE", testList);
-        expect(testList.length).toBe(2);
-        addToTypesIncorrect("incorrect", "", testList);
-        expect(testList.length).toBe(3);
-
-        addToTypesIncorrect("incorrect", "plane", testList);
-        expect(testList.length).toBe(3);
-        addToTypesIncorrect("incorrect", "ZONE", testList);
-        expect(testList.length).toBe(3);
-        addToTypesIncorrect("incorrect", "", testList);
-        expect(testList.length).toBe(3);
-
-        addToTypesIncorrect("unsure", "plane1", testList);
-        expect(testList.length).toBe(4);
-        addToTypesIncorrect("unsure", "ZONE1", testList);
-        expect(testList.length).toBe(5);
-        addToTypesIncorrect("unsure", "1", testList);
-        expect(testList.length).toBe(6);
-
-        addToTypesIncorrect("", "plane2", testList);
-        expect(testList.length).toBe(6);
-        addToTypesIncorrect("", "ZONE2", testList);
-        expect(testList.length).toBe(6);
-        addToTypesIncorrect("", "2", testList);
-        expect(testList.length).toBe(6);
-    });
-
     it("makeFeedbackHtml", function () {
-        let textEntryResponseBox = new AnswerView("test1", ["high", "middle", "low"], "low");
+        let qaModel = {
+            id: "question31",
+            possibleAnswers: ["high","middle","low"],
+            correctAnswer: "low"
+        };
+        const defaultQaSettings = {
+            unsureShowsCorrect: true
+        };
+        let textEntryResponseBox= new AnswerView(qaModel, defaultQaSettings);
         document.getElementById("testArea").appendChild(textEntryResponseBox.element);
         document.getElementById("testArea").style.display = "none";
 
@@ -115,7 +90,6 @@ describe("AnswerView", function () {
     });
 
     it("checkAnyResponse", function () {
-        let textEntryResponseBox = new AnswerView("test1", ["high", "middle", "low"], "low");
 
         expect(checkAnyResponse("a", "a")).toBe(ResponseResult.correct);
         expect(checkAnyResponse(" a ", "a")).toBe(ResponseResult.correct);
@@ -149,27 +123,6 @@ describe("AnswerView", function () {
         expect(checkAnyResponse("anything", " \n")).toBe(ResponseResult.blank);
         //blank shouldn't be authored as the correct answer, but if it is, it should return correct when entered
         expect(checkAnyResponse(ResponseResult.blank, ResponseResult.blank)).toBe(ResponseResult.correct);
-    });
-
-    it("checkThisResponse", function () {
-        let textEntryResponseBox = new AnswerView("test1", ["high", "middle", "low"], "low");
-        document.getElementById("testArea").appendChild(textEntryResponseBox.element);
-        document.getElementById("testArea").style.display = "none";
-        textEntryResponseBox.inputTextbox.value = "low";
-        let test = new Response("test1",[],[]);
-        let unsureShowsCorrect = false;
-
-        expect(textEntryResponseBox.checkCurrentResponse(test, unsureShowsCorrect)).toBe(ResponseResult.correct, unsureShowsCorrect);
-        textEntryResponseBox.inputTextbox.value = "low ";
-        expect(textEntryResponseBox.checkCurrentResponse(test, unsureShowsCorrect)).toBe(ResponseResult.correct, unsureShowsCorrect);
-        textEntryResponseBox.inputTextbox.value = "LOW";
-        expect(textEntryResponseBox.checkCurrentResponse(test, unsureShowsCorrect)).toBe(ResponseResult.correct, unsureShowsCorrect);
-        textEntryResponseBox.inputTextbox.value = "HIGH";
-        expect(textEntryResponseBox.checkCurrentResponse(test, unsureShowsCorrect)).toBe(ResponseResult.incorrect, unsureShowsCorrect);
-        textEntryResponseBox.inputTextbox.value = "high";
-        expect(textEntryResponseBox.checkCurrentResponse(test, unsureShowsCorrect)).toBe(ResponseResult.incorrect, unsureShowsCorrect);
-        textEntryResponseBox.inputTextbox.value = "something";
-        expect(textEntryResponseBox.checkCurrentResponse(test, unsureShowsCorrect)).toBe(ResponseResult.incorrect, unsureShowsCorrect);
     });
     it("disableElement", function () {
         let testElement = document.createElement('button');

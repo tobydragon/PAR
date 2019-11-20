@@ -32,6 +32,7 @@ class AnswerView {
         return this.inputTextbox.value;
     }
 
+    //todo for refactor, get rid of makeFeedbackHTML changing innerHTML. func should be be appended to feedbackArea
     checkAnswerAndUpdateView() {
         let returnResponse = checkAnyResponse(this.qaModel.correctAnswer, this.inputTextbox.value);
         this.feedbackArea.innerHTML = makeFeedbackHtml(returnResponse, this.qaModel.correctAnswer, this.qaSettings.unsureShowsCorrect);
@@ -41,10 +42,8 @@ class AnswerView {
         } else if (returnResponse === ResponseResult.unsure) {
             disableElement(this.inputTextbox);
         }
-
         return returnResponse;
     }
-
 }
 
 function buildElement(id, possibleResponseDatalist, inputTextbox, feedbackArea) {
@@ -56,6 +55,7 @@ function buildElement(id, possibleResponseDatalist, inputTextbox, feedbackArea) 
     return element;
 }
 
+//todo ideally makeFeedbackHTML should be returning an element rather than an HTML string
 function makeFeedbackHtml(correctness, correctResponse, unsureShowsCorrect) {
     if (correctness === ResponseResult.correct) {
         return '<font color=\"green\">Your answer is: Correct</font>';

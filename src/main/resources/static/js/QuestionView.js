@@ -3,11 +3,11 @@ class QuestionView{
     constructor(questionText=null){
         if (questionText === null){
             this.questionIsInput = true;
-            this.element = createQuestionTextInputElement();
+            this.element = createInputQuestionElement();
         }
         else {
             this.questionIsInput = false;
-            this.element = buildQuestionAreaElementUnchangable(questionText);
+            this.element = createFixedQuestionElement(questionText);
         }
     }
 
@@ -21,18 +21,18 @@ class QuestionView{
     }
 }
 
-function createQuestionTextInputElement(){
+function createInputQuestionElement(){
     let input = document.createElement("input");
     input.type = "text";
     input.value= "";
     input.size= 50;
-    input.id= "questionTextAreaInput";
+    input.id= "inputQuestionArea";
     return input;
 }
 
-function buildQuestionAreaElementUnchangable(questionText){
+function createFixedQuestionElement(questionText){
     let questionTextArea = document.createElement("text");
     questionTextArea.textContent = questionText;
-    questionTextArea.id= "questionTextAreaFixed";
+    questionTextArea.id= "fixedQuestionArea";
     return questionTextArea;
 }
