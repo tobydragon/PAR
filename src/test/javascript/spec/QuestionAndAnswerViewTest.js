@@ -26,5 +26,9 @@ describe("QuestionAndAnswerView", function () {
         let qaavTestObj = new QuestionAndAnswerView(qaModel);
         let buildQandAViewTestElement=buildQuestionAndAnswerViewElement(qaModel.id,qaavTestObj.questionView.element,qaavTestObj.answerView.inputTextbox);
         expect(buildQandAViewTestElement).not.toBeNull();
+        expect(buildQandAViewTestElement.getAttribute('id')).toBe(qaModel.id);
+        expect(buildQandAViewTestElement.childNodes.item(0)).toBe(qaavTestObj.questionView.element);
+        expect(buildQandAViewTestElement.childNodes.item(1)).toBe(qaavTestObj.answerView.inputTextbox);
+        expect(buildQandAViewTestElement.getAttribute('class')).toContain('pad5');
     });
 });
