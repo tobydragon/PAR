@@ -63,45 +63,6 @@ describe("AnswerView", function () {
         expect(element.options.item(0).value).toBe("1");
         expect(element.options.item(element.options.length - 1).value).toBe('3');
     });
-/** depreciated test
-    it("addToTypesIncorrect", function () {
-        let testList = [];
-        addToTypesIncorrect("correct", "plane", testList);
-        expect(testList.length).toBe(0);
-        addToTypesIncorrect("correct", "ZONE", testList);
-        expect(testList.length).toBe(0);
-        addToTypesIncorrect("correct", "", testList);
-        expect(testList.length).toBe(0);
-
-        addToTypesIncorrect("incorrect", "plane", testList);
-        expect(testList.length).toBe(1);
-        addToTypesIncorrect("incorrect", "ZONE", testList);
-        expect(testList.length).toBe(2);
-        addToTypesIncorrect("incorrect", "", testList);
-        expect(testList.length).toBe(3);
-
-        addToTypesIncorrect("incorrect", "plane", testList);
-        expect(testList.length).toBe(3);
-        addToTypesIncorrect("incorrect", "ZONE", testList);
-        expect(testList.length).toBe(3);
-        addToTypesIncorrect("incorrect", "", testList);
-        expect(testList.length).toBe(3);
-
-        addToTypesIncorrect("unsure", "plane1", testList);
-        expect(testList.length).toBe(4);
-        addToTypesIncorrect("unsure", "ZONE1", testList);
-        expect(testList.length).toBe(5);
-        addToTypesIncorrect("unsure", "1", testList);
-        expect(testList.length).toBe(6);
-
-        addToTypesIncorrect("", "plane2", testList);
-        expect(testList.length).toBe(6);
-        addToTypesIncorrect("", "ZONE2", testList);
-        expect(testList.length).toBe(6);
-        addToTypesIncorrect("", "2", testList);
-        expect(testList.length).toBe(6);
-    });
-**/
     it("makeFeedbackHtml", function () {
         let qaModel = {
             id: "question31",
@@ -163,36 +124,6 @@ describe("AnswerView", function () {
         //blank shouldn't be authored as the correct answer, but if it is, it should return correct when entered
         expect(checkAnyResponse(ResponseResult.blank, ResponseResult.blank)).toBe(ResponseResult.correct);
     });
-/** depreciated test
-    it("checkThisResponse", function () {
-        let qaModel = {
-            id: "question31",
-            possibleAnswers: ["high","middle","low"],
-            correctAnswer: "low"
-        };
-        const defaultQaSettings = {
-            unsureShowsCorrect: true
-        };
-        let textEntryResponseBox= new AnswerView(qaModel, defaultQaSettings);
-        document.getElementById("testArea").appendChild(textEntryResponseBox.element);
-        document.getElementById("testArea").style.display = "none";
-        textEntryResponseBox.inputTextbox.value = "low";
-        let test = new Response("test1",[],[]);
-        let unsureShowsCorrect = false;
-
-        expect(textEntryResponseBox.checkCurrentResponse(test, unsureShowsCorrect)).toBe(ResponseResult.correct, unsureShowsCorrect);
-        textEntryResponseBox.inputTextbox.value = "low ";
-        expect(textEntryResponseBox.checkCurrentResponse(test, unsureShowsCorrect)).toBe(ResponseResult.correct, unsureShowsCorrect);
-        textEntryResponseBox.inputTextbox.value = "LOW";
-        expect(textEntryResponseBox.checkCurrentResponse(test, unsureShowsCorrect)).toBe(ResponseResult.correct, unsureShowsCorrect);
-        textEntryResponseBox.inputTextbox.value = "HIGH";
-        expect(textEntryResponseBox.checkCurrentResponse(test, unsureShowsCorrect)).toBe(ResponseResult.incorrect, unsureShowsCorrect);
-        textEntryResponseBox.inputTextbox.value = "high";
-        expect(textEntryResponseBox.checkCurrentResponse(test, unsureShowsCorrect)).toBe(ResponseResult.incorrect, unsureShowsCorrect);
-        textEntryResponseBox.inputTextbox.value = "something";
-        expect(textEntryResponseBox.checkCurrentResponse(test, unsureShowsCorrect)).toBe(ResponseResult.incorrect, unsureShowsCorrect);
-    });
- **/
     it("disableElement", function () {
         let testElement = document.createElement('button');
         testElement.textContent = "test button";
