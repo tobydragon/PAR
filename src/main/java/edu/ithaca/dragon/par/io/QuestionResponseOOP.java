@@ -3,20 +3,20 @@ package edu.ithaca.dragon.par.io;
 public class QuestionResponseOOP {
     String questionId;
     String questionText;
-    String answerText;
+    String responseText;
 
     QuestionResponseOOP(){}
 
     public QuestionResponseOOP(String questionIdIn, String responseTextIn){
         this.questionId = questionIdIn;
-        this.answerText = responseTextIn;
+        this.responseText = responseTextIn;
     }
 
     // used for authoring custom questions
     public QuestionResponseOOP(String questionIdIn, String questionTextIn, String responseTextIn){
         this.questionId = questionIdIn;
         this.questionText = questionTextIn;
-        this.answerText = responseTextIn;
+        this.responseText = responseTextIn;
     }
 
     public String getQuestionId() {
@@ -35,15 +35,15 @@ public class QuestionResponseOOP {
         this.questionText = questionText;
     }
 
-    public String getAnswerText() {
-        return answerText;
+    public String getResponseText() {
+        return responseText;
     }
 
-    public void setAnswerText(String answerText) {
-        this.answerText = answerText;
+    public void setResponseText(String responseText) {
+        this.responseText = responseText;
     }
 
     public String toString(){
-        return questionId + ": " + answerText;
+        return questionId + ": " + responseText;
     }
 }
