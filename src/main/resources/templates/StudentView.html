@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>PAR: Student View</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script type="text/javascript" src="/js/Modernizr.js"></script>
+    <script type="text/javascript" src="/js/CommUtil.js"></script>
+    <script type="text/javascript" src="/js/ImageView.js"></script>
+    <script type="text/javascript" src="/js/ImageTaskView.js"></script>
+    <script type="text/javascript" src="/js/QATreeView.js"></script>
+    <script type="text/javascript" src="/js/QuestionAndAnswerView.js"></script>
+    <script type="text/javascript" src="/js/QuestionView.js"></script>
+    <script type="text/javascript" src="/js/AnswerView.js"></script>
+    <script type="text/javascript" src="/js/QuestionResponse.js"></script>
+    <script>
+        $(document).ready(function() {
+             let f = function(){console.log("hi")};
+            //Handlers
+            $('#submit').on('click', f);
+        });
+
+    </script>
+</head>
+
+<body>
+
+<div id="bottomButtons">
+    <span id="submit">Submit</span>
+    <div id="feedback"></div>
+</div>
+
+</body>
+</html>

@@ -61,10 +61,10 @@ class ImageTaskDisplay {
             if (value !== ResponseResult.blank) {
                 addToResponseIds(this.response, current.element.id);
             }
-            for (var x = 0; x < current.followUpAreas.length; x++) {
-                value = current.followUpAreas[x].answerBox.recordCurrentResponse(this.response);
+            for (var x = 0; x < current.followupQATreeViews.length; x++) {
+                value = current.followupQATreeViews[x].answerBox.recordCurrentResponse(this.response);
                 if (value !== ResponseResult.blank) {
-                    addToResponseIds(this.response, current.followUpAreas[x].element.id);
+                    addToResponseIds(this.response, current.followupQATreeViews[x].element.id);
                 }
             }
         }
@@ -77,8 +77,8 @@ class ImageTaskDisplay {
     }
 
     checkFollowUp(current) {
-        for (var x = 0; x < current.followUpAreas.length; x++) {
-            let correctness = current.followUpAreas[x].answerBox.checkCurrentResponse(this.response, this.unsureShowsCorrectAnswer, current.followUpAreas[x].element.id);
+        for (var x = 0; x < current.followupQATreeViews.length; x++) {
+            let correctness = current.followupQATreeViews[x].answerBox.checkCurrentResponse(this.response, this.unsureShowsCorrectAnswer, current.followupQATreeViews[x].element.id);
             this.listOfCorrectAnswers.push(correctness);
         }
     }
@@ -92,7 +92,7 @@ class ImageTaskDisplay {
             this.listOfCorrectAnswers.push(correctness);
             if (checkIfShouldAddFollowupQ(correctness)) {
                 current.addFollowupQuestions();
-                if (current.followUpAreas.length > 0) {
+                if (current.followupQATreeViews.length > 0) {
                     this.hasFolloup = true;
                 }
             }
@@ -125,11 +125,11 @@ class ImageTaskDisplay {
         canvasElement.setAttribute('id', 'canvasArea');
         let canvas;
         if (this.imageUrl === "noMoreQuestions") {
-            canvas = new PageImage("../images/ParLogo.png", this.canvasName);
+            canvas = new ImageView("../images/ParLogo.png", this.canvasName);
 
         } else {
 
-            canvas = new PageImage(this.imageUrl, this.canvasName);
+            canvas = new ImageView(this.imageUrl, this.canvasName);
         }
         canvasElement.appendChild(canvas.element);
         canvas.loadImage();
@@ -249,9 +249,9 @@ class ImageTaskDisplay {
             let current = this.questionAreaDisp[i];
             current.answerBox.inputTextbox.value = current.answerBox.correctResponse;
             disableElement(current.answerBox.inputTextbox);
-            for (var x = 0; x < current.followUpAreas.length; x++) {
-                current.followUpAreas[x].answerBox.inputTextbox.value = current.followUpAreas[x].answerBox.correctResponse;
-                disableElement(current.followUpAreas[x].answerBox.inputTextbox);
+            for (var x = 0; x < current.followupQATreeViews.length; x++) {
+                current.followupQATreeViews[x].answerBox.inputTextbox.value = current.followupQATreeViews[x].answerBox.correctResponse;
+                disableElement(current.followupQATreeViews[x].answerBox.inputTextbox);
             }
         }
     }
@@ -344,4 +344,13 @@ function checkIfCanContinu(canGiveNoAnswer, listOfCorrectAnswers) {
     } else {
         return true;
     }
+}
+
+function buildQuestionAreas(questionObjectList, responseList) {
+    let questionAreaList = [];
+    for (let questionObject of questionObjectList) {
+        let newResponse= responseList.addToQuestionTexts(questionObject.id);
+        questionAreaList.push(new QuestionAndAnswerView(questionObject, newResponse, responseList));
+    }
+    return questionAreaList;
 }
