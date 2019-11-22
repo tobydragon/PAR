@@ -4,7 +4,7 @@ package edu.ithaca.dragon.par.studentModel;
 import java.util.Date;
 
 public class QuestionResponse {
-    private String answerText;
+    private String responseText;
     private long millSeconds;
 
     public QuestionResponse(){
@@ -12,17 +12,17 @@ public class QuestionResponse {
     }
 
     public QuestionResponse(String responseTextIn){
-        this.answerText =responseTextIn;
+        this.responseText =responseTextIn;
         Date date=new Date();
         this.millSeconds=date.getTime();
     }
 
-    public String getAnswerText() {
-        return answerText;
+    public String getResponseText() {
+        return responseText;
     }
 
-    public void setAnswerText(String answerText) {
-        this.answerText = answerText;
+    public void setResponseText(String responseText) {
+        this.responseText = responseText;
     }
 
     public long getMillSeconds() {
@@ -43,7 +43,7 @@ public class QuestionResponse {
         }
         QuestionResponse other = (QuestionResponse) otherObj;
         return this.getMillSeconds()==(other.getMillSeconds())
-                && this.getAnswerText().equals(other.getAnswerText());
+                && this.getResponseText().equals(other.getResponseText());
 
     }
 }
