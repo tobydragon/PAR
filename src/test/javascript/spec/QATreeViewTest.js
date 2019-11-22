@@ -52,4 +52,12 @@ describe("QATreeView", function(){
     it("showNextLevelFollowupQuestions", function(){
         expect(qatvObj.showNextLevelFollowupQuestions().element.childNodes.item(0)).toContain(qatvObj.followupQATreeViews);
    }) ;
+    it("checkAnswersAndUpdateView", function(){
+
+    });
+    it("buildQAViewTreeElement", function(){
+    let testElement=buildQATreeViewElement(qatvObj.id+"QATreeView", qatvObj.qaView.element);
+    expect(testElement.getAttribute("id")).toBe(qatvObj.id+"QATreeView");
+    expect(testElement.childNodes.item(0)).toBe(qatvObj.qaView.element);
+    });
 });
