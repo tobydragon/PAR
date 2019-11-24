@@ -8,6 +8,7 @@
 
     <script type="text/javascript" src="../../../main/resources/static/js/Modernizr.js"></script>
     <script type="text/javascript" src="../../../main/resources/static/js/CommUtil.js"></script>
+    <script type="text/javascript" src="../../../main/resources/static/js/TestServerComm.js"></script>
     <script type="text/javascript" src="../../../main/resources/static/js/StudentView.js"></script>
     <script type="text/javascript" src="../../../main/resources/static/js/ImageTaskView.js"></script>
     <script type="text/javascript" src="../../../main/resources/static/js/ImageView.js"></script>
@@ -19,7 +20,7 @@
     <script>
 
         $(document).ready(function() {
-            let test = new StudentView("testUser1");
+            let test = new StudentView("testUser1", new TestServerComm("../../resources/author/SampleListOfImageTasks.json"));
             document.getElementById('studentArea').appendChild(test.element);
 
             //why do I need these?

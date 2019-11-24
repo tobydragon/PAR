@@ -1,26 +1,21 @@
 class StudentView{
 
-    constructor(userId){
-        let listOfImageTasks = readJson("../../resources/author/SampleListOfImageTasks.json");
-        let imageTaskModel = listOfImageTasks[0];
-
+    constructor(userId, serverComm){
+        this.serverComm = serverComm;
         this.userId = userId;
         //the elements built in this must persist and be mutated, because it is referenced from the html
         this.buildElements(userId);
-        this.replaceImageTaskModel(imageTaskModel);
+        this.loadNextImageTask();
     }
 
     submitCurrentResponse(){
         this.imageTaskView.checkAnswersAndUpdateView();
         let imageTaskResponse = this.imageTaskView.getResponse();
-        console.log(imageTaskResponse);
-
+        this.serverComm.submitImageTaskResponse(imageTaskResponse);
     }
 
     loadNextImageTask() {
-        let listOfImageTasks = readJson("../../resources/author/SampleListOfImageTasks.json");
-        let imageTaskModel = listOfImageTasks[1];
-        this.replaceImageTaskModel(imageTaskModel);
+        this.serverComm.nextStudentImageTask(this.userId, this);
     }
 
     replaceImageTaskModel(newImageTaskModel){
