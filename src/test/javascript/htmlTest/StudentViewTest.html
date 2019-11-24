@@ -8,8 +8,9 @@
 
     <script type="text/javascript" src="../../../main/resources/static/js/Modernizr.js"></script>
     <script type="text/javascript" src="../../../main/resources/static/js/CommUtil.js"></script>
-    <script type="text/javascript" src="../../../main/resources/static/js/ImageView.js"></script>
+    <script type="text/javascript" src="../../../main/resources/static/js/StudentView.js"></script>
     <script type="text/javascript" src="../../../main/resources/static/js/ImageTaskView.js"></script>
+    <script type="text/javascript" src="../../../main/resources/static/js/ImageView.js"></script>
     <script type="text/javascript" src="../../../main/resources/static/js/QATreeView.js"></script>
     <script type="text/javascript" src="../../../main/resources/static/js/QuestionAndAnswerView.js"></script>
     <script type="text/javascript" src="../../../main/resources/static/js/QuestionView.js"></script>
@@ -18,17 +19,16 @@
     <script>
 
         $(document).ready(function() {
-            let listOfImageTasks = readJson("../../resources/author/SampleListOfImageTasks.json");
-            let test = new ImageTaskView(listOfImageTasks[0], "testUser");
-            document.getElementById('imageTaskArea').appendChild(test.element);
+            let test = new StudentView("testUser1");
+            document.getElementById('studentArea').appendChild(test.element);
 
             //why do I need these?
-            let responseCall = function(){console.log(test.getResponse())};
-            let checkCall = function(){test.checkAnswersAndUpdateView()};
+            let responseCall = function(){test.submitCurrentResponse()};
+            let nextCall = function(){test.loadNextImageTask()};
 
             //Handlers
-            $('#check').on('click', checkCall);
             $('#submit').on('click', responseCall);
+            $('#next').on('click', nextCall);
 
         });
 
@@ -36,10 +36,10 @@
 </head>
 
 <body>
-<div id="imageTaskArea"></div>
+<div id="studentArea"></div>
 <div id="bottomButtons">
-    <button type="button" class="btn btn-login" id="check"> check </button>
     <button type="button" class="btn btn-login" id="submit"> submit </button>
+    <button type="button" class="btn btn-login" id="next"> next </button>
 </div>
 </body>
 </html>
