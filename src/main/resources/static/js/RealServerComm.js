@@ -7,6 +7,9 @@ class RealServerComm{
         request.open("GET", "api/nextImageTask?userId=" + studId, false);
         request.send(null);
         let responseObject = JSON.parse(request.response);
+        console.log("Loading new student image task:");
+        console.log(responseObject);
+        logCorrectAnswers(responseObject.taskQuestions, "");
         responseHandler.replaceImageTaskModel(responseObject);
     }
 
@@ -22,5 +25,12 @@ class RealServerComm{
                console.log("submitImageTaskResponse: failure");
             }
         };
+    }
+}
+
+function logCorrectAnswers(questionList, indent){
+    for (let question of questionList){
+        console.log(indent + question.questionText + ": " + question.correctAnswer);
+        logCorrectAnswers(question.followupQuestions, indent+"    ");
     }
 }

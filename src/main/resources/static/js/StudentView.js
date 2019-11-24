@@ -11,7 +11,9 @@ class StudentView{
     submitCurrentResponse(){
         this.imageTaskView.checkAnswersAndUpdateView();
         let imageTaskResponse = this.imageTaskView.getResponse();
-        this.serverComm.submitImageTaskResponse(imageTaskResponse);
+        if (imageTaskResponse.questionResponses.length > 0) {
+            this.serverComm.submitImageTaskResponse(imageTaskResponse);
+        }
     }
 
     loadNextImageTask() {
