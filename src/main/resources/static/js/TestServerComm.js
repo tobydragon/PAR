@@ -17,6 +17,6 @@ class TestServerComm{
     }
 
     submitImageTaskResponse(imageTaskToSubmit){
-        console.log("Object to send:\n" + imageTaskToSubmit);
+        console.log("Object to send:\n" + JSON.stringify(imageTaskToSubmit));
     }
 }

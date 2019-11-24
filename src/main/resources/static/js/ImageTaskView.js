@@ -2,6 +2,7 @@
 class ImageTaskView{
 
     constructor(imageTaskModel, userId){
+        this.userId = userId;
         this.id = userId + "-" + imageTaskModel.imageUrl;
         this.imageView = new ImageView(imageTaskModel.imageUrl, this.id+"Canvas");
         this.questionTreeList = buildQATreeViewList(imageTaskModel.taskQuestions);
@@ -16,7 +17,7 @@ class ImageTaskView{
     }
 
     getResponse(){
-        return getResponsesFromAllQATreesInFlatList(this.questionTreeList);
+        return new ImageTaskResponse(this.userId, getResponsesFromAllQATreesInFlatList(this.questionTreeList));
     }
 }
 

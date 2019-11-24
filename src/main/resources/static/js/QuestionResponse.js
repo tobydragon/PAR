@@ -1,7 +1,7 @@
 class QuestionResponse{
     constructor(questionId,answerText,questionText=null){
         this.questionId=questionId;
-        this.answerText=answerText;
+        this.responseText=answerText;
         if(questionText!=null){
             this.questionText=questionText;
         }

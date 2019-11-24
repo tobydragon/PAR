@@ -12,7 +12,7 @@ describe("ImageTaskResponse", function () {
         expect(oopResponse.constructor.name).toBe("ImageTaskResponse");
         expect(oopResponse.questionResponses.length).toBe(3);
         expect(oopResponse.questionResponses[0].questionId).toBe("1");
-        expect(oopResponse.questionResponses[0].answerText).toBe("answer to 1");
+        expect(oopResponse.questionResponses[0].responseText).toBe("answer to 1");
         expect(oopResponse.questionResponses[0].hasOwnProperty("questionText")).toBe(false);
     });
 });

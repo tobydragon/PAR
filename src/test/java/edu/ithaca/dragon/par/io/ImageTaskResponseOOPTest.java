@@ -40,5 +40,6 @@ public class ImageTaskResponseOOPTest {
         ImageTaskResponseOOP newResponseSet = JsonUtil.fromJsonFile(path.toString(), ImageTaskResponseOOP.class);
         assertEquals(responseSet.getUserId(), newResponseSet.getUserId());
         assertEquals(responseSet.getResponseTexts().size(), newResponseSet.getResponseTexts().size());
+        JsonUtil.toJsonFile("src/test/resources/author/DemoImageTaskResponseOOP.json", responseSet);
     }
 }
