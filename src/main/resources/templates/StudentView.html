@@ -8,8 +8,11 @@
 
     <script type="text/javascript" src="/js/Modernizr.js"></script>
     <script type="text/javascript" src="/js/CommUtil.js"></script>
-    <script type="text/javascript" src="/js/ImageView.js"></script>
+    <script type="text/javascript" src="/js/RealServerComm.js"></script>
+    <script type="text/javascript" src="/js/StudentView.js"></script>
+    <script type="text/javascript" src="/js/ImageTaskResponse.js"></script>
     <script type="text/javascript" src="/js/ImageTaskView.js"></script>
+    <script type="text/javascript" src="/js/ImageView.js"></script>
     <script type="text/javascript" src="/js/QATreeView.js"></script>
     <script type="text/javascript" src="/js/QuestionAndAnswerView.js"></script>
     <script type="text/javascript" src="/js/QuestionView.js"></script>
@@ -17,20 +20,29 @@
     <script type="text/javascript" src="/js/QuestionResponse.js"></script>
     <script>
         $(document).ready(function() {
-             let f = function(){console.log("hi")};
+            let userId = "[[${userId}]]";
+            console.log(userId);
+            let test = new StudentView(userId, new RealServerComm());
+            document.getElementById('studentArea').appendChild(test.element);
+
+            //why do I need these?
+            let responseCall = function(){test.submitCurrentResponse()};
+            let nextCall = function(){test.loadNextImageTask()};
+
             //Handlers
-            $('#submit').on('click', f);
+            $('#submit').on('click', responseCall);
+            $('#next').on('click', nextCall);
+
         });
 
     </script>
 </head>
 
 <body>
-
+<div id="studentArea"></div>
 <div id="bottomButtons">
-    <span id="submit">Submit</span>
-    <div id="feedback"></div>
+    <button type="button" class="btn btn-login" id="submit"> submit </button>
+    <button type="button" class="btn btn-login" id="next"> next </button>
 </div>
-
 </body>
 </html>

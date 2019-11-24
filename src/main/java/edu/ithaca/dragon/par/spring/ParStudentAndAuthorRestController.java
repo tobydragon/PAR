@@ -71,7 +71,10 @@ public class ParStudentAndAuthorRestController {
 
     @GetMapping("/nextImageTask")
     public ImageTask nextImageTask(@RequestParam String userId) throws IOException {
-        return parServer.nextImageTask(userId);
+        logger.info("nextImageTask for:" + userId);
+        ImageTask imageTask = parServer.nextImageTask(userId);
+        logger.info("Responding with:" + JsonUtil.toJsonString(imageTask));
+        return imageTask;
     }
 
     @PostMapping("/recordResponse")

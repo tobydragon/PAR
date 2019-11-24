@@ -28,7 +28,8 @@ public class WebController implements WebMvcConfigurer {
     }
 
     @GetMapping("/studentView")
-    public String studentView(){
+    public String studentView(@RequestParam String userId, Model model){
+        model.addAttribute("userId", userId);
         return "StudentView";
     }
 

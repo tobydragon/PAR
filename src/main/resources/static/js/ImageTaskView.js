@@ -11,7 +11,6 @@ class ImageTaskView{
 
     checkAnswersAndUpdateView(){
         for (let qaTree of this.questionTreeList){
-            console.log(qaTree);
             qaTree.checkAnswersAndUpdateView();
         }
     }
