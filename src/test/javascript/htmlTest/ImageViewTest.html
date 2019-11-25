@@ -10,17 +10,18 @@
 
     <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
     <!-- My Project CSS -->
-    <link rel="stylesheet" href="../../../main/resources/static/css/style.css">
+    <link rel="stylesheet" href="css/style.css">
     <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
+
     <script type="text/javascript" src="../../../main/resources/static/js/CompleteDisplay.js"></script>
     <script type="text/javascript" src="../../../main/resources/static/js/PageDisplay.js"></script>
     <script type="text/javascript" src="../../../main/resources/static/js/ImageTaskDisplay.js"></script>
     <script type="text/javascript" src="../../../main/resources/static/js/CommUtil.js"></script>
     <script type="text/javascript" src="../../../main/resources/static/js/ScoreDisplay.js"></script>
-    <script type="text/javascript" src="../../../main/resources/static/js/QuestionAndAnswerView.js"></script>
+    <script type="text/javascript" src="../../../main/resources/static/js/QuestionAndAnswerController.js"></script>
     <script type="text/javascript" src="../../../main/resources/static/js/Response.js"></script>
-    <script type="text/javascript" src="../../../main/resources/static/js/ImageView.js"></script>
-    <script type="text/javascript" src="../../../main/resources/static/js/AnswerView.js"></script>
+    <script type="text/javascript" src="../../../main/resources/static/js/ImageController.js"></script>
+    <script type="text/javascript" src="../../../main/resources/static/js/AnswerController.js"></script>
     <script type="text/javascript" src="../../../main/resources/static/js/Modernizr.js"></script>
     <!-- Font Awsome -->
     <script src="https://kit.fontawesome.com/f9199bcaa3.js"></script>
@@ -28,38 +29,15 @@
 
 <body>
 
-    <div id="canvasArea"> </div>
-    <div id="questionSet"> </div>
-    <div id="imageTaskArea"></div>
-    <i id="Ids"> </i>
+    <div class="container-fluid">
+        <div id="canvasElement"></div>
+        <script>
+            let canvasDisplay = new ImageController('../../resources/images/ParLogo.png', 'canvas0');
+            document.getElementById('canvasElement').appendChild(canvasDisplay.element);
+            canvasDisplay.loadImage();
 
-    <button type="button" class="btn btn-primary" id="submitButton" onclick="completeDisplay.pageDisplay.imageTaskDisplay.submitAnswers()">
-        Submit
-    </button>
-    <button type="button" class="btn btn-primary" id="authorReviewSubmitButton" onclick="completeDisplay.pageDisplay.authorSubmitFinal()">
-        Submit
-    </button>
-
-    <script>
-        document.getElementById("authorReviewSubmitButton").classList.add("hide");
-        let listOfImageTasks = readJson("../../resources/author/SampleListOfImageTasks.json");
-        let imageTaskSettings = {
-            unsureShowsCorrectAnswer: "False",
-            feedbackByType: {
-                "plane": "Look at chapter 12",
-                structure: "View notes from 9/25",
-                attachment: "Read Page 394",
-                zone: "Rewatch <a href=https://www.youtube.com/watch?v=dQw4w9WgXcQ> this video </a>"
-            },
-            ableToResubmitAnswers: "True",
-            mustSubmitAnswersToContinue: "False",
-            canGiveNoAnswer: "True",
-            willDisplayFeedback: "False"
-        };
-
-        enterAuthorReview(listOfImageTasks, "author", imageTaskSettings, true)
-
-    </script>
+        </script>
+    </div>
 
     <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

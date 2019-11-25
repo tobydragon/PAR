@@ -1,4 +1,4 @@
-class ImageView {
+class ImageController {
 
     constructor(imageUrl, canvasName) {
         //Check to see if the canvas has a context

@@ -1,7 +1,7 @@
-describe("QuestionView",function(){
+describe("QuestionController",function(){
    it("getResponse", function(){
-    let qvObjText= new QuestionView("hello");
-    let qvObjNoText= new QuestionView();
+    let qvObjText= new QuestionController("hello");
+    let qvObjNoText= new QuestionController();
     expect(qvObjText.getResponse()).toBeNull();
     expect(qvObjNoText.getResponse()).not.toBeNull();
 

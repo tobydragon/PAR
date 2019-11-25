@@ -28,7 +28,7 @@ class AuthorFromTemplateController {
 
     //callback upon server response to loadNextImageTask
     replaceImageTaskModel(newImageTaskModel) {
-        this.imageTaskView = new ImageTaskView(newImageTaskModel, this.userId);
+        this.imageTaskView = new ImageTaskController(newImageTaskModel, this.userId);
         this.imageTaskView.showAllLevelFollowupQuestions();
         if (this.imageTaskElement.firstChild) {
             this.imageTaskElement.removeChild(this.imageTaskElement.firstChild);

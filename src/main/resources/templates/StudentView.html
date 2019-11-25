@@ -9,19 +9,19 @@
     <script type="text/javascript" src="/js/Modernizr.js"></script>
     <script type="text/javascript" src="/js/CommUtil.js"></script>
     <script type="text/javascript" src="/js/RealServerComm.js"></script>
-    <script type="text/javascript" src="/js/StudentView.js"></script>
+    <script type="text/javascript" src="/js/StudentController.js"></script>
     <script type="text/javascript" src="/js/ImageTaskResponse.js"></script>
-    <script type="text/javascript" src="/js/ImageTaskView.js"></script>
-    <script type="text/javascript" src="/js/ImageView.js"></script>
-    <script type="text/javascript" src="/js/QATreeView.js"></script>
-    <script type="text/javascript" src="/js/QuestionAndAnswerView.js"></script>
-    <script type="text/javascript" src="/js/QuestionView.js"></script>
-    <script type="text/javascript" src="/js/AnswerView.js"></script>
+    <script type="text/javascript" src="/js/ImageTaskController.js"></script>
+    <script type="text/javascript" src="/js/ImageController.js"></script>
+    <script type="text/javascript" src="/js/QATreeController.js"></script>
+    <script type="text/javascript" src="/js/QuestionAndAnswerController.js"></script>
+    <script type="text/javascript" src="/js/QuestionController.js"></script>
+    <script type="text/javascript" src="/js/AnswerController.js"></script>
     <script type="text/javascript" src="/js/QuestionResponse.js"></script>
     <script>
         $(document).ready(function() {
             let userId = "[[${userId}]]";
-            let test = new StudentView(userId, new RealServerComm());
+            let test = new StudentController(userId, new RealServerComm());
             document.getElementById('studentArea').appendChild(test.element);
 
             //why do I need these?

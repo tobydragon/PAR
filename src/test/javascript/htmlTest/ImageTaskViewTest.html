@@ -14,12 +14,12 @@
     <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
     <script type="text/javascript" src="../../../main/resources/static/js/Modernizr.js"></script>
     <script type="text/javascript" src="../../../main/resources/static/js/CommUtil.js"></script>
-    <script type="text/javascript" src="../../../main/resources/static/js/ImageView.js"></script>
-    <script type="text/javascript" src="../../../main/resources/static/js/ImageTaskView.js"></script>
-    <script type="text/javascript" src="../../../main/resources/static/js/QATreeView.js"></script>
-    <script type="text/javascript" src="../../../main/resources/static/js/QuestionAndAnswerView.js"></script>
-    <script type="text/javascript" src="../../../main/resources/static/js/QuestionView.js"></script>
-    <script type="text/javascript" src="../../../main/resources/static/js/AnswerView.js"></script>
+    <script type="text/javascript" src="../../../main/resources/static/js/ImageController.js"></script>
+    <script type="text/javascript" src="../../../main/resources/static/js/ImageTaskController.js"></script>
+    <script type="text/javascript" src="../../../main/resources/static/js/QATreeController.js"></script>
+    <script type="text/javascript" src="../../../main/resources/static/js/QuestionAndAnswerController.js"></script>
+    <script type="text/javascript" src="../../../main/resources/static/js/QuestionController.js"></script>
+    <script type="text/javascript" src="../../../main/resources/static/js/AnswerController.js"></script>
     <script type="text/javascript" src="../../../main/resources/static/js/QuestionResponse.js"></script>
 
     <!-- Font Awsome -->
@@ -31,7 +31,7 @@
 <script>
     let listOfImageTasks = readJson("../../resources/author/SampleListOfImageTasks.json");
 
-    let test = new ImageTaskView(listOfImageTasks[0], "testUser");
+    let test = new ImageTaskController(listOfImageTasks[0], "testUser");
     document.getElementById('imageTaskArea').appendChild(test.element);
 
 </script>

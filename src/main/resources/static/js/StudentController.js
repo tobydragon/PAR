@@ -1,4 +1,4 @@
-class StudentView{
+class StudentController{
 
     constructor(userId, serverComm){
         this.serverComm = serverComm;
@@ -21,7 +21,7 @@ class StudentView{
     }
 
     replaceImageTaskModel(newImageTaskModel){
-        this.imageTaskView = new ImageTaskView(newImageTaskModel, this.userId);
+        this.imageTaskView = new ImageTaskController(newImageTaskModel, this.userId);
         if (this.imageTaskElement.firstChild){
             this.imageTaskElement.removeChild(this.imageTaskElement.firstChild);
         }

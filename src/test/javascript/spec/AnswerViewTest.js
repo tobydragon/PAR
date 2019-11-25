@@ -1,6 +1,6 @@
 'use strict';
 
-describe("AnswerView", function () {
+describe("AnswerController", function () {
     it('getCurrentAnswer', function(){
         let qaModel = {
             id: "question31",
@@ -10,7 +10,7 @@ describe("AnswerView", function () {
         const defaultQaSettings = {
             unsureShowsCorrect: true
         };
-       let ansViewObj= new AnswerView(qaModel, defaultQaSettings);
+       let ansViewObj= new AnswerController(qaModel, defaultQaSettings);
        let badAnswer="some string";
        expect(ansViewObj.getCurrentAnswer()).not.toBe(null);
        expect(ansViewObj.getCurrentAnswer()).not.toBe(badAnswer);
@@ -25,7 +25,7 @@ describe("AnswerView", function () {
         const defaultQaSettings = {
             unsureShowsCorrect: true
         };
-        let ansViewObj= new AnswerView(qaModel, defaultQaSettings);
+        let ansViewObj= new AnswerController(qaModel, defaultQaSettings);
         ansViewObj.qaModel.correctResponse="proximal bone";
         //with incorrect value
         ansViewObj.inputTextbox.value="longitudinal";
@@ -72,7 +72,7 @@ describe("AnswerView", function () {
         const defaultQaSettings = {
             unsureShowsCorrect: true
         };
-        let textEntryResponseBox= new AnswerView(qaModel, defaultQaSettings);
+        let textEntryResponseBox= new AnswerController(qaModel, defaultQaSettings);
         document.getElementById("testArea").appendChild(textEntryResponseBox.element);
         document.getElementById("testArea").style.display = "none";
 

@@ -1,4 +1,4 @@
-class QuestionView{
+class QuestionController{
 
     constructor(questionText=null){
         if (questionText === null){

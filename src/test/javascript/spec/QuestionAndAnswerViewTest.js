@@ -1,6 +1,6 @@
 'use strict';
 
-describe("QuestionAndAnswerView", function () {
+describe("QuestionAndAnswerController", function () {
     it("getResponse", function(){
         let qaModel = {
             id: "qa31",
@@ -9,7 +9,7 @@ describe("QuestionAndAnswerView", function () {
             correctAnswer: "transverse"
 
         };
-        let qaavTestObj = new QuestionAndAnswerView(qaModel);
+        let qaavTestObj = new QuestionAndAnswerController(qaModel);
         expect(qaavTestObj.getResponse()).toBeNull();
         qaavTestObj.answerView.inputTextbox.value="transverse";
         qaavTestObj.questionView.element.value="What is this structure?";
@@ -23,7 +23,7 @@ describe("QuestionAndAnswerView", function () {
             possibleAnswers: ["transverse", "Both proximal and middle phalanxes"],
             correctAnswer: "transverse"
         };
-        let qaavTestObj = new QuestionAndAnswerView(qaModel);
+        let qaavTestObj = new QuestionAndAnswerController(qaModel);
         let buildQandAViewTestElement=buildQuestionAndAnswerViewElement(qaModel.id,qaavTestObj.questionView.element,qaavTestObj.answerView.inputTextbox);
         expect(buildQandAViewTestElement).not.toBeNull();
         expect(buildQandAViewTestElement.getAttribute('id')).toBe(qaModel.id);

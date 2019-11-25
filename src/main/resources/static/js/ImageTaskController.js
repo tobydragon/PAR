@@ -1,10 +1,10 @@
 
-class ImageTaskView{
+class ImageTaskController{
 
     constructor(imageTaskModel, userId){
         this.userId = userId;
         this.id = userId + "-" + imageTaskModel.imageUrl;
-        this.imageView = new ImageView(imageTaskModel.imageUrl, this.id+"Canvas");
+        this.imageView = new ImageController(imageTaskModel.imageUrl, this.id+"Canvas");
         this.questionTreeList = buildQATreeViewList(imageTaskModel.taskQuestions);
         this.element = buildImageTaskViewElement(this.id, this.imageView, this.questionTreeList);
     }

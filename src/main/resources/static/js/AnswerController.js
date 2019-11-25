@@ -11,12 +11,12 @@ const defaultQaSettings = {
     unsureShowsCorrect: true
 };
 
-class AnswerView {
+class AnswerController {
 
     constructor(qaModel, qaSettings=defaultQaSettings) {
         this.qaModel = qaModel;
         this.qaSettings = qaSettings;
-        this.id = qaModel.id + "AnswerView";
+        this.id = qaModel.id + "AnswerController";
         //let because don't need a pointer to this currently...
         let possibleResponsesDatalist = buildDatalistElement(this.id, qaModel.possibleAnswers);
         let inputBoxSize = calcTextSizeFromPossStrings(qaModel.possibleAnswers);
