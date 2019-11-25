@@ -3,7 +3,8 @@ class QuestionController{
     constructor(questionText=null){
         if (questionText === null){
             this.questionIsInput = true;
-            this.element = createInputQuestionElement();
+            this.inputElement = createInputQuestionElement();
+            this.element = createLabeledElement(this.inputElement);
         }
         else {
             this.questionIsInput = false;
@@ -13,7 +14,7 @@ class QuestionController{
 
     getResponse(){
         if (this.questionIsInput){
-            return this.element.value;
+            return this.inputElement.value;
         }
         else {
             return null;
@@ -28,6 +29,18 @@ function createInputQuestionElement(){
     input.size= 50;
     input.id= "inputQuestionArea";
     return input;
+}
+
+function createLabeledElement(inputElementToLabel){
+    let inputElement = document.createElement("div");
+
+    //label to note it is a question is expected (since you can also type answers)
+    let inputTextboxLabel = document.createElement("label");
+    inputTextboxLabel.setAttribute("for", inputElementToLabel.id);
+    inputTextboxLabel.textContent = "Q:";
+    inputElement.appendChild(inputTextboxLabel);
+    inputElement.appendChild(inputElementToLabel);
+    return inputElement;
 }
 
 function createFixedQuestionElement(questionText){

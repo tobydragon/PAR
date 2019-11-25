@@ -3,7 +3,7 @@
   "taskQuestions" : [ {
     "id": "plane../../resources/images/demoEquine02.jpg",
     "type": "plane",
-    "questionText": "On which plane is the ultrasound taken?",
+    "questionText": "plane is the ultrasound?",
     "correctAnswer": null,
     "possibleAnswers": [
       "transverse",
@@ -38,7 +38,7 @@
         {
           "id": "AttachQ1",
           "type": "attachment",
-          "questionText": "Which attachment is this?",
+          "questionText": null,
           "correctAnswer": null,
           "possibleAnswers": [
             "Type1",
@@ -51,7 +51,7 @@
         {
           "id": "AttachQ2",
           "type": "attachment",
-          "questionText": "Which attachment is this?",
+          "questionText": null,
           "correctAnswer": null,
           "possibleAnswers": [
             "Type1",
@@ -164,7 +164,7 @@
     "taskQuestions" : [ {
       "id": "plane../../resources/images/demoEquine32.jpg",
       "type": "plane",
-      "questionText": "On which plane is the ultrasound taken?",
+      "questionText": "On which plane is the ultrasound?",
       "correctAnswer": null,
       "possibleAnswers": [
         "transverse",
