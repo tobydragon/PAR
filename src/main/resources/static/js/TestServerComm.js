@@ -1,22 +1,40 @@
 class TestServerComm{
 
-    constructor(imageTaskFilename){
-        this.listOfImageTasks = readJson(imageTaskFilename);
-        this.currentIndex = 0;
+    constructor(imageTaskFilename, authorTaskFilename){
+        this.studentImageTasks = readJson(imageTaskFilename);
+        this.studIndex = 0;
+        this.authorImageTasks = readJson(authorTaskFilename);
+        this.authorIndex = 0;
     }
 
     nextStudentImageTask(studId, responseHandler){
-        let imageTaskModel = this.listOfImageTasks[this.currentIndex];
-        if (this.currentIndex < this.listOfImageTasks.length){
-            this.currentIndex++;
+        let imageTaskModel = this.studentImageTasks[this.studIndex];
+        if (this.studIndex < this.studentImageTasks.length-1){
+            this.studIndex++;
         }
         else {
-            this.currentIndex=0;
+            this.studIndex=0;
         }
         responseHandler.replaceImageTaskModel(imageTaskModel);
     }
 
     submitImageTaskResponse(imageTaskToSubmit){
+        console.log("Object being sent:\n" + JSON.stringify(imageTaskToSubmit));
+    }
+
+    nextAuthorImageTask(studId, responseHandler){
+        let imageTaskModel = this.authorImageTasks[this.authorIndex];
+        if (this.authorIndex < this.authorImageTasks.length-1){
+            this.authorIndex++;
+        }
+        else {
+            this.authorIndex=0;
+        }
+        responseHandler.replaceImageTaskModel(imageTaskModel);;
+    }
+
+    submitAuthorImageTaskResponse(imageTaskToSubmit, responseHandler){
         console.log("Object to send:\n" + JSON.stringify(imageTaskToSubmit));
+        responseHandler.authorImageTaskSubmitted();
     }
 }

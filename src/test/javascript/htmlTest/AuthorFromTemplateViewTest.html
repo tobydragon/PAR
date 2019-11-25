@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>PAR: Student View</title>
+    <title>PAR: Author View</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <script type="text/javascript" src="../../../main/resources/static/js/Modernizr.js"></script>
     <script type="text/javascript" src="../../../main/resources/static/js/CommUtil.js"></script>
     <script type="text/javascript" src="../../../main/resources/static/js/TestServerComm.js"></script>
+    <script type="text/javascript" src="../../../main/resources/static/js/AuthorFromTemplateController.js"></script>
     <script type="text/javascript" src="../../../main/resources/static/js/StudentView.js"></script>
     <script type="text/javascript" src="../../../main/resources/static/js/ImageTaskResponse.js"></script>
     <script type="text/javascript" src="../../../main/resources/static/js/ImageTaskView.js"></script>
@@ -21,15 +22,13 @@
     <script>
 
         $(document).ready(function() {
-            let test = new StudentView("testUser1", new TestServerComm("../../resources/author/SampleListOfImageTasks.json", "../../resources/author/DemoQuestionPoolTemplateWithCustom.json"));
-            document.getElementById('studentArea').appendChild(test.element);
+            let test = new AuthorFromTemplateController("testUser1", new TestServerComm("../../resources/author/SampleListOfImageTasks.json", "../../resources/author/DemoImageTaskTemplateList.json"));
+            document.getElementById('authorArea').appendChild(test.element);
 
             //why do I need these?
-            let responseCall = function(){test.submitCurrentResponse()};
-            let nextCall = function(){test.loadNextImageTask()};
+            let nextCall = function(){test.submitAndNext()};
 
             //Handlers
-            $('#submit').on('click', responseCall);
             $('#next').on('click', nextCall);
 
         });
@@ -38,10 +37,9 @@
 </head>
 
 <body>
-<div id="studentArea"></div>
+<div id="authorArea"></div>
 <div id="bottomButtons">
-    <button type="button" class="btn btn-login" id="submit"> submit </button>
-    <button type="button" class="btn btn-login" id="next"> next </button>
+    <button type="button" class="btn btn-login" id="next"> Save and Next </button>
 </div>
 </body>
 </html>

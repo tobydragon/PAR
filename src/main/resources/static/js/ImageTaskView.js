@@ -15,6 +15,12 @@ class ImageTaskView{
         }
     }
 
+    showAllLevelFollowupQuestions(){
+        for (let qaTree of this.questionTreeList){
+            qaTree.showAllLevelFollowupQuestions();
+        }
+    }
+
     getResponse(){
         return new ImageTaskResponse(this.userId, getResponsesFromAllQATreesInFlatList(this.questionTreeList));
     }
