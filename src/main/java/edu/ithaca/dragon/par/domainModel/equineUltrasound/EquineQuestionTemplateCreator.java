@@ -19,13 +19,16 @@ public class EquineQuestionTemplateCreator {
     }
 
     public static final String planeQuestion = "On which plane is the ultrasound taken?";
-    public static final List<String> planeResponses = Arrays.asList("transverse", "longitudinal");
+    public static final List<String> planeResponses = Arrays.asList("transverse (short axis)", "longitudinal (long axis)");
 
     public static final List<String> structureQuestions = Arrays.asList(
             "What is the the hyperechoic structure?",
             "What is the the hypoechoic structure?",
             "What is the structure in the near field?",
-            "What is the structure in the far field?");
+            "What is the structure in the far field?",
+            null,
+            null,
+            null);
 
     public static final List<String> structureResponses = Arrays.asList(
             "Superficial digital flexor tendon",
@@ -81,11 +84,11 @@ public class EquineQuestionTemplateCreator {
             List<Question> attachmentQuestionsToAdd = createAttachmentQuestionsList(imagePath, structureId);
             questions.add(new Question(createQuestionId(structureId), structureQuestions.get(i), EquineQuestionTypes.structure.toString(), null, structureResponses, imagePath, attachmentQuestionsToAdd));
         }
-        for (int i=0; i<numOfCustomQuestions; i++){
-            String blankId = "custom"+i+"-"+imagePath;
-            //TODO: currently the list of possible answers is null, this should probably be replaced by a list of possible answers
-            questions.add(new Question(createQuestionId(blankId), null, EquineQuestionTypes.structure.toString(), null, structureResponses, imagePath));
-        }
+//        for (int i=0; i<numOfCustomQuestions; i++){
+//            String blankId = "custom"+i+"-"+imagePath;
+//            //TODO: currently the list of possible answers is null, this should probably be replaced by a list of possible answers
+//            questions.add(new Question(createQuestionId(blankId), null, EquineQuestionTypes.structure.toString(), null, structureResponses, imagePath));
+//        }
         questions.add(new Question(createQuestionId(EquineQuestionTypes.zone.toString()+"-"+imagePath), zoneQuestion,
                 EquineQuestionTypes.zone.toString(), null, zoneResponses, imagePath));
         return questions;
