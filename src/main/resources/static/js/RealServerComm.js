@@ -19,13 +19,42 @@ class RealServerComm{
         request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         request.send(JSON.stringify(imageTaskToSubmit));
         request.onreadystatechange = function () {
-            if (request.status === 200) {
+            if (request.readyState === XMLHttpRequest.DONE && request.status === 200) {
                 console.log("submitImageTaskResponse: success");
             } else {
                console.log("submitImageTaskResponse: failure");
             }
         };
     }
+
+    nextAuthorImageTask(studId, responseHandler){
+        let request = new XMLHttpRequest();
+        request.open("GET", "api/nextAuthorImageTask?userId=" + studId, false);
+        request.send(null);
+        let responseObject = JSON.parse(request.response);
+        console.log("Loading new author image task:");
+        console.log(responseObject);
+        responseHandler.replaceImageTaskModel(responseObject);
+    }
+
+    submitAuthorImageTaskResponse(imageTaskToSubmit, responseHandler){
+        let request = new XMLHttpRequest();
+        request.open("POST", "api/submitAuthorImageTaskResponse");
+        request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        console.log("Sending:");
+        console.log(imageTaskToSubmit);
+        request.send(JSON.stringify(imageTaskToSubmit));
+        request.onreadystatechange = function () {
+            if (request.readyState === XMLHttpRequest.DONE && request.status === 200) {
+                console.log("submitImageTaskResponse: success");
+                responseHandler.authorImageTaskSubmitted();
+            } else if (request.readyState === XMLHttpRequest.DONE){
+                console.log("submitImageTaskResponse: failure");
+            }
+        };
+    }
+
+
 }
 
 function logCorrectAnswers(questionList, indent){

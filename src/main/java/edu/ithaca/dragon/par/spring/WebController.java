@@ -33,5 +33,11 @@ public class WebController implements WebMvcConfigurer {
         return "StudentView";
     }
 
+    @GetMapping("/authorFromTemplateView")
+    public String authorFromTemplateView(@RequestParam String userId, Model model){
+        model.addAttribute("userId", userId);
+        return "AuthorFromTemplateView";
+    }
+
 
 }
