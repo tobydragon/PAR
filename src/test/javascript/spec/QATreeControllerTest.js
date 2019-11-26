@@ -50,7 +50,7 @@ describe("QATreeController", function(){
     };
     let qatvObj = new QATreeController(qaModel);
     it("showNextLevelFollowupQuestions", function(){
-        expect(qatvObj.showNextLevelFollowupQuestions().element.childNodes.item(0)).toContain(qatvObj.followupQATreeViews);
+        expect(qatvObj.showNextLevelFollowupQuestions().element.childNodes.item(0)).toContain(buildQATreeListElement(qatvObj.followupQATreeViews));
    }) ;
     it("checkAnswersAndUpdateView", function(){
 
