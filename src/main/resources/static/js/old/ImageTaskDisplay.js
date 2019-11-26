@@ -125,11 +125,11 @@ class ImageTaskDisplay {
         canvasElement.setAttribute('id', 'canvasArea');
         let canvas;
         if (this.imageUrl === "noMoreQuestions") {
-            canvas = new ImageView("../images/ParLogo.png", this.canvasName);
+            canvas = new ImageController("../images/ParLogo.png", this.canvasName);
 
         } else {
 
-            canvas = new ImageView(this.imageUrl, this.canvasName);
+            canvas = new ImageController(this.imageUrl, this.canvasName);
         }
         canvasElement.appendChild(canvas.element);
         canvas.loadImage();
@@ -350,7 +350,7 @@ function buildQuestionAreas(questionObjectList, responseList) {
     let questionAreaList = [];
     for (let questionObject of questionObjectList) {
         let newResponse= responseList.addToQuestionTexts(questionObject.id);
-        questionAreaList.push(new QuestionAndAnswerView(questionObject, newResponse, responseList));
+        questionAreaList.push(new QuestionAndAnswerController(questionObject, newResponse, responseList));
     }
     return questionAreaList;
 }

@@ -1,6 +1,0 @@
-class StudentView{
-
-    constructor(userId){
-
-    }
-}

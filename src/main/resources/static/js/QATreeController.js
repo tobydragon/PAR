@@ -1,13 +1,13 @@
-class QATreeView {
+class QATreeController {
 
     constructor(qaModel) {
-        this.qaView = new QuestionAndAnswerView(qaModel);
+        this.qaView = new QuestionAndAnswerController(qaModel);
         if (qaModel.hasOwnProperty("followupQuestions")) {
             this.followupQATreeViews = buildQATreeViewList(qaModel.followupQuestions);
         } else {
             this.followupQATreeViews = [];
         }
-        this.element = buildQATreeViewElement(qaModel.id + "QATreeView", this.qaView.element);
+        this.element = buildQATreeViewElement(qaModel.id + "QATreeController", this.qaView.element);
     }
 
     showNextLevelFollowupQuestions() {
@@ -46,7 +46,7 @@ function buildQATreeViewElement(id, qaViewElement) {
 function buildQATreeViewList(qaModelList) {
     let qaTreeViewList = [];
     for (let qaModel of qaModelList) {
-        qaTreeViewList.push(new QATreeView(qaModel));
+        qaTreeViewList.push(new QATreeController(qaModel));
     }
     return qaTreeViewList;
 }

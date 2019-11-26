@@ -1,22 +1,28 @@
 
-class ImageTaskView{
+class ImageTaskController{
 
     constructor(imageTaskModel, userId){
+        this.userId = userId;
         this.id = userId + "-" + imageTaskModel.imageUrl;
-        this.imageView = new ImageView(imageTaskModel.imageUrl, this.id+"Canvas");
+        this.imageView = new ImageController(imageTaskModel.imageUrl, this.id+"Canvas");
         this.questionTreeList = buildQATreeViewList(imageTaskModel.taskQuestions);
         this.element = buildImageTaskViewElement(this.id, this.imageView, this.questionTreeList);
     }
 
     checkAnswersAndUpdateView(){
         for (let qaTree of this.questionTreeList){
-            console.log(qaTree);
             qaTree.checkAnswersAndUpdateView();
         }
     }
 
+    showAllLevelFollowupQuestions(){
+        for (let qaTree of this.questionTreeList){
+            qaTree.showAllLevelFollowupQuestions();
+        }
+    }
+
     getResponse(){
-        return getResponsesFromAllQATreesInFlatList(this.questionTreeList);
+        return new ImageTaskResponse(this.userId, getResponsesFromAllQATreesInFlatList(this.questionTreeList));
     }
 }
 

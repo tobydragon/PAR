@@ -11,12 +11,12 @@ const defaultQaSettings = {
     unsureShowsCorrect: true
 };
 
-class AnswerView {
+class AnswerController {
 
     constructor(qaModel, qaSettings=defaultQaSettings) {
         this.qaModel = qaModel;
         this.qaSettings = qaSettings;
-        this.id = qaModel.id + "AnswerView";
+        this.id = qaModel.id + "AnswerController";
         //let because don't need a pointer to this currently...
         let possibleResponsesDatalist = buildDatalistElement(this.id, qaModel.possibleAnswers);
         let inputBoxSize = calcTextSizeFromPossStrings(qaModel.possibleAnswers);
@@ -50,6 +50,13 @@ function buildElement(id, possibleResponseDatalist, inputTextbox, feedbackArea) 
     let element = document.createElement("div");
     element.setAttribute("id", id);
     element.appendChild(possibleResponseDatalist);
+
+    //label to note it is an answer expected (since you can type questions in author mode)
+    // let inputTextboxLabel = document.createElement("label");
+    // inputTextboxLabel.setAttribute("for", inputTextbox.id);
+    // inputTextboxLabel.textContent = "A:";
+    // element.appendChild(inputTextboxLabel);
+
     element.appendChild(inputTextbox);
     element.appendChild(feedbackArea);
     return element;
@@ -104,9 +111,11 @@ function buildOptionElement(optionText) {
  * @pre need to call buildDatalistElement before building this and use the id sent to buildDatalistElement
  */
 function buildInputTextbox(id, datalistId, size) {
+
     let inputTextbox = document.createElement("input");
     inputTextbox.type = "text";
     inputTextbox.setAttribute("id", id+"inputBox");
+    inputTextbox.setAttribute("name", id+"inputBox");
     inputTextbox.setAttribute("list", datalistId);
     inputTextbox.setAttribute("size", size);
     inputTextbox.classList.add("line-input-box");

@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>TextEntryAnswerTest</title>
-    <script type="text/javascript" src="../../../main/resources/static/js/AnswerView.js"></script>
-    <script type="text/javascript" src="../../../main/resources/static/js/QuestionView.js"></script>
-    <script type="text/javascript" src="../../../main/resources/static/js/QuestionAndAnswerView.js"></script>
-    <script type="text/javascript" src="../../../main/resources/static/js/QuestionResponse.js"></script>
+    <script type="text/javascript" src="../../../main/resources/static/js/AnswerController.js"></script>
+    <script type="text/javascript" src="../../../main/resources/static/js/QuestionController.js"></script>
+    <script type="text/javascript" src="../../../main/resources/static/js/QuestionAndAnswerController.js"></script>
+    <script type="text/javascript" src="../../../main/resources/static/js/comm/QuestionResponse.js"></script>
 
     <link rel="stylesheet" href="../../../main/resources/static/css/style.css">
     <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
@@ -23,7 +23,7 @@
             correctAnswer: "transverse"
 
         };
-        test = new QuestionAndAnswerView(qaModel);
+        test = new QuestionAndAnswerController(qaModel);
         document.getElementById("response").appendChild(test.element);
     </script>
     <button type="button" class="btn btn-login" id="checkButton" onclick="console.log(test.getResponse())">

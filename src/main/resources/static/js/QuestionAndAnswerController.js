@@ -1,9 +1,9 @@
-class QuestionAndAnswerView {
+class QuestionAndAnswerController {
     constructor(qaModel) {
         this.qaModel = qaModel;
-        this.questionView = new QuestionView(qaModel.questionText);
-        this.answerView = new AnswerView(qaModel);
-        this.element = buildQuestionAndAnswerViewElement(qaModel.id + "QuestionAndAnswerView", this.questionView.element, this.answerView.element);
+        this.questionView = new QuestionController(qaModel.questionText);
+        this.answerView = new AnswerController(qaModel);
+        this.element = buildQuestionAndAnswerViewElement(qaModel.id + "QuestionAndAnswerController", this.questionView.element, this.answerView.element);
     }
 
     getResponse(){

@@ -8,6 +8,7 @@
 
     <script type="text/javascript" src="/js/Modernizr.js"></script>
     <script type="text/javascript" src="/js/comm/RealServerComm.js"></script>
+    <script type="text/javascript" src="/js/AuthorFromTemplateController.js"></script>
     <script type="text/javascript" src="/js/StudentController.js"></script>
     <script type="text/javascript" src="/js/comm/ImageTaskResponse.js"></script>
     <script type="text/javascript" src="/js/ImageTaskController.js"></script>
@@ -20,15 +21,13 @@
     <script>
         $(document).ready(function() {
             let userId = "[[${userId}]]";
-            let test = new StudentController(userId, new RealServerComm());
-            document.getElementById('studentArea').appendChild(test.element);
+            let test = new AuthorFromTemplateController(userId, new RealServerComm());
+            document.getElementById('authorArea').appendChild(test.element);
 
             //why do I need these?
-            let responseCall = function(){test.submitCurrentResponse()};
-            let nextCall = function(){test.loadNextImageTask()};
+            let nextCall = function(){test.submitAndNext()};
 
             //Handlers
-            $('#submit').on('click', responseCall);
             $('#next').on('click', nextCall);
 
         });
@@ -37,10 +36,9 @@
 </head>
 
 <body>
-<div id="studentArea"></div>
+<div id="authorArea"></div>
 <div id="bottomButtons">
-    <button type="button" class="btn btn-login" id="submit"> submit </button>
-    <button type="button" class="btn btn-login" id="next"> next </button>
+    <button type="button" class="btn btn-login" id="next"> Save and Next </button>
 </div>
 </body>
 </html>
