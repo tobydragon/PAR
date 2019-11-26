@@ -1,4 +1,4 @@
-describe("QATreeView", function(){
+describe("QATreeController", function(){
     let qaModel = {
         id: "qaTop0",
         questionText:null,
@@ -48,7 +48,7 @@ describe("QATreeView", function(){
         ]
 
     };
-    let qatvObj = new QATreeView(qaModel);
+    let qatvObj = new QATreeController(qaModel);
     it("showNextLevelFollowupQuestions", function(){
         expect(qatvObj.showNextLevelFollowupQuestions().element.childNodes.item(0)).toContain(qatvObj.followupQATreeViews);
    }) ;
