@@ -54,6 +54,30 @@ class RealServerComm{
         };
     }
 
+    loadAllImageTasksFromModel(studId, responseHandler){
+        let request = new XMLHttpRequest();
+        request.open("GET", "api/authoredQuestions");
+        request.send(null);
+        request.onreadystatechange = function () {
+            if (request.readyState === XMLHttpRequest.DONE && request.status === 200) {
+                console.log("loadAllImageTasksFromModel: success");
+                let responseObject = JSON.parse(request.response);
+                console.log("Loading author review of image tasks:");
+                console.log(responseObject);
+                responseHandler.loadAllImageTasksFromModel(responseObject);
+            } else if (request.readyState === XMLHttpRequest.DONE){
+                console.log("loadAllImageTasksFromModel: failure");
+            }
+        };
+
+    }
+
+    transferAuthoredQuestionsToStudents(){
+        let request = new XMLHttpRequest();
+        request.open("GET", "/api/transferAuthoredQuestionsToStudents", false);
+        request.send(null);
+        console.log("transferAuthoredQuestionsToStudents message sent\n");
+    }
 
 }
 
