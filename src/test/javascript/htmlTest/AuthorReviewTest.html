@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>PAR: Author View</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script type="text/javascript" src="../../../main/resources/static/js/Modernizr.js"></script>
+    <script type="text/javascript" src="../../../main/resources/static/js/old/CommUtil.js"></script>
+    <script type="text/javascript" src="../../../main/resources/static/js/comm/TestServerComm.js"></script>
+    <script type="text/javascript" src="../../../main/resources/static/js/AuthorReviewController.js"></script>
+    <script type="text/javascript" src="../../../main/resources/static/js/StudentController.js"></script>
+    <script type="text/javascript" src="../../../main/resources/static/js/comm/ImageTaskResponse.js"></script>
+    <script type="text/javascript" src="../../../main/resources/static/js/ImageTaskController.js"></script>
+    <script type="text/javascript" src="../../../main/resources/static/js/ImageController.js"></script>
+    <script type="text/javascript" src="../../../main/resources/static/js/QATreeController.js"></script>
+    <script type="text/javascript" src="../../../main/resources/static/js/QuestionAndAnswerController.js"></script>
+    <script type="text/javascript" src="../../../main/resources/static/js/QuestionController.js"></script>
+    <script type="text/javascript" src="../../../main/resources/static/js/AnswerController.js"></script>
+    <script type="text/javascript" src="../../../main/resources/static/js/comm/QuestionResponse.js"></script>
+    <script>
+        $(document).ready(function() {
+            let test = new AuthorReviewController("testUser1", new TestServerComm("../../resources/author/SampleListOfImageTasks.json", "../../resources/author/DemoImageTaskTemplateList.json"));
+            document.getElementById('authorArea').appendChild(test.element);
+
+            //why do I need these?
+            let nextCall = function(){test.transferAuthoredQuestionsToStudents()};
+
+            //Handlers
+            $('#transferAuthoredQuestionsToStudents').on('click', nextCall);
+
+        });
+
+    </script>
+</head>
+
+<body>
+<div id="authorArea"></div>
+<div id="bottomButtons">
+    <button type="button" class="btn btn-login" id="transferAuthoredQuestionsToStudents"> Permanently Transfer Questions To Student Mode</button>
+</div>
+</body>
+</html>

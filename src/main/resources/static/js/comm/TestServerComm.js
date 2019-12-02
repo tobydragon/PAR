@@ -30,11 +30,19 @@ class TestServerComm{
         else {
             this.authorIndex=0;
         }
-        responseHandler.replaceImageTaskModel(imageTaskModel);;
+        responseHandler.replaceImageTaskModel(imageTaskModel);
     }
 
     submitAuthorImageTaskResponse(imageTaskToSubmit, responseHandler){
         console.log("Object to send:\n" + JSON.stringify(imageTaskToSubmit));
         responseHandler.authorImageTaskSubmitted();
+    }
+
+    loadAllImageTasksFromModel(studId, responseHandler){
+        responseHandler.loadAllImageTasksFromModel(this.authorImageTasks);
+    }
+
+    transferAuthoredQuestionsToStudents(){
+        console.log("transfer triggered\n");
     }
 }

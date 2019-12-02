@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>PAR: Student View</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script type="text/javascript" src="/js/Modernizr.js"></script>
+    <script type="text/javascript" src="/js/comm/RealServerComm.js"></script>
+    <script type="text/javascript" src="/js/AuthorReviewController.js"></script>
+    <script type="text/javascript" src="/js/StudentController.js"></script>
+    <script type="text/javascript" src="/js/comm/ImageTaskResponse.js"></script>
+    <script type="text/javascript" src="/js/ImageTaskController.js"></script>
+    <script type="text/javascript" src="/js/ImageController.js"></script>
+    <script type="text/javascript" src="/js/QATreeController.js"></script>
+    <script type="text/javascript" src="/js/QuestionAndAnswerController.js"></script>
+    <script type="text/javascript" src="/js/QuestionController.js"></script>
+    <script type="text/javascript" src="/js/AnswerController.js"></script>
+    <script type="text/javascript" src="/js/comm/QuestionResponse.js"></script>
+    <script>
+        $(document).ready(function() {
+            let userId = "[[${userId}]]";
+            let test = new AuthorReviewController(userId, new RealServerComm());
+            document.getElementById('authorArea').appendChild(test.element);
+
+            //why do I need these?
+            let nextCall = function(){test.transferAuthoredQuestionsToStudents()};
+
+            //Handlers
+            $('#transferAuthoredQuestionsToStudents').on('click', nextCall);
+
+        });
+
+    </script>
+</head>
+
+<body>
+<div id="authorArea"></div>
+<div id="bottomButtons">
+    <button type="button" class="btn btn-login" id="transferAuthoredQuestionsToStudents"> Permanently Transfer Questions To Student Mode</button>
+</div>
+</body>
+</html>
