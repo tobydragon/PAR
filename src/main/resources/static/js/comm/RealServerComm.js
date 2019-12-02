@@ -21,9 +21,9 @@ class RealServerComm{
         request.onreadystatechange = function () {
             if (request.readyState === XMLHttpRequest.DONE && request.status === 200) {
                 console.log("submitImageTaskResponse: success");
-            } else {
-               console.log("submitImageTaskResponse: failure");
-            }
+            } else if (request.readyState === XMLHttpRequest.DONE){
+            console.log("submitImageTaskResponse: failure");
+        }
         };
     }
 
@@ -46,10 +46,10 @@ class RealServerComm{
         request.send(JSON.stringify(imageTaskToSubmit));
         request.onreadystatechange = function () {
             if (request.readyState === XMLHttpRequest.DONE && request.status === 200) {
-                console.log("submitImageTaskResponse: success");
+                console.log("submitAuthorImageTaskResponse: success");
                 responseHandler.authorImageTaskSubmitted();
             } else if (request.readyState === XMLHttpRequest.DONE){
-                console.log("submitImageTaskResponse: failure");
+                console.log("submitAuthorImageTaskResponse: failure");
             }
         };
     }

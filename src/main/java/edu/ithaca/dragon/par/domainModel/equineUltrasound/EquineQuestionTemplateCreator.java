@@ -22,10 +22,11 @@ public class EquineQuestionTemplateCreator {
     public static final List<String> planeResponses = Arrays.asList("transverse (short axis)", "longitudinal (long axis)");
 
     public static final List<String> structureQuestions = Arrays.asList(
-            "What is the the hyperechoic structure?",
-            "What is the the hypoechoic structure?",
-            "What is the structure in the near field?",
-            "What is the structure in the far field?",
+//            "What is the the hyperechoic structure?",
+//            "What is the the hypoechoic structure?",
+//            "What is the structure in the near field?",
+//            "What is the structure in the far field?",
+            null,
             null,
             null,
             null);
@@ -68,10 +69,6 @@ public class EquineQuestionTemplateCreator {
     public static final List<String> zoneResponses = Arrays.asList("1", "1A", "1B", "2", "2A", "2B", "3", "3A", "3B", "3C");
 
     public static List<Question> createQuestionsForImage(String imagePath){
-        return createQuestionsForImage(imagePath, 0);
-    }
-
-    public static List<Question> createQuestionsForImage(String imagePath, int numOfCustomQuestions){
         List<Question> questions = new ArrayList<>();
         questions.add(new Question(createQuestionId(EquineQuestionTypes.plane.toString()+"-"+imagePath),
                 planeQuestion,
@@ -84,11 +81,6 @@ public class EquineQuestionTemplateCreator {
             List<Question> attachmentQuestionsToAdd = createAttachmentQuestionsList(imagePath, structureId);
             questions.add(new Question(createQuestionId(structureId), structureQuestions.get(i), EquineQuestionTypes.structure.toString(), null, structureResponses, imagePath, attachmentQuestionsToAdd));
         }
-//        for (int i=0; i<numOfCustomQuestions; i++){
-//            String blankId = "custom"+i+"-"+imagePath;
-//            //TODO: currently the list of possible answers is null, this should probably be replaced by a list of possible answers
-//            questions.add(new Question(createQuestionId(blankId), null, EquineQuestionTypes.structure.toString(), null, structureResponses, imagePath));
-//        }
         questions.add(new Question(createQuestionId(EquineQuestionTypes.zone.toString()+"-"+imagePath), zoneQuestion,
                 EquineQuestionTypes.zone.toString(), null, zoneResponses, imagePath));
         return questions;
@@ -116,13 +108,9 @@ public class EquineQuestionTemplateCreator {
     }
 
     public static List<Question> createQuestionsForImageList(List<String> imagePathList) {
-        return createQuestionsForImageList(imagePathList, 0);
-    }
-
-    public static List<Question> createQuestionsForImageList(List<String> imagePathList, int numOfCustomQuestions) {
         List<Question> questions = new ArrayList<>();
         for (String imagePath: imagePathList){
-            questions.addAll(createQuestionsForImage(imagePath, numOfCustomQuestions));
+            questions.addAll(createQuestionsForImage(imagePath));
         }
         return questions;
     }
@@ -135,7 +123,7 @@ public class EquineQuestionTemplateCreator {
         try {
             List<String> imageFilePaths = FileSystemUtil.addPathToFilenames(imagePathForJavascript,
                     FileSystemUtil.findAllFileNamesInDir(imageFilePath, ".jpg"));
-            List<Question> generatedQuestions = createQuestionsForImageList(imageFilePaths, 2);
+            List<Question> generatedQuestions = createQuestionsForImageList(imageFilePaths);
             JsonUtil.toJsonFile(questionFileToCreate, generatedQuestions);
         }
         catch(Exception e){

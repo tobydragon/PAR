@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>PAR: Student View</title>
+    <title>PAR: Author Questions</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
@@ -26,9 +26,11 @@
 
             //why do I need these?
             let nextCall = function(){test.submitAndNext()};
+            let navToReview = function(){test.navToReview()};
 
             //Handlers
             $('#next').on('click', nextCall);
+            $('#navToReview').on('click', navToReview);
 
         });
 
@@ -39,6 +41,7 @@
 <div id="authorArea"></div>
 <div id="bottomButtons">
     <button type="button" class="btn btn-login" id="next"> Save and Next </button>
+    <button type="button" class="btn btn-login" id="navToReview"> Review All Authored Questions </button>
 </div>
 </body>
 </html>

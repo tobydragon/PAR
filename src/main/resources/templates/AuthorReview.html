@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>PAR: Student View</title>
+    <title>PAR: Author Review</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
@@ -26,9 +26,13 @@
 
             //why do I need these?
             let nextCall = function(){test.transferAuthoredQuestionsToStudents()};
+            let navToAuthor = function(){test.navToAuthor()};
+            let navToStudent = function(){test.navToStudent()};
 
             //Handlers
             $('#transferAuthoredQuestionsToStudents').on('click', nextCall);
+            $('#navToAuthor').on('click', navToAuthor);
+            $('#naveToStudent').on('click', navToStudent);
 
         });
 
@@ -39,6 +43,8 @@
 <div id="authorArea"></div>
 <div id="bottomButtons">
     <button type="button" class="btn btn-login" id="transferAuthoredQuestionsToStudents"> Permanently Transfer Questions To Student Mode</button>
+    <button type="button" class="btn btn-login" id="navToAuthor"> Go To Authoring Questions</button>
+    <button type="button" class="btn btn-login" id="naveToStudent"> Go To Student Mode</button>
 </div>
 </body>
 </html>

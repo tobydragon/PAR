@@ -44,4 +44,12 @@ class AuthorReviewController {
         }
         this.imageTaskControllerList = [];
     }
+
+    navToAuthor(){
+        return location.replace('/authorFromTemplateView?userId=' +this.userId);
+    }
+
+    navToStudent(){
+        return location.replace('/studentView?userId=' +this.userId);
+    }
 }

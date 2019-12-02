@@ -21,7 +21,18 @@ function setUserId() {
 function login() {
     setUserId();
     try {
-        return location.replace('/imageTaskView?userId=' + User);
+        return location.replace('/studentView?userId=' + User);
+    } catch (Exception) {
+        window.onerror = function (msg) {
+            location.replace('/error?message=' + msg);
+        }
+    }
+}
+
+function author() {
+    setUserId();
+    try {
+        return location.replace('/authorFromTemplateView?userId=' + User);
     } catch (Exception) {
         window.onerror = function (msg) {
             location.replace('/error?message=' + msg);
