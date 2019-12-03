@@ -19,6 +19,7 @@ class AuthorReviewController {
         for (let imageTaskModel of newImageTaskListModel) {
             let imageTaskController = new ImageTaskController(imageTaskModel, this.userId);
             imageTaskController.showAllLevelFollowupQuestions();
+            imageTaskController.showAllAnswers();
             this.imageTaskElement.appendChild(imageTaskController.element);
             this.imageTaskControllerList.push(imageTaskController)
         }
