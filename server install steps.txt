@@ -1,3 +1,4 @@
+http://par.eastus.cloudapp.azure.com
 cd PAR/
 git stash
     git fetch
@@ -9,9 +10,12 @@ mvn test
 ps -A | grep java
 sudo kill PID
 
-tar -czv target/localData
-rm -f target/localData/*.json
-rm -f target/localData/students/*.json
+tar cvzf "parDataBackup$(date +%F_%R).tar.gz" target/localData/
+on local:
+scp tdragon@par.eastus.cloudapp.azure.com:PAR/parDataBackup.tar.gz Downloads/
+    remote if clearing data:
+        rm -f target/localData/*.json
+        rm -f target/localData/students/*.json
 
 mvn install
 
