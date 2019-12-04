@@ -16,10 +16,12 @@ class StudentController{
         }
     }
 
+    //has side effect by calling replaceImageTaskModel upon response
     loadNextImageTask() {
         this.serverComm.nextStudentImageTask(this.userId, this);
     }
 
+    //triggered by server response to loadNextImageTask
     replaceImageTaskModel(newImageTaskModel){
         this.imageTaskView = new ImageTaskController(newImageTaskModel, this.userId);
         if (this.imageTaskElement.firstChild){
