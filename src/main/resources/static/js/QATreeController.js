@@ -18,6 +18,14 @@ class QATreeController {
         showAllLevelFollowupQuestions(this);
     }
 
+    showThisLevelAnswer(){
+        this.qaView.showAnswer();
+    }
+
+    showAllAnswers(){
+        showAllAnswers(this);
+    }
+
 
     checkAnswersAndUpdateView(){
         let result = this.qaView.checkAnswerAndUpdateView();
@@ -82,5 +90,12 @@ function showAllLevelFollowupQuestions(qaTreeView){
     qaTreeView.showNextLevelFollowupQuestions();
     for (let followup of qaTreeView.followupQATreeViews) {
         showAllLevelFollowupQuestions(followup);
+    }
+}
+
+function showAllAnswers(qaTreeController){
+    qaTreeController.showThisLevelAnswer();
+    for (let followup of qaTreeController.followupQATreeViews) {
+        showAllAnswers(followup);
     }
 }

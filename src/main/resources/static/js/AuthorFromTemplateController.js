@@ -44,4 +44,8 @@ class AuthorFromTemplateController {
         this.element.setAttribute(authorId + "View", "id");
         this.element.appendChild(this.imageTaskElement);
     }
+
+    navToReview(){
+        return location.replace('/authorReview?userId=' +this.userId);
+    }
 }

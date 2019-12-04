@@ -21,6 +21,12 @@ class ImageTaskController{
         }
     }
 
+    showAllAnswers(){
+        for (let qaTree of this.questionTreeList){
+            qaTree.showAllAnswers();
+        }
+    }
+
     getResponse(){
         return new ImageTaskResponse(this.userId, getResponsesFromAllQATreesInFlatList(this.questionTreeList));
     }

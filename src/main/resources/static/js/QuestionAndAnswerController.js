@@ -18,6 +18,10 @@ class QuestionAndAnswerController {
     checkAnswerAndUpdateView(){
         return this.answerView.checkAnswerAndUpdateView();
     }
+
+    showAnswer(){
+        this.answerView.showCorrectAnswer();
+    }
 }
 
 function buildQuestionAndAnswerViewElement(id, questionView, answerView) {

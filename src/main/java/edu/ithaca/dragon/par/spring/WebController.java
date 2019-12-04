@@ -38,5 +38,11 @@ public class WebController implements WebMvcConfigurer {
         return "AuthorFromTemplateView";
     }
 
+    @GetMapping("/authorReview")
+    public String authorReview(@RequestParam String userId, Model model){
+        model.addAttribute("userId", userId);
+        return "AuthorReview";
+    }
+
 
 }

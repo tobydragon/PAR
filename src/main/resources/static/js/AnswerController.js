@@ -44,6 +44,11 @@ class AnswerController {
         }
         return returnResponse;
     }
+
+    showCorrectAnswer(){
+        this.inputTextbox.value = this.qaModel.correctAnswer;
+        disableElement(this.inputTextbox);
+    }
 }
 
 function buildElement(id, possibleResponseDatalist, inputTextbox, feedbackArea) {
