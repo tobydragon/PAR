@@ -50,14 +50,20 @@ describe("QATreeController", function(){
     };
     let qatvObj = new QATreeController(qaModel);
     it("showNextLevelFollowupQuestions", function(){
-        expect(qatvObj.showNextLevelFollowupQuestions().element.childNodes.item(0)).toContain(buildQATreeListElement(qatvObj.followupQATreeViews));
+        if(qatvObj.hasOwnProperty("followUpQuestions")) {
+            console.log(qatvObj.showNextLevelFollowupQuestions());
+            expect(qatvObj.showNextLevelFollowupQuestions().element.childNodes.item(0)).toContain(buildQATreeListElement(qatvObj.followupQATreeViews));
+        }
    }) ;
     it("checkAnswersAndUpdateView", function(){
 
     });
-    it("buildQAViewTreeElement", function(){
+    it("buildQATreeViewElement", function(){
     let testElement=buildQATreeViewElement(qatvObj.id+"QATreeView", qatvObj.qaView.element);
     expect(testElement.getAttribute("id")).toBe(qatvObj.id+"QATreeView");
     expect(testElement.childNodes.item(0)).toBe(qatvObj.qaView.element);
+    });
+    it("buildQATreeViewList", function(){
+
     });
 });
