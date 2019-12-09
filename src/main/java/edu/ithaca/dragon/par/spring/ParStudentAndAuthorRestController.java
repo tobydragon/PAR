@@ -135,6 +135,8 @@ public class ParStudentAndAuthorRestController {
     }
     @GetMapping("/authoredQuestions")
     public List<ImageTask> authoredQuestions(){
+        List<ImageTask> authoredQuestions = parServer.authoredQuestions();
+        logger.info("Sending " + authoredQuestions.size() + " authored questions");
         return parServer.authoredQuestions();
     }
 

@@ -34,7 +34,7 @@ public class AuthorTaskGenerator {
 
     public static Set<String> urls(List<Question> questionList){
         Set<String> urls=new LinkedHashSet<>();
-        for(int i=0;i<questionList.size()-1;i++){
+        for(int i=0;i<questionList.size();i++){
             urls.add(questionList.get(i).getImageUrl());
         }
         return urls;
