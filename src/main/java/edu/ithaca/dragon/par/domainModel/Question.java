@@ -1,5 +1,7 @@
 package edu.ithaca.dragon.par.domainModel;
 
+import edu.ithaca.dragon.util.DataUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,25 +83,15 @@ public class Question {
             return false;
         }
         Question other = (Question) otherObj;
-
-        if (this.getQuestionText() == null) {
-            return ((Question) otherObj).getQuestionText() == null;
+        if (!DataUtil.objectEqualsIncludingNull(this.getQuestionText(), other.getQuestionText())) {
+            return false;
         }
-
-        if (this.getCorrectAnswer()==null && ((Question) otherObj).getCorrectAnswer()==null) {
-            return this.getId().equals(other.getId())
-                    && this.getQuestionText().equals(other.getQuestionText())
-                    && this.getType().equals(other.getType())
-                    && this.getPossibleAnswers().equals(other.getPossibleAnswers())
-                    && this.getImageUrl().equals(other.getImageUrl());
+        if (!DataUtil.objectEqualsIncludingNull(this.getCorrectAnswer(), other.getCorrectAnswer())) {
+            return false;
         }
-        else {
-            return this.getId().equals(other.getId())
-                    && this.getQuestionText().equals(other.getQuestionText())
-                    && this.getType().equals(other.getType())
-                    && this.getCorrectAnswer().equals(other.getCorrectAnswer())
-                    && this.getPossibleAnswers().equals(other.getPossibleAnswers())
-                    && this.getImageUrl().equals(other.getImageUrl());
-        }
+        return this.getId().equals(other.getId())
+                && this.getType().equals(other.getType())
+                && this.getPossibleAnswers().equals(other.getPossibleAnswers())
+                && this.getImageUrl().equals(other.getImageUrl());
     }
 }
