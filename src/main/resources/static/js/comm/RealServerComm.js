@@ -13,7 +13,7 @@ class RealServerComm{
         responseHandler.replaceImageTaskModel(responseObject);
     }
 
-    submitImageTaskResponse(imageTaskToSubmit){
+    submitImageTaskResponse(imageTaskToSubmit, responseHandler){
         let request = new XMLHttpRequest();
         request.open("POST", "api/recordResponse");
         request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -21,6 +21,7 @@ class RealServerComm{
         request.onreadystatechange = function () {
             if (request.readyState === XMLHttpRequest.DONE && request.status === 200) {
                 console.log("submitImageTaskResponse: success");
+                responseHandler.submitImageTaskConfirmation();
             } else if (request.readyState === XMLHttpRequest.DONE){
             console.log("submitImageTaskResponse: failure");
         }

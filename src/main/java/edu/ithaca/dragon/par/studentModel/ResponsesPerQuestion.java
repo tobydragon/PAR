@@ -36,7 +36,7 @@ public class ResponsesPerQuestion {
     public double knowledgeCalc(){
        double score=0;
        if(allResponsesSize()==1) {
-           if (allResponses.get(0).getResponseText().equals(question.getCorrectAnswer())){
+           if (allResponses.get(0).getResponseText().trim().toLowerCase().equals(question.getCorrectAnswer().trim().toLowerCase())){
                score = 100;
            }
            else{

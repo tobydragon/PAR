@@ -9,12 +9,18 @@ class StudentController{
         this.updateScore();
     }
 
+    //has side effect by calling submitImageTaskConfirmation upon response
     submitCurrentResponse(){
         this.imageTaskView.checkAnswersAndUpdateView();
         let imageTaskResponse = this.imageTaskView.getResponse();
         if (imageTaskResponse.questionResponses.length > 0) {
-            this.serverComm.submitImageTaskResponse(imageTaskResponse);
+            this.serverComm.submitImageTaskResponse(imageTaskResponse, this);
         }
+    }
+
+    //triggered by server response to loadNextImageTask
+    submitImageTaskConfirmation(){
+        this.updateScore();
     }
 
     //has side effect by calling replaceImageTaskModel upon response
