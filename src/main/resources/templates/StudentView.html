@@ -23,6 +23,8 @@
     <script type="text/javascript" src="/js/QuestionController.js"></script>
     <script type="text/javascript" src="/js/AnswerController.js"></script>
     <script type="text/javascript" src="/js/comm/QuestionResponse.js"></script>
+    <script type="text/javascript" src="/js/ScoreController.js"></script>
+
     <script>
         $(document).ready(function() {
             let userId = "[[${userId}]]";
@@ -32,10 +34,13 @@
             //why do I need these?
             let responseCall = function(){test.submitCurrentResponse()};
             let nextCall = function(){test.loadNextImageTask()};
+            let logoutCall = function(){test.logout()};
+
 
             //Handlers
             $('#submit').on('click', responseCall);
             $('#next').on('click', nextCall);
+            $('#logout').on('click', logoutCall);
 
         });
 
@@ -43,6 +48,27 @@
 </head>
 
 <body>
+<!-- Nav Bar -->
+<div class="container-fluid">
+    <div class="row bg-light">
+        <div class="col-1"></div>
+        <div class="col-2">
+            <img src="/images/ParLogo.png" height="90%" width="70%" class="imgCenter img-fluid" alt="PAR_logo">
+        </div>
+<!--        <div class="col-3 colVertCenter">-->
+<!--            <i><b id="scoreArea">Progress: </b></i>-->
+<!--            <div id="score"> </div>-->
+<!--        </div>-->
+        <div class="col-3 colVertCenter">
+            <i><b class="size20">User ID: </b></i>
+            <div id="UserId" class="size20"> </div>
+        </div>
+
+        <div class="col-3 colVertCenter">
+            <button type="button" class="btn btn-dark" id="logout"> Logout </button>
+        </div>
+    </div>
+</div>
 <div id="studentArea"></div>
 <div id="bottomButtons">
     <button type="button" class="btn btn-login" id="submit" style="float: right;"> submit </button>

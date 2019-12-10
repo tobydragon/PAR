@@ -45,4 +45,12 @@ class TestServerComm{
     transferAuthoredQuestionsToStudents(){
         console.log("transfer triggered\n");
     }
+
+    updateScore(studId, responseHandler){
+        let model={
+            plane:'__XO',
+            struct:'X__O'
+        };
+        responseHandler.updateScoreWithModel(model);
+    }
 }

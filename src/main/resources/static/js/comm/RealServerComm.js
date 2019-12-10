@@ -79,6 +79,22 @@ class RealServerComm{
         console.log("transferAuthoredQuestionsToStudents message sent\n");
     }
 
+    updateScore(userID, responseHandler){
+        let request = new XMLHttpRequest();
+        request.open("GET", "api/knowledgeBase?userId=" + userID);
+        request.send(null);
+        request.onreadystatechange = function () {
+            if (request.readyState === XMLHttpRequest.DONE && request.status === 200) {
+                console.log("updateScore: success");
+                let responseObject = JSON.parse(request.response);
+                console.log(responseObject);
+                responseHandler.updateScoreWithModel(responseObject);
+            } else if (request.readyState === XMLHttpRequest.DONE){
+                console.log("updateScore: failure");
+            }
+        };
+    }
+
 }
 
 function logCorrectAnswers(questionList, indent){

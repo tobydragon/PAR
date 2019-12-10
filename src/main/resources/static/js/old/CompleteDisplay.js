@@ -82,9 +82,9 @@ function displayScore(given) {
 function generateScore(scoreType, userID) {
     if (scoreType === "VisualByType") {
         let visJSON = readJson("api/knowledgeBase?userId=" + userID);
-        return setCurrentScore(visJSON, scoreType);
+        return buildElement(visJSON, scoreType);
     } else if (scoreType === "NumberByType") {
         let scoreJSON = readJson("api/calcScoreByType?userId=" + userID);
-        return setCurrentScore(scoreJSON, scoreType);
+        return buildElement(scoreJSON, scoreType);
     }
 }
