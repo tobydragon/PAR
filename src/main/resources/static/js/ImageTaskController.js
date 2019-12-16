@@ -35,6 +35,8 @@ class ImageTaskController{
 function buildImageTaskViewElement(id, imageView, questionTreeList){
     let outerImageTaskNode = document.createElement('div');
     outerImageTaskNode.classList.add('row');
+    let menuBarNodeElement=createMenuBarElement();
+    outerImageTaskNode.appendChild(menuBarNodeElement);
 
     let canvasElementHandler = document.createElement('div');
     canvasElementHandler.classList.add('col-6');
@@ -78,4 +80,13 @@ function createQuestionAreaElement(questionTreeList) {
     }
     outerQuestionSetNode.appendChild(questionElement);
     return outerQuestionSetNode;
+}
+
+function createMenuBarElement(){
+    let menuBarNode=document.createElement('div');
+    menuBarNode.classList.add('col-12');
+    menuBarNode.classList.add("lightgrey");
+    let parNode=createMenuBarElement('img');
+
+    return menuBarNode;
 }
