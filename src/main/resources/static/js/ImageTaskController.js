@@ -4,10 +4,9 @@ class ImageTaskController{
     constructor(imageTaskModel, userId){
         this.userId = userId;
         this.id = userId + "-" + imageTaskModel.imageUrl;
-        this.imageView = new ImageController(imageTaskModel.imageUrl, this.id+"Canvas");
+        this.imageController = new ImageController(imageTaskModel.imageUrl, this.id+"Canvas");
         this.questionTreeList = buildQATreeViewList(imageTaskModel.taskQuestions);
-        this.element = buildImageTaskViewElement(this.id, this.imageView, this.questionTreeList);
-        console.log("Building task for:" + imageTaskModel.imageUrl);
+        this.element = buildImageTaskViewElement(this.id, this.imageController, this.questionTreeList);
     }
 
     checkAnswersAndUpdateView(){

@@ -86,9 +86,9 @@ class RealServerComm{
         request.send(null);
         request.onreadystatechange = function () {
             if (request.readyState === XMLHttpRequest.DONE && request.status === 200) {
-                console.log("updateScore: success");
+                // console.log("updateScore: success");
                 let responseObject = JSON.parse(request.response);
-                console.log(responseObject);
+                // console.log(responseObject);
                 responseHandler.updateScoreWithModel(responseObject);
             } else if (request.readyState === XMLHttpRequest.DONE){
                 console.log("updateScore: failure");

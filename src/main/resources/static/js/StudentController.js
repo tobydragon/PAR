@@ -48,7 +48,6 @@ class StudentController{
             this.scoreElement.removeChild(this.scoreElement.firstChild);
         }
         let scoreChild = buildScoreElement(newScoreModel);
-        console.log(scoreChild);
         this.scoreElement.appendChild(scoreChild);
     }
 

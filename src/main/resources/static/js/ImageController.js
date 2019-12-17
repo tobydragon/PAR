@@ -14,7 +14,7 @@ class ImageController {
 
     }
     loadImage() {
-        loadImageOnCanvas(this.imageUrl, this.element);
+        loadImageOnCanvas(this.imageUrl, this.element.childNodes[0]);
     }
 }
 
@@ -60,7 +60,14 @@ function createCanvas(imageUrl, name) {
     newCanvas.width = "1024";
     newCanvas.height = "768";
     newCanvas.classList.add("canvas");
-    return newCanvas;
+
+    let urlView = document.createElement("div");
+    urlView.innerText = imageUrl;
+
+    let outerDiv = document.createElement("div");
+    outerDiv.appendChild(newCanvas);
+    outerDiv.appendChild(urlView);
+    return outerDiv;
 }
 
 function canvasSupport() {
