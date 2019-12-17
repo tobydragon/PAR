@@ -26,7 +26,7 @@
     "type" : "attachment",
     "questionText" : "What is this structure’s distal attachment?",
     "correctAnswer" : "deep digital flexor tendon",
-    "possibleAnswers" : [ "Proximal phalanx (P1)", "Middle phalanx (P2)", "Distal phalanx (P3)", "Both proximal and middle phalanxes", "Deep digital flexor tendon" ],
+    "possibleAnswers" : [ "Proximal phalanx (P1)", "Middle phalanx (P2)", "Distal phalanx (P3)", "Proximal sesamoid bones", "Both proximal and middle phalanxes", "Deep digital flexor tendon" ],
     "imageUrl" : "./images/metacarpal56.jpg",
     "followupQuestions" : [ ]
   } ]
@@ -50,7 +50,7 @@
     "type" : "attachment",
     "questionText" : "What is this structure’s distal attachment?",
     "correctAnswer" : "both proximal and middle phalanxes",
-    "possibleAnswers" : [ "Proximal phalanx (P1)", "Middle phalanx (P2)", "Distal phalanx (P3)", "Both proximal and middle phalanxes", "Deep digital flexor tendon" ],
+    "possibleAnswers" : [ "Proximal phalanx (P1)", "Middle phalanx (P2)", "Distal phalanx (P3)", "Proximal sesamoid bones", "Both proximal and middle phalanxes", "Deep digital flexor tendon" ],
     "imageUrl" : "./images/metacarpal56.jpg",
     "followupQuestions" : [ ]
   } ]
@@ -106,7 +106,7 @@
     "type" : "attachment",
     "questionText" : "What is this structure’s distal attachment?",
     "correctAnswer" : "distal phalanx (p3)",
-    "possibleAnswers" : [ "Proximal phalanx (P1)", "Middle phalanx (P2)", "Distal phalanx (P3)", "Both proximal and middle phalanxes", "Deep digital flexor tendon" ],
+    "possibleAnswers" : [ "Proximal phalanx (P1)", "Middle phalanx (P2)", "Distal phalanx (P3)", "Proximal sesamoid bones", "Both proximal and middle phalanxes", "Deep digital flexor tendon" ],
     "imageUrl" : "./images/metacarpal42.jpg",
     "followupQuestions" : [ ]
   } ]
@@ -146,7 +146,7 @@
     "type" : "attachment",
     "questionText" : "What is this structure’s distal attachment?",
     "correctAnswer" : "both proximal and middle phalanxes",
-    "possibleAnswers" : [ "Proximal phalanx (P1)", "Middle phalanx (P2)", "Distal phalanx (P3)", "Both proximal and middle phalanxes", "Deep digital flexor tendon" ],
+    "possibleAnswers" : [ "Proximal phalanx (P1)", "Middle phalanx (P2)", "Distal phalanx (P3)", "Proximal sesamoid bones", "Both proximal and middle phalanxes", "Deep digital flexor tendon" ],
     "imageUrl" : "./images/metacarpal42.jpg",
     "followupQuestions" : [ ]
   } ]
@@ -194,7 +194,7 @@
     "type" : "attachment",
     "questionText" : "What is this structure’s distal attachment?",
     "correctAnswer" : "both proximal and middle phalanxes",
-    "possibleAnswers" : [ "Proximal phalanx (P1)", "Middle phalanx (P2)", "Distal phalanx (P3)", "Both proximal and middle phalanxes", "Deep digital flexor tendon" ],
+    "possibleAnswers" : [ "Proximal phalanx (P1)", "Middle phalanx (P2)", "Distal phalanx (P3)", "Proximal sesamoid bones", "Both proximal and middle phalanxes", "Deep digital flexor tendon" ],
     "imageUrl" : "./images/metacarpal41.jpg",
     "followupQuestions" : [ ]
   } ]
@@ -242,7 +242,7 @@
     "type" : "attachment",
     "questionText" : "What is this structure’s distal attachment?",
     "correctAnswer" : "distal phalanx (p3)",
-    "possibleAnswers" : [ "Proximal phalanx (P1)", "Middle phalanx (P2)", "Distal phalanx (P3)", "Both proximal and middle phalanxes", "Deep digital flexor tendon" ],
+    "possibleAnswers" : [ "Proximal phalanx (P1)", "Middle phalanx (P2)", "Distal phalanx (P3)", "Proximal sesamoid bones", "Both proximal and middle phalanxes", "Deep digital flexor tendon" ],
     "imageUrl" : "./images/metacarpal41.jpg",
     "followupQuestions" : [ ]
   } ]
@@ -298,7 +298,7 @@
     "type" : "attachment",
     "questionText" : "What is this structure’s distal attachment?",
     "correctAnswer" : "distal phalanx (p3)",
-    "possibleAnswers" : [ "Proximal phalanx (P1)", "Middle phalanx (P2)", "Distal phalanx (P3)", "Both proximal and middle phalanxes", "Deep digital flexor tendon" ],
+    "possibleAnswers" : [ "Proximal phalanx (P1)", "Middle phalanx (P2)", "Distal phalanx (P3)", "Proximal sesamoid bones", "Both proximal and middle phalanxes", "Deep digital flexor tendon" ],
     "imageUrl" : "./images/metacarpal25.jpg",
     "followupQuestions" : [ ]
   } ]
@@ -370,7 +370,7 @@
     "type" : "attachment",
     "questionText" : "What is this structure’s distal attachment?",
     "correctAnswer" : "both proximal and middle phalanxes",
-    "possibleAnswers" : [ "Proximal phalanx (P1)", "Middle phalanx (P2)", "Distal phalanx (P3)", "Both proximal and middle phalanxes", "Deep digital flexor tendon" ],
+    "possibleAnswers" : [ "Proximal phalanx (P1)", "Middle phalanx (P2)", "Distal phalanx (P3)", "Proximal sesamoid bones", "Both proximal and middle phalanxes", "Deep digital flexor tendon" ],
     "imageUrl" : "./images/metacarpal19.jpg",
     "followupQuestions" : [ ]
   } ]
@@ -410,7 +410,7 @@
     "type" : "attachment",
     "questionText" : "What is this structure’s distal attachment?",
     "correctAnswer" : "both proximal and middle phalanxes",
-    "possibleAnswers" : [ "Proximal phalanx (P1)", "Middle phalanx (P2)", "Distal phalanx (P3)", "Both proximal and middle phalanxes", "Deep digital flexor tendon" ],
+    "possibleAnswers" : [ "Proximal phalanx (P1)", "Middle phalanx (P2)", "Distal phalanx (P3)", "Proximal sesamoid bones", "Both proximal and middle phalanxes", "Deep digital flexor tendon" ],
     "imageUrl" : "./images/metacarpal37.jpg",
     "followupQuestions" : [ ]
   } ]
@@ -434,7 +434,7 @@
     "type" : "attachment",
     "questionText" : "What is this structure’s distal attachment?",
     "correctAnswer" : "deep digital flexor tendon",
-    "possibleAnswers" : [ "Proximal phalanx (P1)", "Middle phalanx (P2)", "Distal phalanx (P3)", "Both proximal and middle phalanxes", "Deep digital flexor tendon" ],
+    "possibleAnswers" : [ "Proximal phalanx (P1)", "Middle phalanx (P2)", "Distal phalanx (P3)", "Proximal sesamoid bones", "Both proximal and middle phalanxes", "Deep digital flexor tendon" ],
     "imageUrl" : "./images/metacarpal37.jpg",
     "followupQuestions" : [ ]
   } ]
@@ -466,7 +466,7 @@
     "type" : "attachment",
     "questionText" : "What is this structure’s distal attachment?",
     "correctAnswer" : "distal phalanx (p3)",
-    "possibleAnswers" : [ "Proximal phalanx (P1)", "Middle phalanx (P2)", "Distal phalanx (P3)", "Both proximal and middle phalanxes", "Deep digital flexor tendon" ],
+    "possibleAnswers" : [ "Proximal phalanx (P1)", "Middle phalanx (P2)", "Distal phalanx (P3)", "Proximal sesamoid bones", "Both proximal and middle phalanxes", "Deep digital flexor tendon" ],
     "imageUrl" : "./images/metacarpal37.jpg",
     "followupQuestions" : [ ]
   } ]
