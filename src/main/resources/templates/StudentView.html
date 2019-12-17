@@ -29,13 +29,14 @@
     <script>
         $(document).ready(function() {
             let userId = "[[${userId}]]";
-            let test = new StudentController(userId, new RealServerComm());
-            document.getElementById('studentArea').appendChild(test.element);
+            let controller = new StudentController(userId, new RealServerComm());
+            document.getElementById('studentArea').appendChild(controller.element);
+            document.getElementById('scoreArea').appendChild(controller.scoreElement);
 
             //why do I need these?
-            let responseCall = function(){test.submitCurrentResponse()};
-            let nextCall = function(){test.loadNextImageTask()};
-            let logoutCall = function(){test.logout()};
+            let responseCall = function(){controller.submitCurrentResponse()};
+            let nextCall = function(){controller.loadNextImageTask()};
+            let logoutCall = function(){controller.logout()};
 
 
             //Handlers
@@ -56,10 +57,10 @@
         <div class="col-2">
             <img src="/images/ParLogo.png" height="90%" width="70%" class="imgCenter img-fluid" alt="PAR_logo">
         </div>
-<!--        <div class="col-3 colVertCenter">-->
-<!--            <i><b id="scoreArea">Progress: </b></i>-->
-<!--            <div id="score"> </div>-->
-<!--        </div>-->
+        <div class="col-3 colVertCenter">
+            <i><b id="scoreArea">Progress: </b></i>
+            <div id="score"> </div>
+        </div>
         <div class="col-3 colVertCenter">
             <i><b class="size20">User ID: </b></i>
             <div id="UserId" class="size20"> </div>
