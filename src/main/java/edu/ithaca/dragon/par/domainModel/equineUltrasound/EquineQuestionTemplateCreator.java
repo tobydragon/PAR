@@ -62,6 +62,7 @@ public class EquineQuestionTemplateCreator {
             "Proximal phalanx (P1)",
             "Middle phalanx (P2)",
             "Distal phalanx (P3)",
+            "Proximal sesamoid bones",
             "Both proximal and middle phalanxes",
             "Deep digital flexor tendon");
 
