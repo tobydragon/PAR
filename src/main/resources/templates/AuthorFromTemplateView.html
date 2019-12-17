@@ -32,11 +32,13 @@
             document.getElementById('authorArea').appendChild(test.element);
 
             //why do I need these?
-            let nextCall = function(){test.submitAndNext()};
+            let submitAndNextCall = function(){test.submitAndNext()};
+            let ignoreAndNextCall = function(){test.loadNextImageTask()};
             let navToReview = function(){test.navToReview()};
 
             //Handlers
-            $('#next').on('click', nextCall);
+            $('#submitAndNext').on('click', submitAndNextCall);
+            $('#ignoreAndNext').on('click', ignoreAndNextCall);
             $('#navToReview').on('click', navToReview);
 
         });
@@ -47,7 +49,8 @@
 <body>
 <div id="authorArea"></div>
 <div id="bottomButtons">
-    <button type="button" class="btn btn-login" id="next" style="float: right;"> Save and Next </button>
+    <button type="button" class="btn btn-login" id="ignoreAndNext" style="float: right;"> Next (Skip this for now) </button>
+    <button type="button" class="btn btn-login" id="saveAndNext" style="float: right;"> Save and Next </button>
     <button type="button" class="btn btn-login" id="navToReview"> Review All Authored Questions </button>
 </div>
 </body>
