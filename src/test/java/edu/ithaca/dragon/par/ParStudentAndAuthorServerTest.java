@@ -2,6 +2,8 @@ package edu.ithaca.dragon.par;
 
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.*;
+import edu.ithaca.dragon.par.studentModel.ResponsesPerQuestion;
+import edu.ithaca.dragon.par.studentModel.UserResponseSet;
 import edu.ithaca.dragon.util.JsonIoHelperDefault;
 import edu.ithaca.dragon.util.JsonIoUtil;
 import edu.ithaca.dragon.util.JsonUtil;
@@ -10,7 +12,10 @@ import org.junit.jupiter.api.io.TempDir;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -189,4 +194,45 @@ class ParStudentAndAuthorServerTest {
         parStudentAndAuthorServer.submitImageTaskResponse(new ImageTaskResponseOOP("testUser111", Arrays.asList("PlaneQ1"), Arrays.asList("Longitudinal")));
         assertEquals(1,jsonStudentDatastore.getOrCreateStudentModel("testUser111").getSeenQuestionCount());
     }
-}
+
+    @Test
+    public void structureQuestionBug(@TempDir Path tempDir) throws IOException {
+
+        Path currentStudentModelDir = tempDir.resolve("students");
+        assertTrue(new File(currentStudentModelDir.toString()).mkdir());
+        JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
+                tempDir.resolve("currentQuestions.json").toString(),
+                "src/test/resources/author/SampleQuestionPool4.json",
+                new JsonIoHelperDefault(),
+                currentStudentModelDir.toString());
+
+        ParStudentAndAuthorServer parStudentAndAuthorServer = new ParStudentAndAuthorServer(jsonStudentDatastore, null);
+
+        //load existing student into the jsonStudentDatastore
+        Files.copy(Paths.get("src/test/resources/author/students/PSaASTestUser.json"), tempDir.resolve("students/PSaASTestUser.json"), StandardCopyOption.REPLACE_EXISTING);
+        assertEquals(10,jsonStudentDatastore.getOrCreateStudentModel("PSaASTestUser").getResponseCount());
+
+        //first time answering these structure questions
+        //TODO: Note! The response being lowercase might be a factor
+        UserResponseSet urs = jsonStudentDatastore.getOrCreateStudentModel("PSaASTestUser").getUserResponseSet();
+        ResponsesPerQuestion responsesPerQuestion1 = new ResponsesPerQuestion("PSAaSTestUser", jsonStudentDatastore.findTopLevelQuestionTemplateById("341-structure0-./images/metacarpal42.jpg"), "deep digital flexor tendon");
+        ResponsesPerQuestion responsesPerQuestion2 = new ResponsesPerQuestion("PSAaSTestUser", jsonStudentDatastore.findTopLevelQuestionTemplateById("344-structure1-./images/metacarpal42.jpg"), "suspensory ligament (branches)");
+        ResponsesPerQuestion responsesPerQuestion3 = new ResponsesPerQuestion("PSAaSTestUser", jsonStudentDatastore.findTopLevelQuestionTemplateById("347-structure2-./images/metacarpal42.jpg"), "superficial digital flexor tendon");
+        ResponsesPerQuestion responsesPerQuestion4 = new ResponsesPerQuestion("PSAaSTestUser", jsonStudentDatastore.findTopLevelQuestionTemplateById("350-structure3-./images/metacarpal42.jpg"), "metacarpus bone 3 (third metacarpal bone)");
+        urs.addResponse(responsesPerQuestion1);
+        urs.addResponse(responsesPerQuestion2);  //these calls could use .addAllResponses()
+        urs.addResponse(responsesPerQuestion3);
+        urs.addResponse(responsesPerQuestion4);
+
+        //submitting the same structure questions and their attachment questions
+        ResponsesPerQuestion responsesPerQuestion5 = new ResponsesPerQuestion("PSAaSTestUser", jsonStudentDatastore.findTopLevelQuestionTemplateById("341-structure0-./images/metacarpal42.jpg"), "deep digital flexor tendon"); //structure
+        ResponsesPerQuestion responsesPerQuestion6 = new ResponsesPerQuestion("PSAaSTestUser", jsonStudentDatastore.findTopLevelQuestionTemplateById("341-structure0-./images/metacarpal42.jpg").getFollowupQuestions().get(0), "lateral humeral epicondyle"); //attachment
+        ResponsesPerQuestion responsesPerQuestion7 = new ResponsesPerQuestion("PSAaSTestUser", jsonStudentDatastore.findTopLevelQuestionTemplateById("341-structure0-./images/metacarpal42.jpg").getFollowupQuestions().get(1), "distal phalanx (p3)");  //attachment
+        ResponsesPerQuestion responsesPerQuestion8 = new ResponsesPerQuestion("PSAaSTestUser", jsonStudentDatastore.findTopLevelQuestionTemplateById("344-structure1-./images/metacarpal42.jpg"), "suspensory ligament (branches)"); //structure
+        ResponsesPerQuestion responsesPerQuestion9 = new ResponsesPerQuestion("PSAaSTestUser", jsonStudentDatastore.findTopLevelQuestionTemplateById("344-structure1-./images/metacarpal42.jpg").getFollowupQuestions().get(0), "proximal metacarpus 3"); //attachment
+        ResponsesPerQuestion responsesPerQuestion10 = new ResponsesPerQuestion("PSAaSTestUser", jsonStudentDatastore.findTopLevelQuestionTemplateById("344-structure1-./images/metacarpal42.jpg").getFollowupQuestions().get(1), "Proximal sesamoid bones"); //attachment
+        ResponsesPerQuestion responsesPerQuestion11 = new ResponsesPerQuestion("PSAaSTestUser", jsonStudentDatastore.findTopLevelQuestionTemplateById("347-structure2-./images/metacarpal42.jpg"), "superficial digital flexor tendon"); //structure
+        ResponsesPerQuestion responsesPerQuestion12 = new ResponsesPerQuestion("PSAaSTestUser", jsonStudentDatastore.findTopLevelQuestionTemplateById("347-structure2-./images/metacarpal42.jpg").getFollowupQuestions().get(0), "medial humeral epicondyle"); //attachment
+        ResponsesPerQuestion responsesPerQuestion13 = new ResponsesPerQuestion("PSAaSTestUser", jsonStudentDatastore.findTopLevelQuestionTemplateById("347-structure2-./images/metacarpal42.jpg").getFollowupQuestions().get(1), "both proximal and middle phalanxes"); //attachment
+    }
+} 
