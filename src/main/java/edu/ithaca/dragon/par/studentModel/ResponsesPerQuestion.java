@@ -30,7 +30,7 @@ public class ResponsesPerQuestion {
     }
 
     /**
-     * Calculates the knowledge score of the student
+     * Stub function that calls the static knowledgeCalc
      * @return 0 or 100
      */
     public double knowledgeCalc(){
@@ -38,13 +38,15 @@ public class ResponsesPerQuestion {
     }
 
     /**
-     * This is a static function that calls knowledgeCalc
-     * @return
+     * Calculates the knowledge score of the student
+     * This algorithm relies on the most recent response being at the front of allResponses!
+     * @return 0 or 100
      */
     public static double knowledgeCalc(List<QuestionResponse> allResponses, Question question){
         double score=0;
+        boolean responseIsCorrect = allResponses.get(0).getResponseText().trim().toLowerCase().equals(question.getCorrectAnswer().trim().toLowerCase());
         if(allResponses.size()==1) {
-            if (allResponses.get(0).getResponseText().trim().toLowerCase().equals(question.getCorrectAnswer().trim().toLowerCase())){
+            if (responseIsCorrect){
                 score = 100;
             }
             else{
@@ -55,7 +57,7 @@ public class ResponsesPerQuestion {
             //if the timestamp difference is > or == 30 seconds
             if (checkTimeStampDifference(allResponses.get(allResponses.size() - 1).getMillSeconds(), allResponses.get(allResponses.size() - 2).getMillSeconds())) {
                 //check the answer if its right or wrong/ not dependent on previous answers
-                if (allResponses.get(allResponses.size() - 1).getResponseText().equals(question.getCorrectAnswer())) {
+                if (responseIsCorrect) {
                     score = 100;
                 }
                 else score = 0;
@@ -66,7 +68,7 @@ public class ResponsesPerQuestion {
                 List<QuestionResponse> questionResponses = answersWithSameTimeStamp(allResponses);
                 for (int k = 0; k < questionResponses.size() ; k++) {
                     //if any of the answers are wrong within this list then you receive a 0
-                    if (!questionResponses.get(k).getResponseText().equals(question.getCorrectAnswer()))
+                    if (!responseIsCorrect)
                         score = 0;
                 }
             }

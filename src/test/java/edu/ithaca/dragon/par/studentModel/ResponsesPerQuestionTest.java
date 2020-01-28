@@ -87,12 +87,11 @@ public class ResponsesPerQuestionTest {
         long newMillSeconds=date.getTime();
         qr2.setMillSeconds(newMillSeconds + 40000);
         assertEquals(100.0, ResponsesPerQuestion.knowledgeCalc(questionResponseArraylist, question1), 1);
-    }
 
-    @Test
-    public void checkIfAnswerIsCorrectTest(){
-        //compare strings
+        //incorrect answer submitted within 30 seconds
+        QuestionResponse qr3 = new QuestionResponse("Incorrect");
+        questionResponseArraylist.add(0, qr3);
+        assertEquals(0.0, ResponsesPerQuestion.knowledgeCalc(questionResponseArraylist, question1), 1);
     }
-
 
 }
