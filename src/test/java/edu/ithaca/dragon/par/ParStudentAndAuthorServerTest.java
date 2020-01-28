@@ -225,6 +225,7 @@ class ParStudentAndAuthorServerTest {
         urs.addResponse(responsesPerQuestion4);
 
         //submitting the same structure questions and their attachment questions
+        //TODO: check if structure questions get submitted when their attachment questions are submitted
         ResponsesPerQuestion responsesPerQuestion5 = new ResponsesPerQuestion("PSAaSTestUser", jsonStudentDatastore.findTopLevelQuestionTemplateById("341-structure0-./images/metacarpal42.jpg"), "deep digital flexor tendon"); //structure
         ResponsesPerQuestion responsesPerQuestion6 = new ResponsesPerQuestion("PSAaSTestUser", jsonStudentDatastore.findTopLevelQuestionTemplateById("341-structure0-./images/metacarpal42.jpg").getFollowupQuestions().get(0), "lateral humeral epicondyle"); //attachment
         ResponsesPerQuestion responsesPerQuestion7 = new ResponsesPerQuestion("PSAaSTestUser", jsonStudentDatastore.findTopLevelQuestionTemplateById("341-structure0-./images/metacarpal42.jpg").getFollowupQuestions().get(1), "distal phalanx (p3)");  //attachment
@@ -234,5 +235,7 @@ class ParStudentAndAuthorServerTest {
         ResponsesPerQuestion responsesPerQuestion11 = new ResponsesPerQuestion("PSAaSTestUser", jsonStudentDatastore.findTopLevelQuestionTemplateById("347-structure2-./images/metacarpal42.jpg"), "superficial digital flexor tendon"); //structure
         ResponsesPerQuestion responsesPerQuestion12 = new ResponsesPerQuestion("PSAaSTestUser", jsonStudentDatastore.findTopLevelQuestionTemplateById("347-structure2-./images/metacarpal42.jpg").getFollowupQuestions().get(0), "medial humeral epicondyle"); //attachment
         ResponsesPerQuestion responsesPerQuestion13 = new ResponsesPerQuestion("PSAaSTestUser", jsonStudentDatastore.findTopLevelQuestionTemplateById("347-structure2-./images/metacarpal42.jpg").getFollowupQuestions().get(1), "both proximal and middle phalanxes"); //attachment
+
+
     }
 } 

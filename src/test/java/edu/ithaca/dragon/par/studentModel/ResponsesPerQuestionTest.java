@@ -1,6 +1,7 @@
 package edu.ithaca.dragon.par.studentModel;
 
 import edu.ithaca.dragon.par.domainModel.Question;
+import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.ImageTaskResponseOOP;
 import edu.ithaca.dragon.util.DataUtil;
 import edu.ithaca.dragon.util.JsonUtil;
@@ -8,6 +9,9 @@ import org.junit.jupiter.api.Test;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -59,6 +63,36 @@ public class ResponsesPerQuestionTest {
     }
 
      */
+
+    @Test
+    public void staticKnowledgeCalcTest(){
+        //create a static knowledgeCalc function
+        //original knowledgeCalc will call the static function
+        Question question1 = new Question("testQuestionId",  "test?", EquineQuestionTypes.structure.toString(), "Correct answer", Arrays.asList("Correct Answer", "Incorrect Answer"), "imageUrl");
+        QuestionResponse qr1 = new QuestionResponse("Correct answer");
+        qr1.setMillSeconds(1);
+        QuestionResponse qr2 = new QuestionResponse("Correct answer");
+        qr2.setMillSeconds(1);
+        ArrayList<QuestionResponse> questionResponseArraylist = new ArrayList<>(Arrays.asList(qr1, qr2));
+
+        //response has same capitalization, responses are within 30 sec
+        assertEquals(100.0, ResponsesPerQuestion.knowledgeCalc(questionResponseArraylist, question1), 1);
+
+        //response has different capitalization, responses are within 30 sec
+        qr2.setResponseText("correct Answer");
+        assertEquals(100.0, ResponsesPerQuestion.knowledgeCalc(questionResponseArraylist, question1), 1);
+
+        //responses are over 30 seconds apart
+        Date date=new Date();
+        long newMillSeconds=date.getTime();
+        qr2.setMillSeconds(newMillSeconds + 40000);
+        assertEquals(100.0, ResponsesPerQuestion.knowledgeCalc(questionResponseArraylist, question1), 1);
+    }
+
+    @Test
+    public void checkIfAnswerIsCorrectTest(){
+        //compare strings
+    }
 
 
 }

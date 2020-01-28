@@ -34,20 +34,28 @@ public class ResponsesPerQuestion {
      * @return 0 or 100
      */
     public double knowledgeCalc(){
-       double score=0;
-       if(allResponsesSize()==1) {
-           if (allResponses.get(0).getResponseText().trim().toLowerCase().equals(question.getCorrectAnswer().trim().toLowerCase())){
-               score = 100;
-           }
-           else{
-               score = 0;
-           }
-       }
-        if(allResponsesSize()>1) {
+       return knowledgeCalc(allResponses, question);
+    }
+
+    /**
+     * This is a static function that calls knowledgeCalc
+     * @return
+     */
+    public static double knowledgeCalc(List<QuestionResponse> allResponses, Question question){
+        double score=0;
+        if(allResponses.size()==1) {
+            if (allResponses.get(0).getResponseText().trim().toLowerCase().equals(question.getCorrectAnswer().trim().toLowerCase())){
+                score = 100;
+            }
+            else{
+                score = 0;
+            }
+        }
+        else if(allResponses.size()>1) {
             //if the timestamp difference is > or == 30 seconds
-            if (checkTimeStampDifference(allResponses.get(allResponsesSize() - 1).getMillSeconds(), allResponses.get(allResponsesSize() - 2).getMillSeconds())) {
+            if (checkTimeStampDifference(allResponses.get(allResponses.size() - 1).getMillSeconds(), allResponses.get(allResponses.size() - 2).getMillSeconds())) {
                 //check the answer if its right or wrong/ not dependent on previous answers
-                if (allResponses.get(allResponsesSize() - 1).getResponseText().equals(question.getCorrectAnswer())) {
+                if (allResponses.get(allResponses.size() - 1).getResponseText().equals(question.getCorrectAnswer())) {
                     score = 100;
                 }
                 else score = 0;
@@ -60,9 +68,10 @@ public class ResponsesPerQuestion {
                     //if any of the answers are wrong within this list then you receive a 0
                     if (!questionResponses.get(k).getResponseText().equals(question.getCorrectAnswer()))
                         score = 0;
-                    }
                 }
+            }
         }
+        //TODO: add else case to deal with 0 case
         return score;
     }
 
@@ -99,6 +108,10 @@ public class ResponsesPerQuestion {
         //creates a new timestamp for new response
         QuestionResponse questionResponse=new QuestionResponse(newResponse);
         this.allResponses.add(questionResponse);
+    }
+
+    public static boolean checkIfAnswerIsCorrect(String correctAnswer, String response){
+        return false;
     }
 
     public int allResponsesSize(){
