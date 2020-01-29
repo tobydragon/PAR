@@ -5,10 +5,8 @@ import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.ImageTaskResponseOOP;
 import edu.ithaca.dragon.par.io.JsonQuestionPoolDatastore;
-import edu.ithaca.dragon.par.io.UserResponseSetRecord;
 import edu.ithaca.dragon.util.DataUtil;
 import edu.ithaca.dragon.util.JsonUtil;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -138,29 +136,29 @@ public class UserResponseSetTest {
         }
 
         assertEquals("", UserResponseSet.calcKnowledgeEstimateString(new ArrayList<>(), 0));
-        assertEquals("", UserResponseSet.calcKnowledgeEstimateString(allRight.getUserResponses(), 0));
-        assertEquals("", UserResponseSet.calcKnowledgeEstimateString(allWrong.getUserResponses(), 0));
-        assertEquals("", UserResponseSet.calcKnowledgeEstimateString(everyOtherRight.getUserResponses(), 0));
+        assertEquals("", UserResponseSet.calcKnowledgeEstimateString(allRight.getResponsesPerQuestionList(), 0));
+        assertEquals("", UserResponseSet.calcKnowledgeEstimateString(allWrong.getResponsesPerQuestionList(), 0));
+        assertEquals("", UserResponseSet.calcKnowledgeEstimateString(everyOtherRight.getResponsesPerQuestionList(), 0));
 
         assertEquals("_", UserResponseSet.calcKnowledgeEstimateString(new ArrayList<>(), 1));
-        assertEquals("O", UserResponseSet.calcKnowledgeEstimateString(allRight.getUserResponses(), 1));
-        assertEquals("X", UserResponseSet.calcKnowledgeEstimateString(allWrong.getUserResponses(), 1));
-        assertEquals("O", UserResponseSet.calcKnowledgeEstimateString(everyOtherRight.getUserResponses(), 1));
+        assertEquals("O", UserResponseSet.calcKnowledgeEstimateString(allRight.getResponsesPerQuestionList(), 1));
+        assertEquals("X", UserResponseSet.calcKnowledgeEstimateString(allWrong.getResponsesPerQuestionList(), 1));
+        assertEquals("O", UserResponseSet.calcKnowledgeEstimateString(everyOtherRight.getResponsesPerQuestionList(), 1));
 
         assertEquals("__", UserResponseSet.calcKnowledgeEstimateString(new ArrayList<>(), 2));
-        assertEquals("OO", UserResponseSet.calcKnowledgeEstimateString(allRight.getUserResponses(), 2));
-        assertEquals("XX", UserResponseSet.calcKnowledgeEstimateString(allWrong.getUserResponses(), 2));
-        assertEquals("XO", UserResponseSet.calcKnowledgeEstimateString(everyOtherRight.getUserResponses(), 2));
+        assertEquals("OO", UserResponseSet.calcKnowledgeEstimateString(allRight.getResponsesPerQuestionList(), 2));
+        assertEquals("XX", UserResponseSet.calcKnowledgeEstimateString(allWrong.getResponsesPerQuestionList(), 2));
+        assertEquals("XO", UserResponseSet.calcKnowledgeEstimateString(everyOtherRight.getResponsesPerQuestionList(), 2));
 
         assertEquals("______", UserResponseSet.calcKnowledgeEstimateString(new ArrayList<>(), 6));
-        assertEquals("OOOOOO", UserResponseSet.calcKnowledgeEstimateString(allRight.getUserResponses(), 6));
-        assertEquals("XXXXXX", UserResponseSet.calcKnowledgeEstimateString(allWrong.getUserResponses(), 6));
-        assertEquals("XOXOXO", UserResponseSet.calcKnowledgeEstimateString(everyOtherRight.getUserResponses(), 6));
+        assertEquals("OOOOOO", UserResponseSet.calcKnowledgeEstimateString(allRight.getResponsesPerQuestionList(), 6));
+        assertEquals("XXXXXX", UserResponseSet.calcKnowledgeEstimateString(allWrong.getResponsesPerQuestionList(), 6));
+        assertEquals("XOXOXO", UserResponseSet.calcKnowledgeEstimateString(everyOtherRight.getResponsesPerQuestionList(), 6));
 
         assertEquals("______", UserResponseSet.calcKnowledgeEstimateString(new ArrayList<>(), 6));
-        assertEquals("___OOO", UserResponseSet.calcKnowledgeEstimateString(allRight.getUserResponses().subList(0,3), 6));
-        assertEquals("___XXX", UserResponseSet.calcKnowledgeEstimateString(allWrong.getUserResponses().subList(0,3), 6));
-        assertEquals("___OXO", UserResponseSet.calcKnowledgeEstimateString(everyOtherRight.getUserResponses().subList(0,3), 6));
+        assertEquals("___OOO", UserResponseSet.calcKnowledgeEstimateString(allRight.getResponsesPerQuestionList().subList(0,3), 6));
+        assertEquals("___XXX", UserResponseSet.calcKnowledgeEstimateString(allWrong.getResponsesPerQuestionList().subList(0,3), 6));
+        assertEquals("___OXO", UserResponseSet.calcKnowledgeEstimateString(everyOtherRight.getResponsesPerQuestionList().subList(0,3), 6));
     }
 
     @Test
@@ -270,7 +268,7 @@ public class UserResponseSetTest {
         }
         respSet.addAllResponses(userResponse);
         //UserResponseSet userResponseSet=new UserResponseSet("TestUser1");
-        Map<String, List<ResponsesPerQuestion>> responseByType = respSet.splitResponsesByType(respSet.getUserResponses());
+        Map<String, List<ResponsesPerQuestion>> responseByType = respSet.splitResponsesByType(respSet.getResponsesPerQuestionList());
         //assertEquals(Arrays.asList("plane", "structure", "attachment", "zone"),responseByType.keySet());
         for (EquineQuestionTypes currType: EquineQuestionTypes.values()) {
             System.out.println(responseByType.get(currType.toString()).size());
@@ -291,7 +289,7 @@ public class UserResponseSetTest {
         }
         respSet.addAllResponses(userResponse);
 
-        String a=respSet.knowledgeBaseCalc(respSet.getUserResponses(),4);
+        String a=respSet.knowledgeBaseCalc(respSet.getResponsesPerQuestionList(),4);
         System.out.println(a);
 
         userResponse=new ArrayList<>();
@@ -307,7 +305,7 @@ public class UserResponseSetTest {
 
         respSet.addAllResponses(userResponse);
 
-        String a2=respSet.knowledgeBaseCalc(respSet.getUserResponses(),4);
+        String a2=respSet.knowledgeBaseCalc(respSet.getResponsesPerQuestionList(),4);
         System.out.println(a2);
     }
 

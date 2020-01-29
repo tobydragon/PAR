@@ -38,7 +38,7 @@ class StudentReportCreatorTest {
         allStudentModels.addAll(Arrays.asList(studentModel1,studentModel2,studentModel3,studentModel4,studentModel5));
 
         for(int i=0;i<allStudentModels.size();i++){
-            allStudentModels.get(i).getUserResponseSet().setUserResponses(userResponseSet.getUserResponses());
+            allStudentModels.get(i).getUserResponseSet().setResponsesPerQuestionList(userResponseSet.getResponsesPerQuestionList());
         }
         List<StudentReport> studentReports=new ArrayList<>();
         for(StudentModel studentModel:allStudentModels){
@@ -63,7 +63,7 @@ class StudentReportCreatorTest {
             userResponseSet.addResponse(responsesPerQuestion);
         }
 
-        Map<String, List<ResponsesPerQuestion>> responseByType = UserResponseSet.splitResponsesByType(userResponseSet.getUserResponses());
+        Map<String, List<ResponsesPerQuestion>> responseByType = UserResponseSet.splitResponsesByType(userResponseSet.getResponsesPerQuestionList());
         Map<String,Integer> responsesPerType=StudentReportCreator.allResponsesPerType(responseByType);
 
         assertEquals(5,responsesPerType.get(EquineQuestionTypes.plane.toString()).intValue());
@@ -96,7 +96,7 @@ class StudentReportCreatorTest {
             userResponseSet.addResponse(responsesPerQuestion);
         }
 
-        Map<String, List<ResponsesPerQuestion>> responseByType = UserResponseSet.splitResponsesByType(userResponseSet.getUserResponses());
+        Map<String, List<ResponsesPerQuestion>> responseByType = UserResponseSet.splitResponsesByType(userResponseSet.getResponsesPerQuestionList());
         Map<String,Integer> numberOfQuestionsAnsweredByType=StudentReportCreator.numOfQuestionsAnswered(responseByType);
 
         assertEquals(5,numberOfQuestionsAnsweredByType.get(EquineQuestionTypes.plane.toString()).intValue());

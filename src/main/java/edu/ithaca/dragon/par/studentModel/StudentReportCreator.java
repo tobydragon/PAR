@@ -10,7 +10,7 @@ public class StudentReportCreator {
 
     public static StudentReport buildStudentReport(UserResponseSet userResponseSet, Map<String,List<QuestionCount>> questionTypesListMap, int numOfRecentResponsesToConsider){
 
-        Map<String, List<ResponsesPerQuestion>> splitResponsesByType=UserResponseSet.splitResponsesByType(userResponseSet.getUserResponses());
+        Map<String, List<ResponsesPerQuestion>> splitResponsesByType=UserResponseSet.splitResponsesByType(userResponseSet.getResponsesPerQuestionList());
         Map<String,Integer> responsesPerType=allResponsesPerType(splitResponsesByType);
         Map<String,Integer> questionsPerType=numberOfQuestionsPerType(questionTypesListMap);
         Map<String,Integer> numberOfQuestionsAnswered=numOfQuestionsAnswered(splitResponsesByType);
