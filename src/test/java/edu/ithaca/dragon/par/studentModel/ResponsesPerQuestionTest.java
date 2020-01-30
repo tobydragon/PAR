@@ -15,6 +15,8 @@ import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ResponsesPerQuestionTest {
 
@@ -115,9 +117,14 @@ public class ResponsesPerQuestionTest {
     }
 
     @Test
-    public void checkIfAnswerIsCorrect() {
-
+    public void checkIfAnswerIsCorrectTest() {
+        assertTrue(ResponsesPerQuestion.checkIfAnswerIsCorrect("Correct Answer", " Correct Answer "));
+        assertTrue(ResponsesPerQuestion.checkIfAnswerIsCorrect("Correct Answer", "correct Answer"));
+        assertTrue(ResponsesPerQuestion.checkIfAnswerIsCorrect("Correct Answer", "CORRECT ANSWER"));
+        assertTrue(ResponsesPerQuestion.checkIfAnswerIsCorrect("Correct Answer", "correct answer"));
+        assertFalse(ResponsesPerQuestion.checkIfAnswerIsCorrect("Correct Answer", "Incorrect Answer"));
     }
+
 
     @Test
     public void checkIfAnswersAreCorrect() {

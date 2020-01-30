@@ -111,7 +111,7 @@ public class ResponsesPerQuestion {
     }
 
     public static boolean checkIfAnswerIsCorrect(String correctAnswer, String response){
-        return false;
+        return correctAnswer.trim().equalsIgnoreCase(response.trim());
     }
 
     public static boolean checkIfAnswersAreCorrect(List<QuestionResponse> responsesToCheck){
