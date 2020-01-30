@@ -127,7 +127,20 @@ public class ResponsesPerQuestionTest {
 
 
     @Test
-    public void checkIfAnswersAreCorrect() {
+    public void checkIfAnswersAreCorrectTest() {
+        Question question = new Question("q1", "q text", EquineQuestionTypes.structure.toString(), "correct answer", null, "url");
+        QuestionResponse qr1 = new QuestionResponse("correct Answer");
+        QuestionResponse qr2 = new QuestionResponse("Correct answer");
+        QuestionResponse qr3 = new QuestionResponse("correct answer");
+        QuestionResponse qr4 = new QuestionResponse("Incorrect answer");
+        ArrayList<QuestionResponse> qrAL = new ArrayList<>(Arrays.asList(qr1, qr2, qr3));
+
+        //all responses are correct
+        assertTrue(ResponsesPerQuestion.checkIfAnswersAreCorrect(qrAL, question.getCorrectAnswer()));
+
+        //add incorrect response
+        qrAL.add(qr4);
+        assertFalse(ResponsesPerQuestion.checkIfAnswersAreCorrect(qrAL, question.getCorrectAnswer()));
 
     }
 

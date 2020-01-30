@@ -58,7 +58,7 @@ public class ResponsesPerQuestion {
             //get relevant responses
             List<QuestionResponse> recentResponses = questionsWithinTimeFromRecentResponse(allResponses);
             //check if they are correct
-            if(checkIfAnswersAreCorrect(recentResponses)){
+            if(checkIfAnswersAreCorrect(recentResponses, question.getCorrectAnswer())){
                 return 100;
             }
             else{
@@ -114,7 +114,7 @@ public class ResponsesPerQuestion {
         return correctAnswer.trim().equalsIgnoreCase(response.trim());
     }
 
-    public static boolean checkIfAnswersAreCorrect(List<QuestionResponse> responsesToCheck){
+    public static boolean checkIfAnswersAreCorrect(List<QuestionResponse> responsesToCheck, String correctAnswer){
         return false;
     }
 
