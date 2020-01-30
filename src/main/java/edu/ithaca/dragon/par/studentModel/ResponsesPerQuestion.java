@@ -43,48 +43,46 @@ public class ResponsesPerQuestion {
      * @return 0 or 100
      */
     public static double knowledgeCalc(List<QuestionResponse> allResponses, Question question){
-        double score=0;
-        boolean responseIsCorrect = allResponses.get(0).getResponseText().trim().toLowerCase().equals(question.getCorrectAnswer().trim().toLowerCase());
-        if(allResponses.size()==1) {
-            if (responseIsCorrect){
-                score = 100;
+        if(allResponses.size() == 1){
+            //is the one response correct?
+            if(ResponsesPerQuestion.checkIfAnswerIsCorrect(question.getCorrectAnswer(), allResponses.get(0).getResponseText())){
+                return 100;
             }
             else{
-                score = 0;
+                return 0;
             }
         }
+        //More than one response to look at.
+        //In order to get a 100, all responses within 30 seconds of the most recent response must be correct
         else if(allResponses.size()>1) {
-            //if the timestamp difference is > or == 30 seconds
-            if (checkTimeStampDifference(allResponses.get(allResponses.size() - 1).getMillSeconds(), allResponses.get(allResponses.size() - 2).getMillSeconds())) {
-                //check the answer if its right or wrong/ not dependent on previous answers
-                if (responseIsCorrect) {
-                    score = 100;
-                }
-                else score = 0;
-            } else {
-                //if the timestamp difference is < 30 seconds
-                score = 100;
-                //creates a list of QuestionResponses that have a timestamp difference < 30 second apart
-                List<QuestionResponse> questionResponses = answersWithSameTimeStamp(allResponses);
-                for (int k = 0; k < questionResponses.size() ; k++) {
-                    //if any of the answers are wrong within this list then you receive a 0
-                    if (!responseIsCorrect)
-                        score = 0;
-                }
+            //get relevant responses
+            List<QuestionResponse> recentResponses = questionsWithinTimeFromRecentResponse(allResponses);
+            //check if they are correct
+            if(checkIfAnswersAreCorrect(recentResponses)){
+                return 100;
+            }
+            else{
+                return 0;
             }
         }
-        //TODO: add else case to deal with 0 case
-        return score;
+        else{ //there are no responses to check
+            //TODO: should this throw an exception?
+            return 0;
+        }
     }
 
     /**
-     * Creates a list of QuestionResponses that have the same timestamps
      * @param allResponses list of all the responses recorded
+     *                     The most recent response is at the end of allResponses
      * @return list of QuestionResponses within less than a 30 seconds time window
      */
-    public static List<QuestionResponse> answersWithSameTimeStamp(List<QuestionResponse> allResponses){
+    public static List<QuestionResponse> questionsWithinTimeFromRecentResponse(List<QuestionResponse> allResponses){
+        //make a list for all the questionResponses within the timeframe, initialize with the most recent response
         List<QuestionResponse> questionResponses=new ArrayList<>();
-        questionResponses.add(allResponses.get(allResponses.size()-1));
+        QuestionResponse mostRecentQuestionResponse = allResponses.get(allResponses.size()-1);
+        questionResponses.add(mostRecentQuestionResponse);
+
+        //loop through the other questionResponses, check if they are in the window
         for(int k=allResponses.size()-2;k>-1;k--){//k=allResponses.size()-2 to get all the index before the last element in the list
             if(!checkTimeStampDifference(allResponses.get(allResponses.size()-1).getMillSeconds(),allResponses.get(k).getMillSeconds())){
                 questionResponses.add(allResponses.get(k));
@@ -115,6 +113,11 @@ public class ResponsesPerQuestion {
     public static boolean checkIfAnswerIsCorrect(String correctAnswer, String response){
         return false;
     }
+
+    public static boolean checkIfAnswersAreCorrect(List<QuestionResponse> responsesToCheck){
+        return false;
+    }
+
 
     public int allResponsesSize(){
         return allResponses.size();

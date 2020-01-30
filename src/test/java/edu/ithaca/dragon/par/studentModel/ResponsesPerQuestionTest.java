@@ -94,4 +94,34 @@ public class ResponsesPerQuestionTest {
         assertEquals(0.0, ResponsesPerQuestion.knowledgeCalc(questionResponseArraylist, question1), 1);
     }
 
+
+    @Test
+    public void questionsWithinTimeFromRecentResponseTest(){
+        QuestionResponse qr1 = new QuestionResponse("response");
+        qr1.setMillSeconds(1000);
+        QuestionResponse qr2 = new QuestionResponse("response");
+        qr2.setMillSeconds(2000);
+        QuestionResponse qr3 = new QuestionResponse("response");
+        qr3.setMillSeconds(30999);
+        QuestionResponse qr4 = new QuestionResponse("response");
+        qr4.setMillSeconds(31001);
+        QuestionResponse qr5 = new QuestionResponse("response");
+        qr5.setMillSeconds(50000);
+
+        //qr4 and qr5 should not be added to the new arraylist
+        ArrayList<QuestionResponse> questionResponseArrayList1 = new ArrayList<>(Arrays.asList(qr5, qr4, qr3, qr2, qr1));
+        List<QuestionResponse> result = ResponsesPerQuestion.questionsWithinTimeFromRecentResponse(questionResponseArrayList1);
+        assertEquals(3, result.size());
+    }
+
+    @Test
+    public void checkIfAnswerIsCorrect() {
+
+    }
+
+    @Test
+    public void checkIfAnswersAreCorrect() {
+
+    }
+
 }
