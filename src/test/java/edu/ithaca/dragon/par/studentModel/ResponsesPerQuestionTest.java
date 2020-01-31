@@ -72,28 +72,33 @@ public class ResponsesPerQuestionTest {
         //original knowledgeCalc will call the static function
         Question question1 = new Question("testQuestionId",  "test?", EquineQuestionTypes.structure.toString(), "Correct answer", Arrays.asList("Correct Answer", "Incorrect Answer"), "imageUrl");
         QuestionResponse qr1 = new QuestionResponse("Correct answer");
-        qr1.setMillSeconds(1);
+        qr1.setMillSeconds(1000);
         QuestionResponse qr2 = new QuestionResponse("Correct answer");
-        qr2.setMillSeconds(1);
-        ArrayList<QuestionResponse> questionResponseArraylist = new ArrayList<>(Arrays.asList(qr1, qr2));
+        qr2.setMillSeconds(2000);
+        QuestionResponse qr3 = new QuestionResponse("Incorect answer");
+        qr3.setMillSeconds(2000);
+        QuestionResponse qr4 = new QuestionResponse("correct answer");
+        qr4.setMillSeconds(102000);
+        QuestionResponse qr5 = new QuestionResponse("Incorect answer");
+        qr5.setMillSeconds(102000);
+        QuestionResponse qr6 = new QuestionResponse("correct Answer");
+        qr6.setMillSeconds(2000);
 
         //response has same capitalization, responses are within 30 sec
+        ArrayList<QuestionResponse> questionResponseArraylist = new ArrayList<>(Arrays.asList(qr2, qr1));
         assertEquals(100.0, ResponsesPerQuestion.knowledgeCalc(questionResponseArraylist, question1), 1);
 
         //response has different capitalization, responses are within 30 sec
-        qr2.setResponseText("correct Answer");
-        assertEquals(100.0, ResponsesPerQuestion.knowledgeCalc(questionResponseArraylist, question1), 1);
+        ArrayList<QuestionResponse> questionResponseArraylist2 = new ArrayList<>(Arrays.asList(qr6, qr1));
+        assertEquals(100.0, ResponsesPerQuestion.knowledgeCalc(questionResponseArraylist2, question1), 1);
 
-        //responses are over 30 seconds apart
-        Date date=new Date();
-        long newMillSeconds=date.getTime();
-        qr2.setMillSeconds(newMillSeconds + 40000);
-        assertEquals(100.0, ResponsesPerQuestion.knowledgeCalc(questionResponseArraylist, question1), 1);
+        //incorrect responses are over 30 seconds
+        ArrayList<QuestionResponse> questionResponseArraylist3 = new ArrayList<>(Arrays.asList(qr5, qr2, qr1));
+        assertEquals(100.0, ResponsesPerQuestion.knowledgeCalc(questionResponseArraylist3, question1), 1);
 
         //incorrect answer submitted within 30 seconds
-        QuestionResponse qr3 = new QuestionResponse("Incorrect");
-        questionResponseArraylist.add(0, qr3);
-        assertEquals(0.0, ResponsesPerQuestion.knowledgeCalc(questionResponseArraylist, question1), 1);
+        ArrayList<QuestionResponse> questionResponseArraylist4 = new ArrayList<>(Arrays.asList(qr3, qr2, qr1));
+        assertEquals(0.0, ResponsesPerQuestion.knowledgeCalc(questionResponseArraylist4, question1), 1);
     }
 
 

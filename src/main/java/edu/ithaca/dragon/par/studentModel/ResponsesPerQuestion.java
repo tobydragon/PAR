@@ -103,7 +103,6 @@ public class ResponsesPerQuestion {
         return false;
     }
 
-
     public void addNewResponse(String newResponse){
         //creates a new timestamp for new response
         QuestionResponse questionResponse=new QuestionResponse(newResponse);
@@ -115,7 +114,13 @@ public class ResponsesPerQuestion {
     }
 
     public static boolean checkIfAnswersAreCorrect(List<QuestionResponse> responsesToCheck, String correctAnswer){
-        return false;
+        //look oldest response to most recent because older responses are more likely to be incorrect
+        for(int i=responsesToCheck.size()-1; i>=0; i--){
+            if(!checkIfAnswerIsCorrect(responsesToCheck.get(i).getResponseText(), correctAnswer)){
+                return false;
+            }
+        }
+        return true;
     }
 
 
