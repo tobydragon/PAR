@@ -15,20 +15,9 @@ One instance of this system is currently being developed and tested with those i
 
 ## Master: [![CircleCI](https://circleci.com/gh/tobydragon/PAR/tree/master.svg?style=svg)](https://circleci.com/gh/tobydragon/PAR/tree/master)
 
-# Sprint 1
-A system that can generate and display complete imageTasks (an image with several related questions of different types), and score and store the results of the assesment
+### [Use Case Diagram](https://drive.google.com/file/d/1_G7bq2_z3fQ1a7Jyr3C9ewXK3StfCI2W/view?usp=sharing)
 
-### [Use Case Diagram](https://drive.google.com/file/d/1QTz--W0J2Ndkk39QbW9K4qkbaIEpPG40/view)
-
-### [Class Diagram](https://drive.google.com/file/d/1yWu4kD_JU9DjYumKP-gYLECOCFiK0NfK/view?usp=sharing)
-
-# Sprint 2
-A usable system in a example practice instance, with architecture decisions on the front end.
+### [Class Diagram](https://drive.google.com/file/d/1VdcpBtuRQkmUegNbxLKA2ve9hrQkaYYX/view?usp=sharing)
 
 ### [Sequence Diagram](https://drive.google.com/file/d/1ZpLw_vbLu6KnSWsBCviQYmpIlEqpbHq-/view)
 
-# Sprint 3
-Working Follow-up Questions
-
-# Sprint 4
-Allow authors to add Questions and working follow-up Questions
