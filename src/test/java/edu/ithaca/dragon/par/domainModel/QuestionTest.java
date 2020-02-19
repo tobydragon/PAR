@@ -37,12 +37,9 @@ public class QuestionTest {
         List<Question> list1b = qp.getAllQuestions();
         assertEquals(true, checkIfListsHaveSameQuestionObjects(list1a,list1b));
 
-        System.out.println(list1a.size());
-
         //the Lists are different size
         QuestionPool qp2 = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/SampleQuestionPool.json").getAllQuestions());
         List<Question> list1c = qp2.getAllQuestions();
-        System.out.println(list1a.size() + " " + list1c.size());
         assertEquals(false, checkIfListsHaveSameQuestionObjects(list1a,list1c));
 
         //The content of the Questions are the same, but they are different objects
