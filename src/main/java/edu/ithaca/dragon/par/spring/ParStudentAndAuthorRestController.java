@@ -31,14 +31,14 @@ public class ParStudentAndAuthorRestController {
         try {
             JsonAuthorDatastore jsonAuthorDatastore = new JsonAuthorDatastore(
                     "localData/currentAuthoredQuestions.json",
-                    "author/AuthorQuestionsDefault.json",
+                    "author/defaultAuthoredQuestions.json",
                     "localData/currentAuthorQuestionTemplates.json",
-                    "author/AuthorQuestionTemplatesDefault.json",
+                    "author/defaultAuthorQuestionTemplates.json",
                     "localData/currentAuthorModel.json",
                     jsonIoHelper);
             JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
                     "localData/currentQuestionPool.json",
-                    "author/DemoQuestionPool.json",
+                    "author/defaultQuestionPool.json",
                     jsonIoHelper,
                     "localData/students");
             parServer = new ParStudentAndAuthorServer(jsonStudentDatastore, jsonAuthorDatastore);
