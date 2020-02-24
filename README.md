@@ -19,5 +19,10 @@ One instance of this system is currently being developed and tested with those i
 
 ### [Class Diagram](https://drive.google.com/file/d/1VdcpBtuRQkmUegNbxLKA2ve9hrQkaYYX/view?usp=sharing)
 
-### [Sequence Diagram](https://drive.google.com/file/d/1ZpLw_vbLu6KnSWsBCviQYmpIlEqpbHq-/view)
+### [System Sequence Diagram](https://drive.google.com/file/d/1ZpLw_vbLu6KnSWsBCviQYmpIlEqpbHq-/view)
 
+### [NextImageTask Sequence Diagram] (https://drive.google.com/file/d/1RBhItftzkUX779wb1zv6xrgL1JMD_9Ml/view?usp=sharing)
+
+### [ImageTaskResponse Sequence Diagram] (https://drive.google.com/file/d/1ezNA_RqJq6m6WfHb4GVKs2Da-5AgYEPj/view?usp=sharing)
+
+### [KnowledgeBase Sequence Diagram] (https://drive.google.com/file/d/1hoSOBYlqthWcJqPFC217ngKczGZm1-C-/view?usp=sharing)
