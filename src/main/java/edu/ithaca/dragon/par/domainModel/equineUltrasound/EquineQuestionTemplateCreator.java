@@ -10,7 +10,7 @@ import java.util.List;
 
 public class EquineQuestionTemplateCreator {
 
-    static int nextIdNumberToGive = 100;
+    static int nextIdNumberToGive = 500;
 
     private static String createQuestionId(String identifier){
         String id = "" + nextIdNumberToGive + "-" +identifier;
@@ -19,13 +19,17 @@ public class EquineQuestionTemplateCreator {
     }
 
     public static final String planeQuestion = "On which plane is the ultrasound taken?";
-    public static final List<String> planeResponses = Arrays.asList("transverse", "longitudinal");
+    public static final List<String> planeResponses = Arrays.asList("transverse (short axis)", "longitudinal (long axis)");
 
     public static final List<String> structureQuestions = Arrays.asList(
-            "What is the the hyperechoic structure?",
-            "What is the the hypoechoic structure?",
-            "What is the structure in the near field?",
-            "What is the structure in the far field?");
+//            "What is the the hyperechoic structure?",
+//            "What is the the hypoechoic structure?",
+//            "What is the structure in the near field?",
+//            "What is the structure in the far field?",
+            null,
+            null,
+            null,
+            null);
 
     public static final List<String> structureResponses = Arrays.asList(
             "Superficial digital flexor tendon",
@@ -58,6 +62,7 @@ public class EquineQuestionTemplateCreator {
             "Proximal phalanx (P1)",
             "Middle phalanx (P2)",
             "Distal phalanx (P3)",
+            "Proximal sesamoid bones",
             "Both proximal and middle phalanxes",
             "Deep digital flexor tendon");
 
@@ -65,21 +70,21 @@ public class EquineQuestionTemplateCreator {
     public static final List<String> zoneResponses = Arrays.asList("1", "1A", "1B", "2", "2A", "2B", "3", "3A", "3B", "3C");
 
     public static List<Question> createQuestionsForImage(String imagePath){
-       List<Question> questions = new ArrayList<>();
-       questions.add(new Question(createQuestionId(EquineQuestionTypes.plane.toString()+"-"+imagePath),
-               planeQuestion,
-               EquineQuestionTypes.plane.toString(),
-               null,
-               planeResponses,
-               imagePath));
-       for (int i=0; i<structureQuestions.size(); i++){
-           String structureId = EquineQuestionTypes.structure.toString()+i+"-"+imagePath;
-           List<Question> attachmentQuestionsToAdd = createAttachmentQuestionsList(imagePath, structureId);
-           questions.add(new Question(createQuestionId(structureId), structureQuestions.get(i), EquineQuestionTypes.structure.toString(), null, structureResponses, imagePath, attachmentQuestionsToAdd));
-       }
-       questions.add(new Question(createQuestionId(EquineQuestionTypes.zone.toString()+"-"+imagePath), zoneQuestion,
+        List<Question> questions = new ArrayList<>();
+        questions.add(new Question(createQuestionId(EquineQuestionTypes.plane.toString()+"-"+imagePath),
+                planeQuestion,
+                EquineQuestionTypes.plane.toString(),
+                null,
+                planeResponses,
+                imagePath));
+        for (int i=0; i<structureQuestions.size(); i++){
+            String structureId = EquineQuestionTypes.structure.toString()+i+"-"+imagePath;
+            List<Question> attachmentQuestionsToAdd = createAttachmentQuestionsList(imagePath, structureId);
+            questions.add(new Question(createQuestionId(structureId), structureQuestions.get(i), EquineQuestionTypes.structure.toString(), null, structureResponses, imagePath, attachmentQuestionsToAdd));
+        }
+        questions.add(new Question(createQuestionId(EquineQuestionTypes.zone.toString()+"-"+imagePath), zoneQuestion,
                 EquineQuestionTypes.zone.toString(), null, zoneResponses, imagePath));
-       return questions;
+        return questions;
     }
 
     public static List<Question> createAttachmentQuestionsList(String imagePath, String structureId){
@@ -117,8 +122,9 @@ public class EquineQuestionTemplateCreator {
         String questionFileToCreate = "src/main/resources/author/generatedQuestions.json";
 
         try {
-            List<String> imageFilePaths = FileSystemUtil.addPathToFilenames(imagePathForJavascript,
-                    FileSystemUtil.findAllFileNamesInDir(imageFilePath, ".jpg"));
+            List<String> imageFilePaths = FileSystemUtil.addPathToFilenames(imagePathForJavascript, Arrays.asList("metacarpal15.jpg","metacarpal17.jpg","metacarpal38.jpg","metacarpal39.jpg"));
+                    //FileSystemUtil.findAllFileNamesInDir(imageFilePath, ".jpg"));
+
             List<Question> generatedQuestions = createQuestionsForImageList(imageFilePaths);
             JsonUtil.toJsonFile(questionFileToCreate, generatedQuestions);
         }

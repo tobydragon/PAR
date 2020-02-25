@@ -1,0 +1,513 @@
+[ {
+  "id" : "324-plane-./images/metacarpal56.jpg",
+  "type" : "plane",
+  "questionText" : "On which plane is the ultrasound taken?",
+  "correctAnswer" : "longitudinal (long axis)",
+  "possibleAnswers" : [ "transverse (short axis)", "longitudinal (long axis)" ],
+  "imageUrl" : "./images/metacarpal56.jpg",
+  "followupQuestions" : [ ]
+}, {
+  "id" : "327-structure0-./images/metacarpal56.jpg",
+  "type" : "structure",
+  "questionText" : "What structure is 2 cm deep?",
+  "correctAnswer" : "distal check ligament (accessory ligament of the deep digital flexor tendon)",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "Distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/metacarpal56.jpg",
+  "followupQuestions" : [ {
+    "id" : "325-attachment0-structure0-./images/metacarpal56.jpg",
+    "type" : "attachment",
+    "questionText" : "What is this structure’s proximal attachment?",
+    "correctAnswer" : "both the proximal metacarpus 3 and distal row of carpal bones",
+    "possibleAnswers" : [ "Medial humeral epicondyle", "Lateral humeral epicondyle", "Both the proximal metacarpus 3 and distal row of carpal bones", "Distal row of carpal bones", "proximal metacarpus 3" ],
+    "imageUrl" : "./images/metacarpal56.jpg",
+    "followupQuestions" : [ ]
+  }, {
+    "id" : "326-attachment1-structure0-./images/metacarpal56.jpg",
+    "type" : "attachment",
+    "questionText" : "What is this structure’s distal attachment?",
+    "correctAnswer" : "deep digital flexor tendon",
+    "possibleAnswers" : [ "Proximal phalanx (P1)", "Middle phalanx (P2)", "Distal phalanx (P3)", "Proximal sesamoid bones", "Both proximal and middle phalanxes", "Deep digital flexor tendon" ],
+    "imageUrl" : "./images/metacarpal56.jpg",
+    "followupQuestions" : [ ]
+  } ]
+}, {
+  "id" : "330-structure1-./images/metacarpal56.jpg",
+  "type" : "structure",
+  "questionText" : "What structure is in the near field?",
+  "correctAnswer" : "superficial digital flexor tendon",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "Distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/metacarpal56.jpg",
+  "followupQuestions" : [ {
+    "id" : "328-attachment0-structure1-./images/metacarpal56.jpg",
+    "type" : "attachment",
+    "questionText" : "What is this structure’s proximal attachment?",
+    "correctAnswer" : "medial humeral epicondyle",
+    "possibleAnswers" : [ "Medial humeral epicondyle", "Lateral humeral epicondyle", "Both the proximal metacarpus 3 and distal row of carpal bones", "Distal row of carpal bones", "proximal metacarpus 3" ],
+    "imageUrl" : "./images/metacarpal56.jpg",
+    "followupQuestions" : [ ]
+  }, {
+    "id" : "329-attachment1-structure1-./images/metacarpal56.jpg",
+    "type" : "attachment",
+    "questionText" : "What is this structure’s distal attachment?",
+    "correctAnswer" : "both proximal and middle phalanxes",
+    "possibleAnswers" : [ "Proximal phalanx (P1)", "Middle phalanx (P2)", "Distal phalanx (P3)", "Proximal sesamoid bones", "Both proximal and middle phalanxes", "Deep digital flexor tendon" ],
+    "imageUrl" : "./images/metacarpal56.jpg",
+    "followupQuestions" : [ ]
+  } ]
+}, {
+  "id" : "333-structure2-./images/metacarpal56.jpg",
+  "type" : "structure",
+  "questionText" : "What structure is hypoechoic?",
+  "correctAnswer" : "Palmar vessels (medial/lateral)",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "Distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/metacarpal56.jpg",
+  "followupQuestions" : [ ]
+}, {
+  "id" : "336-structure3-./images/metacarpal56.jpg",
+  "type" : "structure",
+  "questionText" : "What structure is hyperechoic?",
+  "correctAnswer" : "metacarpus bone 3 (third metacarpal bone)",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "Distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/metacarpal56.jpg",
+  "followupQuestions" : [ ]
+}, {
+  "id" : "337-zone-./images/metacarpal56.jpg",
+  "type" : "zone",
+  "questionText" : "In which zone is the ultrasound taken?",
+  "correctAnswer" : "2",
+  "possibleAnswers" : [ "1", "1A", "1B", "2", "2A", "2B", "3", "3A", "3B", "3C" ],
+  "imageUrl" : "./images/metacarpal56.jpg",
+  "followupQuestions" : [ ]
+}, {
+  "id" : "338-plane-./images/metacarpal42.jpg",
+  "type" : "plane",
+  "questionText" : "On which plane is the ultrasound taken?",
+  "correctAnswer" : "transverse (short axis)",
+  "possibleAnswers" : [ "transverse (short axis)", "longitudinal (long axis)" ],
+  "imageUrl" : "./images/metacarpal42.jpg",
+  "followupQuestions" : [ ]
+}, {
+  "id" : "341-structure0-./images/metacarpal42.jpg",
+  "type" : "structure",
+  "questionText" : "What structure is 1.5 cm deep?",
+  "correctAnswer" : "deep digital flexor tendon",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "Distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/metacarpal42.jpg",
+  "followupQuestions" : [ {
+    "id" : "339-attachment0-structure0-./images/metacarpal42.jpg",
+    "type" : "attachment",
+    "questionText" : "What is this structure’s proximal attachment?",
+    "correctAnswer" : "lateral humeral epicondyle",
+    "possibleAnswers" : [ "Medial humeral epicondyle", "Lateral humeral epicondyle", "Both the proximal metacarpus 3 and distal row of carpal bones", "Distal row of carpal bones", "proximal metacarpus 3" ],
+    "imageUrl" : "./images/metacarpal42.jpg",
+    "followupQuestions" : [ ]
+  }, {
+    "id" : "340-attachment1-structure0-./images/metacarpal42.jpg",
+    "type" : "attachment",
+    "questionText" : "What is this structure’s distal attachment?",
+    "correctAnswer" : "distal phalanx (p3)",
+    "possibleAnswers" : [ "Proximal phalanx (P1)", "Middle phalanx (P2)", "Distal phalanx (P3)", "Proximal sesamoid bones", "Both proximal and middle phalanxes", "Deep digital flexor tendon" ],
+    "imageUrl" : "./images/metacarpal42.jpg",
+    "followupQuestions" : [ ]
+  } ]
+}, {
+  "id" : "344-structure1-./images/metacarpal42.jpg",
+  "type" : "structure",
+  "questionText" : "What structure is 3 cm deep?",
+  "correctAnswer" : "suspensory ligament (branches)",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "Distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/metacarpal42.jpg",
+  "followupQuestions" : [ {
+    "id" : "342-attachment0-structure1-./images/metacarpal42.jpg",
+    "type" : "attachment",
+    "questionText" : "What is this structure’s proximal attachment?",
+    "correctAnswer" : "proximal metacarpus 3",
+    "possibleAnswers" : [ "Medial humeral epicondyle", "Lateral humeral epicondyle", "Both the proximal metacarpus 3 and distal row of carpal bones", "Distal row of carpal bones", "proximal metacarpus 3" ],
+    "imageUrl" : "./images/metacarpal42.jpg",
+    "followupQuestions" : [ ]
+  }, {
+    "id" : "342-attachment1-structure1-./images/metacarpal42.jpg",
+    "type" : "attachment",
+    "questionText" : "What is this structure’s distal attachment?",
+    "correctAnswer" : "Proximal sesamoid bones",
+    "possibleAnswers" : [ "Proximal phalanx (P1)", "Middle phalanx (P2)", "Distal phalanx (P3)", "Proximal sesamoid bones", "Both proximal and middle phalanxes", "Deep digital flexor tendon" ],
+    "imageUrl" : "./images/metacarpal56.jpg",
+    "followupQuestions" : [ ]
+  } ]
+}, {
+  "id" : "347-structure2-./images/metacarpal42.jpg",
+  "type" : "structure",
+  "questionText" : "What structure is in the near field?",
+  "correctAnswer" : "superficial digital flexor tendon",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "Distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/metacarpal42.jpg",
+  "followupQuestions" : [ {
+    "id" : "345-attachment0-structure2-./images/metacarpal42.jpg",
+    "type" : "attachment",
+    "questionText" : "What is this structure’s proximal attachment?",
+    "correctAnswer" : "medial humeral epicondyle",
+    "possibleAnswers" : [ "Medial humeral epicondyle", "Lateral humeral epicondyle", "Both the proximal metacarpus 3 and distal row of carpal bones", "Distal row of carpal bones", "proximal metacarpus 3" ],
+    "imageUrl" : "./images/metacarpal42.jpg",
+    "followupQuestions" : [ ]
+  }, {
+    "id" : "346-attachment1-structure2-./images/metacarpal42.jpg",
+    "type" : "attachment",
+    "questionText" : "What is this structure’s distal attachment?",
+    "correctAnswer" : "both proximal and middle phalanxes",
+    "possibleAnswers" : [ "Proximal phalanx (P1)", "Middle phalanx (P2)", "Distal phalanx (P3)", "Proximal sesamoid bones", "Both proximal and middle phalanxes", "Deep digital flexor tendon" ],
+    "imageUrl" : "./images/metacarpal42.jpg",
+    "followupQuestions" : [ ]
+  } ]
+}, {
+  "id" : "350-structure3-./images/metacarpal42.jpg",
+  "type" : "structure",
+  "questionText" : "What structure is in the far field?",
+  "correctAnswer" : "metacarpus bone 3 (third metacarpal bone)",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "Distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/metacarpal42.jpg",
+  "followupQuestions" : [ ]
+}, {
+  "id" : "351-zone-./images/metacarpal42.jpg",
+  "type" : "zone",
+  "questionText" : "In which zone is the ultrasound taken?",
+  "correctAnswer" : "3a",
+  "possibleAnswers" : [ "1", "1A", "1B", "2", "2A", "2B", "3", "3A", "3B", "3C" ],
+  "imageUrl" : "./images/metacarpal42.jpg",
+  "followupQuestions" : [ ]
+}, {
+  "id" : "366-plane-./images/metacarpal41.jpg",
+  "type" : "plane",
+  "questionText" : "On which plane is the ultrasound taken?",
+  "correctAnswer" : "transverse (short axis)",
+  "possibleAnswers" : [ "transverse (short axis)", "longitudinal (long axis)" ],
+  "imageUrl" : "./images/metacarpal41.jpg",
+  "followupQuestions" : [ ]
+}, {
+  "id" : "369-structure0-./images/metacarpal41.jpg",
+  "type" : "structure",
+  "questionText" : "What structure is in the near field?",
+  "correctAnswer" : "superficial digital flexor tendon",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "Distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/metacarpal41.jpg",
+  "followupQuestions" : [ {
+    "id" : "367-attachment0-structure0-./images/metacarpal41.jpg",
+    "type" : "attachment",
+    "questionText" : "What is this structure’s proximal attachment?",
+    "correctAnswer" : "medial humeral epicondyle",
+    "possibleAnswers" : [ "Medial humeral epicondyle", "Lateral humeral epicondyle", "Both the proximal metacarpus 3 and distal row of carpal bones", "Distal row of carpal bones", "proximal metacarpus 3" ],
+    "imageUrl" : "./images/metacarpal41.jpg",
+    "followupQuestions" : [ ]
+  }, {
+    "id" : "368-attachment1-structure0-./images/metacarpal41.jpg",
+    "type" : "attachment",
+    "questionText" : "What is this structure’s distal attachment?",
+    "correctAnswer" : "both proximal and middle phalanxes",
+    "possibleAnswers" : [ "Proximal phalanx (P1)", "Middle phalanx (P2)", "Distal phalanx (P3)", "Proximal sesamoid bones", "Both proximal and middle phalanxes", "Deep digital flexor tendon" ],
+    "imageUrl" : "./images/metacarpal41.jpg",
+    "followupQuestions" : [ ]
+  } ]
+}, {
+  "id" : "372-structure1-./images/metacarpal41.jpg",
+  "type" : "structure",
+  "questionText" : "What structure is hypoechoic?",
+  "correctAnswer" : "palmar vessels (medial/lateral)",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "Distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/metacarpal41.jpg",
+  "followupQuestions" : [ ]
+}, {
+  "id" : "375-structure2-./images/metacarpal41.jpg",
+  "type" : "structure",
+  "questionText" : "What structure is 3 cm deep?",
+  "correctAnswer" : "suspensory ligament (body)",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "Distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/metacarpal41.jpg",
+  "followupQuestions" : [ {
+    "id" : "373-attachment0-structure2-./images/metacarpal41.jpg",
+    "type" : "attachment",
+    "questionText" : "What is this structure’s proximal attachment?",
+    "correctAnswer" : "proximal metacarpus 3",
+    "possibleAnswers" : [ "Medial humeral epicondyle", "Lateral humeral epicondyle", "Both the proximal metacarpus 3 and distal row of carpal bones", "Distal row of carpal bones", "proximal metacarpus 3" ],
+    "imageUrl" : "./images/metacarpal41.jpg",
+    "followupQuestions" : [ ]
+  }, {
+    "id" : "374-attachment1-structure2-./images/metacarpal41.jpg",
+    "type" : "attachment",
+    "questionText" : "What is this structure’s distal attachment?",
+    "correctAnswer" : "Proximal sesamoid bones",
+    "possibleAnswers" : [ "Proximal phalanx (P1)", "Middle phalanx (P2)", "Distal phalanx (P3)", "Proximal sesamoid bones", "Both proximal and middle phalanxes", "Deep digital flexor tendon" ],
+    "imageUrl" : "./images/metacarpal41.jpg",
+    "followupQuestions" : [ ]
+  } ]
+}, {
+  "id" : "378-structure3-./images/metacarpal41.jpg",
+  "type" : "structure",
+  "questionText" : "What structure is 1.5 cm deep?",
+  "correctAnswer" : "deep digital flexor tendon",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "Distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/metacarpal41.jpg",
+  "followupQuestions" : [ {
+    "id" : "376-attachment0-structure3-./images/metacarpal41.jpg",
+    "type" : "attachment",
+    "questionText" : "What is this structure’s proximal attachment?",
+    "correctAnswer" : "lateral humeral epicondyle",
+    "possibleAnswers" : [ "Medial humeral epicondyle", "Lateral humeral epicondyle", "Both the proximal metacarpus 3 and distal row of carpal bones", "Distal row of carpal bones", "proximal metacarpus 3" ],
+    "imageUrl" : "./images/metacarpal41.jpg",
+    "followupQuestions" : [ ]
+  }, {
+    "id" : "377-attachment1-structure3-./images/metacarpal41.jpg",
+    "type" : "attachment",
+    "questionText" : "What is this structure’s distal attachment?",
+    "correctAnswer" : "distal phalanx (p3)",
+    "possibleAnswers" : [ "Proximal phalanx (P1)", "Middle phalanx (P2)", "Distal phalanx (P3)", "Proximal sesamoid bones", "Both proximal and middle phalanxes", "Deep digital flexor tendon" ],
+    "imageUrl" : "./images/metacarpal41.jpg",
+    "followupQuestions" : [ ]
+  } ]
+}, {
+  "id" : "379-zone-./images/metacarpal41.jpg",
+  "type" : "zone",
+  "questionText" : "In which zone is the ultrasound taken?",
+  "correctAnswer" : "2b",
+  "possibleAnswers" : [ "1", "1A", "1B", "2", "2A", "2B", "3", "3A", "3B", "3C" ],
+  "imageUrl" : "./images/metacarpal41.jpg",
+  "followupQuestions" : [ ]
+}, {
+  "id" : "450-plane-./images/metacarpal25.jpg",
+  "type" : "plane",
+  "questionText" : "On which plane is the ultrasound taken?",
+  "correctAnswer" : "transverse (short axis)",
+  "possibleAnswers" : [ "transverse (short axis)", "longitudinal (long axis)" ],
+  "imageUrl" : "./images/metacarpal25.jpg",
+  "followupQuestions" : [ ]
+}, {
+  "id" : "453-structure0-./images/metacarpal25.jpg",
+  "type" : "structure",
+  "questionText" : "What structure is 3 cm deep?",
+  "correctAnswer" : "suspensory ligament (branches)",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "Distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/metacarpal25.jpg",
+  "followupQuestions" : [ {
+    "id" : "451-attachment0-structure0-./images/metacarpal25.jpg",
+    "type" : "attachment",
+    "questionText" : "What is this structure’s proximal attachment?",
+    "correctAnswer" : "proximal metacarpus 3",
+    "possibleAnswers" : [ "Medial humeral epicondyle", "Lateral humeral epicondyle", "Both the proximal metacarpus 3 and distal row of carpal bones", "Distal row of carpal bones", "proximal metacarpus 3" ],
+    "imageUrl" : "./images/metacarpal25.jpg",
+    "followupQuestions" : [ ]
+  }, {
+    "id" : "374-attachment1-structure2-./images/metacarpal25.jpg",
+    "type" : "attachment",
+    "questionText" : "What is this structure’s distal attachment?",
+    "correctAnswer" : "Proximal sesamoid bones",
+    "possibleAnswers" : [ "Proximal phalanx (P1)", "Middle phalanx (P2)", "Distal phalanx (P3)", "Proximal sesamoid bones", "Both proximal and middle phalanxes", "Deep digital flexor tendon" ],
+    "imageUrl" : "./images/metacarpal25.jpg",
+    "followupQuestions" : [ ]
+  } ]
+}, {
+  "id" : "456-structure1-./images/metacarpal25.jpg",
+  "type" : "structure",
+  "questionText" : "What structure is 1.5 cm deep?",
+  "correctAnswer" : "deep digital flexor tendon",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "Distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/metacarpal25.jpg",
+  "followupQuestions" : [ {
+    "id" : "454-attachment0-structure1-./images/metacarpal25.jpg",
+    "type" : "attachment",
+    "questionText" : "What is this structure’s proximal attachment?",
+    "correctAnswer" : "lateral humeral epicondyle",
+    "possibleAnswers" : [ "Medial humeral epicondyle", "Lateral humeral epicondyle", "Both the proximal metacarpus 3 and distal row of carpal bones", "Distal row of carpal bones", "proximal metacarpus 3" ],
+    "imageUrl" : "./images/metacarpal25.jpg",
+    "followupQuestions" : [ ]
+  }, {
+    "id" : "455-attachment1-structure1-./images/metacarpal25.jpg",
+    "type" : "attachment",
+    "questionText" : "What is this structure’s distal attachment?",
+    "correctAnswer" : "distal phalanx (p3)",
+    "possibleAnswers" : [ "Proximal phalanx (P1)", "Middle phalanx (P2)", "Distal phalanx (P3)", "Proximal sesamoid bones", "Both proximal and middle phalanxes", "Deep digital flexor tendon" ],
+    "imageUrl" : "./images/metacarpal25.jpg",
+    "followupQuestions" : [ ]
+  } ]
+}, {
+  "id" : "463-zone-./images/metacarpal25.jpg",
+  "type" : "zone",
+  "questionText" : "In which zone is the ultrasound taken?",
+  "correctAnswer" : "3b",
+  "possibleAnswers" : [ "1", "1A", "1B", "2", "2A", "2B", "3", "3A", "3B", "3C" ],
+  "imageUrl" : "./images/metacarpal25.jpg",
+  "followupQuestions" : [ ]
+}, {
+  "id" : "464-plane-./images/metacarpal19.jpg",
+  "type" : "plane",
+  "questionText" : "On which plane is the ultrasound taken?",
+  "correctAnswer" : "transverse (short axis)",
+  "possibleAnswers" : [ "transverse (short axis)", "longitudinal (long axis)" ],
+  "imageUrl" : "./images/metacarpal19.jpg",
+  "followupQuestions" : [ ]
+}, {
+  "id" : "467-structure0-./images/metacarpal19.jpg",
+  "type" : "structure",
+  "questionText" : "What structure is in the far field?",
+  "correctAnswer" : "metacarpus bone 3 (third metacarpal bone)",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "Distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/metacarpal19.jpg",
+  "followupQuestions" : [ ]
+}, {
+  "id" : "470-structure1-./images/metacarpal19.jpg",
+  "type" : "structure",
+  "questionText" : "What structure is 3 cm deep?",
+  "correctAnswer" : "suspensory ligament (body)",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "Distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/metacarpal19.jpg",
+  "followupQuestions" : [ {
+    "id" : "468-attachment0-structure1-./images/metacarpal19.jpg",
+    "type" : "attachment",
+    "questionText" : "What is this structure’s proximal attachment?",
+    "correctAnswer" : "proximal metacarpus 3",
+    "possibleAnswers" : [ "Medial humeral epicondyle", "Lateral humeral epicondyle", "Both the proximal metacarpus 3 and distal row of carpal bones", "Distal row of carpal bones", "proximal metacarpus 3" ],
+    "imageUrl" : "./images/metacarpal19.jpg",
+    "followupQuestions" : [ ]
+  }, {
+    "id" : "374-attachment1-structure2-./images/metacarpal19.jpg",
+    "type" : "attachment",
+    "questionText" : "What is this structure’s distal attachment?",
+    "correctAnswer" : "Proximal sesamoid bones",
+    "possibleAnswers" : [ "Proximal phalanx (P1)", "Middle phalanx (P2)", "Distal phalanx (P3)", "Proximal sesamoid bones", "Both proximal and middle phalanxes", "Deep digital flexor tendon" ],
+    "imageUrl" : "./images/metacarpal19.jpg",
+    "followupQuestions" : [ ]
+  } ]
+}, {
+  "id" : "473-structure2-./images/metacarpal19.jpg",
+  "type" : "structure",
+  "questionText" : "What is the hypoechoic structure?",
+  "correctAnswer" : "palmar vessels (medial/lateral)",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "Distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/metacarpal19.jpg",
+  "followupQuestions" : [ ]
+}, {
+  "id" : "476-structure3-./images/metacarpal19.jpg",
+  "type" : "structure",
+  "questionText" : "What structure is in the near field?",
+  "correctAnswer" : "superficial digital flexor tendon",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "Distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/metacarpal19.jpg",
+  "followupQuestions" : [ {
+    "id" : "474-attachment0-structure3-./images/metacarpal19.jpg",
+    "type" : "attachment",
+    "questionText" : "What is this structure’s proximal attachment?",
+    "correctAnswer" : "medial humeral epicondyle",
+    "possibleAnswers" : [ "Medial humeral epicondyle", "Lateral humeral epicondyle", "Both the proximal metacarpus 3 and distal row of carpal bones", "Distal row of carpal bones", "proximal metacarpus 3" ],
+    "imageUrl" : "./images/metacarpal19.jpg",
+    "followupQuestions" : [ ]
+  }, {
+    "id" : "475-attachment1-structure3-./images/metacarpal19.jpg",
+    "type" : "attachment",
+    "questionText" : "What is this structure’s distal attachment?",
+    "correctAnswer" : "both proximal and middle phalanxes",
+    "possibleAnswers" : [ "Proximal phalanx (P1)", "Middle phalanx (P2)", "Distal phalanx (P3)", "Proximal sesamoid bones", "Both proximal and middle phalanxes", "Deep digital flexor tendon" ],
+    "imageUrl" : "./images/metacarpal19.jpg",
+    "followupQuestions" : [ ]
+  } ]
+}, {
+  "id" : "477-zone-./images/metacarpal19.jpg",
+  "type" : "zone",
+  "questionText" : "In which zone is the ultrasound taken?",
+  "correctAnswer" : "2a",
+  "possibleAnswers" : [ "1", "1A", "1B", "2", "2A", "2B", "3", "3A", "3B", "3C" ],
+  "imageUrl" : "./images/metacarpal19.jpg",
+  "followupQuestions" : [ ]
+}, {
+  "id" : "478-plane-./images/metacarpal37.jpg",
+  "type" : "plane",
+  "questionText" : "On which plane is the ultrasound taken?",
+  "correctAnswer" : "transverse (short axis)",
+  "possibleAnswers" : [ "transverse (short axis)", "longitudinal (long axis)" ],
+  "imageUrl" : "./images/metacarpal37.jpg",
+  "followupQuestions" : [ ]
+}, {
+  "id" : "481-structure0-./images/metacarpal37.jpg",
+  "type" : "structure",
+  "questionText" : "What structure is 1 cm deep?",
+  "correctAnswer" : "superficial digital flexor tendon",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "Distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/metacarpal37.jpg",
+  "followupQuestions" : [ {
+    "id" : "479-attachment0-structure0-./images/metacarpal37.jpg",
+    "type" : "attachment",
+    "questionText" : "What is this structure’s proximal attachment?",
+    "correctAnswer" : "medial humeral epicondyle",
+    "possibleAnswers" : [ "Medial humeral epicondyle", "Lateral humeral epicondyle", "Both the proximal metacarpus 3 and distal row of carpal bones", "Distal row of carpal bones", "proximal metacarpus 3" ],
+    "imageUrl" : "./images/metacarpal37.jpg",
+    "followupQuestions" : [ ]
+  }, {
+    "id" : "480-attachment1-structure0-./images/metacarpal37.jpg",
+    "type" : "attachment",
+    "questionText" : "What is this structure’s distal attachment?",
+    "correctAnswer" : "both proximal and middle phalanxes",
+    "possibleAnswers" : [ "Proximal phalanx (P1)", "Middle phalanx (P2)", "Distal phalanx (P3)", "Proximal sesamoid bones", "Both proximal and middle phalanxes", "Deep digital flexor tendon" ],
+    "imageUrl" : "./images/metacarpal37.jpg",
+    "followupQuestions" : [ ]
+  } ]
+}, {
+  "id" : "484-structure1-./images/metacarpal37.jpg",
+  "type" : "structure",
+  "questionText" : "What structure is 2.5 cm deep?",
+  "correctAnswer" : "distal check ligament (accessory ligament of the deep digital flexor tendon)",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "Distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/metacarpal37.jpg",
+  "followupQuestions" : [ {
+    "id" : "482-attachment0-structure1-./images/metacarpal37.jpg",
+    "type" : "attachment",
+    "questionText" : "What is this structure’s proximal attachment?",
+    "correctAnswer" : "both the proximal metacarpus 3 and distal row of carpal bones",
+    "possibleAnswers" : [ "Medial humeral epicondyle", "Lateral humeral epicondyle", "Both the proximal metacarpus 3 and distal row of carpal bones", "Distal row of carpal bones", "proximal metacarpus 3" ],
+    "imageUrl" : "./images/metacarpal37.jpg",
+    "followupQuestions" : [ ]
+  }, {
+    "id" : "483-attachment1-structure1-./images/metacarpal37.jpg",
+    "type" : "attachment",
+    "questionText" : "What is this structure’s distal attachment?",
+    "correctAnswer" : "deep digital flexor tendon",
+    "possibleAnswers" : [ "Proximal phalanx (P1)", "Middle phalanx (P2)", "Distal phalanx (P3)", "Proximal sesamoid bones", "Both proximal and middle phalanxes", "Deep digital flexor tendon" ],
+    "imageUrl" : "./images/metacarpal37.jpg",
+    "followupQuestions" : [ ]
+  } ]
+}, {
+  "id" : "487-structure2-./images/metacarpal37.jpg",
+  "type" : "structure",
+  "questionText" : "What structure is in the far field?",
+  "correctAnswer" : "metacarpus bone 3 (third metacarpal bone)",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "Distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/metacarpal37.jpg",
+  "followupQuestions" : [ ]
+}, {
+  "id" : "490-structure3-./images/metacarpal37.jpg",
+  "type" : "structure",
+  "questionText" : "What structure is 1.5 cm deep?",
+  "correctAnswer" : "deep digital flexor tendon",
+  "possibleAnswers" : [ "Superficial digital flexor tendon", "Deep digital flexor tendon", "Suspensory ligament (body)", "Suspensory ligament (branches)", "Distal check ligament (accessory ligament of the deep digital flexor tendon)", "Metacarpus bone 3 (Third metacarpal bone)", "Proximal sesamoid bones", "P1 (First phalanx)", "P2 (Second phalanx)", "Distal sesamoidean ligaments – straight and oblique)", "Palmar annular ligament", "Palmar ligament", "Palmar vessels (medial/lateral)", "Palmar metacarpal vessels (medial/lateral)" ],
+  "imageUrl" : "./images/metacarpal37.jpg",
+  "followupQuestions" : [ {
+    "id" : "488-attachment0-structure3-./images/metacarpal37.jpg",
+    "type" : "attachment",
+    "questionText" : "What is this structure’s proximal attachment?",
+    "correctAnswer" : "lateral humeral epicondyle",
+    "possibleAnswers" : [ "Medial humeral epicondyle", "Lateral humeral epicondyle", "Both the proximal metacarpus 3 and distal row of carpal bones", "Distal row of carpal bones", "proximal metacarpus 3" ],
+    "imageUrl" : "./images/metacarpal37.jpg",
+    "followupQuestions" : [ ]
+  }, {
+    "id" : "489-attachment1-structure3-./images/metacarpal37.jpg",
+    "type" : "attachment",
+    "questionText" : "What is this structure’s distal attachment?",
+    "correctAnswer" : "distal phalanx (p3)",
+    "possibleAnswers" : [ "Proximal phalanx (P1)", "Middle phalanx (P2)", "Distal phalanx (P3)", "Proximal sesamoid bones", "Both proximal and middle phalanxes", "Deep digital flexor tendon" ],
+    "imageUrl" : "./images/metacarpal37.jpg",
+    "followupQuestions" : [ ]
+  } ]
+}, {
+  "id" : "491-zone-./images/metacarpal37.jpg",
+  "type" : "zone",
+  "questionText" : "In which zone is the ultrasound taken?",
+  "correctAnswer" : "1b",
+  "possibleAnswers" : [ "1", "1A", "1B", "2", "2A", "2B", "3", "3A", "3B", "3C" ],
+  "imageUrl" : "./images/metacarpal37.jpg",
+  "followupQuestions" : [ ]
+} ]

@@ -8,7 +8,7 @@ public class QuestionResponseTest {
     @Test
     public void getSecondsTest() {
         QuestionResponse questionResponse = new QuestionResponse("answer");
-        // System.out.println(questionResponse.getResponseText());
+        // System.out.println(questionResponse.getAnswerText());
     }
 
 }

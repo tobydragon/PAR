@@ -1,10 +1,9 @@
 var User;
-var bottomText = ["Ready... Set... PAR!", "You're going to be amazing!", "A PAR employee will never ask for your password", "Time to rock the show!"];
+var bottomText = ["Ready... Set... PAR!", "You're going to be amazing!"];
 
 
 function getRandomNumber(num) {
-    var rand = Math.floor(Math.random() * num)
-    return rand;
+    return Math.floor(Math.random() * num);
 }
 
 function setBottomText() {
@@ -21,7 +20,18 @@ function setUserId() {
 function login() {
     setUserId();
     try {
-        return location.replace('/imageTaskView?userId=' + User);
+        return location.replace('/studentView?userId=' + User);
+    } catch (Exception) {
+        window.onerror = function (msg) {
+            location.replace('/error?message=' + msg);
+        }
+    }
+}
+
+function author() {
+    setUserId();
+    try {
+        return location.replace('/authorFromTemplateView?userId=' + User);
     } catch (Exception) {
         window.onerror = function (msg) {
             location.replace('/error?message=' + msg);

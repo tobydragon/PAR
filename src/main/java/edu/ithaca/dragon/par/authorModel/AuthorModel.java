@@ -19,15 +19,20 @@ public class AuthorModel {
      * Removes a question from the list of questionCounts, and returns the question object
      */
     public Question removeQuestion(String questionId){
+        QuestionCount toRemove = null;
         for(QuestionCount questionCount : questionCountList){
             if(questionCount.getQuestion().getId().equals(questionId)){
-                Question q = questionCount.getQuestion();
-                questionCountList.remove(questionCount);
-                return q;
+                toRemove = questionCount;
             }
         }
-
-        throw new InvalidParameterException("Question with id:" + questionId + " does not exist in authorModel:" + authorId);
+        if (toRemove != null) {
+            Question q = toRemove.getQuestion();
+            questionCountList.remove(toRemove);
+            return q;
+        }
+        else {
+            throw new InvalidParameterException("Question with id:" + questionId + " does not exist in authorModel:" + authorId);
+        }
     }
 
     public String getAuthorId() {

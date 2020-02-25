@@ -16,6 +16,7 @@ class EquineQuestionTemplateCreatorTest {
     void createQuestionsForImageTest() throws IOException {
         List<Question> questions = EquineQuestionTemplateCreator.createQuestionsForImage("equineTest.jpg");
         assertEquals(6, questions.size());
+
     }
 
     @Test
@@ -28,6 +29,5 @@ class EquineQuestionTemplateCreatorTest {
     void createAttachmentQuestionsListTest(){
         List<Question> questions = EquineQuestionTemplateCreator.createAttachmentQuestionsList("equineTest.jpg", "structure1-equineTest.jpg");
         assertEquals(2, questions.size());
-        System.out.println(questions.get(0));
     }
 }

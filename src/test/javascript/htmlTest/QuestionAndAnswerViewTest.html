@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TextEntryAnswerTest</title>
+    <script type="text/javascript" src="../../../main/resources/static/js/AnswerController.js"></script>
+    <script type="text/javascript" src="../../../main/resources/static/js/QuestionController.js"></script>
+    <script type="text/javascript" src="../../../main/resources/static/js/QuestionAndAnswerController.js"></script>
+    <script type="text/javascript" src="../../../main/resources/static/js/comm/QuestionResponse.js"></script>
+
+    <link rel="stylesheet" href="../../../main/resources/static/css/style.css">
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
+</head>
+
+<body>
+    <div id="response">
+    </div>
+    <script>
+        qaModel = {
+            id: "qa31",
+            questionText:null,
+            possibleAnswers: ["transverse", "Both proximal and middle phalanxes"],
+            correctAnswer: "transverse"
+
+        };
+        test = new QuestionAndAnswerController(qaModel);
+        document.getElementById("response").appendChild(test.element);
+    </script>
+    <button type="button" class="btn btn-login" id="checkButton" onclick="console.log(test.getResponse())">
+        check response
+    </button>
+</body></html>

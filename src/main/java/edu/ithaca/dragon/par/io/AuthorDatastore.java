@@ -12,7 +12,9 @@ public interface AuthorDatastore {
     //used only for testing currently
     Question findTopLevelQuestionById(String questionId);
 
-    void addQuestion(Question question) throws IOException;
+    void addQuestionToQuestionsDatastore(Question question) throws IOException;
+
+    void addQuestionToQuestionTemplateDatastore(Question question) throws IOException;
 
     void removeQuestionTemplateById(String templateId) throws IOException;
 

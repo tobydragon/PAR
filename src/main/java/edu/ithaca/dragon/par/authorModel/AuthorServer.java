@@ -1,7 +1,6 @@
 package edu.ithaca.dragon.par.authorModel;
 
 import edu.ithaca.dragon.par.domainModel.Question;
-import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.io.*;
 
 import java.io.IOException;
@@ -20,12 +19,12 @@ public class AuthorServer {
         return AuthorTaskGenerator.makeTaskTemplate(authorDatastore.getAuthorModel());
     }
 
-    public void imageTaskResponseSubmitted(ImageTaskResponse imageTaskResponse) throws IOException{
+    public void imageTaskResponseSubmitted(ImageTaskResponseOOP imageTaskResponse) throws IOException{
         for(String currId : imageTaskResponse.getTaskQuestionIds()){
             Question currQuestion = authorDatastore.findTopLevelQuestionTemplateById(currId);
             if(currQuestion != null){
                 Question newQuestion = buildQuestionFromTemplate(currQuestion, imageTaskResponse);
-                authorDatastore.addQuestion(newQuestion);
+                authorDatastore.addQuestionToQuestionsDatastore(newQuestion);
                 authorDatastore.removeQuestionTemplateById(currQuestion.getId());
             }
         }
@@ -35,7 +34,8 @@ public class AuthorServer {
         return AuthorTaskGenerator.authoredQuestions(authorDatastore.getAllAuthoredQuestions());
     }
 
-    public static Question buildQuestionFromTemplate(Question questionIn, ImageTaskResponse imageTaskResponse){
+    public static Question buildQuestionFromTemplate(Question questionIn, ImageTaskResponseOOP imageTaskResponse){
+        String questionText = imageTaskResponse.findQuestionTextOfQuestion(questionIn);
         String answer = imageTaskResponse.findResponseToQuestion(questionIn);
         if(answer == null){
             return null;
@@ -47,7 +47,10 @@ public class AuthorServer {
                 followupQuestions.add(newFollowUp);
             }
         }
-        return new Question(questionIn, answer.toLowerCase(), followupQuestions);
+        if (questionText == null)
+            return new Question(questionIn, answer.toLowerCase(), followupQuestions);
+        else //it is a custom question
+            return new Question(questionIn, questionText, answer.toLowerCase(), followupQuestions);
     }
 
     //removes and returns all questions that are authored (leaving a blank question file for authored questions)

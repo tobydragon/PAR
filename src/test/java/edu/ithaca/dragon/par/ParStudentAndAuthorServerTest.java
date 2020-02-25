@@ -2,15 +2,20 @@ package edu.ithaca.dragon.par;
 
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.*;
-import edu.ithaca.dragon.util.DataUtil;
+import edu.ithaca.dragon.par.studentModel.ResponsesPerQuestion;
+import edu.ithaca.dragon.par.studentModel.UserResponseSet;
 import edu.ithaca.dragon.util.JsonIoHelperDefault;
 import edu.ithaca.dragon.util.JsonIoUtil;
+import edu.ithaca.dragon.util.JsonUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -127,14 +132,14 @@ class ParStudentAndAuthorServerTest {
 
         ParStudentAndAuthorServer parStudentAndAuthorServer = new ParStudentAndAuthorServer(jsonStudentDatastore, null);
 
-        ImageTaskResponse responseSet2=new ImageTaskResponse("response1", Arrays.asList("PlaneQ1", "PlaneQ2", "PlaneQ3", "PlaneQ4", "PlaneQ5", "StructureQ1", "StructureQ2", "StructureQ3", "StructureQ4", "StructureQ5", "ZoneQ1", "ZoneQ2", "ZoneQ3", "ZoneQ4", "ZoneQ5"),Arrays.asList("Latera", "Transvers", "Latera", "Latera", "Transvers", "bone", "ligament", "tendon", "bone", "tumor", "3c", "1b", "3c", "2a", "2b"));
-        ImageTaskResponse responseSet3=new ImageTaskResponse("response1", Arrays.asList("PlaneQ1", "PlaneQ2", "PlaneQ3", "PlaneQ4", "PlaneQ5", "StructureQ1", "StructureQ2", "StructureQ3", "StructureQ4", "StructureQ5", "ZoneQ1", "ZoneQ2", "ZoneQ3", "ZoneQ4", "ZoneQ5"),Arrays.asList("I'm","bad","student","I'm","bad","student","I'm","bad","student","I'm","bad","student","I'm","bad","student"));
-        List<ImageTaskResponse> responsesFromFile = new JsonIoUtil(new JsonIoHelperDefault()).listFromFile("src/test/resources/author/SampleResponses.json", ImageTaskResponse.class);
+        ImageTaskResponseOOP responseSet2=new ImageTaskResponseOOP("response1", Arrays.asList("PlaneQ1", "PlaneQ2", "PlaneQ3", "PlaneQ4", "PlaneQ5", "StructureQ1", "StructureQ2", "StructureQ3", "StructureQ4", "StructureQ5", "ZoneQ1", "ZoneQ2", "ZoneQ3", "ZoneQ4", "ZoneQ5"),Arrays.asList("Latera", "Transvers", "Latera", "Latera", "Transvers", "bone", "ligament", "tendon", "bone", "tumor", "3c", "1b", "3c", "2a", "2b"));
+        ImageTaskResponseOOP responseSet3=new ImageTaskResponseOOP("response1", Arrays.asList("PlaneQ1", "PlaneQ2", "PlaneQ3", "PlaneQ4", "PlaneQ5", "StructureQ1", "StructureQ2", "StructureQ3", "StructureQ4", "StructureQ5", "ZoneQ1", "ZoneQ2", "ZoneQ3", "ZoneQ4", "ZoneQ5"),Arrays.asList("I'm","bad","student","I'm","bad","student","I'm","bad","student","I'm","bad","student","I'm","bad","student"));
+        List<ImageTaskResponseOOP> responsesFromFile = new JsonIoUtil(new JsonIoHelperDefault()).listFromFile("src/test/resources/author/SampleResponses.json", ImageTaskResponseOOP.class);
 
         //star student
-        ImageTaskResponse imageTaskResponse = responsesFromFile.get(0);
-        imageTaskResponse.setUserId("s1");
-        parStudentAndAuthorServer.submitImageTaskResponse(imageTaskResponse);//gives responses from response file
+        ImageTaskResponseOOP imageTaskResponseImp1 = responsesFromFile.get(0);
+        imageTaskResponseImp1.setUserId("s1");
+        parStudentAndAuthorServer.submitImageTaskResponse(imageTaskResponseImp1);//gives responses from response file
         assertEquals("100.000",parStudentAndAuthorServer.calcOverallKnowledgeEstimate("s1"));
 
 
@@ -143,15 +148,15 @@ class ParStudentAndAuthorServerTest {
         assertEquals("83.333",parStudentAndAuthorServer.calcOverallKnowledgeEstimate("s2"));
         //score should stay the same even when the correct answers are entered afterwards since they were all answered in a
         //time window that didnt exceed 30 seconds
-        imageTaskResponse.setUserId("s2");
-        parStudentAndAuthorServer.submitImageTaskResponse(imageTaskResponse);
+        imageTaskResponseImp1.setUserId("s2");
+        parStudentAndAuthorServer.submitImageTaskResponse(imageTaskResponseImp1);
         assertEquals("83.333",parStudentAndAuthorServer.calcOverallKnowledgeEstimate("s2"));
-        parStudentAndAuthorServer.submitImageTaskResponse(imageTaskResponse);
+        parStudentAndAuthorServer.submitImageTaskResponse(imageTaskResponseImp1);
         assertEquals("83.333",parStudentAndAuthorServer.calcOverallKnowledgeEstimate("s2"));
 
 
         //score should go way down since they had it, but then got it wrong within 30 seconds
-        imageTaskResponse.setUserId("s3");
+        imageTaskResponseImp1.setUserId("s3");
         parStudentAndAuthorServer.submitImageTaskResponse(responsesFromFile.get(0));//gives responses from file
         assertEquals("100.000",parStudentAndAuthorServer.calcOverallKnowledgeEstimate("s3"));
         responseSet3.setUserId("s3");
@@ -186,7 +191,51 @@ class ParStudentAndAuthorServerTest {
         assertEquals(1,jsonStudentDatastore.getOrCreateStudentModel("testUser111").getSeenQuestionCount());
 
         //submitting answers should not increase timesSeen
-        parStudentAndAuthorServer.submitImageTaskResponse(new ImageTaskResponse("testUser111", Arrays.asList("PlaneQ1"), Arrays.asList("Longitudinal")));
+        parStudentAndAuthorServer.submitImageTaskResponse(new ImageTaskResponseOOP("testUser111", Arrays.asList("PlaneQ1"), Arrays.asList("Longitudinal")));
         assertEquals(1,jsonStudentDatastore.getOrCreateStudentModel("testUser111").getSeenQuestionCount());
     }
-}
+
+    @Test
+    public void structureQuestionBug(@TempDir Path tempDir) throws IOException {
+
+        Path currentStudentModelDir = tempDir.resolve("students");
+        assertTrue(new File(currentStudentModelDir.toString()).mkdir());
+        JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
+                tempDir.resolve("currentQuestions.json").toString(),
+                "src/test/resources/author/SampleQuestionPool4.json",
+                new JsonIoHelperDefault(),
+                currentStudentModelDir.toString());
+
+        ParStudentAndAuthorServer parStudentAndAuthorServer = new ParStudentAndAuthorServer(jsonStudentDatastore, null);
+
+        //load existing student into the jsonStudentDatastore
+        Files.copy(Paths.get("src/test/resources/author/students/PSaASTestUser.json"), tempDir.resolve("students/PSaASTestUser.json"), StandardCopyOption.REPLACE_EXISTING);
+        assertEquals(10,jsonStudentDatastore.getOrCreateStudentModel("PSaASTestUser").getResponseCount());
+
+        //first time answering these structure questions
+        //TODO: Note! The response being lowercase might be a factor
+        UserResponseSet urs = jsonStudentDatastore.getOrCreateStudentModel("PSaASTestUser").getUserResponseSet();
+        ResponsesPerQuestion responsesPerQuestion1 = new ResponsesPerQuestion("PSAaSTestUser", jsonStudentDatastore.findTopLevelQuestionTemplateById("341-structure0-./images/metacarpal42.jpg"), "deep digital flexor tendon");
+        ResponsesPerQuestion responsesPerQuestion2 = new ResponsesPerQuestion("PSAaSTestUser", jsonStudentDatastore.findTopLevelQuestionTemplateById("344-structure1-./images/metacarpal42.jpg"), "suspensory ligament (branches)");
+        ResponsesPerQuestion responsesPerQuestion3 = new ResponsesPerQuestion("PSAaSTestUser", jsonStudentDatastore.findTopLevelQuestionTemplateById("347-structure2-./images/metacarpal42.jpg"), "superficial digital flexor tendon");
+        ResponsesPerQuestion responsesPerQuestion4 = new ResponsesPerQuestion("PSAaSTestUser", jsonStudentDatastore.findTopLevelQuestionTemplateById("350-structure3-./images/metacarpal42.jpg"), "metacarpus bone 3 (third metacarpal bone)");
+        urs.addResponse(responsesPerQuestion1);
+        urs.addResponse(responsesPerQuestion2);  //these calls could use .addAllResponses()
+        urs.addResponse(responsesPerQuestion3);
+        urs.addResponse(responsesPerQuestion4);
+
+        //submitting the same structure questions and their attachment questions
+        //TODO: check if structure questions get submitted when their attachment questions are submitted
+        ResponsesPerQuestion responsesPerQuestion5 = new ResponsesPerQuestion("PSAaSTestUser", jsonStudentDatastore.findTopLevelQuestionTemplateById("341-structure0-./images/metacarpal42.jpg"), "deep digital flexor tendon"); //structure
+        ResponsesPerQuestion responsesPerQuestion6 = new ResponsesPerQuestion("PSAaSTestUser", jsonStudentDatastore.findTopLevelQuestionTemplateById("341-structure0-./images/metacarpal42.jpg").getFollowupQuestions().get(0), "lateral humeral epicondyle"); //attachment
+        ResponsesPerQuestion responsesPerQuestion7 = new ResponsesPerQuestion("PSAaSTestUser", jsonStudentDatastore.findTopLevelQuestionTemplateById("341-structure0-./images/metacarpal42.jpg").getFollowupQuestions().get(1), "distal phalanx (p3)");  //attachment
+        ResponsesPerQuestion responsesPerQuestion8 = new ResponsesPerQuestion("PSAaSTestUser", jsonStudentDatastore.findTopLevelQuestionTemplateById("344-structure1-./images/metacarpal42.jpg"), "suspensory ligament (branches)"); //structure
+        ResponsesPerQuestion responsesPerQuestion9 = new ResponsesPerQuestion("PSAaSTestUser", jsonStudentDatastore.findTopLevelQuestionTemplateById("344-structure1-./images/metacarpal42.jpg").getFollowupQuestions().get(0), "proximal metacarpus 3"); //attachment
+        ResponsesPerQuestion responsesPerQuestion10 = new ResponsesPerQuestion("PSAaSTestUser", jsonStudentDatastore.findTopLevelQuestionTemplateById("344-structure1-./images/metacarpal42.jpg").getFollowupQuestions().get(1), "Proximal sesamoid bones"); //attachment
+        ResponsesPerQuestion responsesPerQuestion11 = new ResponsesPerQuestion("PSAaSTestUser", jsonStudentDatastore.findTopLevelQuestionTemplateById("347-structure2-./images/metacarpal42.jpg"), "superficial digital flexor tendon"); //structure
+        ResponsesPerQuestion responsesPerQuestion12 = new ResponsesPerQuestion("PSAaSTestUser", jsonStudentDatastore.findTopLevelQuestionTemplateById("347-structure2-./images/metacarpal42.jpg").getFollowupQuestions().get(0), "medial humeral epicondyle"); //attachment
+        ResponsesPerQuestion responsesPerQuestion13 = new ResponsesPerQuestion("PSAaSTestUser", jsonStudentDatastore.findTopLevelQuestionTemplateById("347-structure2-./images/metacarpal42.jpg").getFollowupQuestions().get(1), "both proximal and middle phalanxes"); //attachment
+
+
+    }
+} 

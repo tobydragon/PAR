@@ -1,5 +1,7 @@
 package edu.ithaca.dragon.par.domainModel;
 
+import edu.ithaca.dragon.util.DataUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +36,11 @@ public class Question {
 
     public Question(Question toCopy, String correctAnswer, List<Question> differentFollowups){
         this(toCopy.id, toCopy.questionText, toCopy.type, correctAnswer, new ArrayList<>(toCopy.possibleAnswers), toCopy.imageUrl, differentFollowups);
+    }
+
+    //used for AuthorServer.buildQuestionFromTemplate for custom questions
+    public Question(Question toCopy, String questionText, String correctAnswer, List<Question> differentFollowups){
+        this(toCopy.id, questionText, toCopy.type, correctAnswer, new ArrayList<>(toCopy.possibleAnswers), toCopy.imageUrl, differentFollowups);
     }
 
     public Question(Question toCopy, List<Question> differentFollowups){
@@ -76,21 +83,15 @@ public class Question {
             return false;
         }
         Question other = (Question) otherObj;
-
-        if (this.getCorrectAnswer()==null && ((Question) otherObj).getCorrectAnswer()==null){
-            return this.getId().equals(other.getId())
-                    && this.getQuestionText().equals(other.getQuestionText())
-                    && this.getType().equals(other.getType())
-                    && this.getPossibleAnswers().equals(other.getPossibleAnswers())
-                    && this.getImageUrl().equals(other.getImageUrl());
+        if (!DataUtil.objectEqualsIncludingNull(this.getQuestionText(), other.getQuestionText())) {
+            return false;
         }
-        else {
-            return this.getId().equals(other.getId())
-                    && this.getQuestionText().equals(other.getQuestionText())
-                    && this.getType().equals(other.getType())
-                    && this.getCorrectAnswer().equals(other.getCorrectAnswer())
-                    && this.getPossibleAnswers().equals(other.getPossibleAnswers())
-                    && this.getImageUrl().equals(other.getImageUrl());
+        if (!DataUtil.objectEqualsIncludingNull(this.getCorrectAnswer(), other.getCorrectAnswer())) {
+            return false;
         }
+        return this.getId().equals(other.getId())
+                && this.getType().equals(other.getType())
+                && this.getPossibleAnswers().equals(other.getPossibleAnswers())
+                && this.getImageUrl().equals(other.getImageUrl());
     }
 }

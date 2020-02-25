@@ -3,7 +3,6 @@ import edu.ithaca.dragon.par.domainModel.Question;
 
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class ResponsesPerQuestion {
@@ -31,46 +30,59 @@ public class ResponsesPerQuestion {
     }
 
     /**
-     * Calculates the knowledge score of the student
+     * Stub function that calls the static knowledgeCalc
      * @return 0 or 100
      */
     public double knowledgeCalc(){
-       double score=0;
-       if(allResponsesSize()==1) {
-           if (allResponses.get(0).getResponseText().equals(question.getCorrectAnswer())) score = 100;
-           else score = 0;
-       }
-        if(allResponsesSize()>1) {
-            //if the timestamp difference is > or == 30 seconds
-            if (checkTimeStampDifference(allResponses.get(allResponsesSize() - 1).getMillSeconds(), allResponses.get(allResponsesSize() - 2).getMillSeconds())) {
-                //check the answer if its right or wrong/ not dependent on previous answers
-                if (allResponses.get(allResponsesSize() - 1).getResponseText().equals(question.getCorrectAnswer())) {
-                    score = 100;
-                }
-                else score = 0;
-            } else {
-                //if the timestamp difference is < 30 seconds
-                score = 100;
-                //creates a list of QuestionResponses that have a timestamp difference < 30 second apart
-                List<QuestionResponse> questionResponses = answersWithSameTimeStamp(allResponses);
-                for (int k = 0; k < questionResponses.size() ; k++) {
-                    //if any of the answers are wrong within this list then you receive a 0
-                    if (!questionResponses.get(k).getResponseText().equals(question.getCorrectAnswer()))
-                        score = 0;
-                    }
-                }
-        }
-        return score;
+       return knowledgeCalc(allResponses, question);
     }
 
     /**
-     * Creates a list of QuestionResponses that have the same timestamps
+     * Calculates the knowledge score of the student
+     * This algorithm relies on the most recent response being at the front of allResponses!
+     * @return 0 or 100
+     */
+    public static double knowledgeCalc(List<QuestionResponse> allResponses, Question question){
+        if(allResponses.size() == 1){
+            //is the one response correct?
+            if(ResponsesPerQuestion.checkIfAnswerIsCorrect(question.getCorrectAnswer(), allResponses.get(0).getResponseText())){
+                return 100;
+            }
+            else{
+                return 0;
+            }
+        }
+        //More than one response to look at.
+        //In order to get a 100, all responses within 30 seconds of the most recent response must be correct
+        else if(allResponses.size()>1) {
+            //get relevant responses
+            List<QuestionResponse> recentResponses = questionsWithinTimeFromRecentResponse(allResponses);
+            //check if they are correct
+            if(checkIfAnswersAreCorrect(recentResponses, question.getCorrectAnswer())){
+                return 100;
+            }
+            else{
+                return 0;
+            }
+        }
+        else{ //there are no responses to check
+            //TODO: should this throw an exception?
+            return 0;
+        }
+    }
+
+    /**
      * @param allResponses list of all the responses recorded
+     *                     The most recent response is at the end of allResponses
      * @return list of QuestionResponses within less than a 30 seconds time window
      */
-    public static List<QuestionResponse> answersWithSameTimeStamp(List<QuestionResponse> allResponses){
+    public static List<QuestionResponse> questionsWithinTimeFromRecentResponse(List<QuestionResponse> allResponses){
+        //make a list for all the questionResponses within the timeframe, initialize with the most recent response
         List<QuestionResponse> questionResponses=new ArrayList<>();
-        questionResponses.add(allResponses.get(allResponses.size()-1));
+        QuestionResponse mostRecentQuestionResponse = allResponses.get(allResponses.size()-1);
+        questionResponses.add(mostRecentQuestionResponse);
+
+        //loop through the other questionResponses, check if they are in the window
         for(int k=allResponses.size()-2;k>-1;k--){//k=allResponses.size()-2 to get all the index before the last element in the list
             if(!checkTimeStampDifference(allResponses.get(allResponses.size()-1).getMillSeconds(),allResponses.get(k).getMillSeconds())){
                 questionResponses.add(allResponses.get(k));
@@ -91,12 +103,26 @@ public class ResponsesPerQuestion {
         return false;
     }
 
-
     public void addNewResponse(String newResponse){
         //creates a new timestamp for new response
         QuestionResponse questionResponse=new QuestionResponse(newResponse);
         this.allResponses.add(questionResponse);
     }
+
+    public static boolean checkIfAnswerIsCorrect(String correctAnswer, String response){
+        return correctAnswer.trim().equalsIgnoreCase(response.trim());
+    }
+
+    public static boolean checkIfAnswersAreCorrect(List<QuestionResponse> responsesToCheck, String correctAnswer){
+        //look oldest response to most recent because older responses are more likely to be incorrect
+        for(int i=responsesToCheck.size()-1; i>=0; i--){
+            if(!checkIfAnswerIsCorrect(responsesToCheck.get(i).getResponseText(), correctAnswer)){
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     public int allResponsesSize(){
         return allResponses.size();

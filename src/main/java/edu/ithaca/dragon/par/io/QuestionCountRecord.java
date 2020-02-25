@@ -45,7 +45,7 @@ public class QuestionCountRecord {
     }
 
     public QuestionCount buildQuestionCount(QuestionPool questionPool) {
-        QuestionCount questionCount = new QuestionCount(questionPool.getQuestionFromId(questionId, questionPool.getAllQuestions()));
+        QuestionCount questionCount = new QuestionCount(QuestionPool.getQuestionFromId(questionId, questionPool.getAllQuestions()));
         questionCount.setTimesSeen(timesSeen);
         if (followupCountRecords.size()>0){
             List<QuestionCount> followupList = new ArrayList<>();

@@ -31,14 +31,14 @@ public class ParStudentAndAuthorRestController {
         try {
             JsonAuthorDatastore jsonAuthorDatastore = new JsonAuthorDatastore(
                     "localData/currentAuthoredQuestions.json",
-                    "author/AuthorQuestionsDefault.json",
+                    "author/defaultAuthoredQuestions.json",
                     "localData/currentAuthorQuestionTemplates.json",
-                    "author/AuthorQuestionTemplatesDefault.json",
+                    "author/defaultAuthorQuestionTemplates.json",
                     "localData/currentAuthorModel.json",
                     jsonIoHelper);
             JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
                     "localData/currentQuestionPool.json",
-                    "author/DemoQuestionPool.json",
+                    "author/defaultQuestionPool.json",
                     jsonIoHelper,
                     "localData/students");
             parServer = new ParStudentAndAuthorServer(jsonStudentDatastore, jsonAuthorDatastore);
@@ -71,12 +71,16 @@ public class ParStudentAndAuthorRestController {
 
     @GetMapping("/nextImageTask")
     public ImageTask nextImageTask(@RequestParam String userId) throws IOException {
-        return parServer.nextImageTask(userId);
+        logger.info("nextImageTask for:" + userId);
+        ImageTask imageTask = parServer.nextImageTask(userId);
+        logger.info("Responding with:" + JsonUtil.toJsonString(imageTask));
+        return imageTask;
     }
 
     @PostMapping("/recordResponse")
-    public ResponseEntity<String> recordResponse(@RequestBody ImageTaskResponse response) {
+    public ResponseEntity<String> recordResponse(@RequestBody ImageTaskResponseOOP response) {
         try {
+            logger.info(response.toString());
             parServer.submitImageTaskResponse(response);
             return ResponseEntity.ok().body("ok");
         } catch (Exception e){
@@ -109,7 +113,7 @@ public class ParStudentAndAuthorRestController {
     }
 
     @PostMapping("/submitAuthorImageTaskResponse")
-    public ResponseEntity<String> submitAuthorImageTaskResponse(@RequestBody ImageTaskResponse response) {
+    public ResponseEntity<String> submitAuthorImageTaskResponse(@RequestBody ImageTaskResponseOOP response) {
         try {
             parServer.submitAuthorImageTaskResponse(response);
             return ResponseEntity.ok().body("ok");
@@ -131,6 +135,8 @@ public class ParStudentAndAuthorRestController {
     }
     @GetMapping("/authoredQuestions")
     public List<ImageTask> authoredQuestions(){
+        List<ImageTask> authoredQuestions = parServer.authoredQuestions();
+        logger.info("Sending " + authoredQuestions.size() + " authored questions");
         return parServer.authoredQuestions();
     }
 

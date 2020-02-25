@@ -3,8 +3,7 @@ package edu.ithaca.dragon.par.studentModel;
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
-import edu.ithaca.dragon.par.io.ImageTaskResponse;
-import edu.ithaca.dragon.par.io.StudentReport;
+import edu.ithaca.dragon.par.io.ImageTaskResponseOOP;
 
 import java.util.*;
 
@@ -26,16 +25,18 @@ public class StudentModel {
         this.userResponseSet = userResponseSet;
     }
 
-    public void imageTaskResponseSubmitted(ImageTaskResponse imageTaskResponses, QuestionPool questions){
+    public void imageTaskResponseSubmitted(ImageTaskResponseOOP imageTaskResponses, QuestionPool questions){
         userResponseSet.addAllResponses(createUserResponseObj(imageTaskResponses,questions,this.userId));
     }
 
-    public static List<ResponsesPerQuestion> createUserResponseObj(ImageTaskResponse imageTaskResponses, QuestionPool questions, String userId){
-        List<ResponsesPerQuestion> userResponse =new ArrayList<>();
-        ResponsesPerQuestion response; Question ques;
-        for(int i=0;i<imageTaskResponses.getTaskQuestionIds().size();i++){
-            ques=questions.getQuestionFromId(imageTaskResponses.getTaskQuestionIds().get(i), questions.getAllQuestions());//finds question in QuestionPool creates a question object
-            response=new ResponsesPerQuestion(userId,ques,imageTaskResponses.getResponseTexts().get(i));//creates new response object
+    public static List<ResponsesPerQuestion> createUserResponseObj(ImageTaskResponseOOP imageTaskResponses, QuestionPool questions, String userId){
+        List<ResponsesPerQuestion> userResponse = new ArrayList<>();
+        // TODO why are these declared outside of the for loop
+        ResponsesPerQuestion response;
+        Question ques;
+        for(int i = 0; i< imageTaskResponses.getTaskQuestionIds().size(); i++){
+            ques=questions.getQuestionFromId(imageTaskResponses.getTaskQuestionIds().get(i));//finds question in QuestionPool creates a question object
+            response=new ResponsesPerQuestion(userId,ques, imageTaskResponses.getResponseTexts().get(i));//creates new response object
             userResponse.add(response);
         }
         return userResponse;
@@ -87,6 +88,10 @@ public class StudentModel {
 
     public int getResponseCount(){
         return userResponseSet.getUserResponsesSize();
+    }
+
+    public int countTotalResponsesFromUserResponseSet(){
+        return userResponseSet.countTotalResponses();
     }
 
     public double calcKnowledgeEstimate(){

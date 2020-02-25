@@ -2,9 +2,7 @@ package edu.ithaca.dragon.par.io;
 
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
-import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
-import edu.ithaca.dragon.par.studentModel.UserResponseSet;
 import edu.ithaca.dragon.util.FileSystemUtil;
 import edu.ithaca.dragon.util.JsonIoHelper;
 import edu.ithaca.dragon.util.JsonIoHelperDefault;
@@ -13,8 +11,6 @@ import edu.ithaca.dragon.util.JsonIoUtil;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore implements StudentModelDatastore {
 
@@ -68,7 +64,7 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
     }
 
     @Override
-    public void submitImageTaskResponse(String userId, ImageTaskResponse imageTaskResponse) throws IOException{
+    public void submitImageTaskResponse(String userId, ImageTaskResponseOOP imageTaskResponse) throws IOException{
         StudentModel currentStudent = getStudentModel(userId);
         currentStudent.imageTaskResponseSubmitted(imageTaskResponse, questionPool);
         overwriteStudentFile(currentStudent, studentModelFilePath, jsonIoUtil);

@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -30,21 +31,21 @@ public class AuthorServerTest {
         assertEquals(0, pas.getQuestionCount());
         assertEquals(47, pas.getQuestionTemplateCount());
 
-        ImageTaskResponse imageTaskResponse1 = new ImageTaskResponse("User1", Arrays.asList("plane./images/demoEquine14.jpg", "structure0./images/demoEquine14.jpg", "AttachQ1", "AttachQ2"), Arrays.asList("longitudinal", "Superficial digital flexor tendon", "AttachType1", "AttachType2"));
-        pas.imageTaskResponseSubmitted(imageTaskResponse1);
+        ImageTaskResponseOOP imageTaskResponseImp11 = new ImageTaskResponseOOP("User1", Arrays.asList("plane./images/demoEquine14.jpg", "structure0./images/demoEquine14.jpg", "AttachQ1", "AttachQ2"), Arrays.asList("longitudinal", "Superficial digital flexor tendon", "AttachType1", "AttachType2"));
+        pas.imageTaskResponseSubmitted(imageTaskResponseImp11);
 
         assertEquals(45, pas.getQuestionTemplateCount());
         assertEquals(2, pas.getQuestionCount());
         assertEquals(2, pas.findTopLevelQuestionById("structure0./images/demoEquine14.jpg").getFollowupQuestions().size());
         assertEquals("longitudinal", pas.findTopLevelQuestionById("plane./images/demoEquine14.jpg").getCorrectAnswer());
 
-        ImageTaskResponse imageTaskResponse2 = new ImageTaskResponse("User1", Arrays.asList("structure2./images/demoEquine14.jpg", "structure3./images/demoEquine14.jpg", "zone./images/demoEquine14.jpg"), Arrays.asList("Metacarple Bone 3", "Superficial digital flexor tendon", "3a"));
-        pas.imageTaskResponseSubmitted(imageTaskResponse2);
+        ImageTaskResponseOOP imageTaskResponseImp12 = new ImageTaskResponseOOP("User1", Arrays.asList("structure2./images/demoEquine14.jpg", "structure3./images/demoEquine14.jpg", "zone./images/demoEquine14.jpg"), Arrays.asList("Metacarple Bone 3", "Superficial digital flexor tendon", "3a"));
+        pas.imageTaskResponseSubmitted(imageTaskResponseImp12);
 
         assertEquals(42, pas.getQuestionTemplateCount());
         assertEquals(5, pas.getQuestionCount());
 
-        pas.imageTaskResponseSubmitted(imageTaskResponse1);
+        pas.imageTaskResponseSubmitted(imageTaskResponseImp11);
         assertEquals(42, pas.getQuestionTemplateCount());
         assertEquals(5, pas.getQuestionCount());
     }
@@ -126,12 +127,12 @@ public class AuthorServerTest {
         ImageTask imageTask = pas.nextImageTaskTemplate();
         assertEquals("./images/demoEquine14.jpg", imageTask.getImageUrl());
         assertEquals(5, imageTask.getTaskQuestions().size());
-        pas.imageTaskResponseSubmitted(new ImageTaskResponse("Author1", Arrays.asList("plane./images/demoEquine14.jpg", "structure0./images/demoEquine14.jpg", "AttachQ1", "AttachQ2"), Arrays.asList("longitudinal", "Superficial digital flexor endon", "Type1", "Type2")));
+        pas.imageTaskResponseSubmitted(new ImageTaskResponseOOP("Author1", Arrays.asList("plane./images/demoEquine14.jpg", "structure0./images/demoEquine14.jpg", "AttachQ1", "AttachQ2"), Arrays.asList("longitudinal", "Superficial digital flexor endon", "Type1", "Type2")));
 
         ImageTask imageTask2 = pas.nextImageTaskTemplate();
         assertEquals("./images/demoEquine04.jpg", imageTask2.getImageUrl());
         assertEquals(3, imageTask2.getTaskQuestions().size());
-        pas.imageTaskResponseSubmitted(new ImageTaskResponse("Author1", Arrays.asList("plane./images/demoEquine04.jpg", "structure0./images/demoEquine04.jpg", "AttachQ5", "zone./images/demoEquine04.jpg"), Arrays.asList("longitudinal", "Superficial digital flexor endon", "Type1", "3c")));
+        pas.imageTaskResponseSubmitted(new ImageTaskResponseOOP("Author1", Arrays.asList("plane./images/demoEquine04.jpg", "structure0./images/demoEquine04.jpg", "AttachQ5", "zone./images/demoEquine04.jpg"), Arrays.asList("longitudinal", "Superficial digital flexor endon", "Type1", "3c")));
 
         ImageTask imageTask3 = pas.nextImageTaskTemplate();
         assertEquals("./images/demoEquine14.jpg", imageTask3.getImageUrl());
@@ -140,7 +141,7 @@ public class AuthorServerTest {
         ImageTask imageTask4 = pas.nextImageTaskTemplate();
         assertEquals("./images/demoEquine14.jpg", imageTask4.getImageUrl());
         assertEquals(3, imageTask3.getTaskQuestions().size());
-        pas.imageTaskResponseSubmitted(new ImageTaskResponse("Author1", Arrays.asList("structure2./images/demoEquine14.jpg","structure3./images/demoEquine14.jpg", "zone./images/demoEquine14.jpg"), Arrays.asList("Suspensory ligament (branches)", "Proximal sesamoid bones", "1A")));
+        pas.imageTaskResponseSubmitted(new ImageTaskResponseOOP("Author1", Arrays.asList("structure2./images/demoEquine14.jpg","structure3./images/demoEquine14.jpg", "zone./images/demoEquine14.jpg"), Arrays.asList("Suspensory ligament (branches)", "Proximal sesamoid bones", "1A")));
 
         //no more template questions
         ImageTask imageTask5 = pas.nextImageTaskTemplate();
@@ -163,11 +164,60 @@ public class AuthorServerTest {
         assertEquals(0, pas.getQuestionCount());
         assertEquals(47, pas.getQuestionTemplateCount());
 
-        ImageTaskResponse imageTaskResponse1 = new ImageTaskResponse("User1", Arrays.asList("plane./images/demoEquine14.jpg", "structure0./images/demoEquine14.jpg", "AttachQ1", "AttachQ2"), Arrays.asList("LongiTudinal", "Superficial digital flexor tendon", "AttachType1", "AttachType2"));
+        ImageTaskResponseOOP imageTaskResponse1 = new ImageTaskResponseOOP("User1", Arrays.asList("plane./images/demoEquine14.jpg", "structure0./images/demoEquine14.jpg", "AttachQ1", "AttachQ2"), Arrays.asList("LongiTudinal", "Superficial digital flexor tendon", "AttachType1", "AttachType2"));
         pas.imageTaskResponseSubmitted(imageTaskResponse1);
 
         //Even though a response was submitted with Caps, it should be stored all lower case
         assertEquals("longitudinal", pas.findTopLevelQuestionById("plane./images/demoEquine14.jpg").getCorrectAnswer());
     }
 
+    @Test
+    public void customQuestionSubmissionTest(@TempDir Path tempDir) throws IOException{
+        //set up authorDatastore files and the AuthorServer
+        Path currentQuestionPath = tempDir.resolve("currentQuestions.json");
+        Path currentQuestionTemplatePath = tempDir.resolve("currentQuestionTemplates.json");
+        Files.copy(Paths.get("src/test/resources/author/SampleQuestionsEmpty.json"), currentQuestionPath, StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(Paths.get("src/test/resources/author/DemoQuestionPoolTemplateWithCustom.json"), currentQuestionTemplatePath, StandardCopyOption.REPLACE_EXISTING);
+
+        AuthorServer pas = new AuthorServer(new JsonAuthorDatastore(currentQuestionPath.toString(),
+                currentQuestionTemplatePath.toString(), tempDir.resolve("currentAuthorModel.json").toString()));
+
+        assertEquals(0, pas.getQuestionCount());
+        assertEquals(48, pas.getQuestionTemplateCount());
+
+        //submit an itr that has normal questions and a custom question
+        QuestionResponseOOP qr1 = new QuestionResponseOOP("plane./images/demoEquine14.jpg", "longitudinal");
+        QuestionResponseOOP qr2 = new QuestionResponseOOP("custom0./images/demoEquine14.jpg", "Is this a custom question?", "Yes, it is!");
+        ImageTaskResponseOOP itr1 = new ImageTaskResponseOOP();
+        itr1.setQuestionResponses(new ArrayList<>(Arrays.asList(qr1, qr2)));
+        pas.imageTaskResponseSubmitted(itr1);
+
+        assertEquals(2, pas.getQuestionCount());
+        assertEquals(46, pas.getQuestionTemplateCount());
+        assertEquals("On which plane is the ultrasound taken?", pas.findTopLevelQuestionById("plane./images/demoEquine14.jpg").getQuestionText());
+        assertEquals("longitudinal", pas.findTopLevelQuestionById("plane./images/demoEquine14.jpg").getCorrectAnswer());
+        assertEquals("Is this a custom question?", pas.findTopLevelQuestionById("custom0./images/demoEquine14.jpg").getQuestionText());
+        assertEquals("yes, it is!", pas.findTopLevelQuestionById("custom0./images/demoEquine14.jpg").getCorrectAnswer());
+
+
+
+
+
+        //TODO: this was written to test if already submitted questions could have their answers changed, and proves that they currently cannot
+//        //submit a normal itr
+//        ImageTaskResponseOOP itr1 = new ImageTaskResponseOOP("User1", Arrays.asList("plane./images/demoEquine14.jpg"), Arrays.asList("longitudinal"));
+//        pas.imageTaskResponseSubmitted(itr1);
+//        assertEquals(1, pas.getQuestionCount());
+//        assertEquals(47, pas.getQuestionTemplateCount());
+//        assertEquals("longitudinal", pas.findTopLevelQuestionById("plane./images/demoEquine14.jpg").getCorrectAnswer());
+//
+//        //re-answer a question and check if the answer has changed
+//        ImageTaskResponseOOP itr2 = new ImageTaskResponseOOP("User1", Arrays.asList("plane./images/demoEquine14.jpg"), Arrays.asList("transverse"));
+//        pas.imageTaskResponseSubmitted(itr2);
+//        assertEquals(1, pas.getQuestionCount());
+//        assertEquals(47, pas.getQuestionTemplateCount());
+//        assertEquals("transverse", pas.findTopLevelQuestionById("plane./images/demoEquine14.jpg").getCorrectAnswer());
+
+
+    }
 }

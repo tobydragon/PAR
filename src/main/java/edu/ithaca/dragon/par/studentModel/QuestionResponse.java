@@ -12,7 +12,7 @@ public class QuestionResponse {
     }
 
     public QuestionResponse(String responseTextIn){
-        this.responseText=responseTextIn;
+        this.responseText =responseTextIn;
         Date date=new Date();
         this.millSeconds=date.getTime();
     }

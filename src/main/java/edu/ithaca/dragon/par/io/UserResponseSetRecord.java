@@ -20,7 +20,7 @@ public class UserResponseSetRecord {
         this();
         userId=userResponseSet.getUserId();
 
-        for(ResponsesPerQuestion currResponsesPerQuestion : userResponseSet.getUserResponses()){
+        for(ResponsesPerQuestion currResponsesPerQuestion : userResponseSet.getResponsesPerQuestionList()){
             responsesPerQuestionRecords.add(new ResponsesPerQuestionRecord(currResponsesPerQuestion));
         }
     }

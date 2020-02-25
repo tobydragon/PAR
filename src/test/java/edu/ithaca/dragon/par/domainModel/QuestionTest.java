@@ -37,12 +37,9 @@ public class QuestionTest {
         List<Question> list1b = qp.getAllQuestions();
         assertEquals(true, checkIfListsHaveSameQuestionObjects(list1a,list1b));
 
-        System.out.println(list1a.size());
-
         //the Lists are different size
         QuestionPool qp2 = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/SampleQuestionPool.json").getAllQuestions());
         List<Question> list1c = qp2.getAllQuestions();
-        System.out.println(list1a.size() + " " + list1c.size());
         assertEquals(false, checkIfListsHaveSameQuestionObjects(list1a,list1c));
 
         //The content of the Questions are the same, but they are different objects
@@ -86,6 +83,12 @@ public class QuestionTest {
         Question planeQdiffAns = new Question("PlaneQ1", "On which plane is the ultrasound taken?", EquineQuestionTypes.plane.toString(),
                 "Lateral", Arrays.asList("Transverse", "Lateral", "Other Answer"), "../static/images/equine02.jpg");
         assertNotEquals(planeQ, planeQdiffAns);
+
+        Question customQ = new Question("cust1", null, EquineQuestionTypes.structure.toString(), null, Arrays.asList("Yes", "No"), "..customURL");
+        Question customQ2 = new Question("cust1", null, EquineQuestionTypes.structure.toString(), null, Arrays.asList("Yes", "No"), "..customURL");
+        Question customQWithQText = new Question("cust1", "Is this a custom Question?", EquineQuestionTypes.structure.toString(), "Yes", Arrays.asList("Yes", "No"), "..customURL");
+        assertEquals(customQ, customQ2);
+        assertNotEquals(customQ, customQWithQText);
     }
 
     @Test

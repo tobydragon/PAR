@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Change Some Questions!</title>
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
+    <!-- My Project CSS -->
+    <link rel="stylesheet" href="../../../../main/resources/static/css/style.css">
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - -->
+    <script type="text/javascript" src="../../../../main/resources/static/js/old/CompleteDisplay.js"></script>
+    <script type="text/javascript" src="../../../../main/resources/static/js/old/PageDisplay.js"></script>
+    <script type="text/javascript" src="../../../../main/resources/static/js/old/ImageTaskDisplay.js"></script>
+    <script type="text/javascript" src="../../../../main/resources/static/js/old/CommUtil.js"></script>
+    <script type="text/javascript" src="../../../../main/resources/static/js/old/ScoreDisplay.js"></script>
+    <script type="text/javascript" src="../../../../main/resources/static/js/QuestionAndAnswerController.js"></script>
+    <script type="text/javascript" src="../../../main/resources/static/js/Response.js"></script>
+    <script type="text/javascript" src="../../../../main/resources/static/js/comm/QuestionResponse.js"></script>
+    <script type="text/javascript" src="../../../../main/resources/static/js/ImageController.js"></script>
+    <script type="text/javascript" src="../../../../main/resources/static/js/AnswerController.js"></script>
+    <script type="text/javascript" src="../../../../main/resources/static/js/Modernizr.js"></script>
+    <!-- Font Awsome -->
+    <script src="https://kit.fontawesome.com/f9199bcaa3.js"></script>
+</head>
+
+<div id="imageTaskArea"></div>
+<div id="Ids"></div>
+<script>
+    let questionSetToTest = readJson("../../resources/author/EditQuestionTextTest.json");
+    let imageTaskSettings = readJson("../../../main/resources/author/SettingsExample.json");
+    let pageSettings = readJson("../../../main/resources/author/PageSettingsExample.json");
+    let respnonses= new Response("test");
+    let outerQuestionSetNode = document.createElement('form');
+    outerQuestionSetNode.setAttribute('action', '#');
+    outerQuestionSetNode.setAttribute('method', 'post');
+    outerQuestionSetNode.setAttribute('id', 'questionSetForm');
+    let questionElement = document.createElement('div');
+    questionElement.setAttribute('id', 'questionSet');
+    let questions= buildQuestionAreas(questionSetToTest, respnonses);
+    for (var i = 0; i < questions.length; i++) {
+        questions[i].addFollowupQuestions();
+        questionElement.appendChild(questions[i].element);
+    }
+    outerQuestionSetNode.appendChild(questionElement);
+    document.getElementById('imageTaskArea').appendChild(outerQuestionSetNode);
+</script>
+
+<body>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+
+</html>

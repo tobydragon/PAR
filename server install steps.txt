@@ -1,3 +1,4 @@
+ssh <username>@par.eastus.cloudapp.azure.com
 cd PAR/
 git stash
     git fetch
@@ -9,11 +10,16 @@ mvn test
 ps -A | grep java
 sudo kill PID
 
-tar -czv target/localData
-rm -f target/localData/*.json
-rm -f target/localData/students/*.json
+tar cvzf "../dataBackup/parDataBackup-<date>.tar.gz" target/localData/
+on local:
+scp tdragon@par.eastus.cloudapp.azure.com:dataBackup/parDataBackup-<date>.tar.gz Downloads/
+    remote if clearing data:
+        rm -f target/localData/*.json
+        rm -f target/localData/students/*.json
 
 mvn install
 
 cd target
 sudo java -jar par-0.1.0.jar
+ctrl-z (pause)
+bg (put process into background)

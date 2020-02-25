@@ -1,31 +1,29 @@
 package edu.ithaca.dragon.par.studentModel;
 
-import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
-import edu.ithaca.dragon.par.io.StudentReport;
 
 import java.util.*;
 
 public class UserResponseSet {
     private String userId;
-    private List<ResponsesPerQuestion> userResponses;
+    private List<ResponsesPerQuestion> responsesPerQuestionList;
 
     public UserResponseSet(String userIdIn) {
         this.userId = userIdIn;
-        userResponses = new ArrayList<>();
+        responsesPerQuestionList = new ArrayList<>();
     }
 
 
     public void addResponse(ResponsesPerQuestion response) {
         int index = sameResponseCheck(response);
 
-        if (index == -1) userResponses.add(response);
+        if (index == -1) responsesPerQuestionList.add(response);
 
         else {
-            userResponses.get(index).addNewResponse(response.getFirstResponse());//adds response to allResponses list
-            ResponsesPerQuestion response1=userResponses.get(index);//keeps new value
-            userResponses.remove(index);//removes old index
-            userResponses.add(response1);//updates to the last position (most recently answered)
+            responsesPerQuestionList.get(index).addNewResponse(response.getFirstResponse());//adds response to allResponses list
+            ResponsesPerQuestion response1= responsesPerQuestionList.get(index);//keeps new value
+            responsesPerQuestionList.remove(index);//removes old index
+            responsesPerQuestionList.add(response1);//updates to the last position (most recently answered)
         }
     }
 
@@ -36,11 +34,11 @@ public class UserResponseSet {
     }
 
     private int sameResponseCheck(ResponsesPerQuestion response) {
-        if (userResponses.isEmpty()) {
+        if (responsesPerQuestionList.isEmpty()) {
             return -1;
         } else {
-            for (int i = 0; i < userResponses.size(); i++) {
-                if (userResponses.get(i).getQuestionId().equals(response.getQuestionId())) {
+            for (int i = 0; i < responsesPerQuestionList.size(); i++) {
+                if (responsesPerQuestionList.get(i).getQuestionId().equals(response.getQuestionId())) {
                     return i;
                 }
             }
@@ -49,23 +47,23 @@ public class UserResponseSet {
     }
 
     public int getUserResponsesSize() {
-        return userResponses.size();
+        return responsesPerQuestionList.size();
     }
 
     public int countTotalResponses() {
         int count = 0;
-        for (ResponsesPerQuestion responses : userResponses) {
+        for (ResponsesPerQuestion responses : responsesPerQuestionList) {
             count = count + responses.allResponsesSize();
         }
         return count;
     }
 
-    public void setUserResponses(List<ResponsesPerQuestion> userResponsesIn) {
-        this.userResponses = userResponsesIn;
+    public void setResponsesPerQuestionList(List<ResponsesPerQuestion> userResponsesIn) {
+        this.responsesPerQuestionList = userResponsesIn;
     }
 
-    public List<ResponsesPerQuestion> getUserResponses() {
-        return userResponses;
+    public List<ResponsesPerQuestion> getResponsesPerQuestionList() {
+        return responsesPerQuestionList;
     }
 
     public void setUserId(String userIdIn) {
@@ -78,11 +76,11 @@ public class UserResponseSet {
 
     public double calcKnowledgeEstimate() {
         //TODO: should 12 be replaced by windowSize?
-        return calcKnowledgeEstimate(userResponses, 12);
+        return calcKnowledgeEstimate(responsesPerQuestionList, 12);
     }
 
     public double calcKnowledgeEstimate(int responseCountToConsider) {
-        return calcKnowledgeEstimate(userResponses, responseCountToConsider);
+        return calcKnowledgeEstimate(responsesPerQuestionList, responseCountToConsider);
     }
 
     private static double calcKnowledgeEstimate(List<ResponsesPerQuestion> allResponses, int responsesToConsider) {
@@ -99,7 +97,7 @@ public class UserResponseSet {
     }
 
     public Map<String, Double> calcKnowledgeEstimateByType(int numOfRecentResponsesToConsider) {
-        Map<String, List<ResponsesPerQuestion>> responseByType = splitResponsesByType(userResponses);
+        Map<String, List<ResponsesPerQuestion>> responseByType = splitResponsesByType(responsesPerQuestionList);
         Map<String, Double> responseByTypeDouble = new LinkedHashMap<>();
         for (EquineQuestionTypes currType: EquineQuestionTypes.values()) {
             List<ResponsesPerQuestion> quesList = responseByType.get(currType.toString());
@@ -132,7 +130,7 @@ public class UserResponseSet {
     }
 
     public Map<EquineQuestionTypes, String> calcKnowledgeEstimateStringsByType(int numOfRecentResponsesToConsider){
-        Map<String, List<ResponsesPerQuestion>> responseByType = splitResponsesByType(userResponses);
+        Map<String, List<ResponsesPerQuestion>> responseByType = splitResponsesByType(responsesPerQuestionList);
         Map<EquineQuestionTypes,String> knowledgeBaseMap=new LinkedHashMap<>();
         for (EquineQuestionTypes currType : EquineQuestionTypes.values()) {
             List<ResponsesPerQuestion> quesList = responseByType.get(currType.toString());
@@ -180,7 +178,7 @@ public class UserResponseSet {
             return false;
         }
         UserResponseSet other = (UserResponseSet) otherObj;
-        return this.getUserResponses().equals(other.getUserResponses())
+        return this.getResponsesPerQuestionList().equals(other.getResponsesPerQuestionList())
                 && this.getUserId().equals(other.getUserId());
     }
 }
