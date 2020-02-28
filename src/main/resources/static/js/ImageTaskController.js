@@ -63,7 +63,23 @@ function buildImageTaskViewElement(id, imageView, questionTreeList){
 
     return outerImageTaskNode;
 }
+function createImageAndMessageAreaElement(imageView){
+    let outerNodeHandler= document.createElement('div');
 
+    let messageAreaRowNode= document.createElement('div');
+    messageAreaRowNode.classList.add('row');
+
+    let canvasRowNode= document.createElement('div');
+    canvasRowNode.classList.add('row');
+    canvasRowNode.classList.add('col-12');
+    canvasRowNode.classList.add('imgCenter');
+    imageView.loadImage();
+    canvasRowNode.appendChild(imageView.element);
+
+    outerNodeHandler.appendChild(messageAreaRowNode);
+    outerNodeHandler.appendChild(canvasRowNode);
+    return outerNodeHandler;
+}
 function createQuestionAreaElement(questionTreeList) {
     let outerQuestionSetNode = document.createElement('form');
     outerQuestionSetNode.setAttribute('action', '#');
