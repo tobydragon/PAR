@@ -40,6 +40,7 @@ function buildImageTaskViewElement(id, imageView, questionTreeList){
     let canvasAndMessageElementHandler= document.createElement('div');
     canvasAndMessageElementHandler.classList.add('col-6');
     let messageElementHandler=createMessageAreaElement(questionTreeList);
+    console.log(messageElementHandler);
     //creates canvas element
     let canvasElementHandler = document.createElement('div');
     canvasElementHandler.classList.add('row');
@@ -76,10 +77,16 @@ function buildImageTaskViewElement(id, imageView, questionTreeList){
 }
 function createMessageAreaElement(questionTreeList){
     let messageNode=document.createElement('div');
+    console.log((questionTreeList.hasOwnProperty('message')));
     if (questionTreeList.hasOwnProperty('message')){
-        messageNode=createMessageAlert();
+        messageNode=createMessageAlert(questionTreeList[2]);
     }
     return messageNode;
+}
+function createMessageAlert(messageContent){
+    let messageAlertNode=document.createElement('div');
+    messageAlertNode.textContent='creating the message div works';
+    return messageAlertNode;
 }
 function createQuestionAreaElement(questionTreeList) {
     let outerQuestionSetNode = document.createElement('form');

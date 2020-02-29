@@ -30,6 +30,8 @@
     let listOfImageTasks = readJson("../../resources/author/SampleListOfImageTasksInfoMessage.json");
 
     let test = new ImageTaskController(listOfImageTasks[0], "testUser");
+    console.log(listOfImageTasks[0]);
+    console.log(test);
     document.getElementById('imageTaskArea').appendChild(test.element);
 
 </script>
