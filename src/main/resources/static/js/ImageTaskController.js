@@ -33,14 +33,25 @@ class ImageTaskController{
 }
 
 function buildImageTaskViewElement(id, imageView, questionTreeList){
+    console.log(questionTreeList[0]);
     let outerImageTaskNode = document.createElement('div');
     outerImageTaskNode.classList.add('row');
 
+    let canvasAndMessageElementHandler= document.createElement('div');
+    canvasAndMessageElementHandler.classList.add('col-6');
+    let messageElementHandler=createMessageAreaElement(questionTreeList);
+    //creates canvas element
     let canvasElementHandler = document.createElement('div');
-    canvasElementHandler.classList.add('col-6');
-    canvasElementHandler.classList.add('imgCenter');
+    canvasElementHandler.classList.add('row');
+    let canvasColumnElement=document.createElement('col-12');
+    canvasColumnElement.classList.add('imgCenter');
     imageView.loadImage();
-    canvasElementHandler.appendChild(imageView.element);
+    //appends both elements to the handler node
+    canvasColumnElement.appendChild(imageView.element);
+    canvasElementHandler.appendChild(canvasColumnElement);
+
+    canvasAndMessageElementHandler.appendChild(messageElementHandler);
+    canvasAndMessageElementHandler.appendChild(canvasElementHandler);
 
     let questionAreaNode = createQuestionAreaElement(questionTreeList);
     let questionAreaElementHandler = document.createElement('div');
@@ -57,28 +68,18 @@ function buildImageTaskViewElement(id, imageView, questionTreeList){
     spaceNode1.classList.add('col-1');
 
     outerImageTaskNode.appendChild(spaceNode0);
-    outerImageTaskNode.appendChild(canvasElementHandler);
+    outerImageTaskNode.appendChild(canvasAndMessageElementHandler);
     outerImageTaskNode.appendChild(questionAreaElementHandler);
     outerImageTaskNode.appendChild(spaceNode1);
 
     return outerImageTaskNode;
 }
-function createImageAndMessageAreaElement(imageView){
-    let outerNodeHandler= document.createElement('div');
-
-    let messageAreaRowNode= document.createElement('div');
-    messageAreaRowNode.classList.add('row');
-
-    let canvasRowNode= document.createElement('div');
-    canvasRowNode.classList.add('row');
-    canvasRowNode.classList.add('col-12');
-    canvasRowNode.classList.add('imgCenter');
-    imageView.loadImage();
-    canvasRowNode.appendChild(imageView.element);
-
-    outerNodeHandler.appendChild(messageAreaRowNode);
-    outerNodeHandler.appendChild(canvasRowNode);
-    return outerNodeHandler;
+function createMessageAreaElement(questionTreeList){
+    let messageNode=document.createElement('div');
+    if (questionTreeList.hasOwnProperty('message')){
+        messageNode=createMessageAlert();
+    }
+    return messageNode;
 }
 function createQuestionAreaElement(questionTreeList) {
     let outerQuestionSetNode = document.createElement('form');
