@@ -10,7 +10,7 @@ import java.util.List;
 
 public class EquineQuestionTemplateCreator {
 
-    static int nextIdNumberToGive = 500;
+    static int nextIdNumberToGive = 600;
 
     private static String createQuestionId(String identifier){
         String id = "" + nextIdNumberToGive + "-" +identifier;
@@ -117,13 +117,12 @@ public class EquineQuestionTemplateCreator {
     }
 
     public static void main(String[] args){
-        String imageFilePath = "src/main/resources/static/images";
+        String imageFilePath = "src/main/resources/static/images/annotated";
         String imagePathForJavascript = "./images";
         String questionFileToCreate = "src/main/resources/author/generatedQuestions.json";
 
         try {
-            List<String> imageFilePaths = FileSystemUtil.addPathToFilenames(imagePathForJavascript, Arrays.asList("metacarpal15.jpg","metacarpal17.jpg","metacarpal38.jpg","metacarpal39.jpg"));
-                    //FileSystemUtil.findAllFileNamesInDir(imageFilePath, ".jpg"));
+            List<String> imageFilePaths = FileSystemUtil.addPathToFilenames(imagePathForJavascript, FileSystemUtil.findAllFileNamesInDir(imageFilePath, ".jpg"));
 
             List<Question> generatedQuestions = createQuestionsForImageList(imageFilePaths);
             JsonUtil.toJsonFile(questionFileToCreate, generatedQuestions);
