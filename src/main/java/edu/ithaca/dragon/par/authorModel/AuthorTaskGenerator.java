@@ -16,7 +16,7 @@ public class AuthorTaskGenerator {
 
     public static ImageTask makeTaskTemplate(AuthorModel authorModel){
         if (authorModel.getQuestionCountList().size()<1){
-            return new ImageTask("noMoreQuestions", new ArrayList<>());//TODO:NEED LINE
+            return new ImageTask("noMoreQuestions", new ArrayList<>(), "None");//TODO:NEED LINE
         }
 
         QuestionCount initialQuestion = getInitialQuestion(authorModel.getQuestionCountList());
@@ -25,7 +25,7 @@ public class AuthorTaskGenerator {
         for (int i = 0; i < imageTaskList.size(); i++){
             forTask.add(imageTaskList.get(i).getQuestion());
         }
-        ImageTask task = new ImageTask(imageTaskList.get(0).getQuestion().getImageUrl(), forTask);
+        ImageTask task = new ImageTask(imageTaskList.get(0).getQuestion().getImageUrl(), forTask, "None");
         for (int i = 0; i < forTask.size(); i++){
             authorModel.increaseTimesSeen(forTask.get(i).getId());
         }
@@ -52,7 +52,7 @@ public class AuthorTaskGenerator {
                     forTask.add(questionList.get(k));
                 }
             }
-            ImageTask task = new ImageTask(currUrl, forTask);
+            ImageTask task = new ImageTask(currUrl, forTask, "None");
             authoredQuestions.add(task);
         }
         return authoredQuestions;

@@ -26,7 +26,7 @@ public class LevelTaskGeneratorTest {
         studentModel.getUserQuestionSet().increaseTimesSeenAllQuestions(studentModel.getUserQuestionSet().getTopLevelUnseenQuestions());
 
         Question task1Question = LevelTaskGenerator.leastSeenQuestionWithTypesNeeded(Arrays.asList(EquineQuestionTypes.plane.toString()),studentModel);
-        ImageTask task1 = new ImageTask(task1Question.getImageUrl(), Arrays.asList(task1Question));
+        ImageTask task1 = new ImageTask(task1Question.getImageUrl(), Arrays.asList(task1Question), "None");
         assertEquals("./images/demoEquine04.jpg", task1.getImageUrl());
 
     }
@@ -128,13 +128,13 @@ public class LevelTaskGeneratorTest {
         //make an imageTask and check aspects of it
         Question task1Question = LevelTaskGenerator.leastSeenQuestionWithTypesNeeded(Arrays.asList(EquineQuestionTypes.plane.toString()),studentModel);
 
-        ImageTask task1 = new ImageTask(task1Question.getImageUrl(), Arrays.asList(task1Question));
+        ImageTask task1 = new ImageTask(task1Question.getImageUrl(), Arrays.asList(task1Question), "None");
         assertEquals("./images/demoEquine04.jpg", task1.getImageUrl());
         assertEquals(1, task1.getTaskQuestions().size());
 
         //make a new imageTask and check aspects of it
         Question task2Question = LevelTaskGenerator.leastSeenQuestionWithTypesNeeded(Arrays.asList(EquineQuestionTypes.plane.toString()),studentModel);
-        ImageTask task2 = new ImageTask(task2Question.getImageUrl(), Arrays.asList(task1Question));
+        ImageTask task2 = new ImageTask(task2Question.getImageUrl(), Arrays.asList(task1Question), "None");
         assertEquals("./images/demoEquine04.jpg", task1.getImageUrl());
         assertEquals(1, task2.getTaskQuestions().size());
 

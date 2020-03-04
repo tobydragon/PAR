@@ -11,12 +11,14 @@ public class ImageTask{
 
     private String imageUrl;
     private List<Question> taskQuestions;
+    private String message;
 
     public ImageTask(){};
 
-    public ImageTask(String imageUrlIn, List<Question> taskQuestionsIn){
+    public ImageTask(String imageUrlIn, List<Question> taskQuestionsIn, String messageIn){
         imageUrl = imageUrlIn;
         taskQuestions = new ArrayList<>(taskQuestionsIn);
+        message = messageIn;
     }
 
     public String getImageUrl() {return imageUrl;}

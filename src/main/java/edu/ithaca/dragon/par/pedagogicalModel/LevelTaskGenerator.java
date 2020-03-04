@@ -28,7 +28,7 @@ public class LevelTaskGenerator implements TaskGenerator {
         Question initialQuestion= leastSeenQuestionWithTypesNeeded(levelTypes,studentModel);
         List<Question> questionList = QuestionPool.getTopLevelQuestionsFromUrl(studentModel.getUserQuestionSet().getAllQuestions(), initialQuestion.getImageUrl());
         questionList = filterQuestions(level, questionList);
-        ImageTask imageTask = new ImageTask(initialQuestion.getImageUrl(), questionList);
+        ImageTask imageTask = new ImageTask(initialQuestion.getImageUrl(), questionList, "None");
 
         studentModel.getUserQuestionSet().increaseTimesSeenAllQuestions(questionList);
         return imageTask;
