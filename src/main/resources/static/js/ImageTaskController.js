@@ -5,7 +5,7 @@ class ImageTaskController{
         this.userId = userId;
         this.id = userId + "-" + imageTaskModel.imageUrl;
         this.imageController = new ImageController(imageTaskModel.imageUrl, this.id+"Canvas");
-        this.questionTreeList = buildQATreeViewList(imageTaskModel.taskQuestions);
+        this.questionTreeList = buildQATreeControllerList(imageTaskModel.taskQuestions);
         this.element = buildImageTaskViewElement(this.id, this.imageController, this.questionTreeList);
     }
 

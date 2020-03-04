@@ -1,26 +1,30 @@
 class QuestionAndAnswerController {
     constructor(qaModel) {
         this.qaModel = qaModel;
-        this.questionView = new QuestionController(qaModel.questionText);
-        this.answerView = new AnswerController(qaModel);
-        this.element = buildQuestionAndAnswerViewElement(qaModel.id + "QuestionAndAnswerController", this.questionView.element, this.answerView.element);
+        this.questionController = new QuestionController(qaModel.questionText);
+        this.answerController = new AnswerController(qaModel);
+        this.element = buildQuestionAndAnswerViewElement(qaModel.id + "QuestionAndAnswerController", this.questionController.element, this.answerController.element);
     }
 
     getResponse(){
-        if (this.answerView.getCurrentAnswer() === ResponseResult.blank || this.questionView.getResponse() === ResponseResult.blank){
+        if (this.answerController.getCurrentAnswer() === ResponseResult.blank || this.questionController.getResponse() === ResponseResult.blank){
             return null;
         }
         else {
-            return new QuestionResponse(this.qaModel.id, this.answerView.getCurrentAnswer(), this.questionView.getResponse());
+            return new QuestionResponse(this.qaModel.id, this.answerController.getCurrentAnswer(), this.questionController.getResponse());
         }
     }
 
     checkAnswerAndUpdateView(){
-        return this.answerView.checkAnswerAndUpdateView();
+        return this.answerController.checkAnswerAndUpdateView();
+    }
+
+    isAnswerBoxDisabled(){
+        return this.answerController.isAnswerBoxDisabled();
     }
 
     showAnswer(){
-        this.answerView.showCorrectAnswer();
+        this.answerController.showCorrectAnswer();
     }
 }
 
