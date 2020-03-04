@@ -49,15 +49,15 @@ describe("QATreeController", function(){
 
     };
     let qatvObj = new QATreeController(qaModel);
-    it("showNextLevelFollowupQuestions", function(){
-        expect(qatvObj.showNextLevelFollowupQuestions().element.childNodes.item(0)).toContain(buildQATreeListElement(qatvObj.followupQATreeControllers));
-    }) ;
-    it("areAnswerBoxAndAllFollowupAnswerBoxesDisabled - everything enabled", function(){
-       expect(qatvObj.areAnswerBoxAndAllFollowupAnswerBoxesDisabled()).toBe(false);
+
+    it("buildQAViewTreeElement", function(){
+        let testElement=buildQATreeViewElement(qatvObj.id+"QATreeView", qatvObj.qaController.element);
+        expect(testElement.getAttribute("id")).toBe(qatvObj.id+"QATreeView");
+        expect(testElement.childNodes.item(0)).toBe(qatvObj.qaController.element);
     });
+
     it("areAnswerBoxAndAllFollowupAnswerBoxesDisabled - just child disabled", function(){
         qatvObj.qaController.answerController.inputTextbox.disabled = false;
-        console.log(qatvObj.followupQATreeControllers);
         qatvObj.followupQATreeControllers[0].qaController.answerController.inputTextbox.disabled = true;
         expect(qatvObj.areAnswerBoxAndAllFollowupAnswerBoxesDisabled()).toBe(false);
     });
@@ -81,10 +81,14 @@ describe("QATreeController", function(){
         qatvObj.followupQATreeControllers[1].followupQATreeControllers[1].qaController.answerController.inputTextbox.disabled = false;
         expect(qatvObj.areAnswerBoxAndAllFollowupAnswerBoxesDisabled()).toBe(false);
     });
-
-    it("buildQAViewTreeElement", function(){
-    let testElement=buildQATreeViewElement(qatvObj.id+"QATreeView", qatvObj.qaController.element);
-    expect(testElement.getAttribute("id")).toBe(qatvObj.id+"QATreeView");
-    expect(testElement.childNodes.item(0)).toBe(qatvObj.qaController.element);
+    it("areAnswerBoxAndAllFollowupAnswerBoxesDisabled - everything enabled", function(){
+        qatvObj.qaController.answerController.inputTextbox.disabled = false;
+        qatvObj.followupQATreeControllers[0].qaController.answerController.inputTextbox.disabled = false;
+        qatvObj.followupQATreeControllers[1].qaController.answerController.inputTextbox.disabled = false;
+        qatvObj.followupQATreeControllers[1].followupQATreeControllers[0].qaController.answerController.inputTextbox.disabled = false;
+        qatvObj.followupQATreeControllers[1].followupQATreeControllers[1].qaController.answerController.inputTextbox.disabled = false;
+        qatvObj.followupQATreeControllers[1].followupQATreeControllers[2].qaController.answerController.inputTextbox.disabled = false;
+        qatvObj.followupQATreeControllers[2].qaController.answerController.inputTextbox.disabled = false;
+        expect(qatvObj.areAnswerBoxAndAllFollowupAnswerBoxesDisabled()).toBe(false);
     });
 });
