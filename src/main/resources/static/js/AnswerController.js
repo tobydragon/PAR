@@ -45,6 +45,10 @@ class AnswerController {
         return returnResponse;
     }
 
+    isAnswerBoxDisabled(){
+        return this.inputTextbox.disabled;
+    }
+
     showCorrectAnswer(){
         this.inputTextbox.value = this.qaModel.correctAnswer;
         disableElement(this.inputTextbox);

@@ -5,13 +5,28 @@ class ImageTaskController{
         this.userId = userId;
         this.id = userId + "-" + imageTaskModel.imageUrl;
         this.imageController = new ImageController(imageTaskModel.imageUrl, this.id+"Canvas");
-        this.questionTreeList = buildQATreeViewList(imageTaskModel.taskQuestions);
+        this.questionTreeList = buildQATreeControllerList(imageTaskModel.taskQuestions);
         this.element = buildImageTaskViewElement(this.id, this.imageController, this.questionTreeList);
     }
 
     checkAnswersAndUpdateView(){
         for (let qaTree of this.questionTreeList){
             qaTree.checkAnswersAndUpdateView();
+            this.updateButtonStatus();
+        }
+    }
+
+    updateButtonStatus(){
+        let allComplete = true;
+        for (let qaTree of this.questionTreeList){
+            if (!qaTree.areAnswerBoxAndAllFollowupAnswerBoxesDisabled()){
+                allComplete = false;
+            }
+        }
+        if (allComplete){
+            //TODO: need to decide control structure on these buttons that aren't in ImageTask space
+            document.getElementById("next").innerText = "Next";
+            document.getElementById("submit").disabled = true;
         }
     }
 
