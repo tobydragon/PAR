@@ -44,4 +44,12 @@ public class ImageTask{
                 && this.getTaskQuestions().equals(other.getTaskQuestions());
     }
 
+    public void changeMessage(String newMessage){
+        String str = "hi";
+    }
+
+    public String getMessage(){
+        return message;
+    }
+
 }
