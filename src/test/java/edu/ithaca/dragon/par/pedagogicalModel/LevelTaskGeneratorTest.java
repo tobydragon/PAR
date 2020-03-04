@@ -6,6 +6,7 @@ import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.JsonQuestionPoolDatastore;
 import edu.ithaca.dragon.par.io.JsonStudentModelDatastore;
+import edu.ithaca.dragon.par.io.StudentModelRecord;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.util.JsonUtil;
 import org.junit.jupiter.api.Test;
@@ -364,6 +365,26 @@ public class LevelTaskGeneratorTest {
         questionList = questionPool.getAllQuestions();
         questionList = LevelTaskGenerator.filterQuestions(7, questionList);
         assertEquals(10, questionList.size());
+    }
+
+    @Test
+    public void taskMessageTest() throws IOException{
+
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
+
+        StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
+        StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
+
+        TaskGenerator taskGenerator = new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap());
+
+        ImageTask it = taskGenerator.makeTask(masteredStudentModel, 4);
+        assertEquals(it.getMessage(), "You have mastered the material! Feel free to keep practicing");
+
+        StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/notMasteredStudent.json", StudentModelRecord.class);
+        StudentModel badStudentModel = smr2.buildStudentModel(myQP);
+
+        it = taskGenerator.makeTask(masteredStudentModel, 4);
+        assertEquals(it.getMessage(), "None");
     }
 
 }
