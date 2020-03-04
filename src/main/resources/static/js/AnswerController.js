@@ -11,6 +11,13 @@ const defaultQaSettings = {
     unsureShowsCorrect: true
 };
 
+const feedbackUrls = {
+    plane: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4774705/",
+    structure: "http://www.equestrianandhorse.com/care/veterinary/hoof-lower-leg-structure.html",
+    attachment: "https://en.wikipedia.org/wiki/Limbs_of_the_horse#Legs",
+    zone: "https://www.researchgate.net/publication/279608494_Ultrasonographic_Evaluation_of_the_Equine_Limb_Technique"
+};
+
 class AnswerController {
 
     constructor(qaModel, qaSettings=defaultQaSettings) {
@@ -35,7 +42,7 @@ class AnswerController {
     //todo for refactor, get rid of makeFeedbackHTML changing innerHTML. func should be be appended to feedbackArea
     checkAnswerAndUpdateView() {
         let returnResponse = checkAnyResponse(this.qaModel.correctAnswer, this.inputTextbox.value);
-        this.feedbackArea.innerHTML = makeFeedbackHtml(returnResponse, this.qaModel.correctAnswer, this.qaSettings.unsureShowsCorrect);
+        this.feedbackArea.innerHTML = makeFeedbackHtml(returnResponse, this.qaModel.correctAnswer, this.qaSettings.unsureShowsCorrect, this.qaModel.type);
 
         if (returnResponse === ResponseResult.correct) {
             disableElement(this.inputTextbox);
@@ -72,9 +79,9 @@ function buildElement(id, possibleResponseDatalist, inputTextbox, feedbackArea) 
 }
 
 //todo ideally makeFeedbackHTML should be returning an element rather than an HTML string
-function makeFeedbackHtml(correctness, correctResponse, unsureShowsCorrect) {
+function makeFeedbackHtml(correctness, correctResponse, unsureShowsCorrect, questionType) {
     if (correctness === ResponseResult.correct) {
-        return '<font color=\"green\">Your answer is: Correct</font>';
+        return '<font color=\"green\">Your answer is Correct</font>';
     } else if (correctness === ResponseResult.unsure) {
         if (unsureShowsCorrect) {
             return "<font color=\"#663399\">The correct answer is " + correctResponse + '</font>';
@@ -84,7 +91,7 @@ function makeFeedbackHtml(correctness, correctResponse, unsureShowsCorrect) {
     } else if (correctness === ResponseResult.blank) {
         return "";
     } else {
-        return '<font color=\"red\">Your answer is: Incorrect</font>';
+        return "<font color=\"red\">Your answer is: Incorrect, consider <a href=\""+ feedbackUrls[questionType] + "\"target=\"_blank\">this resource</a> for review </font>";
     }
 }
 
