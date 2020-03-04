@@ -45,7 +45,7 @@ public class ImageTask{
     }
 
     public void changeMessage(String newMessage){
-        String str = "hi";
+        message = newMessage;
     }
 
     public String getMessage(){
