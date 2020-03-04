@@ -21,7 +21,11 @@ public class LevelTaskGenerator implements TaskGenerator {
     @Override
     public ImageTask makeTask(StudentModel studentModel, int questionCountPerTypeForAnalysis) {
         int studentLevel = calcLevel(studentModel.calcKnowledgeEstimateByType(questionCountPerTypeForAnalysis));
-        return makeTaskGivenLevel(studentModel, levelToTypesMap.get(studentLevel), studentLevel);
+        ImageTask im = makeTaskGivenLevel(studentModel, levelToTypesMap.get(studentLevel), studentLevel);
+        if(studentLevel==7){
+            im.setMessage("You have mastered the material! Feel free to keep practicing");
+        }
+        return im;
     }
 
     public static ImageTask makeTaskGivenLevel(StudentModel studentModel, List<String> levelTypes, int level) {

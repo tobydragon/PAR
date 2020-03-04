@@ -52,4 +52,8 @@ public class ImageTask{
         return message;
     }
 
+    public void setMessage(String mess){
+        message = mess;
+    }
+
 }

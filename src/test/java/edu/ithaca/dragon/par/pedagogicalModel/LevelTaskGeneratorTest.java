@@ -378,13 +378,14 @@ public class LevelTaskGeneratorTest {
         TaskGenerator taskGenerator = new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap());
 
         ImageTask it = taskGenerator.makeTask(masteredStudentModel, 4);
-        assertEquals(it.getMessage(), "You have mastered the material! Feel free to keep practicing");
+        assertEquals("You have mastered the material! Feel free to keep practicing", it.getMessage());
+
 
         StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/notMasteredStudent.json", StudentModelRecord.class);
         StudentModel badStudentModel = smr2.buildStudentModel(myQP);
 
-        it = taskGenerator.makeTask(masteredStudentModel, 4);
-        assertEquals(it.getMessage(), "None");
+        ImageTask it2 = taskGenerator.makeTask(badStudentModel, 4);
+        assertEquals("None", it2.getMessage());
     }
 
 }
