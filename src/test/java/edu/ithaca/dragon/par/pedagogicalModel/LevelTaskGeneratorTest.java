@@ -394,7 +394,7 @@ public class LevelTaskGeneratorTest {
         StudentModel followupTestUser = studentModelDatastore.getStudentModel("followupTestStudent");
 
         ImageTask it = taskGenerator.makeTask(followupTestUser, 4);
-        assertEquals("./images/metacarpal42.jpg", it.getImageUrl());
+        assertEquals("./images/metacarpal42.jpg", it.getImageUrl()); //If it isn't working, it would get metacarpal56
         assertEquals("341-structure0-./images/metacarpal42.jpg", it.getTaskQuestions().get(0).getId());
 
         ImageTask it2 = taskGenerator.makeTask(followupTestUser, 4);

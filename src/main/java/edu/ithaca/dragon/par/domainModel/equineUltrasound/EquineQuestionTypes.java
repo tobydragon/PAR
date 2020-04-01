@@ -19,4 +19,12 @@ public enum EquineQuestionTypes {
         levelMap.put(7,Arrays.asList(EquineQuestionTypes.zone.toString()));
         return levelMap;
     }
+
+    public static boolean isChildQuestionType(String status){
+        String childType = "attachment";
+        if(status == childType){
+            return true;
+        }
+        return false;
+    }
 }
