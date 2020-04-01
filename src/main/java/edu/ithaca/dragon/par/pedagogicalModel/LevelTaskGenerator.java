@@ -43,16 +43,8 @@ public class LevelTaskGenerator implements TaskGenerator {
         Map<String,List<QuestionCount>> questionTypesListMap = studentModel.questionCountsByTypeMap();
         List<QuestionCount> typeQuestions=questionTypesListMap.get(typesNeeded.get(0));
         if(EquineQuestionTypes.isChildQuestionType(typesNeeded.get(0))){
-            List<QuestionCount> typeQuestionsStructure = questionTypesListMap.get("structure");
-            List<QuestionCount> typeQuestionsStructureWithFollowup = new ArrayList<>();
-            for(QuestionCount questionCountType : typeQuestionsStructure){
-                if (questionCountType.getFollowupCounts().size()>0){
-                    typeQuestionsStructureWithFollowup.add(questionCountType);
-                }
-            }
-            typeQuestions = typeQuestionsStructureWithFollowup;
+            typeQuestions = EquineQuestionTypes.getParentQuestionCountsWithChildren(questionTypesListMap.get("structure"));
         }
-
 
         QuestionCount leastSeenWithTypesNeeded = null;
         for(QuestionCount questionCount : typeQuestions){
