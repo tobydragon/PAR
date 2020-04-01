@@ -38,7 +38,6 @@ public class LevelTaskGenerator implements TaskGenerator {
         return imageTask;
     }
 
-    //should send a string, not a list of strings. Whoever sends the string is responsible for making sure they send the right one.
     public static Question leastSeenQuestionWithTypesNeeded(List<String> typesNeeded, StudentModel studentModel){
         Map<String,List<QuestionCount>> questionTypesListMap = studentModel.questionCountsByTypeMap();
         List<QuestionCount> typeQuestions=questionTypesListMap.get(typesNeeded.get(0));
@@ -65,9 +64,10 @@ public class LevelTaskGenerator implements TaskGenerator {
         }
     }
 
+    //checks an image has at least one question fo all of the types needed
     public static boolean checkForAllNeededTypesOfQuestions(List<String> types, StudentModel studentModel, Question question){
         Set<String> typesPresent=new LinkedHashSet<>();
-        List<Question> questionList =QuestionPool.getQuestionsWithUrl(studentModel.getUserQuestionSet().getAllQuestions(), question.getImageUrl());
+        List<Question> questionList = QuestionPool.getQuestionsWithUrl(studentModel.getUserQuestionSet().getAllQuestions(), question.getImageUrl());
         for(Question currQuestion: questionList){
             typesPresent.add(currQuestion.getType());
         }
