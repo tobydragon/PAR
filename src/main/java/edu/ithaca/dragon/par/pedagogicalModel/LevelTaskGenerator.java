@@ -41,6 +41,18 @@ public class LevelTaskGenerator implements TaskGenerator {
     public static Question leastSeenQuestionWithTypesNeeded(List<String> typesNeeded, StudentModel studentModel){
         Map<String,List<QuestionCount>> questionTypesListMap = studentModel.questionCountsByTypeMap();
         List<QuestionCount> typeQuestions=questionTypesListMap.get(typesNeeded.get(0));
+        List<QuestionCount> typeQuestionsStructure=questionTypesListMap.get(typesNeeded.get(0));
+        if(typesNeeded.get(0)=="attachment"){
+            typeQuestionsStructure = questionTypesListMap.get("structure");
+            List<QuestionCount> typeQuestionsStructureWithFollowup = new ArrayList<>();
+            for(int i = 0; i<typeQuestionsStructure.size(); i++){
+                if (typeQuestionsStructure.get(i).getFollowupCounts().size()>0){
+                    typeQuestionsStructureWithFollowup.add(typeQuestionsStructure.get(i));
+                }
+            }
+            typeQuestions = typeQuestionsStructureWithFollowup;
+        }
+
 
         QuestionCount leastSeenWithTypesNeeded = null;
         for(QuestionCount questionCount : typeQuestions){

@@ -392,14 +392,14 @@ public class LevelTaskGeneratorTest {
         StudentModelDatastore studentModelDatastore = new JsonStudentModelDatastore("src/test/resources/author/testFullQP.json", "src/test/resources/author/students");
 
         StudentModel followupTestUser = studentModelDatastore.getStudentModel("followupTestStudent");
+
         ImageTask it = taskGenerator.makeTask(followupTestUser, 4);
         assertEquals("./images/metacarpal42.jpg", it.getImageUrl());
-        studentModelDatastore.increaseTimesSeen(followupTestUser.getUserId(), it.getTaskQuestions());
+        assertEquals("341-structure0-./images/metacarpal42.jpg", it.getTaskQuestions().get(0).getId());
 
         ImageTask it2 = taskGenerator.makeTask(followupTestUser, 4);
         assertEquals("./images/metacarpal41.jpg",it2.getImageUrl());
-        studentModelDatastore.increaseTimesSeen(followupTestUser.getUserId(), it.getTaskQuestions());
-
+        assertEquals("369-structure0-./images/metacarpal41.jpg", it2.getTaskQuestions().get(0).getId());
     }
 
 }
