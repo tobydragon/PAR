@@ -389,16 +389,15 @@ public class LevelTaskGeneratorTest {
     @Test
     public void pickLeastSeenParentQuestionTest() throws IOException{
         TaskGenerator taskGenerator = new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap());
-        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
         StudentModelDatastore studentModelDatastore = new JsonStudentModelDatastore("src/test/resources/author/testFullQP.json", "src/test/resources/author/students");
 
-        StudentModel followupTestUser = studentModelDatastore.getStudentModel("followupTestStudent.json");
+        StudentModel followupTestUser = studentModelDatastore.getStudentModel("followupTestStudent");
         ImageTask it = taskGenerator.makeTask(followupTestUser, 4);
-        assertEquals("./images/metacarpal41.jpg", it.getImageUrl());
+        assertEquals("./images/metacarpal42.jpg", it.getImageUrl());
         studentModelDatastore.increaseTimesSeen(followupTestUser.getUserId(), it.getTaskQuestions());
 
         ImageTask it2 = taskGenerator.makeTask(followupTestUser, 4);
-        assertEquals("./images/metacarpal25.jpg",it2.getImageUrl());
+        assertEquals("./images/metacarpal41.jpg",it2.getImageUrl());
         studentModelDatastore.increaseTimesSeen(followupTestUser.getUserId(), it.getTaskQuestions());
 
     }

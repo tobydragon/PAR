@@ -8,35 +8,35 @@
       "followupCountRecords" : [ ]
     }, {
       "questionId" : "327-structure0-./images/metacarpal56.jpg",
-      "timesSeen" : 3,
+      "timesSeen" : 2,
       "followupCountRecords" : [ {
         "questionId" : "325-attachment0-structure0-./images/metacarpal56.jpg",
-        "timesSeen" : 1,
+        "timesSeen" : 0,
         "followupCountRecords" : [ ]
       }, {
         "questionId" : "326-attachment1-structure0-./images/metacarpal56.jpg",
-        "timesSeen" : 1,
+        "timesSeen" : 0,
         "followupCountRecords" : [ ]
       } ]
     }, {
       "questionId" : "330-structure1-./images/metacarpal56.jpg",
-      "timesSeen" : 3,
+      "timesSeen" : 2,
       "followupCountRecords" : [ {
         "questionId" : "328-attachment0-structure1-./images/metacarpal56.jpg",
-        "timesSeen" : 1,
+        "timesSeen" : 0,
         "followupCountRecords" : [ ]
       }, {
         "questionId" : "329-attachment1-structure1-./images/metacarpal56.jpg",
-        "timesSeen" : 1,
+        "timesSeen" : 0,
         "followupCountRecords" : [ ]
       } ]
     }, {
       "questionId" : "333-structure2-./images/metacarpal56.jpg",
-      "timesSeen" : 3,
+      "timesSeen" : 2,
       "followupCountRecords" : [ ]
     }, {
       "questionId" : "336-structure3-./images/metacarpal56.jpg",
-      "timesSeen" : 3,
+      "timesSeen" : 2,
       "followupCountRecords" : [ ]
     }, {
       "questionId" : "337-zone-./images/metacarpal56.jpg",
@@ -268,7 +268,7 @@
       "responseText" : "longitudinal (long axis)",
       "allResponseTexts" : [ {
         "responseText" : "longitudinal (long axis)",
-        "millSeconds" : 1585735347881
+        "millSeconds" : 1585738870107
       } ]
     }, {
       "userId" : "followupTestStudent",
@@ -276,7 +276,7 @@
       "responseText" : "transverse (short axis)",
       "allResponseTexts" : [ {
         "responseText" : "transverse (short axis)",
-        "millSeconds" : 1585735353864
+        "millSeconds" : 1585738891250
       } ]
     }, {
       "userId" : "followupTestStudent",
@@ -284,7 +284,7 @@
       "responseText" : "transverse (short axis)",
       "allResponseTexts" : [ {
         "responseText" : "transverse (short axis)",
-        "millSeconds" : 1585735362728
+        "millSeconds" : 1585738901056
       } ]
     }, {
       "userId" : "followupTestStudent",
@@ -292,7 +292,7 @@
       "responseText" : "transverse (short axis)",
       "allResponseTexts" : [ {
         "responseText" : "transverse (short axis)",
-        "millSeconds" : 1585735400924
+        "millSeconds" : 1585738926552
       } ]
     }, {
       "userId" : "followupTestStudent",
@@ -300,7 +300,7 @@
       "responseText" : "Suspensory ligament (branches)",
       "allResponseTexts" : [ {
         "responseText" : "Suspensory ligament (branches)",
-        "millSeconds" : 1585735400924
+        "millSeconds" : 1585738926552
       } ]
     }, {
       "userId" : "followupTestStudent",
@@ -308,7 +308,7 @@
       "responseText" : "Deep digital flexor tendon",
       "allResponseTexts" : [ {
         "responseText" : "Deep digital flexor tendon",
-        "millSeconds" : 1585735400924
+        "millSeconds" : 1585738926552
       } ]
     }, {
       "userId" : "followupTestStudent",
@@ -316,7 +316,7 @@
       "responseText" : "Distal check ligament (accessory ligament of the deep digital flexor tendon)",
       "allResponseTexts" : [ {
         "responseText" : "Distal check ligament (accessory ligament of the deep digital flexor tendon)",
-        "millSeconds" : 1585735464746
+        "millSeconds" : 1585738964276
       } ]
     }, {
       "userId" : "followupTestStudent",
@@ -324,7 +324,7 @@
       "responseText" : "Superficial digital flexor tendon",
       "allResponseTexts" : [ {
         "responseText" : "Superficial digital flexor tendon",
-        "millSeconds" : 1585735464746
+        "millSeconds" : 1585738964276
       } ]
     }, {
       "userId" : "followupTestStudent",
@@ -332,7 +332,7 @@
       "responseText" : "Palmar vessels (medial/lateral)",
       "allResponseTexts" : [ {
         "responseText" : "Palmar vessels (medial/lateral)",
-        "millSeconds" : 1585735464746
+        "millSeconds" : 1585738964276
       } ]
     }, {
       "userId" : "followupTestStudent",
@@ -340,7 +340,7 @@
       "responseText" : "Metacarpus bone 3 (Third metacarpal bone)",
       "allResponseTexts" : [ {
         "responseText" : "Metacarpus bone 3 (Third metacarpal bone)",
-        "millSeconds" : 1585735464746
+        "millSeconds" : 1585738964276
       } ]
     } ]
   }
