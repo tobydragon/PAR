@@ -3,14 +3,12 @@ package edu.ithaca.dragon.par.pedagogicalModel;
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
-import edu.ithaca.dragon.par.io.ImageTask;
-import edu.ithaca.dragon.par.io.JsonQuestionPoolDatastore;
-import edu.ithaca.dragon.par.io.JsonStudentModelDatastore;
-import edu.ithaca.dragon.par.io.StudentModelRecord;
+import edu.ithaca.dragon.par.io.*;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.util.JsonUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+import org.springframework.scheduling.config.Task;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -386,6 +384,23 @@ public class LevelTaskGeneratorTest {
 
         ImageTask it2 = taskGenerator.makeTask(badStudentModel, 4);
         assertEquals("None", it2.getMessage());
+    }
+
+    @Test
+    public void pickLeastSeenParentQuestionTest() throws IOException{
+        TaskGenerator taskGenerator = new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap());
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
+        StudentModelDatastore studentModelDatastore = new JsonStudentModelDatastore("src/test/resources/author/testFullQP.json", "src/test/resources/author/students");
+
+        StudentModel followupTestUser = studentModelDatastore.getStudentModel("followupTestStudent.json");
+        ImageTask it = taskGenerator.makeTask(followupTestUser, 4);
+        assertEquals("./images/metacarpal41.jpg", it.getImageUrl());
+        studentModelDatastore.increaseTimesSeen(followupTestUser.getUserId(), it.getTaskQuestions());
+
+        ImageTask it2 = taskGenerator.makeTask(followupTestUser, 4);
+        assertEquals("./images/metacarpal25.jpg",it2.getImageUrl());
+        studentModelDatastore.increaseTimesSeen(followupTestUser.getUserId(), it.getTaskQuestions());
+
     }
 
 }
