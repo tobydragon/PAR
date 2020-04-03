@@ -21,8 +21,8 @@ public enum EquineQuestionTypes {
     }
 
     public static boolean isChildQuestionType(String type){
-        String childType = "attachment";
-        if(type == childType){
+        String childType = EquineQuestionTypes.attachment.toString();
+        if(type.equals(childType)){
             return true;
         }
         return false;
