@@ -82,7 +82,7 @@ public class LevelTaskGeneratorTest {
         assertEquals("plane./images/demoEquine13.jpg",LevelTaskGenerator.leastSeenQuestionWithTypesNeeded(Arrays.asList(EquineQuestionTypes.plane.toString()),testUser2).getId());
         assertEquals( "structure0./images/demoEquine02.jpg",LevelTaskGenerator.leastSeenQuestionWithTypesNeeded(Arrays.asList(EquineQuestionTypes.structure.toString()),testUser2).getId());
         assertEquals( "structure0./images/demoEquine02.jpg",LevelTaskGenerator.leastSeenQuestionWithTypesNeeded(Arrays.asList(EquineQuestionTypes.structure.toString(),EquineQuestionTypes.attachment.toString()),testUser2).getId());
-        assertEquals( "AttachQ5",LevelTaskGenerator.leastSeenQuestionWithTypesNeeded(Arrays.asList(EquineQuestionTypes.attachment.toString()),testUser2).getId());
+        assertEquals( "structure0./images/demoEquine02.jpg",LevelTaskGenerator.leastSeenQuestionWithTypesNeeded(Arrays.asList(EquineQuestionTypes.attachment.toString()),testUser2).getId());
         //TODO: need to test when the least seen question does not have the proper types
 
         try{
