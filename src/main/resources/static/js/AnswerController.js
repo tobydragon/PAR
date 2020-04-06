@@ -45,6 +45,10 @@ class AnswerController {
         return returnResponse;
     }
 
+    isAnswerBoxDisabled(){
+        return this.inputTextbox.disabled;
+    }
+
     showCorrectAnswer(){
         this.inputTextbox.value = this.qaModel.correctAnswer;
         disableElement(this.inputTextbox);
@@ -70,7 +74,7 @@ function buildElement(id, possibleResponseDatalist, inputTextbox, feedbackArea) 
 //todo ideally makeFeedbackHTML should be returning an element rather than an HTML string
 function makeFeedbackHtml(correctness, correctResponse, unsureShowsCorrect) {
     if (correctness === ResponseResult.correct) {
-        return '<font color=\"green\">Your answer is: Correct</font>';
+        return '<font color=\"green\">Your answer is correct</font>';
     } else if (correctness === ResponseResult.unsure) {
         if (unsureShowsCorrect) {
             return "<font color=\"#663399\">The correct answer is " + correctResponse + '</font>';
@@ -80,7 +84,7 @@ function makeFeedbackHtml(correctness, correctResponse, unsureShowsCorrect) {
     } else if (correctness === ResponseResult.blank) {
         return "";
     } else {
-        return '<font color=\"red\">Your answer is: Incorrect</font>';
+        return '<font color=\"red\">Your answer is incorrect</font>';
     }
 }
 

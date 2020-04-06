@@ -1,17 +1,17 @@
 class QATreeController {
 
     constructor(qaModel) {
-        this.qaView = new QuestionAndAnswerController(qaModel);
+        this.qaController = new QuestionAndAnswerController(qaModel);
         if (qaModel.hasOwnProperty("followupQuestions")) {
-            this.followupQATreeViews = buildQATreeViewList(qaModel.followupQuestions);
+            this.followupQATreeControllers = buildQATreeControllerList(qaModel.followupQuestions);
         } else {
-            this.followupQATreeViews = [];
+            this.followupQATreeControllers = [];
         }
-        this.element = buildQATreeViewElement(qaModel.id + "QATreeController", this.qaView.element);
+        this.element = buildQATreeViewElement(qaModel.id + "QATreeController", this.qaController.element);
     }
 
     showNextLevelFollowupQuestions() {
-        this.element.appendChild(buildQATreeListElement(this.followupQATreeViews));
+        this.element.appendChild(buildQATreeListElement(this.followupQATreeControllers));
     }
 
     showAllLevelFollowupQuestions(){
@@ -19,7 +19,7 @@ class QATreeController {
     }
 
     showThisLevelAnswer(){
-        this.qaView.showAnswer();
+        this.qaController.showAnswer();
     }
 
     showAllAnswers(){
@@ -28,12 +28,26 @@ class QATreeController {
 
 
     checkAnswersAndUpdateView(){
-        let result = this.qaView.checkAnswerAndUpdateView();
+        let result = this.qaController.checkAnswerAndUpdateView();
         if (result === ResponseResult.correct){
             this.showNextLevelFollowupQuestions();
         }
-        for (let followupView of this.followupQATreeViews) {
+        for (let followupView of this.followupQATreeControllers) {
             followupView.checkAnswersAndUpdateView();
+        }
+    }
+
+    areAnswerBoxAndAllFollowupAnswerBoxesDisabled(){
+        if (!this.qaController.isAnswerBoxDisabled()){
+            return false;
+        }
+        else {
+            for (let followupController of this.followupQATreeControllers) {
+                if (!followupController.areAnswerBoxAndAllFollowupAnswerBoxesDisabled()){
+                    return false;
+                }
+            }
+            return true;
         }
     }
 
@@ -51,12 +65,12 @@ function buildQATreeViewElement(id, qaViewElement) {
     return element;
 }
 
-function buildQATreeViewList(qaModelList) {
-    let qaTreeViewList = [];
+function buildQATreeControllerList(qaModelList) {
+    let qaTreeControllerList = [];
     for (let qaModel of qaModelList) {
-        qaTreeViewList.push(new QATreeController(qaModel));
+        qaTreeControllerList.push(new QATreeController(qaModel));
     }
-    return qaTreeViewList;
+    return qaTreeControllerList;
 }
 
 function getResponsesFromAllQATreesInFlatList(qaTreeViewList){
@@ -77,10 +91,10 @@ function buildQATreeListElement(qaTreeViewList){
 }
 
 function putNonBlankResponsesInFlatList(qaTreeView, questionResponseList){
-    let currentResponse = qaTreeView.qaView.getResponse();
+    let currentResponse = qaTreeView.qaController.getResponse();
     if (currentResponse != null) {
         questionResponseList.push(currentResponse);
-        for (let followup of qaTreeView.followupQATreeViews) {
+        for (let followup of qaTreeView.followupQATreeControllers) {
             putNonBlankResponsesInFlatList(followup, questionResponseList);
         }
     }
@@ -88,14 +102,14 @@ function putNonBlankResponsesInFlatList(qaTreeView, questionResponseList){
 
 function showAllLevelFollowupQuestions(qaTreeView){
     qaTreeView.showNextLevelFollowupQuestions();
-    for (let followup of qaTreeView.followupQATreeViews) {
+    for (let followup of qaTreeView.followupQATreeControllers) {
         showAllLevelFollowupQuestions(followup);
     }
 }
 
 function showAllAnswers(qaTreeController){
     qaTreeController.showThisLevelAnswer();
-    for (let followup of qaTreeController.followupQATreeViews) {
+    for (let followup of qaTreeController.followupQATreeControllers) {
         showAllAnswers(followup);
     }
 }

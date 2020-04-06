@@ -61,12 +61,14 @@ function createCanvas(imageUrl, name) {
     newCanvas.height = "768";
     newCanvas.classList.add("canvas");
 
-    let urlView = document.createElement("div");
-    urlView.innerText = imageUrl;
-
     let outerDiv = document.createElement("div");
     outerDiv.appendChild(newCanvas);
-    outerDiv.appendChild(urlView);
+
+    //can show an image label, turned off at client request
+    // let urlView = document.createElement("div");
+    // urlView.innerText = imageUrl;
+    // outerDiv.appendChild(urlView);
+
     return outerDiv;
 }
 

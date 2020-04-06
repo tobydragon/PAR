@@ -117,7 +117,7 @@ public class EquineQuestionTemplateCreator {
     }
 
     public static void main(String[] args){
-        String imageFilePath = "src/main/resources/static/images/annotated";
+        String imageFilePath = "src/main/resources/static/images/new";
         String imagePathForJavascript = "./images";
         String questionFileToCreate = "src/main/resources/author/generatedQuestions.json";
 

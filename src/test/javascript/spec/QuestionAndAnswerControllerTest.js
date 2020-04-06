@@ -20,7 +20,7 @@ describe("QuestionAndAnswerController", function () {
             correctAnswer: "transverse"
         };
         let qaavTestObj2=new QuestionAndAnswerController(qaModel1);
-        qaavTestObj2.answerView.inputTextbox.value="transverse";
+        qaavTestObj2.answerController.inputTextbox.value="transverse";
         expect(qaavTestObj2.getResponse()).not.toBeNull();
     });
     //No test needed for checkAndUpdateView as test functionality already shown in the AnswerViewTest.
@@ -32,11 +32,11 @@ describe("QuestionAndAnswerController", function () {
             correctAnswer: "transverse"
         };
         let qaavTestObj = new QuestionAndAnswerController(qaModel);
-        let buildQandAViewTestElement=buildQuestionAndAnswerViewElement(qaModel.id,qaavTestObj.questionView.element,qaavTestObj.answerView.inputTextbox);
+        let buildQandAViewTestElement=buildQuestionAndAnswerViewElement(qaModel.id,qaavTestObj.questionController.element,qaavTestObj.answerController.inputTextbox);
         expect(buildQandAViewTestElement).not.toBeNull();
         expect(buildQandAViewTestElement.getAttribute('id')).toBe(qaModel.id);
-        expect(buildQandAViewTestElement.childNodes.item(0)).toBe(qaavTestObj.questionView.element);
-        expect(buildQandAViewTestElement.childNodes.item(1)).toBe(qaavTestObj.answerView.inputTextbox);
+        expect(buildQandAViewTestElement.childNodes.item(0)).toBe(qaavTestObj.questionController.element);
+        expect(buildQandAViewTestElement.childNodes.item(1)).toBe(qaavTestObj.answerController.inputTextbox);
         expect(buildQandAViewTestElement.getAttribute('class')).toContain('pad5');
     });
 });

@@ -35,6 +35,10 @@ class StudentController{
             this.imageTaskElement.removeChild(this.imageTaskElement.firstChild);
         }
         this.imageTaskElement.appendChild(this.imageTaskView.element);
+        //TODO: figure out control structure with these buttons
+        document.getElementById("next").innerText = "Skip";
+        document.getElementById("submit").disabled = false;
+
     }
 
     //has side effect by calling updateScoreWithModel upon response
