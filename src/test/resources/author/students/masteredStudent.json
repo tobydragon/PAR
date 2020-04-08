@@ -40,7 +40,7 @@
       "followupCountRecords" : [ ]
     }, {
       "questionId" : "337-zone-./images/metacarpal56.jpg",
-      "timesSeen" : 0,
+      "timesSeen" : 6,
       "followupCountRecords" : [ ]
     }, {
       "questionId" : "338-plane-./images/metacarpal42.jpg",
@@ -88,7 +88,7 @@
       "followupCountRecords" : [ ]
     }, {
       "questionId" : "351-zone-./images/metacarpal42.jpg",
-      "timesSeen" : 2,
+      "timesSeen" : 4,
       "followupCountRecords" : [ ]
     }, {
       "questionId" : "366-plane-./images/metacarpal41.jpg",
@@ -136,7 +136,7 @@
       } ]
     }, {
       "questionId" : "379-zone-./images/metacarpal41.jpg",
-      "timesSeen" : 0,
+      "timesSeen" : 4,
       "followupCountRecords" : [ ]
     }, {
       "questionId" : "450-plane-./images/metacarpal25.jpg",
@@ -168,7 +168,7 @@
       } ]
     }, {
       "questionId" : "463-zone-./images/metacarpal25.jpg",
-      "timesSeen" : 0,
+      "timesSeen" : 4,
       "followupCountRecords" : [ ]
     }, {
       "questionId" : "464-plane-./images/metacarpal19.jpg",
@@ -208,7 +208,7 @@
       } ]
     }, {
       "questionId" : "477-zone-./images/metacarpal19.jpg",
-      "timesSeen" : 2,
+      "timesSeen" : 4,
       "followupCountRecords" : [ ]
     }, {
       "questionId" : "478-plane-./images/metacarpal37.jpg",
@@ -256,7 +256,7 @@
       } ]
     }, {
       "questionId" : "491-zone-./images/metacarpal37.jpg",
-      "timesSeen" : 10,
+      "timesSeen" : 24,
       "followupCountRecords" : [ ]
     } ]
   },
@@ -512,17 +512,6 @@
       } ]
     }, {
       "userId" : "masteredStudent",
-      "questionId" : "351-zone-./images/metacarpal42.jpg",
-      "responseText" : "3A",
-      "allResponseTexts" : [ {
-        "responseText" : "3A",
-        "millSeconds" : 1586342803987
-      }, {
-        "responseText" : "3A",
-        "millSeconds" : 1586342866220
-      } ]
-    }, {
-      "userId" : "masteredStudent",
       "questionId" : "467-structure0-./images/metacarpal19.jpg",
       "responseText" : "Metacarpus bone 3 (Third metacarpal bone)",
       "allResponseTexts" : [ {
@@ -599,17 +588,6 @@
       } ]
     }, {
       "userId" : "masteredStudent",
-      "questionId" : "477-zone-./images/metacarpal19.jpg",
-      "responseText" : "2A",
-      "allResponseTexts" : [ {
-        "responseText" : "2A",
-        "millSeconds" : 1586342895129
-      }, {
-        "responseText" : "2A",
-        "millSeconds" : 1586342920520
-      } ]
-    }, {
-      "userId" : "masteredStudent",
       "questionId" : "491-zone-./images/metacarpal37.jpg",
       "responseText" : "1B",
       "allResponseTexts" : [ {
@@ -624,6 +602,67 @@
       }, {
         "responseText" : "1B",
         "millSeconds" : 1586342947808
+      } ]
+    }, {
+      "userId" : "masteredStudent",
+      "questionId" : "337-zone-./images/metacarpal56.jpg",
+      "responseText" : "1B",
+      "allResponseTexts" : [ {
+        "responseText" : "1B",
+        "millSeconds" : 1586346763914
+      }, {
+        "responseText" : "2",
+        "millSeconds" : 1586346791033
+      } ]
+    }, {
+      "userId" : "masteredStudent",
+      "questionId" : "351-zone-./images/metacarpal42.jpg",
+      "responseText" : "3A",
+      "allResponseTexts" : [ {
+        "responseText" : "3A",
+        "millSeconds" : 1586342803987
+      }, {
+        "responseText" : "3A",
+        "millSeconds" : 1586342866220
+      }, {
+        "responseText" : "3A",
+        "millSeconds" : 1586346802604
+      } ]
+    }, {
+      "userId" : "masteredStudent",
+      "questionId" : "379-zone-./images/metacarpal41.jpg",
+      "responseText" : "2B",
+      "allResponseTexts" : [ {
+        "responseText" : "2B",
+        "millSeconds" : 1586346781976
+      }, {
+        "responseText" : "2B",
+        "millSeconds" : 1586346808015
+      } ]
+    }, {
+      "userId" : "masteredStudent",
+      "questionId" : "463-zone-./images/metacarpal25.jpg",
+      "responseText" : "3B",
+      "allResponseTexts" : [ {
+        "responseText" : "3B",
+        "millSeconds" : 1586346786163
+      }, {
+        "responseText" : "3B",
+        "millSeconds" : 1586346813175
+      } ]
+    }, {
+      "userId" : "masteredStudent",
+      "questionId" : "477-zone-./images/metacarpal19.jpg",
+      "responseText" : "2A",
+      "allResponseTexts" : [ {
+        "responseText" : "2A",
+        "millSeconds" : 1586342895129
+      }, {
+        "responseText" : "2A",
+        "millSeconds" : 1586342920520
+      }, {
+        "responseText" : "2A",
+        "millSeconds" : 1586346818133
       } ]
     } ]
   }
