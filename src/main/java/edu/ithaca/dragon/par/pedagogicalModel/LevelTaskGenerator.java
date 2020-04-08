@@ -87,24 +87,41 @@ public class LevelTaskGenerator implements TaskGenerator {
 
     public static int calcLevel(Map<String, Double> scoresPerType) {
         List<Double> orderedScores = orderedScores(scoresPerType);
-        int level = 1;//sets score to one
 
-        if (orderedScores.get(0) < 60)
-            return level;//if user has score less than 75 on plane , returns level 1
+        if (orderedScores.get(0) < 50)
+            return 1;//if user has score less than 75 on plane , returns level 1
 
-        else {
-            for(int i = 0; i < orderedScores.size()-1; i++) {
+        else{
 
-                if (orderedScores.get(i) >= 60 && orderedScores.get(i) < 100) {//if score is less than 100 and greater than 74, adds a level
-                    level = level + 1;
-                    return level;//returns level in this case
-                }
-
-                else if (orderedScores.get(i) == 100)
-                    level = level + 2;//if score is 100, adds 2 to level/skips a level
+            //level 7
+            if (orderedScores.get(0)>=100 && orderedScores.get(1)>=100 && orderedScores.get(2) >= 100 && orderedScores.get(3) >= 100){
+                return 7;
             }
 
-            return level;
+            //level 6
+            else if (orderedScores.get(0)>=100 && orderedScores.get(1)>=100 && orderedScores.get(2) >= 100 && orderedScores.get(3) >= 50){
+                return 6;
+            }
+
+            //level 5
+            else if (orderedScores.get(0)>=100 && orderedScores.get(1)>=100 && orderedScores.get(2) >= 50){
+                return 5;
+            }
+
+            //level 4
+            else if (orderedScores.get(0)>=100 && orderedScores.get(1) >= 75){
+                return 4;
+            }
+
+            //level 3
+            else if(orderedScores.get(0)>=100 && orderedScores.get(1) >= 50){
+                return 3;
+            }
+
+            else{
+                //level 2
+                return 2;
+            }
         }
     }
 
