@@ -144,13 +144,13 @@ public class LevelTaskGenerator implements TaskGenerator {
         if(level > 2){
             questionList = removeTypeFromQuestionList(questionList,  EquineQuestionTypes.plane.toString());
         }
-        if(level < 2 || level > 6){
+        if(level < 2 || level > 5){
             questionList = removeTypeFromQuestionList(questionList,  EquineQuestionTypes.structure.toString());
         }
-        if(level < 4 || level > 6){
+        if(level < 4 || level > 5){
             questionList = removeTypeFromQuestionList(questionList, EquineQuestionTypes.attachment.toString());
         }
-        if(level < 6){
+        if(level < 5){
             questionList = removeTypeFromQuestionList(questionList,  EquineQuestionTypes.zone.toString());
         }
         return questionList;

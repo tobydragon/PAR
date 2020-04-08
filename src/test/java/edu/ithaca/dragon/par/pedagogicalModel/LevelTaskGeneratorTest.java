@@ -51,6 +51,7 @@ public class LevelTaskGeneratorTest {
         assertEquals(0, imageTask.getTaskQuestions().get(0).getFollowupQuestions().get(0).getFollowupQuestions().size());
     }
 
+    //What is this supposed to test?? the questionSet isn't empty..?
     @Test
     public void emptyQuestionSetTest()throws IOException {
         JsonStudentModelDatastore datastore = new JsonStudentModelDatastore("src/test/resources/author/simpleTestSet/currentQuestionPool.json", "src/test/resources/author/simpleTestSet/students");
@@ -230,15 +231,15 @@ public class LevelTaskGeneratorTest {
         questionList = LevelTaskGenerator.filterQuestions(4, questionList);
         assertEquals(27, questionList.size());
 
-        //structure and attachment only
-        questionList = questionPool.getAllQuestions();
-        questionList = LevelTaskGenerator.filterQuestions(5, questionList);
-        assertEquals(27, questionList.size());
-
         //structure, attachment, and zone only
         questionList = questionPool.getAllQuestions();
-        questionList = LevelTaskGenerator.filterQuestions(6, questionList);
+        questionList = LevelTaskGenerator.filterQuestions(5, questionList);
         assertEquals(37, questionList.size());
+
+        //zone only
+        questionList = questionPool.getAllQuestions();
+        questionList = LevelTaskGenerator.filterQuestions(6, questionList);
+        assertEquals(10, questionList.size());
 
         //zone only
         questionList = questionPool.getAllQuestions();
