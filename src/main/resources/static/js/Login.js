@@ -12,13 +12,13 @@ function setBottomText() {
     document.getElementById("idHelp").innerHTML = currText;
 }
 
-// function setUserId() {
-//     User = document.getElementById("inputId").value;
-//     return User;
-// }
+function setUserId() {
+    User = document.getElementById("inputId").value;
+    return User;
+}
 
 function login() {
-    // setUserId();
+    setUserId();
     try {
         return location.replace('/studentView?userId=' + User);
     } catch (Exception) {
@@ -29,7 +29,7 @@ function login() {
 }
 
 function author() {
-    // setUserId();
+    setUserId();
     try {
         return location.replace('/authorFromTemplateView?userId=' + User);
     } catch (Exception) {
