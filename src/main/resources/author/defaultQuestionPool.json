@@ -57,7 +57,7 @@
     "id" : "624-attachment0-structure3-./images/3CTransverse.jpg",
     "type" : "attachment",
     "questionText" : "What is this structure’s proximal attachment?",
-    "correctAnswer" : "lateral humeral epicondyle",
+    "correctAnswer" : "medial humeral epicondyle",
     "possibleAnswers" : [ "Medial humeral epicondyle", "Lateral humeral epicondyle", "Both the proximal metacarpus 3 and distal row of carpal bones", "Distal row of carpal bones", "proximal metacarpus 3" ],
     "imageUrl" : "./images/3CTransverse.jpg",
     "followupQuestions" : [ ]
@@ -129,7 +129,7 @@
     "id" : "635-attachment0-structure2-./images/Zone3Longitudinal.jpg",
     "type" : "attachment",
     "questionText" : "What is this structure’s proximal attachment?",
-    "correctAnswer" : "lateral humeral epicondyle",
+    "correctAnswer" : "medial humeral epicondyle",
     "possibleAnswers" : [ "Medial humeral epicondyle", "Lateral humeral epicondyle", "Both the proximal metacarpus 3 and distal row of carpal bones", "Distal row of carpal bones", "proximal metacarpus 3" ],
     "imageUrl" : "./images/Zone3Longitudinal.jpg",
     "followupQuestions" : [ ]
@@ -193,7 +193,7 @@
     "id" : "660-attachment0-structure1-./images/Annotated3ATrans.jpg",
     "type" : "attachment",
     "questionText" : "What is this structure’s proximal attachment?",
-    "correctAnswer" : "lateral humeral epicondyle",
+    "correctAnswer" : "medial humeral epicondyle",
     "possibleAnswers" : [ "Medial humeral epicondyle", "Lateral humeral epicondyle", "Both the proximal metacarpus 3 and distal row of carpal bones", "Distal row of carpal bones", "proximal metacarpus 3" ],
     "imageUrl" : "./images/Annotated3ATrans.jpg",
     "followupQuestions" : [ ]
@@ -289,7 +289,7 @@
     "id" : "674-attachment0-structure1-./images/ExtraAnnotated1ATrans.jpg",
     "type" : "attachment",
     "questionText" : "What is this structure’s proximal attachment?",
-    "correctAnswer" : "lateral humeral epicondyle",
+    "correctAnswer" : "medial humeral epicondyle",
     "possibleAnswers" : [ "Medial humeral epicondyle", "Lateral humeral epicondyle", "Both the proximal metacarpus 3 and distal row of carpal bones", "Distal row of carpal bones", "proximal metacarpus 3" ],
     "imageUrl" : "./images/ExtraAnnotated1ATrans.jpg",
     "followupQuestions" : [ ]
@@ -409,7 +409,7 @@
     "id" : "691-attachment0-structure2-./images/Annotated2ATrans.jpg",
     "type" : "attachment",
     "questionText" : "What is this structure’s proximal attachment?",
-    "correctAnswer" : "lateral humeral epicondyle",
+    "correctAnswer" : "medial humeral epicondyle",
     "possibleAnswers" : [ "Medial humeral epicondyle", "Lateral humeral epicondyle", "Both the proximal metacarpus 3 and distal row of carpal bones", "Distal row of carpal bones", "proximal metacarpus 3" ],
     "imageUrl" : "./images/Annotated2ATrans.jpg",
     "followupQuestions" : [ ]
@@ -497,7 +497,7 @@
     "id" : "702-attachment0-structure1-./images/Annotated3BTrans.jpg",
     "type" : "attachment",
     "questionText" : "What is this structure’s proximal attachment?",
-    "correctAnswer" : "lateral humeral epicondyle",
+    "correctAnswer" : "medial humeral epicondyle",
     "possibleAnswers" : [ "Medial humeral epicondyle", "Lateral humeral epicondyle", "Both the proximal metacarpus 3 and distal row of carpal bones", "Distal row of carpal bones", "proximal metacarpus 3" ],
     "imageUrl" : "./images/Annotated3BTrans.jpg",
     "followupQuestions" : [ ]
@@ -593,7 +593,7 @@
     "id" : "722-attachment0-structure3-./images/Annotated3CTrans.jpg",
     "type" : "attachment",
     "questionText" : "What is this structure’s proximal attachment?",
-    "correctAnswer" : "lateral humeral epicondyle",
+    "correctAnswer" : "medial humeral epicondyle",
     "possibleAnswers" : [ "Medial humeral epicondyle", "Lateral humeral epicondyle", "Both the proximal metacarpus 3 and distal row of carpal bones", "Distal row of carpal bones", "proximal metacarpus 3" ],
     "imageUrl" : "./images/Annotated3CTrans.jpg",
     "followupQuestions" : [ ]
@@ -785,7 +785,7 @@
     "id" : "750-attachment0-structure3-./images/AlternativeZone2Long.jpg",
     "type" : "attachment",
     "questionText" : "What is this structure’s proximal attachment?",
-    "correctAnswer" : "lateral humeral epicondyle",
+    "correctAnswer" : "medial humeral epicondyle",
     "possibleAnswers" : [ "Medial humeral epicondyle", "Lateral humeral epicondyle", "Both the proximal metacarpus 3 and distal row of carpal bones", "Distal row of carpal bones", "proximal metacarpus 3" ],
     "imageUrl" : "./images/AlternativeZone2Long.jpg",
     "followupQuestions" : [ ]
@@ -849,7 +849,7 @@
     "id" : "758-attachment0-structure1-./images/Annotated1ATrans.jpg",
     "type" : "attachment",
     "questionText" : "What is this structure’s proximal attachment?",
-    "correctAnswer" : "lateral humeral epicondyle",
+    "correctAnswer" : "medial humeral epicondyle",
     "possibleAnswers" : [ "Medial humeral epicondyle", "Lateral humeral epicondyle", "Both the proximal metacarpus 3 and distal row of carpal bones", "Distal row of carpal bones", "proximal metacarpus 3" ],
     "imageUrl" : "./images/Annotated1ATrans.jpg",
     "followupQuestions" : [ ]
@@ -961,7 +961,7 @@
     "id" : "772-attachment0-structure1-./images/1ATransverse.jpg",
     "type" : "attachment",
     "questionText" : "What is this structure’s proximal attachment?",
-    "correctAnswer" : "lateral humeral epicondyle",
+    "correctAnswer" : "medial humeral epicondyle",
     "possibleAnswers" : [ "Medial humeral epicondyle", "Lateral humeral epicondyle", "Both the proximal metacarpus 3 and distal row of carpal bones", "Distal row of carpal bones", "proximal metacarpus 3" ],
     "imageUrl" : "./images/1ATransverse.jpg",
     "followupQuestions" : [ ]
@@ -1073,7 +1073,7 @@
     "id" : "786-attachment0-structure1-./images/Annotated3Long.jpg",
     "type" : "attachment",
     "questionText" : "What is this structure’s proximal attachment?",
-    "correctAnswer" : "lateral humeral epicondyle",
+    "correctAnswer" : "medial humeral epicondyle",
     "possibleAnswers" : [ "Medial humeral epicondyle", "Lateral humeral epicondyle", "Both the proximal metacarpus 3 and distal row of carpal bones", "Distal row of carpal bones", "proximal metacarpus 3" ],
     "imageUrl" : "./images/Annotated3Long.jpg",
     "followupQuestions" : [ ]
@@ -1153,7 +1153,7 @@
     "id" : "803-attachment0-structure2-./images/2BTransverse.jpg",
     "type" : "attachment",
     "questionText" : "What is this structure’s proximal attachment?",
-    "correctAnswer" : "lateral humeral epicondyle",
+    "correctAnswer" : "medial humeral epicondyle",
     "possibleAnswers" : [ "Medial humeral epicondyle", "Lateral humeral epicondyle", "Both the proximal metacarpus 3 and distal row of carpal bones", "Distal row of carpal bones", "proximal metacarpus 3" ],
     "imageUrl" : "./images/2BTransverse.jpg",
     "followupQuestions" : [ ]
@@ -1353,7 +1353,7 @@
     "id" : "834-attachment0-structure3-./images/3ATransverse.jpg",
     "type" : "attachment",
     "questionText" : "What is this structure’s proximal attachment?",
-    "correctAnswer" : "lateral humeral epicondyle",
+    "correctAnswer" : "medial humeral epicondyle",
     "possibleAnswers" : [ "Medial humeral epicondyle", "Lateral humeral epicondyle", "Both the proximal metacarpus 3 and distal row of carpal bones", "Distal row of carpal bones", "proximal metacarpus 3" ],
     "imageUrl" : "./images/3ATransverse.jpg",
     "followupQuestions" : [ ]
@@ -1417,7 +1417,7 @@
     "id" : "842-attachment0-structure1-./images/Annotated2Long.jpg",
     "type" : "attachment",
     "questionText" : "What is this structure’s proximal attachment?",
-    "correctAnswer" : "lateral humeral epicondyle",
+    "correctAnswer" : "medial humeral epicondyle",
     "possibleAnswers" : [ "Medial humeral epicondyle", "Lateral humeral epicondyle", "Both the proximal metacarpus 3 and distal row of carpal bones", "Distal row of carpal bones", "proximal metacarpus 3" ],
     "imageUrl" : "./images/Annotated2Long.jpg",
     "followupQuestions" : [ ]
@@ -1657,7 +1657,7 @@
     "id" : "876-attachment0-structure3-./images/3BTransverse.jpg",
     "type" : "attachment",
     "questionText" : "What is this structure’s proximal attachment?",
-    "correctAnswer" : "lateral humeral epicondyle",
+    "correctAnswer" : "medial humeral epicondyle",
     "possibleAnswers" : [ "Medial humeral epicondyle", "Lateral humeral epicondyle", "Both the proximal metacarpus 3 and distal row of carpal bones", "Distal row of carpal bones", "proximal metacarpus 3" ],
     "imageUrl" : "./images/3BTransverse.jpg",
     "followupQuestions" : [ ]
@@ -1817,7 +1817,7 @@
     "id" : "604-attachment0-structure1-./images/Annotated1BTrans.jpg",
     "type" : "attachment",
     "questionText" : "What is this structure’s proximal attachment?",
-    "correctAnswer" : "lateral humeral epicondyle",
+    "correctAnswer" : "medial humeral epicondyle",
     "possibleAnswers" : [ "Medial humeral epicondyle", "Lateral humeral epicondyle", "Both the proximal metacarpus 3 and distal row of carpal bones", "Distal row of carpal bones", "proximal metacarpus 3" ],
     "imageUrl" : "./images/Annotated1BTrans.jpg",
     "followupQuestions" : [ ]
@@ -1905,7 +1905,7 @@
     "id" : "643-attachment0-structure0-./images/AddlAnnotated2ATrans.jpg",
     "type" : "attachment",
     "questionText" : "What is this structure’s proximal attachment?",
-    "correctAnswer" : "lateral humeral epicondyle",
+    "correctAnswer" : "medial humeral epicondyle",
     "possibleAnswers" : [ "Medial humeral epicondyle", "Lateral humeral epicondyle", "Both the proximal metacarpus 3 and distal row of carpal bones", "Distal row of carpal bones", "proximal metacarpus 3" ],
     "imageUrl" : "./images/AddlAnnotated2ATrans.jpg",
     "followupQuestions" : [ ]
