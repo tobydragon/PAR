@@ -11,12 +11,14 @@ public class ImageTask{
 
     private String imageUrl;
     private List<Question> taskQuestions;
+    private String message;
 
     public ImageTask(){};
 
-    public ImageTask(String imageUrlIn, List<Question> taskQuestionsIn){
+    public ImageTask(String imageUrlIn, List<Question> taskQuestionsIn, String messageIn){
         imageUrl = imageUrlIn;
         taskQuestions = new ArrayList<>(taskQuestionsIn);
+        message = messageIn;
     }
 
     public String getImageUrl() {return imageUrl;}
@@ -40,6 +42,18 @@ public class ImageTask{
         ImageTask other = (ImageTask) otherObj;
         return this.getImageUrl().equals(other.getImageUrl())
                 && this.getTaskQuestions().equals(other.getTaskQuestions());
+    }
+
+    public void changeMessage(String newMessage){
+        message = newMessage;
+    }
+
+    public String getMessage(){
+        return message;
+    }
+
+    public void setMessage(String mess){
+        message = mess;
     }
 
 }

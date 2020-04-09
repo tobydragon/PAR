@@ -21,14 +21,18 @@ public class LevelTaskGenerator implements TaskGenerator {
     @Override
     public ImageTask makeTask(StudentModel studentModel, int questionCountPerTypeForAnalysis) {
         int studentLevel = calcLevel(studentModel.calcKnowledgeEstimateByType(questionCountPerTypeForAnalysis));
-        return makeTaskGivenLevel(studentModel, levelToTypesMap.get(studentLevel), studentLevel);
+        ImageTask im = makeTaskGivenLevel(studentModel, levelToTypesMap.get(studentLevel), studentLevel);
+        if(studentLevel==7){
+            im.setMessage("You have mastered the material! Feel free to keep practicing");
+        }
+        return im;
     }
 
     public static ImageTask makeTaskGivenLevel(StudentModel studentModel, List<String> levelTypes, int level) {
         Question initialQuestion= leastSeenQuestionWithTypesNeeded(levelTypes,studentModel);
         List<Question> questionList = QuestionPool.getTopLevelQuestionsFromUrl(studentModel.getUserQuestionSet().getAllQuestions(), initialQuestion.getImageUrl());
         questionList = filterQuestions(level, questionList);
-        ImageTask imageTask = new ImageTask(initialQuestion.getImageUrl(), questionList);
+        ImageTask imageTask = new ImageTask(initialQuestion.getImageUrl(), questionList, "None");
 
         studentModel.getUserQuestionSet().increaseTimesSeenAllQuestions(questionList);
         return imageTask;
@@ -37,14 +41,23 @@ public class LevelTaskGenerator implements TaskGenerator {
     public static Question leastSeenQuestionWithTypesNeeded(List<String> typesNeeded, StudentModel studentModel){
         Map<String,List<QuestionCount>> questionTypesListMap = studentModel.questionCountsByTypeMap();
         List<QuestionCount> typeQuestions=questionTypesListMap.get(typesNeeded.get(0));
-
+        //if the questionType we're basing our selection on is a childType, the list of questions we select from is their parentType (that has children)
+        if(EquineQuestionTypes.isChildQuestionType(typesNeeded.get(0))){
+            typeQuestions = EquineQuestionTypes.getParentQuestionCountsWithChildren(questionTypesListMap.get("structure"));
+        }
         QuestionCount leastSeenWithTypesNeeded = null;
+        //for every questionCount object in the list
         for(QuestionCount questionCount : typeQuestions){
+            //if the question's associated imageTask has each type needed (aka in the typesNeeded list)
             if(checkForAllNeededTypesOfQuestions(typesNeeded,studentModel,questionCount.getQuestion())) {
+                //if leastSeenWithTypesNeeded hasn't been set to a questionCount yet
                 if (leastSeenWithTypesNeeded == null  ){
+                    //set leastSeenWithTypesNeeded to the current QuestionCount
                     leastSeenWithTypesNeeded = questionCount;
                 }
+                //if leastSeenWithTypesNeeded hasn't been set to a questionCount yet and the current's timesSeen is less than leastSeenWithTypesNeeded
                 else if(questionCount.getTimesSeen() < leastSeenWithTypesNeeded.getTimesSeen()) {
+                    //set leastSeenWithTypesNeeded to the current QuestionCount
                     leastSeenWithTypesNeeded = questionCount;
                 }
             }
@@ -57,9 +70,10 @@ public class LevelTaskGenerator implements TaskGenerator {
         }
     }
 
+    //checks an image has at least one question fo all of the types needed
     public static boolean checkForAllNeededTypesOfQuestions(List<String> types, StudentModel studentModel, Question question){
         Set<String> typesPresent=new LinkedHashSet<>();
-        List<Question> questionList =QuestionPool.getQuestionsWithUrl(studentModel.getUserQuestionSet().getAllQuestions(), question.getImageUrl());
+        List<Question> questionList = QuestionPool.getQuestionsWithUrl(studentModel.getUserQuestionSet().getAllQuestions(), question.getImageUrl());
         for(Question currQuestion: questionList){
             typesPresent.add(currQuestion.getType());
         }

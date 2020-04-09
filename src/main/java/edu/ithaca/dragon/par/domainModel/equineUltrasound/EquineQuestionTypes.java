@@ -1,9 +1,9 @@
 package edu.ithaca.dragon.par.domainModel.equineUltrasound;
 
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import edu.ithaca.dragon.par.domainModel.QuestionPool;
+import edu.ithaca.dragon.par.studentModel.QuestionCount;
+
+import java.util.*;
 
 public enum EquineQuestionTypes {
     plane, structure, attachment, zone;
@@ -19,4 +19,23 @@ public enum EquineQuestionTypes {
         levelMap.put(7,Arrays.asList(EquineQuestionTypes.zone.toString()));
         return levelMap;
     }
+
+    public static boolean isChildQuestionType(String type){
+        String childType = EquineQuestionTypes.attachment.toString();
+        if(type.equals(childType)){
+            return true;
+        }
+        return false;
+    }
+
+    public static List<QuestionCount> getParentQuestionCountsWithChildren(List<QuestionCount> questionCounts) {
+        List<QuestionCount> typeQuestionsStructureWithFollowup = new ArrayList<>();
+        for (QuestionCount questionCountType : questionCounts) {
+            if (questionCountType.getFollowupCounts().size() > 0) {
+                typeQuestionsStructureWithFollowup.add(questionCountType);
+            }
+        }
+        return typeQuestionsStructureWithFollowup;
+    }
+
 }
