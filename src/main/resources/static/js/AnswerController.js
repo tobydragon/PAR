@@ -11,6 +11,13 @@ const defaultQaSettings = {
     unsureShowsCorrect: true
 };
 
+const feedbackLinksHtmlByType = {
+    plane: "<a href=\"https://www.youtube.com/watch?v=nYd869OApHY\" target=\"_blank\">click here</a> for info about plane",
+    structure:"<a href=\"https://www.youtube.com/watch?v=CyBhk8LwLb8\" target=\"_blank\">click here</a> for info about structure",
+    attachment:"<a href=\"https://secure.vet.cornell.edu/oed/miller/anatomyreview/interactive2.html\" target=\"_blank\">click here</a> for info about attachment",
+    zone:"<a href=\"https://www.youtube.com/watch?v=CyBhk8LwLb8\" target=\"_blank\">click here</a> and/or <a href=\"https://secure.vet.cornell.edu/oed/miller/anatomyreview/interactive2.html\" target=\"_blank\">here</a> for info about zone",
+};
+
 class AnswerController {
 
     constructor(qaModel, qaSettings=defaultQaSettings) {
@@ -35,7 +42,8 @@ class AnswerController {
     //todo for refactor, get rid of makeFeedbackHTML changing innerHTML. func should be be appended to feedbackArea
     checkAnswerAndUpdateView() {
         let returnResponse = checkAnyResponse(this.qaModel.correctAnswer, this.inputTextbox.value);
-        this.feedbackArea.innerHTML = makeFeedbackHtml(returnResponse, this.qaModel.correctAnswer, this.qaSettings.unsureShowsCorrect);
+        let questionType = this.qaModel.type;
+        this.feedbackArea.innerHTML = makeFeedbackHtml(returnResponse, this.qaModel.correctAnswer, this.qaSettings.unsureShowsCorrect, feedbackLinksHtmlByType[questionType]);
 
         if (returnResponse === ResponseResult.correct) {
             disableElement(this.inputTextbox);
@@ -72,7 +80,7 @@ function buildElement(id, possibleResponseDatalist, inputTextbox, feedbackArea) 
 }
 
 //todo ideally makeFeedbackHTML should be returning an element rather than an HTML string
-function makeFeedbackHtml(correctness, correctResponse, unsureShowsCorrect) {
+function makeFeedbackHtml(correctness, correctResponse, unsureShowsCorrect, feedbackLinksHtml) {
     if (correctness === ResponseResult.correct) {
         return '<font color=\"green\">Your answer is correct</font>';
     } else if (correctness === ResponseResult.unsure) {
@@ -84,7 +92,7 @@ function makeFeedbackHtml(correctness, correctResponse, unsureShowsCorrect) {
     } else if (correctness === ResponseResult.blank) {
         return "";
     } else {
-        return '<font color=\"red\">Your answer is incorrect</font>';
+        return "<font color=\"red\">Your answer is incorrect </font>, "+feedbackLinksHtml;
     }
 }
 
