@@ -88,7 +88,7 @@ public class LevelTaskGenerator implements TaskGenerator {
     public static int calcLevel(Map<String, Double> scoresPerType) {
         List<Double> orderedScores = orderedScores(scoresPerType);
 
-        if (orderedScores.get(0) < 50)
+        if (orderedScores.get(0) < 75)
             return 1;//if user has score less than 75 on plane , returns level 1
 
         else{

@@ -52,6 +52,8 @@ public class LevelTaskGeneratorTest {
     }
 
     //What is this supposed to test?? the questionSet isn't empty..?
+    //imageTaskQuestions size 0
+    //message saying there's no questions
     @Test
     public void emptyQuestionSetTest()throws IOException {
         JsonStudentModelDatastore datastore = new JsonStudentModelDatastore("src/test/resources/author/simpleTestSet/currentQuestionPool.json", "src/test/resources/author/simpleTestSet/students");
@@ -287,6 +289,7 @@ public class LevelTaskGeneratorTest {
     //This test ensures that calcLevel will now follow the following rules:
     //Level 1: base level, only given plane
     //Level 2: 50% of Plane questions right to get to this level, Plane and Structure questions given
+        //75^
     //Level 3: 100% of Plane and 50% of Structure right to get to this level, only given structure
     //Level 4: 100% of Plane and 75% of Structure right to get to this level, structure and attachment given
     //Level 5: 100% of Plane and 100% of structure and 50% of attachment right to get to this level, structure and attachment and zone given
@@ -321,7 +324,7 @@ public class LevelTaskGeneratorTest {
 
         //border: high enough plane score, level 2
         m2 = new HashMap<>();
-        m2.put(EquineQuestionTypes.plane.toString(), 50.0);
+        m2.put(EquineQuestionTypes.plane.toString(), 75.0);
         m2.put(EquineQuestionTypes.structure.toString(), 25.0);
         m2.put(EquineQuestionTypes.attachment.toString(), -1.0);
         m2.put(EquineQuestionTypes.zone.toString(), -1.0);
