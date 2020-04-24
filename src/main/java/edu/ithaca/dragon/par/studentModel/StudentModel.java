@@ -107,6 +107,11 @@ public class StudentModel {
     }
 
     public int getAllResponseCount() {
-        return 0;
+        int count = 0;
+        List<ResponsesPerQuestion> responseList = userResponseSet.getResponsesPerQuestionList();
+        for (ResponsesPerQuestion response : responseList){
+            count += response.getAllResponses().size();
+        }
+        return count;
     }
 }
