@@ -1,7 +1,12 @@
 package edu.ithaca.dragon.par.io;
 
 import edu.ithaca.dragon.par.pedagogicalModel.LevelTaskGenerator;
+import edu.ithaca.dragon.par.studentModel.QuestionResponse;
+import edu.ithaca.dragon.par.studentModel.ResponsesPerQuestion;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
+import edu.ithaca.dragon.par.studentModel.UserResponseSet;
+
+import java.util.List;
 
 public class StudentData {
 
@@ -20,8 +25,33 @@ public class StudentData {
         level = LevelTaskGenerator.calcLevel(student.calcKnowledgeEstimateByType(4));
         //TODO: is there any way to keep the numOfResponsesToConsider in sync with levelTaskGenerator?
         totalAnswersGiven = student.getAllResponseCount();
-        percentAnswersCorrect = 43.2;
+        try {
+            percentAnswersCorrect = calcPercentAnswersCorrect(student);
+        }
+        catch(ArithmeticException e){
+            percentAnswersCorrect = -1.0;
+        }
+    }
 
+    /**
+     *
+     * @return percent of all answers correct, or a negative percent if no answers have been given yet
+     */
+    private double calcPercentAnswersCorrect(StudentModel studentModel){
+        List<ResponsesPerQuestion> responses = studentModel.getUserResponseSet().getResponsesPerQuestionList();
+        if (responses.size() == 0) {
+            throw new ArithmeticException("No responses given yet");
+        }
+        double countRight = 0.0;
+        for(ResponsesPerQuestion responseObject: responses){
+            for (QuestionResponse response : responseObject.getAllResponses()){
+                //if the correct answer and given answer are the same.
+                if (response.getResponseText().equalsIgnoreCase(studentModel.getUserQuestionSet().getQuestionCountFromId(responseObject.getQuestionId()).getQuestion().getCorrectAnswer())){
+                    countRight += 1;
+                }
+            }
+        }
+        return countRight/studentModel.getAllResponseCount()*100;
     }
 
     /**
@@ -35,6 +65,12 @@ public class StudentData {
         }
         level = LevelTaskGenerator.calcLevel(student.calcKnowledgeEstimateByType(4));
         totalAnswersGiven = student.getAllResponseCount();
+        try {
+            percentAnswersCorrect = calcPercentAnswersCorrect(student);
+        }
+        catch(ArithmeticException e){
+            percentAnswersCorrect = -1.0;
+        }
     }
 
     //getters
