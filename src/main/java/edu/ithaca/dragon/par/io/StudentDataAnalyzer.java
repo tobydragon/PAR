@@ -72,7 +72,16 @@ public class StudentDataAnalyzer {
      * @return average totalAnswersGiven across all students
      */
     public double calcAverageTotalAnswersGiven(){
-        return -2.72;
+        if (studentDataList.size() == 0){
+            throw new ArithmeticException("No student data found, cannot calculate average total answers given");
+        }
+        else{
+            double average = 0.0;
+            for (StudentData studentData : studentDataList){
+                average += studentData.getTotalAnswersGiven();
+            }
+            return average/studentDataList.size();
+        }
     }
 
     //calculate average totalAnswersGiven given level

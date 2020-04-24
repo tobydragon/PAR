@@ -203,7 +203,7 @@ public class StudentDataAnalyzerTest {
 
         sda.addStudentData(masteredStudent);
 
-        assertEquals(7.0, sda.calcAverageTotalAnswersGiven());
+        assertEquals(25.0, sda.calcAverageTotalAnswersGiven());
 
         //add another student (2 total)
         StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/level4Student.json", StudentModelRecord.class);
@@ -211,7 +211,7 @@ public class StudentDataAnalyzerTest {
         StudentData level4StudentData = new StudentData(level4Student);
         sda.addStudentData(level4StudentData);
 
-        assertEquals(5.5, sda.calcAverageTotalAnswersGiven());
+        assertEquals(18.0, sda.calcAverageTotalAnswersGiven());
 
         //add another student (3 total)
         List<Question> noQuestions = new ArrayList<Question>();
@@ -219,6 +219,6 @@ public class StudentDataAnalyzerTest {
         StudentData newStudent = new StudentData(student);
         sda.addStudentData(newStudent);
 
-        assertEquals(4, sda.calcAverageTotalAnswersGiven());
+        assertEquals(12.0, sda.calcAverageTotalAnswersGiven());
     }
 }
