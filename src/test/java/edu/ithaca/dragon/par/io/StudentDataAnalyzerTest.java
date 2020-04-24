@@ -224,6 +224,73 @@ public class StudentDataAnalyzerTest {
     }
 
     @Test
+    public void getListGivenLevelTest() throws IOException{
+        //empty StudentDataAnalyzer
+        StudentDataAnalyzer sda = new StudentDataAnalyzer(new ArrayList<>());
+        assertThrows(ArithmeticException.class, ()-> sda.getListGivenLevel(4));
+
+        //add 1 student
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
+        StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
+        StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
+        StudentData masteredStudent = new StudentData(masteredStudentModel);
+
+        sda.addStudentData(masteredStudent);
+
+        //level not present
+        assertThrows(ArithmeticException.class, ()-> sda.getListGivenLevel(4));
+        //level present
+        assertEquals(1, sda.getListGivenLevel(7).size());
+
+        //add another student (2 total)
+        StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/level4Student.json", StudentModelRecord.class);
+        StudentModel level4Student = smr2.buildStudentModel(myQP);
+        StudentData level4StudentData = new StudentData(level4Student);
+        sda.addStudentData(level4StudentData);
+
+        //level not present
+        assertThrows(ArithmeticException.class, ()-> sda.getListGivenLevel(1));
+        //level present
+        assertEquals(1, sda.getListGivenLevel(4).size());
+
+        //add another student (3 total)
+        List<Question> noQuestions = new ArrayList<Question>();
+        StudentModel student = new StudentModel("student", noQuestions);
+        StudentData newStudent = new StudentData(student);
+        sda.addStudentData(newStudent);
+
+        //level not present
+        assertThrows(ArithmeticException.class, ()-> sda.getListGivenLevel(2));
+        //level present
+        assertEquals(1, sda.getListGivenLevel(1).size());
+
+        //2 students level 7
+        StudentModelRecord  smrlvl7 = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
+        StudentModel masteredStudentModel2 = smrlvl7.buildStudentModel(myQP);
+        StudentData masteredStudent2 = new StudentData(masteredStudentModel2);
+        sda.addStudentData(masteredStudent2);
+
+        //before data update
+        assertEquals(1, sda.getListGivenLevel(7).size());
+
+        masteredStudent2.updateData(masteredStudentModel2);
+        assertEquals(2, sda.getListGivenLevel(7).size());
+
+
+        //3 students level 7
+        StudentModelRecord  smrlevel7 = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
+        StudentModel masteredStudentModel3 = smrlevel7.buildStudentModel(myQP);
+        StudentData masteredStudent3 = new StudentData(masteredStudentModel3);
+        sda.addStudentData(masteredStudent3);
+
+        //before data update
+        assertEquals(2, sda.getListGivenLevel(7).size());
+
+        masteredStudent2.updateData(masteredStudentModel2);
+        assertEquals(3, sda.getListGivenLevel(7).size());
+    }
+
+    @Test
     public void calcAverageTotalAnswersGivenLevelTest() throws IOException {
         //empty StudentDataAnalyzer
         StudentDataAnalyzer sda = new StudentDataAnalyzer(new ArrayList<>());
