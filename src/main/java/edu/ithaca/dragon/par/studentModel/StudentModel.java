@@ -106,4 +106,24 @@ public class StudentModel {
         return userResponseSet.calcKnowledgeEstimateByType(numOfRecentResponsesToConsider);
     }
 
+    /**
+     *
+     * @return percent of all answers correct, or a negative percent if no answers have been given yet
+     */
+    public double calcPercentAnswersCorrect(){
+        List<ResponsesPerQuestion> responses = getUserResponseSet().getResponsesPerQuestionList();
+        if (responses.size() == 0) {
+            throw new ArithmeticException("No responses given yet");
+        }
+        double countRight = 0.0;
+        for(ResponsesPerQuestion responseObject: responses){
+            for (QuestionResponse response : responseObject.getAllResponses()){
+                //if the correct answer and given answer are the same.
+                if (response.getResponseText().equalsIgnoreCase(getUserQuestionSet().getQuestionCountFromId(responseObject.getQuestionId()).getQuestion().getCorrectAnswer())){
+                    countRight += 1;
+                }
+            }
+        }
+        return countRight/getUserResponseSet().getAllResponseCount()*100;
+    }
 }

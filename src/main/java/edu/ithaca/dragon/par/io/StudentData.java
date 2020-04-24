@@ -26,33 +26,13 @@ public class StudentData {
         //TODO: is there any way to keep the numOfResponsesToConsider in sync with levelTaskGenerator?
         totalAnswersGiven = student.getUserResponseSet().getAllResponseCount();
         try {
-            percentAnswersCorrect = calcPercentAnswersCorrect(student);
+            percentAnswersCorrect = student.calcPercentAnswersCorrect();
         }
         catch(ArithmeticException e){
             percentAnswersCorrect = -1.0;
         }
     }
 
-    /**
-     *
-     * @return percent of all answers correct, or a negative percent if no answers have been given yet
-     */
-    private double calcPercentAnswersCorrect(StudentModel studentModel){
-        List<ResponsesPerQuestion> responses = studentModel.getUserResponseSet().getResponsesPerQuestionList();
-        if (responses.size() == 0) {
-            throw new ArithmeticException("No responses given yet");
-        }
-        double countRight = 0.0;
-        for(ResponsesPerQuestion responseObject: responses){
-            for (QuestionResponse response : responseObject.getAllResponses()){
-                //if the correct answer and given answer are the same.
-                if (response.getResponseText().equalsIgnoreCase(studentModel.getUserQuestionSet().getQuestionCountFromId(responseObject.getQuestionId()).getQuestion().getCorrectAnswer())){
-                    countRight += 1;
-                }
-            }
-        }
-        return countRight/studentModel.getUserResponseSet().getAllResponseCount()*100;
-    }
 
     /**
      * updates level and total answers given
@@ -66,7 +46,7 @@ public class StudentData {
         level = LevelTaskGenerator.calcLevel(student.calcKnowledgeEstimateByType(4));
         totalAnswersGiven = student.getUserResponseSet().getAllResponseCount();
         try {
-            percentAnswersCorrect = calcPercentAnswersCorrect(student);
+            percentAnswersCorrect = student.calcPercentAnswersCorrect();
         }
         catch(ArithmeticException e){
             percentAnswersCorrect = -1.0;
