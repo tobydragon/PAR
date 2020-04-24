@@ -2,6 +2,7 @@ package edu.ithaca.dragon.par.io;
 
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
+import edu.ithaca.dragon.par.studentModel.ResponsesPerQuestion;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.util.JsonUtil;
 import org.junit.jupiter.api.Test;
@@ -190,10 +191,10 @@ public class StudentDataAnalyzerTest {
     }
 
     @Test
-    public void calcAverageTotalAnswersGivenTest() throws IOException{
+    public void calcAverageTotalAnswersTest() throws IOException{
         //empty StudentDataAnalyzer
         StudentDataAnalyzer sda = new StudentDataAnalyzer(new ArrayList<>());
-        assertThrows(ArithmeticException.class, ()-> sda.calcAverageTotalAnswersGiven());
+        assertThrows(ArithmeticException.class, ()-> sda.calcAverageTotalAnswers());
 
         //add 1 student
         QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
@@ -203,7 +204,7 @@ public class StudentDataAnalyzerTest {
 
         sda.addStudentData(masteredStudent);
 
-        assertEquals(25.0, sda.calcAverageTotalAnswersGiven());
+        assertEquals(25.0, sda.calcAverageTotalAnswers());
 
         //add another student (2 total)
         StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/level4Student.json", StudentModelRecord.class);
@@ -211,7 +212,7 @@ public class StudentDataAnalyzerTest {
         StudentData level4StudentData = new StudentData(level4Student);
         sda.addStudentData(level4StudentData);
 
-        assertEquals(18.0, sda.calcAverageTotalAnswersGiven());
+        assertEquals(18.0, sda.calcAverageTotalAnswers());
 
         //add another student (3 total)
         List<Question> noQuestions = new ArrayList<Question>();
@@ -219,6 +220,91 @@ public class StudentDataAnalyzerTest {
         StudentData newStudent = new StudentData(student);
         sda.addStudentData(newStudent);
 
-        assertEquals(12.0, sda.calcAverageTotalAnswersGiven());
+        assertEquals(12.0, sda.calcAverageTotalAnswers());
+    }
+
+    @Test
+    public void calcAverageTotalAnswersGivenLevelTest() throws IOException {
+        //empty StudentDataAnalyzer
+        StudentDataAnalyzer sda = new StudentDataAnalyzer(new ArrayList<>());
+        assertThrows(ArithmeticException.class, ()-> sda.calcAverageTotalAnswersGivenLevel(4));
+
+        //add 1 student
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
+        StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
+        StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
+        StudentData masteredStudent = new StudentData(masteredStudentModel);
+
+        sda.addStudentData(masteredStudent);
+
+        //level not present
+        assertThrows(ArithmeticException.class, ()-> sda.calcAverageTotalAnswersGivenLevel(4));
+        //level present
+        assertEquals(25.0, sda.calcAverageTotalAnswersGivenLevel(7));
+
+        //add another student (2 total)
+        StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/level4Student.json", StudentModelRecord.class);
+        StudentModel level4Student = smr2.buildStudentModel(myQP);
+        StudentData level4StudentData = new StudentData(level4Student);
+        sda.addStudentData(level4StudentData);
+
+        //level not present
+        assertThrows(ArithmeticException.class, ()-> sda.calcAverageTotalAnswersGivenLevel(1));
+        //level present
+        assertEquals(11, sda.calcAverageTotalAnswersGivenLevel(4));
+
+        //add another student (3 total)
+        List<Question> noQuestions = new ArrayList<Question>();
+        StudentModel student = new StudentModel("student", noQuestions);
+        StudentData newStudent = new StudentData(student);
+        sda.addStudentData(newStudent);
+
+        //level not present
+        assertThrows(ArithmeticException.class, ()-> sda.calcAverageTotalAnswersGivenLevel(2));
+        //level present
+        assertEquals(11, sda.calcAverageTotalAnswersGivenLevel(1));
+
+        //2 students level 7
+        StudentModelRecord  smrlvl7 = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
+        StudentModel masteredStudentModel2 = smrlvl7.buildStudentModel(myQP);
+        StudentData masteredStudent2 = new StudentData(masteredStudentModel2);
+        sda.addStudentData(masteredStudent2);
+
+        assertEquals(25, sda.calcAverageTotalAnswersGivenLevel(7));
+        //add correct answers
+        ResponsesPerQuestion r1 = masteredStudentModel2.getUserResponseSet().getResponsesPerQuestionList().get(4);
+        r1.addNewResponse("superficial digital flexor tendon");
+        r1.addNewResponse("superficial digital flexor tendon");
+        r1.addNewResponse("superficial digital flexor tendon");
+        r1.addNewResponse("superficial digital flexor tendon");
+        r1.addNewResponse("superficial digital flexor tendon");
+
+        masteredStudent2.updateData(masteredStudentModel2);
+        assertEquals(27.5, sda.calcAverageTotalAnswersGivenLevel(7));
+
+
+        //3 students level 7
+        StudentModelRecord  smrlevel7 = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
+        StudentModel masteredStudentModel3 = smrlevel7.buildStudentModel(myQP);
+        StudentData masteredStudent3 = new StudentData(masteredStudentModel3);
+        sda.addStudentData(masteredStudent3);
+
+        assertEquals(27.5, sda.calcAverageTotalAnswersGivenLevel(7));
+        //add correct answers
+        ResponsesPerQuestion r2 = masteredStudentModel3.getUserResponseSet().getResponsesPerQuestionList().get(4);
+        r2.addNewResponse("superficial digital flexor tendon");
+        r2.addNewResponse("superficial digital flexor tendon");
+        r2.addNewResponse("superficial digital flexor tendon");
+        r2.addNewResponse("superficial digital flexor tendon");
+        r2.addNewResponse("superficial digital flexor tendon");
+        r2.addNewResponse("superficial digital flexor tendon");
+        r2.addNewResponse("superficial digital flexor tendon");
+        r2.addNewResponse("superficial digital flexor tendon");
+        r2.addNewResponse("superficial digital flexor tendon");
+        r2.addNewResponse("superficial digital flexor tendon");
+
+        masteredStudent2.updateData(masteredStudentModel2);
+        assertEquals(30, sda.calcAverageTotalAnswersGivenLevel(7));
+
     }
 }

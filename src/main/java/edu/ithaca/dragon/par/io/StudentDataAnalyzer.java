@@ -71,7 +71,7 @@ public class StudentDataAnalyzer {
      * @throws ArithmeticException if list is empty (because getting an average of 0 numbers is impossible)
      * @return average totalAnswersGiven across all students
      */
-    public double calcAverageTotalAnswersGiven(){
+    public double calcAverageTotalAnswers(){
         if (studentDataList.size() == 0){
             throw new ArithmeticException("No student data found, cannot calculate average total answers given");
         }
@@ -85,7 +85,14 @@ public class StudentDataAnalyzer {
     }
 
     //calculate average totalAnswersGiven given level
-
+    /**
+     * @throws ArithmeticException if list is empty(because getting an average of 0 numbers is impossible)
+     * @throws ArithmeticException if no StudentData of that level exists
+     * @return average totalAnswersGiven across all students
+     */
+    public double calcAverageTotalAnswersGivenLevel(int level){
+        return -2.72;
+    }
 
     public List<StudentData> getStudentDataList() {
         return studentDataList;
