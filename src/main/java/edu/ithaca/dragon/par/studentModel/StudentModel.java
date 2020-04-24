@@ -105,4 +105,8 @@ public class StudentModel {
     public Map<String,Double> calcKnowledgeEstimateByType(int numOfRecentResponsesToConsider){
         return userResponseSet.calcKnowledgeEstimateByType(numOfRecentResponsesToConsider);
     }
+
+    public int getAllResponseCount() {
+        return 0;
+    }
 }

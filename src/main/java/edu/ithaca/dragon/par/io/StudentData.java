@@ -11,7 +11,10 @@ public class StudentData {
     //private double timeSpent; //minutes?
 
     public StudentData(StudentModel student){
-
+        studentId = student.getUserId();
+        level = LevelTaskGenerator.calcLevel(student.calcKnowledgeEstimateByType(4));
+        //TODO: is there any way to keep the numOfResponsesToConsider in sync with levelTaskGenerator?
+        numQuestionsAnswered = student.getResponseCount();
 
     }
 

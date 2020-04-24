@@ -31,11 +31,11 @@ public class StudentDataTest {
         QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
 
         StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
-        StudentModel masteredStudentModelRecord = smr.buildStudentModel(myQP);
-        StudentData masteredStudent = new StudentData(masteredStudentModelRecord);
+        StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
+        StudentData masteredStudent = new StudentData(masteredStudentModel);
         assertEquals("masteredStudent", masteredStudent.getUserId());
-        assertEquals(7, newStudent.getLevel());
-        assertEquals(25, newStudent.getNumQuestionsAnswered());
+        assertEquals(7, masteredStudent.getLevel());
+        assertEquals(25, masteredStudent.getNumQuestionsAnswered());
 
         //level 3 student
         StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/student.json", StudentModelRecord.class);

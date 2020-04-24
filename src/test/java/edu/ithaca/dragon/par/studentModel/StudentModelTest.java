@@ -5,6 +5,8 @@ import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.ImageTaskResponseOOP;
 import edu.ithaca.dragon.par.io.JsonQuestionPoolDatastore;
+import edu.ithaca.dragon.par.io.StudentData;
+import edu.ithaca.dragon.par.io.StudentModelRecord;
 import edu.ithaca.dragon.util.DataUtil;
 import edu.ithaca.dragon.util.JsonUtil;
 import org.junit.jupiter.api.AfterEach;
@@ -12,10 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -106,6 +105,27 @@ public class StudentModelTest {
 
         //TODO: see implementation for comment
         //assertThrows(RuntimeException.class, ()->{studentModel.addQuestion(q2);});
+
+    }
+
+    @Test
+    public void getAllResponseCountTest() throws IOException{
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
+
+        //mastered student
+        StudentModelRecord smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
+        StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
+        assertEquals(25, masteredStudentModel.getAllResponseCount());
+
+        //level 3 student
+        StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/student.json", StudentModelRecord.class);
+        StudentModel level3Student = smr2.buildStudentModel(myQP);
+        assertEquals(11, level3Student.getAllResponseCount());
+
+        //brand new student
+        List<Question> noQuestions = new ArrayList<Question>();
+        StudentModel student = new StudentModel("student", noQuestions);
+        assertEquals(0, student.getAllResponseCount());
 
     }
 }
