@@ -1,5 +1,6 @@
 package edu.ithaca.dragon.par.io;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -95,7 +96,7 @@ public class StudentDataAnalyzer {
             throw new ArithmeticException("No student data found, cannot calculate average total answers given");
         }
         if (getListGivenLevel(level).size() == 0){
-            throw new ArithmeticException("No student data found for this level, cannot calculate average total answers given");
+            throw new IllegalArgumentException("No student data found for this level, cannot calculate average total answers given");
         }
         else{
             double average = 0.0;
@@ -116,7 +117,16 @@ public class StudentDataAnalyzer {
      */
 
     public List<StudentData> getListGivenLevel(int level) {
-        return null;
+        List<StudentData> studentsOfGivenLevel = new ArrayList<>();
+        for (StudentData studentData : studentDataList){
+            if (studentData.getLevel() == level) {
+                studentsOfGivenLevel.add(studentData);
+            }
+        }
+        if (studentsOfGivenLevel.size() == 0){
+            throw new IllegalArgumentException("No students of given level");
+        }
+        return studentsOfGivenLevel;
     }
 
     public List<StudentData> getStudentDataList() {

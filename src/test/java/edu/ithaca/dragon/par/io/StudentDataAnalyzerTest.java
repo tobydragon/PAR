@@ -227,7 +227,7 @@ public class StudentDataAnalyzerTest {
     public void getListGivenLevelTest() throws IOException{
         //empty StudentDataAnalyzer
         StudentDataAnalyzer sda = new StudentDataAnalyzer(new ArrayList<>());
-        assertThrows(ArithmeticException.class, ()-> sda.getListGivenLevel(4));
+        assertThrows(IllegalArgumentException.class, ()-> sda.getListGivenLevel(4));
 
         //add 1 student
         QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
@@ -238,7 +238,7 @@ public class StudentDataAnalyzerTest {
         sda.addStudentData(masteredStudent);
 
         //level not present
-        assertThrows(ArithmeticException.class, ()-> sda.getListGivenLevel(4));
+        assertThrows(IllegalArgumentException.class, ()-> sda.getListGivenLevel(4));
         //level present
         assertEquals(1, sda.getListGivenLevel(7).size());
 
@@ -249,7 +249,7 @@ public class StudentDataAnalyzerTest {
         sda.addStudentData(level4StudentData);
 
         //level not present
-        assertThrows(ArithmeticException.class, ()-> sda.getListGivenLevel(1));
+        assertThrows(IllegalArgumentException.class, ()-> sda.getListGivenLevel(1));
         //level present
         assertEquals(1, sda.getListGivenLevel(4).size());
 
@@ -260,7 +260,7 @@ public class StudentDataAnalyzerTest {
         sda.addStudentData(newStudent);
 
         //level not present
-        assertThrows(ArithmeticException.class, ()-> sda.getListGivenLevel(2));
+        assertThrows(IllegalArgumentException.class, ()-> sda.getListGivenLevel(2));
         //level present
         assertEquals(1, sda.getListGivenLevel(1).size());
 
@@ -270,10 +270,7 @@ public class StudentDataAnalyzerTest {
         StudentData masteredStudent2 = new StudentData(masteredStudentModel2);
         sda.addStudentData(masteredStudent2);
 
-        //before data update
-        assertEquals(1, sda.getListGivenLevel(7).size());
 
-        masteredStudent2.updateData(masteredStudentModel2);
         assertEquals(2, sda.getListGivenLevel(7).size());
 
 
@@ -283,10 +280,6 @@ public class StudentDataAnalyzerTest {
         StudentData masteredStudent3 = new StudentData(masteredStudentModel3);
         sda.addStudentData(masteredStudent3);
 
-        //before data update
-        assertEquals(2, sda.getListGivenLevel(7).size());
-
-        masteredStudent2.updateData(masteredStudentModel2);
         assertEquals(3, sda.getListGivenLevel(7).size());
     }
 
@@ -305,9 +298,9 @@ public class StudentDataAnalyzerTest {
         sda.addStudentData(masteredStudent);
 
         //level not present
-        assertThrows(ArithmeticException.class, ()-> sda.calcAverageTotalAnswersGivenLevel(4));
+        assertThrows(IllegalArgumentException.class, ()-> sda.calcAverageTotalAnswersGivenLevel(4));
         //level present
-        assertEquals(25.0, sda.calcAverageTotalAnswersGivenLevel(7));
+        assertTrue(24.9 < sda.calcAverageTotalAnswersGivenLevel(7) && sda.calcAverageTotalAnswersGivenLevel(7) < 25.1);
 
         //add another student (2 total)
         StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/level4Student.json", StudentModelRecord.class);
@@ -316,9 +309,10 @@ public class StudentDataAnalyzerTest {
         sda.addStudentData(level4StudentData);
 
         //level not present
-        assertThrows(ArithmeticException.class, ()-> sda.calcAverageTotalAnswersGivenLevel(1));
+        assertThrows(IllegalArgumentException.class, ()-> sda.calcAverageTotalAnswersGivenLevel(1));
         //level present
         assertEquals(11, sda.calcAverageTotalAnswersGivenLevel(4));
+        assertTrue(10.9 < sda.calcAverageTotalAnswersGivenLevel(4) && sda.calcAverageTotalAnswersGivenLevel(4) < 11.1);
 
         //add another student (3 total)
         List<Question> noQuestions = new ArrayList<Question>();
@@ -327,9 +321,9 @@ public class StudentDataAnalyzerTest {
         sda.addStudentData(newStudent);
 
         //level not present
-        assertThrows(ArithmeticException.class, ()-> sda.calcAverageTotalAnswersGivenLevel(2));
+        assertThrows(IllegalArgumentException.class, ()-> sda.calcAverageTotalAnswersGivenLevel(2));
         //level present
-        assertEquals(11, sda.calcAverageTotalAnswersGivenLevel(1));
+        assertTrue(-.9 < sda.calcAverageTotalAnswersGivenLevel(1) && sda.calcAverageTotalAnswersGivenLevel(1) < 0.1);
 
         //2 students level 7
         StudentModelRecord  smrlvl7 = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
@@ -337,7 +331,7 @@ public class StudentDataAnalyzerTest {
         StudentData masteredStudent2 = new StudentData(masteredStudentModel2);
         sda.addStudentData(masteredStudent2);
 
-        assertEquals(25, sda.calcAverageTotalAnswersGivenLevel(7));
+        assertTrue(24.9 < sda.calcAverageTotalAnswersGivenLevel(7) && sda.calcAverageTotalAnswersGivenLevel(7) < 25.1);
         //add correct answers
         ResponsesPerQuestion r1 = masteredStudentModel2.getUserResponseSet().getResponsesPerQuestionList().get(4);
         r1.addNewResponse("superficial digital flexor tendon");
@@ -347,31 +341,17 @@ public class StudentDataAnalyzerTest {
         r1.addNewResponse("superficial digital flexor tendon");
 
         masteredStudent2.updateData(masteredStudentModel2);
-        assertEquals(27.5, sda.calcAverageTotalAnswersGivenLevel(7));
+        assertTrue(27.4 < sda.calcAverageTotalAnswersGivenLevel(7) && sda.calcAverageTotalAnswersGivenLevel(7) < 27.6);
+
 
 
         //3 students level 7
         StudentModelRecord  smrlevel7 = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
         StudentModel masteredStudentModel3 = smrlevel7.buildStudentModel(myQP);
         StudentData masteredStudent3 = new StudentData(masteredStudentModel3);
+        assertTrue(27.4 < sda.calcAverageTotalAnswersGivenLevel(7) && sda.calcAverageTotalAnswersGivenLevel(7) < 27.6);
         sda.addStudentData(masteredStudent3);
 
-        assertEquals(27.5, sda.calcAverageTotalAnswersGivenLevel(7));
-        //add correct answers
-        ResponsesPerQuestion r2 = masteredStudentModel3.getUserResponseSet().getResponsesPerQuestionList().get(4);
-        r2.addNewResponse("superficial digital flexor tendon");
-        r2.addNewResponse("superficial digital flexor tendon");
-        r2.addNewResponse("superficial digital flexor tendon");
-        r2.addNewResponse("superficial digital flexor tendon");
-        r2.addNewResponse("superficial digital flexor tendon");
-        r2.addNewResponse("superficial digital flexor tendon");
-        r2.addNewResponse("superficial digital flexor tendon");
-        r2.addNewResponse("superficial digital flexor tendon");
-        r2.addNewResponse("superficial digital flexor tendon");
-        r2.addNewResponse("superficial digital flexor tendon");
-
-        masteredStudent2.updateData(masteredStudentModel2);
-        assertEquals(30, sda.calcAverageTotalAnswersGivenLevel(7));
-
+        assertTrue(26.6 < sda.calcAverageTotalAnswersGivenLevel(7) && sda.calcAverageTotalAnswersGivenLevel(7) < 26.7);
     }
 }
