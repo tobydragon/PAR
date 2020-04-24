@@ -49,6 +49,19 @@ public class StudentDataAnalyzer {
         studentDataList.remove(getStudentData(studentId));
     }
 
+    /**
+     *
+     * @return average level across all students or null if there are no students
+     */
+    public double calcAverageLevel(){
+
+        return -2.7;
+    }
+
+    //get all students
+
+    //calculate average totalAnswersGiven given level
+
     public List<StudentData> getStudentDataList() {
         return studentDataList;
     }
