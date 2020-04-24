@@ -24,7 +24,7 @@ public class StudentData {
 
     /**
      * updates level and total answers given
-     * throws IllegalArgumentException if the given student model's ID doesn't match that of the student data
+     * @throws  IllegalArgumentException if the given student model's ID doesn't match that of the student data
      * @param student
      */
     public void updateData(StudentModel student){
@@ -35,6 +35,7 @@ public class StudentData {
         totalAnswersGiven = student.getAllResponseCount();
     }
 
+    //getters
     public String getUserId() {
         return studentId;
     }
