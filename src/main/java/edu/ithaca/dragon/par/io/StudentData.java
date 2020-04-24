@@ -7,14 +7,27 @@ public class StudentData {
 
     private String studentId;
     private int level;
-    private int numQuestionsAnswered;
+    private int totalAnswersGiven;
     //private double timeSpent; //minutes?
 
+    /**
+     * stores a student's current level, total answers ever given, and their id
+     * @param student
+     */
     public StudentData(StudentModel student){
         studentId = student.getUserId();
         level = LevelTaskGenerator.calcLevel(student.calcKnowledgeEstimateByType(4));
         //TODO: is there any way to keep the numOfResponsesToConsider in sync with levelTaskGenerator?
-        numQuestionsAnswered = student.getAllResponseCount();
+        totalAnswersGiven = student.getAllResponseCount();
+
+    }
+
+    /**
+     * updates level and total answers given
+     * throws IllegalArgumentException if the given student model's ID doesn't match that of the student data
+     * @param student
+     */
+    public void updateData(StudentModel student){
 
     }
 
@@ -26,7 +39,7 @@ public class StudentData {
         return level;
     }
 
-    public int getNumQuestionsAnswered() {
-        return numQuestionsAnswered;
+    public int getTotalAnswersGiven() {
+        return totalAnswersGiven;
     }
 }
