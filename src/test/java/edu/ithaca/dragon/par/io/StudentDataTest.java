@@ -11,8 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class StudentDataTest {
 
@@ -25,6 +24,7 @@ public class StudentDataTest {
         assertEquals("student", newStudent.getStudentId());
         assertEquals(1, newStudent.getLevel());
         assertEquals(0, newStudent.getTotalAnswersGiven());
+        assertTrue(newStudent.getPercentAnswersCorrect() < 0.0);
 
 
         //mastered student
@@ -36,6 +36,7 @@ public class StudentDataTest {
         assertEquals("masteredStudent", masteredStudent.getStudentId());
         assertEquals(7, masteredStudent.getLevel());
         assertEquals(25, masteredStudent.getTotalAnswersGiven());
+        assertTrue(99.9 < masteredStudent.getPercentAnswersCorrect() && masteredStudent.getPercentAnswersCorrect() < 101.1);
 
         //level 4 student
         StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/level4Student.json", StudentModelRecord.class);
@@ -44,6 +45,7 @@ public class StudentDataTest {
         assertEquals("level4Student", level4StudentData.getStudentId());
         assertEquals(4, level4StudentData.getLevel());
         assertEquals(11, level4StudentData.getTotalAnswersGiven());
+        assertTrue(99.9 < masteredStudent.getPercentAnswersCorrect() && masteredStudent.getPercentAnswersCorrect() < 101.1);
     }
 
     @Test

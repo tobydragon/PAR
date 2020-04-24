@@ -8,6 +8,7 @@ public class StudentData {
     private String studentId;
     private int level;
     private int totalAnswersGiven;
+    private double percentAnswersCorrect;
     //private double timeSpent; //minutes?
 
     /**
@@ -19,6 +20,7 @@ public class StudentData {
         level = LevelTaskGenerator.calcLevel(student.calcKnowledgeEstimateByType(4));
         //TODO: is there any way to keep the numOfResponsesToConsider in sync with levelTaskGenerator?
         totalAnswersGiven = student.getAllResponseCount();
+        percentAnswersCorrect = 43.2;
 
     }
 
@@ -46,5 +48,8 @@ public class StudentData {
 
     public int getTotalAnswersGiven() {
         return totalAnswersGiven;
+    }
+    public double getPercentAnswersCorrect(){
+        return percentAnswersCorrect;
     }
 }
