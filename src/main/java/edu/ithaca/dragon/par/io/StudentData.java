@@ -28,7 +28,11 @@ public class StudentData {
      * @param student
      */
     public void updateData(StudentModel student){
-
+        if (!student.getUserId().equals(studentId)){
+            throw new IllegalArgumentException("Wrong student model for student data");
+        }
+        level = LevelTaskGenerator.calcLevel(student.calcKnowledgeEstimateByType(4));
+        totalAnswersGiven = student.getAllResponseCount();
     }
 
     public String getUserId() {
