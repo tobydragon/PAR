@@ -159,7 +159,7 @@ public class StudentDataAnalyzerTest {
     public void calcAverageLevelTest() throws IOException{
         //empty StudentDataAnalyzer
         StudentDataAnalyzer sda = new StudentDataAnalyzer(new ArrayList<>());
-        assertEquals(null, sda.calcAverageLevel());
+        assertThrows(ArithmeticException.class, ()-> sda.calcAverageLevel());
 
         //add 1 student
         QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());

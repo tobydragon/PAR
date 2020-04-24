@@ -50,12 +50,20 @@ public class StudentDataAnalyzer {
     }
 
     /**
-     *
-     * @return average level across all students or null if there are no students
+     * @throws ArithmeticException if list is empty (because getting an average of 0 numbers is impossible
+     * @return average level across all students
      */
     public double calcAverageLevel(){
-
-        return -2.7;
+        if (studentDataList.size() == 0){
+            throw new ArithmeticException("No student data found, cannot calculate average level");
+        }
+        else{
+            double average = 0.0;
+            for (StudentData studentData : studentDataList){
+                average += studentData.getLevel();
+            }
+            return average/studentDataList.size();
+        }
     }
 
     //get all students
