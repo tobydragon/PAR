@@ -38,11 +38,11 @@ public class StudentDataTest {
         assertEquals(25, masteredStudent.getNumQuestionsAnswered());
 
         //level 3 student
-        StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/student.json", StudentModelRecord.class);
-        StudentModel level3Student = smr2.buildStudentModel(myQP);
-        StudentData level3StudentData = new StudentData(level3Student);
-        assertEquals("averageStudent", level3StudentData.getUserId());
-        assertEquals(3, level3StudentData.getLevel());
-        assertEquals(11, level3StudentData.getNumQuestionsAnswered());
+        StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/level4Student.json", StudentModelRecord.class);
+        StudentModel level4Student = smr2.buildStudentModel(myQP);
+        StudentData level4StudentData = new StudentData(level4Student);
+        assertEquals("level4Student", level4StudentData.getUserId());
+        assertEquals(4, level4StudentData.getLevel());
+        assertEquals(11, level4StudentData.getNumQuestionsAnswered());
     }
 }

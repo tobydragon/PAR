@@ -1,7 +1,7 @@
 {
-  "userId" : "averageStudent",
+  "userId" : "level4Student",
   "userQuestionSetRecord" : {
-    "userId" : "averageStudent",
+    "userId" : "level4Student",
     "questionCountRecords" : [ {
       "questionId" : "324-plane-./images/metacarpal56.jpg",
       "timesSeen" : 2,
@@ -261,9 +261,9 @@
     } ]
   },
   "userResponseSetRecord" : {
-    "userId" : "averageStudent",
+    "userId" : "level4Student",
     "responsesPerQuestionRecords" : [ {
-      "userId" : "averageStudent",
+      "userId" : "level4Student",
       "questionId" : "324-plane-./images/metacarpal56.jpg",
       "responseText" : "longitudinal (long axis)",
       "allResponseTexts" : [ {
@@ -271,7 +271,7 @@
         "millSeconds" : 1583315553595
       } ]
     }, {
-      "userId" : "averageStudent",
+      "userId" : "level4Student",
       "questionId" : "338-plane-./images/metacarpal42.jpg",
       "responseText" : "transverse (short axis)",
       "allResponseTexts" : [ {
@@ -279,7 +279,7 @@
         "millSeconds" : 1583315558413
       } ]
     }, {
-      "userId" : "averageStudent",
+      "userId" : "level4Student",
       "questionId" : "366-plane-./images/metacarpal41.jpg",
       "responseText" : "transverse (short axis)",
       "allResponseTexts" : [ {
@@ -287,7 +287,7 @@
         "millSeconds" : 1583315563560
       } ]
     }, {
-      "userId" : "averageStudent",
+      "userId" : "level4Student",
       "questionId" : "450-plane-./images/metacarpal25.jpg",
       "responseText" : "transverse (short axis)",
       "allResponseTexts" : [ {
@@ -295,7 +295,7 @@
         "millSeconds" : 1583315576414
       } ]
     }, {
-      "userId" : "averageStudent",
+      "userId" : "level4Student",
       "questionId" : "453-structure0-./images/metacarpal25.jpg",
       "responseText" : "Suspensory ligament (branches)",
       "allResponseTexts" : [ {
@@ -303,7 +303,7 @@
         "millSeconds" : 1583315576414
       } ]
     }, {
-      "userId" : "averageStudent",
+      "userId" : "level4Student",
       "questionId" : "456-structure1-./images/metacarpal25.jpg",
       "responseText" : "Deep digital flexor tendon",
       "allResponseTexts" : [ {
@@ -311,7 +311,7 @@
         "millSeconds" : 1583315576414
       } ]
     }, {
-      "userId" : "averageStudent",
+      "userId" : "level4Student",
       "questionId" : "327-structure0-./images/metacarpal56.jpg",
       "responseText" : "Distal check ligament (accessory ligament of the deep digital flexor tendon)",
       "allResponseTexts" : [ {
@@ -325,7 +325,7 @@
         "millSeconds" : 1583315853680
       } ]
     }, {
-      "userId" : "averageStudent",
+      "userId" : "level4Student",
       "questionId" : "325-attachment0-structure0-./images/metacarpal56.jpg",
       "responseText" : "Both the proximal metacarpus 3 and distal row of carpal bones",
       "allResponseTexts" : [ {
@@ -333,7 +333,7 @@
         "millSeconds" : 1583315853680
       } ]
     }, {
-      "userId" : "averageStudent",
+      "userId" : "level4Student",
       "questionId" : "326-attachment1-structure0-./images/metacarpal56.jpg",
       "responseText" : "Deep digital flexor tendon",
       "allResponseTexts" : [ {

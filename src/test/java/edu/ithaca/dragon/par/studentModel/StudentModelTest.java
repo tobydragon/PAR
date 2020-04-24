@@ -118,9 +118,9 @@ public class StudentModelTest {
         assertEquals(25, masteredStudentModel.getAllResponseCount());
 
         //level 3 student
-        StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/student.json", StudentModelRecord.class);
-        StudentModel level3Student = smr2.buildStudentModel(myQP);
-        assertEquals(11, level3Student.getAllResponseCount());
+        StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/level4Student.json", StudentModelRecord.class);
+        StudentModel level4Student = smr2.buildStudentModel(myQP);
+        assertEquals(11, level4Student.getAllResponseCount());
 
         //brand new student
         List<Question> noQuestions = new ArrayList<Question>();
