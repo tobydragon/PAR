@@ -8,8 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class StudentDataAnalyzerTest {
 
@@ -42,5 +41,36 @@ public class StudentDataAnalyzerTest {
         sda = new StudentDataAnalyzer(sdList);
         assertNotNull(sda);
         assertEquals(2, sda.getStudentDataList().size());
+    }
+
+    @Test
+    public void addStudentDataTest() throws IOException{
+    //empty StudentDataAnalyzer
+        StudentDataAnalyzer sda = new StudentDataAnalyzer(new ArrayList<>());
+        assertNotNull(sda);
+        assertEquals(0, sda.getStudentDataList().size());
+
+        //1 student
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
+
+        StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
+        StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
+        StudentData masteredStudent = new StudentData(masteredStudentModel);
+
+        sda.addStudentData(masteredStudent);
+        assertNotNull(sda);
+        assertEquals(1, sda.getStudentDataList().size());
+
+        //2 students
+        StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/level4Student.json", StudentModelRecord.class);
+        StudentModel level4Student = smr2.buildStudentModel(myQP);
+        StudentData level4StudentData = new StudentData(level4Student);
+
+        sda.addStudentData(level4StudentData);
+        assertNotNull(sda);
+        assertEquals(2, sda.getStudentDataList().size());
+
+        //null, IllegalArgumentException
+        assertThrows(IllegalArgumentException.class, ()-> sda.addStudentData(null));
     }
 }

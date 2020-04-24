@@ -9,6 +9,13 @@ public class StudentDataAnalyzer {
         studentDataList = studentDataListIn;
     }
 
+    public void addStudentData(StudentData sdToAdd){
+        if (sdToAdd == null){
+            throw new IllegalArgumentException("Student data is null");
+        }
+        studentDataList.add(sdToAdd);
+    }
+
     public List<StudentData> getStudentDataList() {
         return studentDataList;
     }
