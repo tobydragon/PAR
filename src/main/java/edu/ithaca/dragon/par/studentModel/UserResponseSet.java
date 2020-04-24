@@ -181,4 +181,13 @@ public class UserResponseSet {
         return this.getResponsesPerQuestionList().equals(other.getResponsesPerQuestionList())
                 && this.getUserId().equals(other.getUserId());
     }
+
+    public int getAllResponseCount() {
+        int count = 0;
+        List<ResponsesPerQuestion> responseList = getResponsesPerQuestionList();
+        for (ResponsesPerQuestion response : responseList){
+            count += response.getAllResponses().size();
+        }
+        return count;
+    }
 }

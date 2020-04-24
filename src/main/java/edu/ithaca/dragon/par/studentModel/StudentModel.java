@@ -106,12 +106,4 @@ public class StudentModel {
         return userResponseSet.calcKnowledgeEstimateByType(numOfRecentResponsesToConsider);
     }
 
-    public int getAllResponseCount() {
-        int count = 0;
-        List<ResponsesPerQuestion> responseList = userResponseSet.getResponsesPerQuestionList();
-        for (ResponsesPerQuestion response : responseList){
-            count += response.getAllResponses().size();
-        }
-        return count;
-    }
 }

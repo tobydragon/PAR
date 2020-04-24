@@ -1,7 +1,10 @@
 package edu.ithaca.dragon.par.studentModel;
 
 import edu.ithaca.dragon.par.domainModel.Question;
+import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
+import edu.ithaca.dragon.par.io.JsonQuestionPoolDatastore;
+import edu.ithaca.dragon.par.io.StudentModelRecord;
 import edu.ithaca.dragon.par.io.UserQuestionSetRecord;
 import edu.ithaca.dragon.util.JsonUtil;
 
@@ -9,6 +12,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -496,6 +500,27 @@ public class UserQuestionSetTest {
         assertEquals(27,questionByTypesMap.get(EquineQuestionTypes.structure.toString()).size());
         assertEquals(7,questionByTypesMap.get(EquineQuestionTypes.attachment.toString()).size());
         assertEquals(10,questionByTypesMap.get(EquineQuestionTypes.zone.toString()).size());
+    }
+
+    @Test
+    public void getAllResponseCountTest() throws IOException{
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
+
+        //mastered student
+        StudentModelRecord smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
+        StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
+        assertEquals(25, masteredStudentModel.getUserResponseSet().getAllResponseCount());
+
+        //level 3 student
+        StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/level4Student.json", StudentModelRecord.class);
+        StudentModel level4Student = smr2.buildStudentModel(myQP);
+        assertEquals(11, level4Student.getUserResponseSet().getAllResponseCount());
+
+        //brand new student
+        List<Question> noQuestions = new ArrayList<Question>();
+        StudentModel student = new StudentModel("student", noQuestions);
+        assertEquals(0, student.getUserResponseSet().getAllResponseCount());
+
     }
 
 }

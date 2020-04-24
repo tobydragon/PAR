@@ -24,7 +24,7 @@ public class StudentData {
         studentId = student.getUserId();
         level = LevelTaskGenerator.calcLevel(student.calcKnowledgeEstimateByType(4));
         //TODO: is there any way to keep the numOfResponsesToConsider in sync with levelTaskGenerator?
-        totalAnswersGiven = student.getAllResponseCount();
+        totalAnswersGiven = student.getUserResponseSet().getAllResponseCount();
         try {
             percentAnswersCorrect = calcPercentAnswersCorrect(student);
         }
@@ -51,7 +51,7 @@ public class StudentData {
                 }
             }
         }
-        return countRight/studentModel.getAllResponseCount()*100;
+        return countRight/studentModel.getUserResponseSet().getAllResponseCount()*100;
     }
 
     /**
@@ -64,7 +64,7 @@ public class StudentData {
             throw new IllegalArgumentException("Wrong student model for student data");
         }
         level = LevelTaskGenerator.calcLevel(student.calcKnowledgeEstimateByType(4));
-        totalAnswersGiven = student.getAllResponseCount();
+        totalAnswersGiven = student.getUserResponseSet().getAllResponseCount();
         try {
             percentAnswersCorrect = calcPercentAnswersCorrect(student);
         }
