@@ -39,7 +39,7 @@ public class StudentDataTest {
         assertEquals(7, masteredStudent.getLevel());
         assertEquals(25, masteredStudent.getTotalAnswersGiven());
 
-        //level 3 student
+        //level 4 student
         StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/level4Student.json", StudentModelRecord.class);
         StudentModel level4Student = smr2.buildStudentModel(myQP);
         StudentData level4StudentData = new StudentData(level4Student);
