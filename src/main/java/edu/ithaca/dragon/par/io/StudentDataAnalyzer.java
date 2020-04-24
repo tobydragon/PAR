@@ -1,6 +1,5 @@
 package edu.ithaca.dragon.par.io;
 
-import java.util.BitSet;
 import java.util.List;
 
 public class StudentDataAnalyzer {
@@ -27,12 +26,27 @@ public class StudentDataAnalyzer {
     }
 
     /**
+     * Gets student from studentDataList
+     * @throws IllegalArgumentException if studentId doesn't match any of the StudentData objects in the list
+     * @param studentId
+     * @return student data object
+     */
+    public StudentData getStudentData(String studentId){
+        for (StudentData studentData : studentDataList){
+            if (studentData.getStudentId().equals(studentId)){
+                return studentData;
+            }
+        }
+        throw new IllegalArgumentException("Student data not found");
+    }
+
+    /**
      * Removes student from studentDataList
      * @throws IllegalArgumentException if studentId doesn't match any of the StudentData objects in the list
      * @param studentId
      */
-    public void removeStudentData(String studentId){
-
+    public void removeStudentData(String studentId) throws IllegalArgumentException{
+        studentDataList.remove(getStudentData(studentId));
     }
 
     public List<StudentData> getStudentDataList() {

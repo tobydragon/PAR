@@ -79,7 +79,7 @@ public class StudentDataAnalyzerTest {
         //empty StudentDataAnalyzer
         StudentDataAnalyzer sda = new StudentDataAnalyzer(new ArrayList<>());
 
-        //1 student
+        //add 1 student
         QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
         StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
         StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
@@ -88,7 +88,7 @@ public class StudentDataAnalyzerTest {
         sda.addStudentData(masteredStudent);
         assertNotNull(sda);
 
-        //2 students
+        //add another student (2 total)
         StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/level4Student.json", StudentModelRecord.class);
         StudentModel level4Student = smr2.buildStudentModel(myQP);
         StudentData level4StudentData = new StudentData(level4Student);
@@ -116,6 +116,41 @@ public class StudentDataAnalyzerTest {
 
         //remove student not in list, IllegalArgumentException. Still 0 students after
         assertThrows(IllegalArgumentException.class, ()-> sda.removeStudentData("masteredStudent"));
-        assertEquals(1, sda.getStudentDataList().size());
+        assertEquals(0, sda.getStudentDataList().size());
+    }
+
+    @Test
+    public void getStudentData() throws IOException{
+    //empty StudentDataAnalyzer
+        StudentDataAnalyzer sda = new StudentDataAnalyzer(new ArrayList<>());
+
+        //add 1 student
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
+        StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
+        StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
+        StudentData masteredStudent = new StudentData(masteredStudentModel);
+
+        sda.addStudentData(masteredStudent);
+        assertNotNull(sda);
+
+        //add another student (2 total)
+        StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/level4Student.json", StudentModelRecord.class);
+        StudentModel level4Student = smr2.buildStudentModel(myQP);
+        StudentData level4StudentData = new StudentData(level4Student);
+        sda.addStudentData(level4StudentData);
+
+        //get students
+        assertEquals(masteredStudent.getStudentId(), sda.getStudentData("masteredStudent").getStudentId());
+        assertEquals(masteredStudent.getTotalAnswersGiven(), sda.getStudentData("masteredStudent").getTotalAnswersGiven());
+        assertEquals(masteredStudent.getLevel(), sda.getStudentData("masteredStudent").getLevel());
+
+        assertEquals(level4StudentData.getStudentId(), sda.getStudentData("level4Student").getStudentId());
+        assertEquals(level4StudentData.getTotalAnswersGiven(), sda.getStudentData("level4Student").getTotalAnswersGiven());
+        assertEquals(level4StudentData.getLevel(), sda.getStudentData("level4Student").getLevel());
+
+
+        //not real student, throws IllegalArgumentException
+
+        assertThrows(IllegalArgumentException.class, ()-> sda.getStudentData("notRealStudent"));
     }
 }

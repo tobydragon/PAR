@@ -4,10 +4,8 @@ import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.studentModel.ResponsesPerQuestion;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
-import edu.ithaca.dragon.util.JsonIoUtil;
 import edu.ithaca.dragon.util.JsonUtil;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,7 +22,7 @@ public class StudentDataTest {
         List<Question> noQuestions = new ArrayList<Question>();
         StudentModel student = new StudentModel("student", noQuestions);
         StudentData newStudent = new StudentData(student);
-        assertEquals("student", newStudent.getUserId());
+        assertEquals("student", newStudent.getStudentId());
         assertEquals(1, newStudent.getLevel());
         assertEquals(0, newStudent.getTotalAnswersGiven());
 
@@ -35,7 +33,7 @@ public class StudentDataTest {
         StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
         StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
         StudentData masteredStudent = new StudentData(masteredStudentModel);
-        assertEquals("masteredStudent", masteredStudent.getUserId());
+        assertEquals("masteredStudent", masteredStudent.getStudentId());
         assertEquals(7, masteredStudent.getLevel());
         assertEquals(25, masteredStudent.getTotalAnswersGiven());
 
@@ -43,7 +41,7 @@ public class StudentDataTest {
         StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/level4Student.json", StudentModelRecord.class);
         StudentModel level4Student = smr2.buildStudentModel(myQP);
         StudentData level4StudentData = new StudentData(level4Student);
-        assertEquals("level4Student", level4StudentData.getUserId());
+        assertEquals("level4Student", level4StudentData.getStudentId());
         assertEquals(4, level4StudentData.getLevel());
         assertEquals(11, level4StudentData.getTotalAnswersGiven());
     }
@@ -56,7 +54,7 @@ public class StudentDataTest {
         StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
         StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
         StudentData masteredStudent = new StudentData(masteredStudentModel);
-        assertEquals("masteredStudent", masteredStudent.getUserId());
+        assertEquals("masteredStudent", masteredStudent.getStudentId());
         assertEquals(7, masteredStudent.getLevel());
         assertEquals(25, masteredStudent.getTotalAnswersGiven());
 
@@ -68,7 +66,7 @@ public class StudentDataTest {
 
         //change level and answersGiven
         masteredStudent.updateData(masteredStudentModel);
-        assertEquals("masteredStudent", masteredStudent.getUserId());
+        assertEquals("masteredStudent", masteredStudent.getStudentId());
         //assertEquals(6, masteredStudent.getLevel());
         assertEquals(28, masteredStudent.getTotalAnswersGiven());
 

@@ -36,7 +36,7 @@ public class StudentData {
     }
 
     //getters
-    public String getUserId() {
+    public String getStudentId() {
         return studentId;
     }
 
