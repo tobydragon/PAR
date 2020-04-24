@@ -50,7 +50,7 @@ public class StudentDataAnalyzer {
     }
 
     /**
-     * @throws ArithmeticException if list is empty (because getting an average of 0 numbers is impossible
+     * @throws ArithmeticException if list is empty (because getting an average of 0 numbers is impossible)
      * @return average level across all students
      */
     public double calcAverageLevel(){
@@ -66,9 +66,17 @@ public class StudentDataAnalyzer {
         }
     }
 
-    //get all students
+    //calculate all students average totalAnswersGiven
+    /**
+     * @throws ArithmeticException if list is empty (because getting an average of 0 numbers is impossible)
+     * @return average totalAnswersGiven across all students
+     */
+    public double calcAverageTotalAnswersGiven(){
+        return -2.72;
+    }
 
     //calculate average totalAnswersGiven given level
+
 
     public List<StudentData> getStudentDataList() {
         return studentDataList;

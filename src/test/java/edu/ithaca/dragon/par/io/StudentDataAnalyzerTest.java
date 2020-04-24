@@ -188,4 +188,37 @@ public class StudentDataAnalyzerTest {
 
         assertEquals(4, sda.calcAverageLevel());
     }
+
+    @Test
+    public void calcAverageTotalAnswersGivenTest() throws IOException{
+        //empty StudentDataAnalyzer
+        StudentDataAnalyzer sda = new StudentDataAnalyzer(new ArrayList<>());
+        assertThrows(ArithmeticException.class, ()-> sda.calcAverageTotalAnswersGiven());
+
+        //add 1 student
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
+        StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
+        StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
+        StudentData masteredStudent = new StudentData(masteredStudentModel);
+
+        sda.addStudentData(masteredStudent);
+
+        assertEquals(7.0, sda.calcAverageTotalAnswersGiven());
+
+        //add another student (2 total)
+        StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/level4Student.json", StudentModelRecord.class);
+        StudentModel level4Student = smr2.buildStudentModel(myQP);
+        StudentData level4StudentData = new StudentData(level4Student);
+        sda.addStudentData(level4StudentData);
+
+        assertEquals(5.5, sda.calcAverageTotalAnswersGiven());
+
+        //add another student (3 total)
+        List<Question> noQuestions = new ArrayList<Question>();
+        StudentModel student = new StudentModel("student", noQuestions);
+        StudentData newStudent = new StudentData(student);
+        sda.addStudentData(newStudent);
+
+        assertEquals(4, sda.calcAverageTotalAnswersGiven());
+    }
 }
