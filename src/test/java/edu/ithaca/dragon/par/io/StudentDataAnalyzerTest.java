@@ -18,7 +18,7 @@ public class StudentDataAnalyzerTest {
         //empty StudentDataAnalyzer
         StudentDataAnalyzer sda = new StudentDataAnalyzer(new ArrayList<>());
         assertNotNull(sda);
-        assertEquals(0, sda.getStudentDataList());
+        assertEquals(0, sda.getStudentDataList().size());
 
         //1 student
         QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
@@ -31,7 +31,7 @@ public class StudentDataAnalyzerTest {
 
         sda = new StudentDataAnalyzer(sdList);
         assertNotNull(sda);
-        assertEquals(1, sda.getStudentDataList());
+        assertEquals(1, sda.getStudentDataList().size());
 
         //2 students
         StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/level4Student.json", StudentModelRecord.class);
@@ -41,6 +41,6 @@ public class StudentDataAnalyzerTest {
 
         sda = new StudentDataAnalyzer(sdList);
         assertNotNull(sda);
-        assertEquals(2, sda.getStudentDataList());
+        assertEquals(2, sda.getStudentDataList().size());
     }
 }

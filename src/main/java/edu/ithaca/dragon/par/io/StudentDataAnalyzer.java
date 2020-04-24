@@ -4,11 +4,12 @@ import java.util.BitSet;
 import java.util.List;
 
 public class StudentDataAnalyzer {
-    public StudentDataAnalyzer(List<StudentData> studentDataList){
-
+    List<StudentData> studentDataList;
+    public StudentDataAnalyzer(List<StudentData> studentDataListIn){
+        studentDataList = studentDataListIn;
     }
 
     public List<StudentData> getStudentDataList() {
-        return null;
+        return studentDataList;
     }
 }
