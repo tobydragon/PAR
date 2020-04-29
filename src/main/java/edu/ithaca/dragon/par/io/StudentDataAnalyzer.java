@@ -1,8 +1,14 @@
 package edu.ithaca.dragon.par.io;
 
+import com.opencsv.CSVWriter;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Scanner;
 
 public class StudentDataAnalyzer {
     List<StudentData> studentDataList;
@@ -131,5 +137,37 @@ public class StudentDataAnalyzer {
 
     public List<StudentData> getStudentDataList() {
         return studentDataList;
+    }
+
+
+    public void writeStudentDataFile(String filePath) throws IOException {
+        File file = new File(filePath);
+        if (file.exists()){
+            file.delete();
+        }
+        try {
+            FileWriter outputfile = new FileWriter(file);
+            CSVWriter writer = new CSVWriter(outputfile);
+            String[] header = { "Student Id", "Level", "Total Answers Given", "Percent of Correct Responses", "Percent of Questions Wrong the First Time", "Percent of Questions Right After Wrong the First Time"};
+            writer.writeNext(header);
+
+            //inserts row per student
+            for (StudentData studentData : studentDataList){
+                String [] studentRow = {studentData.getStudentId(), Integer.toString(studentData.getLevel()), Integer.toString(studentData.getTotalAnswersGiven()), Double.toString(studentData.getPercentAnswersCorrect()), Double.toString(studentData.getPercentWrongFirstTime()), Double.toString(studentData.getPercentRightAfterWrongFirstTime())};
+                writer.writeNext(studentRow);
+            }
+            String [] divider = {""};
+            writer.writeNext(divider);
+
+            String [] overallStats = {"Averages:", Double.toString(calcAverageLevel()), Double.toString(calcAverageTotalAnswers()), "-3", "-2", "2653863"};
+            writer.writeNext(overallStats);
+
+            //close writer
+            writer.close();
+        }
+        catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 }
