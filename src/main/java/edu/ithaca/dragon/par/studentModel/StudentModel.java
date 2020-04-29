@@ -154,7 +154,7 @@ public class StudentModel {
 
     /**
      *
-     * @return percent of questions that were answered right after being answered wrong the first time
+     * @return percent of questions that were most recently answered right after being answered wrong the first time
      */
     public double calcPercentLastAnswerRightAfterWrong(){
         List<ResponsesPerQuestion> responses = userResponseSet.getResponsesPerQuestionList();
