@@ -5,8 +5,10 @@ import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.ImageTaskResponseOOP;
 import edu.ithaca.dragon.par.io.JsonQuestionPoolDatastore;
+import edu.ithaca.dragon.par.io.StudentModelRecord;
 import edu.ithaca.dragon.util.DataUtil;
 import edu.ithaca.dragon.util.JsonUtil;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -252,6 +254,25 @@ public class UserResponseSetTest {
         assertEquals("__XO", m1.get(EquineQuestionTypes.attachment));
         assertEquals("___O", m1.get(EquineQuestionTypes.zone));
 
+    }
+
+    @Test
+    public void calcPercentRightAfterWrongTest() throws IOException{
+        //mastered student, some right
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
+        StudentModelRecord smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
+        StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
+        Assertions.assertEquals(33.33, masteredStudentModel.getUserResponseSet().calcPercentLastAnswerRightAfterWrong());
+
+        //level 4 student, none
+        StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/level4Student.json", StudentModelRecord.class);
+        StudentModel level4Student = smr2.buildStudentModel(myQP);
+        Assertions.assertEquals(0.0, level4Student.getUserResponseSet().calcPercentLastAnswerRightAfterWrong());
+
+        //new student, no responses.
+        List<Question> noQuestions = new ArrayList<Question>();
+        StudentModel student = new StudentModel("student", noQuestions);
+        Assertions.assertEquals(-1.0, student.getUserResponseSet().calcPercentLastAnswerRightAfterWrong());
     }
 
     //TODO: why are these commented out?

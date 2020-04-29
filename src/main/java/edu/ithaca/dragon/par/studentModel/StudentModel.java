@@ -152,33 +152,5 @@ public class StudentModel {
         return parseDouble(df.format(count / responses.size() * 100.00));
     }
 
-    /**
-     *
-     * @return percent of questions that were most recently answered right after being answered wrong the first time
-     */
-    public double calcPercentLastAnswerRightAfterWrong(){
-        List<ResponsesPerQuestion> responses = userResponseSet.getResponsesPerQuestionList();
-        if (responses.size()==0){
-            return -1.0;
-        }
-        double origWrongCount = 0.0;
-        double countRightAfterWrong = 0.0;
-        for(ResponsesPerQuestion responseObject: responses){
-            //if the first answer is wrong
-            if (!responseObject.getFirstResponse().equalsIgnoreCase(getUserQuestionSet().getQuestionCountFromId(responseObject.getQuestionId()).getQuestion().getCorrectAnswer())){
-                origWrongCount += 1;
-                int i = 1;
-                //if the current response is a correct response
-                if (responseObject.getAllResponses().get(responseObject.allResponsesSize()-1).getResponseText().equalsIgnoreCase(getUserQuestionSet().getQuestionCountFromId(responseObject.getQuestionId()).getQuestion().getCorrectAnswer())){
-                    countRightAfterWrong += 1.0;
-                }
-            }
-        }
 
-        DecimalFormat df = new DecimalFormat(".##"); //format output to 2 decimal places
-        if (origWrongCount == 0.0 || countRightAfterWrong == 0.0){
-            return 0;
-        }
-        return parseDouble(df.format(countRightAfterWrong / origWrongCount * 100.00));
-    }
 }

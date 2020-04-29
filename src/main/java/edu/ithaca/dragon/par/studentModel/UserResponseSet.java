@@ -2,7 +2,10 @@ package edu.ithaca.dragon.par.studentModel;
 
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 
+import java.text.DecimalFormat;
 import java.util.*;
+
+import static java.lang.Double.parseDouble;
 
 public class UserResponseSet {
     private String userId;
@@ -197,5 +200,34 @@ public class UserResponseSet {
             count += response.getAllResponses().size();
         }
         return count;
+    }
+
+    /**
+     *
+     * @return percent of questions that were most recently answered right after being answered wrong the first time
+     */
+    public double calcPercentLastAnswerRightAfterWrong(){
+        if (responsesPerQuestionList.size()==0){
+            return -1.0;
+        }
+        double origWrongCount = 0.0;
+        double countRightAfterWrong = 0.0;
+        for(ResponsesPerQuestion responseObject: responsesPerQuestionList){
+            //if the first answer is wrong
+            if (!responseObject.getFirstResponse().equalsIgnoreCase(responseObject.getQuestion().getCorrectAnswer())){
+                origWrongCount += 1;
+                int i = 1;
+                //if the current response is a correct response
+                if (responseObject.getAllResponses().get(responseObject.allResponsesSize()-1).getResponseText().equalsIgnoreCase(responseObject.getQuestion().getCorrectAnswer())){
+                    countRightAfterWrong += 1.0;
+                }
+            }
+        }
+
+        DecimalFormat df = new DecimalFormat(".##"); //format output to 2 decimal places
+        if (origWrongCount == 0.0 || countRightAfterWrong == 0.0){
+            return 0;
+        }
+        return parseDouble(df.format(countRightAfterWrong / origWrongCount * 100.00));
     }
 }
