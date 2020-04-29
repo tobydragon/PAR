@@ -145,16 +145,29 @@ public class StudentDataAnalyzer {
         }
         else{
             double average = 0.0;
-            for (StudentData studentData : studentDataList){
-
-                average += studentData.getPercentAnswersCorrect();
+            for (StudentData studentData : studentDataList) {
+                //student actually has responses
+                if (studentData.getPercentAnswersCorrect() >= 0) {
+                    average += studentData.getPercentAnswersCorrect();
+                }
             }
             return average/studentDataList.size();
         }
     }
 
     public Double calcAveragePercentWrongFirstTime(){
-        return -35.4;
+        if (studentDataList.size() == 0){
+            throw new ArithmeticException("No student data found, cannot calculate average total answers given");
+        }
+        else{
+            double average = 0.0;
+            for (StudentData studentData : studentDataList){
+                if (studentData.getPercentAnswersCorrect() >= 0) {
+                    average += studentData.getPercentWrongFirstTime();
+                }
+            }
+            return average/studentDataList.size();
+        }
     }
 
 
