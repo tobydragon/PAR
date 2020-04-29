@@ -155,6 +155,10 @@ public class StudentDataAnalyzer {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public Double calcAveragePercentWrongFirstTime(){
         if (studentDataList.size() == 0){
             throw new ArithmeticException("No student data found, cannot calculate average total answers given");
@@ -170,6 +174,10 @@ public class StudentDataAnalyzer {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public Double calcAveragePercentRightAfterWrongFirstTime(){
         if (studentDataList.size() == 0){
             throw new ArithmeticException("No student data found, cannot calculate average total answers given");
@@ -209,7 +217,7 @@ public class StudentDataAnalyzer {
             writer.writeNext(overallStats);
             writer.writeNext(divider);
 
-            String [] note = {"-1 denotes insufficient information for calculation. Student still included in average calculation"};
+            String [] note = {"-1 denotes no information for calculation. Student still included in average calculation"};
             writer.writeNext(note);
 
             //close writer
