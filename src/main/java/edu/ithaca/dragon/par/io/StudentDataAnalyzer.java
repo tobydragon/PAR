@@ -173,7 +173,7 @@ public class StudentDataAnalyzer {
             String [] divider = {""};
             writer.writeNext(divider);
 
-            String [] overallStats = {"Averages:", Double.toString(calcAverageLevel()), Double.toString(calcAverageTotalAnswers()), "-3", "-2", "2653863"};
+            String [] overallStats = {"Averages:", Double.toString(calcAverageLevel()), Double.toString(calcAverageTotalAnswers()), Double.toString(calcAveragePercentCorrectResponses()), "-2", "2653863"};
             writer.writeNext(overallStats);
 
             //close writer
