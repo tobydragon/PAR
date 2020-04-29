@@ -207,6 +207,10 @@ public class StudentDataAnalyzer {
 
             String [] overallStats = {"Averages:", Double.toString(calcAverageLevel()), Double.toString(calcAverageTotalAnswers()), Double.toString(calcAveragePercentCorrectResponses()), Double.toString(calcAveragePercentWrongFirstTime()), Double.toString(calcAveragePercentRightAfterWrongFirstTime())};
             writer.writeNext(overallStats);
+            writer.writeNext(divider);
+
+            String [] note = {"-1 denotes insufficient information for calculation. Student still included in average calculation"};
+            writer.writeNext(note);
 
             //close writer
             writer.close();
