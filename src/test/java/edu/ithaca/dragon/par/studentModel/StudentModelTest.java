@@ -143,12 +143,12 @@ public class StudentModelTest {
         QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
         StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
         StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
-        assertEquals(88.24, masteredStudentModel.calcPercentWrongFirstTime());
+        assertEquals(11.76, masteredStudentModel.calcPercentWrongFirstTime());
 
         //level 4 student
         StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/level4Student.json", StudentModelRecord.class);
         StudentModel level4Student = smr2.buildStudentModel(myQP);
-        assertEquals(100.0, level4Student.calcPercentWrongFirstTime());
+        assertEquals(0.0, level4Student.calcPercentWrongFirstTime());
 
         //new student
         List<Question> noQuestions = new ArrayList<Question>();

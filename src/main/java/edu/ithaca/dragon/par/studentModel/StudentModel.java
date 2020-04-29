@@ -141,7 +141,7 @@ public class StudentModel {
         }
         double count = 0.0;
         for(ResponsesPerQuestion responseObject: responses){
-            if (responseObject.getFirstResponse().equalsIgnoreCase(getUserQuestionSet().getQuestionCountFromId(responseObject.getQuestionId()).getQuestion().getCorrectAnswer())){
+            if (!responseObject.getFirstResponse().equalsIgnoreCase(getUserQuestionSet().getQuestionCountFromId(responseObject.getQuestionId()).getQuestion().getCorrectAnswer())){
                 count += 1;
             }
         }
