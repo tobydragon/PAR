@@ -126,4 +126,8 @@ public class StudentModel {
         }
         return countRight/getUserResponseSet().getAllResponseCount()*100;
     }
+
+    public double calcPercentWrongFirstTime() {
+        return 3.4;
+    }
 }
