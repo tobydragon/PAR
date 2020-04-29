@@ -148,4 +148,12 @@ public class StudentModel {
         DecimalFormat df = new DecimalFormat(".##"); //format output to 2 decimal places
         return parseDouble(df.format(count / responses.size() * 100.00));
     }
+
+    /**
+     *
+     * @return percent of questions that were answered right after being answered wrong the first time
+     */
+    public double calcPercentRightAfterWrong(){
+        return 3.4;
+    }
 }
