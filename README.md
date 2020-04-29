@@ -27,4 +27,4 @@ One instance of this system is currently being developed and tested with those i
 
 ### [KnowledgeBase Sequence Diagram](https://drive.google.com/file/d/1hoSOBYlqthWcJqPFC217ngKczGZm1-C-/view?usp=sharing)
 
-### [Research Publications](Research)
+### [Research Publications](https://github.com/tobydragon/PAR/tree/master/src/Research)
