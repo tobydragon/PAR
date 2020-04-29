@@ -220,4 +220,13 @@ public class StudentDataAnalyzer {
             e.printStackTrace();
         }
     }
+
+    public static void main(String[] args) throws IOException{
+        StudentDataAnalyzer sda = new StudentDataAnalyzer(new ArrayList<>());
+        Scanner scan = new Scanner(System.in);
+        System.out.println("What would you like your filename to be?");
+        String fileName = scan.nextLine();
+        sda.writeStudentDataFile(fileName);
+
+    }
 }
