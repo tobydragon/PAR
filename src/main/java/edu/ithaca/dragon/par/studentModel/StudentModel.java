@@ -5,7 +5,10 @@ import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.ImageTaskResponseOOP;
 
+import java.text.DecimalFormat;
 import java.util.*;
+
+import static java.lang.Double.parseDouble;
 
 public class StudentModel {
 
@@ -127,7 +130,22 @@ public class StudentModel {
         return countRight/getUserResponseSet().getAllResponseCount()*100;
     }
 
+    /**
+     *
+     * @return percent of questions that were answered incorrectly the first time
+     */
     public double calcPercentWrongFirstTime() {
-        return 3.4;
+        List<ResponsesPerQuestion> responses = userResponseSet.getResponsesPerQuestionList();
+        if (responses.size()==0){
+            return -1.0;
+        }
+        double count = 0.0;
+        for(ResponsesPerQuestion responseObject: responses){
+            if (responseObject.getFirstResponse().equalsIgnoreCase(getUserQuestionSet().getQuestionCountFromId(responseObject.getQuestionId()).getQuestion().getCorrectAnswer())){
+                count += 1;
+            }
+        }
+        DecimalFormat df = new DecimalFormat(".##"); //format output to 2 decimal places
+        return parseDouble(df.format(count / responses.size() * 100.00));
     }
 }
