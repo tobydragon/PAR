@@ -343,8 +343,6 @@ public class StudentDataAnalyzerTest {
         masteredStudent2.updateData(masteredStudentModel2);
         assertTrue(28.4 < sda.calcAverageTotalAnswersGivenLevel(7) && sda.calcAverageTotalAnswersGivenLevel(7) < 28.6);
 
-
-
         //3 students level 7
         StudentModelRecord  smrlevel7 = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
         StudentModel masteredStudentModel3 = smrlevel7.buildStudentModel(myQP);
@@ -353,6 +351,39 @@ public class StudentDataAnalyzerTest {
         sda.addStudentData(masteredStudent3);
 
         assertTrue(27.6 < sda.calcAverageTotalAnswersGivenLevel(7) && sda.calcAverageTotalAnswersGivenLevel(7) < 27.7);
+    }
+
+    @Test
+    public void calcPercentCorrectResponsesTest() throws IOException{
+        //empty StudentDataAnalyzer
+        StudentDataAnalyzer sda = new StudentDataAnalyzer(new ArrayList<>());
+        assertThrows(ArithmeticException.class, ()-> sda.calcAverageTotalAnswers());
+
+        //add 1 student
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
+        StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
+        StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
+        StudentData masteredStudent = new StudentData(masteredStudentModel);
+
+        sda.addStudentData(masteredStudent);
+
+        assertEquals(26.0, sda.calcAveragePercentCorrectResponses());
+
+        //add another student (2 total)
+        StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/level4Student.json", StudentModelRecord.class);
+        StudentModel level4Student = smr2.buildStudentModel(myQP);
+        StudentData level4StudentData = new StudentData(level4Student);
+        sda.addStudentData(level4StudentData);
+
+        assertEquals(18.5, sda.calcAveragePercentCorrectResponses());
+
+        //add another student (3 total)
+        List<Question> noQuestions = new ArrayList<Question>();
+        StudentModel student = new StudentModel("student", noQuestions);
+        StudentData newStudent = new StudentData(student);
+        sda.addStudentData(newStudent);
+
+        assertTrue(12.3 < sda.calcAveragePercentCorrectResponses() && sda.calcAveragePercentCorrectResponses() < 12.4);
     }
 
 

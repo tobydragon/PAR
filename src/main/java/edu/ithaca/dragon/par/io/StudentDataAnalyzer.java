@@ -139,6 +139,10 @@ public class StudentDataAnalyzer {
         return studentDataList;
     }
 
+    public Double calcAveragePercentCorrectResponses(){
+        return -45.8;
+    }
+
 
     public void writeStudentDataFile(String filePath) throws IOException {
         File file = new File(filePath);
