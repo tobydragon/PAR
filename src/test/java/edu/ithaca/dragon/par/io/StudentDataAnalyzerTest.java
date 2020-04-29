@@ -432,7 +432,7 @@ public class StudentDataAnalyzerTest {
 
         sda.addStudentData(masteredStudent);
 
-        assertTrue(17.6 < sda.calcAveragePercentRightAfterWrongFirstTime() && sda.calcAveragePercentRightAfterWrongFirstTime() < 17.7);
+        assertTrue(33.3 < sda.calcAveragePercentRightAfterWrongFirstTime() && sda.calcAveragePercentRightAfterWrongFirstTime() < 33.4);
 
         //add another student (2 total)
         StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/level4Student.json", StudentModelRecord.class);
@@ -440,7 +440,8 @@ public class StudentDataAnalyzerTest {
         StudentData level4StudentData = new StudentData(level4Student);
         sda.addStudentData(level4StudentData);
 
-        assertTrue(8.8 < sda.calcAveragePercentRightAfterWrongFirstTime() && sda.calcAveragePercentRightAfterWrongFirstTime() < 8.9);
+
+        assertTrue(16.6 < sda.calcAveragePercentRightAfterWrongFirstTime() && sda.calcAveragePercentRightAfterWrongFirstTime() < 16.7);
 
         //add another student (3 total)
         List<Question> noQuestions = new ArrayList<Question>();
@@ -448,7 +449,8 @@ public class StudentDataAnalyzerTest {
         StudentData newStudent = new StudentData(student);
         sda.addStudentData(newStudent);
 
-        assertTrue(5.8 < sda.calcAveragePercentRightAfterWrongFirstTime() && sda.calcAveragePercentRightAfterWrongFirstTime() < 5.9);
+
+        assertTrue(11.1 < sda.calcAveragePercentRightAfterWrongFirstTime() && sda.calcAveragePercentRightAfterWrongFirstTime() < 11.2);
     }
 
     @Test

@@ -171,7 +171,18 @@ public class StudentDataAnalyzer {
     }
 
     public Double calcAveragePercentRightAfterWrongFirstTime(){
-        return -82.4;
+        if (studentDataList.size() == 0){
+            throw new ArithmeticException("No student data found, cannot calculate average total answers given");
+        }
+        else{
+            double average = 0.0;
+            for (StudentData studentData : studentDataList){
+                if (studentData.getPercentAnswersCorrect() >= 0) {
+                    average += studentData.getPercentRightAfterWrongFirstTime();
+                }
+            }
+            return average/studentDataList.size();
+        }
     }
 
 
