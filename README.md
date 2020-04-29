@@ -26,3 +26,5 @@ One instance of this system is currently being developed and tested with those i
 ### [ImageTaskResponse Sequence Diagram](https://drive.google.com/file/d/1ezNA_RqJq6m6WfHb4GVKs2Da-5AgYEPj/view?usp=sharing)
 
 ### [KnowledgeBase Sequence Diagram](https://drive.google.com/file/d/1hoSOBYlqthWcJqPFC217ngKczGZm1-C-/view?usp=sharing)
+
+### [Research Publications](https://github.com/tobydragon/PAR/tree/master/src/Research)
