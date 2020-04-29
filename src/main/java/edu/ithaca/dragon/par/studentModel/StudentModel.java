@@ -136,11 +136,14 @@ public class StudentModel {
      */
     public double calcPercentWrongFirstTime() {
         List<ResponsesPerQuestion> responses = userResponseSet.getResponsesPerQuestionList();
+        //no responses
         if (responses.size()==0){
             return -1.0;
         }
         double count = 0.0;
+        //for every respinse object
         for(ResponsesPerQuestion responseObject: responses){
+            //if the first answer is wrong
             if (!responseObject.getFirstResponse().equalsIgnoreCase(getUserQuestionSet().getQuestionCountFromId(responseObject.getQuestionId()).getQuestion().getCorrectAnswer())){
                 count += 1;
             }
@@ -154,6 +157,34 @@ public class StudentModel {
      * @return percent of questions that were answered right after being answered wrong the first time
      */
     public double calcPercentRightAfterWrong(){
-        return 3.4;
+        List<ResponsesPerQuestion> responses = userResponseSet.getResponsesPerQuestionList();
+        if (responses.size()==0){
+            return -1.0;
+        }
+        double origWrongCount = 0.0;
+        double countRightAfterWrong = 0.0;
+        for(ResponsesPerQuestion responseObject: responses){
+            //if the first answer is wrong
+            if (!responseObject.getFirstResponse().equalsIgnoreCase(getUserQuestionSet().getQuestionCountFromId(responseObject.getQuestionId()).getQuestion().getCorrectAnswer())){
+                origWrongCount += 1;
+                boolean foundRight = false;
+                int i = 1;
+                //while we haven't run out of responses and a correct answer hasn't been found
+                while(i < responseObject.getAllResponses().size() && !foundRight){
+                    //if the current response is a correct response
+                    if (responseObject.getAllResponses().get(i).getResponseText().equalsIgnoreCase(getUserQuestionSet().getQuestionCountFromId(responseObject.getQuestionId()).getQuestion().getCorrectAnswer())){
+                        countRightAfterWrong += 1.0;
+                        foundRight = true;
+                    }
+                    i ++;
+                }
+            }
+        }
+
+        DecimalFormat df = new DecimalFormat(".##"); //format output to 2 decimal places
+        if (origWrongCount == 0.0 || countRightAfterWrong == 0.0){
+            return 0;
+        }
+        return parseDouble(df.format(countRightAfterWrong / origWrongCount * 100.00));
     }
 }

@@ -36,9 +36,9 @@ public class StudentDataTest {
         StudentData masteredStudent = new StudentData(masteredStudentModel);
         assertEquals("masteredStudent", masteredStudent.getStudentId());
         assertEquals(7, masteredStudent.getLevel());
-        assertEquals(25, masteredStudent.getTotalAnswersGiven());
-        assertTrue(91.9 < masteredStudent.getPercentAnswersCorrect() && masteredStudent.getPercentAnswersCorrect() < 92.1);
-        assertEquals(11.76, masteredStudent.getPercentWrongFirstTime());
+        assertEquals(26, masteredStudent.getTotalAnswersGiven());
+        assertTrue(88.4 < masteredStudent.getPercentAnswersCorrect() && masteredStudent.getPercentAnswersCorrect() <88.5);
+        assertEquals(17.65, masteredStudent.getPercentWrongFirstTime());
 
         //level 4 student
         StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/level4Student.json", StudentModelRecord.class);
@@ -61,7 +61,7 @@ public class StudentDataTest {
         StudentData masteredStudent = new StudentData(masteredStudentModel);
         assertEquals("masteredStudent", masteredStudent.getStudentId());
         assertEquals(7, masteredStudent.getLevel());
-        assertEquals(25, masteredStudent.getTotalAnswersGiven());
+        assertEquals(26, masteredStudent.getTotalAnswersGiven());
 
         //add responses
         ResponsesPerQuestion r1 = masteredStudentModel.getUserResponseSet().getResponsesPerQuestionList().get(4);
@@ -73,7 +73,7 @@ public class StudentDataTest {
         masteredStudent.updateData(masteredStudentModel);
         assertEquals("masteredStudent", masteredStudent.getStudentId());
         //assertEquals(6, masteredStudent.getLevel());
-        assertEquals(28, masteredStudent.getTotalAnswersGiven());
+        assertEquals(29, masteredStudent.getTotalAnswersGiven());
 
         //wrong student model, IllegalArgumentException
         List<Question> noQuestions = new ArrayList<Question>();

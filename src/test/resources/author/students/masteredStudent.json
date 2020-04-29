@@ -313,8 +313,11 @@
     }, {
       "userId" : "masteredStudent",
       "questionId" : "327-structure0-./images/metacarpal56.jpg",
-      "responseText" : "Distal check ligament (accessory ligament of the deep digital flexor tendon)",
+      "responseText" : "Superficial digital flexor tendon",
       "allResponseTexts" : [ {
+        "responseText" : "Superficial digital flexor tendon",
+        "millSeconds" : 1583315700001
+      },{
         "responseText" : "Distal check ligament (accessory ligament of the deep digital flexor tendon)",
         "millSeconds" : 1583315757321
       }, {

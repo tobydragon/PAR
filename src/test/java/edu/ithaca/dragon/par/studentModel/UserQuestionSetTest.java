@@ -509,7 +509,7 @@ public class UserQuestionSetTest {
         //mastered student
         StudentModelRecord smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
         StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
-        assertEquals(25, masteredStudentModel.getUserResponseSet().getAllResponseCount());
+        assertEquals(26, masteredStudentModel.getUserResponseSet().getAllResponseCount());
 
         //level 3 student
         StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/level4Student.json", StudentModelRecord.class);
