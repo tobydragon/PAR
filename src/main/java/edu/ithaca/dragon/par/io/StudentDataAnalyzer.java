@@ -140,7 +140,17 @@ public class StudentDataAnalyzer {
     }
 
     public Double calcAveragePercentCorrectResponses(){
-        return -45.8;
+        if (studentDataList.size() == 0){
+            throw new ArithmeticException("No student data found, cannot calculate average total answers given");
+        }
+        else{
+            double average = 0.0;
+            for (StudentData studentData : studentDataList){
+
+                average += studentData.getPercentAnswersCorrect();
+            }
+            return average/studentDataList.size();
+        }
     }
 
 
