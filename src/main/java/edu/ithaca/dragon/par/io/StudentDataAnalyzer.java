@@ -170,6 +170,10 @@ public class StudentDataAnalyzer {
         }
     }
 
+    public Double calcAveragePercentRightAfterWrongFirstTime(){
+        return -82.4;
+    }
+
 
     public void writeStudentDataFile(String filePath) throws IOException {
         File file = new File(filePath);

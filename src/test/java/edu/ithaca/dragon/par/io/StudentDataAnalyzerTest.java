@@ -357,7 +357,7 @@ public class StudentDataAnalyzerTest {
     public void calcPercentCorrectResponsesTest() throws IOException{
         //empty StudentDataAnalyzer
         StudentDataAnalyzer sda = new StudentDataAnalyzer(new ArrayList<>());
-        assertThrows(ArithmeticException.class, ()-> sda.calcAverageTotalAnswers());
+        assertThrows(ArithmeticException.class, ()-> sda.calcAveragePercentCorrectResponses());
 
         //add 1 student
         QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
@@ -389,7 +389,7 @@ public class StudentDataAnalyzerTest {
     public void calcAveragePercentWrongFirstTimeTest() throws IOException{
         //empty StudentDataAnalyzer
         StudentDataAnalyzer sda = new StudentDataAnalyzer(new ArrayList<>());
-        assertThrows(ArithmeticException.class, ()-> sda.calcAverageTotalAnswers());
+        assertThrows(ArithmeticException.class, ()-> sda.calcAveragePercentWrongFirstTime());
 
         //add 1 student
         QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
@@ -416,6 +416,39 @@ public class StudentDataAnalyzerTest {
         sda.addStudentData(newStudent);
 
         assertTrue(5.8 < sda.calcAveragePercentWrongFirstTime() && sda.calcAveragePercentWrongFirstTime() < 5.9);
+    }
+
+    @Test
+    public void calcAveragePercentRightAfterWrongFirstTimeTest() throws IOException{
+        //empty StudentDataAnalyzer
+        StudentDataAnalyzer sda = new StudentDataAnalyzer(new ArrayList<>());
+        assertThrows(ArithmeticException.class, ()-> sda.calcAveragePercentRightAfterWrongFirstTime());
+
+        //add 1 student
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
+        StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
+        StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
+        StudentData masteredStudent = new StudentData(masteredStudentModel);
+
+        sda.addStudentData(masteredStudent);
+
+        assertTrue(17.6 < sda.calcAveragePercentRightAfterWrongFirstTime() && sda.calcAveragePercentRightAfterWrongFirstTime() < 17.7);
+
+        //add another student (2 total)
+        StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/level4Student.json", StudentModelRecord.class);
+        StudentModel level4Student = smr2.buildStudentModel(myQP);
+        StudentData level4StudentData = new StudentData(level4Student);
+        sda.addStudentData(level4StudentData);
+
+        assertTrue(8.8 < sda.calcAveragePercentRightAfterWrongFirstTime() && sda.calcAveragePercentRightAfterWrongFirstTime() < 8.9);
+
+        //add another student (3 total)
+        List<Question> noQuestions = new ArrayList<Question>();
+        StudentModel student = new StudentModel("student", noQuestions);
+        StudentData newStudent = new StudentData(student);
+        sda.addStudentData(newStudent);
+
+        assertTrue(5.8 < sda.calcAveragePercentRightAfterWrongFirstTime() && sda.calcAveragePercentRightAfterWrongFirstTime() < 5.9);
     }
 
     @Test
