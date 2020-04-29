@@ -15,7 +15,9 @@ public class StudentData {
     private int totalAnswersGiven;
     private double percentAnswersCorrect;
     private double percentWrongFirstTime;
-    //private double timeSpent; //minutes?
+    private double percentRightAfterWrongFirstTime;
+
+//private double timeSpent; //minutes?
 
     /**
      * stores a student's current level, total answers ever given, and their id
@@ -27,6 +29,7 @@ public class StudentData {
         //TODO: is there any way to keep the numOfResponsesToConsider in sync with levelTaskGenerator?
         totalAnswersGiven = student.getUserResponseSet().getAllResponseCount();
         percentWrongFirstTime = student.getUserResponseSet().calcPercentWrongFirstTime();
+        percentRightAfterWrongFirstTime = student.getUserResponseSet().calcPercentLastAnswerRightAfterWrong();
         try {
             percentAnswersCorrect = student.calcPercentAnswersCorrect();
         }
@@ -47,6 +50,7 @@ public class StudentData {
         }
         level = LevelTaskGenerator.calcLevel(student.calcKnowledgeEstimateByType(4));
         totalAnswersGiven = student.getUserResponseSet().getAllResponseCount();
+        percentRightAfterWrongFirstTime = student.getUserResponseSet().calcPercentLastAnswerRightAfterWrong();
         percentWrongFirstTime = student.getUserResponseSet().calcPercentWrongFirstTime();
         try {
             percentAnswersCorrect = student.calcPercentAnswersCorrect();
@@ -75,5 +79,9 @@ public class StudentData {
 
     public double getPercentWrongFirstTime() {
         return percentWrongFirstTime;
+    }
+
+    public double getPercentRightAfterWrongFirstTime() {
+        return percentRightAfterWrongFirstTime;
     }
 }

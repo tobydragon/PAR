@@ -39,6 +39,7 @@ public class StudentDataTest {
         assertEquals(26, masteredStudent.getTotalAnswersGiven());
         assertTrue(88.4 < masteredStudent.getPercentAnswersCorrect() && masteredStudent.getPercentAnswersCorrect() <88.5);
         assertEquals(17.65, masteredStudent.getPercentWrongFirstTime());
+        assertEquals(33.33, masteredStudent.getPercentRightAfterWrongFirstTime());
 
         //level 4 student
         StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/level4Student.json", StudentModelRecord.class);
@@ -49,6 +50,7 @@ public class StudentDataTest {
         assertEquals(11, level4StudentData.getTotalAnswersGiven());
         assertTrue(99.9 < level4StudentData.getPercentAnswersCorrect() && level4StudentData.getPercentAnswersCorrect() < 101.1);
         assertEquals(0.0, level4StudentData.getPercentWrongFirstTime());
+        assertEquals(0, level4StudentData.getPercentRightAfterWrongFirstTime());
     }
 
     @Test
