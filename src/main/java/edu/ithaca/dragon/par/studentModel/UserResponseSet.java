@@ -50,6 +50,10 @@ public class UserResponseSet {
         return responsesPerQuestionList.size();
     }
 
+    /**
+     *
+     * @return the number of questions that have been responded to
+     */
     public int countTotalResponses() {
         int count = 0;
         for (ResponsesPerQuestion responses : responsesPerQuestionList) {
@@ -182,6 +186,10 @@ public class UserResponseSet {
                 && this.getUserId().equals(other.getUserId());
     }
 
+    /**
+     *
+     * @return number of responses across ass questions
+     */
     public int getAllResponseCount() {
         int count = 0;
         List<ResponsesPerQuestion> responseList = getResponsesPerQuestionList();
