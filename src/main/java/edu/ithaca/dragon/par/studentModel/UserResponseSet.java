@@ -230,4 +230,25 @@ public class UserResponseSet {
         }
         return parseDouble(df.format(countRightAfterWrong / origWrongCount * 100.00));
     }
+
+    /**
+     *
+     * @return percent of questions that were answered incorrectly the first time
+     */
+    public double calcPercentWrongFirstTime() {
+        //no responses
+        if (responsesPerQuestionList.size()==0){
+            return -1.0;
+        }
+        double count = 0.0;
+        //for every respinse object
+        for(ResponsesPerQuestion responseObject: responsesPerQuestionList){
+            //if the first answer is wrong
+            if (!responseObject.getFirstResponse().equalsIgnoreCase(responseObject.getQuestion().getCorrectAnswer())){
+                count += 1;
+            }
+        }
+        DecimalFormat df = new DecimalFormat(".##"); //format output to 2 decimal places
+        return parseDouble(df.format(count / responsesPerQuestionList.size() * 100.00));
+    }
 }

@@ -275,6 +275,25 @@ public class UserResponseSetTest {
         Assertions.assertEquals(-1.0, student.getUserResponseSet().calcPercentLastAnswerRightAfterWrong());
     }
 
+    @Test
+    public void calcPercentWrongFirstTimeTest() throws IOException{
+        //mastered student
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
+        StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
+        StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
+        Assertions.assertEquals(17.65, masteredStudentModel.getUserResponseSet().calcPercentWrongFirstTime());
+
+        //level 4 student
+        StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/level4Student.json", StudentModelRecord.class);
+        StudentModel level4Student = smr2.buildStudentModel(myQP);
+        Assertions.assertEquals(0.0, level4Student.getUserResponseSet().calcPercentWrongFirstTime());
+
+        //new student
+        List<Question> noQuestions = new ArrayList<Question>();
+        StudentModel student = new StudentModel("student", noQuestions);
+        Assertions.assertEquals(-1.0, student.getUserResponseSet().calcPercentWrongFirstTime());
+    }
+
     //TODO: why are these commented out?
     /*
     @Test

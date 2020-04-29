@@ -130,27 +130,6 @@ public class StudentModel {
         return countRight/getUserResponseSet().getAllResponseCount()*100;
     }
 
-    /**
-     *
-     * @return percent of questions that were answered incorrectly the first time
-     */
-    public double calcPercentWrongFirstTime() {
-        List<ResponsesPerQuestion> responses = userResponseSet.getResponsesPerQuestionList();
-        //no responses
-        if (responses.size()==0){
-            return -1.0;
-        }
-        double count = 0.0;
-        //for every respinse object
-        for(ResponsesPerQuestion responseObject: responses){
-            //if the first answer is wrong
-            if (!responseObject.getFirstResponse().equalsIgnoreCase(getUserQuestionSet().getQuestionCountFromId(responseObject.getQuestionId()).getQuestion().getCorrectAnswer())){
-                count += 1;
-            }
-        }
-        DecimalFormat df = new DecimalFormat(".##"); //format output to 2 decimal places
-        return parseDouble(df.format(count / responses.size() * 100.00));
-    }
 
 
 }
