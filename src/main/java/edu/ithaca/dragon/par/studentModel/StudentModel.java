@@ -156,7 +156,7 @@ public class StudentModel {
      *
      * @return percent of questions that were answered right after being answered wrong the first time
      */
-    public double calcPercentRightAfterWrong(){
+    public double calcPercentLastAnswerRightAfterWrong(){
         List<ResponsesPerQuestion> responses = userResponseSet.getResponsesPerQuestionList();
         if (responses.size()==0){
             return -1.0;
@@ -167,16 +167,10 @@ public class StudentModel {
             //if the first answer is wrong
             if (!responseObject.getFirstResponse().equalsIgnoreCase(getUserQuestionSet().getQuestionCountFromId(responseObject.getQuestionId()).getQuestion().getCorrectAnswer())){
                 origWrongCount += 1;
-                boolean foundRight = false;
                 int i = 1;
-                //while we haven't run out of responses and a correct answer hasn't been found
-                while(i < responseObject.getAllResponses().size() && !foundRight){
-                    //if the current response is a correct response
-                    if (responseObject.getAllResponses().get(i).getResponseText().equalsIgnoreCase(getUserQuestionSet().getQuestionCountFromId(responseObject.getQuestionId()).getQuestion().getCorrectAnswer())){
-                        countRightAfterWrong += 1.0;
-                        foundRight = true;
-                    }
-                    i ++;
+                //if the current response is a correct response
+                if (responseObject.getAllResponses().get(responseObject.allResponsesSize()-1).getResponseText().equalsIgnoreCase(getUserQuestionSet().getQuestionCountFromId(responseObject.getQuestionId()).getQuestion().getCorrectAnswer())){
+                    countRightAfterWrong += 1.0;
                 }
             }
         }

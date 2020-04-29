@@ -162,16 +162,16 @@ public class StudentModelTest {
         QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
         StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
         StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
-        assertEquals(33.33, masteredStudentModel.calcPercentRightAfterWrong());
+        assertEquals(33.33, masteredStudentModel.calcPercentLastAnswerRightAfterWrong());
 
         //level 4 student, none
         StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/level4Student.json", StudentModelRecord.class);
         StudentModel level4Student = smr2.buildStudentModel(myQP);
-        assertEquals(0.0, level4Student.calcPercentRightAfterWrong());
+        assertEquals(0.0, level4Student.calcPercentLastAnswerRightAfterWrong());
 
         //new student, no responses.
         List<Question> noQuestions = new ArrayList<Question>();
         StudentModel student = new StudentModel("student", noQuestions);
-        assertEquals(-1.0, student.calcPercentRightAfterWrong());
+        assertEquals(-1.0, student.calcPercentLastAnswerRightAfterWrong());
     }
 }
