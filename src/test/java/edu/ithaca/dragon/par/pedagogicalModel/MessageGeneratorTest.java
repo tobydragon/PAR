@@ -52,15 +52,6 @@ public class MessageGeneratorTest {
         assertEquals("You're doing great!", it2.getMessage());
 
 
-        //This test ensures that calcLevel will now follow the following rules:
-        //Level 1: only given plane
-        //Level 2: plane and structure questions given
-        //Level 3: only given structure
-        //Level 4: structure and attachment given
-        //Level 5: structure and attachment and zone given
-        //Level 6: only zone given
-        //Level 7: only zone given. "mastered" message given
-
         //7 to 6
         masteredStudentModel.setLevel(6);
         MessageGenerator.generateMessage(masteredStudentModel, it, 7);
@@ -92,9 +83,6 @@ public class MessageGeneratorTest {
         MessageGenerator.generateMessage(masteredStudentModel, it, 2);
         assertEquals("Looks like you're having trouble with plane/structure questions, go look at resources and come back if you need to", it.getMessage());
 
-
-//        List<Question> noQuestions = new ArrayList<Question>();
-//        StudentModel student = new StudentModel("student", noQuestions);
 
     }
 }
