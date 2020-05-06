@@ -5,7 +5,7 @@ import edu.ithaca.dragon.par.studentModel.StudentModel;
 
 public class MessageGenerator {
     public static void generateMessage(StudentModel studentModel, ImageTask imageTask, int questionCountPerTypeForAnalysis, int previousLevel){
-        int level = LevelTaskGenerator.calcLevel(studentModel.calcKnowledgeEstimateByType(questionCountPerTypeForAnalysis));
+        int level = studentModel.getLevel();
 
         //mastered student
         if (level == 7){
@@ -13,6 +13,7 @@ public class MessageGenerator {
         }
         //down level
         else if (previousLevel-level > 0 && previousLevel != -1){
+
             imageTask.setMessage("Looks like you're having trouble, go look at resources and come back if you need to");
         }
 

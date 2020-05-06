@@ -27,6 +27,7 @@ public class MessageGeneratorTest {
         QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testQP.json").getAllQuestions());
         StudentModelRecord smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
         StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
+        masteredStudentModel.setLevel(LevelTaskGenerator.calcLevel(masteredStudentModel.calcKnowledgeEstimateByType(4)));
         ImageTask it = taskGenerator.makeTask(masteredStudentModel, 4);
 
         //mastered
@@ -37,6 +38,7 @@ public class MessageGeneratorTest {
         StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/buckmank.json", StudentModelRecord.class);
         StudentModel level2Student = smr2.buildStudentModel(myQP);
         ImageTask it2 = taskGenerator.makeTask(level2Student, 4);
+        level2Student.setLevel(LevelTaskGenerator.calcLevel(level2Student.calcKnowledgeEstimateByType(4)));
         MessageGenerator.generateMessage(level2Student, it2, 4, -1);
         assertEquals(null, it2.getMessage());
 
