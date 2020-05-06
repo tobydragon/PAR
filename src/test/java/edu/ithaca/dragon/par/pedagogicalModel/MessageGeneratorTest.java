@@ -83,6 +83,16 @@ public class MessageGeneratorTest {
         MessageGenerator.generateMessage(masteredStudentModel, it, 2);
         assertEquals("Looks like you're having trouble with plane/structure questions, go look at resources and come back if you need to", it.getMessage());
 
+        //stay on level 7, repeating questions
+        masteredStudentModel.setLevel(7);
+        for (Question question : it.getTaskQuestions()){
+            masteredStudentModel.increaseTimesSeen(question.getId());
+        }
+        MessageGenerator.generateMessage(masteredStudentModel, it, 7);
+        assertEquals("You've mastered the material, but you've all of the hardest questions.", it.getMessage());
+
+
+        //other levels, repeating questions
 
     }
 }

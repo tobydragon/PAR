@@ -12,6 +12,10 @@ public class MessageGenerator {
 
         //mastered student
         if (level == 7){
+            //repeating questions
+
+
+            //not repeating
             imageTask.setMessage("You have mastered the material, feel free to keep practicing");
         }
 
@@ -36,6 +40,6 @@ public class MessageGenerator {
             imageTask.setMessage("No message to display");
         }
 
-        //stayed on same level
+        //stayed on same level, not mastered
     }
 }
