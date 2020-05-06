@@ -108,4 +108,46 @@ public class StudentModelTest {
         //assertThrows(RuntimeException.class, ()->{studentModel.addQuestion(q2);});
 
     }
+
+    @Test
+    public void getAndSetLevelTest() throws IOException{
+        List<Question> questions= JsonUtil.listFromJsonFile("src/test/resources/author/DemoQuestionPoolFollowup.json", Question.class);
+        StudentModel studentModel = new StudentModel("TestUser", questions);
+        assertEquals(-1, studentModel.getLevel());
+
+        //set once
+        studentModel.setLevel(5);
+        assertEquals(5, studentModel.getLevel());
+
+        //invalid set- too high
+        assertThrows(IllegalArgumentException.class, ()-> studentModel.setLevel(19));
+        assertEquals(5, studentModel.getLevel());
+
+        //invalid set- too high (border)
+        assertThrows(IllegalArgumentException.class, ()-> studentModel.setLevel(8));
+        assertEquals(5, studentModel.getLevel());
+
+        //invalid set- too low
+        assertThrows(IllegalArgumentException.class, ()-> studentModel.setLevel(-3));
+        assertEquals(5, studentModel.getLevel());
+
+        //invalid set- too low (border)
+        assertThrows(IllegalArgumentException.class, ()-> studentModel.setLevel(0));
+        assertEquals(5, studentModel.getLevel());
+
+        //set again
+        studentModel.setLevel(6);
+        assertEquals(6, studentModel.getLevel());
+
+        //new studentModel
+        StudentModel studentModel2 = new StudentModel("TestUser2", questions);
+        studentModel2.setLevel(3);
+        assertEquals(3, studentModel2.getLevel());
+        assertEquals(6, studentModel.getLevel());
+
+        //set old one again
+        studentModel.setLevel(1);
+        assertEquals(3, studentModel2.getLevel());
+        assertEquals(1, studentModel.getLevel());
+    }
 }

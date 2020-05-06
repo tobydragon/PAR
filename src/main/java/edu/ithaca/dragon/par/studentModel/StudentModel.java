@@ -12,17 +12,20 @@ public class StudentModel {
     private String userId;
     private UserQuestionSet userQuestionSet;
     private UserResponseSet userResponseSet;
+    private int level;
 
     public StudentModel(String userId, List<Question> questions){
         this.userId = userId;
         this.userQuestionSet = UserQuestionSet.buildNewUserQuestionSetFromQuestions(userId, questions);
         this.userResponseSet = new UserResponseSet(userId);
+        level = -1;
     }
 
     public StudentModel(String userId, UserQuestionSet userQuestionSet, UserResponseSet userResponseSet){
         this.userId = userId;
         this.userQuestionSet = userQuestionSet;
         this.userResponseSet = userResponseSet;
+        level = -1;
     }
 
     public void imageTaskResponseSubmitted(ImageTaskResponseOOP imageTaskResponses, QuestionPool questions){
@@ -104,5 +107,13 @@ public class StudentModel {
 
     public Map<String,Double> calcKnowledgeEstimateByType(int numOfRecentResponsesToConsider){
         return userResponseSet.calcKnowledgeEstimateByType(numOfRecentResponsesToConsider);
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 }
