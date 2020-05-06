@@ -113,7 +113,10 @@ public class StudentModel {
         return level;
     }
 
-    public void setLevel(int level) {
-        this.level = level;
+    public void setLevel(int levelIn) {
+        if (levelIn < 1 || levelIn > 7){
+            throw new IllegalArgumentException("Invalid level");
+        }
+        this.level = levelIn;
     }
 }
