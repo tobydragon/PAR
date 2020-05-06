@@ -31,7 +31,7 @@ public class MessageGeneratorTest {
         ImageTask it = taskGenerator.makeTask(masteredStudentModel, 4);
 
         //mastered
-        MessageGenerator.generateMessage(masteredStudentModel, it, 4, -1);
+        MessageGenerator.generateMessage(masteredStudentModel, it, -1);
         assertEquals("You have mastered the material, feel free to keep practicing", it.getMessage());
 
         //not level 7, no message
@@ -39,18 +39,41 @@ public class MessageGeneratorTest {
         StudentModel level2Student = smr2.buildStudentModel(myQP);
         ImageTask it2 = taskGenerator.makeTask(level2Student, 4);
         level2Student.setLevel(LevelTaskGenerator.calcLevel(level2Student.calcKnowledgeEstimateByType(4)));
-        MessageGenerator.generateMessage(level2Student, it2, 4, -1);
+        MessageGenerator.generateMessage(level2Student, it2, -1);
         assertEquals(null, it2.getMessage());
 
 
-        //goes down level
-        MessageGenerator.generateMessage(level2Student, it2, 4, 3);
-        assertEquals("Looks like you're having trouble, go look at resources and come back if you need to", it2.getMessage());
+        //goes down level, structure
+        MessageGenerator.generateMessage(level2Student, it2, 3);
+        assertEquals("Looks like you're having trouble with structure questions, go look at resources and come back if you need to", it2.getMessage());
 
         //goes up level
-        MessageGenerator.generateMessage(level2Student, it2, 4, 1);
+        MessageGenerator.generateMessage(level2Student, it2, 1);
         assertEquals("You're doing great!", it2.getMessage());
 
+        //7 to 6
+
+        //6 to 5
+
+        //5 to 4
+
+        //4 to 3
+
+        //3 to 2
+
+        //2 to 1
+
+        //1 to 2
+
+        //2 to 3
+
+        //3 to 4
+
+        //4 to 5
+
+        //5 to 6
+
+        //6 to 7
 
 //        List<Question> noQuestions = new ArrayList<Question>();
 //        StudentModel student = new StudentModel("student", noQuestions);

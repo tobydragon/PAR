@@ -19,4 +19,11 @@ public enum EquineQuestionTypes {
         levelMap.put(7,Arrays.asList(EquineQuestionTypes.zone.toString()));
         return levelMap;
     }
+
+    public static List<String> getTypesForLevel(int level){
+        if (makeLevelToTypesMap().get(level)==null){
+            throw new IllegalArgumentException("Level does not exist");
+        }
+        return makeLevelToTypesMap().get(level);
+    }
 }
