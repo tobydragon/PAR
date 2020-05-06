@@ -32,6 +32,10 @@ public class MessageGenerator {
             imageTask.setMessage("You're doing great!");
         }
 
+        else{
+            imageTask.setMessage("No message to display");
+        }
+
         //stayed on same level
     }
 }

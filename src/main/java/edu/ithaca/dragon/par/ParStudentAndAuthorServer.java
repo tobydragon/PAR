@@ -8,6 +8,7 @@ import edu.ithaca.dragon.par.io.AuthorDatastore;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.ImageTaskResponseOOP;
 import edu.ithaca.dragon.par.io.StudentModelDatastore;
+import edu.ithaca.dragon.par.pedagogicalModel.MessageGenerator;
 import edu.ithaca.dragon.par.pedagogicalModel.TaskGenerator;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.par.studentModel.StudentReportCreator;
@@ -35,8 +36,11 @@ public class ParStudentAndAuthorServer {
 
     public ImageTask nextImageTask( String userId) throws IOException {
         if (idealQuestionCountPerTypeForAnalysis <= studentModelDatastore.getMinQuestionCountPerType()){
+            int prevLevel = studentModelDatastore.getStudentModel(userId).getLevel();
             ImageTask imageTask = taskGenerator.makeTask(studentModelDatastore.getStudentModel(userId), idealQuestionCountPerTypeForAnalysis);
+            LevelTaskGenerator.calcLevel(studentModelDatastore.getStudentModel(userId).calcKnowledgeEstimateByType(idealQuestionCountPerTypeForAnalysis));
             studentModelDatastore.increaseTimesSeen(userId, imageTask.getTaskQuestions());
+            MessageGenerator.generateMessage(studentModelDatastore.getStudentModel(userId), imageTask, prevLevel);
             return imageTask;
         }
         else {
