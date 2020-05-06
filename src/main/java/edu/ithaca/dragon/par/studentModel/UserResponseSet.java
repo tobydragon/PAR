@@ -191,7 +191,7 @@ public class UserResponseSet {
 
     /**
      *
-     * @return number of responses across ass questions
+     * @return number of responses across all questions
      */
     public int getAllResponseCount() {
         int count = 0;
