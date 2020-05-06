@@ -26,6 +26,14 @@ public class UserResponseSet {
             responsesPerQuestionList.add(response1);//updates to the last position (most recently answered)
         }
     }
+    public ResponsesPerQuestion getResponseById(String Id){
+        for (ResponsesPerQuestion response : responsesPerQuestionList){
+            if (response.getQuestionId().equals(Id)){
+                return response;
+            }
+        }
+        throw new IllegalArgumentException();
+    }
 
     public void addAllResponses(List<ResponsesPerQuestion> allResponsesIn) {
         for (int i = 0; i < allResponsesIn.size(); i++) {
