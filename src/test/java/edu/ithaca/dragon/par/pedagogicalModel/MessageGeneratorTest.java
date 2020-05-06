@@ -25,18 +25,20 @@ public class MessageGeneratorTest {
         TaskGenerator taskGenerator = new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap());
 
         QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testQP.json").getAllQuestions());
-        StudentModelRecord smr = JsonUtil.fromJsonFile("src/test/resources/author/students/buckmank.json", StudentModelRecord.class);
+        StudentModelRecord smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
         StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
         ImageTask it = taskGenerator.makeTask(masteredStudentModel, 4);
 
         //mastered
         MessageGenerator.generateMessage(masteredStudentModel, it);
-        assertEquals("You have mastered the material, feel free to keep practicing", "hello");
+        assertEquals("You have mastered the material, feel free to keep practicing", it.getMessage());
 
-        //add another student (2 total)
-//        StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/level4Student.json", StudentModelRecord.class);
-//        StudentModel level4Student = smr2.buildStudentModel(myQP);
-//
+        //not level 7, no message
+        StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/level4Student.json", StudentModelRecord.class);
+        StudentModel level4Student = smr2.buildStudentModel(myQP);
+        ImageTask it2 = taskGenerator.makeTask(level4Student, 4);
+        assertEquals(null, it2.getMessage());
+
 //        //add another student (3 total)
 //        List<Question> noQuestions = new ArrayList<Question>();
 //        StudentModel student = new StudentModel("student", noQuestions);
