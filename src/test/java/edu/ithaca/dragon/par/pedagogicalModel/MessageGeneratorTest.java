@@ -19,7 +19,7 @@ import java.util.List;
 
 public class MessageGeneratorTest {
     @Test
-    public void generateMessageTest() throws IOException {
+    public void generateMessageTest() throws IOException { //TODO: will start failing once calcLevelFix stuff is in here, fix it
         //task generator
 
         TaskGenerator taskGenerator = new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap());
@@ -64,33 +64,33 @@ public class MessageGeneratorTest {
         //7 to 6
         masteredStudentModel.setLevel(6);
         MessageGenerator.generateMessage(masteredStudentModel, it, 7);
-        assertEquals("Looks like you're having trouble with zone questions, go look at resources and come back if you need to", it2.getMessage());
+        assertEquals("Looks like you're having trouble with zone questions, go look at resources and come back if you need to", it.getMessage());
 
 
         //6 to 5
         masteredStudentModel.setLevel(5);
         MessageGenerator.generateMessage(masteredStudentModel, it, 6);
-        assertEquals("Looks like you're having trouble with zone questions, go look at resources and come back if you need to", it2.getMessage());
+        assertEquals("Looks like you're having trouble with attachment/zone questions, go look at resources and come back if you need to", it.getMessage());
 
         //5 to 4
         masteredStudentModel.setLevel(4);
         MessageGenerator.generateMessage(masteredStudentModel, it, 5);
-        assertEquals("Looks like you're having trouble with structure/attachment/zone questions, go look at resources and come back if you need to", it2.getMessage());
+        assertEquals("Looks like you're having trouble with attachment questions, go look at resources and come back if you need to", it.getMessage());
 
         //4 to 3
         masteredStudentModel.setLevel(3);
         MessageGenerator.generateMessage(masteredStudentModel, it, 4);
-        assertEquals("Looks like you're having trouble with structure/attatchment questions, go look at resources and come back if you need to", it2.getMessage());
+        assertEquals("Looks like you're having trouble with structure/attachment questions, go look at resources and come back if you need to", it.getMessage());
 
         //3 to 2
         masteredStudentModel.setLevel(2);
         MessageGenerator.generateMessage(masteredStudentModel, it, 3);
-        assertEquals("Looks like you're having trouble with plane/structure questions, go look at resources and come back if you need to", it2.getMessage());
+        assertEquals("Looks like you're having trouble with structure questions, go look at resources and come back if you need to", it.getMessage());
 
         //2 to 1
         masteredStudentModel.setLevel(1);
         MessageGenerator.generateMessage(masteredStudentModel, it, 2);
-        assertEquals("Looks like you're having trouble with structure questions, go look at resources and come back if you need to", it2.getMessage());
+        assertEquals("Looks like you're having trouble with plane/structure questions, go look at resources and come back if you need to", it.getMessage());
 
 
 //        List<Question> noQuestions = new ArrayList<Question>();
