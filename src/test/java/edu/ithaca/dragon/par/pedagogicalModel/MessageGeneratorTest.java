@@ -30,17 +30,17 @@ public class MessageGeneratorTest {
         ImageTask it = taskGenerator.makeTask(masteredStudentModel, 4);
 
         //mastered
-        MessageGenerator.generateMessage(masteredStudentModel, it, 4);
+        MessageGenerator.generateMessage(masteredStudentModel, it, 4, -1);
         assertEquals("You have mastered the material, feel free to keep practicing", it.getMessage());
 
         //not level 7, no message
         StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/buckmank.json", StudentModelRecord.class);
         StudentModel level4Student = smr2.buildStudentModel(myQP);
         ImageTask it2 = taskGenerator.makeTask(level4Student, 4);
-        MessageGenerator.generateMessage(level4Student, it2, 4);
+        MessageGenerator.generateMessage(level4Student, it2, 4, -1);
         assertEquals(null, it2.getMessage());
 
-//        //add another student (3 total)
+
 //        List<Question> noQuestions = new ArrayList<Question>();
 //        StudentModel student = new StudentModel("student", noQuestions);
 
