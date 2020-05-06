@@ -106,16 +106,19 @@ class ParStudentAndAuthorServerTest {
 
         nextTask = parStudentAndAuthorServer.nextImageTask("s2");
         assertEquals(intendedFirstTask, nextTask);
+        assertNotNull(nextTask.getMessage());
 
         nextTask = parStudentAndAuthorServer.nextImageTask("s1");
 
         assertNotNull(nextTask);
         ImageTask intendedLastTask = new JsonIoUtil(new JsonIoHelperDefault()).fromFile("src/test/resources/author/nextImageTaskTest2.json", ImageTask.class);
         assertEquals(intendedLastTask, nextTask);
+        assertNotNull(nextTask.getMessage());
 
         nextTask = parStudentAndAuthorServer.nextImageTask("s2");
         assertNotNull(nextTask);
         assertEquals(intendedLastTask, nextTask);
+        assertNotNull(nextTask.getMessage());
 
     }
 
