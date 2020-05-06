@@ -35,18 +35,18 @@ public class MessageGeneratorTest {
 
         //not level 7, no message
         StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/buckmank.json", StudentModelRecord.class);
-        StudentModel level4Student = smr2.buildStudentModel(myQP);
-        ImageTask it2 = taskGenerator.makeTask(level4Student, 4);
-        MessageGenerator.generateMessage(level4Student, it2, 4, -1);
+        StudentModel level2Student = smr2.buildStudentModel(myQP);
+        ImageTask it2 = taskGenerator.makeTask(level2Student, 4);
+        MessageGenerator.generateMessage(level2Student, it2, 4, -1);
         assertEquals(null, it2.getMessage());
 
 
         //goes down level
-        MessageGenerator.generateMessage(level4Student, it2, 4, 5);
+        MessageGenerator.generateMessage(level2Student, it2, 4, 3);
         assertEquals("Looks like you're having trouble, go look at resources and come back if you need to", it2.getMessage());
 
         //goes up level
-        MessageGenerator.generateMessage(level4Student, it2, 4, 3);
+        MessageGenerator.generateMessage(level2Student, it2, 4, 1);
         assertEquals("You're doing great!", it2.getMessage());
 
 

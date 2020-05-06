@@ -12,12 +12,12 @@ public class MessageGenerator {
             imageTask.setMessage("You have mastered the material, feel free to keep practicing");
         }
         //down level
-        if (previousLevel-level > 0){
+        else if (previousLevel-level > 0 && previousLevel != -1){
             imageTask.setMessage("Looks like you're having trouble, go look at resources and come back if you need to");
         }
 
         //up level
-        if (previousLevel-level < 0){
+        else if (previousLevel-level < 0 && previousLevel != -1){
             imageTask.setMessage("You're doing great!");
         }
 
