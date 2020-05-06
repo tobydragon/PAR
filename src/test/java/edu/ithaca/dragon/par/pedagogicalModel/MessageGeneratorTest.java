@@ -19,7 +19,7 @@ import java.util.List;
 
 public class MessageGeneratorTest {
     @Test
-    public void generateMessageTest() throws IOException { //TODO: will start failing once calcLevelFix stuff is in here, fix it
+    public void generateMessageTest() throws IOException { //TODO: will start failing once calcLevelFix stuff is in here
         //task generator
 
         TaskGenerator taskGenerator = new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap());
@@ -34,7 +34,7 @@ public class MessageGeneratorTest {
         MessageGenerator.generateMessage(masteredStudentModel, it, -1);
         assertEquals("You have mastered the material, feel free to keep practicing", it.getMessage());
 
-        //not level 7, no message
+        //not level 7, no message to display
         StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/buckmank.json", StudentModelRecord.class);
         StudentModel level2Student = smr2.buildStudentModel(myQP);
         ImageTask it2 = taskGenerator.makeTask(level2Student, 4);
