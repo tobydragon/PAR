@@ -208,7 +208,7 @@
       } ]
     }, {
       "questionId" : "477-zone-./images/metacarpal19.jpg",
-      "timesSeen" : 2,
+      "timesSeen" : 0,
       "followupCountRecords" : [ ]
     }, {
       "questionId" : "478-plane-./images/metacarpal37.jpg",
@@ -411,10 +411,10 @@
       } ]
     }, {
       "userId" : "masteredStudent",
-      "questionId" : "477-zone-./images/metacarpal19.jpg",
-      "responseText" : "1",
+      "questionId" : "491-zone-./images/metacarpal37.jpg",
+      "responseText" : "2",
       "allResponseTexts" : [ {
-        "responseText" : "1",
+        "responseText" : "2",
         "millSeconds" : 1583315888855
       } ]
     }, {
