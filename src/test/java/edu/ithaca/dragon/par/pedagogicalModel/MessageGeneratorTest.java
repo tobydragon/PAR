@@ -51,29 +51,47 @@ public class MessageGeneratorTest {
         MessageGenerator.generateMessage(level2Student, it2, 1);
         assertEquals("You're doing great!", it2.getMessage());
 
+
+        //This test ensures that calcLevel will now follow the following rules:
+        //Level 1: only given plane
+        //Level 2: plane and structure questions given
+        //Level 3: only given structure
+        //Level 4: structure and attachment given
+        //Level 5: structure and attachment and zone given
+        //Level 6: only zone given
+        //Level 7: only zone given. "mastered" message given
+
         //7 to 6
+        masteredStudentModel.setLevel(6);
+        MessageGenerator.generateMessage(masteredStudentModel, it, 7);
+        assertEquals("Looks like you're having trouble with zone questions, go look at resources and come back if you need to", it2.getMessage());
+
 
         //6 to 5
+        masteredStudentModel.setLevel(5);
+        MessageGenerator.generateMessage(masteredStudentModel, it, 6);
+        assertEquals("Looks like you're having trouble with zone questions, go look at resources and come back if you need to", it2.getMessage());
 
         //5 to 4
+        masteredStudentModel.setLevel(4);
+        MessageGenerator.generateMessage(masteredStudentModel, it, 5);
+        assertEquals("Looks like you're having trouble with structure/attachment/zone questions, go look at resources and come back if you need to", it2.getMessage());
 
         //4 to 3
+        masteredStudentModel.setLevel(3);
+        MessageGenerator.generateMessage(masteredStudentModel, it, 4);
+        assertEquals("Looks like you're having trouble with structure/attatchment questions, go look at resources and come back if you need to", it2.getMessage());
 
         //3 to 2
+        masteredStudentModel.setLevel(2);
+        MessageGenerator.generateMessage(masteredStudentModel, it, 3);
+        assertEquals("Looks like you're having trouble with plane/structure questions, go look at resources and come back if you need to", it2.getMessage());
 
         //2 to 1
+        masteredStudentModel.setLevel(1);
+        MessageGenerator.generateMessage(masteredStudentModel, it, 2);
+        assertEquals("Looks like you're having trouble with structure questions, go look at resources and come back if you need to", it2.getMessage());
 
-        //1 to 2
-
-        //2 to 3
-
-        //3 to 4
-
-        //4 to 5
-
-        //5 to 6
-
-        //6 to 7
 
 //        List<Question> noQuestions = new ArrayList<Question>();
 //        StudentModel student = new StudentModel("student", noQuestions);

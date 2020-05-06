@@ -1,7 +1,10 @@
 package edu.ithaca.dragon.par.pedagogicalModel;
 
+import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
+
+import java.util.List;
 
 public class MessageGenerator {
     public static void generateMessage(StudentModel studentModel, ImageTask imageTask, int previousLevel){
@@ -13,7 +16,8 @@ public class MessageGenerator {
         }
         //down level
         else if (previousLevel-level > 0 && previousLevel != -1){
-            String questionsInPreviousLevel = "hey";
+            List<String> questionsInPreviousLevel = EquineQuestionTypes.getTypesForLevel(previousLevel);
+            String questionsOneString = "";
             imageTask.setMessage("Looks like you're having trouble with" +  questionsInPreviousLevel + " questions, go look at resources and come back if you need to");
         }
 
