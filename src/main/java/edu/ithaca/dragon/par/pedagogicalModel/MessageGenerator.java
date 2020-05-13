@@ -3,15 +3,13 @@ package edu.ithaca.dragon.par.pedagogicalModel;
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.ImageTask;
-import edu.ithaca.dragon.par.studentModel.ResponsesPerQuestion;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
-import java.util.Date;
 
 import java.util.List;
 
 public class MessageGenerator {
     public static void generateMessage(StudentModel studentModel, ImageTask imageTask, int previousLevel){
-        int level = studentModel.getLevel();
+        int level = studentModel.getLastLevelRecorded();
 
         //mastered student
         if (level == 7){

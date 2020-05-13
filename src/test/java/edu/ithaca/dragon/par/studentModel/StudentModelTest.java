@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -113,41 +112,41 @@ public class StudentModelTest {
     public void getAndSetLevelTest() throws IOException{
         List<Question> questions= JsonUtil.listFromJsonFile("src/test/resources/author/DemoQuestionPoolFollowup.json", Question.class);
         StudentModel studentModel = new StudentModel("TestUser", questions);
-        assertEquals(-1, studentModel.getLevel());
+        assertEquals(-1, studentModel.getLastLevelRecorded());
 
         //set once
-        studentModel.setLevel(5);
-        assertEquals(5, studentModel.getLevel());
+        studentModel.setLastLevelRecorded(5);
+        assertEquals(5, studentModel.getLastLevelRecorded());
 
         //invalid set- too high
-        assertThrows(IllegalArgumentException.class, ()-> studentModel.setLevel(19));
-        assertEquals(5, studentModel.getLevel());
+        assertThrows(IllegalArgumentException.class, ()-> studentModel.setLastLevelRecorded(19));
+        assertEquals(5, studentModel.getLastLevelRecorded());
 
         //invalid set- too high (border)
-        assertThrows(IllegalArgumentException.class, ()-> studentModel.setLevel(8));
-        assertEquals(5, studentModel.getLevel());
+        assertThrows(IllegalArgumentException.class, ()-> studentModel.setLastLevelRecorded(8));
+        assertEquals(5, studentModel.getLastLevelRecorded());
 
         //invalid set- too low
-        assertThrows(IllegalArgumentException.class, ()-> studentModel.setLevel(-3));
-        assertEquals(5, studentModel.getLevel());
+        assertThrows(IllegalArgumentException.class, ()-> studentModel.setLastLevelRecorded(-3));
+        assertEquals(5, studentModel.getLastLevelRecorded());
 
         //invalid set- too low (border)
-        assertThrows(IllegalArgumentException.class, ()-> studentModel.setLevel(0));
-        assertEquals(5, studentModel.getLevel());
+        assertThrows(IllegalArgumentException.class, ()-> studentModel.setLastLevelRecorded(0));
+        assertEquals(5, studentModel.getLastLevelRecorded());
 
         //set again
-        studentModel.setLevel(6);
-        assertEquals(6, studentModel.getLevel());
+        studentModel.setLastLevelRecorded(6);
+        assertEquals(6, studentModel.getLastLevelRecorded());
 
         //new studentModel
         StudentModel studentModel2 = new StudentModel("TestUser2", questions);
-        studentModel2.setLevel(3);
-        assertEquals(3, studentModel2.getLevel());
-        assertEquals(6, studentModel.getLevel());
+        studentModel2.setLastLevelRecorded(3);
+        assertEquals(3, studentModel2.getLastLevelRecorded());
+        assertEquals(6, studentModel.getLastLevelRecorded());
 
         //set old one again
-        studentModel.setLevel(1);
-        assertEquals(3, studentModel2.getLevel());
-        assertEquals(1, studentModel.getLevel());
+        studentModel.setLastLevelRecorded(1);
+        assertEquals(3, studentModel2.getLastLevelRecorded());
+        assertEquals(1, studentModel.getLastLevelRecorded());
     }
 }

@@ -12,20 +12,20 @@ public class StudentModel {
     private String userId;
     private UserQuestionSet userQuestionSet;
     private UserResponseSet userResponseSet;
-    private int level;
+    private int lastLevelRecorded;
 
     public StudentModel(String userId, List<Question> questions){
         this.userId = userId;
         this.userQuestionSet = UserQuestionSet.buildNewUserQuestionSetFromQuestions(userId, questions);
         this.userResponseSet = new UserResponseSet(userId);
-        level = -1;
+        lastLevelRecorded = -1;
     }
 
     public StudentModel(String userId, UserQuestionSet userQuestionSet, UserResponseSet userResponseSet){
         this.userId = userId;
         this.userQuestionSet = userQuestionSet;
         this.userResponseSet = userResponseSet;
-        level = -1;
+        lastLevelRecorded = -1;
     }
 
     public void imageTaskResponseSubmitted(ImageTaskResponseOOP imageTaskResponses, QuestionPool questions){
@@ -109,14 +109,14 @@ public class StudentModel {
         return userResponseSet.calcKnowledgeEstimateByType(numOfRecentResponsesToConsider);
     }
 
-    public int getLevel() {
-        return level;
+    public int getLastLevelRecorded() {
+        return lastLevelRecorded;
     }
 
-    public void setLevel(int levelIn) {
+    public void setLastLevelRecorded(int levelIn) {
         if (levelIn < 1 || levelIn > 7){
-            throw new IllegalArgumentException("Invalid level");
+            throw new IllegalArgumentException("Invalid lastLevelRecorded");
         }
-        this.level = levelIn;
+        this.lastLevelRecorded = levelIn;
     }
 }
