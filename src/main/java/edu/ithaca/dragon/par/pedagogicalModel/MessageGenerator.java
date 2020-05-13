@@ -13,7 +13,7 @@ public class MessageGenerator {
     private static final String increaseLevelString = "You're doing great!";
     private static final String masterRepeat = "You've mastered the material and started repeating questions";
     private static final String masterNoRepeat = "You have mastered the material, feel free to keep practicing";
-    //note: decreaseLevel can't be a private static final String because it has more personalized feedback
+    //note: decreaseLevel and repeatLevel messages can't be a private static final Strings because it has more personalized feedback
 
     private static final int repeatWindow = 180000; //30 min in mili
 
@@ -103,7 +103,7 @@ public class MessageGenerator {
         }
     }
 
-    public void repeatLevelMessage(StudentModel studentModel, ImageTask imageTask, int previousLevel){
+    public static void repeatLevelMessage(StudentModel studentModel, ImageTask imageTask, int previousLevel){
 //        int level = studentModel.getLastLevelRecorded();
 //
 //        //stayed on same level, not mastered

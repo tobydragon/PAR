@@ -224,20 +224,38 @@ public class MessageGeneratorTest {
         TaskGenerator taskGenerator = new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap());
 
         QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/TestQP.json").getAllQuestions());
-        StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/buckmank.json", StudentModelRecord.class);
-        StudentModel level2Student = smr2.buildStudentModel(myQP);
-        ImageTask it2 = taskGenerator.makeTask(level2Student, 4);
-        level2Student.setLastLevelRecorded(LevelTaskGenerator.calcLevel(level2Student.calcKnowledgeEstimateByType(4)));
-        MessageGenerator.generateMessage(level2Student, it2, -1);
-        assertNull(it2.getMessage());
 
-        //repeated within 30 min
+        //repeated within 30 min, message
+        StudentModelRecord  smr30 = JsonUtil.fromJsonFile("src/test/resources/author/students/RepeatAfter30MinTest.json", StudentModelRecord.class);
+        StudentModel student30 = smr30.buildStudentModel(myQP);
+        ImageTask it30 = taskGenerator.makeTask(student30, 4);
+        student30.setLastLevelRecorded(LevelTaskGenerator.calcLevel(student30.calcKnowledgeEstimateByType(4)));
+        MessageGenerator.repeatLevelMessage(student30, it30, 2);
+        assertEquals("You've seen this question recently, you might be stuck on plane/structure questions.", it30.getMessage());
 
-        //repeated within 29 min
+        //repeated within 29 min, no message
+        StudentModelRecord  smr29 = JsonUtil.fromJsonFile("src/test/resources/author/students/RepeatAfter30MinTest.json", StudentModelRecord.class);
+        StudentModel student29 = smr29.buildStudentModel(myQP);
+        ImageTask it29 = taskGenerator.makeTask(student29, 4);
+        student29.setLastLevelRecorded(LevelTaskGenerator.calcLevel(student29.calcKnowledgeEstimateByType(4)));
+        MessageGenerator.repeatLevelMessage(student29, it29, 2);
+        assertNull(it29.getMessage());
 
-        //repeated within 31 min
+        //repeated within 31 min, message
+        StudentModelRecord  smr31 = JsonUtil.fromJsonFile("src/test/resources/author/students/RepeatAfter30MinTest.json", StudentModelRecord.class);
+        StudentModel student31 = smr31.buildStudentModel(myQP);
+        ImageTask it31 = taskGenerator.makeTask(student31, 4);
+        student31.setLastLevelRecorded(LevelTaskGenerator.calcLevel(student31.calcKnowledgeEstimateByType(4)));
+        MessageGenerator.repeatLevelMessage(student31, it31, 2);
+        assertEquals("You've seen this question recently, you might be stuck on plane/structure questions.", it31.getMessage());
 
-        //not repeated
+        //not repeated, no message
+        StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/buckmank.json", StudentModelRecord.class);
+        StudentModel student = smr30.buildStudentModel(myQP);
+        ImageTask it = taskGenerator.makeTask(student, 4);
+        student.setLastLevelRecorded(LevelTaskGenerator.calcLevel(student.calcKnowledgeEstimateByType(4)));
+        MessageGenerator.repeatLevelMessage(student, it, -1);
+        assertNull(it.getMessage());
 
     }
 }
