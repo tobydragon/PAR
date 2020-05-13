@@ -10,6 +10,13 @@ import java.util.Date;
 import java.util.List;
 
 public class MessageGenerator {
+    private static final String increaseLevelString = "You're doing great!";
+    private static final String masterRepeat = "You've mastered the material and started repeating questions";
+    private static final String masterNoRepeat = "You have mastered the material, feel free to keep practicing";
+    //note: decreaseLevel can't be a private static final String because it has more personalized feedback
+
+    private static final int repeatWindow = 180000; //30 min in mili
+
     public static void generateMessage(StudentModel studentModel, ImageTask imageTask, int previousLevel){
         int level = studentModel.getLastLevelRecorded();
         imageTask.setMessage(null);
@@ -54,7 +61,7 @@ public class MessageGenerator {
     public static void increaseLevelMessage(StudentModel studentModel, ImageTask imageTask, int previousLevel) {
         int level = studentModel.getLastLevelRecorded();
         if (previousLevel-level < 0 && previousLevel != -1){
-            imageTask.setMessage("You're doing great!");
+            imageTask.setMessage(increaseLevelString);
         }
         else{
             imageTask.setMessage(null);
@@ -79,11 +86,11 @@ public class MessageGenerator {
             if (index != -1){
                 //get index of first question
                 if (studentModel.getUserQuestionSet().getTimesSeen(allQuestions.get(index).getId())>0){
-                    imageTask.setMessage("You've mastered the material and started repeating questions");
+                    imageTask.setMessage(masterRepeat);
                 }
                 //not seen yet
                 else {
-                    imageTask.setMessage("You have mastered the material, feel free to keep practicing");
+                    imageTask.setMessage(masterNoRepeat);
                 }
             }
             //not found, message is null
@@ -113,7 +120,7 @@ public class MessageGenerator {
 //                ResponsesPerQuestion responsesPerQuestion = studentModel.getUserResponseSet().getResponseById(allQuestions.get(ind).getId());
 //                //no responses
 //                if (responsesPerQuestion.getAllResponses().size()<1){
-//                    imageTask.setMessage("No message to display");
+//                    imageTask.setMessage(null);
 //                }
 //                else{
 //                    //current milliseconds
@@ -123,7 +130,7 @@ public class MessageGenerator {
 //
 //                    //seen within last hour
 //                    Date date=new Date();
-//                    if (date.getTime()-sec2>360000){
+//                    if (date.getTime()-sec2>repeatWindow){
 //                        List<String> questionsInLevel = EquineQuestionTypes.getTypesForLevel(level);
 //                        String questionsOneString = "";
 //                        for(String q: questionsInLevel){

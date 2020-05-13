@@ -218,4 +218,26 @@ public class MessageGeneratorTest {
         MessageGenerator.level7Message(masteredStudentModel, it, 4);
         assertNull(it.getMessage());
     }
+
+    @Test
+    public void repeatLevelMessageTest() throws IOException{
+        TaskGenerator taskGenerator = new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap());
+
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/TestQP.json").getAllQuestions());
+        StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/buckmank.json", StudentModelRecord.class);
+        StudentModel level2Student = smr2.buildStudentModel(myQP);
+        ImageTask it2 = taskGenerator.makeTask(level2Student, 4);
+        level2Student.setLastLevelRecorded(LevelTaskGenerator.calcLevel(level2Student.calcKnowledgeEstimateByType(4)));
+        MessageGenerator.generateMessage(level2Student, it2, -1);
+        assertNull(it2.getMessage());
+
+        //repeated within 30 min
+
+        //repeated within 29 min
+
+        //repeated within 31 min
+
+        //not repeated
+
+    }
 }
