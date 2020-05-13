@@ -105,4 +105,7 @@ public class MessageGenerator {
             imageTask.setMessage("Looks like you're having trouble with " +  questionsOneString + " questions, go look at resources and come back if you need to");
         }
     }
+
+    public static void increaseLevelMessage(StudentModel studentModel, ImageTask imageTask, int previousLevel) {
+    }
 }

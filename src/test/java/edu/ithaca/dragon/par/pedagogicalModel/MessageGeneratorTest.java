@@ -136,5 +136,41 @@ public class MessageGeneratorTest {
         MessageGenerator.decreaseLevelMessage(masteredStudentModel, it, 2);
         assertEquals("Looks like you're having trouble with plane/structure questions, go look at resources and come back if you need to", it.getMessage());
 
+
+        //1 to 1, no message
+        masteredStudentModel.setLastLevelRecorded(1);
+        MessageGenerator.decreaseLevelMessage(masteredStudentModel, it, 1);
+        assertNull(it.getMessage());
+
+    }
+
+    @Test
+    public void increaseLevelTest() throws IOException{
+        TaskGenerator taskGenerator = new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap());
+
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/TestQP.json").getAllQuestions());
+        StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/buckmank.json", StudentModelRecord.class);
+        StudentModel level2Student = smr2.buildStudentModel(myQP);
+        ImageTask it2 = taskGenerator.makeTask(level2Student, 4);
+        level2Student.setLastLevelRecorded(LevelTaskGenerator.calcLevel(level2Student.calcKnowledgeEstimateByType(4)));
+        MessageGenerator.generateMessage(level2Student, it2, -1);
+        assertNull(it2.getMessage());
+
+
+        //goes up level
+        MessageGenerator.increaseLevelMessage(level2Student, it2, 1);
+        assertEquals("You're doing great!", it2.getMessage());
+
+        //stays the same, no message
+        MessageGenerator.increaseLevelMessage(level2Student, it2, 2);
+        assertNull(it2.getMessage());
+
+        //goes down level, no message
+        MessageGenerator.increaseLevelMessage(level2Student, it2, 3);
+        assertNull(it2.getMessage());
+
+        //goes up level
+        MessageGenerator.increaseLevelMessage(level2Student, it2, 1);
+        assertEquals("You're doing great!", it2.getMessage());
     }
 }
