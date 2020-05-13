@@ -40,7 +40,7 @@ public class MessageGeneratorTest {
         ImageTask it2 = taskGenerator.makeTask(level2Student, 4);
         level2Student.setLevel(LevelTaskGenerator.calcLevel(level2Student.calcKnowledgeEstimateByType(4)));
         MessageGenerator.generateMessage(level2Student, it2, -1);
-        assertEquals("No message to display", it2.getMessage());
+        assertNull(it2.getMessage());
 
 
         //goes down level, structure
