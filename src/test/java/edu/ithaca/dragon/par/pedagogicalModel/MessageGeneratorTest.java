@@ -210,7 +210,12 @@ public class MessageGeneratorTest {
 
         //down level, no message
         masteredStudentModel.setLastLevelRecorded(6);
-        MessageGenerator.decreaseLevelMessage(masteredStudentModel, it, 7);
+        MessageGenerator.level7Message(masteredStudentModel, it, 7);
+        assertNull(it.getMessage());
+
+        //up level, no message
+        masteredStudentModel.setLastLevelRecorded(5);
+        MessageGenerator.level7Message(masteredStudentModel, it, 4);
         assertNull(it.getMessage());
     }
 }
