@@ -104,44 +104,57 @@ public class MessageGenerator {
     }
 
     public static void repeatLevelMessage(StudentModel studentModel, ImageTask imageTask, int previousLevel){
-//        int level = studentModel.getLastLevelRecorded();
-//
-//        //stayed on same level, not mastered
-//        if (previousLevel == level){
-//            //get index of first question
-//            int ind = -1;
-//            List<Question> allQuestions = studentModel.getUserQuestionSet().getAllQuestions();
-//            for (int i = 0; i < allQuestions.size(); i++){
-//                if (allQuestions.get(i).getId().equals(imageTask.getTaskQuestions().get(0).getId())){
-//                    ind = i;
-//                }
-//            }
-//            if(ind!=-1){
-//                ResponsesPerQuestion responsesPerQuestion = studentModel.getUserResponseSet().getResponseById(allQuestions.get(ind).getId());
-//                //no responses
-//                if (responsesPerQuestion.getAllResponses().size()<1){
-//                    imageTask.setMessage(null);
-//                }
-//                else{
-//                    //current milliseconds
-//
-//                    //second most recent response milliseconds
-//                    long sec2 =responsesPerQuestion.getAllResponses().get(responsesPerQuestion.getAllResponses().size()-2).getMillSeconds();
-//
-//                    //seen within last hour
-//                    Date date=new Date();
-//                    if (date.getTime()-sec2>repeatWindow){
-//                        List<String> questionsInLevel = EquineQuestionTypes.getTypesForLevel(level);
-//                        String questionsOneString = "";
-//                        for(String q: questionsInLevel){
-//                            questionsOneString += q + "/";
-//                        }
-//                        questionsOneString = questionsOneString.substring(0,questionsOneString.length()-1);
-//                        imageTask.setMessage("You've seen this question recently, you might be stuck on "+questionsOneString+" questions.");
-//                    }
-//                }
-//            }
-//
-//        }
+        int level = studentModel.getLastLevelRecorded();
+
+        //stayed on same level, not mastered
+        if (previousLevel == level){
+            //get index of first question
+            int ind = -1;
+            List<Question> allQuestions = studentModel.getUserQuestionSet().getAllQuestions();
+            for (int i = 0; i < allQuestions.size(); i++){
+                //if the id of the current question equals that of the first in the task
+                if (allQuestions.get(i).getId().equals(imageTask.getTaskQuestions().get(0).getId())){
+                    ind = i;
+                }
+            }
+            if(ind!=-1){
+                ResponsesPerQuestion responsesPerQuestion = studentModel.getUserResponseSet().getResponseById(allQuestions.get(ind).getId());
+                //no responses
+                if (responsesPerQuestion.getAllResponses().size()<1){
+                    imageTask.setMessage(null);
+                }
+                else {
+                    //current milliseconds
+
+                    //if there's multiple responses
+                    if (responsesPerQuestion.getAllResponses().size() >= 2) {
+                        //second most recent response milliseconds
+                        long sec2 = responsesPerQuestion.getAllResponses().get(responsesPerQuestion.getAllResponses().size() - 2).getMillSeconds();
+
+                        //seen within the time window
+                        Date date = new Date();
+                        if (date.getTime() - sec2 >= repeatWindow) {
+                            List<String> questionsInLevel = EquineQuestionTypes.getTypesForLevel(level);
+                            String questionsOneString = "";
+                            for (String q : questionsInLevel) {
+                                questionsOneString += q + "/";
+                            }
+                            questionsOneString = questionsOneString.substring(0, questionsOneString.length() - 1);
+                            imageTask.setMessage("You've seen this question recently, you might be stuck on " + questionsOneString + " questions.");
+                        }
+                    }
+                    else{
+                        imageTask.setMessage(null);
+                    }
+                }
+            }
+            else{
+                imageTask.setMessage(null);
+            }
+
+        }
+        else{
+            imageTask.setMessage(null);
+        }
     }
 }
