@@ -3,8 +3,10 @@ package edu.ithaca.dragon.par.pedagogicalModel;
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.ImageTask;
+import edu.ithaca.dragon.par.studentModel.ResponsesPerQuestion;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 
+import java.util.Date;
 import java.util.List;
 
 public class MessageGenerator {
@@ -16,7 +18,6 @@ public class MessageGenerator {
         if (level == 7){
             level7Message(studentModel, imageTask, previousLevel);
         }
-
 
         else{
             //down level
@@ -30,49 +31,7 @@ public class MessageGenerator {
 
             //stayed on same level, not mastered
 
-
         }
-
-
-
-//        //stayed on same level, not mastered
-//        else if (previousLevel-level == 0){
-//            //get index of first question
-//            int ind = -1;
-//            List<Question> allQuestions = studentModel.getUserQuestionSet().getAllQuestions();
-//            for (int i = 0; i < allQuestions.size(); i++){
-//                if (allQuestions.get(i).getId().equals(imageTask.getTaskQuestions().get(0).getId())){
-//                    ind = i;
-//                }
-//            }
-//            if(ind!=-1){
-//                ResponsesPerQuestion responsesPerQuestion = studentModel.getUserResponseSet().getResponseById(allQuestions.get(ind).getId());
-//                //no responses
-//                if (responsesPerQuestion.getAllResponses().size()<1){
-//                    imageTask.setMessage("No message to display");
-//                }
-//                else{
-//                    //current milliseconds
-//
-//                    //second most recent response milliseconds
-//                    long sec2 =responsesPerQuestion.getAllResponses().get(responsesPerQuestion.getAllResponses().size()-2).getMillSeconds();
-//
-//                    //seen within last hour
-//                    Date date=new Date();
-//                    if (date.getTime()-sec2>360000){
-//                        List<String> questionsInLevel = EquineQuestionTypes.getTypesForLevel(level);
-//                        String questionsOneString = "";
-//                        for(String q: questionsInLevel){
-//                            questionsOneString += q + "/";
-//                        }
-//                        questionsOneString = questionsOneString.substring(0,questionsOneString.length()-1);
-//                        imageTask.setMessage("You've seen this question recently, you might be stuck on "+questionsOneString+" questions.");
-//                    }
-//                }
-//            }
-//
-//        }
-
 
     }
 
@@ -135,5 +94,47 @@ public class MessageGenerator {
         else{
             imageTask.setMessage(null);
         }
+    }
+
+    public void repeatLevelMessage(StudentModel studentModel, ImageTask imageTask, int previousLevel){
+//        int level = studentModel.getLastLevelRecorded();
+//
+//        //stayed on same level, not mastered
+//        if (previousLevel == level){
+//            //get index of first question
+//            int ind = -1;
+//            List<Question> allQuestions = studentModel.getUserQuestionSet().getAllQuestions();
+//            for (int i = 0; i < allQuestions.size(); i++){
+//                if (allQuestions.get(i).getId().equals(imageTask.getTaskQuestions().get(0).getId())){
+//                    ind = i;
+//                }
+//            }
+//            if(ind!=-1){
+//                ResponsesPerQuestion responsesPerQuestion = studentModel.getUserResponseSet().getResponseById(allQuestions.get(ind).getId());
+//                //no responses
+//                if (responsesPerQuestion.getAllResponses().size()<1){
+//                    imageTask.setMessage("No message to display");
+//                }
+//                else{
+//                    //current milliseconds
+//
+//                    //second most recent response milliseconds
+//                    long sec2 =responsesPerQuestion.getAllResponses().get(responsesPerQuestion.getAllResponses().size()-2).getMillSeconds();
+//
+//                    //seen within last hour
+//                    Date date=new Date();
+//                    if (date.getTime()-sec2>360000){
+//                        List<String> questionsInLevel = EquineQuestionTypes.getTypesForLevel(level);
+//                        String questionsOneString = "";
+//                        for(String q: questionsInLevel){
+//                            questionsOneString += q + "/";
+//                        }
+//                        questionsOneString = questionsOneString.substring(0,questionsOneString.length()-1);
+//                        imageTask.setMessage("You've seen this question recently, you might be stuck on "+questionsOneString+" questions.");
+//                    }
+//                }
+//            }
+//
+//        }
     }
 }
