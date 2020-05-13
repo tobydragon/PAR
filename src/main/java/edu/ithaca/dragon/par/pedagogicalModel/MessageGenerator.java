@@ -10,6 +10,7 @@ import java.util.List;
 public class MessageGenerator {
     public static void generateMessage(StudentModel studentModel, ImageTask imageTask, int previousLevel){
         int level = studentModel.getLastLevelRecorded();
+        imageTask.setMessage(null);
 
         //mastered student
         if (level == 7){
@@ -36,8 +37,9 @@ public class MessageGenerator {
             //if not found, message is null
         }
 
-        //down level
-        else if (level != 7){
+
+        else{
+            //down level
             //if the student has just decreased in level, this will set the appropriate message.
             decreaseLevelMessage(studentModel, imageTask, previousLevel);
 
@@ -87,9 +89,6 @@ public class MessageGenerator {
 //
 //        }
 
-        else{
-            imageTask.setMessage(null);
-        }
 
     }
 
@@ -104,8 +103,18 @@ public class MessageGenerator {
             questionsOneString = questionsOneString.substring(0,questionsOneString.length()-1);
             imageTask.setMessage("Looks like you're having trouble with " +  questionsOneString + " questions, go look at resources and come back if you need to");
         }
+        else{
+            imageTask.setMessage(null);
+        }
     }
 
     public static void increaseLevelMessage(StudentModel studentModel, ImageTask imageTask, int previousLevel) {
+        int level = studentModel.getLastLevelRecorded();
+        if (previousLevel-level < 0 && previousLevel != -1){
+            imageTask.setMessage("You're doing great!");
+        }
+        else{
+            imageTask.setMessage(null);
+        }
     }
 }

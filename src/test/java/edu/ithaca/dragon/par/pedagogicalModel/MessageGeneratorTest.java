@@ -139,6 +139,7 @@ public class MessageGeneratorTest {
 
         //1 to 1, no message
         masteredStudentModel.setLastLevelRecorded(1);
+        it.setMessage("hey");
         MessageGenerator.decreaseLevelMessage(masteredStudentModel, it, 1);
         assertNull(it.getMessage());
 
@@ -162,14 +163,17 @@ public class MessageGeneratorTest {
         assertEquals("You're doing great!", it2.getMessage());
 
         //stays the same, no message
+        level2Student.setLastLevelRecorded(2);
         MessageGenerator.increaseLevelMessage(level2Student, it2, 2);
         assertNull(it2.getMessage());
 
         //goes down level, no message
+        level2Student.setLastLevelRecorded(2);
         MessageGenerator.increaseLevelMessage(level2Student, it2, 3);
         assertNull(it2.getMessage());
 
         //goes up level
+        level2Student.setLastLevelRecorded(2);
         MessageGenerator.increaseLevelMessage(level2Student, it2, 1);
         assertEquals("You're doing great!", it2.getMessage());
     }
