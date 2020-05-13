@@ -37,20 +37,17 @@ public class MessageGenerator {
         }
 
         //down level
-        else if (previousLevel-level > 0 && previousLevel != -1){
-            List<String> questionsInPreviousLevel = EquineQuestionTypes.getTypesForLevel(previousLevel);
-            String questionsOneString = "";
-            for(String q: questionsInPreviousLevel){
-                questionsOneString += q + "/";
+        else if (level != 7){
+            //if the student has just decreased in level, this will set the appropriate message.
+            decreaseLevelMessage(studentModel, imageTask, previousLevel);
+
+            //up level
+            if (previousLevel-level < 0 && previousLevel != -1){
+                imageTask.setMessage("You're doing great!");
             }
-            questionsOneString = questionsOneString.substring(0,questionsOneString.length()-1);
-            imageTask.setMessage("Looks like you're having trouble with " +  questionsOneString + " questions, go look at resources and come back if you need to");
         }
 
-        //up level
-        else if (previousLevel-level < 0 && previousLevel != -1){
-            imageTask.setMessage("You're doing great!");
-        }
+
 
 //        //stayed on same level, not mastered
 //        else if (previousLevel-level == 0){
