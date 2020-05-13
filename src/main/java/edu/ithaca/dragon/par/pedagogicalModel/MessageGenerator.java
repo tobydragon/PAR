@@ -12,32 +12,9 @@ public class MessageGenerator {
         int level = studentModel.getLastLevelRecorded();
         imageTask.setMessage(null);
 
-        //mastered student
+        //mastered student message
         if (level == 7){
-            //repeating questions
-            List<Question> allQuestions = studentModel.getUserQuestionSet().getAllQuestions();
-            int index = -1;
-            for (int i = 0; i < allQuestions.size(); i++){
-                //there should only be one zone question in this task
-                if (allQuestions.get(i).getId().equals(imageTask.getTaskQuestions().get(0).getId())){
-                    index = i;
-                }
-            }
-            //question found
-            if (index != -1){
-                //get index of first question
-                if (studentModel.getUserQuestionSet().getTimesSeen(allQuestions.get(index).getId())>0){
-                    imageTask.setMessage("You've mastered the material and started repeating questions");
-                }
-                //not seen yet
-                else {
-                    imageTask.setMessage("You have mastered the material, feel free to keep practicing");
-                }
-            }
-            //not found, message is null
-            else{
-                imageTask.setMessage(null);
-            }
+            level7Message(studentModel, imageTask, previousLevel);
         }
 
 
