@@ -97,6 +97,15 @@ public class MessageGenerator {
     }
 
     public static void decreaseLevelMessage(StudentModel studentModel, ImageTask imageTask, int previousLevel){
-
+        int level = studentModel.getLastLevelRecorded();
+        if (previousLevel-level > 0 && previousLevel != -1){
+            List<String> questionsInPreviousLevel = EquineQuestionTypes.getTypesForLevel(previousLevel);
+            String questionsOneString = "";
+            for(String q: questionsInPreviousLevel){
+                questionsOneString += q + "/";
+            }
+            questionsOneString = questionsOneString.substring(0,questionsOneString.length()-1);
+            imageTask.setMessage("Looks like you're having trouble with " +  questionsOneString + " questions, go look at resources and come back if you need to");
+        }
     }
 }
