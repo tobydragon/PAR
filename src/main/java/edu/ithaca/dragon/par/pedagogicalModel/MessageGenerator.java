@@ -93,7 +93,7 @@ public class MessageGenerator {
 //        }
 
         else{
-            imageTask.setMessage("No message to display");
+            imageTask.setMessage(null);
         }
 
     }

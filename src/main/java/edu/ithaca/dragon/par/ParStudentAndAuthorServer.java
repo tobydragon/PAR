@@ -44,8 +44,10 @@ public class ParStudentAndAuthorServer {
             return imageTask;
         }
         else {
+            int prevLevel = studentModelDatastore.getStudentModel(userId).getLevel();
             ImageTask imageTask = taskGenerator.makeTask(studentModelDatastore.getStudentModel(userId), studentModelDatastore.getMinQuestionCountPerType());
             studentModelDatastore.increaseTimesSeen(userId, imageTask.getTaskQuestions());
+            MessageGenerator.generateMessage(studentModelDatastore.getStudentModel(userId), imageTask, prevLevel);
             return imageTask;
         }
     }
