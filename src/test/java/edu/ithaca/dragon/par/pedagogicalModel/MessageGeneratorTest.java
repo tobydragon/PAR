@@ -177,4 +177,40 @@ public class MessageGeneratorTest {
         MessageGenerator.increaseLevelMessage(level2Student, it2, 1);
         assertEquals("You're doing great!", it2.getMessage());
     }
+
+    @Test
+    public void level7MessageTest() throws IOException{
+        TaskGenerator taskGenerator = new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap());
+
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/TestQP.json").getAllQuestions());
+        StudentModelRecord smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
+        StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
+        masteredStudentModel.setLastLevelRecorded(LevelTaskGenerator.calcLevel(masteredStudentModel.calcKnowledgeEstimateByType(4)));
+        ImageTask it = taskGenerator.makeTask(masteredStudentModel, 4);
+
+        //mastered
+        MessageGenerator.level7Message(masteredStudentModel, it, -1);
+        assertEquals("You've mastered the material and started repeating questions", it.getMessage());
+
+        //not level 7, no message to display
+        StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/buckmank.json", StudentModelRecord.class);
+        StudentModel level2Student = smr2.buildStudentModel(myQP);
+        ImageTask it2 = taskGenerator.makeTask(level2Student, 4);
+        level2Student.setLastLevelRecorded(LevelTaskGenerator.calcLevel(level2Student.calcKnowledgeEstimateByType(4)));
+        MessageGenerator.level7Message(level2Student, it2, -1);
+        assertNull(it2.getMessage());
+
+        //stay on level 7, repeated question
+        masteredStudentModel.setLastLevelRecorded(7);
+        for (Question question : it.getTaskQuestions()){
+            masteredStudentModel.increaseTimesSeen(question.getId());
+        }
+        MessageGenerator.level7Message(masteredStudentModel, it, 7);
+        assertEquals("You've mastered the material and started repeating questions", it.getMessage());
+
+        //down level, no message
+        masteredStudentModel.setLastLevelRecorded(6);
+        MessageGenerator.decreaseLevelMessage(masteredStudentModel, it, 7);
+        assertNull(it.getMessage());
+    }
 }

@@ -34,7 +34,10 @@ public class MessageGenerator {
                     imageTask.setMessage("You have mastered the material, feel free to keep practicing");
                 }
             }
-            //if not found, message is null
+            //not found, message is null
+            else{
+                imageTask.setMessage(null);
+            }
         }
 
 
@@ -120,5 +123,9 @@ public class MessageGenerator {
         else{
             imageTask.setMessage(null);
         }
+    }
+
+    public static void level7Message(StudentModel studentModel, ImageTask imageTask, int previousLevel){
+
     }
 }
