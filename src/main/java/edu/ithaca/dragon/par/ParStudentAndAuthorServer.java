@@ -46,6 +46,7 @@ public class ParStudentAndAuthorServer {
         else {
             int prevLevel = studentModelDatastore.getStudentModel(userId).getLastLevelRecorded();
             ImageTask imageTask = taskGenerator.makeTask(studentModelDatastore.getStudentModel(userId), studentModelDatastore.getMinQuestionCountPerType());
+            LevelTaskGenerator.calcLevel(studentModelDatastore.getStudentModel(userId).calcKnowledgeEstimateByType(idealQuestionCountPerTypeForAnalysis));
             studentModelDatastore.increaseTimesSeen(userId, imageTask.getTaskQuestions());
             MessageGenerator.generateMessage(studentModelDatastore.getStudentModel(userId), imageTask, prevLevel);
             return imageTask;

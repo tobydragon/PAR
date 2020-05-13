@@ -23,7 +23,7 @@ public class MessageGenerator {
 
         //mastered student message
         if (level == 7){
-            level7Message(studentModel, imageTask, previousLevel);
+            level7Message(studentModel, imageTask);
         }
 
         else{
@@ -68,7 +68,7 @@ public class MessageGenerator {
         }
     }
 
-    public static void level7Message(StudentModel studentModel, ImageTask imageTask, int previousLevel){
+    public static void level7Message(StudentModel studentModel, ImageTask imageTask){
         int level = studentModel.getLastLevelRecorded();
 
         //mastered student

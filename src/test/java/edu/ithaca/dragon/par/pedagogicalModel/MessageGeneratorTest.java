@@ -189,7 +189,7 @@ public class MessageGeneratorTest {
         ImageTask it = taskGenerator.makeTask(masteredStudentModel, 4);
 
         //mastered
-        MessageGenerator.level7Message(masteredStudentModel, it, -1);
+        MessageGenerator.level7Message(masteredStudentModel, it);
         assertEquals("You've mastered the material and started repeating questions", it.getMessage());
 
         //not level 7, no message to display
@@ -197,7 +197,7 @@ public class MessageGeneratorTest {
         StudentModel level2Student = smr2.buildStudentModel(myQP);
         ImageTask it2 = taskGenerator.makeTask(level2Student, 4);
         level2Student.setLastLevelRecorded(LevelTaskGenerator.calcLevel(level2Student.calcKnowledgeEstimateByType(4)));
-        MessageGenerator.level7Message(level2Student, it2, -1);
+        MessageGenerator.level7Message(level2Student, it2);
         assertNull(it2.getMessage());
 
         //stay on level 7, repeated question
@@ -205,17 +205,17 @@ public class MessageGeneratorTest {
         for (Question question : it.getTaskQuestions()){
             masteredStudentModel.increaseTimesSeen(question.getId());
         }
-        MessageGenerator.level7Message(masteredStudentModel, it, 7);
+        MessageGenerator.level7Message(masteredStudentModel, it);
         assertEquals("You've mastered the material and started repeating questions", it.getMessage());
 
         //down level, no message
         masteredStudentModel.setLastLevelRecorded(6);
-        MessageGenerator.level7Message(masteredStudentModel, it, 7);
+        MessageGenerator.level7Message(masteredStudentModel, it);
         assertNull(it.getMessage());
 
         //up level, no message
         masteredStudentModel.setLastLevelRecorded(5);
-        MessageGenerator.level7Message(masteredStudentModel, it, 4);
+        MessageGenerator.level7Message(masteredStudentModel, it);
         assertNull(it.getMessage());
     }
 
