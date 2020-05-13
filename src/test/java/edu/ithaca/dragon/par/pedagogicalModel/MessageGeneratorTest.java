@@ -90,8 +90,51 @@ public class MessageGeneratorTest {
 
 
 
-
+        //TODO: finish.
         //other levels, repeating questions
+
+    }
+
+    @Test
+    public void decreaseLevelMessageTest() throws IOException{
+        TaskGenerator taskGenerator = new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap());
+
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/TestQP.json").getAllQuestions());
+        StudentModelRecord smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
+        StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
+        masteredStudentModel.setLastLevelRecorded(LevelTaskGenerator.calcLevel(masteredStudentModel.calcKnowledgeEstimateByType(4)));
+        ImageTask it = taskGenerator.makeTask(masteredStudentModel, 4);
+
+        //7 to 6
+        masteredStudentModel.setLastLevelRecorded(6);
+        MessageGenerator.decreaseLevelMessage(masteredStudentModel, it, 7);
+        assertEquals("Looks like you're having trouble with zone questions, go look at resources and come back if you need to", it.getMessage());
+
+
+        //6 to 5
+        masteredStudentModel.setLastLevelRecorded(5);
+        MessageGenerator.decreaseLevelMessage(masteredStudentModel, it, 6);
+        assertEquals("Looks like you're having trouble with attachment/zone questions, go look at resources and come back if you need to", it.getMessage());
+
+        //5 to 4
+        masteredStudentModel.setLastLevelRecorded(4);
+        MessageGenerator.decreaseLevelMessage(masteredStudentModel, it, 5);
+        assertEquals("Looks like you're having trouble with attachment questions, go look at resources and come back if you need to", it.getMessage());
+
+        //4 to 3
+        masteredStudentModel.setLastLevelRecorded(3);
+        MessageGenerator.decreaseLevelMessage(masteredStudentModel, it, 4);
+        assertEquals("Looks like you're having trouble with structure/attachment questions, go look at resources and come back if you need to", it.getMessage());
+
+        //3 to 2
+        masteredStudentModel.setLastLevelRecorded(2);
+        MessageGenerator.decreaseLevelMessage(masteredStudentModel, it, 3);
+        assertEquals("Looks like you're having trouble with structure questions, go look at resources and come back if you need to", it.getMessage());
+
+        //2 to 1
+        masteredStudentModel.setLastLevelRecorded(1);
+        MessageGenerator.decreaseLevelMessage(masteredStudentModel, it, 2);
+        assertEquals("Looks like you're having trouble with plane/structure questions, go look at resources and come back if you need to", it.getMessage());
 
     }
 }

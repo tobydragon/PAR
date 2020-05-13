@@ -95,4 +95,8 @@ public class MessageGenerator {
         }
 
     }
+
+    public static void decreaseLevelMessage(StudentModel studentModel, ImageTask imageTask, int previousLevel){
+
+    }
 }
