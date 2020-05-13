@@ -44,9 +44,13 @@ public class MessageGenerator {
             decreaseLevelMessage(studentModel, imageTask, previousLevel);
 
             //up level
-            if (previousLevel-level < 0 && previousLevel != -1){
-                imageTask.setMessage("You're doing great!");
+            if (imageTask.getMessage() == null){
+                increaseLevelMessage(studentModel, imageTask, previousLevel);
             }
+
+            //stayed on same level, not mastered
+
+
         }
 
 
