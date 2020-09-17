@@ -148,17 +148,17 @@ public class UserResponseSetTest {
         assertEquals("__", UserResponseSet.calcKnowledgeEstimateString(new ArrayList<>(), 2));
         assertEquals("OO", UserResponseSet.calcKnowledgeEstimateString(allRight.getResponsesPerQuestionList(), 2));
         assertEquals("XX", UserResponseSet.calcKnowledgeEstimateString(allWrong.getResponsesPerQuestionList(), 2));
-        assertEquals("XO", UserResponseSet.calcKnowledgeEstimateString(everyOtherRight.getResponsesPerQuestionList(), 2));
+        assertEquals("OX", UserResponseSet.calcKnowledgeEstimateString(everyOtherRight.getResponsesPerQuestionList(), 2));
 
         assertEquals("______", UserResponseSet.calcKnowledgeEstimateString(new ArrayList<>(), 6));
         assertEquals("OOOOOO", UserResponseSet.calcKnowledgeEstimateString(allRight.getResponsesPerQuestionList(), 6));
         assertEquals("XXXXXX", UserResponseSet.calcKnowledgeEstimateString(allWrong.getResponsesPerQuestionList(), 6));
-        assertEquals("XOXOXO", UserResponseSet.calcKnowledgeEstimateString(everyOtherRight.getResponsesPerQuestionList(), 6));
+        assertEquals("OXOXOX", UserResponseSet.calcKnowledgeEstimateString(everyOtherRight.getResponsesPerQuestionList(), 6));
 
         assertEquals("______", UserResponseSet.calcKnowledgeEstimateString(new ArrayList<>(), 6));
-        assertEquals("___OOO", UserResponseSet.calcKnowledgeEstimateString(allRight.getResponsesPerQuestionList().subList(0,3), 6));
-        assertEquals("___XXX", UserResponseSet.calcKnowledgeEstimateString(allWrong.getResponsesPerQuestionList().subList(0,3), 6));
-        assertEquals("___OXO", UserResponseSet.calcKnowledgeEstimateString(everyOtherRight.getResponsesPerQuestionList().subList(0,3), 6));
+        assertEquals("OOO___", UserResponseSet.calcKnowledgeEstimateString(allRight.getResponsesPerQuestionList().subList(0,3), 6));
+        assertEquals("XXX___", UserResponseSet.calcKnowledgeEstimateString(allWrong.getResponsesPerQuestionList().subList(0,3), 6));
+        assertEquals("OXO___", UserResponseSet.calcKnowledgeEstimateString(everyOtherRight.getResponsesPerQuestionList().subList(0,3), 6));
     }
 
     @Test
