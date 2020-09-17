@@ -15,7 +15,10 @@ public class MessageGenerator {
     private static final String masterNoRepeat = "You have mastered the material, feel free to keep practicing";
     //note: decreaseLevel and repeatLevel messages can't be a private static final Strings because it has more personalized feedback
 
-    private static final int repeatWindow = 180000; //30 min in mili
+    //TODO: can make the pieces of the strings private static final
+
+
+    private static final int repeatWindow = 1800000; //30 min in mili
 
     public static void generateMessage(StudentModel studentModel, ImageTask imageTask, int previousLevel){
         int level = studentModel.getLastLevelRecorded();
@@ -112,7 +115,7 @@ public class MessageGenerator {
             int ind = -1;
             List<Question> allQuestions = studentModel.getUserQuestionSet().getAllQuestions();
             for (int i = 0; i < allQuestions.size(); i++){
-                //if the id of the current question equals that of the first in the task
+                //if the id of the current question equals the first in the task
                 if (allQuestions.get(i).getId().equals(imageTask.getTaskQuestions().get(0).getId())){
                     ind = i;
                 }
@@ -124,16 +127,14 @@ public class MessageGenerator {
                     imageTask.setMessage(null);
                 }
                 else {
-                    //current milliseconds
-
-                    //if there's multiple responses
-                    if (responsesPerQuestion.getAllResponses().size() >= 2) {
-                        //second most recent response milliseconds
-                        long sec2 = responsesPerQuestion.getAllResponses().get(responsesPerQuestion.getAllResponses().size() - 2).getMillSeconds();
+                    //if there's at least one response
+                    if (responsesPerQuestion.getAllResponses().size() >= 1) {
+                        //most recent response milliseconds
+                        long sec2 = responsesPerQuestion.getAllResponses().get(responsesPerQuestion.getAllResponses().size() - 1).getMillSeconds();
 
                         //seen within the time window
                         Date date = new Date();
-                        if (date.getTime() - sec2 >= repeatWindow) {
+                        if (date.getTime() - sec2 <= repeatWindow) {
                             List<String> questionsInLevel = EquineQuestionTypes.getTypesForLevel(level);
                             String questionsOneString = "";
                             for (String q : questionsInLevel) {
