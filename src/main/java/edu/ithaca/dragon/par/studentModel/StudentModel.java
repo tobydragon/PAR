@@ -25,7 +25,7 @@ public class StudentModel {
         this.userId = userId;
         this.userQuestionSet = userQuestionSet;
         this.userResponseSet = userResponseSet;
-        lastLevelRecorded = -1;
+        lastLevelRecorded = 1;
     }
 
     public void imageTaskResponseSubmitted(ImageTaskResponseOOP imageTaskResponses, QuestionPool questions){

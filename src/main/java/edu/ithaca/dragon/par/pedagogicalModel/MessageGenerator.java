@@ -20,29 +20,37 @@ public class MessageGenerator {
 
     private static final int repeatWindow = 1800000; //30 min in mili
 
-    public static void generateMessage(StudentModel studentModel, ImageTask imageTask, int previousLevel){
+    public static void generateMessage(StudentModel studentModel, ImageTask imageTask, int previousLevel) {
         int level = studentModel.getLastLevelRecorded();
-        imageTask.setMessage(null);
 
-        //mastered student message
-        if (level == 7){
-            level7Message(studentModel, imageTask);
+        //new student model
+        if (level < 1) {
+            imageTask.setMessage(null);
         }
+        else {
+            imageTask.setMessage(null);
 
-        else{
-            //down level
-            //if the student has just decreased in level, this will set the appropriate message.
-            decreaseLevelMessage(studentModel, imageTask, previousLevel);
+            //mastered student message
+            if (level == 7) {
+                level7Message(studentModel, imageTask);
+            } else {
+                //down level
+                //if the student has just decreased in level, this will set the appropriate message.
+                decreaseLevelMessage(studentModel, imageTask, previousLevel);
 
-            //up level
-            if (imageTask.getMessage() == null){
-                increaseLevelMessage(studentModel, imageTask, previousLevel);
+                //up level
+                if (imageTask.getMessage() == null) {
+                    increaseLevelMessage(studentModel, imageTask, previousLevel);
+                }
+
+                //stayed on same level, not mastered
+                if (imageTask.getMessage() == null) {
+                    repeatLevelMessage(studentModel, imageTask, previousLevel);
+                }
+
             }
 
-            //stayed on same level, not mastered
-
         }
-
     }
 
     public static void decreaseLevelMessage(StudentModel studentModel, ImageTask imageTask, int previousLevel){
