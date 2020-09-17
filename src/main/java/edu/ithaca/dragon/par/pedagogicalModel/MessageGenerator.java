@@ -13,9 +13,9 @@ public class MessageGenerator {
     private static final String increaseLevelString = "You're doing great!";
     private static final String masterRepeat = "You've mastered the material and started repeating questions";
     private static final String masterNoRepeat = "You have mastered the material, feel free to keep practicing";
-    //note: decreaseLevel and repeatLevel messages can't be a private static final Strings because it has more personalized feedback
-
-    //TODO: can make the pieces of the strings private static final
+    private static final String troublePart1 = "Looks like you're having trouble with ";
+    private static final String troublePart2 = " questions, go look at resources and come back if you need to";
+    private static final String repeatPart1 = "You've seen this question recently, you might be stuck on ";
 
 
     private static final int repeatWindow = 1800000; //30 min in mili
@@ -54,7 +54,7 @@ public class MessageGenerator {
                 questionsOneString += q + "/";
             }
             questionsOneString = questionsOneString.substring(0,questionsOneString.length()-1);
-            imageTask.setMessage("Looks like you're having trouble with " +  questionsOneString + " questions, go look at resources and come back if you need to");
+            imageTask.setMessage(troublePart1 +  questionsOneString + troublePart2);
         }
         else{
             imageTask.setMessage(null);
@@ -141,7 +141,7 @@ public class MessageGenerator {
                                 questionsOneString += q + "/";
                             }
                             questionsOneString = questionsOneString.substring(0, questionsOneString.length() - 1);
-                            imageTask.setMessage("You've seen this question recently, you might be stuck on " + questionsOneString + " questions.");
+                            imageTask.setMessage(repeatPart1 + questionsOneString + " questions.");
                         }
                     }
                     else{
