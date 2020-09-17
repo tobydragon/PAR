@@ -121,15 +121,15 @@ public class MessageGenerator {
         if (previousLevel == level){
             //get index of first question
             int ind = -1;
-            List<Question> allQuestions = studentModel.getUserQuestionSet().getAllQuestions();
-            for (int i = 0; i < allQuestions.size(); i++){
+            List<ResponsesPerQuestion> allResponses = studentModel.getUserResponseSet().getResponsesPerQuestionList();
+            for (int i = 0; i < allResponses.size(); i++){
                 //if the id of the current question equals the first in the task
-                if (allQuestions.get(i).getId().equals(imageTask.getTaskQuestions().get(0).getId())){
+                if (allResponses.get(i).getQuestionId().equals(imageTask.getTaskQuestions().get(0).getId())){
                     ind = i;
                 }
             }
             if(ind!=-1){
-                ResponsesPerQuestion responsesPerQuestion = studentModel.getUserResponseSet().getResponseById(allQuestions.get(ind).getId());
+                ResponsesPerQuestion responsesPerQuestion = studentModel.getUserResponseSet().getResponseById(allResponses.get(ind).getQuestionId());
                 //no responses
                 if (responsesPerQuestion.getAllResponses().size()<1){
                     imageTask.setMessage(null);

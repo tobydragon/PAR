@@ -3,9 +3,7 @@ package edu.ithaca.dragon.par.pedagogicalModel;
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
-import edu.ithaca.dragon.par.io.ImageTask;
-import edu.ithaca.dragon.par.io.JsonQuestionPoolDatastore;
-import edu.ithaca.dragon.par.io.StudentModelRecord;
+import edu.ithaca.dragon.par.io.*;
 import edu.ithaca.dragon.par.studentModel.QuestionResponse;
 import edu.ithaca.dragon.par.studentModel.ResponsesPerQuestion;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
@@ -14,7 +12,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -92,10 +92,20 @@ public class MessageGeneratorTest {
         MessageGenerator.generateMessage(masteredStudentModel, it, 7);
         assertEquals("You've mastered the material and started repeating questions", it.getMessage());
 
+        //repeated
+        //String userIdIn, Question questionIn, String responseIn
+        List<QuestionResponseOOP> resp= new ArrayList<>();
+        resp.add(new QuestionResponseOOP("477-zone-./images/metacarpal19.jpg", "In which zone is the ultrasound taken?", "2a"));
 
+        ImageTaskResponseOOP itr = new ImageTaskResponseOOP();
+        itr.setUserId(masteredStudentModel.getUserId());
+        itr.setQuestionResponses(resp);
+        masteredStudentModel.imageTaskResponseSubmitted(itr, myQP);
 
-        //TODO: finish.
-        //other levels, repeating questions
+        masteredStudentModel.setLastLevelRecorded(1);
+        MessageGenerator.generateMessage(masteredStudentModel, it, 1);
+        assertEquals("You've seen this question recently, you might be stuck on plane questions.", it.getMessage());
+
 
     }
 
