@@ -14,7 +14,6 @@ import static org.junit.Assert.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 
 
@@ -28,7 +27,7 @@ public class MessageGeneratorTest {
         QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/TestQP.json").getAllQuestions());
         StudentModelRecord smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
         StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
-        masteredStudentModel.setLastLevelRecorded(LevelTaskGenerator.calcLevel(masteredStudentModel.calcKnowledgeEstimateByType(4)));
+        masteredStudentModel.setPreviousLevel(LevelTaskGenerator.calcLevel(masteredStudentModel.calcKnowledgeEstimateByType(4)));
         ImageTask it = taskGenerator.makeTask(masteredStudentModel, 4);
 
         //mastered
@@ -39,7 +38,7 @@ public class MessageGeneratorTest {
         StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/buckmank.json", StudentModelRecord.class);
         StudentModel level2Student = smr2.buildStudentModel(myQP);
         ImageTask it2 = taskGenerator.makeTask(level2Student, 4);
-        level2Student.setLastLevelRecorded(LevelTaskGenerator.calcLevel(level2Student.calcKnowledgeEstimateByType(4)));
+        level2Student.setPreviousLevel(LevelTaskGenerator.calcLevel(level2Student.calcKnowledgeEstimateByType(4)));
         MessageGenerator.generateMessage(level2Student, it2, -1);
         assertNull(it2.getMessage());
 
@@ -54,38 +53,38 @@ public class MessageGeneratorTest {
 
 
         //7 to 6
-        masteredStudentModel.setLastLevelRecorded(6);
+        masteredStudentModel.setPreviousLevel(6);
         MessageGenerator.generateMessage(masteredStudentModel, it, 7);
         assertEquals("Looks like you're having trouble with zone questions, go look at resources and come back if you need to", it.getMessage());
 
 
         //6 to 5
-        masteredStudentModel.setLastLevelRecorded(5);
+        masteredStudentModel.setPreviousLevel(5);
         MessageGenerator.generateMessage(masteredStudentModel, it, 6);
         assertEquals("Looks like you're having trouble with attachment/zone questions, go look at resources and come back if you need to", it.getMessage());
 
         //5 to 4
-        masteredStudentModel.setLastLevelRecorded(4);
+        masteredStudentModel.setPreviousLevel(4);
         MessageGenerator.generateMessage(masteredStudentModel, it, 5);
         assertEquals("Looks like you're having trouble with attachment questions, go look at resources and come back if you need to", it.getMessage());
 
         //4 to 3
-        masteredStudentModel.setLastLevelRecorded(3);
+        masteredStudentModel.setPreviousLevel(3);
         MessageGenerator.generateMessage(masteredStudentModel, it, 4);
         assertEquals("Looks like you're having trouble with structure/attachment questions, go look at resources and come back if you need to", it.getMessage());
 
         //3 to 2
-        masteredStudentModel.setLastLevelRecorded(2);
+        masteredStudentModel.setPreviousLevel(2);
         MessageGenerator.generateMessage(masteredStudentModel, it, 3);
         assertEquals("Looks like you're having trouble with structure questions, go look at resources and come back if you need to", it.getMessage());
 
         //2 to 1
-        masteredStudentModel.setLastLevelRecorded(1);
+        masteredStudentModel.setPreviousLevel(1);
         MessageGenerator.generateMessage(masteredStudentModel, it, 2);
         assertEquals("Looks like you're having trouble with plane/structure questions, go look at resources and come back if you need to", it.getMessage());
 
         //stay on level 7, repeated question
-        masteredStudentModel.setLastLevelRecorded(7);
+        masteredStudentModel.setPreviousLevel(7);
         for (Question question : it.getTaskQuestions()){
             masteredStudentModel.increaseTimesSeen(question.getId());
         }
@@ -102,7 +101,7 @@ public class MessageGeneratorTest {
         itr.setQuestionResponses(resp);
         masteredStudentModel.imageTaskResponseSubmitted(itr, myQP);
 
-        masteredStudentModel.setLastLevelRecorded(1);
+        masteredStudentModel.setPreviousLevel(1);
         MessageGenerator.generateMessage(masteredStudentModel, it, 1);
         assertEquals("You've seen this question recently, you might be stuck on plane questions.", it.getMessage());
 
@@ -116,43 +115,43 @@ public class MessageGeneratorTest {
         QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/TestQP.json").getAllQuestions());
         StudentModelRecord smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
         StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
-        masteredStudentModel.setLastLevelRecorded(LevelTaskGenerator.calcLevel(masteredStudentModel.calcKnowledgeEstimateByType(4)));
+        masteredStudentModel.setPreviousLevel(LevelTaskGenerator.calcLevel(masteredStudentModel.calcKnowledgeEstimateByType(4)));
         ImageTask it = taskGenerator.makeTask(masteredStudentModel, 4);
 
         //7 to 6
-        masteredStudentModel.setLastLevelRecorded(6);
+        masteredStudentModel.setPreviousLevel(6);
         MessageGenerator.decreaseLevelMessage(masteredStudentModel, it, 7);
         assertEquals("Looks like you're having trouble with zone questions, go look at resources and come back if you need to", it.getMessage());
 
 
         //6 to 5
-        masteredStudentModel.setLastLevelRecorded(5);
+        masteredStudentModel.setPreviousLevel(5);
         MessageGenerator.decreaseLevelMessage(masteredStudentModel, it, 6);
         assertEquals("Looks like you're having trouble with attachment/zone questions, go look at resources and come back if you need to", it.getMessage());
 
         //5 to 4
-        masteredStudentModel.setLastLevelRecorded(4);
+        masteredStudentModel.setPreviousLevel(4);
         MessageGenerator.decreaseLevelMessage(masteredStudentModel, it, 5);
         assertEquals("Looks like you're having trouble with attachment questions, go look at resources and come back if you need to", it.getMessage());
 
         //4 to 3
-        masteredStudentModel.setLastLevelRecorded(3);
+        masteredStudentModel.setPreviousLevel(3);
         MessageGenerator.decreaseLevelMessage(masteredStudentModel, it, 4);
         assertEquals("Looks like you're having trouble with structure/attachment questions, go look at resources and come back if you need to", it.getMessage());
 
         //3 to 2
-        masteredStudentModel.setLastLevelRecorded(2);
+        masteredStudentModel.setPreviousLevel(2);
         MessageGenerator.decreaseLevelMessage(masteredStudentModel, it, 3);
         assertEquals("Looks like you're having trouble with structure questions, go look at resources and come back if you need to", it.getMessage());
 
         //2 to 1
-        masteredStudentModel.setLastLevelRecorded(1);
+        masteredStudentModel.setPreviousLevel(1);
         MessageGenerator.decreaseLevelMessage(masteredStudentModel, it, 2);
         assertEquals("Looks like you're having trouble with plane/structure questions, go look at resources and come back if you need to", it.getMessage());
 
 
         //1 to 1, no message
-        masteredStudentModel.setLastLevelRecorded(1);
+        masteredStudentModel.setPreviousLevel(1);
         it.setMessage("hey");
         MessageGenerator.decreaseLevelMessage(masteredStudentModel, it, 1);
         assertNull(it.getMessage());
@@ -167,7 +166,7 @@ public class MessageGeneratorTest {
         StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/buckmank.json", StudentModelRecord.class);
         StudentModel level2Student = smr2.buildStudentModel(myQP);
         ImageTask it2 = taskGenerator.makeTask(level2Student, 4);
-        level2Student.setLastLevelRecorded(LevelTaskGenerator.calcLevel(level2Student.calcKnowledgeEstimateByType(4)));
+        level2Student.setPreviousLevel(LevelTaskGenerator.calcLevel(level2Student.calcKnowledgeEstimateByType(4)));
         MessageGenerator.generateMessage(level2Student, it2, -1);
         assertNull(it2.getMessage());
 
@@ -177,17 +176,17 @@ public class MessageGeneratorTest {
         assertEquals("You're doing great!", it2.getMessage());
 
         //stays the same, no message
-        level2Student.setLastLevelRecorded(2);
+        level2Student.setPreviousLevel(2);
         MessageGenerator.increaseLevelMessage(level2Student, it2, 2);
         assertNull(it2.getMessage());
 
         //goes down level, no message
-        level2Student.setLastLevelRecorded(2);
+        level2Student.setPreviousLevel(2);
         MessageGenerator.increaseLevelMessage(level2Student, it2, 3);
         assertNull(it2.getMessage());
 
         //goes up level
-        level2Student.setLastLevelRecorded(2);
+        level2Student.setPreviousLevel(2);
         MessageGenerator.increaseLevelMessage(level2Student, it2, 1);
         assertEquals("You're doing great!", it2.getMessage());
     }
@@ -199,7 +198,7 @@ public class MessageGeneratorTest {
         QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/TestQP.json").getAllQuestions());
         StudentModelRecord smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
         StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
-        masteredStudentModel.setLastLevelRecorded(LevelTaskGenerator.calcLevel(masteredStudentModel.calcKnowledgeEstimateByType(4)));
+        masteredStudentModel.setPreviousLevel(LevelTaskGenerator.calcLevel(masteredStudentModel.calcKnowledgeEstimateByType(4)));
         ImageTask it = taskGenerator.makeTask(masteredStudentModel, 4);
 
         //mastered
@@ -210,12 +209,12 @@ public class MessageGeneratorTest {
         StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/buckmank.json", StudentModelRecord.class);
         StudentModel level2Student = smr2.buildStudentModel(myQP);
         ImageTask it2 = taskGenerator.makeTask(level2Student, 4);
-        level2Student.setLastLevelRecorded(LevelTaskGenerator.calcLevel(level2Student.calcKnowledgeEstimateByType(4)));
+        level2Student.setPreviousLevel(LevelTaskGenerator.calcLevel(level2Student.calcKnowledgeEstimateByType(4)));
         MessageGenerator.level7Message(level2Student, it2);
         assertNull(it2.getMessage());
 
         //stay on level 7, repeated question
-        masteredStudentModel.setLastLevelRecorded(7);
+        masteredStudentModel.setPreviousLevel(7);
         for (Question question : it.getTaskQuestions()){
             masteredStudentModel.increaseTimesSeen(question.getId());
         }
@@ -223,12 +222,12 @@ public class MessageGeneratorTest {
         assertEquals("You've mastered the material and started repeating questions", it.getMessage());
 
         //down level, no message
-        masteredStudentModel.setLastLevelRecorded(6);
+        masteredStudentModel.setPreviousLevel(6);
         MessageGenerator.level7Message(masteredStudentModel, it);
         assertNull(it.getMessage());
 
         //up level, no message
-        masteredStudentModel.setLastLevelRecorded(5);
+        masteredStudentModel.setPreviousLevel(5);
         MessageGenerator.level7Message(masteredStudentModel, it);
         assertNull(it.getMessage());
     }
@@ -252,7 +251,7 @@ public class MessageGeneratorTest {
         }
 
         ImageTask it30 = taskGenerator.makeTask(student30, 4);
-        student30.setLastLevelRecorded(LevelTaskGenerator.calcLevel(student30.calcKnowledgeEstimateByType(4)));
+        student30.setPreviousLevel(LevelTaskGenerator.calcLevel(student30.calcKnowledgeEstimateByType(4)));
         MessageGenerator.repeatLevelMessage(student30, it30, 2);
         assertEquals("You've seen this question recently, you might be stuck on plane/structure questions.", it30.getMessage());
 
@@ -267,7 +266,7 @@ public class MessageGeneratorTest {
             response.setAllResponses(r);
         }
         ImageTask it29 = taskGenerator.makeTask(student29, 4);
-        student29.setLastLevelRecorded(LevelTaskGenerator.calcLevel(student29.calcKnowledgeEstimateByType(4)));
+        student29.setPreviousLevel(LevelTaskGenerator.calcLevel(student29.calcKnowledgeEstimateByType(4)));
         MessageGenerator.repeatLevelMessage(student29, it29, 2);
         assertEquals("You've seen this question recently, you might be stuck on plane/structure questions.", it29.getMessage());
 
@@ -283,7 +282,7 @@ public class MessageGeneratorTest {
         }
 
         ImageTask it31 = taskGenerator.makeTask(student31, 4);
-        student31.setLastLevelRecorded(LevelTaskGenerator.calcLevel(student31.calcKnowledgeEstimateByType(4)));
+        student31.setPreviousLevel(LevelTaskGenerator.calcLevel(student31.calcKnowledgeEstimateByType(4)));
         MessageGenerator.repeatLevelMessage(student31, it31, 2);
         assertNull(it31.getMessage());
 
@@ -291,7 +290,7 @@ public class MessageGeneratorTest {
         StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/buckmank.json", StudentModelRecord.class);
         StudentModel student = smr30.buildStudentModel(myQP);
         ImageTask it = taskGenerator.makeTask(student, 4);
-        student.setLastLevelRecorded(LevelTaskGenerator.calcLevel(student.calcKnowledgeEstimateByType(4)));
+        student.setPreviousLevel(LevelTaskGenerator.calcLevel(student.calcKnowledgeEstimateByType(4)));
         MessageGenerator.repeatLevelMessage(student, it, -1);
         assertNull(it.getMessage());
 

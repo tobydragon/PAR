@@ -19,9 +19,9 @@ public class MessageGenerator {
 
 
     private static final int repeatWindow = 1800000; //30 min in mili
-
+    //TODO: return value instead of having side effect
     public static void generateMessage(StudentModel studentModel, ImageTask imageTask, int previousLevel) {
-        int level = studentModel.getLastLevelRecorded();
+        int level = studentModel.getPreviousLevel();
 
         //new student model
         if (level < 1) {
@@ -54,7 +54,7 @@ public class MessageGenerator {
     }
 
     public static void decreaseLevelMessage(StudentModel studentModel, ImageTask imageTask, int previousLevel){
-        int level = studentModel.getLastLevelRecorded();
+        int level = studentModel.getPreviousLevel();
         if (previousLevel-level > 0 && previousLevel != -1){
             List<String> questionsInPreviousLevel = EquineQuestionTypes.getTypesForLevel(previousLevel);
             String questionsOneString = "";
@@ -70,7 +70,7 @@ public class MessageGenerator {
     }
 
     public static void increaseLevelMessage(StudentModel studentModel, ImageTask imageTask, int previousLevel) {
-        int level = studentModel.getLastLevelRecorded();
+        int level = studentModel.getPreviousLevel();
         if (previousLevel-level < 0 && previousLevel != -1){
             imageTask.setMessage(increaseLevelString);
         }
@@ -80,7 +80,7 @@ public class MessageGenerator {
     }
 
     public static void level7Message(StudentModel studentModel, ImageTask imageTask){
-        int level = studentModel.getLastLevelRecorded();
+        int level = studentModel.getPreviousLevel();
 
         //mastered student
         if (level == 7){
@@ -115,7 +115,7 @@ public class MessageGenerator {
     }
 
     public static void repeatLevelMessage(StudentModel studentModel, ImageTask imageTask, int previousLevel){
-        int level = studentModel.getLastLevelRecorded();
+        int level = studentModel.getPreviousLevel();
 
         //stayed on same level, not mastered
         if (previousLevel == level){

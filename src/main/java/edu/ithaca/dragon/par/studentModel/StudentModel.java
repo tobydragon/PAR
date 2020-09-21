@@ -12,20 +12,22 @@ public class StudentModel {
     private String userId;
     private UserQuestionSet userQuestionSet;
     private UserResponseSet userResponseSet;
-    private int lastLevelRecorded;
+    private int previousLevel;
+    private int currentLevel;
 
     public StudentModel(String userId, List<Question> questions){
         this.userId = userId;
         this.userQuestionSet = UserQuestionSet.buildNewUserQuestionSetFromQuestions(userId, questions);
         this.userResponseSet = new UserResponseSet(userId);
-        lastLevelRecorded = -1;
+        this.previousLevel = -1;
+        this.currentLevel = -1;
     }
 
     public StudentModel(String userId, UserQuestionSet userQuestionSet, UserResponseSet userResponseSet){
         this.userId = userId;
         this.userQuestionSet = userQuestionSet;
         this.userResponseSet = userResponseSet;
-        lastLevelRecorded = 1;
+        previousLevel = 1;
     }
 
     public void imageTaskResponseSubmitted(ImageTaskResponseOOP imageTaskResponses, QuestionPool questions){
@@ -109,14 +111,24 @@ public class StudentModel {
         return userResponseSet.calcKnowledgeEstimateByType(numOfRecentResponsesToConsider);
     }
 
-    public int getLastLevelRecorded() {
-        return lastLevelRecorded;
+    public int getPreviousLevel() {
+        return previousLevel;
     }
 
-    public void setLastLevelRecorded(int levelIn) {
+    public void setPreviousLevel(int levelIn) {
         if (levelIn < 1 || levelIn > 7){
-            throw new IllegalArgumentException("Invalid lastLevelRecorded");
+            throw new IllegalArgumentException("Invalid previousLevel");
         }
-        this.lastLevelRecorded = levelIn;
+        this.previousLevel = levelIn;
+    }
+    public int getCurrentLevel() {
+        return currentLevel;
+    }
+
+    public void setCurrentLevel(int levelIn) {
+        if (levelIn < 1 || levelIn > 7){
+            throw new IllegalArgumentException("Invalid previousLevel");
+        }
+        this.currentLevel = levelIn;
     }
 }
