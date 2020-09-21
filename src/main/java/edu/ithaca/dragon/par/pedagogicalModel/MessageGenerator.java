@@ -19,71 +19,71 @@ public class MessageGenerator {
 
 
     private static final int repeatWindow = 1800000; //30 min in mili
-    //TODO: return value instead of having side effect
-    public static void generateMessage(StudentModel studentModel, ImageTask imageTask, int previousLevel) {
-        int level = studentModel.getPreviousLevel();
+    public static String generateMessage(StudentModel studentModel, ImageTask imageTask) {
+        int currentLevel = studentModel.getCurrentLevel();
+
+        String message = null;
 
         //new student model
-        if (level < 1) {
-            imageTask.setMessage(null);
+        if (currentLevel < 1) {
+            return message;
         }
         else {
-            imageTask.setMessage(null);
 
             //mastered student message
-            if (level == 7) {
-                level7Message(studentModel, imageTask);
+            if (currentLevel == 7) {
+                message = level7Message(studentModel, imageTask);
             } else {
                 //down level
                 //if the student has just decreased in level, this will set the appropriate message.
-                decreaseLevelMessage(studentModel, imageTask, previousLevel);
+                message = decreaseLevelMessage(studentModel, imageTask);
 
                 //up level
-                if (imageTask.getMessage() == null) {
-                    increaseLevelMessage(studentModel, imageTask, previousLevel);
+                if (message == null) {
+                    message = increaseLevelMessage(studentModel, imageTask);
                 }
 
                 //stayed on same level, not mastered
-                if (imageTask.getMessage() == null) {
-                    repeatLevelMessage(studentModel, imageTask, previousLevel);
+                if (message == null) {
+                    message = repeatLevelMessage(studentModel, imageTask);
                 }
 
             }
+            return message;
 
         }
     }
 
-    public static void decreaseLevelMessage(StudentModel studentModel, ImageTask imageTask, int previousLevel){
-        int level = studentModel.getPreviousLevel();
-        if (previousLevel-level > 0 && previousLevel != -1){
-            List<String> questionsInPreviousLevel = EquineQuestionTypes.getTypesForLevel(previousLevel);
+    public static String decreaseLevelMessage(StudentModel studentModel, ImageTask imageTask){
+        if (studentModel.getPreviousLevel()- studentModel.getCurrentLevel() > 0){
+            List<String> questionsInPreviousLevel = EquineQuestionTypes.getTypesForLevel(studentModel.getPreviousLevel());
             String questionsOneString = "";
             for(String q: questionsInPreviousLevel){
                 questionsOneString += q + "/";
             }
             questionsOneString = questionsOneString.substring(0,questionsOneString.length()-1);
-            imageTask.setMessage(troublePart1 +  questionsOneString + troublePart2);
+            return (troublePart1 +  questionsOneString + troublePart2);
         }
         else{
-            imageTask.setMessage(null);
+            return null;
         }
     }
 
-    public static void increaseLevelMessage(StudentModel studentModel, ImageTask imageTask, int previousLevel) {
-        int level = studentModel.getPreviousLevel();
-        if (previousLevel-level < 0 && previousLevel != -1){
-            imageTask.setMessage(increaseLevelString);
+    public static String increaseLevelMessage(StudentModel studentModel, ImageTask imageTask) {
+        int currentLevel = studentModel.getCurrentLevel();
+        if (studentModel.getPreviousLevel()-currentLevel < 0){
+            return increaseLevelString;
         }
         else{
-            imageTask.setMessage(null);
+            return null;
         }
     }
 
-    public static void level7Message(StudentModel studentModel, ImageTask imageTask){
-        int level = studentModel.getPreviousLevel();
+    public static String level7Message(StudentModel studentModel, ImageTask imageTask){
+        int currentLevel = studentModel.getCurrentLevel();
 
         //mastered student
-        if (level == 7){
+        if (currentLevel == 7){
             //repeating questions
             List<Question> allQuestions = studentModel.getUserQuestionSet().getAllQuestions();
             int index = -1;
@@ -97,28 +97,29 @@ public class MessageGenerator {
             if (index != -1){
                 //get index of first question
                 if (studentModel.getUserQuestionSet().getTimesSeen(allQuestions.get(index).getId())>0){
-                    imageTask.setMessage(masterRepeat);
+                    return masterRepeat;
                 }
                 //not seen yet
                 else {
-                    imageTask.setMessage(masterNoRepeat);
+                    return masterNoRepeat;
                 }
             }
             //not found, message is null
             else{
-                imageTask.setMessage(null);
+                return null;
             }
         }
         else{
-            imageTask.setMessage(null);
+            return null;
         }
     }
 
-    public static void repeatLevelMessage(StudentModel studentModel, ImageTask imageTask, int previousLevel){
-        int level = studentModel.getPreviousLevel();
+    public static String repeatLevelMessage(StudentModel studentModel, ImageTask imageTask){
+        int currentLevel = studentModel.getCurrentLevel();
+        int previousLevel = studentModel.getPreviousLevel();
 
         //stayed on same level, not mastered
-        if (previousLevel == level){
+        if (previousLevel == currentLevel){
             //get index of first question
             int ind = -1;
             List<ResponsesPerQuestion> allResponses = studentModel.getUserResponseSet().getResponsesPerQuestionList();
@@ -132,7 +133,7 @@ public class MessageGenerator {
                 ResponsesPerQuestion responsesPerQuestion = studentModel.getUserResponseSet().getResponseById(allResponses.get(ind).getQuestionId());
                 //no responses
                 if (responsesPerQuestion.getAllResponses().size()<1){
-                    imageTask.setMessage(null);
+                    return null;
                 }
                 else {
                     //if there's at least one response
@@ -143,27 +144,27 @@ public class MessageGenerator {
                         //seen within the time window
                         Date date = new Date();
                         if (date.getTime() - sec2 <= repeatWindow) {
-                            List<String> questionsInLevel = EquineQuestionTypes.getTypesForLevel(level);
+                            List<String> questionsInLevel = EquineQuestionTypes.getTypesForLevel(currentLevel);
                             String questionsOneString = "";
                             for (String q : questionsInLevel) {
                                 questionsOneString += q + "/";
                             }
                             questionsOneString = questionsOneString.substring(0, questionsOneString.length() - 1);
-                            imageTask.setMessage(repeatPart1 + questionsOneString + " questions.");
+                            return (repeatPart1 + questionsOneString + " questions.");
                         }
                     }
                     else{
-                        imageTask.setMessage(null);
+                        return null;
                     }
                 }
             }
             else{
-                imageTask.setMessage(null);
+                return null;
             }
 
         }
         else{
-            imageTask.setMessage(null);
+            return null;
         }
-    }
+    return null;}
 }

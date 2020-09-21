@@ -36,19 +36,17 @@ public class ParStudentAndAuthorServer {
 
     public ImageTask nextImageTask( String userId) throws IOException {
         if (idealQuestionCountPerTypeForAnalysis <= studentModelDatastore.getMinQuestionCountPerType()){
-            int prevLevel = studentModelDatastore.getStudentModel(userId).getPreviousLevel();
             ImageTask imageTask = taskGenerator.makeTask(studentModelDatastore.getStudentModel(userId), idealQuestionCountPerTypeForAnalysis);
             LevelTaskGenerator.calcLevel(studentModelDatastore.getStudentModel(userId).calcKnowledgeEstimateByType(idealQuestionCountPerTypeForAnalysis));
             studentModelDatastore.increaseTimesSeen(userId, imageTask.getTaskQuestions());
-            MessageGenerator.generateMessage(studentModelDatastore.getStudentModel(userId), imageTask, prevLevel);
+            MessageGenerator.generateMessage(studentModelDatastore.getStudentModel(userId), imageTask);
             return imageTask;
         }
         else {
-            int prevLevel = studentModelDatastore.getStudentModel(userId).getPreviousLevel();
             ImageTask imageTask = taskGenerator.makeTask(studentModelDatastore.getStudentModel(userId), studentModelDatastore.getMinQuestionCountPerType());
             LevelTaskGenerator.calcLevel(studentModelDatastore.getStudentModel(userId).calcKnowledgeEstimateByType(idealQuestionCountPerTypeForAnalysis));
             studentModelDatastore.increaseTimesSeen(userId, imageTask.getTaskQuestions());
-            MessageGenerator.generateMessage(studentModelDatastore.getStudentModel(userId), imageTask, prevLevel);
+            MessageGenerator.generateMessage(studentModelDatastore.getStudentModel(userId), imageTask);
             return imageTask;
         }
     }
