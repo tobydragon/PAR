@@ -54,8 +54,8 @@ public class StudentModelTest {
         assertEquals(2, studentModel.getSeenQuestionCount());
         assertEquals(13, studentModel.getUnseenQuestionCount());
 
-        studentModel.imageTaskResponseSubmitted(responsesFromFile.get(0),questionPool);
-        studentModel.imageTaskResponseSubmitted(responsesFromFile.get(0),questionPool);
+        studentModel.imageTaskResponseSubmitted(responsesFromFile.get(0),questionPool, 4);
+        studentModel.imageTaskResponseSubmitted(responsesFromFile.get(0),questionPool, 4);
 
         assertEquals(15, studentModel.getResponseCount());
     }
@@ -65,7 +65,7 @@ public class StudentModelTest {
         Map<String,Double> resp=studentModel.calcKnowledgeEstimateByType(4);
         assertEquals(4,resp.size());
 
-        studentModel.imageTaskResponseSubmitted(responsesFromFile.get(1),questionPool);
+        studentModel.imageTaskResponseSubmitted(responsesFromFile.get(1),questionPool, 4);
 
         Map<String,Double> resp1=studentModel.calcKnowledgeEstimateByType(4);
         assertEquals(4,resp1.size());
@@ -79,14 +79,18 @@ public class StudentModelTest {
     @Test
     public void imageTaskResponseSubmittedTest() throws IOException{
         // submit responses to 15 questions
-        studentModel.imageTaskResponseSubmitted(responsesFromFile.get(0),questionPool);
+        studentModel.imageTaskResponseSubmitted(responsesFromFile.get(0),questionPool, 4);
         assertEquals(15, studentModel.getResponseCount());
         assertEquals(15, studentModel.countTotalResponsesFromUserResponseSet());
+        assertEquals( 1, studentModel.getPreviousLevel());
+        assertEquals( 5, studentModel.getCurrentLevel());
 
         // submit 15 new responses to the 15 questions that have already been responded to
-        studentModel.imageTaskResponseSubmitted(responsesFromFile.get(1),questionPool);
+        studentModel.imageTaskResponseSubmitted(responsesFromFile.get(1),questionPool, 4);
         assertEquals(15, studentModel.getResponseCount());
         assertEquals(30, studentModel.countTotalResponsesFromUserResponseSet());
+        assertEquals(5, studentModel.getPreviousLevel());
+        assertEquals( 1, studentModel.getCurrentLevel());
     }
     @Test
     public void addQuestionTest() throws IOException{
@@ -112,7 +116,7 @@ public class StudentModelTest {
     public void getAndSetPreviousLevelTest() throws IOException{
         List<Question> questions= JsonUtil.listFromJsonFile("src/test/resources/author/DemoQuestionPoolFollowup.json", Question.class);
         StudentModel studentModel = new StudentModel("TestUser", questions);
-        assertEquals(-1, studentModel.getPreviousLevel());
+        assertEquals(1, studentModel.getPreviousLevel());
 
         //set once
         studentModel.setPreviousLevel(5);
@@ -154,7 +158,7 @@ public class StudentModelTest {
     public void getAndSetCurrentLevelTest() throws IOException{
         List<Question> questions= JsonUtil.listFromJsonFile("src/test/resources/author/DemoQuestionPoolFollowup.json", Question.class);
         StudentModel studentModel = new StudentModel("TestUser", questions);
-        assertEquals(-1, studentModel.getCurrentLevel());
+        assertEquals(1, studentModel.getCurrentLevel());
 
         //set once
         studentModel.setCurrentLevel(5);

@@ -99,7 +99,7 @@ public class MessageGeneratorTest {
         ImageTaskResponseOOP itr = new ImageTaskResponseOOP();
         itr.setUserId(masteredStudentModel.getUserId());
         itr.setQuestionResponses(resp);
-        masteredStudentModel.imageTaskResponseSubmitted(itr, myQP);
+        masteredStudentModel.imageTaskResponseSubmitted(itr, myQP, 4);
 
         masteredStudentModel.setPreviousLevel(1);
         MessageGenerator.generateMessage(masteredStudentModel, it, 1);

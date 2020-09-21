@@ -54,7 +54,7 @@ public class ParStudentAndAuthorServer {
     }
 
     public void submitImageTaskResponse( ImageTaskResponseOOP response) throws IOException {
-            studentModelDatastore.submitImageTaskResponse(response.getUserId(), response);
+            studentModelDatastore.submitImageTaskResponse(response.getUserId(), response, idealQuestionCountPerTypeForAnalysis);
     }
 
     public void logout(String userId) throws IOException{

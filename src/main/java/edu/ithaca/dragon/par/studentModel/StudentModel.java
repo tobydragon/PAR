@@ -4,6 +4,8 @@ import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.ImageTaskResponseOOP;
+import edu.ithaca.dragon.par.pedagogicalModel.LevelTaskGenerator;
+import edu.ithaca.dragon.par.pedagogicalModel.TaskGenerator;
 
 import java.util.*;
 
@@ -19,8 +21,8 @@ public class StudentModel {
         this.userId = userId;
         this.userQuestionSet = UserQuestionSet.buildNewUserQuestionSetFromQuestions(userId, questions);
         this.userResponseSet = new UserResponseSet(userId);
-        this.previousLevel = -1;
-        this.currentLevel = -1;
+        this.previousLevel = 1;
+        this.currentLevel = 1;
     }
 
     public StudentModel(String userId, UserQuestionSet userQuestionSet, UserResponseSet userResponseSet){
@@ -28,10 +30,13 @@ public class StudentModel {
         this.userQuestionSet = userQuestionSet;
         this.userResponseSet = userResponseSet;
         previousLevel = 1;
+        currentLevel = 1;
     }
 
-    public void imageTaskResponseSubmitted(ImageTaskResponseOOP imageTaskResponses, QuestionPool questions){
+    public void imageTaskResponseSubmitted(ImageTaskResponseOOP imageTaskResponses, QuestionPool questions, int questionCountPerTypeForAnalysis){
         userResponseSet.addAllResponses(createUserResponseObj(imageTaskResponses,questions,this.userId));
+        setPreviousLevel(currentLevel);
+        setCurrentLevel(LevelTaskGenerator.calcLevel(calcKnowledgeEstimateByType(questionCountPerTypeForAnalysis)));
     }
 
     public static List<ResponsesPerQuestion> createUserResponseObj(ImageTaskResponseOOP imageTaskResponses, QuestionPool questions, String userId){
