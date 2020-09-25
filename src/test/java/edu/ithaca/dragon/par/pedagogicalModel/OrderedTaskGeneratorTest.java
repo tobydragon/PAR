@@ -18,9 +18,10 @@ public class OrderedTaskGeneratorTest {
         OrderedTaskGenerator randomTaskGenerator = new OrderedTaskGenerator();
         QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/SampleQuestionPool.json").getAllQuestions());
         StudentModel studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
+        
         String firstQuestionType = null;
-        String lastQuestionType = null;
-        for (int i = 0; i < 10; i++){
+        String lastQuestionType;
+        for (int i = 0; i < 15; i++){
             ImageTask taskToCheck = randomTaskGenerator.makeTask(studentModel, 4);
             List<Question> questionsList = taskToCheck.getTaskQuestions();
             if (i == 0) {
