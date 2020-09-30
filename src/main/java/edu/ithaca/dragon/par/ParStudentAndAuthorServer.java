@@ -51,6 +51,10 @@ public class ParStudentAndAuthorServer {
         }
     }
 
+    public String getMessage(String userId){
+        return "blah";
+    }
+
     public void submitImageTaskResponse( ImageTaskResponseOOP response) throws IOException {
             studentModelDatastore.submitImageTaskResponse(response.getUserId(), response, idealQuestionCountPerTypeForAnalysis);
     }

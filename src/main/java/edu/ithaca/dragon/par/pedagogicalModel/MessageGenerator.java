@@ -36,11 +36,11 @@ public class MessageGenerator {
             } else {
                 //down level
                 //if the student has just decreased in level, this will set the appropriate message.
-                message = decreaseLevelMessage(studentModel, imageTask);
+                message = decreaseLevelMessage(studentModel);
 
                 //up level
                 if (message == null) {
-                    message = increaseLevelMessage(studentModel, imageTask);
+                    message = increaseLevelMessage(studentModel);
                 }
 
                 //stayed on same level, not mastered
@@ -54,7 +54,7 @@ public class MessageGenerator {
         }
     }
 
-    public static String decreaseLevelMessage(StudentModel studentModel, ImageTask imageTask){
+    public static String decreaseLevelMessage(StudentModel studentModel){
         if (studentModel.getPreviousLevel()- studentModel.getCurrentLevel() > 0){
             List<String> questionsInPreviousLevel = EquineQuestionTypes.getTypesForLevel(studentModel.getPreviousLevel());
             String questionsOneString = "";
@@ -69,7 +69,7 @@ public class MessageGenerator {
         }
     }
 
-    public static String increaseLevelMessage(StudentModel studentModel, ImageTask imageTask) {
+    public static String increaseLevelMessage(StudentModel studentModel) {
         int currentLevel = studentModel.getCurrentLevel();
         if (studentModel.getPreviousLevel()-currentLevel < 0){
             return increaseLevelString;

@@ -135,38 +135,38 @@ public class MessageGeneratorTest {
         //7 to 6
         masteredStudentModel.setPreviousLevel(7);
         masteredStudentModel.setCurrentLevel(6);
-        String message = MessageGenerator.decreaseLevelMessage(masteredStudentModel, it);
+        String message = MessageGenerator.decreaseLevelMessage(masteredStudentModel);
         assertEquals("Looks like you're having trouble with zone questions, go look at resources and come back if you need to", message);
 
 
         //6 to 5
         masteredStudentModel.setPreviousLevel(6);
         masteredStudentModel.setCurrentLevel(5);
-        message = MessageGenerator.decreaseLevelMessage(masteredStudentModel, it);
+        message = MessageGenerator.decreaseLevelMessage(masteredStudentModel);
         assertEquals("Looks like you're having trouble with attachment/zone questions, go look at resources and come back if you need to", message);
 
         //5 to 4
         masteredStudentModel.setPreviousLevel(5);
         masteredStudentModel.setCurrentLevel(4);
-        message = MessageGenerator.decreaseLevelMessage(masteredStudentModel, it);
+        message = MessageGenerator.decreaseLevelMessage(masteredStudentModel);
         assertEquals("Looks like you're having trouble with attachment questions, go look at resources and come back if you need to", message);
 
         //4 to 3
         masteredStudentModel.setPreviousLevel(4);
         masteredStudentModel.setCurrentLevel(3);
-        message = MessageGenerator.decreaseLevelMessage(masteredStudentModel, it);
+        message = MessageGenerator.decreaseLevelMessage(masteredStudentModel);
         assertEquals("Looks like you're having trouble with structure/attachment questions, go look at resources and come back if you need to", message);
 
         //3 to 2
         masteredStudentModel.setPreviousLevel(3);
         masteredStudentModel.setCurrentLevel(2);
-        message = MessageGenerator.decreaseLevelMessage(masteredStudentModel, it);
+        message = MessageGenerator.decreaseLevelMessage(masteredStudentModel);
         assertEquals("Looks like you're having trouble with structure questions, go look at resources and come back if you need to", message);
 
         //2 to 1
         masteredStudentModel.setPreviousLevel(2);
         masteredStudentModel.setCurrentLevel(1);
-        message = MessageGenerator.decreaseLevelMessage(masteredStudentModel, it);
+        message = MessageGenerator.decreaseLevelMessage(masteredStudentModel);
         assertEquals("Looks like you're having trouble with plane/structure questions, go look at resources and come back if you need to", message);
 
 
@@ -174,7 +174,7 @@ public class MessageGeneratorTest {
         masteredStudentModel.setCurrentLevel(1);
         masteredStudentModel.setPreviousLevel(1);
         it.setMessage("hey");
-        message = MessageGenerator.decreaseLevelMessage(masteredStudentModel, it);
+        message = MessageGenerator.decreaseLevelMessage(masteredStudentModel);
         assertNull(message);
 
     }
@@ -196,24 +196,24 @@ public class MessageGeneratorTest {
         //goes up level
         level2Student.setCurrentLevel(2);
         level2Student.setPreviousLevel(1);
-        message = MessageGenerator.increaseLevelMessage(level2Student, it2);
+        message = MessageGenerator.increaseLevelMessage(level2Student);
         assertEquals("You're doing great!", message);
 
         //stays the same, no message
         level2Student.setPreviousLevel(2);
-        message = MessageGenerator.increaseLevelMessage(level2Student, it2);
+        message = MessageGenerator.increaseLevelMessage(level2Student);
         assertNull(message);
 
         //goes down level, no message
         level2Student.setPreviousLevel(2);
         level2Student.setCurrentLevel(1);
-        message = MessageGenerator.increaseLevelMessage(level2Student, it2);
+        message = MessageGenerator.increaseLevelMessage(level2Student);
         assertNull(message);
 
         //goes up level
         level2Student.setPreviousLevel(2);
         level2Student.setCurrentLevel(3);
-        message = MessageGenerator.increaseLevelMessage(level2Student, it2);
+        message = MessageGenerator.increaseLevelMessage(level2Student);
         assertEquals("You're doing great!", message);
     }
 

@@ -3,6 +3,7 @@ package edu.ithaca.dragon.par;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.*;
 import edu.ithaca.dragon.par.studentModel.ResponsesPerQuestion;
+import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.par.studentModel.UserResponseSet;
 import edu.ithaca.dragon.util.JsonIoHelperDefault;
 import edu.ithaca.dragon.util.JsonIoUtil;
@@ -235,6 +236,24 @@ class ParStudentAndAuthorServerTest {
         ResponsesPerQuestion responsesPerQuestion11 = new ResponsesPerQuestion("PSAaSTestUser", jsonStudentDatastore.findTopLevelQuestionTemplateById("347-structure2-./images/metacarpal42.jpg"), "superficial digital flexor tendon"); //structure
         ResponsesPerQuestion responsesPerQuestion12 = new ResponsesPerQuestion("PSAaSTestUser", jsonStudentDatastore.findTopLevelQuestionTemplateById("347-structure2-./images/metacarpal42.jpg").getFollowupQuestions().get(0), "medial humeral epicondyle"); //attachment
         ResponsesPerQuestion responsesPerQuestion13 = new ResponsesPerQuestion("PSAaSTestUser", jsonStudentDatastore.findTopLevelQuestionTemplateById("347-structure2-./images/metacarpal42.jpg").getFollowupQuestions().get(1), "both proximal and middle phalanxes"); //attachment
+
+
+    }
+
+    @Test
+    public void getCorrectMessageTests(@TempDir Path tempDir) throws IOException{
+        Path currentStudentModelDir = tempDir.resolve("students");
+        assertTrue(new File(currentStudentModelDir.toString()).mkdir());
+        JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
+                tempDir.resolve("currentQuestions.json").toString(),
+                "src/test/resources/author/SampleQuestionPool4.json",
+                new JsonIoHelperDefault(),
+                currentStudentModelDir.toString());
+
+        ParStudentAndAuthorServer server = new ParStudentAndAuthorServer(jsonStudentDatastore, null);
+
+        StudentModel student = jsonStudentDatastore.getOrCreateStudentModel("PSaASTestUser");
+
 
 
     }
