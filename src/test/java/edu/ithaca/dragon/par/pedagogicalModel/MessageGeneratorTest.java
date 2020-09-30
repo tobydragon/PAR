@@ -34,7 +34,7 @@ public class MessageGeneratorTest {
         masteredStudentModel.setCurrentLevel(7);
         masteredStudentModel.setPreviousLevel(6);
         String message = MessageGenerator.generateMessage(masteredStudentModel, it);
-        assertEquals("You've mastered the material and started repeating questions", message);
+        assertEquals("You have mastered the material, feel free to keep practicing", message);
 
         //not level 7, no message to display
         StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/buckmank.json", StudentModelRecord.class);

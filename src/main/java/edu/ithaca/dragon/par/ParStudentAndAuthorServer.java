@@ -47,6 +47,7 @@ public class ParStudentAndAuthorServer {
             LevelTaskGenerator.calcLevel(studentModelDatastore.getStudentModel(userId).calcKnowledgeEstimateByType(idealQuestionCountPerTypeForAnalysis));
             studentModelDatastore.increaseTimesSeen(userId, imageTask.getTaskQuestions());
             imageTask.setMessage(MessageGenerator.generateMessage(studentModelDatastore.getStudentModel(userId), imageTask));
+            //TODO: use getMessage method
             return imageTask;
         }
     }

@@ -268,7 +268,7 @@ class ParStudentAndAuthorServerTest {
         student.setCurrentLevel(7);
         student.setPreviousLevel(6);
         String message = server.getMessage(student.getUserId(), it);
-        assertEquals("You've mastered the material and started repeating questions", message);
+        assertEquals("You have mastered the material, feel free to keep practicing", message);
 
         //not level 7, no message to display
         StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/buckmank.json", StudentModelRecord.class);
