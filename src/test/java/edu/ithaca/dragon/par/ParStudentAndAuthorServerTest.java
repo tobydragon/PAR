@@ -1,7 +1,10 @@
 package edu.ithaca.dragon.par;
 
+import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.*;
+import edu.ithaca.dragon.par.pedagogicalModel.LevelTaskGenerator;
+import edu.ithaca.dragon.par.pedagogicalModel.MessageGenerator;
 import edu.ithaca.dragon.par.studentModel.ResponsesPerQuestion;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.par.studentModel.UserResponseSet;
@@ -17,10 +20,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ParStudentAndAuthorServerTest {
@@ -241,7 +247,7 @@ class ParStudentAndAuthorServerTest {
     }
 
     @Test
-    public void getCorrectMessageTests(@TempDir Path tempDir) throws IOException{
+    public void getCorrectMessageTest(@TempDir Path tempDir) throws IOException{
         Path currentStudentModelDir = tempDir.resolve("students");
         assertTrue(new File(currentStudentModelDir.toString()).mkdir());
         JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
@@ -255,6 +261,81 @@ class ParStudentAndAuthorServerTest {
         StudentModel student = jsonStudentDatastore.getOrCreateStudentModel("PSaASTestUser");
 
 
+
+        ImageTask it = server.nextImageTask(student.getUserId());
+
+        //mastered
+        student.setCurrentLevel(7);
+        student.setPreviousLevel(6);
+        String message = server.getMessage(student.getUserId(), it);
+        assertEquals("You've mastered the material and started repeating questions", message);
+
+        //not level 7, no message to display
+        StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/buckmank.json", StudentModelRecord.class);
+        ImageTask it2 = server.nextImageTask(student.getUserId());
+        student.setPreviousLevel(4);
+        student.setCurrentLevel(4);
+        message = server.getMessage(student.getUserId(), it2);
+        assertNull(message);
+
+
+        //goes down level, structure
+        student.setCurrentLevel(2);
+        student.setPreviousLevel(3);
+        message = server.getMessage(student.getUserId(), it2);
+        assertEquals("Looks like you're having trouble with structure questions, go look at resources and come back if you need to", message);
+
+        //goes up level
+        student.setPreviousLevel(1);
+        message = server.getMessage(student.getUserId(), it2);
+        assertEquals("You're doing great!", message);
+
+
+        //7 to 6
+        student.setCurrentLevel(6);
+        student.setPreviousLevel(7);
+        message = server.getMessage(student.getUserId(), it);
+        assertEquals("Looks like you're having trouble with zone questions, go look at resources and come back if you need to", message);
+
+
+        //6 to 5
+        student.setCurrentLevel(5);
+        student.setPreviousLevel(6);
+        message = server.getMessage(student.getUserId(), it);
+        assertEquals("Looks like you're having trouble with attachment/zone questions, go look at resources and come back if you need to", message);
+
+        //5 to 4
+        student.setCurrentLevel(4);
+        student.setPreviousLevel(5);
+        message = server.getMessage(student.getUserId(), it);
+        assertEquals("Looks like you're having trouble with attachment questions, go look at resources and come back if you need to", message);
+
+        //4 to 3
+        student.setCurrentLevel(3);
+        student.setPreviousLevel(4);
+        message = server.getMessage(student.getUserId(), it);
+        assertEquals("Looks like you're having trouble with structure/attachment questions, go look at resources and come back if you need to", message);
+
+        //3 to 2
+        student.setCurrentLevel(2);
+        student.setPreviousLevel(3);
+        message = server.getMessage(student.getUserId(), it);
+        assertEquals("Looks like you're having trouble with structure questions, go look at resources and come back if you need to", message);
+
+        //2 to 1
+        student.setCurrentLevel(1);
+        student.setPreviousLevel(2);
+        message = server.getMessage(student.getUserId(), it);
+        assertEquals("Looks like you're having trouble with plane/structure questions, go look at resources and come back if you need to", message);
+
+        //stay on level 7, repeated question
+        student.setPreviousLevel(7);
+        student.setCurrentLevel(7);
+        for (Question question : it.getTaskQuestions()){
+            student.increaseTimesSeen(question.getId());
+        }
+        message = server.getMessage(student.getUserId(), it);
+        assertEquals("You've mastered the material and started repeating questions", message);
 
     }
 } 

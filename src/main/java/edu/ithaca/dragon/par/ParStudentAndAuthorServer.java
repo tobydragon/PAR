@@ -51,7 +51,7 @@ public class ParStudentAndAuthorServer {
         }
     }
 
-    public String getMessage(String userId){
+    public String getMessage(String userId, ImageTask it){
         return "blah";
     }
 
