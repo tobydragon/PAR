@@ -51,8 +51,8 @@ public class ParStudentAndAuthorServer {
         }
     }
 
-    public String getMessage(String userId, ImageTask it){
-        return "blah";
+    public String getMessage(String userId, ImageTask it) throws IOException{
+        return MessageGenerator.generateMessage(studentModelDatastore.getStudentModel(userId), it);
     }
 
     public void submitImageTaskResponse( ImageTaskResponseOOP response) throws IOException {
