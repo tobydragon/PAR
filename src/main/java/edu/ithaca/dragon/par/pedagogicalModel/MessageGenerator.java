@@ -82,38 +82,50 @@ public class MessageGenerator {
     public static String level7Message(StudentModel studentModel, ImageTask imageTask){
         int currentLevel = studentModel.getCurrentLevel();
 
-        //TODO: look at question in image task. if it's been seen in the last 30 min, give repeated message
-
-        //mastered student
-        if (currentLevel == 7){
-            //repeating questions
-            List<Question> allQuestions = studentModel.getUserQuestionSet().getAllQuestions();
-            int index = -1;
-            for (int i = 0; i < allQuestions.size(); i++){
-                //there should only be one zone question in this task
-                if (allQuestions.get(i).getId().equals(imageTask.getTaskQuestions().get(0).getId())){
-                    index = i;
-                }
-            }
-            //question found
-            if (index != -1){
-                //get index of first question
-                if (studentModel.getUserQuestionSet().getTimesSeen(allQuestions.get(index).getId())>0){
-                    return masterRepeat;
-                }
-                //not seen yet
-                else {
-                    return masterNoRepeat;
-                }
-            }
-            //not found, message is null
-            else{
-                return null;
-            }
-        }
-        else{
+        //check level
+        if (currentLevel != 7){
             return null;
         }
+
+        try{
+            ResponsesPerQuestion responses = studentModel.getUserResponseSet().getResponseById(imageTask.getTaskQuestions().get(0).getId());
+
+            long millisLastTimeSeen = responses.getAllResponses().get(responses.getAllResponses().size()-1).getMillSeconds();
+            Date date = new Date();
+
+            if (date.getTime() - millisLastTimeSeen < repeatWindow){
+                return masterRepeat;
+            }
+            return masterNoRepeat;
+
+        }
+        catch (IllegalArgumentException e){ //no responses yet, hasn't been repeated.
+            return masterNoRepeat;
+        }
+
+//
+//        int index = -1;
+//        for (int i = 0; i < allQuestions.size(); i++){
+//            //there should only be one zone question in this task
+//            if (allQuestions.get(i).getId().equals(imageTask.getTaskQuestions().get(0).getId())){
+//                if (studentModel.getUserResponseSet().getResponseById(allQuestions.get()))
+//            }
+//        }
+//        //question found
+//        if (index != -1){
+//            //get index of first question
+//            if (studentModel.getUserQuestionSet().getTimesSeen(allQuestions.get(index).getId())>0){
+//                return masterRepeat;
+//            }
+//            //not seen yet
+//            else {
+//                return masterNoRepeat;
+//            }
+//        }
+//        //not found, message is null
+//        else{
+//            return null;
+//        }
     }
 
     public static String repeatLevelMessage(StudentModel studentModel, ImageTask imageTask){

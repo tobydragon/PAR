@@ -5,6 +5,7 @@ import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.*;
 import edu.ithaca.dragon.par.pedagogicalModel.LevelTaskGenerator;
 import edu.ithaca.dragon.par.pedagogicalModel.MessageGenerator;
+import edu.ithaca.dragon.par.studentModel.QuestionResponse;
 import edu.ithaca.dragon.par.studentModel.ResponsesPerQuestion;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.par.studentModel.UserResponseSet;
@@ -20,10 +21,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -331,9 +329,32 @@ class ParStudentAndAuthorServerTest {
         //stay on level 7, repeated question
         student.setPreviousLevel(7);
         student.setCurrentLevel(7);
-        for (Question question : it.getTaskQuestions()){
-            student.increaseTimesSeen(question.getId());
+
+
+        Date date = new Date();
+        for (ResponsesPerQuestion response:student.getUserResponseSet().getResponsesPerQuestionList()){
+            List<QuestionResponse> r = response.getAllResponses();
+            QuestionResponse last = r.get(response.getAllResponses().size()-1);
+            last.setMillSeconds(date.getTime()-1799500);
+            response.setAllResponses(r);
         }
+        for (Question question : it.getTaskQuestions()){
+            if (student.getUserQuestionSet().getTimesSeen(question.getId())==0){
+                student.increaseTimesSeen(question.getId());
+            }
+        }
+
+        Question q = student.getUserQuestionSet().getAllQuestions().get(0);
+        List<Question> questionList = new ArrayList<>();
+        questionList.add(q);
+        it.setTaskQuestions(questionList);
+
+
+        ResponsesPerQuestion rpq = new ResponsesPerQuestion(student.getUserId(), q, "huh");
+        student.getUserResponseSet().addResponse(rpq);
+
+
+
         message = server.getMessage(student.getUserId(), it);
         assertEquals("You've mastered the material and started repeating questions", message);
 

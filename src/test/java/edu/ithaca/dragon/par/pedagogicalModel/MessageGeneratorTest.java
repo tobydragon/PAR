@@ -98,9 +98,26 @@ public class MessageGeneratorTest {
         //stay on level 7, repeated question
         masteredStudentModel.setPreviousLevel(7);
         masteredStudentModel.setCurrentLevel(7);
-        for (Question question : it.getTaskQuestions()){
-            masteredStudentModel.increaseTimesSeen(question.getId());
+
+        Date date = new Date();
+        for (ResponsesPerQuestion response:masteredStudentModel.getUserResponseSet().getResponsesPerQuestionList()){
+            List<QuestionResponse> r = response.getAllResponses();
+            QuestionResponse last = r.get(response.getAllResponses().size()-1);
+            last.setMillSeconds(date.getTime()-1799500);
+            response.setAllResponses(r);
         }
+        for (Question question : it.getTaskQuestions()){
+            if (masteredStudentModel.getUserQuestionSet().getTimesSeen(question.getId())==0){
+                masteredStudentModel.increaseTimesSeen(question.getId());
+            }
+        }
+
+
+        Question q = masteredStudentModel.getUserQuestionSet().getAllQuestions().get(0);
+        List<Question> questionList = new ArrayList<>();
+        questionList.add(q);
+        it.setTaskQuestions(questionList);
+
         message = MessageGenerator.generateMessage(masteredStudentModel, it);
         assertEquals("You've mastered the material and started repeating questions", message);
 
@@ -230,7 +247,7 @@ public class MessageGeneratorTest {
         //mastered
         masteredStudentModel.setCurrentLevel(7);
         String message = MessageGenerator.level7Message(masteredStudentModel, it);
-        assertEquals("You've mastered the material and started repeating questions", message);
+        assertEquals("You have mastered the material, feel free to keep practicing", message);
 
         //not level 7, no message to display
         StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/buckmank.json", StudentModelRecord.class);
@@ -245,9 +262,26 @@ public class MessageGeneratorTest {
         //stay on level 7, repeated question
         masteredStudentModel.setPreviousLevel(7);
         masteredStudentModel.setCurrentLevel(7);
-        for (Question question : it.getTaskQuestions()){
-            masteredStudentModel.increaseTimesSeen(question.getId());
+
+        Date date = new Date();
+        for (ResponsesPerQuestion response:masteredStudentModel.getUserResponseSet().getResponsesPerQuestionList()){
+            List<QuestionResponse> r = response.getAllResponses();
+            QuestionResponse last = r.get(response.getAllResponses().size()-1);
+            last.setMillSeconds(date.getTime()-1799500);
+            response.setAllResponses(r);
         }
+        for (Question question : it.getTaskQuestions()){
+            if (masteredStudentModel.getUserQuestionSet().getTimesSeen(question.getId())==0){
+                masteredStudentModel.increaseTimesSeen(question.getId());
+            }
+        }
+
+
+        Question q = masteredStudentModel.getUserQuestionSet().getAllQuestions().get(0);
+        List<Question> questionList = new ArrayList<>();
+        questionList.add(q);
+        it.setTaskQuestions(questionList);
+
         message = MessageGenerator.level7Message(masteredStudentModel, it);
         assertEquals("You've mastered the material and started repeating questions", message);
 
