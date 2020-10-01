@@ -36,4 +36,30 @@ public class OrderedTaskGeneratorTest {
 
         assertEquals(firstQuestionType, lastQuestionType);
     }
+
+    @Test
+    public void jsonLoadedTest() throws IOException {
+        //load two students
+        QuestionPool questionPool1 = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/DemoQuestionPoolFewFollowups.json").getAllQuestions());
+        StudentModel studentModel1 = new StudentModel("TestUser1", questionPool1.getAllQuestions());
+
+        QuestionPool questionPool2 = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/DemoQuestionPool.json").getAllQuestions());
+        StudentModel studentModel2 = new StudentModel("TestUser2", questionPool2.getAllQuestions());
+
+        // load two OrderedTaskGenerators with different QuestionPools
+        OrderedTaskGenerator otg1 = new OrderedTaskGenerator(questionPool1, true);
+        OrderedTaskGenerator otg2 = new OrderedTaskGenerator(questionPool2, false);
+
+        //ask for task with followup questions; verify length is greater than 1
+        ImageTask testFollowup = otg1.makeTask(studentModel1, 4);
+        assertNotEquals(testFollowup.getTaskQuestions().size(), 1);
+        assertTrue(testFollowup.getTaskQuestions().size() > 0);
+
+        //ask for task with no followup; verify length is exactly 1
+        ImageTask testSingle = otg2.makeTask(studentModel2, 4);
+        assertEquals(testSingle.getTaskQuestions().size(), 1);
+
+        //verify that two asked questions are different
+        assertFalse(testFollowup.equals(testSingle));
+    }
 }

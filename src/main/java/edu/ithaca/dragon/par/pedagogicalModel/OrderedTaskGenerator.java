@@ -14,11 +14,14 @@ public class OrderedTaskGenerator implements TaskGenerator {
 
     public OrderedTaskGenerator (){
         this.questionIds = new ArrayList<>();
-        initializeQuestionSet();
+        hardcodedInitializeQuestionSet();
         this.lastQuestionAskedIndex = 0;
     }
 
-    private void initializeQuestionSet() {
+    public OrderedTaskGenerator(QuestionPool questionsToAsk, boolean isFollowupIncluded) {
+    }
+
+    private void hardcodedInitializeQuestionSet() {
         this.questionIds.add("PlaneQ1");
         this.questionIds.add("PlaneQ2");
         this.questionIds.add("PlaneQ3");
