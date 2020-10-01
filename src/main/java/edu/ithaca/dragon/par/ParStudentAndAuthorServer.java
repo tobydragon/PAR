@@ -30,6 +30,7 @@ public class ParStudentAndAuthorServer {
             this.studentModelDatastore = studentModelDatastore;
             authorServer = new AuthorServer(authorDatastore);
             taskGenerator = new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap());
+        System.out.println();
     }
 
     //----------- Student methods  --------------//
@@ -47,7 +48,8 @@ public class ParStudentAndAuthorServer {
             LevelTaskGenerator.calcLevel(studentModelDatastore.getStudentModel(userId).calcKnowledgeEstimateByType(idealQuestionCountPerTypeForAnalysis));
             studentModelDatastore.increaseTimesSeen(userId, imageTask.getTaskQuestions());
             imageTask.setMessage(MessageGenerator.generateMessage(studentModelDatastore.getStudentModel(userId), imageTask));
-            //TODO: use getMessage method
+            //TODO: use getMessage method. will there be a separate call to getMessage?
+            // should i delete any message stuff in here?
             return imageTask;
         }
     }

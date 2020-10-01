@@ -82,6 +82,8 @@ public class MessageGenerator {
     public static String level7Message(StudentModel studentModel, ImageTask imageTask){
         int currentLevel = studentModel.getCurrentLevel();
 
+        //TODO: look at question in image task. if it's been seen in the last 30 min, give repeated message
+
         //mastered student
         if (currentLevel == 7){
             //repeating questions
