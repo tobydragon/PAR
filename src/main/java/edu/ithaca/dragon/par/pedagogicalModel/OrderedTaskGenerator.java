@@ -1,6 +1,7 @@
 package edu.ithaca.dragon.par.pedagogicalModel;
 
 import edu.ithaca.dragon.par.domainModel.Question;
+import edu.ithaca.dragon.par.domainModel.QuestionOrderedInfo;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
@@ -9,44 +10,54 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderedTaskGenerator implements TaskGenerator {
-    private List<String> questionIds;
-    private int lastQuestionAskedIndex;
+    private final List<QuestionOrderedInfo> questionIds;
+    private final int lastQuestionAskedIndex;
 
-    public OrderedTaskGenerator (){
-        this.questionIds = new ArrayList<>();
-        hardcodedInitializeQuestionSet();
+    //orderedQuestionList assumed to be subset of StudentModel QuestionPool
+    // TODO: 10/1/20 make robust by handling bad IDs
+    public OrderedTaskGenerator(QuestionPool questionsToAsk, List<QuestionOrderedInfo> orderedQuestionList) {
+        this.questionIds = orderedQuestionList;
         this.lastQuestionAskedIndex = 0;
     }
 
-    public OrderedTaskGenerator(QuestionPool questionsToAsk, boolean isFollowupIncluded) {
-    }
+    public static List<QuestionOrderedInfo> createOrderedQuestionInfoListFromQuestionPool(QuestionPool questionsToAdd, boolean isFollowupAttached) {
+        List<QuestionOrderedInfo> toReturn = new ArrayList<>();
+        List<Question> individualQuestions = questionsToAdd.getAllQuestions();
+        for (int i = 0; i < individualQuestions.size(); i++){
+            Question temp = individualQuestions.get(i);
+            QuestionOrderedInfo tempInfo = new QuestionOrderedInfo(temp.getId(), isFollowupAttached);
+            toReturn.add(tempInfo);
+            List<Question> followups = temp.getFollowupQuestions();
+            if(followups.size() > 0 && isFollowupAttached){
+                for (int j = 0; j < followups.size(); j++){
+                    Question depthOne = followups.get(j);
+                    if(depthOne.getFollowupQuestions().size() > 0){
+                        tempInfo = new QuestionOrderedInfo(depthOne.getId(), true);
+                        toReturn.add(tempInfo);
 
-    private void hardcodedInitializeQuestionSet() {
-        this.questionIds.add("PlaneQ1");
-        this.questionIds.add("PlaneQ2");
-        this.questionIds.add("PlaneQ3");
-        this.questionIds.add("PlaneQ4");
-        this.questionIds.add("PlaneQ5");
-
-        this.questionIds.add("StructureQ1");
-        this.questionIds.add("StructureQ2");
-        this.questionIds.add("StructureQ3");
-        this.questionIds.add("StructureQ4");
-        this.questionIds.add("StructureQ5");
-
-        this.questionIds.add("ZoneQ1");
-        this.questionIds.add("ZoneQ2");
-        this.questionIds.add("ZoneQ3");
-        this.questionIds.add("ZoneQ4");
-        this.questionIds.add("ZoneQ5");
+                        List<Question> depthTwoList = depthOne.getFollowupQuestions();
+                        for(int k = 0; k < depthTwoList.size(); k++){
+                            Question depthTwo = depthTwoList.get(k);
+                            tempInfo = new QuestionOrderedInfo(depthTwo.getId(), false);
+                            toReturn.add(tempInfo);
+                        }
+                    } else {
+                        tempInfo = new QuestionOrderedInfo(depthOne.getId(), false);
+                        toReturn.add(tempInfo);
+                    }
+                }
+            }
+        }
+        return toReturn;
     }
 
     @Override
     public ImageTask makeTask(StudentModel studentModel, int questionCountPerTypeForAnalysis) {
         List<Question> questionsToSelect = studentModel.getUserQuestionSet().getAllQuestions();
-        Question initialQuestion= questionsToSelect.get((lastQuestionAskedIndex + 1) % questionIds.size());
-        List<Question> questionList = QuestionPool.getTopLevelQuestionsFromUrl(studentModel.getUserQuestionSet().getAllQuestions(), initialQuestion.getImageUrl());
-        ImageTask imageTask = new ImageTask(initialQuestion.getImageUrl(), questionList);
+        Question nextQuestion= questionsToSelect.get((lastQuestionAskedIndex + 1) % questionIds.size());
+        List<Question> questionList = new ArrayList<>();
+        questionList.add(nextQuestion);
+        ImageTask imageTask = new ImageTask(nextQuestion.getImageUrl(), questionList);
 
         studentModel.getUserQuestionSet().increaseTimesSeenAllQuestions(questionList);
         return imageTask;
