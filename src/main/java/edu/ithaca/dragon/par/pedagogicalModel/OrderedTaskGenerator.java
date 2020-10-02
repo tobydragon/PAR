@@ -12,12 +12,14 @@ import java.util.List;
 public class OrderedTaskGenerator implements TaskGenerator {
     private final List<QuestionOrderedInfo> questionIds;
     private final int lastQuestionAskedIndex;
+    private final QuestionPool questionPool;
 
     //orderedQuestionList assumed to be subset of StudentModel QuestionPool
     // TODO: 10/1/20 make robust by handling bad IDs
     public OrderedTaskGenerator(QuestionPool questionsToAsk, List<QuestionOrderedInfo> orderedQuestionList) {
         this.questionIds = orderedQuestionList;
         this.lastQuestionAskedIndex = 0;
+        this.questionPool = questionsToAsk;
     }
 
     public static List<QuestionOrderedInfo> createOrderedQuestionInfoListFromQuestionPool(QuestionPool questionsToAdd, boolean isFollowupAttached) {
@@ -53,13 +55,13 @@ public class OrderedTaskGenerator implements TaskGenerator {
 
     @Override
     public ImageTask makeTask(StudentModel studentModel, int questionCountPerTypeForAnalysis) {
-        List<Question> questionsToSelect = studentModel.getUserQuestionSet().getAllQuestions();
-        Question nextQuestion= questionsToSelect.get((lastQuestionAskedIndex + 1) % questionIds.size());
-        List<Question> questionList = new ArrayList<>();
-        questionList.add(nextQuestion);
-        ImageTask imageTask = new ImageTask(nextQuestion.getImageUrl(), questionList);
-
-        studentModel.getUserQuestionSet().increaseTimesSeenAllQuestions(questionList);
-        return imageTask;
+//        List<Question> questionsToSelect = questionPool.getAllQuestions();
+//        Question nextQuestion= questionsToSelect.get((lastQuestionAskedIndex + 1) % questionIds.size());
+//        List<Question> questionList = new ArrayList<>();
+//        questionList.add(nextQuestion);
+//        ImageTask imageTask = new ImageTask(nextQuestion.getImageUrl(), questionList);
+//
+//        studentModel.getUserQuestionSet().increaseTimesSeenAllQuestions(questionList);
+        return null;
     }
 }
