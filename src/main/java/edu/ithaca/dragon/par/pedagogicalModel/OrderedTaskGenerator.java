@@ -22,6 +22,8 @@ public class OrderedTaskGenerator implements TaskGenerator {
         this.questionPool = questionsToAsk;
     }
 
+    //isFollowupAttached works as a default value for all top level questions. This can be changed in the .json files manually for now
+    //followup questions are not included in List<QuestionOrderedInfo> because they are retrieved from the QuestionPool in makeTask
     public static List<QuestionOrderedInfo> createOrderedQuestionInfoListFromQuestionPool(QuestionPool questionsToAdd, boolean isFollowupAttached) {
         List<QuestionOrderedInfo> toReturn = new ArrayList<>();
         List<Question> individualQuestions = questionsToAdd.getAllQuestions();
@@ -29,26 +31,6 @@ public class OrderedTaskGenerator implements TaskGenerator {
             Question temp = individualQuestions.get(i);
             QuestionOrderedInfo tempInfo = new QuestionOrderedInfo(temp.getId(), isFollowupAttached);
             toReturn.add(tempInfo);
-            List<Question> followups = temp.getFollowupQuestions();
-            if(followups.size() > 0 && isFollowupAttached){
-                for (int j = 0; j < followups.size(); j++){
-                    Question depthOne = followups.get(j);
-                    if(depthOne.getFollowupQuestions().size() > 0){
-                        tempInfo = new QuestionOrderedInfo(depthOne.getId(), true);
-                        toReturn.add(tempInfo);
-
-                        List<Question> depthTwoList = depthOne.getFollowupQuestions();
-                        for(int k = 0; k < depthTwoList.size(); k++){
-                            Question depthTwo = depthTwoList.get(k);
-                            tempInfo = new QuestionOrderedInfo(depthTwo.getId(), false);
-                            toReturn.add(tempInfo);
-                        }
-                    } else {
-                        tempInfo = new QuestionOrderedInfo(depthOne.getId(), false);
-                        toReturn.add(tempInfo);
-                    }
-                }
-            }
         }
         return toReturn;
     }
