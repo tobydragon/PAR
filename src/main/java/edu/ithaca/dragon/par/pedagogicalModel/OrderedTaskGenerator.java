@@ -11,7 +11,7 @@ import java.util.List;
 
 public class OrderedTaskGenerator implements TaskGenerator {
     private final List<QuestionOrderedInfo> questionIds;
-    private final int lastQuestionAskedIndex;
+    private int lastQuestionAskedIndex;
     private final QuestionPool questionPool;
 
     //orderedQuestionList assumed to be subset of StudentModel QuestionPool
@@ -37,7 +37,8 @@ public class OrderedTaskGenerator implements TaskGenerator {
 
     @Override
     public ImageTask makeTask(StudentModel studentModel, int questionCountPerTypeForAnalysis) {
-        QuestionOrderedInfo nextQuestion = questionIds.get((lastQuestionAskedIndex + 1) % questionIds.size());
+        this.lastQuestionAskedIndex = (this.lastQuestionAskedIndex + 1) % questionIds.size();
+        QuestionOrderedInfo nextQuestion = questionIds.get(lastQuestionAskedIndex);
         List<Question> addToTask = new ArrayList<>();
         Question topQuestion = this.questionPool.getQuestionFromId(nextQuestion.getQuestionID());
         addToTask.add(topQuestion);
