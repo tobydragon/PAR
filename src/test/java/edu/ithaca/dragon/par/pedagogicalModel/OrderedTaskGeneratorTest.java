@@ -44,7 +44,7 @@ public class OrderedTaskGeneratorTest {
         //check default != Test2
         List<ImageTask> test2List = new ArrayList<>();
         for (int i = 0; i < defaultQuestionOrderedInfoList.size(); i++){
-            test2List.add(test1OrderedTaskGenerator.makeTask(dummy,4));
+            test2List.add(test2OrderedTaskGenerator.makeTask(dummy,4));
         }
 
         assertNotEquals(test2List, defaultList);

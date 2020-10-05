@@ -1,6 +1,6 @@
 [ {
   "questionID" : "plane./images/demoEquine14.jpg",
-  "includesFollowup" : false
+  "includesFollowup" : true
 }, {
   "questionID" : "structure0./images/demoEquine14.jpg",
   "includesFollowup" : true
@@ -57,7 +57,7 @@
   "includesFollowup" : true
 }, {
   "questionID" : "structure0./images/demoEquine10.jpg",
-  "includesFollowup" : false
+  "includesFollowup" : true
 }, {
   "questionID" : "structure1./images/demoEquine10.jpg",
   "includesFollowup" : true
@@ -80,9 +80,6 @@
   "questionID" : "structure3./images/demoEquine11.jpg",
   "includesFollowup" : true
 }, {
-  "questionID" : "structure2./images/demoEquine05.jpg",
-  "includesFollowup" : true
-}, {
   "questionID" : "zone./images/demoEquine11.jpg",
   "includesFollowup" : true
 }, {
@@ -90,9 +87,12 @@
   "includesFollowup" : true
 }, {
   "questionID" : "structure0./images/demoEquine05.jpg",
-  "includesFollowup" : false
+  "includesFollowup" : true
 }, {
   "questionID" : "structure1./images/demoEquine05.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "structure2./images/demoEquine05.jpg",
   "includesFollowup" : true
 }, {
   "questionID" : "zone./images/demoEquine05.jpg",
@@ -102,9 +102,6 @@
   "includesFollowup" : true
 }, {
   "questionID" : "structure0./images/demoEquine09.jpg",
-  "includesFollowup" : true
-}, {
-  "questionID" : "plane./images/demoEquine32.jpg",
   "includesFollowup" : true
 }, {
   "questionID" : "structure1./images/demoEquine09.jpg",
@@ -125,13 +122,13 @@
   "questionID" : "zone./images/demoEquine37.jpg",
   "includesFollowup" : true
 }, {
+  "questionID" : "plane./images/demoEquine32.jpg",
+  "includesFollowup" : true
+}, {
   "questionID" : "structure0./images/demoEquine32.jpg",
   "includesFollowup" : true
 }, {
   "questionID" : "structure1./images/demoEquine32.jpg",
-  "includesFollowup" : false
-}, {
-  "questionID" : "zone./images/demoEquine32.jpg",
   "includesFollowup" : true
 }, {
   "questionID" : "structure2./images/demoEquine32.jpg",
@@ -139,4 +136,7 @@
 }, {
   "questionID" : "structure3./images/demoEquine32.jpg",
   "includesFollowup" : true
-}  ]
+}, {
+  "questionID" : "zone./images/demoEquine32.jpg",
+  "includesFollowup" : true
+} ]
