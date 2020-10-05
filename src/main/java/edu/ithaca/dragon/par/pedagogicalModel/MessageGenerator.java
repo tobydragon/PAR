@@ -103,29 +103,6 @@ public class MessageGenerator {
             return masterNoRepeat;
         }
 
-//
-//        int index = -1;
-//        for (int i = 0; i < allQuestions.size(); i++){
-//            //there should only be one zone question in this task
-//            if (allQuestions.get(i).getId().equals(imageTask.getTaskQuestions().get(0).getId())){
-//                if (studentModel.getUserResponseSet().getResponseById(allQuestions.get()))
-//            }
-//        }
-//        //question found
-//        if (index != -1){
-//            //get index of first question
-//            if (studentModel.getUserQuestionSet().getTimesSeen(allQuestions.get(index).getId())>0){
-//                return masterRepeat;
-//            }
-//            //not seen yet
-//            else {
-//                return masterNoRepeat;
-//            }
-//        }
-//        //not found, message is null
-//        else{
-//            return null;
-//        }
     }
 
     public static String repeatLevelMessage(StudentModel studentModel, ImageTask imageTask){

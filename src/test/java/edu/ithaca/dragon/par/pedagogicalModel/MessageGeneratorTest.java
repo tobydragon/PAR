@@ -9,6 +9,8 @@ import edu.ithaca.dragon.par.studentModel.ResponsesPerQuestion;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.util.JsonUtil;
 import org.junit.jupiter.api.Test;
+import org.springframework.scheduling.config.Task;
+
 import static org.junit.Assert.*;
 
 import java.io.IOException;
@@ -355,7 +357,6 @@ public class MessageGeneratorTest {
         assertNull(message);
 
         //not repeated, no message
-        StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/buckmank.json", StudentModelRecord.class);
         StudentModel student = smr30.buildStudentModel(myQP);
         ImageTask it = taskGenerator.makeTask(student, 4);
         student.setPreviousLevel(LevelTaskGenerator.calcLevel(student.calcKnowledgeEstimateByType(4)));
@@ -363,4 +364,118 @@ public class MessageGeneratorTest {
         assertNull(message);
 
     }
+
+
+    @Test
+    public void decreaseLevelTest() throws IOException{
+
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/currentQP-10-5-2020.json").getAllQuestions());
+        StudentModelRecord smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
+        StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
+
+
+        //submit correct zone
+        List<QuestionResponseOOP> resp= new ArrayList<>();
+        resp.add(new QuestionResponseOOP("477-zone-./images/metacarpal19.jpg", "In which zone is the ultrasound taken?", "2a"));
+        ImageTaskResponseOOP itr = new ImageTaskResponseOOP();
+        itr.setUserId(masteredStudentModel.getUserId());
+        itr.setQuestionResponses(resp);
+        masteredStudentModel.imageTaskResponseSubmitted(itr, myQP, 4);
+
+        assertEquals(7, LevelTaskGenerator.calcLevel(masteredStudentModel.calcKnowledgeEstimateByType(4)));
+
+        //submit incorrect zones
+        resp= new ArrayList<>();
+        resp.add(new QuestionResponseOOP("491-zone-./images/metacarpal37.jpg", "In which zone is the ultrasound taken?", "1"));
+        resp.add(new QuestionResponseOOP("463-zone-./images/metacarpal25.jpg", "In which zone is the ultrasound taken?", "1"));
+        resp.add(new QuestionResponseOOP("379-zone-./images/metacarpal41.jpg", "In which zone is the ultrasound taken?", "1"));
+        resp.add(new QuestionResponseOOP("351-zone-./images/metacarpal42.jpg", "In which zone is the ultrasound taken?", "1"));
+
+        itr = new ImageTaskResponseOOP();
+        itr.setUserId(masteredStudentModel.getUserId());
+        itr.setQuestionResponses(resp);
+        masteredStudentModel.imageTaskResponseSubmitted(itr, myQP, 4);
+
+        masteredStudentModel.setCurrentLevel(6);
+        masteredStudentModel.setPreviousLevel(7);
+
+        assertEquals("Looks like you're having trouble with zone questions, go look at resources and come back if you need to", MessageGenerator.decreaseLevelMessage(masteredStudentModel));
+
+
+
+        //submit incorrect attachments
+        resp= new ArrayList<>();
+        resp.add(new QuestionResponseOOP("367-attachment0-structure0-./images/metacarpal41.jpg", "What is this structure’s proximal attachment?", "1"));
+        resp.add(new QuestionResponseOOP("373-attachment0-structure2-./images/metacarpal41.jpg", "What is this structure’s proximal attachment?", "1"));
+        resp.add(new QuestionResponseOOP("376-attachment0-structure3-./images/metacarpal41.jpg", "What is this structure’s proximal attachment?", "1"));
+
+        itr = new ImageTaskResponseOOP();
+        itr.setUserId(masteredStudentModel.getUserId());
+        itr.setQuestionResponses(resp);
+        masteredStudentModel.imageTaskResponseSubmitted(itr, myQP, 4);
+
+        masteredStudentModel.setCurrentLevel(5);
+        masteredStudentModel.setPreviousLevel(6);
+
+        assertEquals("Looks like you're having trouble with attachment questions, go look at resources and come back if you need to", MessageGenerator.decreaseLevelMessage(masteredStudentModel));
+
+
+        //submit incorrect structure
+        resp= new ArrayList<>();
+        resp.add(new QuestionResponseOOP("378-structure3-./images/metacarpal41.jpg", "What structure is 1.5 cm deep?", "1"));
+        resp.add(new QuestionResponseOOP("341-structure0-./images/metacarpal42.jpg", "What structure is 1.5 cm deep?", "1"));
+
+        itr = new ImageTaskResponseOOP();
+        itr.setUserId(masteredStudentModel.getUserId());
+        itr.setQuestionResponses(resp);
+        masteredStudentModel.imageTaskResponseSubmitted(itr, myQP, 4);
+
+        masteredStudentModel.setCurrentLevel(3);
+        masteredStudentModel.setPreviousLevel(5);
+
+        assertEquals("Looks like you're having trouble with structure questions, go look at resources and come back if you need to", MessageGenerator.decreaseLevelMessage(masteredStudentModel));
+
+
+
+        //submit incorrect structure
+        resp.add(new QuestionResponseOOP("490-structure3-./images/metacarpal37.jpg", "What structure is 1.5 cm deep?", "1"));
+
+        itr = new ImageTaskResponseOOP();
+        itr.setUserId(masteredStudentModel.getUserId());
+        itr.setQuestionResponses(resp);
+        masteredStudentModel.imageTaskResponseSubmitted(itr, myQP, 4);
+
+        masteredStudentModel.setCurrentLevel(2);
+        masteredStudentModel.setPreviousLevel(3);
+
+        assertEquals("Looks like you're having trouble with structure questions, go look at resources and come back if you need to", MessageGenerator.decreaseLevelMessage(masteredStudentModel));
+
+
+        //submit incorrect structure and plane
+        resp.add(new QuestionResponseOOP("456-structure1-./images/metacarpal25.jpg", "What structure is 1.5 cm deep?", "1"));
+        resp.add(new QuestionResponseOOP("324-plane-./images/metacarpal56.jpg", "On which plane is the ultrasound taken?", "1"));
+        resp.add(new QuestionResponseOOP("338-plane-./images/metacarpal42.jpg", "On which plane is the ultrasound taken?", "1"));
+        resp.add(new QuestionResponseOOP("366-plane-./images/metacarpal41.jpg", "On which plane is the ultrasound taken?", "1"));
+        resp.add(new QuestionResponseOOP("450-plane-./images/metacarpal25.jpg", "On which plane is the ultrasound taken?", "1"));
+
+
+        itr = new ImageTaskResponseOOP();
+        itr.setUserId(masteredStudentModel.getUserId());
+        itr.setQuestionResponses(resp);
+        masteredStudentModel.imageTaskResponseSubmitted(itr, myQP, 4);
+
+        masteredStudentModel.setCurrentLevel(1);
+        masteredStudentModel.setPreviousLevel(2);
+
+        assertEquals("Looks like you're having trouble with plane and structure questions, go look at resources and come back if you need to", MessageGenerator.decreaseLevelMessage(masteredStudentModel));
+
+    }
+
+
+
+
+
+
+
+
 }
