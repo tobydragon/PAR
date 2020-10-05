@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderedTaskGeneratorTest {
@@ -31,14 +32,25 @@ public class OrderedTaskGeneratorTest {
         StudentModel dummy = new StudentModel("NotUsed", questionPool.getAllQuestions());
 
         //check default != Test1
-        //TODO we are potentially asking the same questions twice (as an attached followup OR by itself...)
-        //TODO testing the entire set of questions with automation?
+        List<ImageTask> defaultList = new ArrayList<>();
+        List<ImageTask> test1List = new ArrayList<>();
+        for (int i = 0; i < defaultQuestionOrderedInfoList.size(); i++){
+            defaultList.add(defaultOrderedTaskGenerator.makeTask(dummy,4));
+            test1List.add(test1OrderedTaskGenerator.makeTask(dummy,4));
+        }
 
-        ImageTask defaultTask = defaultOrderedTaskGenerator.makeTask(dummy, 4);
-        ImageTask test1Task = test1OrderedTaskGenerator.makeTask(dummy, 4);
+        assertNotEquals(test1List, defaultList);
 
         //check default != Test2
+        List<ImageTask> test2List = new ArrayList<>();
+        for (int i = 0; i < defaultQuestionOrderedInfoList.size(); i++){
+            test2List.add(test1OrderedTaskGenerator.makeTask(dummy,4));
+        }
+
+        assertNotEquals(test2List, defaultList);
+
         //check Test1 != Test2
+        assertNotEquals(test1List, test2List);
     }
 
     //main:
