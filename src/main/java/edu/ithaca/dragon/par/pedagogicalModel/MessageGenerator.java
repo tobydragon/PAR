@@ -3,9 +3,13 @@ package edu.ithaca.dragon.par.pedagogicalModel;
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.ImageTask;
+import edu.ithaca.dragon.par.studentModel.QuestionResponse;
 import edu.ithaca.dragon.par.studentModel.ResponsesPerQuestion;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
+import edu.ithaca.dragon.par.studentModel.UserResponseSet;
+import org.apache.coyote.Response;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -55,18 +59,56 @@ public class MessageGenerator {
     }
 
     public static String decreaseLevelMessage(StudentModel studentModel){
-        if (studentModel.getPreviousLevel()- studentModel.getCurrentLevel() > 0){
-            List<String> questionsInPreviousLevel = EquineQuestionTypes.getTypesForLevel(studentModel.getPreviousLevel());
-            String questionsOneString = "";
-            for(String q: questionsInPreviousLevel){
-                questionsOneString += q + "/";
-            }
-            questionsOneString = questionsOneString.substring(0,questionsOneString.length()-1);
-            return (troublePart1 +  questionsOneString + troublePart2);
-        }
-        else{
+        if(studentModel.getCurrentLevel()-studentModel.getPreviousLevel()>=0){
             return null;
         }
+
+        List<ResponsesPerQuestion> allResponses = studentModel.getUserResponseSet().getResponsesPerQuestionList();
+
+        //last responses submitted
+        List<ResponsesPerQuestion> mostRecent = new ArrayList<>();
+
+        // traverses through list of all responses. goes backwards because this list is
+        // in order based on the first time it was seen.
+        long milli = -1;
+        for (int i = allResponses.size()-1; i>=0; i--){
+            long milliseconds = allResponses.get(i).getAllResponses().get(allResponses.get(i).getAllResponses().size()-1).getMillSeconds();
+            if (milliseconds>milli || (milliseconds - milli <1000 && milliseconds - milli > -1000)){
+                mostRecent.add(allResponses.get(i));
+                milli =milliseconds;
+            }
+        }
+
+        // out of the ones in the list that have been submitted most recently:
+        // it gets types of the the ones answered incorrectly
+        List<String> typesIncorrect = new ArrayList<>();
+        for (ResponsesPerQuestion currResponse: mostRecent){
+            QuestionResponse lastResp = currResponse.getAllResponses().get(currResponse.getAllResponses().size()-1);
+            if (lastResp.getMillSeconds() == milli || (lastResp.getMillSeconds() - milli < 1000 && lastResp.getMillSeconds()-milli > -1000)){
+                if (!lastResp.getResponseText().equals(currResponse.getQuestion().getCorrectAnswer())){
+                    boolean inList = false;
+                    for (String type: typesIncorrect){
+                        if(currResponse.getQuestionType().equals(type)){
+                            inList = true;
+                        }
+                    }
+                    if(!inList){
+                        typesIncorrect.add(currResponse.getQuestionType());
+                    }
+                }
+            }
+        }
+
+        //make message
+        if(typesIncorrect.size()>0){
+            String wrongQString = "";
+            for(String type: typesIncorrect){
+                wrongQString += type + "/";
+            }
+            wrongQString = wrongQString.substring(0,wrongQString.length()-1);
+            return (troublePart1 +  wrongQString + troublePart2);
+        }
+        return null;
     }
 
     public static String increaseLevelMessage(StudentModel studentModel) {
