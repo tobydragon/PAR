@@ -5,25 +5,33 @@ public class LevelMessageInformation implements MessageInformation {
     private int currentLevel;
 
     public LevelMessageInformation(){
-        int num = 5;
+        previousLevel = 1;
+        currentLevel = 1;
     }
 
     public LevelMessageInformation(int previousLevelIn, int currentLevelIn){
-        int num = 5;
+        previousLevel = previousLevelIn;
+        currentLevel = currentLevelIn;
     }
 
     public int getPreviousLevel() {
-        return -300;
+        return previousLevel;
     }
 
     public void setPreviousLevel(int levelIn) {
-        int num = 5;
+        if (levelIn < 1 || levelIn > 7){
+            throw new IllegalArgumentException("Invalid previousLevel");
+        }
+        this.previousLevel = levelIn;
     }
     public int getCurrentLevel() {
-        return -300;
+        return currentLevel;
     }
 
     public void setCurrentLevel(int levelIn) {
-        int num = 5;
+        if (levelIn < 1 || levelIn > 7){
+            throw new IllegalArgumentException("Invalid previousLevel");
+        }
+        this.currentLevel = levelIn;
     }
 }
