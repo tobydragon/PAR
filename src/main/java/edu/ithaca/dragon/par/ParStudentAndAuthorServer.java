@@ -9,6 +9,7 @@ import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.ImageTaskResponseOOP;
 import edu.ithaca.dragon.par.io.StudentModelDatastore;
 import edu.ithaca.dragon.par.pedagogicalModel.MessageGenerator;
+import edu.ithaca.dragon.par.pedagogicalModel.RandomTaskGenerator;
 import edu.ithaca.dragon.par.pedagogicalModel.TaskGenerator;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.par.studentModel.StudentReportCreator;
@@ -29,7 +30,8 @@ public class ParStudentAndAuthorServer {
     public ParStudentAndAuthorServer(StudentModelDatastore studentModelDatastore, AuthorDatastore authorDatastore){
             this.studentModelDatastore = studentModelDatastore;
             authorServer = new AuthorServer(authorDatastore);
-            taskGenerator = new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap());
+//            taskGenerator = new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap());
+            this.taskGenerator = new RandomTaskGenerator();
     }
 
     //----------- Student methods  --------------//
