@@ -4,6 +4,7 @@ import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.ImageTaskResponseOOP;
+import edu.ithaca.dragon.par.pedagogicalModel.LevelMessageInformation;
 import edu.ithaca.dragon.par.pedagogicalModel.LevelTaskGenerator;
 import edu.ithaca.dragon.par.pedagogicalModel.TaskGenerator;
 
@@ -14,28 +15,25 @@ public class StudentModel {
     private String userId;
     private UserQuestionSet userQuestionSet;
     private UserResponseSet userResponseSet;
-    private int previousLevel;
-    private int currentLevel;
+    private LevelMessageInformation levelMessageInformation;
 
     public StudentModel(String userId, List<Question> questions){
         this.userId = userId;
         this.userQuestionSet = UserQuestionSet.buildNewUserQuestionSetFromQuestions(userId, questions);
         this.userResponseSet = new UserResponseSet(userId);
-        this.previousLevel = 1;
-        this.currentLevel = 1;
+        this.levelMessageInformation = new LevelMessageInformation();
     }
 
     public StudentModel(String userId, UserQuestionSet userQuestionSet, UserResponseSet userResponseSet){
         this.userId = userId;
         this.userQuestionSet = userQuestionSet;
         this.userResponseSet = userResponseSet;
-        previousLevel = 1;
-        currentLevel = 1;
+        this.levelMessageInformation = new LevelMessageInformation();
     }
 
     public void imageTaskResponseSubmitted(ImageTaskResponseOOP imageTaskResponses, QuestionPool questions, int questionCountPerTypeForAnalysis){
         userResponseSet.addAllResponses(createUserResponseObj(imageTaskResponses,questions,this.userId));
-        setPreviousLevel(currentLevel);
+        setPreviousLevel(levelMessageInformation.getCurrentLevel());
         setCurrentLevel(LevelTaskGenerator.calcLevel(calcKnowledgeEstimateByType(questionCountPerTypeForAnalysis)));
     }
 
@@ -117,23 +115,17 @@ public class StudentModel {
     }
 
     public int getPreviousLevel() {
-        return previousLevel;
+        return levelMessageInformation.getPreviousLevel();
     }
 
     public void setPreviousLevel(int levelIn) {
-        if (levelIn < 1 || levelIn > 7){
-            throw new IllegalArgumentException("Invalid previousLevel");
-        }
-        this.previousLevel = levelIn;
+        levelMessageInformation.setPreviousLevel(levelIn);
     }
     public int getCurrentLevel() {
-        return currentLevel;
+        return levelMessageInformation.getCurrentLevel();
     }
 
     public void setCurrentLevel(int levelIn) {
-        if (levelIn < 1 || levelIn > 7){
-            throw new IllegalArgumentException("Invalid previousLevel");
-        }
-        this.currentLevel = levelIn;
+        levelMessageInformation.setCurrentLevel(levelIn);
     }
 }
