@@ -1,6 +1,8 @@
 package edu.ithaca.dragon.par;
 
 import edu.ithaca.dragon.par.authorModel.AuthorServer;
+import edu.ithaca.dragon.par.domainModel.QuestionOrderedInfo;
+import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.*;
 import edu.ithaca.dragon.par.pedagogicalModel.LevelTaskGenerator;
@@ -9,10 +11,13 @@ import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.ImageTaskResponseOOP;
 import edu.ithaca.dragon.par.io.StudentModelDatastore;
 import edu.ithaca.dragon.par.pedagogicalModel.MessageGenerator;
+import edu.ithaca.dragon.par.pedagogicalModel.OrderedTaskGenerator;
 import edu.ithaca.dragon.par.pedagogicalModel.TaskGenerator;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.par.studentModel.StudentReportCreator;
 import edu.ithaca.dragon.util.DataUtil;
+import edu.ithaca.dragon.util.JsonIoHelperDefault;
+import edu.ithaca.dragon.util.JsonIoUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,10 +31,16 @@ public class ParStudentAndAuthorServer {
     private TaskGenerator taskGenerator;
     private static final int idealQuestionCountPerTypeForAnalysis = 4;
 
-    public ParStudentAndAuthorServer(StudentModelDatastore studentModelDatastore, AuthorDatastore authorDatastore){
+    public ParStudentAndAuthorServer(StudentModelDatastore studentModelDatastore, AuthorDatastore authorDatastore) throws IOException {
             this.studentModelDatastore = studentModelDatastore;
             authorServer = new AuthorServer(authorDatastore);
-            taskGenerator = new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap());
+//            taskGenerator = new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap());
+
+        JsonIoUtil reader = new JsonIoUtil(new JsonIoHelperDefault());
+
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
+        List<QuestionOrderedInfo> defaultQuestionOrderedInfoList = reader.listFromFile("src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoList.json", QuestionOrderedInfo.class);
+        this.taskGenerator = new OrderedTaskGenerator(questionPool, defaultQuestionOrderedInfoList);
     }
 
     //----------- Student methods  --------------//
