@@ -36,10 +36,10 @@ public class ParStudentAndAuthorServer {
             authorServer = new AuthorServer(authorDatastore);
 //            taskGenerator = new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap());
 
+        //TODO creating question pool just for OrderedTaskGenerator demo; may come from studentModelDatastore?
         JsonIoUtil reader = new JsonIoUtil(new JsonIoHelperDefault());
-
-        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
-        List<QuestionOrderedInfo> defaultQuestionOrderedInfoList = reader.listFromFile("src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoList.json", QuestionOrderedInfo.class);
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("localData/currentQuestionPool.json").getAllQuestions());
+        List<QuestionOrderedInfo> defaultQuestionOrderedInfoList = reader.listFromFile("src/main/resources/author/orderedQuestionInfo/currentOrderedQuestionInfoList.json", QuestionOrderedInfo.class);
         this.taskGenerator = new OrderedTaskGenerator(questionPool, defaultQuestionOrderedInfoList);
     }
 

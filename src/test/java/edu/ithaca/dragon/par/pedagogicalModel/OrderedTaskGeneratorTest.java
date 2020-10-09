@@ -59,10 +59,11 @@ public class OrderedTaskGeneratorTest {
     //write list to JSON (inside of test/resources/author/QuestionOrderedInfo)
     //tests: load changed QuestionOrderedInfo List files; verify that they are different from a default, UNCHANGED, order
     public static void main(String[] args) throws IOException {
-        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("localData/currentQuestionPool.json").getAllQuestions());
+//        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
         List<QuestionOrderedInfo> orderedInfoList = OrderedTaskGenerator.createOrderedQuestionInfoListFromQuestionPool(questionPool, true);
         JsonIoUtil writer = new JsonIoUtil(new JsonIoHelperDefault());
-        writer.toFile("src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoList.json", orderedInfoList);
+        writer.toFile("src/main/resources/author/orderedQuestionInfo/currentOrderedQuestionInfoList.json", orderedInfoList);
     }
 
 }

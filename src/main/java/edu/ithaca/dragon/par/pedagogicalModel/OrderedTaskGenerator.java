@@ -37,17 +37,19 @@ public class OrderedTaskGenerator implements TaskGenerator {
 
     @Override
     public ImageTask makeTask(StudentModel studentModel, int questionCountPerTypeForAnalysis) {
-        this.lastQuestionAskedIndex = (this.lastQuestionAskedIndex + 1) % questionIds.size();
+        if(this.lastQuestionAskedIndex != 0){
+            this.lastQuestionAskedIndex = (this.lastQuestionAskedIndex + 1) % questionIds.size();
+        }
         QuestionOrderedInfo nextQuestion = questionIds.get(lastQuestionAskedIndex);
         List<Question> addToTask = new ArrayList<>();
         Question topQuestion = this.questionPool.getQuestionFromId(nextQuestion.getQuestionID());
         addToTask.add(topQuestion);
-        if (nextQuestion.isIncludesFollowup()){
-            List<Question> followupQuestions = topQuestion.getFollowupQuestions();
-            if (followupQuestions.size() > 0){
-                addToTask.addAll(followupQuestions);
-            }
-        }
+//        if (nextQuestion.isIncludesFollowup()){
+//            List<Question> followupQuestions = topQuestion.getFollowupQuestions();
+//            if (followupQuestions.size() > 0){
+//                addToTask.addAll(followupQuestions);
+//            }
+//        }
 
         ImageTask imageTask = new ImageTask(topQuestion.getImageUrl(), addToTask);
         studentModel.getUserQuestionSet().increaseTimesSeenAllQuestions(addToTask);
