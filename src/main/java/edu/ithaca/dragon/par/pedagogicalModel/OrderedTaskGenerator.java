@@ -27,8 +27,7 @@ public class OrderedTaskGenerator implements TaskGenerator {
     public static List<QuestionOrderedInfo> createOrderedQuestionInfoListFromQuestionPool(QuestionPool questionsToAdd, boolean isFollowupAttached) {
         List<QuestionOrderedInfo> toReturn = new ArrayList<>();
         List<Question> individualQuestions = questionsToAdd.getAllQuestions();
-        for (int i = 0; i < individualQuestions.size(); i++){
-            Question temp = individualQuestions.get(i);
+        for (Question temp : individualQuestions) {
             QuestionOrderedInfo tempInfo = new QuestionOrderedInfo(temp.getId(), isFollowupAttached);
             toReturn.add(tempInfo);
         }
@@ -44,12 +43,6 @@ public class OrderedTaskGenerator implements TaskGenerator {
         List<Question> addToTask = new ArrayList<>();
         Question topQuestion = this.questionPool.getQuestionFromId(nextQuestion.getQuestionID());
         addToTask.add(topQuestion);
-//        if (nextQuestion.isIncludesFollowup()){
-//            List<Question> followupQuestions = topQuestion.getFollowupQuestions();
-//            if (followupQuestions.size() > 0){
-//                addToTask.addAll(followupQuestions);
-//            }
-//        }
 
         ImageTask imageTask = new ImageTask(topQuestion.getImageUrl(), addToTask);
         studentModel.getUserQuestionSet().increaseTimesSeenAllQuestions(addToTask);
