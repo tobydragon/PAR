@@ -1,6 +1,6 @@
 package edu.ithaca.dragon.par.pedagogicalModel;
 
-public class LevelMessageInformation implements MessageInformation {
+public class LevelMessageInformation {
     private int previousLevel;
     private int currentLevel;
 
