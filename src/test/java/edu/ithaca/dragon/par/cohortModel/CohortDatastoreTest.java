@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CohortMapTest {
+public class CohortDatastoreTest {
 
     //TODO where is the cohort stored? should this Map be the cohort object or an ID type string?
         //pretty sure this should be IDs
@@ -20,7 +20,7 @@ public class CohortMapTest {
     //TODO: should student be able to be in more than one cohort? i think not
     @Test
     public void constructorTest(){
-        CohortMap cohortMap = new CohortMap();
+        CohortDatastore cohortMap = new CohortDatastore();
         //test size of map
         assertEquals(cohortMap.getSize(), 0);
 
@@ -34,7 +34,7 @@ public class CohortMapTest {
 
     @Test
     public void putStudentTest() throws IOException {
-        CohortMap cohortMap = new CohortMap();
+        CohortDatastore cohortMap = new CohortDatastore();
 
         QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/SampleQuestionPool.json").getAllQuestions());
         StudentModel studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
@@ -67,7 +67,7 @@ public class CohortMapTest {
 
     @Test
     public void getCohortFromStudentIDTest() throws IOException {
-        CohortMap cohortMap = new CohortMap();
+        CohortDatastore cohortMap = new CohortDatastore();
 
         //get cohort from empty map
         assertThrows(IllegalArgumentException.class, ()->{ cohortMap.getCohortFromStudentID("TestUser1");});
@@ -95,7 +95,7 @@ public class CohortMapTest {
 
     @Test
     public void getAllStudentsTest(){
-        CohortMap cohortMap = new CohortMap();
+        CohortDatastore cohortMap = new CohortDatastore();
 
         assertEquals(cohortMap.getAllStudents().size(), 0);
     }

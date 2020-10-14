@@ -5,10 +5,11 @@ import edu.ithaca.dragon.par.studentModel.StudentModel;
 import java.util.List;
 import java.util.Map;
 
-public class CohortMap {
+public class CohortDatastore {
     private Map cohortMap;
+    private List<Cohort> masterCohortList;
 
-    public CohortMap(){
+    public CohortDatastore(){
 
     }
 
