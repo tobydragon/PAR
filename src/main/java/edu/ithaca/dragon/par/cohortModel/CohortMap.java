@@ -5,10 +5,10 @@ import edu.ithaca.dragon.par.studentModel.StudentModel;
 import java.util.List;
 import java.util.Map;
 
-public class CohortDatastore {
-    private Map cohortStore;
+public class CohortMap {
+    private Map cohortMap;
 
-    public CohortDatastore(){
+    public CohortMap(){
 
     }
 
