@@ -83,13 +83,13 @@ public class StudentModelTest {
         assertEquals(15, studentModel.getResponseCount());
         assertEquals(15, studentModel.countTotalResponsesFromUserResponseSet());
         assertEquals( 1, studentModel.getPreviousLevel());
-        assertEquals( 5, studentModel.getCurrentLevel());
+        assertEquals( 4, studentModel.getCurrentLevel());
 
         // submit 15 new responses to the 15 questions that have already been responded to
         studentModel.imageTaskResponseSubmitted(responsesFromFile.get(1),questionPool, 4);
         assertEquals(15, studentModel.getResponseCount());
         assertEquals(30, studentModel.countTotalResponsesFromUserResponseSet());
-        assertEquals(5, studentModel.getPreviousLevel());
+        assertEquals(4, studentModel.getPreviousLevel());
         assertEquals( 1, studentModel.getCurrentLevel());
     }
     @Test

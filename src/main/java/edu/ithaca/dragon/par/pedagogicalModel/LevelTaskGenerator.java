@@ -73,25 +73,55 @@ public class LevelTaskGenerator implements TaskGenerator {
 
     public static int calcLevel(Map<String, Double> scoresPerType) {
         List<Double> orderedScores = orderedScores(scoresPerType);
-        int level = 1;//sets score to one
 
-        if (orderedScores.get(0) < 60)
-            return level;//if user has score less than 75 on plane , returns level 1
-
-        else {
-            for(int i = 0; i < orderedScores.size()-1; i++) {
-
-                if (orderedScores.get(i) >= 60 && orderedScores.get(i) < 100) {//if score is less than 100 and greater than 74, adds a level
-                    level = level + 1;
-                    return level;//returns level in this case
-                }
-
-                else if (orderedScores.get(i) == 100)
-                    level = level + 2;//if score is 100, adds 2 to level/skips a level
-            }
-
-            return level;
+        if (orderedScores.get(0) == 100 && orderedScores.get(1)==100 && orderedScores.get(2)==100 && orderedScores.get(3) == 100){ //all 100
+            return 8;
         }
+        else if (orderedScores.get(0) == 100 && orderedScores.get(1)==100 && orderedScores.get(2)==100 &&orderedScores.get(3)>50){ //all 100 but zone over 50
+            return 7;
+        }
+        else if(orderedScores.get(0) == 100 && orderedScores.get(1)==100 && orderedScores.get(2)==100){ //all 100 but zone
+            return 6;
+        }
+        else if (orderedScores.get(0) == 100 && orderedScores.get(1)==100 && orderedScores.get(2)>50){ //above 50 on attachment
+            return 5;
+        }
+        else if(orderedScores.get(0) == 100 && orderedScores.get(1)==100){ //100 on structure
+            return 4;
+        }
+        else if(orderedScores.get(0) == 100 && orderedScores.get(1)>50 && orderedScores.get(1)<100){ //100 on plane, between 50 and 100 on structure
+            return 3;
+        }
+        else if (orderedScores.get(0)>50){ //over 50 on plane
+            return 2;
+        }
+        if(orderedScores.get(0) <=50){ //less than 50 on plane
+            return 1;
+        }
+        else{
+            return -16;
+        }
+
+
+//
+//        if (orderedScores.get(0) < 60)
+//            return level;//if user has score less than 60 on plane , returns level 1
+//
+//        else {
+//            for(int i = 0; i < orderedScores.size()-1; i++) {
+//
+//                if (orderedScores.get(i) >= 60 && orderedScores.get(i) < 100) {//if score is less than 100 and greater than 74, adds a level
+//                    level = level + 1;
+//                    return level;//returns level in this case
+//                }
+//
+//                else if (orderedScores.get(i) == 100) {
+//                    level = level + 2;//if score is 100, adds 2 to level/skips a level
+//                }
+//            }
+//
+//            return level;
+//        }
     }
 
     //TODO: abstract this into the domain package

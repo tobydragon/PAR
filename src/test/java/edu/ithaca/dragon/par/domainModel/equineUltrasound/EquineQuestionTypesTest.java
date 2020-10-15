@@ -34,11 +34,14 @@ public class EquineQuestionTypesTest {
         //7
         assertEquals(Arrays.asList(EquineQuestionTypes.zone.toString()), EquineQuestionTypes.getTypesForLevel(7));
 
+        //8
+        assertEquals(Arrays.asList(EquineQuestionTypes.zone.toString()), EquineQuestionTypes.getTypesForLevel(8));
+
         //too high
         assertThrows(IllegalArgumentException.class, ()-> EquineQuestionTypes.getTypesForLevel(17));
 
         //too high, border
-        assertThrows(IllegalArgumentException.class, ()-> EquineQuestionTypes.getTypesForLevel(8));
+        assertThrows(IllegalArgumentException.class, ()-> EquineQuestionTypes.getTypesForLevel(9));
 
         //too low
         assertThrows(IllegalArgumentException.class, ()-> EquineQuestionTypes.getTypesForLevel(-4));

@@ -16,7 +16,8 @@ public enum EquineQuestionTypes {
         levelMap.put(4, Arrays.asList(EquineQuestionTypes.structure.toString(),EquineQuestionTypes.attachment.toString()));
         levelMap.put(5, Arrays.asList(EquineQuestionTypes.attachment.toString()));
         levelMap.put(6, Arrays.asList(EquineQuestionTypes.attachment.toString(),EquineQuestionTypes.zone.toString()));
-        levelMap.put(7,Arrays.asList(EquineQuestionTypes.zone.toString()));
+        levelMap.put(7, Arrays.asList(EquineQuestionTypes.zone.toString()));
+        levelMap.put(8, Arrays.asList(EquineQuestionTypes.zone.toString()));
         return levelMap;
     }
 
