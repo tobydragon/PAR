@@ -33,7 +33,7 @@ public class CohortDatastore {
 
     }
 
-    public Cohort getCohortFromStudentID(String studentIDIn){
+    public Cohort getTaskGeneratorFromStudentID(String studentIDIn){
         return null;
     }
 }

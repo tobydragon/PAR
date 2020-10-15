@@ -14,10 +14,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class CohortDatastoreTest {
 
-    //TODO where is the cohort stored? should this Map be the cohort object or an ID type string?
-        //pretty sure this should be IDs
-    //TODO addStudentToCohort tests and method: just one or multiple or both?
-    //TODO: should student be able to be in more than one cohort? i think not
     @Test
     public void constructorTest(){
         CohortDatastore cohortMap = new CohortDatastore();
@@ -41,8 +37,8 @@ public class CohortDatastoreTest {
         StudentModel studentModel2 = new StudentModel("TestUser2", questionPool.getAllQuestions());
         StudentModel studentModel3 = new StudentModel("TestUser3", questionPool.getAllQuestions());
 
-        Cohort cohort = new Cohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), null, new ArrayList<>());
-        Cohort cohort2 = new Cohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), null, new ArrayList<>());
+        Cohort cohort = new Cohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), new ArrayList<>());
+        Cohort cohort2 = new Cohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), new ArrayList<>());
 
         //put into empty map
         cohortMap.putStudent(studentModel.getUserId(), cohort);
@@ -70,7 +66,7 @@ public class CohortDatastoreTest {
         CohortDatastore cohortMap = new CohortDatastore();
 
         //get cohort from empty map
-        assertThrows(IllegalArgumentException.class, ()->{ cohortMap.getCohortFromStudentID("TestUser1");});
+        assertThrows(IllegalArgumentException.class, ()->{ cohortMap.getTaskGeneratorFromStudentID("TestUser1");});
 
         //get cohort from map with multiple entries
         QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/SampleQuestionPool.json").getAllQuestions());
@@ -78,19 +74,19 @@ public class CohortDatastoreTest {
         StudentModel studentModel2 = new StudentModel("TestUser2", questionPool.getAllQuestions());
         StudentModel studentModel3 = new StudentModel("TestUser3", questionPool.getAllQuestions());
 
-        Cohort cohort = new Cohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), null, new ArrayList<>());
-        Cohort cohort2 = new Cohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), null, new ArrayList<>());
+        Cohort cohort = new Cohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), new ArrayList<>());
+        Cohort cohort2 = new Cohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), new ArrayList<>());
 
         cohortMap.putStudent(studentModel.getUserId(), cohort);
         cohortMap.putStudent(studentModel2.getUserId(), cohort2);
         cohortMap.putStudent(studentModel3.getUserId(), cohort);
 
-        assertEquals(cohortMap.getCohortFromStudentID("TestUser1"), cohort);
-        assertEquals(cohortMap.getCohortFromStudentID("TestUser2"), cohort2);
-        assertEquals(cohortMap.getCohortFromStudentID("TestUser3"), cohort);
+        assertEquals(cohortMap.getTaskGeneratorFromStudentID("TestUser1"), cohort);
+        assertEquals(cohortMap.getTaskGeneratorFromStudentID("TestUser2"), cohort2);
+        assertEquals(cohortMap.getTaskGeneratorFromStudentID("TestUser3"), cohort);
 
         //get cohort from ID that does not exist
-        assertThrows(IllegalArgumentException.class, ()->{cohortMap.getCohortFromStudentID("TestUser4");});
+        assertThrows(IllegalArgumentException.class, ()->{cohortMap.getTaskGeneratorFromStudentID("TestUser4");});
     }
 
     @Test

@@ -8,19 +8,19 @@ import java.util.List;
 
 public class Cohort {
     private TaskGenerator taskGenerator;
-    private List<StudentModel> students;
+    private List<String> studentIDs;
 
-    public Cohort(TaskGenerator taskGenerator, List<StudentModel> students){
+    public Cohort(TaskGenerator taskGenerator, List<String> studentIDs){
         this.taskGenerator =  taskGenerator;
-        this.students = students;
+        this.studentIDs = studentIDs;
     }
 
-    public void setStudents(List<StudentModel> students) {
-        this.students = students;
+    public void setStudents(List<String> studentIDs) {
+        this.studentIDs = studentIDs;
     }
 
-    public List<StudentModel> getStudents() {
-        return students;
+    public List<String> getStudents() {
+        return studentIDs;
     }
 
     public void setTaskGenerator(TaskGenerator taskGenerator) {
