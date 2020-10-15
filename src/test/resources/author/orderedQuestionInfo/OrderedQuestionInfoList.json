@@ -5,18 +5,6 @@
   "questionID" : "structure0./images/demoEquine14.jpg",
   "includesFollowup" : true
 }, {
-  "questionID" : "AttachQ1",
-  "includesFollowup" : false
-}, {
-  "questionID" : "AttachQ2",
-  "includesFollowup" : false
-}, {
-  "questionID" : "AttachQ3",
-  "includesFollowup" : true
-}, {
-  "questionID" : "BonusQ1",
-  "includesFollowup" : false
-}, {
   "questionID" : "structure2./images/demoEquine14.jpg",
   "includesFollowup" : true
 }, {
@@ -34,12 +22,6 @@
 }, {
   "questionID" : "structure1./images/demoEquine02.jpg",
   "includesFollowup" : true
-}, {
-  "questionID" : "AttachQ4",
-  "includesFollowup" : true
-}, {
-  "questionID" : "BonusQ2",
-  "includesFollowup" : false
 }, {
   "questionID" : "structure2./images/demoEquine02.jpg",
   "includesFollowup" : true
@@ -68,9 +50,6 @@
   "questionID" : "structure0./images/demoEquine04.jpg",
   "includesFollowup" : true
 }, {
-  "questionID" : "AttachQ5",
-  "includesFollowup" : false
-}, {
   "questionID" : "zone./images/demoEquine04.jpg",
   "includesFollowup" : true
 }, {
@@ -88,12 +67,6 @@
 }, {
   "questionID" : "structure3./images/demoEquine10.jpg",
   "includesFollowup" : true
-}, {
-  "questionID" : "AttachQ6",
-  "includesFollowup" : false
-}, {
-  "questionID" : "AttachQ7",
-  "includesFollowup" : false
 }, {
   "questionID" : "zone./images/demoEquine10.jpg",
   "includesFollowup" : true
@@ -131,12 +104,6 @@
   "questionID" : "structure0./images/demoEquine09.jpg",
   "includesFollowup" : true
 }, {
-  "questionID" : "AttachQ8",
-  "includesFollowup" : true
-}, {
-  "questionID" : "BonusQ3",
-  "includesFollowup" : false
-}, {
   "questionID" : "structure1./images/demoEquine09.jpg",
   "includesFollowup" : true
 }, {
@@ -161,29 +128,14 @@
   "questionID" : "structure0./images/demoEquine32.jpg",
   "includesFollowup" : true
 }, {
-  "questionID" : "AttachQ9",
-  "includesFollowup" : true
-}, {
-  "questionID" : "BonusQ4",
-  "includesFollowup" : false
-}, {
   "questionID" : "structure1./images/demoEquine32.jpg",
   "includesFollowup" : true
 }, {
   "questionID" : "structure2./images/demoEquine32.jpg",
   "includesFollowup" : true
 }, {
-  "questionID" : "AttachQ10",
-  "includesFollowup" : true
-}, {
-  "questionID" : "BonusQ5",
-  "includesFollowup" : false
-}, {
   "questionID" : "structure3./images/demoEquine32.jpg",
   "includesFollowup" : true
-}, {
-  "questionID" : "AttachQ11",
-  "includesFollowup" : false
 }, {
   "questionID" : "zone./images/demoEquine32.jpg",
   "includesFollowup" : true
