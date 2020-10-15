@@ -8,14 +8,11 @@ import java.util.List;
 
 public class Cohort {
     private TaskGenerator taskGenerator;
-    private MessageGenerator messageGenerator;
     private List<StudentModel> students;
 
-    //TODO should a MessageGenerator be held if it is just a utility class?
-    public Cohort(TaskGenerator taskGenerator, MessageGenerator messageGenerator, List<StudentModel> students){
+    public Cohort(TaskGenerator taskGenerator, List<StudentModel> students){
         this.taskGenerator =  taskGenerator;
         this.students = students;
-        this.messageGenerator = messageGenerator;
     }
 
     public void setStudents(List<StudentModel> students) {
@@ -32,13 +29,5 @@ public class Cohort {
 
     public TaskGenerator getTaskGenerator() {
         return taskGenerator;
-    }
-
-    public void setMessageGenerator(MessageGenerator messageGenerator) {
-        this.messageGenerator = messageGenerator;
-    }
-
-    public MessageGenerator getMessageGenerator() {
-        return messageGenerator;
     }
 }

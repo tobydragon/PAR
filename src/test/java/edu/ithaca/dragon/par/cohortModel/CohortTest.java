@@ -20,7 +20,6 @@ public class CohortTest {
     @Test
     public void constructorTest() throws IOException {
         TaskGenerator taskGenerator = new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap());
-        MessageGenerator messageGenerator = new MessageGenerator();
 
         //instantiate list of student models
         List<Question> questionList = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/SampleQuestionPool.json").getAllQuestions()).getAllQuestions();
@@ -33,10 +32,9 @@ public class CohortTest {
         studentList.add(testStudent2);
         studentList.add(testStudent3);
 
-        Cohort cohort = new Cohort(taskGenerator, messageGenerator, studentList);
+        Cohort cohort = new Cohort(taskGenerator, studentList);
 
         assertEquals(cohort.getTaskGenerator(), taskGenerator);
-        assertEquals(cohort.getMessageGenerator(), messageGenerator);
         assertEquals(cohort.getStudents(), studentList);
     }
 }
