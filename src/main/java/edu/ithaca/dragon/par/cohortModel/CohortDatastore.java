@@ -1,6 +1,6 @@
 package edu.ithaca.dragon.par.cohortModel;
 
-import edu.ithaca.dragon.par.studentModel.StudentModel;
+import edu.ithaca.dragon.par.pedagogicalModel.TaskGenerator;
 
 import java.util.List;
 import java.util.Map;
@@ -17,15 +17,7 @@ public class CohortDatastore {
         return -1;
     }
 
-    public List<StudentModel> getAllStudents(){
-        return null;
-    }
-
-    public List<Cohort> getAllCohorts(){
-        return null;
-    }
-
-    public void putStudent(String studentIDIn, Cohort cohortIn){
+    public void addStudentToCohort(String studentIDIn, Cohort cohortIn){
 
     }
 
@@ -33,7 +25,7 @@ public class CohortDatastore {
 
     }
 
-    public Cohort getTaskGeneratorFromStudentID(String studentIDIn){
+    public TaskGenerator getTaskGeneratorFromStudentID(String studentIDIn){
         return null;
     }
 }
