@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cohort {
-    private TaskGenerator taskGenerator;
-    private List<String> studentIDs;
+    private final TaskGenerator taskGenerator;
+    private final List<String> studentIDs;
 
     public Cohort(TaskGenerator taskGenerator){
         this.taskGenerator =  taskGenerator;
@@ -34,6 +34,6 @@ public class Cohort {
     }
 
     public void removeStudent(String studentID){
-
+        studentIDs.remove(studentID);
     }
 }
