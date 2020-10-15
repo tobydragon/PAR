@@ -37,5 +37,8 @@ public class Cohort {
     }
 
     public void addStudent(String studentID) {
+        if(!studentIDs.contains(studentID)){
+            studentIDs.add(studentID);
+        }
     }
 }
