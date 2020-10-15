@@ -19,17 +19,8 @@ public class Cohort {
         this.studentIDs = studentIDs;
     }
 
-    //TODO add student, remove student, delete setStudents, delete setTaskGenerator
-    public void setStudents(List<String> studentIDs) {
-        this.studentIDs = studentIDs;
-    }
-
     public List<String> getStudentIDs() {
         return studentIDs;
-    }
-
-    public void setTaskGenerator(TaskGenerator taskGenerator) {
-        this.taskGenerator = taskGenerator;
     }
 
     public TaskGenerator getTaskGenerator() {
@@ -40,5 +31,9 @@ public class Cohort {
         if(!studentIDs.contains(studentID)){
             studentIDs.add(studentID);
         }
+    }
+
+    public void removeStudent(String studentID){
+
     }
 }

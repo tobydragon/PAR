@@ -71,4 +71,37 @@ public class CohortTest {
         assertTrue(idsFromCohort.contains("testStudent4"));
         assertEquals(idsFromCohort.size(), 4);
     }
+
+    @Test
+    public void removeStudentTest(){
+        Cohort testCohort = new Cohort(new RandomTaskGenerator());
+        assertEquals(testCohort.getStudentIDs().size(), 0);
+
+        //remove from empty cohort
+        testCohort.removeStudent("testStudent1");
+        assertEquals(testCohort.getStudentIDs().size(), 0);
+
+        //remove id that doesnt exist from cohort w 1 student
+        testCohort.addStudent("testStudent1");
+        testCohort.removeStudent("testStudent2");
+        assertEquals(testCohort.getStudentIDs().size(), 1);
+
+        //remove id from cohort w 1 student
+        testCohort.removeStudent("testStudent1");
+        assertEquals(testCohort.getStudentIDs().size(), 0);
+
+        //remove id from cohort with multiple students
+        List<String> studentList = new ArrayList<>();
+        studentList.add("testStudent3");
+        studentList.add("testStudent4");
+        studentList.add("testStudent5");
+
+        testCohort = new Cohort(new RandomTaskGenerator(), studentList);
+        testCohort.removeStudent("testStudent3");
+        assertEquals(testCohort.getStudentIDs().size(), 2);
+
+        //remove id that doesnt exist from cohort with multiple students
+        testCohort.removeStudent("testStudent2");
+        assertEquals(testCohort.getStudentIDs().size(), 2);
+    }
 }
