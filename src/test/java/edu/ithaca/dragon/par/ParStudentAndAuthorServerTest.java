@@ -267,8 +267,8 @@ class ParStudentAndAuthorServerTest {
         ImageTask it = server.nextImageTask(student.getUserId());
 
         //mastered
-        student.setCurrentLevel(7);
-        student.setPreviousLevel(6);
+        student.setCurrentLevel(8);
+        student.setPreviousLevel(7);
         String message = server.getMessage(student.getUserId(), it);
         assertEquals("You have mastered the material, feel free to keep practicing", message);
 
@@ -303,9 +303,9 @@ class ParStudentAndAuthorServerTest {
         message = server.getMessage(student2.getUserId(), it2);
         assertEquals("You're doing great!", message);
 
-        //stay on level 7, repeated question
-        student.setPreviousLevel(7);
-        student.setCurrentLevel(7);
+        //stay on level 8, repeated question
+        student.setPreviousLevel(8);
+        student.setCurrentLevel(8);
 
 
         Date date = new Date();

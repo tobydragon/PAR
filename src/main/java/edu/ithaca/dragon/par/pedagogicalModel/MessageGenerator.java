@@ -35,8 +35,8 @@ public class MessageGenerator {
         else {
 
             //mastered student message
-            if (currentLevel == 7) {
-                message = level7Message(studentModel, imageTask);
+            if (currentLevel == 8) {
+                message = level8Message(studentModel, imageTask);
             } else {
                 //down level
                 //if the student has just decreased in level, this will set the appropriate message.
@@ -121,11 +121,11 @@ public class MessageGenerator {
         }
     }
 
-    public static String level7Message(StudentModel studentModel, ImageTask imageTask){
+    public static String level8Message(StudentModel studentModel, ImageTask imageTask){
         int currentLevel = studentModel.getCurrentLevel();
 
         //check level
-        if (currentLevel != 7){
+        if (currentLevel != 8){
             return null;
         }
 

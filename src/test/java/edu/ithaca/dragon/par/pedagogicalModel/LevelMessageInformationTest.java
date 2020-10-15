@@ -24,7 +24,7 @@ public class LevelMessageInformationTest {
         assertEquals(5, levMes.getPreviousLevel());
 
         //invalid set- too high (border)
-        assertThrows(IllegalArgumentException.class, ()-> levMes.setPreviousLevel(8));
+        assertThrows(IllegalArgumentException.class, ()-> levMes.setPreviousLevel(9));
         assertEquals(5, levMes.getPreviousLevel());
 
         //invalid set- too low
@@ -65,7 +65,7 @@ public class LevelMessageInformationTest {
         assertEquals(5, levmes.getCurrentLevel());
 
         //invalid set- too high (border)
-        assertThrows(IllegalArgumentException.class, ()-> levmes.setCurrentLevel(8));
+        assertThrows(IllegalArgumentException.class, ()-> levmes.setCurrentLevel(9));
         assertEquals(5, levmes.getCurrentLevel());
 
         //invalid set- too low

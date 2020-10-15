@@ -127,7 +127,7 @@ public class StudentModelTest {
         assertEquals(5, studentModel.getPreviousLevel());
 
         //invalid set- too high (border)
-        assertThrows(IllegalArgumentException.class, ()-> studentModel.setPreviousLevel(8));
+        assertThrows(IllegalArgumentException.class, ()-> studentModel.setPreviousLevel(9));
         assertEquals(5, studentModel.getPreviousLevel());
 
         //invalid set- too low
@@ -169,7 +169,7 @@ public class StudentModelTest {
         assertEquals(5, studentModel.getCurrentLevel());
 
         //invalid set- too high (border)
-        assertThrows(IllegalArgumentException.class, ()-> studentModel.setCurrentLevel(8));
+        assertThrows(IllegalArgumentException.class, ()-> studentModel.setCurrentLevel(9));
         assertEquals(5, studentModel.getCurrentLevel());
 
         //invalid set- too low
