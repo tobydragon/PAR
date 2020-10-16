@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 public class CohortDatastore {
-    private Map<String, Cohort> cohortMap;
-    private List<Cohort> masterCohortList;
+    private final Map<String, Cohort> cohortMap;
+    private final List<Cohort> masterCohortList;
 
     public CohortDatastore(){
         this.cohortMap = new HashMap<>();
@@ -22,12 +22,13 @@ public class CohortDatastore {
 
     public int getTotalNumberStudents(){ return cohortMap.size();}
 
-    public void addCohort(TaskGenerator taskGenerator){
-
-    }
-
     public void addCohort(TaskGenerator taskGenerator, List<String> studentIDs){
+        Cohort toAdd = new Cohort(taskGenerator, studentIDs);
+        masterCohortList.add(toAdd);
 
+        for (String studentID : studentIDs) {
+            cohortMap.put(studentID, masterCohortList.get(masterCohortList.size() - 1));
+        }
     }
 
     public TaskGenerator getTaskGeneratorFromStudentID(String studentIDIn){

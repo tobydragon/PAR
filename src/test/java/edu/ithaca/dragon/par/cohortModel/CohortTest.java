@@ -30,30 +30,10 @@ public class CohortTest {
 
         assertEquals(cohort.getTaskGenerator(), taskGenerator);
         assertEquals(cohort.getStudentIDs(), studentList);
-
-        //construct an empty cohort
-        Cohort cohort1 = new Cohort(taskGenerator);
-        assertEquals(cohort1.getTaskGenerator(), taskGenerator);
-        assertEquals(cohort1.getStudentIDs().size(), 0);
     }
 
     @Test
     public void addStudentTest(){
-        //add studentID to empty cohort
-        Cohort testCohort = new Cohort(new RandomTaskGenerator());
-        testCohort.addStudent("testStudent1");
-
-        //add studentID to cohort with existing studentIDs
-        testCohort.addStudent("testStudent2");
-
-        //add studentID that already exists
-        testCohort.addStudent("testStudent1");
-
-        List<String> idsFromCohort = testCohort.getStudentIDs();
-        assertTrue(idsFromCohort.contains("testStudent1"));
-        assertTrue(idsFromCohort.contains("testStudent2"));
-        assertEquals(idsFromCohort.size(), 2);
-
         //add studentID to new cohort with studentIDs
         List<String> studentList = new ArrayList<>();
         studentList.add("testStudent1");
@@ -66,7 +46,7 @@ public class CohortTest {
         //add studentID to new cohort with studentIDs that already exists
         testCohort2.addStudent("testStudent2");
 
-        idsFromCohort = testCohort2.getStudentIDs();
+        List<String> idsFromCohort = testCohort2.getStudentIDs();
         assertTrue(idsFromCohort.contains("testStudent2"));
         assertTrue(idsFromCohort.contains("testStudent4"));
         assertEquals(idsFromCohort.size(), 4);
@@ -74,29 +54,13 @@ public class CohortTest {
 
     @Test
     public void removeStudentTest(){
-        Cohort testCohort = new Cohort(new RandomTaskGenerator());
-        assertEquals(testCohort.getStudentIDs().size(), 0);
-
-        //remove from empty cohort
-        testCohort.removeStudent("testStudent1");
-        assertEquals(testCohort.getStudentIDs().size(), 0);
-
-        //remove id that doesnt exist from cohort w 1 student
-        testCohort.addStudent("testStudent1");
-        testCohort.removeStudent("testStudent2");
-        assertEquals(testCohort.getStudentIDs().size(), 1);
-
-        //remove id from cohort w 1 student
-        testCohort.removeStudent("testStudent1");
-        assertEquals(testCohort.getStudentIDs().size(), 0);
-
         //remove id from cohort with multiple students
         List<String> studentList = new ArrayList<>();
         studentList.add("testStudent3");
         studentList.add("testStudent4");
         studentList.add("testStudent5");
 
-        testCohort = new Cohort(new RandomTaskGenerator(), studentList);
+        Cohort testCohort = new Cohort(new RandomTaskGenerator(), studentList);
         testCohort.removeStudent("testStudent3");
         assertEquals(testCohort.getStudentIDs().size(), 2);
 

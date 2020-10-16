@@ -27,24 +27,11 @@ public class CohortDatastoreTest {
 
         //first method signature (taskGenerator)
         CohortDatastore cohortDatastore = new CohortDatastore();
-        assertEquals(cohortDatastore.getNumberCohorts(), 0);
-
-        //add cohort to empty map
-        cohortDatastore.addCohort(new RandomTaskGenerator());
-        assertEquals(cohortDatastore.getNumberCohorts(), 1);
-
-        //add cohort to map with multiple entries (10)
-        for (int i = 0; i < 3; i++){
-            cohortDatastore.addCohort(new RandomTaskGenerator());
-            cohortDatastore.addCohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()));
-            cohortDatastore.addCohort(new OrderedTaskGenerator(questionPool, defaultQuestionOrderedInfoList));
-        }
-
-        assertEquals(cohortDatastore.getNumberCohorts(), 10);
+        assertEquals(0, cohortDatastore.getNumberCohorts());
 
         //second method signature (taskGenerator and students)
         CohortDatastore cohortDatastore2 = new CohortDatastore();
-        assertEquals(cohortDatastore2.getNumberCohorts(), 0);
+        assertEquals(0, cohortDatastore2.getNumberCohorts());
 
         List<String> studentIDs = new ArrayList<>();
         studentIDs.add("testStudent1");
@@ -53,7 +40,7 @@ public class CohortDatastoreTest {
 
         //add cohort to empty map
         cohortDatastore2.addCohort(new RandomTaskGenerator(), studentIDs);
-        assertEquals(cohortDatastore2.getNumberCohorts(), 1);
+        assertEquals(1, cohortDatastore2.getNumberCohorts());
 
         //add cohort to map with multiple entries (10)
         for (int i = 0; i < 3; i++){
@@ -62,7 +49,7 @@ public class CohortDatastoreTest {
             cohortDatastore2.addCohort(new OrderedTaskGenerator(questionPool, defaultQuestionOrderedInfoList), studentIDs);
         }
 
-        assertEquals(cohortDatastore2.getNumberCohorts(), 10);
+        assertEquals(10, cohortDatastore2.getNumberCohorts());
     }
 
 }
