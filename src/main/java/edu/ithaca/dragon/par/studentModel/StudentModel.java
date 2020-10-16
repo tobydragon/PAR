@@ -131,5 +131,9 @@ public class StudentModel {
     }
 
 
+    public List<Question> calcQuestionsWrong(){
+        return new ArrayList<Question>();
+    }
+
 
 }

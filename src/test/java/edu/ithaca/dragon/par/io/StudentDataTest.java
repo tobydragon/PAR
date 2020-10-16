@@ -83,4 +83,27 @@ public class StudentDataTest {
         StudentData newStudent = new StudentData(student);
         assertThrows(IllegalArgumentException.class, ()-> masteredStudent.updateData(student));
     }
+
+    @Test
+    public void calcWrongQuestionsTest() throws IOException{
+        //mastered student creation
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
+
+        StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
+        StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
+        StudentData masteredStudent = new StudentData(masteredStudentModel);
+        assertEquals("masteredStudent", masteredStudent.getStudentId());
+        assertEquals(7, masteredStudent.getLevel());
+        assertEquals(26, masteredStudent.getTotalAnswersGiven());
+
+        assertEquals(1, masteredStudent.getQuestionsWrong().size());
+
+
+        StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/incorrectStudent.json", StudentModelRecord.class);
+        StudentModel insm = smr2.buildStudentModel(myQP);
+        StudentData insmsd = new StudentData(insm);
+
+        assertEquals(6, insmsd.getQuestionsWrong().size());
+
+    }
 }

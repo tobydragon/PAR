@@ -136,4 +136,21 @@ public class StudentModelTest {
 
     }
 
+
+    @Test
+    public void calcQuestionsWrongTest() throws IOException{
+        //mastered student creation
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
+
+        StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
+        StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
+        assertEquals(1, masteredStudentModel.calcQuestionsWrong().size());
+
+
+        StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/incorrectStudent.json", StudentModelRecord.class);
+        StudentModel insm = smr2.buildStudentModel(myQP);
+
+        assertEquals(6, insm.calcQuestionsWrong().size());
+    }
+
 }
