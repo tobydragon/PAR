@@ -480,4 +480,58 @@ public class StudentDataAnalyzerTest {
         String fileName = "studentDataYay.csv";
         sda.writeStudentDataFile(fileName);
     }
+
+    @Test
+    public void findMostIncorrectQuestionsTest() throws IOException{
+        //empty StudentDataAnalyzer
+        StudentDataAnalyzer sda = new StudentDataAnalyzer(new ArrayList<>());
+        assertThrows(IllegalArgumentException.class, ()-> sda.findMostIncorrectQuestions(3));
+
+        //add 1 student
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
+        StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
+        StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
+        StudentData masteredStudent = new StudentData(masteredStudentModel);
+
+        sda.addStudentData(masteredStudent);
+
+
+        List<Question> incorrect = sda.findMostIncorrectQuestions(1);
+        assertEquals("327-structure0-./images/metacarpal56.jpg", incorrect.get(0).getId());
+
+
+        //invalid numbers
+        assertThrows(IllegalArgumentException.class, ()-> sda.findMostIncorrectQuestions(-3));
+        assertThrows(IllegalArgumentException.class, ()-> sda.findMostIncorrectQuestions(0));
+        assertThrows(IllegalArgumentException.class, ()-> sda.findMostIncorrectQuestions(9999999));
+
+
+
+        //add another student (2 total)
+        StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/level4Student.json", StudentModelRecord.class);
+        StudentModel level4Student = smr2.buildStudentModel(myQP);
+        StudentData level4StudentData = new StudentData(level4Student);
+        sda.addStudentData(level4StudentData);
+
+        incorrect = sda.findMostIncorrectQuestions(3);
+
+        assertEquals("327-structure0-./images/metacarpal56.jpg", incorrect.get(0).getId());
+
+        assertEquals("491-zone-./images/metacarpal37.jpg", incorrect.get(1).getId());
+
+        assertEquals("463-zone-./images/metacarpal25.jpg", incorrect.get(2).getId());
+
+        //add another student (3 total)
+        List<Question> noQuestions = new ArrayList<Question>();
+        StudentModel student = new StudentModel("student", noQuestions);
+        StudentData newStudent = new StudentData(student);
+        sda.addStudentData(newStudent);
+
+        incorrect = sda.findMostIncorrectQuestions(3);
+        assertEquals("327-structure0-./images/metacarpal56.jpg", incorrect.get(0).getId());
+        assertEquals("491-zone-./images/metacarpal37.jpg", incorrect.get(1).getId());
+        assertEquals("463-zone-./images/metacarpal25.jpg", incorrect.get(2).getId());
+
+
+    }
 }
