@@ -52,4 +52,50 @@ public class CohortDatastoreTest {
         assertEquals(10, cohortDatastore2.getNumberCohorts());
     }
 
+    @Test
+    public void getTaskGeneratorFromStudentID() throws IOException {
+        CohortDatastore cohortDatastore = new CohortDatastore();
+        RandomTaskGenerator randomTaskGenerator = new RandomTaskGenerator();
+        JsonIoUtil reader = new JsonIoUtil(new JsonIoHelperDefault());
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
+        List<QuestionOrderedInfo> defaultQuestionOrderedInfoList = reader.listFromFile("src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoList.json", QuestionOrderedInfo.class);
+        OrderedTaskGenerator orderedTaskGenerator = new OrderedTaskGenerator(questionPool, defaultQuestionOrderedInfoList);
+        LevelTaskGenerator levelTaskGenerator = new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap());
+
+        //get from empty map
+        assertNull(cohortDatastore.getTaskGeneratorFromStudentID("testStudent1"));
+
+        //get from map with one cohort
+        List<String> studentIDs1 = new ArrayList<>();
+        studentIDs1.add("testStudent1");
+        studentIDs1.add("testStudent2");
+        studentIDs1.add("testStudent3");
+
+        cohortDatastore.addCohort(randomTaskGenerator, studentIDs1);
+        assertEquals(randomTaskGenerator, cohortDatastore.getTaskGeneratorFromStudentID("testStudent2"));
+
+        //get from map with one cohort with student that doesnt exist
+        assertNull(cohortDatastore.getTaskGeneratorFromStudentID("testStudent4"));
+
+        //get from map with multiple cohorts
+        List<String> studentIDs2 = new ArrayList<>();
+        studentIDs2.add("testStudent4");
+        studentIDs2.add("testStudent5");
+        studentIDs2.add("testStudent6");
+
+        cohortDatastore.addCohort(orderedTaskGenerator, studentIDs2);
+        List<String> studentIDs3 = new ArrayList<>();
+        studentIDs3.add("testStudent7");
+        studentIDs3.add("testStudent8");
+        studentIDs3.add("testStudent9");
+
+        cohortDatastore.addCohort(levelTaskGenerator, studentIDs3);
+        assertEquals(orderedTaskGenerator, cohortDatastore.getTaskGeneratorFromStudentID("testStudent5"));
+        assertEquals(levelTaskGenerator, cohortDatastore.getTaskGeneratorFromStudentID("testStudent9"));
+
+        //get from map with multiple cohorts with student that doesnt exist
+        assertNull(cohortDatastore.getTaskGeneratorFromStudentID("testStudent10"));
+
+    }
+
 }
