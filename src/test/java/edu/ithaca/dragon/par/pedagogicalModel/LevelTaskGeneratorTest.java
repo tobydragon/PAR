@@ -54,8 +54,8 @@ public class LevelTaskGeneratorTest {
 
     @Test
     public void emptyQuestionSetTest()throws IOException {
-        JsonStudentModelDatastore datastore = new JsonStudentModelDatastore("src/test/resources/author/simpleTestSet/currentQuestionPool.json", "src/test/resources/author/simpleTestSet/students");
-        StudentModel testUser2 = datastore.getOrCreateStudentModel("testUser2");
+        JsonStudentModelDatastore datastore = new JsonStudentModelDatastore("src/test/resources/author/simpleTestSet/smallQP.json", "src/test/resources/author/simpleTestSet/students");
+        StudentModel testUser2 = datastore.getOrCreateStudentModel("testUser22");
 
         ImageTask imageTask = new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()).makeTask(testUser2,4);
         assertEquals(1,imageTask.getTaskQuestions().size());
@@ -67,10 +67,10 @@ public class LevelTaskGeneratorTest {
         JsonStudentModelDatastore datastore = new JsonStudentModelDatastore("src/test/resources/author/simpleTestSet/currentQuestionPool.json", "src/test/resources/author/simpleTestSet/students");
         StudentModel testUser2 = datastore.getOrCreateStudentModel("testUser2");
 
-        assertEquals(true,LevelTaskGenerator.checkForAllNeededTypesOfQuestions(Arrays.asList(EquineQuestionTypes.plane.toString(),EquineQuestionTypes.plane.toString()),testUser2,testUser2.getUserQuestionSet().getQuestionCounts().get(3).getQuestion()));
-        assertEquals(false,LevelTaskGenerator.checkForAllNeededTypesOfQuestions(Arrays.asList(EquineQuestionTypes.plane.toString(),EquineQuestionTypes.structure.toString()),testUser2,testUser2.getUserQuestionSet().getQuestionCounts().get(3).getQuestion()));
-        assertEquals(true,LevelTaskGenerator.checkForAllNeededTypesOfQuestions(Arrays.asList(EquineQuestionTypes.plane.toString(),EquineQuestionTypes.structure.toString()),testUser2,testUser2.getUserQuestionSet().getQuestionCounts().get(0).getQuestion()));
-        assertEquals(true,LevelTaskGenerator.checkForAllNeededTypesOfQuestions(Arrays.asList(EquineQuestionTypes.structure.toString(),EquineQuestionTypes.attachment.toString()),testUser2,testUser2.getUserQuestionSet().getQuestionCounts().get(1).getQuestion()));
+        assertEquals(true,LevelTaskGenerator.checkRelatedImageHasAllNeededTypesOfQuestions(Arrays.asList(EquineQuestionTypes.plane.toString(),EquineQuestionTypes.plane.toString()),testUser2,testUser2.getUserQuestionSet().getQuestionCounts().get(3).getQuestion()));
+        assertEquals(false,LevelTaskGenerator.checkRelatedImageHasAllNeededTypesOfQuestions(Arrays.asList(EquineQuestionTypes.plane.toString(),EquineQuestionTypes.structure.toString()),testUser2,testUser2.getUserQuestionSet().getQuestionCounts().get(3).getQuestion()));
+        assertEquals(true,LevelTaskGenerator.checkRelatedImageHasAllNeededTypesOfQuestions(Arrays.asList(EquineQuestionTypes.plane.toString(),EquineQuestionTypes.structure.toString()),testUser2,testUser2.getUserQuestionSet().getQuestionCounts().get(0).getQuestion()));
+        assertEquals(true,LevelTaskGenerator.checkRelatedImageHasAllNeededTypesOfQuestions(Arrays.asList(EquineQuestionTypes.structure.toString(),EquineQuestionTypes.attachment.toString()),testUser2,testUser2.getUserQuestionSet().getQuestionCounts().get(1).getQuestion()));
         //TODO: test with followup questions
     }
 

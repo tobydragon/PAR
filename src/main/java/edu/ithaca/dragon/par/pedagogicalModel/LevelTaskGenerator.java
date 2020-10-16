@@ -40,7 +40,7 @@ public class LevelTaskGenerator implements TaskGenerator {
 
         QuestionCount leastSeenWithTypesNeeded = null;
         for(QuestionCount questionCount : typeQuestions){
-            if(checkForAllNeededTypesOfQuestions(typesNeeded,studentModel,questionCount.getQuestion())) {
+            if(checkRelatedImageHasAllNeededTypesOfQuestions(typesNeeded,studentModel,questionCount.getQuestion())) {
                 if (leastSeenWithTypesNeeded == null  ){
                     leastSeenWithTypesNeeded = questionCount;
                 }
@@ -57,7 +57,7 @@ public class LevelTaskGenerator implements TaskGenerator {
         }
     }
 
-    public static boolean checkForAllNeededTypesOfQuestions(List<String> types, StudentModel studentModel, Question question){
+    public static boolean checkRelatedImageHasAllNeededTypesOfQuestions(List<String> types, StudentModel studentModel, Question question){
         Set<String> typesPresent=new LinkedHashSet<>();
         List<Question> questionList =QuestionPool.getQuestionsWithUrl(studentModel.getUserQuestionSet().getAllQuestions(), question.getImageUrl());
         for(Question currQuestion: questionList){
@@ -80,26 +80,8 @@ public class LevelTaskGenerator implements TaskGenerator {
         else if (orderedScores.get(0) == 100 && orderedScores.get(1)==100 && orderedScores.get(2)==100 &&orderedScores.get(3)>50){ //all 100 but zone over 50
             return 7;
         }
-        else if(orderedScores.get(0) == 100 && orderedScores.get(1)==100 && orderedScores.get(2)==100){ //all 100 but zone
-            return 6;
-        }
-        else if (orderedScores.get(0) == 100 && orderedScores.get(1)==100 && orderedScores.get(2)>50){ //above 50 on attachment
-            return 5;
-        }
-        else if(orderedScores.get(0) == 100 && orderedScores.get(1)==100){ //100 on structure
-            return 4;
-        }
-        else if(orderedScores.get(0) == 100 && orderedScores.get(1)>50 && orderedScores.get(1)<100){ //100 on plane, between 50 and 100 on structure
-            return 3;
-        }
-        else if (orderedScores.get(0)>50){ //over 50 on plane
-            return 2;
-        }
-        if(orderedScores.get(0) <=50){ //less than 50 on plane
-            return 1;
-        }
         else{
-            return -16;
+            return calcLevelAttachment(scoresPerType);
         }
     }
 
@@ -121,11 +103,11 @@ public class LevelTaskGenerator implements TaskGenerator {
         else if (orderedScores.get(0) > 50) { //over 50 on plane
             return 2;
         }
-        if (orderedScores.get(0) <= 50) { //less than 50 on plane
+        else if (orderedScores.get(0) <= 50) { //less than 50 on plane
             return 1;
         }
         else {
-            return -16;
+            throw new RuntimeException("no valid level for data");
         }
     }
 
