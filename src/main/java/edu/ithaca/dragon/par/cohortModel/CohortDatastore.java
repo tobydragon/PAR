@@ -2,30 +2,37 @@ package edu.ithaca.dragon.par.cohortModel;
 
 import edu.ithaca.dragon.par.pedagogicalModel.TaskGenerator;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class CohortDatastore {
-    private Map cohortMap;
+    private Map<String, Cohort> cohortMap;
     private List<Cohort> masterCohortList;
 
     public CohortDatastore(){
+        this.cohortMap = new HashMap<>();
+        this.masterCohortList = new ArrayList<>();
+    }
+
+    public int getNumberCohorts() {
+        return masterCohortList.size();
+    }
+
+    public int getTotalNumberStudents(){ return cohortMap.size();}
+
+    public void addCohort(TaskGenerator taskGenerator){
 
     }
 
-    public int getSize() {
-        return -1;
-    }
-
-    public void addStudentToCohort(String studentIDIn, Cohort cohortIn){
-
-    }
-
-    public void removeStudentFromCohort(String studentIDIn, Cohort cohortIn){
+    public void addCohort(TaskGenerator taskGenerator, List<String> studentIDs){
 
     }
 
     public TaskGenerator getTaskGeneratorFromStudentID(String studentIDIn){
         return null;
     }
+
+    public static TaskGenerator getTaskGeneratorFromStudentIDAndCohorts(String studentIDIn, List<Cohort> cohortsIn){return null;}
 }
