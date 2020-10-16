@@ -1,103 +1,101 @@
 package edu.ithaca.dragon.par.cohortModel;
 
+import edu.ithaca.dragon.par.domainModel.QuestionOrderedInfo;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.JsonQuestionPoolDatastore;
 import edu.ithaca.dragon.par.pedagogicalModel.LevelTaskGenerator;
-import edu.ithaca.dragon.par.studentModel.StudentModel;
+import edu.ithaca.dragon.par.pedagogicalModel.OrderedTaskGenerator;
+import edu.ithaca.dragon.par.pedagogicalModel.RandomTaskGenerator;
+import edu.ithaca.dragon.util.JsonIoHelperDefault;
+import edu.ithaca.dragon.util.JsonIoUtil;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CohortDatastoreTest {
 
-    //TODO where is the cohort stored? should this Map be the cohort object or an ID type string?
-        //pretty sure this should be IDs
-    //TODO addStudentToCohort tests and method: just one or multiple or both?
-    //TODO: should student be able to be in more than one cohort? i think not
     @Test
-    public void constructorTest(){
-        CohortDatastore cohortMap = new CohortDatastore();
-        //test size of map
-        assertEquals(cohortMap.getSize(), 0);
+    public void addCohortTest() throws IOException {
+        JsonIoUtil reader = new JsonIoUtil(new JsonIoHelperDefault());
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
+        List<QuestionOrderedInfo> defaultQuestionOrderedInfoList = reader.listFromFile("src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoList.json", QuestionOrderedInfo.class);
 
-        //verify keys(students) are empty
-        assertEquals(cohortMap.getAllStudents().size(), 0);
+        //first method signature (taskGenerator)
+        CohortDatastore cohortDatastore = new CohortDatastore();
+        assertEquals(0, cohortDatastore.getNumberCohorts());
 
-        //verify values(cohorts) are empty
-        assertEquals(cohortMap.getAllCohorts().size(), 0);
-    }
+        //second method signature (taskGenerator and students)
+        CohortDatastore cohortDatastore2 = new CohortDatastore();
+        assertEquals(0, cohortDatastore2.getNumberCohorts());
 
+        List<String> studentIDs = new ArrayList<>();
+        studentIDs.add("testStudent1");
+        studentIDs.add("testStudent2");
+        studentIDs.add("testStudent3");
 
-    @Test
-    public void putStudentTest() throws IOException {
-        CohortDatastore cohortMap = new CohortDatastore();
+        //add cohort to empty map
+        cohortDatastore2.addCohort(new RandomTaskGenerator(), studentIDs);
+        assertEquals(1, cohortDatastore2.getNumberCohorts());
 
-        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/SampleQuestionPool.json").getAllQuestions());
-        StudentModel studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
-        StudentModel studentModel2 = new StudentModel("TestUser2", questionPool.getAllQuestions());
-        StudentModel studentModel3 = new StudentModel("TestUser3", questionPool.getAllQuestions());
+        //add cohort to map with multiple entries (10)
+        for (int i = 0; i < 3; i++){
+            cohortDatastore2.addCohort(new RandomTaskGenerator(), studentIDs);
+            cohortDatastore2.addCohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), studentIDs);
+            cohortDatastore2.addCohort(new OrderedTaskGenerator(questionPool, defaultQuestionOrderedInfoList), studentIDs);
+        }
 
-        Cohort cohort = new Cohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), null, new ArrayList<>());
-        Cohort cohort2 = new Cohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), null, new ArrayList<>());
-
-        //put into empty map
-        cohortMap.putStudent(studentModel.getUserId(), cohort);
-        assertEquals(cohortMap.getSize(), 1);
-
-        //put into hashmap with multiple existing entries
-        cohortMap.putStudent(studentModel2.getUserId(), cohort2);
-        assertEquals(cohortMap.getSize(), 2);
-
-        cohortMap.putStudent(studentModel3.getUserId(), cohort);
-        assertEquals(cohortMap.getSize(), 3);
-
-        //put with studentId-cohort pair that already exists
-        cohortMap.putStudent(studentModel.getUserId(), cohort);
-        assertEquals(cohortMap.getSize(), 3);
-
-        //put with studentId that already exists in different cohort ERROR
-        //TODO is this right??
-        assertThrows(IllegalArgumentException.class,()->{cohortMap.putStudent(studentModel.getUserId(), cohort2);} );
-
+        assertEquals(10, cohortDatastore2.getNumberCohorts());
     }
 
     @Test
-    public void getCohortFromStudentIDTest() throws IOException {
-        CohortDatastore cohortMap = new CohortDatastore();
+    public void getTaskGeneratorFromStudentID() throws IOException {
+        CohortDatastore cohortDatastore = new CohortDatastore();
+        RandomTaskGenerator randomTaskGenerator = new RandomTaskGenerator();
+        JsonIoUtil reader = new JsonIoUtil(new JsonIoHelperDefault());
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
+        List<QuestionOrderedInfo> defaultQuestionOrderedInfoList = reader.listFromFile("src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoList.json", QuestionOrderedInfo.class);
+        OrderedTaskGenerator orderedTaskGenerator = new OrderedTaskGenerator(questionPool, defaultQuestionOrderedInfoList);
+        LevelTaskGenerator levelTaskGenerator = new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap());
 
-        //get cohort from empty map
-        assertThrows(IllegalArgumentException.class, ()->{ cohortMap.getCohortFromStudentID("TestUser1");});
+        //get from empty map
+        assertNull(cohortDatastore.getTaskGeneratorFromStudentID("testStudent1"));
 
-        //get cohort from map with multiple entries
-        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/SampleQuestionPool.json").getAllQuestions());
-        StudentModel studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
-        StudentModel studentModel2 = new StudentModel("TestUser2", questionPool.getAllQuestions());
-        StudentModel studentModel3 = new StudentModel("TestUser3", questionPool.getAllQuestions());
+        //get from map with one cohort
+        List<String> studentIDs1 = new ArrayList<>();
+        studentIDs1.add("testStudent1");
+        studentIDs1.add("testStudent2");
+        studentIDs1.add("testStudent3");
 
-        Cohort cohort = new Cohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), null, new ArrayList<>());
-        Cohort cohort2 = new Cohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), null, new ArrayList<>());
+        cohortDatastore.addCohort(randomTaskGenerator, studentIDs1);
+        assertEquals(randomTaskGenerator, cohortDatastore.getTaskGeneratorFromStudentID("testStudent2"));
 
-        cohortMap.putStudent(studentModel.getUserId(), cohort);
-        cohortMap.putStudent(studentModel2.getUserId(), cohort2);
-        cohortMap.putStudent(studentModel3.getUserId(), cohort);
+        //get from map with one cohort with student that doesnt exist
+        assertNull(cohortDatastore.getTaskGeneratorFromStudentID("testStudent4"));
 
-        assertEquals(cohortMap.getCohortFromStudentID("TestUser1"), cohort);
-        assertEquals(cohortMap.getCohortFromStudentID("TestUser2"), cohort2);
-        assertEquals(cohortMap.getCohortFromStudentID("TestUser3"), cohort);
+        //get from map with multiple cohorts
+        List<String> studentIDs2 = new ArrayList<>();
+        studentIDs2.add("testStudent4");
+        studentIDs2.add("testStudent5");
+        studentIDs2.add("testStudent6");
 
-        //get cohort from ID that does not exist
-        assertThrows(IllegalArgumentException.class, ()->{cohortMap.getCohortFromStudentID("TestUser4");});
-    }
+        cohortDatastore.addCohort(orderedTaskGenerator, studentIDs2);
+        List<String> studentIDs3 = new ArrayList<>();
+        studentIDs3.add("testStudent7");
+        studentIDs3.add("testStudent8");
+        studentIDs3.add("testStudent9");
 
-    @Test
-    public void getAllStudentsTest(){
-        CohortDatastore cohortMap = new CohortDatastore();
+        cohortDatastore.addCohort(levelTaskGenerator, studentIDs3);
+        assertEquals(orderedTaskGenerator, cohortDatastore.getTaskGeneratorFromStudentID("testStudent5"));
+        assertEquals(levelTaskGenerator, cohortDatastore.getTaskGeneratorFromStudentID("testStudent9"));
 
-        assertEquals(cohortMap.getAllStudents().size(), 0);
+        //get from map with multiple cohorts with student that doesnt exist
+        assertNull(cohortDatastore.getTaskGeneratorFromStudentID("testStudent10"));
+
     }
 
 }

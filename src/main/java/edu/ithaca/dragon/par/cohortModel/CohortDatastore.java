@@ -1,39 +1,44 @@
 package edu.ithaca.dragon.par.cohortModel;
 
-import edu.ithaca.dragon.par.studentModel.StudentModel;
+import edu.ithaca.dragon.par.pedagogicalModel.TaskGenerator;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class CohortDatastore {
-    private Map cohortMap;
-    private List<Cohort> masterCohortList;
+    private final Map<String, Cohort> cohortMap;
+    private final List<Cohort> masterCohortList;
 
     public CohortDatastore(){
-
+        this.cohortMap = new HashMap<>();
+        this.masterCohortList = new ArrayList<>();
     }
 
-    public int getSize() {
-        return -1;
+    public int getNumberCohorts() {
+        return masterCohortList.size();
     }
 
-    public List<StudentModel> getAllStudents(){
-        return null;
+    public int getTotalNumberStudents(){ return cohortMap.size();}
+
+    public void addCohort(TaskGenerator taskGenerator, List<String> studentIDs){
+        Cohort toAdd = new Cohort(taskGenerator, studentIDs);
+        masterCohortList.add(toAdd);
+
+        for (String studentID : studentIDs) {
+            cohortMap.put(studentID, masterCohortList.get(masterCohortList.size() - 1));
+        }
     }
 
-    public List<Cohort> getAllCohorts(){
-        return null;
+    public TaskGenerator getTaskGeneratorFromStudentID(String studentIDIn){
+        if (!cohortMap.containsKey(studentIDIn)){
+            return null;
+        } else {
+            Cohort cohortOfStudent = cohortMap.get(studentIDIn);
+            return cohortOfStudent.getTaskGenerator();
+        }
     }
 
-    public void putStudent(String studentIDIn, Cohort cohortIn){
-
-    }
-
-    public void removeStudentFromCohort(String studentIDIn, Cohort cohortIn){
-
-    }
-
-    public Cohort getCohortFromStudentID(String studentIDIn){
-        return null;
-    }
+    public static TaskGenerator getTaskGeneratorFromStudentIDAndCohorts(String studentIDIn, List<Cohort> cohortsIn){return null;}
 }

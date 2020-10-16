@@ -1,33 +1,33 @@
 package edu.ithaca.dragon.par.cohortModel;
 
-import edu.ithaca.dragon.par.pedagogicalModel.MessageGenerator;
 import edu.ithaca.dragon.par.pedagogicalModel.TaskGenerator;
-import edu.ithaca.dragon.par.studentModel.StudentModel;
 
 import java.util.List;
 
 public class Cohort {
-    private TaskGenerator taskGenerator;
-    private List<StudentModel> students;
+    private final TaskGenerator taskGenerator;
+    private final List<String> studentIDs;
 
-    public Cohort(TaskGenerator taskGenerator, List<StudentModel> students){
-        this.taskGenerator =  taskGenerator;
-        this.students = students;
-    }
-
-    public void setStudents(List<StudentModel> students) {
-        this.students = students;
-    }
-
-    public List<StudentModel> getStudents() {
-        return students;
-    }
-
-    public void setTaskGenerator(TaskGenerator taskGenerator) {
+    public Cohort(TaskGenerator taskGenerator, List<String> studentIDs){
         this.taskGenerator = taskGenerator;
+        this.studentIDs = studentIDs;
+    }
+
+    public List<String> getStudentIDs() {
+        return studentIDs;
     }
 
     public TaskGenerator getTaskGenerator() {
         return taskGenerator;
+    }
+
+    public void addStudent(String studentID) {
+        if(!studentIDs.contains(studentID)){
+            studentIDs.add(studentID);
+        }
+    }
+
+    public void removeStudent(String studentID){
+        studentIDs.remove(studentID);
     }
 }
