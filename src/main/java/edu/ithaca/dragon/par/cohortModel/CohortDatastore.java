@@ -32,7 +32,12 @@ public class CohortDatastore {
     }
 
     public TaskGenerator getTaskGeneratorFromStudentID(String studentIDIn){
-        return null;
+        if (!cohortMap.containsKey(studentIDIn)){
+            return null;
+        } else {
+            Cohort cohortOfStudent = cohortMap.get(studentIDIn);
+            return cohortOfStudent.getTaskGenerator();
+        }
     }
 
     public static TaskGenerator getTaskGeneratorFromStudentIDAndCohorts(String studentIDIn, List<Cohort> cohortsIn){return null;}
