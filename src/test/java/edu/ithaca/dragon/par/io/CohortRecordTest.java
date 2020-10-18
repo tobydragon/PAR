@@ -62,10 +62,11 @@ public class CohortRecordTest {
         assertEquals("OrderedTaskGenerator", cohortRecord.getTaskGeneratorType());
 
         //random task
-        Cohort randomCohort = new Cohort(orderedTaskGenerator, testStudents);
+        Cohort randomCohort = new Cohort(randomTaskGenerator, testStudents);
         cohortRecord = CohortRecord.makeCohortRecordFromCohort(randomCohort);
         assert cohortRecord != null;
         assertEquals(randomCohort.getStudentIDs(), cohortRecord.getStudentIDs());
         assertEquals("RandomTaskGenerator", cohortRecord.getTaskGeneratorType());
+
     }
 }
