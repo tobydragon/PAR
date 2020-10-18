@@ -1,5 +1,6 @@
-package edu.ithaca.dragon.par.cohortModel;
+package edu.ithaca.dragon.par.io;
 
+import edu.ithaca.dragon.par.cohortModel.Cohort;
 import edu.ithaca.dragon.par.pedagogicalModel.TaskGenerator;
 
 import java.util.ArrayList;
@@ -39,6 +40,4 @@ public class CohortDatastore {
             return cohortOfStudent.getTaskGenerator();
         }
     }
-
-    public static TaskGenerator getTaskGeneratorFromStudentIDAndCohorts(String studentIDIn, List<Cohort> cohortsIn){return null;}
 }

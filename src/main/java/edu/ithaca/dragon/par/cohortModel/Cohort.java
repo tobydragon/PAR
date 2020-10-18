@@ -27,7 +27,4 @@ public class Cohort {
         }
     }
 
-    public void removeStudent(String studentID){
-        studentIDs.remove(studentID);
-    }
 }

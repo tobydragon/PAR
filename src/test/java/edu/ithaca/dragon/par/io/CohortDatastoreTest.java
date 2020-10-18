@@ -1,8 +1,9 @@
-package edu.ithaca.dragon.par.cohortModel;
+package edu.ithaca.dragon.par.io;
 
 import edu.ithaca.dragon.par.domainModel.QuestionOrderedInfo;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
+import edu.ithaca.dragon.par.io.CohortDatastore;
 import edu.ithaca.dragon.par.io.JsonQuestionPoolDatastore;
 import edu.ithaca.dragon.par.pedagogicalModel.LevelTaskGenerator;
 import edu.ithaca.dragon.par.pedagogicalModel.OrderedTaskGenerator;
