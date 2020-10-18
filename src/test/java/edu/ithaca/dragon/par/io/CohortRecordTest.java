@@ -19,11 +19,39 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CohortRecordTest {
 
     @Test
-    public void makeCohortFromCohortRecordTest(){
+    public void makeCohortFromCohortRecordTest() {
+        List<String> testStudents = new ArrayList<>();
+        testStudents.add("testStudent1");
+        testStudents.add("testStudent2");
+        testStudents.add("testStudent3");
+
         //empty student list
+        CohortRecord emptyCohortRecord = new CohortRecord("RandomTaskGenerator", new ArrayList<>());
+        Cohort cohort = CohortRecord.makeCohortFromCohortRecord(emptyCohortRecord);
+        assert cohort != null;
+        assertTrue(cohort.getTaskGenerator() instanceof RandomTaskGenerator);
+        assertEquals(new ArrayList<>(), cohort.getStudentIDs());
+
         //level task
+        CohortRecord levelCohortRecord = new CohortRecord("LevelTaskGenerator", testStudents);
+        cohort = CohortRecord.makeCohortFromCohortRecord(levelCohortRecord);
+        assert cohort != null;
+        assertTrue(cohort.getTaskGenerator() instanceof LevelTaskGenerator);
+        assertEquals(testStudents, cohort.getStudentIDs());
+
         //ordered task
+        CohortRecord orderedCohortRecord = new CohortRecord("OrderedTaskGenerator", testStudents);
+        cohort = CohortRecord.makeCohortFromCohortRecord(orderedCohortRecord);
+        assert cohort != null;
+        assertTrue(cohort.getTaskGenerator() instanceof OrderedTaskGenerator);
+        assertEquals(testStudents, cohort.getStudentIDs());
+
         //random task
+        CohortRecord randomCohortRecord = new CohortRecord("RandomTaskGenerator", testStudents);
+        cohort = CohortRecord.makeCohortFromCohortRecord(randomCohortRecord);
+        assert cohort != null;
+        assertTrue(cohort.getTaskGenerator() instanceof RandomTaskGenerator);
+        assertEquals(testStudents, cohort.getStudentIDs());
     }
 
     @Test
