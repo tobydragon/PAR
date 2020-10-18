@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CohortRecordTest {
 
     @Test
-    public void makeCohortFromCohortRecordTest() {
+    public void makeCohortFromCohortRecordTest() throws IOException {
         List<String> testStudents = new ArrayList<>();
         testStudents.add("testStudent1");
         testStudents.add("testStudent2");
