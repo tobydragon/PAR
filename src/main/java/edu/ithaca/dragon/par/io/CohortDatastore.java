@@ -40,4 +40,8 @@ public class CohortDatastore {
             return cohortOfStudent.getTaskGenerator();
         }
     }
+
+    public static CohortDatastore makeCohortDatastoreFromCohortRecords(List<CohortRecord> cohortRecordsList){
+        return null;
+    }
 }
