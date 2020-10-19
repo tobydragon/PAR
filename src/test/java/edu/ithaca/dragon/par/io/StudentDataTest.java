@@ -96,14 +96,14 @@ public class StudentDataTest {
         assertEquals(7, masteredStudent.getLevel());
         assertEquals(26, masteredStudent.getTotalAnswersGiven());
 
-        assertEquals(1, masteredStudent.getQuestionsWrong().size());
+        assertEquals(3, masteredStudent.getQuestionsWrong().size());
 
 
         StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/incorrectStudent.json", StudentModelRecord.class);
         StudentModel insm = smr2.buildStudentModel(myQP);
         StudentData insmsd = new StudentData(insm);
 
-        assertEquals(6, insmsd.getQuestionsWrong().size());
+        assertEquals(5, insmsd.getQuestionsWrong().size());
 
     }
 }

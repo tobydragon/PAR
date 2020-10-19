@@ -144,13 +144,15 @@ public class StudentModelTest {
 
         StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
         StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
-        assertEquals(1, masteredStudentModel.calcQuestionsWrong().size());
+        List<QuestionCount> qc =  masteredStudentModel.calcQuestionsWrong();
+        assertEquals(3, qc.size());
 
 
         StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/incorrectStudent.json", StudentModelRecord.class);
         StudentModel insm = smr2.buildStudentModel(myQP);
 
-        assertEquals(6, insm.calcQuestionsWrong().size());
+        qc = insm.calcQuestionsWrong();
+        assertEquals(5, qc.size());
     }
 
 }

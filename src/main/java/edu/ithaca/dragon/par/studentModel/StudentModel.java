@@ -131,8 +131,22 @@ public class StudentModel {
     }
 
 
-    public List<Question> calcQuestionsWrong(){
-        return new ArrayList<Question>();
+    public List<QuestionCount> calcQuestionsWrong(){
+        List<QuestionCount> incorrectQuestions = new ArrayList<>();
+        //uses questionCount objects to keep track of all incorrect questions and
+        // how many times they've been answered incorrectly. timesseen = timesWrong
+        for (ResponsesPerQuestion questionResponse : userResponseSet.getResponsesPerQuestionList()){
+            QuestionCount question = new QuestionCount(questionResponse.getQuestion());
+            for(QuestionResponse response: questionResponse.getAllResponses()){
+                if(!response.getResponseText().equalsIgnoreCase(questionResponse.getQuestion().getCorrectAnswer())){
+                    question.increaseTimesSeen();
+                }
+            }
+            if (question.getTimesSeen()>0){
+                incorrectQuestions.add(question);
+            }
+        }
+        return incorrectQuestions;
     }
 
 

@@ -2,10 +2,7 @@ package edu.ithaca.dragon.par.io;
 
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.pedagogicalModel.LevelTaskGenerator;
-import edu.ithaca.dragon.par.studentModel.QuestionResponse;
-import edu.ithaca.dragon.par.studentModel.ResponsesPerQuestion;
-import edu.ithaca.dragon.par.studentModel.StudentModel;
-import edu.ithaca.dragon.par.studentModel.UserResponseSet;
+import edu.ithaca.dragon.par.studentModel.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +15,7 @@ public class StudentData {
     private double percentAnswersCorrect;
     private double percentWrongFirstTime;
     private double percentRightAfterWrongFirstTime;
-    private List<Question> questionsWrong;
+    private List<QuestionCount> questionsWrong;
 
 //private double timeSpent; //minutes?
 
@@ -90,5 +87,5 @@ public class StudentData {
         return percentRightAfterWrongFirstTime;
     }
 
-    public List<Question> getQuestionsWrong () { return questionsWrong; }
+    public List<QuestionCount> getQuestionsWrong () { return questionsWrong; }
 }
