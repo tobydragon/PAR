@@ -2,7 +2,10 @@ package edu.ithaca.dragon.par.io;
 
 import com.opencsv.CSVWriter;
 import edu.ithaca.dragon.par.domainModel.Question;
+import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.studentModel.QuestionCount;
+import edu.ithaca.dragon.par.studentModel.StudentModel;
+import edu.ithaca.dragon.util.JsonUtil;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -273,6 +276,15 @@ public class StudentDataAnalyzer {
             String [] note = {"-1 denotes no information for calculation. Student still included in average calculation"};
             writer.writeNext(note);
 
+            writer.writeNext(divider);
+            String [] header2 = {"Top Incorrect Questions- ID", "Top Incorrect Questions- Question Text", "Number of Incorrect Responses"};
+            List<QuestionCount> qc = findMostIncorrectQuestions(5);
+            writer.writeNext(header2);
+            for(QuestionCount currQC: qc){
+                String [] currLine = {currQC.getQuestion().getId(), currQC.getQuestion().getQuestionText(), Integer.toString(currQC.getTimesSeen())};
+                writer.writeNext(currLine);
+            }
+
             //close writer
             writer.close();
         }
@@ -284,9 +296,45 @@ public class StudentDataAnalyzer {
 
     public static void main(String[] args) throws IOException{
         StudentDataAnalyzer sda = new StudentDataAnalyzer(new ArrayList<>());
+
+        //add 1 student
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
+        StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
+        StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
+        StudentData masteredStudent = new StudentData(masteredStudentModel);
+        sda.addStudentData(masteredStudent);
+
+        //student2
+        StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/level4Student.json", StudentModelRecord.class);
+        StudentModel level4Student = smr2.buildStudentModel(myQP);
+        StudentData level4StudentData = new StudentData(level4Student);
+        sda.addStudentData(level4StudentData);
+
+        //student3
+        List<Question> noQuestions = new ArrayList<Question>();
+        StudentModel student = new StudentModel("student", noQuestions);
+        StudentData newStudent = new StudentData(student);
+        sda.addStudentData(newStudent);
+
+        //student4
+        StudentModelRecord  smr3 = JsonUtil.fromJsonFile("src/test/resources/author/students/incorrectStudent.json", StudentModelRecord.class);
+        StudentModel stud = smr3.buildStudentModel(myQP);
+        StudentData studData = new StudentData(stud);
+        sda.addStudentData(studData);
+
+        //student5
+        StudentModelRecord  smr4 = JsonUtil.fromJsonFile("src/test/resources/author/students/notMasteredStudent.json", StudentModelRecord.class);
+        StudentModel stud2 = smr4.buildStudentModel(myQP);
+        StudentData studData2 = new StudentData(stud2);
+        sda.addStudentData(studData2);
+
+
         Scanner scan = new Scanner(System.in);
         System.out.println("What would you like your filename to be?");
         String fileName = scan.nextLine();
+        if(!fileName.contains(".csv")){
+            fileName = fileName + ".csv";
+        }
         sda.writeStudentDataFile(fileName);
 
     }
