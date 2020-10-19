@@ -2,6 +2,7 @@ package edu.ithaca.dragon.par.io;
 
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
+import edu.ithaca.dragon.par.studentModel.QuestionCount;
 import edu.ithaca.dragon.par.studentModel.ResponsesPerQuestion;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.util.JsonUtil;
@@ -485,7 +486,7 @@ public class StudentDataAnalyzerTest {
     public void findMostIncorrectQuestionsTest() throws IOException{
         //empty StudentDataAnalyzer
         StudentDataAnalyzer sda = new StudentDataAnalyzer(new ArrayList<>());
-        assertThrows(IllegalArgumentException.class, ()-> sda.findMostIncorrectQuestions(3));
+        assertThrows(IllegalArgumentException.class, ()-> sda.findMostIncorrectQuestions(4));
 
         //add 1 student
         QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
@@ -496,8 +497,8 @@ public class StudentDataAnalyzerTest {
         sda.addStudentData(masteredStudent);
 
 
-        List<Question> incorrect = sda.findMostIncorrectQuestions(1);
-        assertEquals("327-structure0-./images/metacarpal56.jpg", incorrect.get(0).getId());
+        List<QuestionCount> incorrect = sda.findMostIncorrectQuestions(1);
+        assertEquals("491-zone-./images/metacarpal37.jpg", incorrect.get(0).getQuestion().getId());
 
 
         //invalid numbers
@@ -515,11 +516,11 @@ public class StudentDataAnalyzerTest {
 
         incorrect = sda.findMostIncorrectQuestions(3);
 
-        assertEquals("327-structure0-./images/metacarpal56.jpg", incorrect.get(0).getId());
+        assertEquals("327-structure0-./images/metacarpal56.jpg", incorrect.get(0).getQuestion().getId());
 
-        assertEquals("491-zone-./images/metacarpal37.jpg", incorrect.get(1).getId());
+        assertEquals("477-zone-./images/metacarpal19.jpg", incorrect.get(1).getQuestion().getId());
 
-        assertEquals("463-zone-./images/metacarpal25.jpg", incorrect.get(2).getId());
+        assertEquals("491-zone-./images/metacarpal37.jpg", incorrect.get(2).getQuestion().getId());
 
         //add another student (3 total)
         List<Question> noQuestions = new ArrayList<Question>();
@@ -528,9 +529,9 @@ public class StudentDataAnalyzerTest {
         sda.addStudentData(newStudent);
 
         incorrect = sda.findMostIncorrectQuestions(3);
-        assertEquals("327-structure0-./images/metacarpal56.jpg", incorrect.get(0).getId());
-        assertEquals("491-zone-./images/metacarpal37.jpg", incorrect.get(1).getId());
-        assertEquals("463-zone-./images/metacarpal25.jpg", incorrect.get(2).getId());
+        assertEquals("327-structure0-./images/metacarpal56.jpg", incorrect.get(0).getQuestion().getId());
+        assertEquals("477-zone-./images/metacarpal19.jpg", incorrect.get(1).getQuestion().getId());
+        assertEquals("491-zone-./images/metacarpal37.jpg", incorrect.get(2).getQuestion().getId());
 
 
     }

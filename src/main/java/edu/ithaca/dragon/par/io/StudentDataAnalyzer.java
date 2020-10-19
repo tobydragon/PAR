@@ -2,6 +2,7 @@ package edu.ithaca.dragon.par.io;
 
 import com.opencsv.CSVWriter;
 import edu.ithaca.dragon.par.domainModel.Question;
+import edu.ithaca.dragon.par.studentModel.QuestionCount;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -230,9 +231,47 @@ public class StudentDataAnalyzer {
         }
     }
 
-    public List<Question> findMostIncorrectQuestions(int numOfQuestions){
+    public List<QuestionCount> findMostIncorrectQuestions(int numOfQuestions){
+        List<QuestionCount> consolidatedList = new ArrayList<>();
+        for(StudentData sd: studentDataList){
+            for (QuestionCount qcStudent: sd.getQuestionsWrong()){
+                boolean found = false;
+                for (QuestionCount qcConsolidated: consolidatedList){
+                    if (qcStudent.getQuestion().getId().equals(qcConsolidated.getQuestion().getId())){
+                        found = true;
+                        qcConsolidated.setTimesSeen(qcConsolidated.getTimesSeen()+qcStudent.getTimesSeen());
+                    }
+                }
+                if(!found){
+                    consolidatedList.add(qcStudent);
+                }
+            }
+        }
 
-        return new ArrayList<Question>();
+        if(numOfQuestions>consolidatedList.size() || numOfQuestions < 1){
+            throw new IllegalArgumentException("More incorrect questions requested than available");
+        }
+
+
+        List<QuestionCount> topQCs = new ArrayList<>();
+        for(QuestionCount currQC: consolidatedList){
+            topQCs.add(currQC);
+            if(topQCs.size()>numOfQuestions){
+                int lowestIndex = 0;
+                int currIndex = 0;
+                int lowestSeen = -66;
+                for(QuestionCount currTopQC: topQCs){
+                    if (currTopQC.getTimesSeen()<lowestSeen){
+                        lowestSeen = currTopQC.getTimesSeen();
+                        lowestIndex = currIndex;
+                    }
+
+                    currIndex++;
+                }
+                topQCs.remove(lowestIndex);
+            }
+        }
+        return topQCs;
     }
 
     public static void main(String[] args) throws IOException{
