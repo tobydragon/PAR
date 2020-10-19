@@ -38,32 +38,4 @@ public class ImageTaskTest {
         Assertions.assertTrue(Files.deleteIfExists(path));
 
     }
-
-    @Test
-    public void setMessageTest() throws IOException{
-        //set up
-        TaskGenerator taskGenerator = new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap());
-        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/TestQP.json").getAllQuestions());
-        StudentModelRecord smr = JsonUtil.fromJsonFile("src/test/resources/author/students/buckmank.json", StudentModelRecord.class);
-        StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
-        ImageTask it = taskGenerator.makeTask(masteredStudentModel, 4);
-
-        //first set
-        it.setMessage("hello!!!");
-        assertEquals("hello!!!", it.getMessage());
-
-        //second set
-        it.setMessage("hi");
-        assertEquals("hi", it.getMessage());
-        assertTrue(!it.getMessage().equals("hello!!!"));
-
-        //new it
-        ImageTask it2 = taskGenerator.makeTask(masteredStudentModel, 4);
-        it2.setMessage("bye");
-        //does not equal other image tasks's message
-        assertEquals("hi", it.getMessage());
-        assertTrue(!it.getMessage().equals("bye"));
-        assertEquals("bye", it2.getMessage());
-        assertTrue(!it2.getMessage().equals("hi"));
-    }
 }

@@ -66,37 +66,6 @@ public class MessageGeneratorTest {
         message = MessageGenerator.generateMessage(masteredStudentModel, it);
         assertEquals("Looks like you're having trouble with zone questions, go look at resources and come back if you need to", message);
 
-
-        //6 to 5
-        masteredStudentModel.setCurrentLevel(5);
-        masteredStudentModel.setPreviousLevel(6);
-        message = MessageGenerator.generateMessage(masteredStudentModel, it);
-        assertEquals("Looks like you're having trouble with attachment/zone questions, go look at resources and come back if you need to", message);
-
-        //5 to 4
-        masteredStudentModel.setCurrentLevel(4);
-        masteredStudentModel.setPreviousLevel(5);
-        message = MessageGenerator.generateMessage(masteredStudentModel, it);
-        assertEquals("Looks like you're having trouble with attachment questions, go look at resources and come back if you need to", message);
-
-        //4 to 3
-        masteredStudentModel.setCurrentLevel(3);
-        masteredStudentModel.setPreviousLevel(4);
-        message = MessageGenerator.generateMessage(masteredStudentModel, it);
-        assertEquals("Looks like you're having trouble with structure/attachment questions, go look at resources and come back if you need to", message);
-
-        //3 to 2
-        masteredStudentModel.setCurrentLevel(2);
-        masteredStudentModel.setPreviousLevel(3);
-        message = MessageGenerator.generateMessage(masteredStudentModel, it);
-        assertEquals("Looks like you're having trouble with structure questions, go look at resources and come back if you need to", message);
-
-        //2 to 1
-        masteredStudentModel.setCurrentLevel(1);
-        masteredStudentModel.setPreviousLevel(2);
-        message = MessageGenerator.generateMessage(masteredStudentModel, it);
-        assertEquals("Looks like you're having trouble with plane/structure questions, go look at resources and come back if you need to", message);
-
         //stay on level 7, repeated question
         masteredStudentModel.setPreviousLevel(7);
         masteredStudentModel.setCurrentLevel(7);
@@ -138,63 +107,6 @@ public class MessageGeneratorTest {
         message = MessageGenerator.generateMessage(masteredStudentModel, it);
         assertEquals("You've seen this question recently, you might be stuck on plane questions.", message);
 
-
-    }
-
-    @Test
-    public void decreaseLevelMessageTest() throws IOException{
-        TaskGenerator taskGenerator = new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap());
-
-        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/TestQP.json").getAllQuestions());
-        StudentModelRecord smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
-        StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
-        masteredStudentModel.setPreviousLevel(LevelTaskGenerator.calcLevel(masteredStudentModel.calcKnowledgeEstimateByType(4)));
-        ImageTask it = taskGenerator.makeTask(masteredStudentModel, 4);
-
-        //7 to 6
-        masteredStudentModel.setPreviousLevel(7);
-        masteredStudentModel.setCurrentLevel(6);
-        String message = MessageGenerator.decreaseLevelMessage(masteredStudentModel);
-        assertEquals("Looks like you're having trouble with zone questions, go look at resources and come back if you need to", message);
-
-
-        //6 to 5
-        masteredStudentModel.setPreviousLevel(6);
-        masteredStudentModel.setCurrentLevel(5);
-        message = MessageGenerator.decreaseLevelMessage(masteredStudentModel);
-        assertEquals("Looks like you're having trouble with attachment/zone questions, go look at resources and come back if you need to", message);
-
-        //5 to 4
-        masteredStudentModel.setPreviousLevel(5);
-        masteredStudentModel.setCurrentLevel(4);
-        message = MessageGenerator.decreaseLevelMessage(masteredStudentModel);
-        assertEquals("Looks like you're having trouble with attachment questions, go look at resources and come back if you need to", message);
-
-        //4 to 3
-        masteredStudentModel.setPreviousLevel(4);
-        masteredStudentModel.setCurrentLevel(3);
-        message = MessageGenerator.decreaseLevelMessage(masteredStudentModel);
-        assertEquals("Looks like you're having trouble with structure/attachment questions, go look at resources and come back if you need to", message);
-
-        //3 to 2
-        masteredStudentModel.setPreviousLevel(3);
-        masteredStudentModel.setCurrentLevel(2);
-        message = MessageGenerator.decreaseLevelMessage(masteredStudentModel);
-        assertEquals("Looks like you're having trouble with structure questions, go look at resources and come back if you need to", message);
-
-        //2 to 1
-        masteredStudentModel.setPreviousLevel(2);
-        masteredStudentModel.setCurrentLevel(1);
-        message = MessageGenerator.decreaseLevelMessage(masteredStudentModel);
-        assertEquals("Looks like you're having trouble with plane/structure questions, go look at resources and come back if you need to", message);
-
-
-        //1 to 1, no message
-        masteredStudentModel.setCurrentLevel(1);
-        masteredStudentModel.setPreviousLevel(1);
-        it.setMessage("hey");
-        message = MessageGenerator.decreaseLevelMessage(masteredStudentModel);
-        assertNull(message);
 
     }
 
@@ -367,7 +279,7 @@ public class MessageGeneratorTest {
 
 
     @Test
-    public void decreaseLevelTest() throws IOException{
+    public void decreaseLevelTest() throws IOException, InterruptedException{
 
         QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/currentQP-10-5-2020.json").getAllQuestions());
         StudentModelRecord smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
@@ -404,6 +316,7 @@ public class MessageGeneratorTest {
 
 
         //submit incorrect attachments
+        Thread.sleep(1001);
         resp= new ArrayList<>();
         resp.add(new QuestionResponseOOP("367-attachment0-structure0-./images/metacarpal41.jpg", "What is this structure’s proximal attachment?", "1"));
         resp.add(new QuestionResponseOOP("373-attachment0-structure2-./images/metacarpal41.jpg", "What is this structure’s proximal attachment?", "1"));
@@ -421,6 +334,7 @@ public class MessageGeneratorTest {
 
 
         //submit incorrect structure
+        Thread.sleep(1001);
         resp= new ArrayList<>();
         resp.add(new QuestionResponseOOP("378-structure3-./images/metacarpal41.jpg", "What structure is 1.5 cm deep?", "1"));
         resp.add(new QuestionResponseOOP("341-structure0-./images/metacarpal42.jpg", "What structure is 1.5 cm deep?", "1"));
@@ -438,6 +352,7 @@ public class MessageGeneratorTest {
 
 
         //submit incorrect structure
+        Thread.sleep(1001);
         resp.add(new QuestionResponseOOP("490-structure3-./images/metacarpal37.jpg", "What structure is 1.5 cm deep?", "1"));
 
         itr = new ImageTaskResponseOOP();
@@ -452,11 +367,13 @@ public class MessageGeneratorTest {
 
 
         //submit incorrect structure and plane
+        Thread.sleep(1001);
+        resp= new ArrayList<>();
         resp.add(new QuestionResponseOOP("456-structure1-./images/metacarpal25.jpg", "What structure is 1.5 cm deep?", "1"));
+        resp.add(new QuestionResponseOOP("467-structure0-./images/metacarpal19.jpg", "What structure is in the far field?", "1"));
         resp.add(new QuestionResponseOOP("324-plane-./images/metacarpal56.jpg", "On which plane is the ultrasound taken?", "1"));
         resp.add(new QuestionResponseOOP("338-plane-./images/metacarpal42.jpg", "On which plane is the ultrasound taken?", "1"));
         resp.add(new QuestionResponseOOP("366-plane-./images/metacarpal41.jpg", "On which plane is the ultrasound taken?", "1"));
-        resp.add(new QuestionResponseOOP("450-plane-./images/metacarpal25.jpg", "On which plane is the ultrasound taken?", "1"));
 
 
         itr = new ImageTaskResponseOOP();
@@ -467,7 +384,7 @@ public class MessageGeneratorTest {
         masteredStudentModel.setCurrentLevel(1);
         masteredStudentModel.setPreviousLevel(2);
 
-        assertEquals("Looks like you're having trouble with plane and structure questions, go look at resources and come back if you need to", MessageGenerator.decreaseLevelMessage(masteredStudentModel));
+        assertEquals("Looks like you're having trouble with plane/structure questions, go look at resources and come back if you need to", MessageGenerator.decreaseLevelMessage(masteredStudentModel));
 
     }
 

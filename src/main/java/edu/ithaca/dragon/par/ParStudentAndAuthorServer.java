@@ -40,14 +40,12 @@ public class ParStudentAndAuthorServer {
             ImageTask imageTask = taskGenerator.makeTask(studentModelDatastore.getStudentModel(userId), idealQuestionCountPerTypeForAnalysis);
             LevelTaskGenerator.calcLevel(studentModelDatastore.getStudentModel(userId).calcKnowledgeEstimateByType(idealQuestionCountPerTypeForAnalysis));
             studentModelDatastore.increaseTimesSeen(userId, imageTask.getTaskQuestions());
-            imageTask.setMessage(MessageGenerator.generateMessage(studentModelDatastore.getStudentModel(userId), imageTask));
             return imageTask;
         }
         else {
             ImageTask imageTask = taskGenerator.makeTask(studentModelDatastore.getStudentModel(userId), studentModelDatastore.getMinQuestionCountPerType());
             LevelTaskGenerator.calcLevel(studentModelDatastore.getStudentModel(userId).calcKnowledgeEstimateByType(idealQuestionCountPerTypeForAnalysis));
             studentModelDatastore.increaseTimesSeen(userId, imageTask.getTaskQuestions());
-            imageTask.setMessage(MessageGenerator.generateMessage(studentModelDatastore.getStudentModel(userId), imageTask));
             //TODO: use getMessage method. will there be a separate call to getMessage?
             // should i delete any message stuff in here?
             return imageTask;
