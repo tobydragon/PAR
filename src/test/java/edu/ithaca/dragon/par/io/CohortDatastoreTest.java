@@ -139,4 +139,47 @@ public class CohortDatastoreTest {
 
     }
 
+    @Test
+    public void makeCohortRecordsFromCohortDatastoreTest() throws IOException {
+        JsonIoUtil reader = new JsonIoUtil(new JsonIoHelperDefault());
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
+        List<QuestionOrderedInfo> defaultQuestionOrderedInfoList = reader.listFromFile("src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoList.json", QuestionOrderedInfo.class);
+
+        List<String> studentIDs1 = new ArrayList<>();
+        studentIDs1.add("testStudent1");
+        studentIDs1.add("testStudent2");
+        studentIDs1.add("testStudent3");
+
+        List<String> studentIDs2 = new ArrayList<>();
+        studentIDs2.add("testStudent4");
+        studentIDs2.add("testStudent5");
+        studentIDs2.add("testStudent6");
+
+        List<String> studentIDs3 = new ArrayList<>();
+        studentIDs3.add("testStudent7");
+
+        //empty CohortDatastore
+        CohortDatastore cohortDatastore = new CohortDatastore();
+        List<CohortRecord> cohortRecords = cohortDatastore.makeCohortRecordsFromCohortDatastore();
+        assertEquals(0, cohortRecords.size());
+
+        //one cohort in CohortDatastore
+        cohortDatastore.addCohort(new RandomTaskGenerator(), studentIDs1);
+        cohortRecords = cohortDatastore.makeCohortRecordsFromCohortDatastore();
+        assertEquals(1, cohortRecords.size());
+        assertEquals("RandomTaskGenerator", cohortRecords.get(0).getTaskGeneratorType());
+        assertEquals(studentIDs1, cohortRecords.get(0).getStudentIDs());
+
+        //multiple cohorts in CohortDatastore (3)
+        cohortDatastore.addCohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), studentIDs2);
+        cohortDatastore.addCohort(new OrderedTaskGenerator(questionPool, defaultQuestionOrderedInfoList), studentIDs3);
+        cohortRecords = cohortDatastore.makeCohortRecordsFromCohortDatastore();
+        assertEquals(3, cohortRecords.size());
+        assertEquals("RandomTaskGenerator", cohortRecords.get(0).getTaskGeneratorType());
+        assertEquals(studentIDs1, cohortRecords.get(0).getStudentIDs());
+        assertEquals("LevelTaskGenerator", cohortRecords.get(1).getTaskGeneratorType());
+        assertEquals(studentIDs2, cohortRecords.get(1).getStudentIDs());
+        assertEquals("OrderedTaskGenerator", cohortRecords.get(2).getTaskGeneratorType());
+        assertEquals(studentIDs3, cohortRecords.get(2).getStudentIDs());
+    }
 }
