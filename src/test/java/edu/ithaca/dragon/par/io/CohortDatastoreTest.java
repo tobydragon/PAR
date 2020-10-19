@@ -123,7 +123,6 @@ public class CohortDatastoreTest {
         listToConvert.add(CohortRecord.makeCohortRecordFromCohort(cohort1));
 
         CohortDatastore cohortDatastore = CohortDatastore.makeCohortDatastoreFromCohortRecords(listToConvert);
-        assert cohortDatastore != null;
         assertEquals(1, cohortDatastore.getNumberCohorts());
         assertEquals(3, cohortDatastore.getTotalNumberStudents());
 
@@ -133,6 +132,7 @@ public class CohortDatastoreTest {
 
         Cohort cohort3 = new Cohort(new OrderedTaskGenerator(questionPool, defaultQuestionOrderedInfoList), studentIDs3);
         listToConvert.add(CohortRecord.makeCohortRecordFromCohort(cohort3));
+        cohortDatastore = CohortDatastore.makeCohortDatastoreFromCohortRecords(listToConvert);
 
         assertEquals(3, cohortDatastore.getNumberCohorts());
         assertEquals(7, cohortDatastore.getTotalNumberStudents());

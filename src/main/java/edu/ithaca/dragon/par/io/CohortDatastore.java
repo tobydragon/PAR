@@ -1,8 +1,17 @@
 package edu.ithaca.dragon.par.io;
 
 import edu.ithaca.dragon.par.cohortModel.Cohort;
+import edu.ithaca.dragon.par.domainModel.QuestionOrderedInfo;
+import edu.ithaca.dragon.par.domainModel.QuestionPool;
+import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
+import edu.ithaca.dragon.par.pedagogicalModel.LevelTaskGenerator;
+import edu.ithaca.dragon.par.pedagogicalModel.OrderedTaskGenerator;
+import edu.ithaca.dragon.par.pedagogicalModel.RandomTaskGenerator;
 import edu.ithaca.dragon.par.pedagogicalModel.TaskGenerator;
+import edu.ithaca.dragon.util.JsonIoHelperDefault;
+import edu.ithaca.dragon.util.JsonIoUtil;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,7 +50,29 @@ public class CohortDatastore {
         }
     }
 
-    public static CohortDatastore makeCohortDatastoreFromCohortRecords(List<CohortRecord> cohortRecordsList){
-        return null;
+    public static CohortDatastore makeCohortDatastoreFromCohortRecords(List<CohortRecord> cohortRecordsList) throws IOException {
+        JsonIoUtil reader = new JsonIoUtil(new JsonIoHelperDefault());
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
+        List<QuestionOrderedInfo> defaultQuestionOrderedInfoList = reader.listFromFile("src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoList.json", QuestionOrderedInfo.class);
+
+        CohortDatastore toReturn = new CohortDatastore();
+
+        for (CohortRecord cohortRecord : cohortRecordsList) {
+            String taskGeneratorType = cohortRecord.getTaskGeneratorType();
+            List<String> studentIDs = cohortRecord.getStudentIDs();
+
+            switch (taskGeneratorType) {
+                case "RandomTaskGenerator":
+                    toReturn.addCohort(new RandomTaskGenerator(), studentIDs);
+                    break;
+                case "LevelTaskGenerator":
+                    toReturn.addCohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), studentIDs);
+                    break;
+                case "OrderedTaskGenerator":
+                    toReturn.addCohort(new OrderedTaskGenerator(questionPool, defaultQuestionOrderedInfoList), studentIDs);
+                    break;
+            }
+        }
+        return toReturn;
     }
 }
