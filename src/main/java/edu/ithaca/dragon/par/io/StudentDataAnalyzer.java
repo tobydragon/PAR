@@ -234,7 +234,7 @@ public class StudentDataAnalyzer {
             if(topQCs.size()>numOfQuestions){
                 int lowestIndex = 0;
                 int currIndex = 0;
-                int lowestSeen = -66;
+                int lowestSeen = topQCs.get(0).getTimesSeen();
                 for(QuestionCount currTopQC: topQCs){
                     if (currTopQC.getTimesSeen()<lowestSeen){
                         lowestSeen = currTopQC.getTimesSeen();
@@ -276,6 +276,8 @@ public class StudentDataAnalyzer {
             String [] note = {"-1 denotes no information for calculation. Student still included in average calculation"};
             writer.writeNext(note);
 
+            writer.writeNext(divider);
+            writer.writeNext(divider);
             writer.writeNext(divider);
             String [] header2 = {"Top Incorrect Questions- ID", "Top Incorrect Questions- Question Text", "Number of Incorrect Responses"};
             List<QuestionCount> qc = findMostIncorrectQuestions(5);
