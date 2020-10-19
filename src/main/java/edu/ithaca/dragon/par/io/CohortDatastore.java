@@ -77,6 +77,10 @@ public class CohortDatastore {
     }
 
     public List<CohortRecord> makeCohortRecordsFromCohortDatastore() {
-        return null;
+        List<CohortRecord> toReturn = new ArrayList<>();
+        for (Cohort cohort : masterCohortList) {
+            toReturn.add(CohortRecord.makeCohortRecordFromCohort(cohort));
+        }
+        return toReturn;
     }
 }

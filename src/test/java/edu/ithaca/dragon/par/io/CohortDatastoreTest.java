@@ -173,12 +173,13 @@ public class CohortDatastoreTest {
         //multiple cohorts in CohortDatastore (3)
         cohortDatastore.addCohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), studentIDs2);
         cohortDatastore.addCohort(new OrderedTaskGenerator(questionPool, defaultQuestionOrderedInfoList), studentIDs3);
+        cohortRecords = cohortDatastore.makeCohortRecordsFromCohortDatastore();
         assertEquals(3, cohortRecords.size());
         assertEquals("RandomTaskGenerator", cohortRecords.get(0).getTaskGeneratorType());
         assertEquals(studentIDs1, cohortRecords.get(0).getStudentIDs());
         assertEquals("LevelTaskGenerator", cohortRecords.get(1).getTaskGeneratorType());
-        assertEquals(studentIDs1, cohortRecords.get(1).getStudentIDs());
+        assertEquals(studentIDs2, cohortRecords.get(1).getStudentIDs());
         assertEquals("OrderedTaskGenerator", cohortRecords.get(2).getTaskGeneratorType());
-        assertEquals(studentIDs1, cohortRecords.get(2).getStudentIDs());
+        assertEquals(studentIDs3, cohortRecords.get(2).getStudentIDs());
     }
 }
