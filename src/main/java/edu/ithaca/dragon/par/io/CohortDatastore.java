@@ -75,4 +75,8 @@ public class CohortDatastore {
         }
         return toReturn;
     }
+
+    public List<CohortRecord> makeCohortRecordsFromCohortDatastore() {
+        return null;
+    }
 }
