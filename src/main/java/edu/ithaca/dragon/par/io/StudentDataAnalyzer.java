@@ -97,7 +97,7 @@ public class StudentDataAnalyzer {
     /**
      * @throws ArithmeticException if list is empty(because getting an average of 0 numbers is impossible)
      * @throws ArithmeticException if no StudentData of that level exists
-     * @return average totalAnswersGiven across all students
+     * @return average totalAnswersGiven across all students of a certain level
      */
     public double calcAverageTotalAnswersGivenLevel(int level){
         if (studentDataList.size() == 0){
@@ -141,6 +141,10 @@ public class StudentDataAnalyzer {
         return studentDataList;
     }
 
+    /**
+     * @throws ArithmeticException if there are no StudentData objects
+     * @return average percent students have correctly answered questions
+     */
     public Double calcAveragePercentCorrectResponses(){
         if (studentDataList.size() == 0){
             throw new ArithmeticException("No student data found, cannot calculate average total answers given");
@@ -158,8 +162,8 @@ public class StudentDataAnalyzer {
     }
 
     /**
-     *
-     * @return
+     * @throws ArithmeticException if there are no studentData objects
+     * @return percent of the time that students answered the question incorrectly on their first try
      */
     public Double calcAveragePercentWrongFirstTime(){
         if (studentDataList.size() == 0){
@@ -177,8 +181,8 @@ public class StudentDataAnalyzer {
     }
 
     /**
-     *
-     * @return
+     * @throws ArithmeticException if there are no studentData objects
+     * @return percent of time that questions were answered correctly after initially getting it wrong
      */
     public Double calcAveragePercentRightAfterWrongFirstTime(){
         if (studentDataList.size() == 0){
@@ -195,42 +199,10 @@ public class StudentDataAnalyzer {
         }
     }
 
-
-    public void writeStudentDataFile(String filePath) throws IOException {
-        File file = new File(filePath);
-        if (file.exists()){
-            file.delete();
-        }
-        try {
-            FileWriter outputfile = new FileWriter(file);
-            CSVWriter writer = new CSVWriter(outputfile);
-            String[] header = { "Student Id", "Level", "Total Answers Given", "Percent of Correct Responses", "Percent of Questions Wrong the First Time", "Percent of Questions Right After Wrong the First Time"};
-            writer.writeNext(header);
-
-            //inserts row per student
-            for (StudentData studentData : studentDataList){
-                String [] studentRow = {studentData.getStudentId(), Integer.toString(studentData.getLevel()), Integer.toString(studentData.getTotalAnswersGiven()), Double.toString(studentData.getPercentAnswersCorrect()), Double.toString(studentData.getPercentWrongFirstTime()), Double.toString(studentData.getPercentRightAfterWrongFirstTime())};
-                writer.writeNext(studentRow);
-            }
-            String [] divider = {""};
-            writer.writeNext(divider);
-
-            String [] overallStats = {"Averages:", Double.toString(calcAverageLevel()), Double.toString(calcAverageTotalAnswers()), Double.toString(calcAveragePercentCorrectResponses()), Double.toString(calcAveragePercentWrongFirstTime()), Double.toString(calcAveragePercentRightAfterWrongFirstTime())};
-            writer.writeNext(overallStats);
-            writer.writeNext(divider);
-
-            String [] note = {"-1 denotes no information for calculation. Student still included in average calculation"};
-            writer.writeNext(note);
-
-            //close writer
-            writer.close();
-        }
-        catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-
+    /**
+     * @throws IllegalArgumentException if the requested number of incorrectly answered questions is higher than the number that was answered incorrectly
+     * @return a list of the top incorrect questions and the number of times it was answered incorrectly.
+     */
     public List<QuestionCount> findMostIncorrectQuestions(int numOfQuestions){
         List<QuestionCount> consolidatedList = new ArrayList<>();
         for(StudentData sd: studentDataList){
@@ -272,6 +244,42 @@ public class StudentDataAnalyzer {
             }
         }
         return topQCs;
+    }
+
+
+    public void writeStudentDataFile(String filePath) throws IOException {
+        File file = new File(filePath);
+        if (file.exists()){
+            file.delete();
+        }
+        try {
+            FileWriter outputfile = new FileWriter(file);
+            CSVWriter writer = new CSVWriter(outputfile);
+            String[] header = { "Student Id", "Level", "Total Answers Given", "Percent of Correct Responses", "Percent of Questions Wrong the First Time", "Percent of Questions Right After Wrong the First Time"};
+            writer.writeNext(header);
+
+            //inserts row per student
+            for (StudentData studentData : studentDataList){
+                String [] studentRow = {studentData.getStudentId(), Integer.toString(studentData.getLevel()), Integer.toString(studentData.getTotalAnswersGiven()), Double.toString(studentData.getPercentAnswersCorrect()), Double.toString(studentData.getPercentWrongFirstTime()), Double.toString(studentData.getPercentRightAfterWrongFirstTime())};
+                writer.writeNext(studentRow);
+            }
+            String [] divider = {""};
+            writer.writeNext(divider);
+
+            String [] overallStats = {"Averages:", Double.toString(calcAverageLevel()), Double.toString(calcAverageTotalAnswers()), Double.toString(calcAveragePercentCorrectResponses()), Double.toString(calcAveragePercentWrongFirstTime()), Double.toString(calcAveragePercentRightAfterWrongFirstTime())};
+            writer.writeNext(overallStats);
+            writer.writeNext(divider);
+
+            String [] note = {"-1 denotes no information for calculation. Student still included in average calculation"};
+            writer.writeNext(note);
+
+            //close writer
+            writer.close();
+        }
+        catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) throws IOException{

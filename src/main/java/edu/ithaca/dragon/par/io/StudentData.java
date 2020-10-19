@@ -20,7 +20,7 @@ public class StudentData {
 //private double timeSpent; //minutes?
 
     /**
-     * stores a student's current level, total answers ever given, and their id
+     * stores a student's current level, total answers ever given, a list of questions they got wrong, and their id
      * @param student
      */
     public StudentData(StudentModel student){
@@ -41,7 +41,7 @@ public class StudentData {
 
 
     /**
-     * updates level and total answers given
+     * updates level, total answers given, and the list of incorrect questions
      * @throws  IllegalArgumentException if the given student model's ID doesn't match that of the student data
      * @param student
      */

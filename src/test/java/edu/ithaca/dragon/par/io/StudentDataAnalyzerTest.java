@@ -533,6 +533,5 @@ public class StudentDataAnalyzerTest {
         assertEquals("477-zone-./images/metacarpal19.jpg", incorrect.get(1).getQuestion().getId());
         assertEquals("491-zone-./images/metacarpal37.jpg", incorrect.get(2).getQuestion().getId());
 
-
     }
 }
