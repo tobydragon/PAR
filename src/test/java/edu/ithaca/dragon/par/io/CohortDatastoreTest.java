@@ -1,10 +1,9 @@
 package edu.ithaca.dragon.par.io;
 
+import edu.ithaca.dragon.par.cohortModel.Cohort;
 import edu.ithaca.dragon.par.domainModel.QuestionOrderedInfo;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
-import edu.ithaca.dragon.par.io.CohortDatastore;
-import edu.ithaca.dragon.par.io.JsonQuestionPoolDatastore;
 import edu.ithaca.dragon.par.pedagogicalModel.LevelTaskGenerator;
 import edu.ithaca.dragon.par.pedagogicalModel.OrderedTaskGenerator;
 import edu.ithaca.dragon.par.pedagogicalModel.RandomTaskGenerator;
@@ -96,6 +95,47 @@ public class CohortDatastoreTest {
 
         //get from map with multiple cohorts with student that doesnt exist
         assertNull(cohortDatastore.getTaskGeneratorFromStudentID("testStudent10"));
+
+    }
+
+    @Test
+    public void makeCohortDatastoreFromCohortRecords() throws IOException {
+        JsonIoUtil reader = new JsonIoUtil(new JsonIoHelperDefault());
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
+        List<QuestionOrderedInfo> defaultQuestionOrderedInfoList = reader.listFromFile("src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoList.json", QuestionOrderedInfo.class);
+
+        List<String> studentIDs1 = new ArrayList<>();
+        studentIDs1.add("testStudent1");
+        studentIDs1.add("testStudent2");
+        studentIDs1.add("testStudent3");
+
+        List<String> studentIDs2 = new ArrayList<>();
+        studentIDs2.add("testStudent4");
+        studentIDs2.add("testStudent5");
+        studentIDs2.add("testStudent6");
+
+        List<String> studentIDs3 = new ArrayList<>();
+        studentIDs3.add("testStudent7");
+
+        //one CohortRecord
+        List<CohortRecord> listToConvert = new ArrayList<>();
+        Cohort cohort1 = new Cohort(new RandomTaskGenerator(), studentIDs1);
+        listToConvert.add(CohortRecord.makeCohortRecordFromCohort(cohort1));
+
+        CohortDatastore cohortDatastore = CohortDatastore.makeCohortDatastoreFromCohortRecords(listToConvert);
+        assertEquals(1, cohortDatastore.getNumberCohorts());
+        assertEquals(3, cohortDatastore.getTotalNumberStudents());
+
+        //many CohortRecords (3)
+        Cohort cohort2 = new Cohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), studentIDs2);
+        listToConvert.add(CohortRecord.makeCohortRecordFromCohort(cohort2));
+
+        Cohort cohort3 = new Cohort(new OrderedTaskGenerator(questionPool, defaultQuestionOrderedInfoList), studentIDs3);
+        listToConvert.add(CohortRecord.makeCohortRecordFromCohort(cohort3));
+        cohortDatastore = CohortDatastore.makeCohortDatastoreFromCohortRecords(listToConvert);
+
+        assertEquals(3, cohortDatastore.getNumberCohorts());
+        assertEquals(7, cohortDatastore.getTotalNumberStudents());
 
     }
 
