@@ -463,20 +463,31 @@ public class StudentDataAnalyzerTest {
         StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
         StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
         StudentData masteredStudent = new StudentData(masteredStudentModel);
-
         sda.addStudentData(masteredStudent);
 
-        //add another student (2 total)
+        //student2
         StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/level4Student.json", StudentModelRecord.class);
         StudentModel level4Student = smr2.buildStudentModel(myQP);
         StudentData level4StudentData = new StudentData(level4Student);
         sda.addStudentData(level4StudentData);
 
-        //add another student (3 total)
+        //student3
         List<Question> noQuestions = new ArrayList<Question>();
         StudentModel student = new StudentModel("student", noQuestions);
         StudentData newStudent = new StudentData(student);
         sda.addStudentData(newStudent);
+
+        //student4
+        StudentModelRecord  smr3 = JsonUtil.fromJsonFile("src/test/resources/author/students/incorrectStudent.json", StudentModelRecord.class);
+        StudentModel stud = smr3.buildStudentModel(myQP);
+        StudentData studData = new StudentData(stud);
+        sda.addStudentData(studData);
+
+        //student5
+        StudentModelRecord  smr4 = JsonUtil.fromJsonFile("src/test/resources/author/students/notMasteredStudent.json", StudentModelRecord.class);
+        StudentModel stud2 = smr4.buildStudentModel(myQP);
+        StudentData studData2 = new StudentData(stud2);
+        sda.addStudentData(studData2);
 
         String fileName = "studentDataYay.csv";
         sda.writeStudentDataFile(fileName);
