@@ -8,7 +8,7 @@ import edu.ithaca.dragon.par.io.AuthorDatastore;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.ImageTaskResponseOOP;
 import edu.ithaca.dragon.par.io.StudentModelDatastore;
-import edu.ithaca.dragon.par.pedagogicalModel.MessageGenerator;
+import edu.ithaca.dragon.par.pedagogicalModel.LevelMessageGenerator;
 import edu.ithaca.dragon.par.pedagogicalModel.TaskGenerator;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.par.studentModel.StudentReportCreator;
@@ -53,7 +53,7 @@ public class ParStudentAndAuthorServer {
     }
 
     public String getMessage(String userId, ImageTask it) throws IOException{
-        return MessageGenerator.generateMessage(studentModelDatastore.getStudentModel(userId), it);
+        return new LevelMessageGenerator().generateMessage(studentModelDatastore.getStudentModel(userId), it);
     }
 
     public void submitImageTaskResponse( ImageTaskResponseOOP response) throws IOException {
