@@ -1,9 +1,7 @@
 package edu.ithaca.dragon.par.cohortModel;
 
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
-import edu.ithaca.dragon.par.pedagogicalModel.LevelTaskGenerator;
-import edu.ithaca.dragon.par.pedagogicalModel.RandomTaskGenerator;
-import edu.ithaca.dragon.par.pedagogicalModel.TaskGenerator;
+import edu.ithaca.dragon.par.pedagogicalModel.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -26,7 +24,7 @@ public class CohortTest {
         studentList.add("testStudent3");
 
         //construct a cohort with studentIDs when created
-        Cohort cohort = new Cohort(taskGenerator, studentList);
+        Cohort cohort = new Cohort(taskGenerator, studentList, new LevelMessageGenerator());
 
         assertEquals(cohort.getTaskGenerator(), taskGenerator);
         assertEquals(cohort.getStudentIDs(), studentList);
@@ -40,7 +38,7 @@ public class CohortTest {
         studentList.add("testStudent2");
         studentList.add("testStudent3");
 
-        Cohort testCohort2 = new Cohort(new RandomTaskGenerator(), studentList);
+        Cohort testCohort2 = new Cohort(new RandomTaskGenerator(), studentList, new SilentMessageGenerator());
         testCohort2.addStudent("testStudent4");
 
         //add studentID to new cohort with studentIDs that already exists

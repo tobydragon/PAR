@@ -36,8 +36,8 @@ public class JSONCohortDatastore implements CohortDatastore {
         return masterCohortList;
     }
 
-    public void addCohort(TaskGenerator taskGenerator, List<String> studentIDs){
-        Cohort toAdd = new Cohort(taskGenerator, studentIDs);
+    public void addCohort(TaskGenerator taskGenerator, List<String> studentIDs, MessageGenerator messageGenerator){
+        Cohort toAdd = new Cohort(taskGenerator, studentIDs, messageGenerator);
         masterCohortList.add(toAdd);
 
         for (String studentID : studentIDs) {
