@@ -24,28 +24,28 @@ public class CohortRecordTest {
         testStudents.add("testStudent3");
 
         //empty student list
-        CohortRecord emptyCohortRecord = new CohortRecord("RandomTaskGenerator", new ArrayList<>());
+        CohortRecord emptyCohortRecord = new CohortRecord("RandomTaskGenerator", new ArrayList<>(), "SilentMessageGenerator");
         Cohort cohort = CohortRecord.makeCohortFromCohortRecord(emptyCohortRecord);
         assert cohort != null;
         assertTrue(cohort.getTaskGenerator() instanceof RandomTaskGenerator);
         assertEquals(new ArrayList<>(), cohort.getStudentIDs());
 
         //level task
-        CohortRecord levelCohortRecord = new CohortRecord("LevelTaskGenerator", testStudents);
+        CohortRecord levelCohortRecord = new CohortRecord("LevelTaskGenerator", testStudents, "LevelMessageGenerator");
         cohort = CohortRecord.makeCohortFromCohortRecord(levelCohortRecord);
         assert cohort != null;
         assertTrue(cohort.getTaskGenerator() instanceof LevelTaskGenerator);
         assertEquals(testStudents, cohort.getStudentIDs());
 
         //ordered task
-        CohortRecord orderedCohortRecord = new CohortRecord("OrderedTaskGenerator", testStudents);
+        CohortRecord orderedCohortRecord = new CohortRecord("OrderedTaskGenerator", testStudents, "SilentMessageGenerator");
         cohort = CohortRecord.makeCohortFromCohortRecord(orderedCohortRecord);
         assert cohort != null;
         assertTrue(cohort.getTaskGenerator() instanceof OrderedTaskGenerator);
         assertEquals(testStudents, cohort.getStudentIDs());
 
         //random task
-        CohortRecord randomCohortRecord = new CohortRecord("RandomTaskGenerator", testStudents);
+        CohortRecord randomCohortRecord = new CohortRecord("RandomTaskGenerator", testStudents, "SilentMessageGenerator");
         cohort = CohortRecord.makeCohortFromCohortRecord(randomCohortRecord);
         assert cohort != null;
         assertTrue(cohort.getTaskGenerator() instanceof RandomTaskGenerator);
@@ -72,6 +72,7 @@ public class CohortRecordTest {
         assert cohortRecord != null;
         assertEquals(emptyCohort.getStudentIDs(), cohortRecord.getStudentIDs());
         assertEquals("RandomTaskGenerator", cohortRecord.getTaskGeneratorType());
+        assertEquals("SilentMessageGenerator", cohortRecord.getMessageGeneratorType());
 
         //level task
         Cohort levelCohort = new Cohort(levelTaskGenerator, testStudents, new LevelMessageGenerator());
@@ -79,6 +80,7 @@ public class CohortRecordTest {
         assert cohortRecord != null;
         assertEquals(levelCohort.getStudentIDs(), cohortRecord.getStudentIDs());
         assertEquals("LevelTaskGenerator", cohortRecord.getTaskGeneratorType());
+        assertEquals("LevelMessageGenerator", cohortRecord.getMessageGeneratorType());
 
         //ordered task
         Cohort orderedCohort = new Cohort(orderedTaskGenerator, testStudents, new SilentMessageGenerator());
@@ -86,6 +88,7 @@ public class CohortRecordTest {
         assert cohortRecord != null;
         assertEquals(orderedCohort.getStudentIDs(), cohortRecord.getStudentIDs());
         assertEquals("OrderedTaskGenerator", cohortRecord.getTaskGeneratorType());
+        assertEquals("SilentMessageGenerator", cohortRecord.getMessageGeneratorType());
 
         //random task
         Cohort randomCohort = new Cohort(randomTaskGenerator, testStudents, new SilentMessageGenerator());
@@ -93,6 +96,7 @@ public class CohortRecordTest {
         assert cohortRecord != null;
         assertEquals(randomCohort.getStudentIDs(), cohortRecord.getStudentIDs());
         assertEquals("RandomTaskGenerator", cohortRecord.getTaskGeneratorType());
+        assertEquals("SilentMessageGenerator", cohortRecord.getMessageGeneratorType());
 
     }
 }
