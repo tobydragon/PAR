@@ -12,6 +12,7 @@ import edu.ithaca.dragon.util.JsonIoHelperDefault;
 import edu.ithaca.dragon.util.JsonIoUtil;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CohortRecord {
@@ -62,5 +63,40 @@ public class CohortRecord {
                 return new Cohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), cohortRecordIn.getStudentIDs());
         }
         return null;
+    }
+
+    public static JSONCohortDatastore makeCohortDatastoreFromCohortRecords(List<CohortRecord> cohortRecordsList) throws IOException {
+        JsonIoUtil reader = new JsonIoUtil(new JsonIoHelperDefault());
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
+        List<QuestionOrderedInfo> defaultQuestionOrderedInfoList = reader.listFromFile("src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoList.json", QuestionOrderedInfo.class);
+
+        JSONCohortDatastore toReturn = new JSONCohortDatastore();
+
+        for (CohortRecord cohortRecord : cohortRecordsList) {
+            String taskGeneratorType = cohortRecord.getTaskGeneratorType();
+            List<String> studentIDs = cohortRecord.getStudentIDs();
+
+            switch (taskGeneratorType) {
+                case "RandomTaskGenerator":
+                    toReturn.addCohort(new RandomTaskGenerator(), studentIDs);
+                    break;
+                case "LevelTaskGenerator":
+                    toReturn.addCohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), studentIDs);
+                    break;
+                case "OrderedTaskGenerator":
+                    toReturn.addCohort(new OrderedTaskGenerator(questionPool, defaultQuestionOrderedInfoList), studentIDs);
+                    break;
+            }
+        }
+        return toReturn;
+    }
+
+    public static List<CohortRecord> makeCohortRecordsFromCohortDatastore(JSONCohortDatastore cohortDatastoreIn) {
+        List<CohortRecord> toReturn = new ArrayList<>();
+        List<Cohort> masterCohortList = cohortDatastoreIn.getMasterCohortList();
+        for (Cohort cohort : masterCohortList) {
+            toReturn.add(CohortRecord.makeCohortRecordFromCohort(cohort));
+        }
+        return toReturn;
     }
 }

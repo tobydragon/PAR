@@ -26,11 +26,11 @@ public class CohortDatastoreTest {
         List<QuestionOrderedInfo> defaultQuestionOrderedInfoList = reader.listFromFile("src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoList.json", QuestionOrderedInfo.class);
 
         //first method signature (taskGenerator)
-        CohortDatastore cohortDatastore = new CohortDatastore();
+        JSONCohortDatastore cohortDatastore = new JSONCohortDatastore();
         assertEquals(0, cohortDatastore.getNumberCohorts());
 
         //second method signature (taskGenerator and students)
-        CohortDatastore cohortDatastore2 = new CohortDatastore();
+        JSONCohortDatastore cohortDatastore2 = new JSONCohortDatastore();
         assertEquals(0, cohortDatastore2.getNumberCohorts());
 
         List<String> studentIDs = new ArrayList<>();
@@ -54,7 +54,7 @@ public class CohortDatastoreTest {
 
     @Test
     public void getTaskGeneratorFromStudentID() throws IOException {
-        CohortDatastore cohortDatastore = new CohortDatastore();
+        JSONCohortDatastore cohortDatastore = new JSONCohortDatastore();
         RandomTaskGenerator randomTaskGenerator = new RandomTaskGenerator();
         JsonIoUtil reader = new JsonIoUtil(new JsonIoHelperDefault());
         QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
@@ -122,7 +122,7 @@ public class CohortDatastoreTest {
         Cohort cohort1 = new Cohort(new RandomTaskGenerator(), studentIDs1);
         listToConvert.add(CohortRecord.makeCohortRecordFromCohort(cohort1));
 
-        CohortDatastore cohortDatastore = CohortDatastore.makeCohortDatastoreFromCohortRecords(listToConvert);
+        JSONCohortDatastore cohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(listToConvert);
         assertEquals(1, cohortDatastore.getNumberCohorts());
         assertEquals(3, cohortDatastore.getTotalNumberStudents());
 
@@ -132,7 +132,7 @@ public class CohortDatastoreTest {
 
         Cohort cohort3 = new Cohort(new OrderedTaskGenerator(questionPool, defaultQuestionOrderedInfoList), studentIDs3);
         listToConvert.add(CohortRecord.makeCohortRecordFromCohort(cohort3));
-        cohortDatastore = CohortDatastore.makeCohortDatastoreFromCohortRecords(listToConvert);
+        cohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(listToConvert);
 
         assertEquals(3, cohortDatastore.getNumberCohorts());
         assertEquals(7, cohortDatastore.getTotalNumberStudents());
@@ -159,13 +159,13 @@ public class CohortDatastoreTest {
         studentIDs3.add("testStudent7");
 
         //empty CohortDatastore
-        CohortDatastore cohortDatastore = new CohortDatastore();
-        List<CohortRecord> cohortRecords = cohortDatastore.makeCohortRecordsFromCohortDatastore();
+        JSONCohortDatastore cohortDatastore = new JSONCohortDatastore();
+        List<CohortRecord> cohortRecords = CohortRecord.makeCohortRecordsFromCohortDatastore(cohortDatastore);
         assertEquals(0, cohortRecords.size());
 
         //one cohort in CohortDatastore
         cohortDatastore.addCohort(new RandomTaskGenerator(), studentIDs1);
-        cohortRecords = cohortDatastore.makeCohortRecordsFromCohortDatastore();
+        cohortRecords = CohortRecord.makeCohortRecordsFromCohortDatastore(cohortDatastore);
         assertEquals(1, cohortRecords.size());
         assertEquals("RandomTaskGenerator", cohortRecords.get(0).getTaskGeneratorType());
         assertEquals(studentIDs1, cohortRecords.get(0).getStudentIDs());
@@ -173,7 +173,7 @@ public class CohortDatastoreTest {
         //multiple cohorts in CohortDatastore (3)
         cohortDatastore.addCohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), studentIDs2);
         cohortDatastore.addCohort(new OrderedTaskGenerator(questionPool, defaultQuestionOrderedInfoList), studentIDs3);
-        cohortRecords = cohortDatastore.makeCohortRecordsFromCohortDatastore();
+        cohortRecords = CohortRecord.makeCohortRecordsFromCohortDatastore(cohortDatastore);
         assertEquals(3, cohortRecords.size());
         assertEquals("RandomTaskGenerator", cohortRecords.get(0).getTaskGeneratorType());
         assertEquals(studentIDs1, cohortRecords.get(0).getStudentIDs());
