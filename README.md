@@ -17,14 +17,6 @@ One instance of this system is currently being developed and tested with those i
 
 ### [Use Case Diagram](https://drive.google.com/file/d/1_G7bq2_z3fQ1a7Jyr3C9ewXK3StfCI2W/view?usp=sharing)
 
-### [Class Diagram](https://drive.google.com/file/d/1VdcpBtuRQkmUegNbxLKA2ve9hrQkaYYX/view?usp=sharing)
-
-### [System Sequence Diagram](https://drive.google.com/file/d/1ZpLw_vbLu6KnSWsBCviQYmpIlEqpbHq-/view)
-
-### [NextImageTask Sequence Diagram](https://drive.google.com/file/d/1RBhItftzkUX779wb1zv6xrgL1JMD_9Ml/view?usp=sharing)
-
-### [ImageTaskResponse Sequence Diagram](https://drive.google.com/file/d/1ezNA_RqJq6m6WfHb4GVKs2Da-5AgYEPj/view?usp=sharing)
-
-### [KnowledgeBase Sequence Diagram](https://drive.google.com/file/d/1hoSOBYlqthWcJqPFC217ngKczGZm1-C-/view?usp=sharing)
+### [Class Diagram](https://drive.google.com/file/d/1VdcpBtuRQkmUegNbxLKA2ve9hrQkaYYX/view?usp=sharing)c
 
 ### [Research Publications](https://github.com/tobydragon/PAR/tree/master/src/Research)

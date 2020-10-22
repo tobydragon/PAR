@@ -48,9 +48,8 @@ public class LevelTaskGenerator implements TaskGenerator {
         QuestionCount leastSeenWithTypesNeeded = null;
         //for every questionCount object in the list
         for(QuestionCount questionCount : typeQuestions){
-            //if the question's associated imageTask has each type needed (aka in the typesNeeded list)
-            if(checkForAllNeededTypesOfQuestions(typesNeeded,studentModel,questionCount.getQuestion())) {
-                //if leastSeenWithTypesNeeded hasn't been set to a questionCount yet
+            if(checkRelatedImageHasAllNeededTypesOfQuestions(typesNeeded,studentModel,questionCount.getQuestion())) {
+
                 if (leastSeenWithTypesNeeded == null  ){
                     //set leastSeenWithTypesNeeded to the current QuestionCount
                     leastSeenWithTypesNeeded = questionCount;
@@ -70,8 +69,7 @@ public class LevelTaskGenerator implements TaskGenerator {
         }
     }
 
-    //checks an image has at least one question fo all of the types needed
-    public static boolean checkForAllNeededTypesOfQuestions(List<String> types, StudentModel studentModel, Question question){
+    public static boolean checkRelatedImageHasAllNeededTypesOfQuestions(List<String> types, StudentModel studentModel, Question question){
         Set<String> typesPresent=new LinkedHashSet<>();
         List<Question> questionList = QuestionPool.getQuestionsWithUrl(studentModel.getUserQuestionSet().getAllQuestions(), question.getImageUrl());
         for(Question currQuestion: questionList){
@@ -87,24 +85,41 @@ public class LevelTaskGenerator implements TaskGenerator {
 
     public static int calcLevel(Map<String, Double> scoresPerType) {
         List<Double> orderedScores = orderedScores(scoresPerType);
-        int level = 1;//sets score to one
 
-        if (orderedScores.get(0) < 60)
-            return level;//if user has score less than 75 on plane , returns level 1
+        if (orderedScores.get(0) == 100 && orderedScores.get(1)==100 && orderedScores.get(2)==100 && orderedScores.get(3) == 100){ //all 100
+            return 8;
+        }
+        else if (orderedScores.get(0) == 100 && orderedScores.get(1)==100 && orderedScores.get(2)==100 &&orderedScores.get(3)>50){ //all 100 but zone over 50
+            return 7;
+        }
+        else{
+            return calcLevelAttachment(scoresPerType);
+        }
+    }
 
+    public static int calcLevelAttachment(Map<String, Double> scoresPerType) {
+        List<Double> orderedScores = orderedScores(scoresPerType);
+
+        if (orderedScores.get(0) == 100 && orderedScores.get(1) == 100 && orderedScores.get(2) == 100) { //all 100
+            return 6;
+        }
+        else if (orderedScores.get(0) == 100 && orderedScores.get(1) == 100 && orderedScores.get(2) > 50) { //above 50 on attachment
+            return 5;
+        }
+        else if (orderedScores.get(0) == 100 && orderedScores.get(1) == 100) { //100 on structure
+            return 4;
+        }
+        else if (orderedScores.get(0) == 100 && orderedScores.get(1) > 50 && orderedScores.get(1) < 100) { //100 on plane, between 50 and 100 on structure
+            return 3;
+        }
+        else if (orderedScores.get(0) > 50) { //over 50 on plane
+            return 2;
+        }
+        else if (orderedScores.get(0) <= 50) { //less than 50 on plane
+            return 1;
+        }
         else {
-            for(int i = 0; i < orderedScores.size()-1; i++) {
-
-                if (orderedScores.get(i) >= 60 && orderedScores.get(i) < 100) {//if score is less than 100 and greater than 74, adds a level
-                    level = level + 1;
-                    return level;//returns level in this case
-                }
-
-                else if (orderedScores.get(i) == 100)
-                    level = level + 2;//if score is 100, adds 2 to level/skips a level
-            }
-
-            return level;
+            throw new RuntimeException("no valid level for data");
         }
     }
 

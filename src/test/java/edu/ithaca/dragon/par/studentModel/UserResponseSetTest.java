@@ -150,17 +150,17 @@ public class UserResponseSetTest {
         assertEquals("__", UserResponseSet.calcKnowledgeEstimateString(new ArrayList<>(), 2));
         assertEquals("OO", UserResponseSet.calcKnowledgeEstimateString(allRight.getResponsesPerQuestionList(), 2));
         assertEquals("XX", UserResponseSet.calcKnowledgeEstimateString(allWrong.getResponsesPerQuestionList(), 2));
-        assertEquals("XO", UserResponseSet.calcKnowledgeEstimateString(everyOtherRight.getResponsesPerQuestionList(), 2));
+        assertEquals("OX", UserResponseSet.calcKnowledgeEstimateString(everyOtherRight.getResponsesPerQuestionList(), 2));
 
         assertEquals("______", UserResponseSet.calcKnowledgeEstimateString(new ArrayList<>(), 6));
         assertEquals("OOOOOO", UserResponseSet.calcKnowledgeEstimateString(allRight.getResponsesPerQuestionList(), 6));
         assertEquals("XXXXXX", UserResponseSet.calcKnowledgeEstimateString(allWrong.getResponsesPerQuestionList(), 6));
-        assertEquals("XOXOXO", UserResponseSet.calcKnowledgeEstimateString(everyOtherRight.getResponsesPerQuestionList(), 6));
+        assertEquals("OXOXOX", UserResponseSet.calcKnowledgeEstimateString(everyOtherRight.getResponsesPerQuestionList(), 6));
 
         assertEquals("______", UserResponseSet.calcKnowledgeEstimateString(new ArrayList<>(), 6));
-        assertEquals("___OOO", UserResponseSet.calcKnowledgeEstimateString(allRight.getResponsesPerQuestionList().subList(0,3), 6));
-        assertEquals("___XXX", UserResponseSet.calcKnowledgeEstimateString(allWrong.getResponsesPerQuestionList().subList(0,3), 6));
-        assertEquals("___OXO", UserResponseSet.calcKnowledgeEstimateString(everyOtherRight.getResponsesPerQuestionList().subList(0,3), 6));
+        assertEquals("OOO___", UserResponseSet.calcKnowledgeEstimateString(allRight.getResponsesPerQuestionList().subList(0,3), 6));
+        assertEquals("XXX___", UserResponseSet.calcKnowledgeEstimateString(allWrong.getResponsesPerQuestionList().subList(0,3), 6));
+        assertEquals("OXO___", UserResponseSet.calcKnowledgeEstimateString(everyOtherRight.getResponsesPerQuestionList().subList(0,3), 6));
     }
 
     @Test
@@ -177,7 +177,7 @@ public class UserResponseSetTest {
         ResponsesPerQuestion response = new ResponsesPerQuestion("TestUser1", questionsFromFile.get(0),questionsFromFile.get(0).getCorrectAnswer());
         userResponseSet.addResponse(response);
         m1 = userResponseSet.calcKnowledgeEstimateStringsByType(4);
-        assertEquals("___O", m1.get(EquineQuestionTypes.plane));
+        assertEquals("O___", m1.get(EquineQuestionTypes.plane));
         assertEquals("____", m1.get(EquineQuestionTypes.structure));
         assertEquals("____", m1.get(EquineQuestionTypes.attachment));
         assertEquals("____", m1.get(EquineQuestionTypes.zone));
@@ -185,74 +185,74 @@ public class UserResponseSetTest {
         response = new ResponsesPerQuestion("TestUser1",questionsFromFile.get(1),questionsFromFile.get(1).getCorrectAnswer());
         userResponseSet.addResponse(response);
         m1 = userResponseSet.calcKnowledgeEstimateStringsByType(4);
-        assertEquals("___O", m1.get(EquineQuestionTypes.plane));
-        assertEquals("___O", m1.get(EquineQuestionTypes.structure));
+        assertEquals("O___", m1.get(EquineQuestionTypes.plane));
+        assertEquals("O___", m1.get(EquineQuestionTypes.structure));
         assertEquals("____", m1.get(EquineQuestionTypes.attachment));
         assertEquals("____", m1.get(EquineQuestionTypes.zone));
 
         response = new ResponsesPerQuestion("TestUser1", questionsFromFile.get(2),"wrong");
         userResponseSet.addResponse(response);
         m1 = userResponseSet.calcKnowledgeEstimateStringsByType(4);
-        assertEquals("___O", m1.get(EquineQuestionTypes.plane));
-        assertEquals("__OX", m1.get(EquineQuestionTypes.structure));
+        assertEquals("O___", m1.get(EquineQuestionTypes.plane));
+        assertEquals("XO__", m1.get(EquineQuestionTypes.structure));
         assertEquals("____", m1.get(EquineQuestionTypes.attachment));
         assertEquals("____", m1.get(EquineQuestionTypes.zone));
 
         response = new ResponsesPerQuestion("TestUser1", questionsFromFile.get(1).getFollowupQuestions().get(0),"wrong");
         userResponseSet.addResponse(response);
         m1 = userResponseSet.calcKnowledgeEstimateStringsByType(4);
-        assertEquals("___O", m1.get(EquineQuestionTypes.plane));
-        assertEquals("__OX", m1.get(EquineQuestionTypes.structure));
-        assertEquals("___X", m1.get(EquineQuestionTypes.attachment));
+        assertEquals("O___", m1.get(EquineQuestionTypes.plane));
+        assertEquals("XO__", m1.get(EquineQuestionTypes.structure));
+        assertEquals("X___", m1.get(EquineQuestionTypes.attachment));
         assertEquals("____", m1.get(EquineQuestionTypes.zone));
 
         response = new ResponsesPerQuestion("TestUser1", questionsFromFile.get(1).getFollowupQuestions().get(1),questionsFromFile.get(1).getFollowupQuestions().get(1).getCorrectAnswer());
         userResponseSet.addResponse(response);
         m1 = userResponseSet.calcKnowledgeEstimateStringsByType(4);
-        assertEquals("___O", m1.get(EquineQuestionTypes.plane));
-        assertEquals("__OX", m1.get(EquineQuestionTypes.structure));
-        assertEquals("__XO", m1.get(EquineQuestionTypes.attachment));
+        assertEquals("O___", m1.get(EquineQuestionTypes.plane));
+        assertEquals("XO__", m1.get(EquineQuestionTypes.structure));
+        assertEquals("OX__", m1.get(EquineQuestionTypes.attachment));
         assertEquals("____", m1.get(EquineQuestionTypes.zone));
 
         response = new ResponsesPerQuestion("TestUser1", questionsFromFile.get(4),questionsFromFile.get(4).getCorrectAnswer());
         userResponseSet.addResponse(response);
         m1 = userResponseSet.calcKnowledgeEstimateStringsByType(4);
-        assertEquals("___O", m1.get(EquineQuestionTypes.plane));
-        assertEquals("__OX", m1.get(EquineQuestionTypes.structure));
-        assertEquals("__XO", m1.get(EquineQuestionTypes.attachment));
-        assertEquals("___O", m1.get(EquineQuestionTypes.zone));
+        assertEquals("O___", m1.get(EquineQuestionTypes.plane));
+        assertEquals("XO__", m1.get(EquineQuestionTypes.structure));
+        assertEquals("OX__", m1.get(EquineQuestionTypes.attachment));
+        assertEquals("O___", m1.get(EquineQuestionTypes.zone));
 
         response = new ResponsesPerQuestion("TestUser1", questionsFromFile.get(3),questionsFromFile.get(3).getCorrectAnswer());
         userResponseSet.addResponse(response);
         m1 = userResponseSet.calcKnowledgeEstimateStringsByType(4);
-        assertEquals("___O", m1.get(EquineQuestionTypes.plane));
-        assertEquals("_OXO", m1.get(EquineQuestionTypes.structure));
-        assertEquals("__XO", m1.get(EquineQuestionTypes.attachment));
-        assertEquals("___O", m1.get(EquineQuestionTypes.zone));
+        assertEquals("O___", m1.get(EquineQuestionTypes.plane));
+        assertEquals("OXO_", m1.get(EquineQuestionTypes.structure));
+        assertEquals("OX__", m1.get(EquineQuestionTypes.attachment));
+        assertEquals("O___", m1.get(EquineQuestionTypes.zone));
 
         response = new ResponsesPerQuestion("TestUser1", questionsFromFile.get(6),questionsFromFile.get(6).getCorrectAnswer());
         userResponseSet.addResponse(response);
         m1 = userResponseSet.calcKnowledgeEstimateStringsByType(4);
-        assertEquals("___O", m1.get(EquineQuestionTypes.plane));
-        assertEquals("OXOO", m1.get(EquineQuestionTypes.structure));
-        assertEquals("__XO", m1.get(EquineQuestionTypes.attachment));
-        assertEquals("___O", m1.get(EquineQuestionTypes.zone));
+        assertEquals("O___", m1.get(EquineQuestionTypes.plane));
+        assertEquals("OOXO", m1.get(EquineQuestionTypes.structure));
+        assertEquals("OX__", m1.get(EquineQuestionTypes.attachment));
+        assertEquals("O___", m1.get(EquineQuestionTypes.zone));
 
         response = new ResponsesPerQuestion("TestUser1", questionsFromFile.get(7),questionsFromFile.get(7).getCorrectAnswer());
         userResponseSet.addResponse(response);
         m1 = userResponseSet.calcKnowledgeEstimateStringsByType(4);
-        assertEquals("___O", m1.get(EquineQuestionTypes.plane));
-        assertEquals("XOOO", m1.get(EquineQuestionTypes.structure));
-        assertEquals("__XO", m1.get(EquineQuestionTypes.attachment));
-        assertEquals("___O", m1.get(EquineQuestionTypes.zone));
+        assertEquals("O___", m1.get(EquineQuestionTypes.plane));
+        assertEquals("OOOX", m1.get(EquineQuestionTypes.structure));
+        assertEquals("OX__", m1.get(EquineQuestionTypes.attachment));
+        assertEquals("O___", m1.get(EquineQuestionTypes.zone));
 
         response = new ResponsesPerQuestion("TestUser1", questionsFromFile.get(8),"wrong");
         userResponseSet.addResponse(response);
         m1 = userResponseSet.calcKnowledgeEstimateStringsByType(4);
-        assertEquals("___O", m1.get(EquineQuestionTypes.plane));
-        assertEquals("OOOX", m1.get(EquineQuestionTypes.structure));
-        assertEquals("__XO", m1.get(EquineQuestionTypes.attachment));
-        assertEquals("___O", m1.get(EquineQuestionTypes.zone));
+        assertEquals("O___", m1.get(EquineQuestionTypes.plane));
+        assertEquals("XOOO", m1.get(EquineQuestionTypes.structure));
+        assertEquals("OX__", m1.get(EquineQuestionTypes.attachment));
+        assertEquals("O___", m1.get(EquineQuestionTypes.zone));
 
     }
 

@@ -62,7 +62,7 @@ public class JsonStudentModelDatastoreTest {
         assertFalse(Files.exists(tempDir.resolve("NewUser1.json")));
         taskGenerator.makeTask(studentModel2, 4);
         assertEquals(1, studentModel2.getSeenQuestionCount());
-        jsonStudentModelDatastore.submitImageTaskResponse(studentModel2.getUserId(), new ImageTaskResponseOOP("NewUser1", Arrays.asList("plane./images/demoEquine04.jpg"), Arrays.asList("longitudinal")));
+        jsonStudentModelDatastore.submitImageTaskResponse(studentModel2.getUserId(), new ImageTaskResponseOOP("NewUser1", Arrays.asList("plane./images/demoEquine04.jpg"), Arrays.asList("longitudinal")), 4);
         assertEquals(1, studentModel2.getResponseCount());
         //a file should now been written
         assertTrue(Files.exists(tempDir.resolve("NewUser1.json")));
@@ -70,7 +70,7 @@ public class JsonStudentModelDatastoreTest {
         //make a change to a user, log them out, then reload them to see if changes were saved
         taskGenerator.makeTask(studentModel1, 4);
         assertEquals(2, studentModel1.getSeenQuestionCount());
-        jsonStudentModelDatastore.submitImageTaskResponse(studentModel1.getUserId(), new ImageTaskResponseOOP("TestUser100", Arrays.asList("plane./images/demoEquine10.jpg"), Arrays.asList("longitudinal")));
+        jsonStudentModelDatastore.submitImageTaskResponse(studentModel1.getUserId(), new ImageTaskResponseOOP("TestUser100", Arrays.asList("plane./images/demoEquine10.jpg"), Arrays.asList("longitudinal")), 4);
 
         assertEquals(2, studentModel1.getResponseCount());
 
@@ -83,10 +83,12 @@ public class JsonStudentModelDatastoreTest {
     @Test
     public void getAllSavedStudentIdsTest() throws IOException{
         List<String> usernames = JsonStudentModelDatastore.getAllSavedStudentIds("src/test/resources/author/students");
-        assertEquals(9, usernames.size());
+        assertEquals(13, usernames.size());
         assertTrue(usernames.contains("TestUser100"));
         assertTrue(usernames.contains("TestUser101"));
         assertTrue(usernames.contains("TestUser102"));
+        assertTrue(usernames.contains("buckmank"));
+        assertTrue(usernames.contains("PSaASTestUser"));
     }
 
     @Test

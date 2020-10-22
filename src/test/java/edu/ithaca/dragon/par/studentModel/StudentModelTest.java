@@ -15,6 +15,9 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -54,8 +57,8 @@ public class StudentModelTest {
         assertEquals(2, studentModel.getSeenQuestionCount());
         assertEquals(13, studentModel.getUnseenQuestionCount());
 
-        studentModel.imageTaskResponseSubmitted(responsesFromFile.get(0),questionPool);
-        studentModel.imageTaskResponseSubmitted(responsesFromFile.get(0),questionPool);
+        studentModel.imageTaskResponseSubmitted(responsesFromFile.get(0),questionPool, 4);
+        studentModel.imageTaskResponseSubmitted(responsesFromFile.get(0),questionPool, 4);
 
         assertEquals(15, studentModel.getResponseCount());
     }
@@ -65,7 +68,7 @@ public class StudentModelTest {
         Map<String,Double> resp=studentModel.calcKnowledgeEstimateByType(4);
         assertEquals(4,resp.size());
 
-        studentModel.imageTaskResponseSubmitted(responsesFromFile.get(1),questionPool);
+        studentModel.imageTaskResponseSubmitted(responsesFromFile.get(1),questionPool, 4);
 
         Map<String,Double> resp1=studentModel.calcKnowledgeEstimateByType(4);
         assertEquals(4,resp1.size());
@@ -79,14 +82,18 @@ public class StudentModelTest {
     @Test
     public void imageTaskResponseSubmittedTest() throws IOException{
         // submit responses to 15 questions
-        studentModel.imageTaskResponseSubmitted(responsesFromFile.get(0),questionPool);
+        studentModel.imageTaskResponseSubmitted(responsesFromFile.get(0),questionPool, 4);
         assertEquals(15, studentModel.getResponseCount());
         assertEquals(15, studentModel.countTotalResponsesFromUserResponseSet());
+        assertEquals( 1, studentModel.getPreviousLevel());
+        assertEquals( 4, studentModel.getCurrentLevel());
 
         // submit 15 new responses to the 15 questions that have already been responded to
-        studentModel.imageTaskResponseSubmitted(responsesFromFile.get(1),questionPool);
+        studentModel.imageTaskResponseSubmitted(responsesFromFile.get(1),questionPool, 4);
         assertEquals(15, studentModel.getResponseCount());
         assertEquals(30, studentModel.countTotalResponsesFromUserResponseSet());
+        assertEquals(4, studentModel.getPreviousLevel());
+        assertEquals( 1, studentModel.getCurrentLevel());
     }
     @Test
     public void addQuestionTest() throws IOException{
@@ -155,4 +162,87 @@ public class StudentModelTest {
         assertEquals(5, qc.size());
     }
 
+    @Test
+    public void getAndSetPreviousLevelTest() throws IOException{
+        List<Question> questions= JsonUtil.listFromJsonFile("src/test/resources/author/DemoQuestionPoolFollowup.json", Question.class);
+        StudentModel studentModel = new StudentModel("TestUser", questions);
+        assertEquals(1, studentModel.getPreviousLevel());
+
+        //set once
+        studentModel.setPreviousLevel(5);
+        assertEquals(5, studentModel.getPreviousLevel());
+
+        //invalid set- too high
+        assertThrows(IllegalArgumentException.class, ()-> studentModel.setPreviousLevel(19));
+        assertEquals(5, studentModel.getPreviousLevel());
+
+        //invalid set- too high (border)
+        assertThrows(IllegalArgumentException.class, ()-> studentModel.setPreviousLevel(9));
+        assertEquals(5, studentModel.getPreviousLevel());
+
+        //invalid set- too low
+        assertThrows(IllegalArgumentException.class, ()-> studentModel.setPreviousLevel(-3));
+        assertEquals(5, studentModel.getPreviousLevel());
+
+        //invalid set- too low (border)
+        assertThrows(IllegalArgumentException.class, ()-> studentModel.setPreviousLevel(0));
+        assertEquals(5, studentModel.getPreviousLevel());
+
+        //set again
+        studentModel.setPreviousLevel(6);
+        assertEquals(6, studentModel.getPreviousLevel());
+
+        //new studentModel
+        StudentModel studentModel2 = new StudentModel("TestUser2", questions);
+        studentModel2.setPreviousLevel(3);
+        assertEquals(3, studentModel2.getPreviousLevel());
+        assertEquals(6, studentModel.getPreviousLevel());
+
+        //set old one again
+        studentModel.setPreviousLevel(1);
+        assertEquals(3, studentModel2.getPreviousLevel());
+        assertEquals(1, studentModel.getPreviousLevel());
+    }
+
+    @Test
+    public void getAndSetCurrentLevelTest() throws IOException{
+        List<Question> questions= JsonUtil.listFromJsonFile("src/test/resources/author/DemoQuestionPoolFollowup.json", Question.class);
+        StudentModel studentModel = new StudentModel("TestUser", questions);
+        assertEquals(1, studentModel.getCurrentLevel());
+
+        //set once
+        studentModel.setCurrentLevel(5);
+        assertEquals(5, studentModel.getCurrentLevel());
+
+        //invalid set- too high
+        assertThrows(IllegalArgumentException.class, ()-> studentModel.setCurrentLevel(19));
+        assertEquals(5, studentModel.getCurrentLevel());
+
+        //invalid set- too high (border)
+        assertThrows(IllegalArgumentException.class, ()-> studentModel.setCurrentLevel(9));
+        assertEquals(5, studentModel.getCurrentLevel());
+
+        //invalid set- too low
+        assertThrows(IllegalArgumentException.class, ()-> studentModel.setCurrentLevel(-3));
+        assertEquals(5, studentModel.getCurrentLevel());
+
+        //invalid set- too low (border)
+        assertThrows(IllegalArgumentException.class, ()-> studentModel.setCurrentLevel(0));
+        assertEquals(5, studentModel.getCurrentLevel());
+
+        //set again
+        studentModel.setCurrentLevel(6);
+        assertEquals(6, studentModel.getCurrentLevel());
+
+        //new studentModel
+        StudentModel studentModel2 = new StudentModel("TestUser2", questions);
+        studentModel2.setCurrentLevel(3);
+        assertEquals(3, studentModel2.getCurrentLevel());
+        assertEquals(6, studentModel.getCurrentLevel());
+
+        //set old one again
+        studentModel.setCurrentLevel(1);
+        assertEquals(3, studentModel2.getCurrentLevel());
+        assertEquals(1, studentModel.getCurrentLevel());
+    }
 }

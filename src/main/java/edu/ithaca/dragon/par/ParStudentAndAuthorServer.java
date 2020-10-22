@@ -8,6 +8,7 @@ import edu.ithaca.dragon.par.io.AuthorDatastore;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.ImageTaskResponseOOP;
 import edu.ithaca.dragon.par.io.StudentModelDatastore;
+import edu.ithaca.dragon.par.pedagogicalModel.MessageGenerator;
 import edu.ithaca.dragon.par.pedagogicalModel.TaskGenerator;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.par.studentModel.StudentReportCreator;
@@ -29,6 +30,7 @@ public class ParStudentAndAuthorServer {
             this.studentModelDatastore = studentModelDatastore;
             authorServer = new AuthorServer(authorDatastore);
             taskGenerator = new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap());
+        System.out.println();
     }
 
     //----------- Student methods  --------------//
@@ -36,18 +38,26 @@ public class ParStudentAndAuthorServer {
     public ImageTask nextImageTask( String userId) throws IOException {
         if (idealQuestionCountPerTypeForAnalysis <= studentModelDatastore.getMinQuestionCountPerType()){
             ImageTask imageTask = taskGenerator.makeTask(studentModelDatastore.getStudentModel(userId), idealQuestionCountPerTypeForAnalysis);
+            LevelTaskGenerator.calcLevel(studentModelDatastore.getStudentModel(userId).calcKnowledgeEstimateByType(idealQuestionCountPerTypeForAnalysis));
             studentModelDatastore.increaseTimesSeen(userId, imageTask.getTaskQuestions());
             return imageTask;
         }
         else {
             ImageTask imageTask = taskGenerator.makeTask(studentModelDatastore.getStudentModel(userId), studentModelDatastore.getMinQuestionCountPerType());
+            LevelTaskGenerator.calcLevel(studentModelDatastore.getStudentModel(userId).calcKnowledgeEstimateByType(idealQuestionCountPerTypeForAnalysis));
             studentModelDatastore.increaseTimesSeen(userId, imageTask.getTaskQuestions());
+            //TODO: use getMessage method. will there be a separate call to getMessage?
+            // should i delete any message stuff in here?
             return imageTask;
         }
     }
 
+    public String getMessage(String userId, ImageTask it) throws IOException{
+        return MessageGenerator.generateMessage(studentModelDatastore.getStudentModel(userId), it);
+    }
+
     public void submitImageTaskResponse( ImageTaskResponseOOP response) throws IOException {
-            studentModelDatastore.submitImageTaskResponse(response.getUserId(), response);
+            studentModelDatastore.submitImageTaskResponse(response.getUserId(), response, idealQuestionCountPerTypeForAnalysis);
     }
 
     public void logout(String userId) throws IOException{

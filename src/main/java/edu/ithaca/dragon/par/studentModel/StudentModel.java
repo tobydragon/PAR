@@ -4,6 +4,9 @@ import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.ImageTaskResponseOOP;
+import edu.ithaca.dragon.par.pedagogicalModel.LevelMessageInformation;
+import edu.ithaca.dragon.par.pedagogicalModel.LevelTaskGenerator;
+import edu.ithaca.dragon.par.pedagogicalModel.TaskGenerator;
 
 import java.text.DecimalFormat;
 import java.util.*;
@@ -15,21 +18,26 @@ public class StudentModel {
     private String userId;
     private UserQuestionSet userQuestionSet;
     private UserResponseSet userResponseSet;
+    private LevelMessageInformation levelMessageInformation;
 
     public StudentModel(String userId, List<Question> questions){
         this.userId = userId;
         this.userQuestionSet = UserQuestionSet.buildNewUserQuestionSetFromQuestions(userId, questions);
         this.userResponseSet = new UserResponseSet(userId);
+        this.levelMessageInformation = new LevelMessageInformation();
     }
 
     public StudentModel(String userId, UserQuestionSet userQuestionSet, UserResponseSet userResponseSet){
         this.userId = userId;
         this.userQuestionSet = userQuestionSet;
         this.userResponseSet = userResponseSet;
+        this.levelMessageInformation = new LevelMessageInformation();
     }
 
-    public void imageTaskResponseSubmitted(ImageTaskResponseOOP imageTaskResponses, QuestionPool questions){
+    public void imageTaskResponseSubmitted(ImageTaskResponseOOP imageTaskResponses, QuestionPool questions, int questionCountPerTypeForAnalysis){
         userResponseSet.addAllResponses(createUserResponseObj(imageTaskResponses,questions,this.userId));
+        setPreviousLevel(levelMessageInformation.getCurrentLevel());
+        setCurrentLevel(LevelTaskGenerator.calcLevel(calcKnowledgeEstimateByType(questionCountPerTypeForAnalysis)));
     }
 
     public static List<ResponsesPerQuestion> createUserResponseObj(ImageTaskResponseOOP imageTaskResponses, QuestionPool questions, String userId){
@@ -150,4 +158,18 @@ public class StudentModel {
     }
 
 
+    public int getPreviousLevel() {
+        return levelMessageInformation.getPreviousLevel();
+    }
+
+    public void setPreviousLevel(int levelIn) {
+        levelMessageInformation.setPreviousLevel(levelIn);
+    }
+    public int getCurrentLevel() {
+        return levelMessageInformation.getCurrentLevel();
+    }
+
+    public void setCurrentLevel(int levelIn) {
+        levelMessageInformation.setCurrentLevel(levelIn);
+    }
 }

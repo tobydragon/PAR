@@ -172,7 +172,7 @@ public class StudentDataAnalyzerTest {
         sda.addStudentData(masteredStudent);
         assertNotNull(sda);
 
-        assertEquals(7.0, sda.calcAverageLevel());
+        assertEquals(6.0, sda.calcAverageLevel());
 
         //add another student (2 total)
         StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/level4Student.json", StudentModelRecord.class);
@@ -180,7 +180,7 @@ public class StudentDataAnalyzerTest {
         StudentData level4StudentData = new StudentData(level4Student);
         sda.addStudentData(level4StudentData);
 
-        assertEquals(5.5, sda.calcAverageLevel());
+        assertEquals(4.5, sda.calcAverageLevel());
 
         //add another student (3 total)
         List<Question> noQuestions = new ArrayList<Question>();
@@ -188,7 +188,7 @@ public class StudentDataAnalyzerTest {
         StudentData newStudent = new StudentData(student);
         sda.addStudentData(newStudent);
 
-        assertEquals(4, sda.calcAverageLevel());
+        assertTrue(3.4 > sda.calcAverageLevel() && 3.2 < sda.calcAverageLevel());
     }
 
     @Test
@@ -241,7 +241,7 @@ public class StudentDataAnalyzerTest {
         //level not present
         assertThrows(IllegalArgumentException.class, ()-> sda.getListGivenLevel(4));
         //level present
-        assertEquals(1, sda.getListGivenLevel(7).size());
+        assertEquals(1, sda.getListGivenLevel(6).size());
 
         //add another student (2 total)
         StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/level4Student.json", StudentModelRecord.class);
@@ -252,7 +252,7 @@ public class StudentDataAnalyzerTest {
         //level not present
         assertThrows(IllegalArgumentException.class, ()-> sda.getListGivenLevel(1));
         //level present
-        assertEquals(1, sda.getListGivenLevel(4).size());
+        assertEquals(1, sda.getListGivenLevel(3).size());
 
         //add another student (3 total)
         List<Question> noQuestions = new ArrayList<Question>();
@@ -272,7 +272,7 @@ public class StudentDataAnalyzerTest {
         sda.addStudentData(masteredStudent2);
 
 
-        assertEquals(2, sda.getListGivenLevel(7).size());
+        assertEquals(2, sda.getListGivenLevel(6).size());
 
 
         //3 students level 7
@@ -281,7 +281,7 @@ public class StudentDataAnalyzerTest {
         StudentData masteredStudent3 = new StudentData(masteredStudentModel3);
         sda.addStudentData(masteredStudent3);
 
-        assertEquals(3, sda.getListGivenLevel(7).size());
+        assertEquals(3, sda.getListGivenLevel(6).size());
     }
 
     @Test
@@ -301,7 +301,7 @@ public class StudentDataAnalyzerTest {
         //level not present
         assertThrows(IllegalArgumentException.class, ()-> sda.calcAverageTotalAnswersGivenLevel(4));
         //level present
-        assertTrue(25.9 < sda.calcAverageTotalAnswersGivenLevel(7) && sda.calcAverageTotalAnswersGivenLevel(7) < 26.1);
+        assertTrue(25.9 < sda.calcAverageTotalAnswersGivenLevel(6) && sda.calcAverageTotalAnswersGivenLevel(6) < 26.1);
 
         //add another student (2 total)
         StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/level4Student.json", StudentModelRecord.class);
@@ -312,8 +312,8 @@ public class StudentDataAnalyzerTest {
         //level not present
         assertThrows(IllegalArgumentException.class, ()-> sda.calcAverageTotalAnswersGivenLevel(1));
         //level present
-        assertEquals(11, sda.calcAverageTotalAnswersGivenLevel(4));
-        assertTrue(10.9 < sda.calcAverageTotalAnswersGivenLevel(4) && sda.calcAverageTotalAnswersGivenLevel(4) < 11.1);
+        assertEquals(11, sda.calcAverageTotalAnswersGivenLevel(3));
+        assertTrue(10.9 < sda.calcAverageTotalAnswersGivenLevel(3) && sda.calcAverageTotalAnswersGivenLevel(3) < 11.1);
 
         //add another student (3 total)
         List<Question> noQuestions = new ArrayList<Question>();
@@ -326,13 +326,13 @@ public class StudentDataAnalyzerTest {
         //level present
         assertTrue(-.9 < sda.calcAverageTotalAnswersGivenLevel(1) && sda.calcAverageTotalAnswersGivenLevel(1) < 0.1);
 
-        //2 students level 7
+        //2 students level 6
         StudentModelRecord  smrlvl7 = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
         StudentModel masteredStudentModel2 = smrlvl7.buildStudentModel(myQP);
         StudentData masteredStudent2 = new StudentData(masteredStudentModel2);
         sda.addStudentData(masteredStudent2);
 
-        assertTrue(25.9 < sda.calcAverageTotalAnswersGivenLevel(7) && sda.calcAverageTotalAnswersGivenLevel(7) < 26.1);
+        assertTrue(25.9 < sda.calcAverageTotalAnswersGivenLevel(6) && sda.calcAverageTotalAnswersGivenLevel(6) < 26.1);
         //add correct answers
         ResponsesPerQuestion r1 = masteredStudentModel2.getUserResponseSet().getResponsesPerQuestionList().get(4);
         r1.addNewResponse("superficial digital flexor tendon");
@@ -342,16 +342,16 @@ public class StudentDataAnalyzerTest {
         r1.addNewResponse("superficial digital flexor tendon");
 
         masteredStudent2.updateData(masteredStudentModel2);
-        assertTrue(28.4 < sda.calcAverageTotalAnswersGivenLevel(7) && sda.calcAverageTotalAnswersGivenLevel(7) < 28.6);
+        assertTrue(28.4 < sda.calcAverageTotalAnswersGivenLevel(6) && sda.calcAverageTotalAnswersGivenLevel(6) < 28.6);
 
         //3 students level 7
         StudentModelRecord  smrlevel7 = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
         StudentModel masteredStudentModel3 = smrlevel7.buildStudentModel(myQP);
         StudentData masteredStudent3 = new StudentData(masteredStudentModel3);
-        assertTrue(28.4 < sda.calcAverageTotalAnswersGivenLevel(7) && sda.calcAverageTotalAnswersGivenLevel(7) < 28.6);
+        assertTrue(28.4 < sda.calcAverageTotalAnswersGivenLevel(6) && sda.calcAverageTotalAnswersGivenLevel(6) < 28.6);
         sda.addStudentData(masteredStudent3);
 
-        assertTrue(27.6 < sda.calcAverageTotalAnswersGivenLevel(7) && sda.calcAverageTotalAnswersGivenLevel(7) < 27.7);
+        assertTrue(27.6 < sda.calcAverageTotalAnswersGivenLevel(6) && sda.calcAverageTotalAnswersGivenLevel(6) < 27.7);
     }
 
     @Test

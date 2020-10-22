@@ -29,6 +29,14 @@ public class UserResponseSet {
             responsesPerQuestionList.add(response1);//updates to the last position (most recently answered)
         }
     }
+    public ResponsesPerQuestion getResponseById(String Id){
+        for (ResponsesPerQuestion response : responsesPerQuestionList){
+            if (response.getQuestionId().equals(Id)){
+                return response;
+            }
+        }
+        throw new IllegalArgumentException();
+    }
 
     public void addAllResponses(List<ResponsesPerQuestion> allResponsesIn) {
         for (int i = 0; i < allResponsesIn.size(); i++) {
@@ -149,18 +157,18 @@ public class UserResponseSet {
     public static String calcKnowledgeEstimateString(List<ResponsesPerQuestion> allResponses, int numOfRecentResponsesToConsider) {
         String estimateString = "";
         if (allResponses.size() >= numOfRecentResponsesToConsider ){
-            for( int i = allResponses.size()-numOfRecentResponsesToConsider; i<allResponses.size(); i++){
+            for( int i = allResponses.size()-1; i>=allResponses.size()-numOfRecentResponsesToConsider; i--){
                 estimateString += convertNumEstimateToStringRepresentation(allResponses.get(i).knowledgeCalc());
             }
             return estimateString;
         }
         else {
-            for( int i = 0; i<allResponses.size(); i++){
+            for( int i = allResponses.size()-1; i>=0; i--){
                 estimateString += convertNumEstimateToStringRepresentation(allResponses.get(i).knowledgeCalc());
             }
             int numBlank = numOfRecentResponsesToConsider-allResponses.size();
             for (int i=0; i < numBlank; i++){
-                estimateString = "_" + estimateString;
+                estimateString = estimateString + "_";
             }
             return estimateString;
         }

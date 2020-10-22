@@ -28,14 +28,13 @@ public class StudentDataTest {
         assertEquals(-1.0, newStudent.getPercentWrongFirstTime());
 
 
-        //mastered student
         QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
 
         StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
         StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
         StudentData masteredStudent = new StudentData(masteredStudentModel);
         assertEquals("masteredStudent", masteredStudent.getStudentId());
-        assertEquals(7, masteredStudent.getLevel());
+        assertEquals(6, masteredStudent.getLevel());
         assertEquals(26, masteredStudent.getTotalAnswersGiven());
         assertTrue(88.4 < masteredStudent.getPercentAnswersCorrect() && masteredStudent.getPercentAnswersCorrect() <88.5);
         assertEquals(17.65, masteredStudent.getPercentWrongFirstTime());
@@ -46,7 +45,7 @@ public class StudentDataTest {
         StudentModel level4Student = smr2.buildStudentModel(myQP);
         StudentData level4StudentData = new StudentData(level4Student);
         assertEquals("level4Student", level4StudentData.getStudentId());
-        assertEquals(4, level4StudentData.getLevel());
+        assertEquals(3, level4StudentData.getLevel());
         assertEquals(11, level4StudentData.getTotalAnswersGiven());
         assertTrue(99.9 < level4StudentData.getPercentAnswersCorrect() && level4StudentData.getPercentAnswersCorrect() < 101.1);
         assertEquals(0.0, level4StudentData.getPercentWrongFirstTime());
@@ -55,14 +54,14 @@ public class StudentDataTest {
 
     @Test
     public void updateDataTest() throws IOException{
-        //mastered student creation
+        //student creation
         QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
 
         StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
         StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
         StudentData masteredStudent = new StudentData(masteredStudentModel);
         assertEquals("masteredStudent", masteredStudent.getStudentId());
-        assertEquals(7, masteredStudent.getLevel());
+        assertEquals(6, masteredStudent.getLevel());
         assertEquals(26, masteredStudent.getTotalAnswersGiven());
 
         //add responses
@@ -86,14 +85,14 @@ public class StudentDataTest {
 
     @Test
     public void calcWrongQuestionsTest() throws IOException{
-        //mastered student creation
+        // student creation
         QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
 
         StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
         StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
         StudentData masteredStudent = new StudentData(masteredStudentModel);
         assertEquals("masteredStudent", masteredStudent.getStudentId());
-        assertEquals(7, masteredStudent.getLevel());
+        assertEquals(6, masteredStudent.getLevel());
         assertEquals(26, masteredStudent.getTotalAnswersGiven());
 
         assertEquals(3, masteredStudent.getQuestionsWrong().size());

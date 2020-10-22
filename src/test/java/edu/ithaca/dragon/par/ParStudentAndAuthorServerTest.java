@@ -1,8 +1,14 @@
 package edu.ithaca.dragon.par;
 
+import edu.ithaca.dragon.par.domainModel.Question;
+import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.*;
+import edu.ithaca.dragon.par.pedagogicalModel.LevelTaskGenerator;
+import edu.ithaca.dragon.par.pedagogicalModel.MessageGenerator;
+import edu.ithaca.dragon.par.studentModel.QuestionResponse;
 import edu.ithaca.dragon.par.studentModel.ResponsesPerQuestion;
+import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.par.studentModel.UserResponseSet;
 import edu.ithaca.dragon.util.JsonIoHelperDefault;
 import edu.ithaca.dragon.util.JsonIoUtil;
@@ -16,10 +22,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ParStudentAndAuthorServerTest {
@@ -236,6 +242,98 @@ class ParStudentAndAuthorServerTest {
         ResponsesPerQuestion responsesPerQuestion12 = new ResponsesPerQuestion("PSAaSTestUser", jsonStudentDatastore.findTopLevelQuestionTemplateById("347-structure2-./images/metacarpal42.jpg").getFollowupQuestions().get(0), "medial humeral epicondyle"); //attachment
         ResponsesPerQuestion responsesPerQuestion13 = new ResponsesPerQuestion("PSAaSTestUser", jsonStudentDatastore.findTopLevelQuestionTemplateById("347-structure2-./images/metacarpal42.jpg").getFollowupQuestions().get(1), "both proximal and middle phalanxes"); //attachment
 
+
+    }
+
+    @Test
+    public void getCorrectMessageTest(@TempDir Path tempDir) throws IOException{
+        Path currentStudentModelDir = tempDir.resolve("students");
+        assertTrue(new File(currentStudentModelDir.toString()).mkdir());
+        JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
+                tempDir.resolve("currentQP-10-5-2020.json").toString(),
+                "src/test/resources/author/currentQP-10-5-2020.json",
+                new JsonIoHelperDefault(),
+                currentStudentModelDir.toString());
+
+        ParStudentAndAuthorServer server = new ParStudentAndAuthorServer(jsonStudentDatastore, null);
+
+        StudentModel student = jsonStudentDatastore.getOrCreateStudentModel("masteredStudent");
+
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/currentQP-10-5-2020.json").getAllQuestions());
+
+
+
+
+        ImageTask it = server.nextImageTask(student.getUserId());
+
+        //mastered
+        student.setCurrentLevel(8);
+        student.setPreviousLevel(7);
+        String message = server.getMessage(student.getUserId(), it);
+        assertEquals("You have mastered the material, feel free to keep practicing", message);
+
+        //not level 7, no message to display
+        StudentModel student2 = jsonStudentDatastore.getOrCreateStudentModel("buckmank");
+        ImageTask it2 = server.nextImageTask(student2.getUserId());
+        student2.setPreviousLevel(4);
+        student2.setCurrentLevel(4);
+        message = server.getMessage(student2.getUserId(), it2);
+        assertNull(message);
+
+
+        //goes down level, structure
+        List<QuestionResponseOOP> resp= new ArrayList<>();
+        resp.add(new QuestionResponseOOP("491-zone-./images/metacarpal37.jpg", "In which zone is the ultrasound taken?", "1"));
+        resp.add(new QuestionResponseOOP("463-zone-./images/metacarpal25.jpg", "In which zone is the ultrasound taken?", "1"));
+        resp.add(new QuestionResponseOOP("379-zone-./images/metacarpal41.jpg", "In which zone is the ultrasound taken?", "1"));
+        resp.add(new QuestionResponseOOP("351-zone-./images/metacarpal42.jpg", "In which zone is the ultrasound taken?", "1"));
+
+        ImageTaskResponseOOP itr = new ImageTaskResponseOOP();
+        itr.setUserId(student2.getUserId());
+        itr.setQuestionResponses(resp);
+        student2.imageTaskResponseSubmitted(itr, myQP, 4);
+
+        student2.setCurrentLevel(6);
+        student2.setPreviousLevel(7);
+        message = server.getMessage(student2.getUserId(), it2);
+        assertEquals("Looks like you're having trouble with zone questions, go look at resources and come back if you need to", message);
+
+        //goes up level
+        student2.setPreviousLevel(5);
+        message = server.getMessage(student2.getUserId(), it2);
+        assertEquals("You're doing great!", message);
+
+        //stay on level 8, repeated question
+        student.setPreviousLevel(8);
+        student.setCurrentLevel(8);
+
+
+        Date date = new Date();
+        for (ResponsesPerQuestion response:student.getUserResponseSet().getResponsesPerQuestionList()){
+            List<QuestionResponse> r = response.getAllResponses();
+            QuestionResponse last = r.get(response.getAllResponses().size()-1);
+            last.setMillSeconds(date.getTime()-1799500);
+            response.setAllResponses(r);
+        }
+        for (Question question : it.getTaskQuestions()){
+            if (student.getUserQuestionSet().getTimesSeen(question.getId())==0){
+                student.increaseTimesSeen(question.getId());
+            }
+        }
+
+        Question q = student.getUserQuestionSet().getAllQuestions().get(0);
+        List<Question> questionList = new ArrayList<>();
+        questionList.add(q);
+        it.setTaskQuestions(questionList);
+
+
+        ResponsesPerQuestion rpq = new ResponsesPerQuestion(student.getUserId(), q, "huh");
+        student.getUserResponseSet().addResponse(rpq);
+
+
+
+        message = server.getMessage(student.getUserId(), it);
+        assertEquals("You've mastered the material and started repeating questions", message);
 
     }
 } 

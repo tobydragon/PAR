@@ -1,46 +1,46 @@
 {
-  "userId" : "masteredStudent",
+  "userId" : "buckmank",
   "userQuestionSetRecord" : {
-    "userId" : "masteredStudent",
+    "userId" : "buckmank",
     "questionCountRecords" : [ {
       "questionId" : "324-plane-./images/metacarpal56.jpg",
-      "timesSeen" : 2,
+      "timesSeen" : 4,
       "followupCountRecords" : [ ]
     }, {
       "questionId" : "327-structure0-./images/metacarpal56.jpg",
-      "timesSeen" : 4,
+      "timesSeen" : 2,
       "followupCountRecords" : [ {
         "questionId" : "325-attachment0-structure0-./images/metacarpal56.jpg",
-        "timesSeen" : 1,
+        "timesSeen" : 0,
         "followupCountRecords" : [ ]
       }, {
         "questionId" : "326-attachment1-structure0-./images/metacarpal56.jpg",
-        "timesSeen" : 1,
+        "timesSeen" : 0,
         "followupCountRecords" : [ ]
       } ]
     }, {
       "questionId" : "330-structure1-./images/metacarpal56.jpg",
-      "timesSeen" : 4,
+      "timesSeen" : 2,
       "followupCountRecords" : [ {
         "questionId" : "328-attachment0-structure1-./images/metacarpal56.jpg",
-        "timesSeen" : 1,
+        "timesSeen" : 0,
         "followupCountRecords" : [ ]
       }, {
         "questionId" : "329-attachment1-structure1-./images/metacarpal56.jpg",
-        "timesSeen" : 1,
+        "timesSeen" : 0,
         "followupCountRecords" : [ ]
       } ]
     }, {
       "questionId" : "333-structure2-./images/metacarpal56.jpg",
-      "timesSeen" : 4,
+      "timesSeen" : 2,
       "followupCountRecords" : [ ]
     }, {
       "questionId" : "336-structure3-./images/metacarpal56.jpg",
-      "timesSeen" : 4,
+      "timesSeen" : 2,
       "followupCountRecords" : [ ]
     }, {
       "questionId" : "337-zone-./images/metacarpal56.jpg",
-      "timesSeen" : 4,
+      "timesSeen" : 0,
       "followupCountRecords" : [ ]
     }, {
       "questionId" : "338-plane-./images/metacarpal42.jpg",
@@ -88,7 +88,7 @@
       "followupCountRecords" : [ ]
     }, {
       "questionId" : "351-zone-./images/metacarpal42.jpg",
-      "timesSeen" : 4,
+      "timesSeen" : 0,
       "followupCountRecords" : [ ]
     }, {
       "questionId" : "366-plane-./images/metacarpal41.jpg",
@@ -136,7 +136,7 @@
       } ]
     }, {
       "questionId" : "379-zone-./images/metacarpal41.jpg",
-      "timesSeen" : 4,
+      "timesSeen" : 0,
       "followupCountRecords" : [ ]
     }, {
       "questionId" : "450-plane-./images/metacarpal25.jpg",
@@ -168,19 +168,19 @@
       } ]
     }, {
       "questionId" : "463-zone-./images/metacarpal25.jpg",
-      "timesSeen" : 4,
+      "timesSeen" : 0,
       "followupCountRecords" : [ ]
     }, {
       "questionId" : "464-plane-./images/metacarpal19.jpg",
-      "timesSeen" : 0,
+      "timesSeen" : 2,
       "followupCountRecords" : [ ]
     }, {
       "questionId" : "467-structure0-./images/metacarpal19.jpg",
-      "timesSeen" : 0,
+      "timesSeen" : 2,
       "followupCountRecords" : [ ]
     }, {
       "questionId" : "470-structure1-./images/metacarpal19.jpg",
-      "timesSeen" : 0,
+      "timesSeen" : 2,
       "followupCountRecords" : [ {
         "questionId" : "468-attachment0-structure1-./images/metacarpal19.jpg",
         "timesSeen" : 0,
@@ -192,11 +192,11 @@
       } ]
     }, {
       "questionId" : "473-structure2-./images/metacarpal19.jpg",
-      "timesSeen" : 0,
+      "timesSeen" : 2,
       "followupCountRecords" : [ ]
     }, {
       "questionId" : "476-structure3-./images/metacarpal19.jpg",
-      "timesSeen" : 0,
+      "timesSeen" : 2,
       "followupCountRecords" : [ {
         "questionId" : "474-attachment0-structure3-./images/metacarpal19.jpg",
         "timesSeen" : 0,
@@ -212,11 +212,11 @@
       "followupCountRecords" : [ ]
     }, {
       "questionId" : "478-plane-./images/metacarpal37.jpg",
-      "timesSeen" : 0,
+      "timesSeen" : 2,
       "followupCountRecords" : [ ]
     }, {
       "questionId" : "481-structure0-./images/metacarpal37.jpg",
-      "timesSeen" : 0,
+      "timesSeen" : 2,
       "followupCountRecords" : [ {
         "questionId" : "479-attachment0-structure0-./images/metacarpal37.jpg",
         "timesSeen" : 0,
@@ -228,7 +228,7 @@
       } ]
     }, {
       "questionId" : "484-structure1-./images/metacarpal37.jpg",
-      "timesSeen" : 0,
+      "timesSeen" : 2,
       "followupCountRecords" : [ {
         "questionId" : "482-attachment0-structure1-./images/metacarpal37.jpg",
         "timesSeen" : 0,
@@ -240,11 +240,11 @@
       } ]
     }, {
       "questionId" : "487-structure2-./images/metacarpal37.jpg",
-      "timesSeen" : 0,
+      "timesSeen" : 2,
       "followupCountRecords" : [ ]
     }, {
       "questionId" : "490-structure3-./images/metacarpal37.jpg",
-      "timesSeen" : 0,
+      "timesSeen" : 2,
       "followupCountRecords" : [ {
         "questionId" : "488-attachment0-structure3-./images/metacarpal37.jpg",
         "timesSeen" : 0,
@@ -256,174 +256,174 @@
       } ]
     }, {
       "questionId" : "491-zone-./images/metacarpal37.jpg",
-      "timesSeen" : 2,
+      "timesSeen" : 0,
       "followupCountRecords" : [ ]
     } ]
   },
   "userResponseSetRecord" : {
-    "userId" : "masteredStudent",
+    "userId" : "buckmank",
     "responsesPerQuestionRecords" : [ {
-      "userId" : "masteredStudent",
-      "questionId" : "324-plane-./images/metacarpal56.jpg",
-      "responseText" : "longitudinal (long axis)",
-      "allResponseTexts" : [ {
-        "responseText" : "longitudinal (long axis)",
-        "millSeconds" : 1583315553595
-      } ]
-    }, {
-      "userId" : "masteredStudent",
+      "userId" : "buckmank",
       "questionId" : "338-plane-./images/metacarpal42.jpg",
       "responseText" : "transverse (short axis)",
       "allResponseTexts" : [ {
         "responseText" : "transverse (short axis)",
-        "millSeconds" : 1583315558413
+        "millSeconds" : 1586335757800
       } ]
     }, {
-      "userId" : "masteredStudent",
+      "userId" : "buckmank",
       "questionId" : "366-plane-./images/metacarpal41.jpg",
       "responseText" : "transverse (short axis)",
       "allResponseTexts" : [ {
         "responseText" : "transverse (short axis)",
-        "millSeconds" : 1583315563560
+        "millSeconds" : 1586335760787
       } ]
     }, {
-      "userId" : "masteredStudent",
+      "userId" : "buckmank",
       "questionId" : "450-plane-./images/metacarpal25.jpg",
-      "responseText" : "transverse (short axis)",
+      "responseText" : "longitudinal (long axis)",
       "allResponseTexts" : [ {
-        "responseText" : "transverse (short axis)",
-        "millSeconds" : 1583315576414
+        "responseText" : "longitudinal (long axis)",
+        "millSeconds" : 1586335792521
       } ]
     }, {
-      "userId" : "masteredStudent",
+      "userId" : "buckmank",
       "questionId" : "453-structure0-./images/metacarpal25.jpg",
-      "responseText" : "Suspensory ligament (branches)",
+      "responseText" : "Suspensory ligament (body)",
       "allResponseTexts" : [ {
-        "responseText" : "Suspensory ligament (branches)",
-        "millSeconds" : 1583315576414
+        "responseText" : "Suspensory ligament (body)",
+        "millSeconds" : 1586335792521
       } ]
     }, {
-      "userId" : "masteredStudent",
+      "userId" : "buckmank",
       "questionId" : "456-structure1-./images/metacarpal25.jpg",
       "responseText" : "Deep digital flexor tendon",
       "allResponseTexts" : [ {
         "responseText" : "Deep digital flexor tendon",
-        "millSeconds" : 1583315576414
+        "millSeconds" : 1586335792521
       } ]
     }, {
-      "userId" : "masteredStudent",
-      "questionId" : "327-structure0-./images/metacarpal56.jpg",
+      "userId" : "buckmank",
+      "questionId" : "464-plane-./images/metacarpal19.jpg",
+      "responseText" : "transverse (short axis)",
+      "allResponseTexts" : [ {
+        "responseText" : "transverse (short axis)",
+        "millSeconds" : 1586335827727
+      } ]
+    }, {
+      "userId" : "buckmank",
+      "questionId" : "467-structure0-./images/metacarpal19.jpg",
+      "responseText" : "Metacarpus bone 3 (Third metacarpal bone)",
+      "allResponseTexts" : [ {
+        "responseText" : "Metacarpus bone 3 (Third metacarpal bone)",
+        "millSeconds" : 1586335827727
+      } ]
+    }, {
+      "userId" : "buckmank",
+      "questionId" : "470-structure1-./images/metacarpal19.jpg",
+      "responseText" : "Suspensory ligament (body)",
+      "allResponseTexts" : [ {
+        "responseText" : "Suspensory ligament (body)",
+        "millSeconds" : 1586335827727
+      } ]
+    }, {
+      "userId" : "buckmank",
+      "questionId" : "473-structure2-./images/metacarpal19.jpg",
+      "responseText" : "Palmar vessels (medial/lateral)",
+      "allResponseTexts" : [ {
+        "responseText" : "Palmar vessels (medial/lateral)",
+        "millSeconds" : 1586335827727
+      } ]
+    }, {
+      "userId" : "buckmank",
+      "questionId" : "476-structure3-./images/metacarpal19.jpg",
       "responseText" : "Superficial digital flexor tendon",
       "allResponseTexts" : [ {
         "responseText" : "Superficial digital flexor tendon",
-        "millSeconds" : 1583315700001
-      },{
-        "responseText" : "Distal check ligament (accessory ligament of the deep digital flexor tendon)",
-        "millSeconds" : 1583315757321
-      }, {
-        "responseText" : "Distal check ligament (accessory ligament of the deep digital flexor tendon)",
-        "millSeconds" : 1583315808782
-      }, {
-        "responseText" : "Distal check ligament (accessory ligament of the deep digital flexor tendon)",
-        "millSeconds" : 1583315853680
+        "millSeconds" : 1586335827727
       } ]
     }, {
-      "userId" : "masteredStudent",
-      "questionId" : "325-attachment0-structure0-./images/metacarpal56.jpg",
-      "responseText" : "Both the proximal metacarpus 3 and distal row of carpal bones",
+      "userId" : "buckmank",
+      "questionId" : "478-plane-./images/metacarpal37.jpg",
+      "responseText" : "transverse (short axis)",
       "allResponseTexts" : [ {
-        "responseText" : "Both the proximal metacarpus 3 and distal row of carpal bones",
-        "millSeconds" : 1583315853680
+        "responseText" : "transverse (short axis)",
+        "millSeconds" : 1586335873335
       } ]
     }, {
-      "userId" : "masteredStudent",
-      "questionId" : "326-attachment1-structure0-./images/metacarpal56.jpg",
+      "userId" : "buckmank",
+      "questionId" : "481-structure0-./images/metacarpal37.jpg",
+      "responseText" : "Superficial digital flexor tendon",
+      "allResponseTexts" : [ {
+        "responseText" : "Superficial digital flexor tendon",
+        "millSeconds" : 1586335873335
+      } ]
+    }, {
+      "userId" : "buckmank",
+      "questionId" : "484-structure1-./images/metacarpal37.jpg",
+      "responseText" : "Distal sesamoidean ligaments – straight and oblique)",
+      "allResponseTexts" : [ {
+        "responseText" : "Distal sesamoidean ligaments – straight and oblique)",
+        "millSeconds" : 1586335873335
+      } ]
+    }, {
+      "userId" : "buckmank",
+      "questionId" : "487-structure2-./images/metacarpal37.jpg",
+      "responseText" : "Metacarpus bone 3 (Third metacarpal bone)",
+      "allResponseTexts" : [ {
+        "responseText" : "Metacarpus bone 3 (Third metacarpal bone)",
+        "millSeconds" : 1586335873335
+      } ]
+    }, {
+      "userId" : "buckmank",
+      "questionId" : "490-structure3-./images/metacarpal37.jpg",
       "responseText" : "Deep digital flexor tendon",
       "allResponseTexts" : [ {
         "responseText" : "Deep digital flexor tendon",
-        "millSeconds" : 1583315853680
+        "millSeconds" : 1586335873335
       } ]
     }, {
-      "userId" : "masteredStudent",
+      "userId" : "buckmank",
+      "questionId" : "324-plane-./images/metacarpal56.jpg",
+      "responseText" : "longitudinal (long axis)",
+      "allResponseTexts" : [ {
+        "responseText" : "longitudinal (long axis)",
+        "millSeconds" : 1586335755058
+      }, {
+        "responseText" : "longitudinal (long axis)",
+        "millSeconds" : 1586335918703
+      } ]
+    }, {
+      "userId" : "buckmank",
+      "questionId" : "327-structure0-./images/metacarpal56.jpg",
+      "responseText" : "Distal check ligament (accessory ligament of the deep digital flexor tendon)",
+      "allResponseTexts" : [ {
+        "responseText" : "Distal check ligament (accessory ligament of the deep digital flexor tendon)",
+        "millSeconds" : 1586335918703
+      } ]
+    }, {
+      "userId" : "buckmank",
       "questionId" : "330-structure1-./images/metacarpal56.jpg",
       "responseText" : "Superficial digital flexor tendon",
       "allResponseTexts" : [ {
         "responseText" : "Superficial digital flexor tendon",
-        "millSeconds" : 1583315757321
-      }, {
-        "responseText" : "Superficial digital flexor tendon",
-        "millSeconds" : 1583315808782
-      }, {
-        "responseText" : "Superficial digital flexor tendon",
-        "millSeconds" : 1583315853680
+        "millSeconds" : 1586335918703
       } ]
     }, {
-      "userId" : "masteredStudent",
-      "questionId" : "328-attachment0-structure1-./images/metacarpal56.jpg",
-      "responseText" : "Medial humeral epicondyle",
-      "allResponseTexts" : [ {
-        "responseText" : "Medial humeral epicondyle",
-        "millSeconds" : 1583315853680
-      } ]
-    }, {
-      "userId" : "masteredStudent",
-      "questionId" : "329-attachment1-structure1-./images/metacarpal56.jpg",
-      "responseText" : "Both proximal and middle phalanxes",
-      "allResponseTexts" : [ {
-        "responseText" : "Both proximal and middle phalanxes",
-        "millSeconds" : 1583315853680
-      } ]
-    }, {
-      "userId" : "masteredStudent",
+      "userId" : "buckmank",
       "questionId" : "333-structure2-./images/metacarpal56.jpg",
-      "responseText" : "Palmar vessels (medial/lateral)",
+      "responseText" : "Palmar ligament",
       "allResponseTexts" : [ {
-        "responseText" : "Palmar vessels (medial/lateral)",
-        "millSeconds" : 1583315757321
-      }, {
-        "responseText" : "Palmar vessels (medial/lateral)",
-        "millSeconds" : 1583315808782
-      }, {
-        "responseText" : "Palmar vessels (medial/lateral)",
-        "millSeconds" : 1583315853680
+        "responseText" : "Palmar ligament",
+        "millSeconds" : 1586335918703
       } ]
     }, {
-      "userId" : "masteredStudent",
+      "userId" : "buckmank",
       "questionId" : "336-structure3-./images/metacarpal56.jpg",
       "responseText" : "Metacarpus bone 3 (Third metacarpal bone)",
       "allResponseTexts" : [ {
         "responseText" : "Metacarpus bone 3 (Third metacarpal bone)",
-        "millSeconds" : 1583315757321
-      }, {
-        "responseText" : "Metacarpus bone 3 (Third metacarpal bone)",
-        "millSeconds" : 1583315808782
-      }, {
-        "responseText" : "Metacarpus bone 3 (Third metacarpal bone)",
-        "millSeconds" : 1583315853680
-      } ]
-    }, {
-      "userId" : "masteredStudent",
-      "questionId" : "463-zone-./images/metacarpal25.jpg",
-      "responseText" : "3B",
-      "allResponseTexts" : [ {
-        "responseText" : "3B",
-        "millSeconds" : 1583315885046
-      } ]
-    }, {
-      "userId" : "masteredStudent",
-      "questionId" : "477-zone-./images/metacarpal19.jpg",
-      "responseText" : "1",
-      "allResponseTexts" : [ {
-        "responseText" : "1",
-        "millSeconds" : 1583315888855
-      } ]
-    }, {
-      "userId" : "masteredStudent",
-      "questionId" : "491-zone-./images/metacarpal37.jpg",
-      "responseText" : "2A",
-      "allResponseTexts" : [ {
-        "responseText" : "2A",
-        "millSeconds" : 1583315895461
+        "millSeconds" : 1586335918703
       } ]
     } ]
   }
