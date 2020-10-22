@@ -9,7 +9,6 @@ import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.ImageTaskResponseOOP;
 import edu.ithaca.dragon.par.io.StudentModelDatastore;
 import edu.ithaca.dragon.par.pedagogicalModel.LevelMessageGenerator;
-import edu.ithaca.dragon.par.pedagogicalModel.TaskGenerator;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.par.studentModel.StudentReportCreator;
 import edu.ithaca.dragon.util.DataUtil;
@@ -23,13 +22,13 @@ public class ParStudentAndAuthorServer {
 
     private AuthorServer authorServer;
     private StudentModelDatastore studentModelDatastore;
-    private TaskGenerator taskGenerator;
+    private CohortDatastore cohortDatastore;
     private static final int idealQuestionCountPerTypeForAnalysis = 4;
 
-    public ParStudentAndAuthorServer(StudentModelDatastore studentModelDatastore, AuthorDatastore authorDatastore){
+    public ParStudentAndAuthorServer(StudentModelDatastore studentModelDatastore, AuthorDatastore authorDatastore, CohortDatastore cohortDatastore){
             this.studentModelDatastore = studentModelDatastore;
             authorServer = new AuthorServer(authorDatastore);
-            taskGenerator = new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap());
+            this.cohortDatastore = cohortDatastore;
         System.out.println();
     }
 
@@ -37,13 +36,13 @@ public class ParStudentAndAuthorServer {
 
     public ImageTask nextImageTask( String userId) throws IOException {
         if (idealQuestionCountPerTypeForAnalysis <= studentModelDatastore.getMinQuestionCountPerType()){
-            ImageTask imageTask = taskGenerator.makeTask(studentModelDatastore.getStudentModel(userId), idealQuestionCountPerTypeForAnalysis);
+            ImageTask imageTask = cohortDatastore.getTaskGeneratorFromStudentID(userId).makeTask(studentModelDatastore.getStudentModel(userId), idealQuestionCountPerTypeForAnalysis);
             LevelTaskGenerator.calcLevel(studentModelDatastore.getStudentModel(userId).calcKnowledgeEstimateByType(idealQuestionCountPerTypeForAnalysis));
             studentModelDatastore.increaseTimesSeen(userId, imageTask.getTaskQuestions());
             return imageTask;
         }
         else {
-            ImageTask imageTask = taskGenerator.makeTask(studentModelDatastore.getStudentModel(userId), studentModelDatastore.getMinQuestionCountPerType());
+            ImageTask imageTask = cohortDatastore.getTaskGeneratorFromStudentID(userId).makeTask(studentModelDatastore.getStudentModel(userId), studentModelDatastore.getMinQuestionCountPerType());
             LevelTaskGenerator.calcLevel(studentModelDatastore.getStudentModel(userId).calcKnowledgeEstimateByType(idealQuestionCountPerTypeForAnalysis));
             studentModelDatastore.increaseTimesSeen(userId, imageTask.getTaskQuestions());
             //TODO: use getMessage method. will there be a separate call to getMessage?

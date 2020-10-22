@@ -41,7 +41,9 @@ public class ParStudentAndAuthorRestController {
                     "author/defaultQuestionPool.json",
                     jsonIoHelper,
                     "localData/students");
-            parServer = new ParStudentAndAuthorServer(jsonStudentDatastore, jsonAuthorDatastore);
+            List<CohortRecord> cohortRecordList = jsonIoUtil.listFromFile("src/main/resources/author/defaultCohortDatastore.json", CohortRecord.class);
+            JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecordList);
+            parServer = new ParStudentAndAuthorServer(jsonStudentDatastore, jsonAuthorDatastore, jsonCohortDatastore);
         }
         catch(IOException e){
             throw new RuntimeException("Server can't start without all necessary files loaded: ", e);

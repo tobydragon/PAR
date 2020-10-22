@@ -11,12 +11,17 @@ import edu.ithaca.dragon.util.JsonIoUtil;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
 public class CohortRecord {
     private final String taskGeneratorType;
     private final List<String> studentIDs;
     private final String messageGeneratorType;
+
+    public CohortRecord() {
+        this.taskGeneratorType = null;
+        this.studentIDs = null;
+        this.messageGeneratorType = null;
+    }
 
     public CohortRecord(String taskGeneratorType, List<String> studentIDs, String messageGeneratorType){
         this.taskGeneratorType = taskGeneratorType;
@@ -32,6 +37,21 @@ public class CohortRecord {
         return studentIDs;
     }
     public String getMessageGeneratorType(){ return messageGeneratorType; }
+
+    @Override
+    public boolean equals(Object otherObj){
+        if (otherObj == null){
+            return false;
+        }
+        if(!CohortRecord.class.isAssignableFrom(otherObj.getClass())){
+            return false;
+        }
+        CohortRecord other = (CohortRecord) otherObj;
+        assert this.messageGeneratorType != null;
+        if (!this.messageGeneratorType.equals(other.getMessageGeneratorType())) return false;
+        assert this.taskGeneratorType != null;
+        return this.taskGeneratorType.equals(other.taskGeneratorType) && this.studentIDs.equals(other.studentIDs);
+    }
 
     public static CohortRecord makeCohortRecordFromCohort(Cohort cohortIn){
         TaskGenerator taskGenerator = cohortIn.getTaskGenerator();
@@ -102,8 +122,11 @@ public class CohortRecord {
 
     public static JSONCohortDatastore makeCohortDatastoreFromCohortRecords(List<CohortRecord> cohortRecordsList) throws IOException {
         JsonIoUtil reader = new JsonIoUtil(new JsonIoHelperDefault());
-        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
-        List<QuestionOrderedInfo> defaultQuestionOrderedInfoList = reader.listFromFile("src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoList.json", QuestionOrderedInfo.class);
+        //TODO the next two lines change if test or production
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/main/resources/author/defaultQuestionPool.json").getAllQuestions());
+        List<QuestionOrderedInfo> defaultQuestionOrderedInfoList = reader.listFromFile("src/main/resources/author/orderedQuestionInfo/currentOrderedQuestionInfoList.json", QuestionOrderedInfo.class);
+//        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
+//        List<QuestionOrderedInfo> defaultQuestionOrderedInfoList = reader.listFromFile("src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoList.json", QuestionOrderedInfo.class);
 
         JSONCohortDatastore toReturn = new JSONCohortDatastore();
 
@@ -121,7 +144,7 @@ public class CohortRecord {
                         toReturn.addCohort(new RandomTaskGenerator(), studentIDs, new LevelMessageGenerator());
                     }
                     break;
-                case "LevelTaskGenerator":
+                case "OrderedTaskGenerator":
                     if (messageGeneratorType.equals("SilentMessageGenerator")){
                         toReturn.addCohort(new OrderedTaskGenerator(questionPool, defaultQuestionOrderedInfoList), studentIDs, new SilentMessageGenerator());
                     }
@@ -129,7 +152,7 @@ public class CohortRecord {
                         toReturn.addCohort(new OrderedTaskGenerator(questionPool, defaultQuestionOrderedInfoList), studentIDs, new LevelMessageGenerator());
                     }
                     break;
-                case "OrderedTaskGenerator":
+                case "LevelTaskGenerator":
                     if (messageGeneratorType.equals("SilentMessageGenerator")){
                         toReturn.addCohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), studentIDs, new SilentMessageGenerator());
                     }

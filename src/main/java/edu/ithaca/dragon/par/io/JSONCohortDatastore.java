@@ -57,6 +57,11 @@ public class JSONCohortDatastore implements CohortDatastore {
 
     @Override
     public MessageGenerator getMessageGeneratorFromStudentID(String studentIDIn) {
-        return null;
+        if (!cohortMap.containsKey(studentIDIn)){
+            return null;
+        } else {
+            Cohort cohortOfStudent = cohortMap.get(studentIDIn);
+            return cohortOfStudent.getMessageGenerator();
+        }
     }
 }

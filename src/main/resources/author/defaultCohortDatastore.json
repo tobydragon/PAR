@@ -1,0 +1,13 @@
+[ {
+  "taskGeneratorType" : "LevelTaskGenerator",
+  "studentIDs" : [ "testStudent1", "testStudent2", "testStudent3" ],
+  "messageGeneratorType" : "LevelMessageGenerator"
+}, {
+  "taskGeneratorType" : "OrderedTaskGenerator",
+  "studentIDs" : [ "testStudent4", "testStudent5", "testStudent6" ],
+  "messageGeneratorType" : "SilentMessageGenerator"
+}, {
+  "taskGeneratorType" : "RandomTaskGenerator",
+  "studentIDs" : [ "testStudent7", "testStudent8", "testStudent9" ],
+  "messageGeneratorType" : "SilentMessageGenerator"
+} ]
