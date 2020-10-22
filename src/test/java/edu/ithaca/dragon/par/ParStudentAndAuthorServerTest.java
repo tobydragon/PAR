@@ -4,15 +4,13 @@ import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.*;
-import edu.ithaca.dragon.par.pedagogicalModel.LevelTaskGenerator;
-import edu.ithaca.dragon.par.pedagogicalModel.MessageGenerator;
 import edu.ithaca.dragon.par.studentModel.QuestionResponse;
 import edu.ithaca.dragon.par.studentModel.ResponsesPerQuestion;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.par.studentModel.UserResponseSet;
+import edu.ithaca.dragon.util.JsonIoHelper;
 import edu.ithaca.dragon.util.JsonIoHelperDefault;
 import edu.ithaca.dragon.util.JsonIoUtil;
-import edu.ithaca.dragon.util.JsonUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -49,7 +47,11 @@ class ParStudentAndAuthorServerTest {
                 currentStudentModelDir.toString());
         assertEquals(47, jsonStudentDatastore.getAllQuestions().size());
 
-        ParStudentAndAuthorServer parStudentAndAuthorServer = new ParStudentAndAuthorServer(jsonStudentDatastore, jsonAuthorDatastore);
+        JsonIoHelper jsonIoHelper = new JsonIoHelperDefault();
+        JsonIoUtil jsonIoUtil = new JsonIoUtil(jsonIoHelper);
+        List<CohortRecord> cohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/CohortRecordsToFromJsonTest.json", CohortRecord.class);
+        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords);
+        ParStudentAndAuthorServer parStudentAndAuthorServer = new ParStudentAndAuthorServer(jsonStudentDatastore, jsonAuthorDatastore, jsonCohortDatastore);
         parStudentAndAuthorServer.transferAuthoredQuestionsToStudentServer();
 
         assertEquals(0, jsonAuthorDatastore.getAllAuthoredQuestions().size());
@@ -80,7 +82,11 @@ class ParStudentAndAuthorServerTest {
                 new JsonIoHelperDefault(),
                 currentStudentModelDir.toString());
 
-        ParStudentAndAuthorServer parStudentAndAuthorServer = new ParStudentAndAuthorServer(jsonStudentDatastore, jsonAuthorDatastore);
+        JsonIoHelper jsonIoHelper = new JsonIoHelperDefault();
+        JsonIoUtil jsonIoUtil = new JsonIoUtil(jsonIoHelper);
+        List<CohortRecord> cohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/CohortRecordsToFromJsonTest.json", CohortRecord.class);
+        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords);
+        ParStudentAndAuthorServer parStudentAndAuthorServer = new ParStudentAndAuthorServer(jsonStudentDatastore, jsonAuthorDatastore, jsonCohortDatastore);
         Map<EquineQuestionTypes, String> estStrings = parStudentAndAuthorServer.calcKnowledgeEstimateStringsByType("no one");
         assertEquals(4, estStrings.size());
         assertEquals("", estStrings.get(EquineQuestionTypes.plane));
@@ -104,7 +110,11 @@ class ParStudentAndAuthorServerTest {
                 new JsonIoHelperDefault(),
                 currentStudentModelDir.toString());
 
-        ParStudentAndAuthorServer parStudentAndAuthorServer = new ParStudentAndAuthorServer(jsonStudentDatastore, null);
+        JsonIoHelper jsonIoHelper = new JsonIoHelperDefault();
+        JsonIoUtil jsonIoUtil = new JsonIoUtil(jsonIoHelper);
+        List<CohortRecord> cohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/CohortRecordsToFromJsonTest.json", CohortRecord.class);
+        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords);
+        ParStudentAndAuthorServer parStudentAndAuthorServer = new ParStudentAndAuthorServer(jsonStudentDatastore, null, jsonCohortDatastore);
 
         ImageTask nextTask = parStudentAndAuthorServer.nextImageTask("s1");
         ImageTask intendedFirstTask = new JsonIoUtil(new JsonIoHelperDefault()).fromFile("src/test/resources/author/nextImageTaskTest1.json", ImageTask.class);
@@ -136,7 +146,11 @@ class ParStudentAndAuthorServerTest {
                 new JsonIoHelperDefault(),
                 currentStudentModelDir.toString());
 
-        ParStudentAndAuthorServer parStudentAndAuthorServer = new ParStudentAndAuthorServer(jsonStudentDatastore, null);
+        JsonIoHelper jsonIoHelper = new JsonIoHelperDefault();
+        JsonIoUtil jsonIoUtil = new JsonIoUtil(jsonIoHelper);
+        List<CohortRecord> cohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/CohortRecordsToFromJsonTest.json", CohortRecord.class);
+        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords);
+        ParStudentAndAuthorServer parStudentAndAuthorServer = new ParStudentAndAuthorServer(jsonStudentDatastore, null, jsonCohortDatastore);
 
         ImageTaskResponseOOP responseSet2=new ImageTaskResponseOOP("response1", Arrays.asList("PlaneQ1", "PlaneQ2", "PlaneQ3", "PlaneQ4", "PlaneQ5", "StructureQ1", "StructureQ2", "StructureQ3", "StructureQ4", "StructureQ5", "ZoneQ1", "ZoneQ2", "ZoneQ3", "ZoneQ4", "ZoneQ5"),Arrays.asList("Latera", "Transvers", "Latera", "Latera", "Transvers", "bone", "ligament", "tendon", "bone", "tumor", "3c", "1b", "3c", "2a", "2b"));
         ImageTaskResponseOOP responseSet3=new ImageTaskResponseOOP("response1", Arrays.asList("PlaneQ1", "PlaneQ2", "PlaneQ3", "PlaneQ4", "PlaneQ5", "StructureQ1", "StructureQ2", "StructureQ3", "StructureQ4", "StructureQ5", "ZoneQ1", "ZoneQ2", "ZoneQ3", "ZoneQ4", "ZoneQ5"),Arrays.asList("I'm","bad","student","I'm","bad","student","I'm","bad","student","I'm","bad","student","I'm","bad","student"));
@@ -183,7 +197,11 @@ class ParStudentAndAuthorServerTest {
                 "src/test/resources/author/SampleQuestionPool3.json",
                 new JsonIoHelperDefault(),
                 currentStudentModelDir.toString());
-        ParStudentAndAuthorServer parStudentAndAuthorServer = new ParStudentAndAuthorServer(jsonStudentDatastore, null);
+        JsonIoHelper jsonIoHelper = new JsonIoHelperDefault();
+        JsonIoUtil jsonIoUtil = new JsonIoUtil(jsonIoHelper);
+        List<CohortRecord> cohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/CohortRecordsToFromJsonTest.json", CohortRecord.class);
+        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords);
+        ParStudentAndAuthorServer parStudentAndAuthorServer = new ParStudentAndAuthorServer(jsonStudentDatastore, null, jsonCohortDatastore);
 
         //user has seen no questions
         assertEquals(0,jsonStudentDatastore.getOrCreateStudentModel("testUser111").getSeenQuestionCount());
@@ -212,7 +230,11 @@ class ParStudentAndAuthorServerTest {
                 new JsonIoHelperDefault(),
                 currentStudentModelDir.toString());
 
-        ParStudentAndAuthorServer parStudentAndAuthorServer = new ParStudentAndAuthorServer(jsonStudentDatastore, null);
+        JsonIoHelper jsonIoHelper = new JsonIoHelperDefault();
+        JsonIoUtil jsonIoUtil = new JsonIoUtil(jsonIoHelper);
+        List<CohortRecord> cohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/CohortRecordsToFromJsonTest.json", CohortRecord.class);
+        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords);
+        ParStudentAndAuthorServer parStudentAndAuthorServer = new ParStudentAndAuthorServer(jsonStudentDatastore, null, jsonCohortDatastore);
 
         //load existing student into the jsonStudentDatastore
         Files.copy(Paths.get("src/test/resources/author/students/PSaASTestUser.json"), tempDir.resolve("students/PSaASTestUser.json"), StandardCopyOption.REPLACE_EXISTING);
@@ -255,7 +277,11 @@ class ParStudentAndAuthorServerTest {
                 new JsonIoHelperDefault(),
                 currentStudentModelDir.toString());
 
-        ParStudentAndAuthorServer server = new ParStudentAndAuthorServer(jsonStudentDatastore, null);
+        JsonIoHelper jsonIoHelper = new JsonIoHelperDefault();
+        JsonIoUtil jsonIoUtil = new JsonIoUtil(jsonIoHelper);
+        List<CohortRecord> cohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/CohortRecordsToFromJsonTest.json", CohortRecord.class);
+        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords);
+        ParStudentAndAuthorServer server = new ParStudentAndAuthorServer(jsonStudentDatastore, null, jsonCohortDatastore);
 
         StudentModel student = jsonStudentDatastore.getOrCreateStudentModel("masteredStudent");
 
