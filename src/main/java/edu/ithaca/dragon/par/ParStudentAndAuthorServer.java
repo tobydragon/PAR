@@ -52,7 +52,8 @@ public class ParStudentAndAuthorServer {
     }
 
     public String getMessage(String userId, ImageTask it) throws IOException{
-        return new LevelMessageGenerator().generateMessage(studentModelDatastore.getStudentModel(userId), it);
+//        return new LevelMessageGenerator().generateMessage(studentModelDatastore.getStudentModel(userId), it);
+        return cohortDatastore.getMessageGeneratorFromStudentID(userId).generateMessage(studentModelDatastore.getStudentModel(userId), it);
     }
 
     public void submitImageTaskResponse( ImageTaskResponseOOP response) throws IOException {

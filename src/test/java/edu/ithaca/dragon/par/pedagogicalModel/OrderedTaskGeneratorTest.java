@@ -38,7 +38,7 @@ public class OrderedTaskGeneratorTest {
             defaultList.add(defaultOrderedTaskGenerator.makeTask(dummy,4));
             test1List.add(test1OrderedTaskGenerator.makeTask(dummy,4));
         }
-
+        assertEquals(defaultList.get(0), test1List.get(0));
         assertNotEquals(test1List, defaultList);
 
         //check default != Test2
