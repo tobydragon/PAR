@@ -38,7 +38,8 @@ public class OrderedTaskGeneratorTest {
             defaultList.add(defaultOrderedTaskGenerator.makeTask(dummy,4));
             test1List.add(test1OrderedTaskGenerator.makeTask(dummy,4));
         }
-
+        assertEquals("plane", defaultList.get(0).getTaskQuestions().get(0).getType());
+        assertEquals("structure", test1List.get(0).getTaskQuestions().get(0).getType());
         assertNotEquals(test1List, defaultList);
 
         //check default != Test2
@@ -47,6 +48,7 @@ public class OrderedTaskGeneratorTest {
             test2List.add(test2OrderedTaskGenerator.makeTask(dummy,4));
         }
 
+        assertEquals("plane", test2List.get(0).getTaskQuestions().get(0).getType());
         assertNotEquals(test2List, defaultList);
 
         //check Test1 != Test2

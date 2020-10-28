@@ -36,11 +36,7 @@ public class OrderedTaskGenerator implements TaskGenerator {
 
     @Override
     public ImageTask makeTask(StudentModel studentModel, int questionCountPerTypeForAnalysis) {
-        if(this.lastQuestionAskedIndex == questionIds.size() - 1){
-            this.lastQuestionAskedIndex = 0;
-        } else {
-            this.lastQuestionAskedIndex = (this.lastQuestionAskedIndex + 1) % questionIds.size();
-        }
+
         QuestionOrderedInfo nextQuestion = questionIds.get(lastQuestionAskedIndex);
         List<Question> addToTask = new ArrayList<>();
         Question topQuestion = this.questionPool.getQuestionFromId(nextQuestion.getQuestionID());
@@ -50,6 +46,11 @@ public class OrderedTaskGenerator implements TaskGenerator {
         addToTask.add(topQuestion);
         ImageTask imageTask = new ImageTask(topQuestion.getImageUrl(), addToTask, "None");
         studentModel.getUserQuestionSet().increaseTimesSeenAllQuestions(addToTask);
+        if(this.lastQuestionAskedIndex == questionIds.size() - 1){
+            this.lastQuestionAskedIndex = 0;
+        } else {
+            this.lastQuestionAskedIndex = (this.lastQuestionAskedIndex + 1) % questionIds.size();
+        }
         return imageTask;
     }
 }
