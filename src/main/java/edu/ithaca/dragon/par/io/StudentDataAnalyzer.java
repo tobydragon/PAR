@@ -280,11 +280,30 @@ public class StudentDataAnalyzer {
             writer.writeNext(divider);
             writer.writeNext(divider);
             String [] header2 = {"Top Incorrect Questions- ID", "Top Incorrect Questions- Question Text", "Number of Incorrect Responses"};
-            List<QuestionCount> qc = findMostIncorrectQuestions(5);
+            boolean works = false;
+            int numOfQuestions = 10;
+            List<QuestionCount> qc = new ArrayList<>();
+            while (!works){
+                try{
+                    qc = findMostIncorrectQuestions(5);
+                    works = true;
+                }
+                catch (Exception e){
+                    numOfQuestions-=1;
+                    if (numOfQuestions==0){
+                        works = true;
+                    }
+                }
+            }
             writer.writeNext(header2);
             for(QuestionCount currQC: qc){
                 String [] currLine = {currQC.getQuestion().getId(), currQC.getQuestion().getQuestionText(), Integer.toString(currQC.getTimesSeen())};
                 writer.writeNext(currLine);
+            }
+
+            if (qc.size()==0){
+                String[] line = {"Zero questions have been answered incorrectly so far"};
+                writer.writeNext(line);
             }
 
             //close writer
@@ -338,6 +357,10 @@ public class StudentDataAnalyzer {
             fileName = fileName + ".csv";
         }
         sda.writeStudentDataFile(fileName);
+
+        //TODO: try catch for topIncorrectQuestions
+        // return as many as available
+        // use on cohort
 
     }
 }
