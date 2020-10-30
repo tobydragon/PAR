@@ -1,14 +1,9 @@
 package edu.ithaca.dragon.par.io;
 
 import edu.ithaca.dragon.par.cohortModel.Cohort;
-import edu.ithaca.dragon.par.domainModel.QuestionOrderedInfo;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
-import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.pedagogicalModel.*;
-import edu.ithaca.dragon.util.JsonIoHelperDefault;
-import edu.ithaca.dragon.util.JsonIoUtil;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,8 +31,8 @@ public class JSONCohortDatastore implements CohortDatastore {
         return masterCohortList;
     }
 
-    public void addCohort(TaskGenerator taskGenerator, List<String> studentIDs, MessageGenerator messageGenerator){
-        Cohort toAdd = new Cohort(taskGenerator, studentIDs, messageGenerator);
+    public void addCohort(TaskGenerator taskGenerator, List<String> studentIDs, MessageGenerator messageGenerator, QuestionPool questionPool){
+        Cohort toAdd = new Cohort(taskGenerator, studentIDs, messageGenerator, questionPool);
         masterCohortList.add(toAdd);
 
         for (String studentID : studentIDs) {

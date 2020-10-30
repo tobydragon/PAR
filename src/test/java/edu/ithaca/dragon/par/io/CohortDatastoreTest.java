@@ -37,14 +37,14 @@ public class CohortDatastoreTest {
         studentIDs.add("testStudent3");
 
         //add cohort to empty map
-        cohortDatastore2.addCohort(new RandomTaskGenerator(), studentIDs, new SilentMessageGenerator());
+        cohortDatastore2.addCohort(new RandomTaskGenerator(), studentIDs, new SilentMessageGenerator(), questionPool);
         assertEquals(1, cohortDatastore2.getNumberCohorts());
 
         //add cohort to map with multiple entries (10)
         for (int i = 0; i < 3; i++){
-            cohortDatastore2.addCohort(new RandomTaskGenerator(), studentIDs, new SilentMessageGenerator());
-            cohortDatastore2.addCohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), studentIDs, new LevelMessageGenerator());
-            cohortDatastore2.addCohort(new OrderedTaskGenerator(questionPool, defaultQuestionOrderedInfoList), studentIDs, new SilentMessageGenerator());
+            cohortDatastore2.addCohort(new RandomTaskGenerator(), studentIDs, new SilentMessageGenerator(), questionPool);
+            cohortDatastore2.addCohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), studentIDs, new LevelMessageGenerator(), questionPool);
+            cohortDatastore2.addCohort(new OrderedTaskGenerator(questionPool, defaultQuestionOrderedInfoList), studentIDs, new SilentMessageGenerator(), questionPool);
         }
 
         assertEquals(10, cohortDatastore2.getNumberCohorts());
@@ -69,7 +69,7 @@ public class CohortDatastoreTest {
         studentIDs1.add("testStudent2");
         studentIDs1.add("testStudent3");
 
-        cohortDatastore.addCohort(randomTaskGenerator, studentIDs1, new SilentMessageGenerator());
+        cohortDatastore.addCohort(randomTaskGenerator, studentIDs1, new SilentMessageGenerator(), questionPool);
         assertEquals(randomTaskGenerator, cohortDatastore.getTaskGeneratorFromStudentID("testStudent2"));
 
         //get from map with one cohort with student that doesnt exist
@@ -81,13 +81,13 @@ public class CohortDatastoreTest {
         studentIDs2.add("testStudent5");
         studentIDs2.add("testStudent6");
 
-        cohortDatastore.addCohort(orderedTaskGenerator, studentIDs2, new SilentMessageGenerator());
+        cohortDatastore.addCohort(orderedTaskGenerator, studentIDs2, new SilentMessageGenerator(), questionPool);
         List<String> studentIDs3 = new ArrayList<>();
         studentIDs3.add("testStudent7");
         studentIDs3.add("testStudent8");
         studentIDs3.add("testStudent9");
 
-        cohortDatastore.addCohort(levelTaskGenerator, studentIDs3, new LevelMessageGenerator());
+        cohortDatastore.addCohort(levelTaskGenerator, studentIDs3, new LevelMessageGenerator(), questionPool);
         assertEquals(orderedTaskGenerator, cohortDatastore.getTaskGeneratorFromStudentID("testStudent5"));
         assertEquals(levelTaskGenerator, cohortDatastore.getTaskGeneratorFromStudentID("testStudent9"));
 
@@ -117,7 +117,7 @@ public class CohortDatastoreTest {
 
         //one CohortRecord
         List<CohortRecord> listToConvert = new ArrayList<>();
-        Cohort cohort1 = new Cohort(new RandomTaskGenerator(), studentIDs1, new SilentMessageGenerator());
+        Cohort cohort1 = new Cohort(new RandomTaskGenerator(), studentIDs1, new SilentMessageGenerator(), questionPool);
         listToConvert.add(CohortRecord.makeCohortRecordFromCohort(cohort1));
 
         JSONCohortDatastore cohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(listToConvert);
@@ -125,10 +125,10 @@ public class CohortDatastoreTest {
         assertEquals(3, cohortDatastore.getTotalNumberStudents());
 
         //many CohortRecords (3)
-        Cohort cohort2 = new Cohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), studentIDs2, new LevelMessageGenerator());
+        Cohort cohort2 = new Cohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), studentIDs2, new LevelMessageGenerator(), questionPool);
         listToConvert.add(CohortRecord.makeCohortRecordFromCohort(cohort2));
 
-        Cohort cohort3 = new Cohort(new OrderedTaskGenerator(questionPool, defaultQuestionOrderedInfoList), studentIDs3, new SilentMessageGenerator());
+        Cohort cohort3 = new Cohort(new OrderedTaskGenerator(questionPool, defaultQuestionOrderedInfoList), studentIDs3, new SilentMessageGenerator(), questionPool);
         listToConvert.add(CohortRecord.makeCohortRecordFromCohort(cohort3));
         cohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(listToConvert);
 
@@ -162,22 +162,32 @@ public class CohortDatastoreTest {
         assertEquals(0, cohortRecords.size());
 
         //one cohort in CohortDatastore
-        cohortDatastore.addCohort(new RandomTaskGenerator(), studentIDs1, new SilentMessageGenerator());
+        cohortDatastore.addCohort(new RandomTaskGenerator(), studentIDs1, new SilentMessageGenerator(), questionPool);
         cohortRecords = CohortRecord.makeCohortRecordsFromCohortDatastore(cohortDatastore);
         assertEquals(1, cohortRecords.size());
         assertEquals("RandomTaskGenerator", cohortRecords.get(0).getTaskGeneratorType());
         assertEquals(studentIDs1, cohortRecords.get(0).getStudentIDs());
+        assertEquals(questionPool, cohortRecords.get(0).getQuestionPool());
 
         //multiple cohorts in CohortDatastore (3)
-        cohortDatastore.addCohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), studentIDs2, new LevelMessageGenerator());
-        cohortDatastore.addCohort(new OrderedTaskGenerator(questionPool, defaultQuestionOrderedInfoList), studentIDs3, new SilentMessageGenerator());
+        cohortDatastore.addCohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), studentIDs2, new LevelMessageGenerator(), questionPool);
+        cohortDatastore.addCohort(new OrderedTaskGenerator(questionPool, defaultQuestionOrderedInfoList), studentIDs3, new SilentMessageGenerator(), questionPool);
         cohortRecords = CohortRecord.makeCohortRecordsFromCohortDatastore(cohortDatastore);
         assertEquals(3, cohortRecords.size());
+
         assertEquals("RandomTaskGenerator", cohortRecords.get(0).getTaskGeneratorType());
         assertEquals(studentIDs1, cohortRecords.get(0).getStudentIDs());
+        assertEquals(questionPool, cohortRecords.get(0).getQuestionPool());
+        assertEquals("SilentMessageGenerator", cohortRecords.get(0).getMessageGeneratorType());
+
         assertEquals("LevelTaskGenerator", cohortRecords.get(1).getTaskGeneratorType());
         assertEquals(studentIDs2, cohortRecords.get(1).getStudentIDs());
+        assertEquals(questionPool, cohortRecords.get(1).getQuestionPool());
+        assertEquals("LevelMessageGenerator", cohortRecords.get(1).getMessageGeneratorType());
+
         assertEquals("OrderedTaskGenerator", cohortRecords.get(2).getTaskGeneratorType());
         assertEquals(studentIDs3, cohortRecords.get(2).getStudentIDs());
+        assertEquals(questionPool, cohortRecords.get(2).getQuestionPool());
+        assertEquals("SilentMessageGenerator", cohortRecords.get(2).getMessageGeneratorType());
     }
 }
