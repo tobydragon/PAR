@@ -128,7 +128,7 @@ public class CohortDatastoreTest {
         Cohort cohort2 = new Cohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), studentIDs2, new LevelMessageGenerator(), questionPool);
         listToConvert.add(CohortRecord.makeCohortRecordFromCohort(cohort2));
 
-        Cohort cohort3 = new Cohort(new OrderedTaskGenerator(questionPool, defaultQuestionOrderedInfoList), studentIDs3, new SilentMessageGenerator(), questionPool);
+        Cohort cohort3 = new Cohort(new OrderedTaskGenerator(questionPool, "src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoList.json"), studentIDs3, new SilentMessageGenerator(), questionPool, "src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoList.json");
         listToConvert.add(CohortRecord.makeCohortRecordFromCohort(cohort3));
         cohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(listToConvert);
 

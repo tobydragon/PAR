@@ -40,6 +40,15 @@ public class JSONCohortDatastore implements CohortDatastore {
         }
     }
 
+    public void addCohort(OrderedTaskGenerator taskGenerator, List<String> studentIDs, MessageGenerator messageGenerator, QuestionPool questionPool, String questionOrderedInfoFilename){
+        Cohort toAdd = new Cohort(taskGenerator, studentIDs, messageGenerator, questionPool, questionOrderedInfoFilename);
+        masterCohortList.add(toAdd);
+
+        for (String studentID : studentIDs) {
+            cohortMap.put(studentID, masterCohortList.get(masterCohortList.size() - 1));
+        }
+    }
+
     @Override
     public TaskGenerator getTaskGeneratorFromStudentID(String studentIDIn){
         if (!cohortMap.containsKey(studentIDIn)){

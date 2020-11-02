@@ -508,7 +508,8 @@
       "imageUrl" : "./images/demoEquine32.jpg",
       "followupQuestions" : [ ]
     } ]
-  }
+  },
+  "questionOrderedInfoFilename" : null
 }, {
   "taskGeneratorType" : "LevelTaskGenerator",
   "studentIDs" : [ "testStudent1", "testStudent2", "testStudent3", "masteredStudent", "buckmank", "s2", "s1", "testUser111" ],
@@ -1019,7 +1020,8 @@
       "imageUrl" : "./images/demoEquine32.jpg",
       "followupQuestions" : [ ]
     } ]
-  }
+  },
+  "questionOrderedInfoFilename" : null
 }, {
   "taskGeneratorType" : "OrderedTaskGenerator",
   "studentIDs" : [ "testStudent4", "testStudent5", "testStudent6" ],
@@ -1530,7 +1532,8 @@
       "imageUrl" : "./images/demoEquine32.jpg",
       "followupQuestions" : [ ]
     } ]
-  }
+  },
+  "questionOrderedInfoFilename" : null
 }, {
   "taskGeneratorType" : "RandomTaskGenerator",
   "studentIDs" : [ "testStudent7", "testStudent8", "testStudent9" ],
@@ -2041,5 +2044,6 @@
       "imageUrl" : "./images/demoEquine32.jpg",
       "followupQuestions" : [ ]
     } ]
-  }
+  },
+  "questionOrderedInfoFilename" : null
 } ]

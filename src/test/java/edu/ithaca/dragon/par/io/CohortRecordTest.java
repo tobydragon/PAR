@@ -45,7 +45,7 @@ public class CohortRecordTest {
         assertEquals(questionPool, cohort.getQuestionPool());
 
         //ordered task
-        CohortRecord orderedCohortRecord = new CohortRecord("OrderedTaskGenerator", testStudents, "SilentMessageGenerator", questionPool);
+        CohortRecord orderedCohortRecord = new CohortRecord("OrderedTaskGenerator", testStudents, "SilentMessageGenerator", questionPool, "src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoList.json");
         cohort = CohortRecord.makeCohortFromCohortRecord(orderedCohortRecord);
         assert cohort != null;
         assertTrue(cohort.getTaskGenerator() instanceof OrderedTaskGenerator);
