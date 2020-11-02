@@ -1533,7 +1533,7 @@
       "followupQuestions" : [ ]
     } ]
   },
-  "questionOrderedInfoFilename" : null
+  "questionOrderedInfoFilename" : "src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoListTest1.json"
 }, {
   "taskGeneratorType" : "RandomTaskGenerator",
   "studentIDs" : [ "testStudent7", "testStudent8", "testStudent9" ],

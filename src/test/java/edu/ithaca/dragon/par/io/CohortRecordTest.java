@@ -149,7 +149,7 @@ public class CohortRecordTest {
         CohortRecord levelRecord = new CohortRecord("LevelTaskGenerator", testStudents, "LevelMessageGenerator", questionPool);
         originalCohortRecords.add(levelRecord);
         //ordered task
-        CohortRecord orderedRecord = new CohortRecord("OrderedTaskGenerator", testStudents2, "SilentMessageGenerator", questionPool);
+        CohortRecord orderedRecord = new CohortRecord("OrderedTaskGenerator", testStudents2, "SilentMessageGenerator", questionPool, "src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoListTest1.json");
         originalCohortRecords.add(orderedRecord);
         //random task
         CohortRecord randomRecord = new CohortRecord("RandomTaskGenerator", testStudents3, "SilentMessageGenerator", questionPool);
@@ -182,7 +182,7 @@ public class CohortRecordTest {
         orderedStudentIDs.add("testStudent4");
         orderedStudentIDs.add("testStudent5");
         orderedStudentIDs.add("testStudent6");
-        toFile.add(new CohortRecord("OrderedTaskGenerator", orderedStudentIDs, "SilentMessageGenerator", questionPool));
+        toFile.add(new CohortRecord("OrderedTaskGenerator", orderedStudentIDs, "SilentMessageGenerator", questionPool, "src/main/resources/author/orderedQuestionInfoList/currentOrderedQuestionInfoList.json"));
 
         List<String> randomStudentIDs = new ArrayList<>();
         randomStudentIDs.add("testStudent7");

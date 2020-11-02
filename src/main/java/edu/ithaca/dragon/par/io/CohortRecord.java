@@ -127,10 +127,10 @@ public class CohortRecord {
                 break;
             case "OrderedTaskGenerator":
                 if (messageGeneratorType.equals("SilentMessageGenerator")){
-                    return new Cohort(new OrderedTaskGenerator(cohortRecordIn.getQuestionPool(), cohortRecordIn.getQuestionOrderedInfoFilename()), cohortRecordIn.getStudentIDs(), new SilentMessageGenerator(), cohortRecordIn.getQuestionPool());
+                    return new Cohort(new OrderedTaskGenerator(cohortRecordIn.getQuestionPool(), cohortRecordIn.getQuestionOrderedInfoFilename()), cohortRecordIn.getStudentIDs(), new SilentMessageGenerator(), cohortRecordIn.getQuestionPool(), cohortRecordIn.getQuestionOrderedInfoFilename());
                 }
                 else if (messageGeneratorType.equals("LevelMessageGenerator")){
-                    return new Cohort(new OrderedTaskGenerator(cohortRecordIn.getQuestionPool(), cohortRecordIn.getQuestionOrderedInfoFilename()), cohortRecordIn.getStudentIDs(), new LevelMessageGenerator(), cohortRecordIn.getQuestionPool());
+                    return new Cohort(new OrderedTaskGenerator(cohortRecordIn.getQuestionPool(), cohortRecordIn.getQuestionOrderedInfoFilename()), cohortRecordIn.getStudentIDs(), new LevelMessageGenerator(), cohortRecordIn.getQuestionPool(), cohortRecordIn.getQuestionOrderedInfoFilename());
                 }
                 break;
             case "LevelTaskGenerator":

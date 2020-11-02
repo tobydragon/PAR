@@ -61,10 +61,10 @@ public class OrderedTaskGenerator implements TaskGenerator {
             JsonIoUtil jsonIoUtil = new JsonIoUtil(new JsonIoHelperDefault());
             return jsonIoUtil.listFromFile(this.questionOrderedListFilename, QuestionOrderedInfo.class);
         } catch (IOException | NullPointerException e) {
+            //else go to default method
             System.out.println("Filename passed into OrderedTaskGenerator not found. Please check again. Creating a default QuestionOrderedInfoList");
             return createDefaultQuestionOrderedInfoList(this.questionPool, true);
         }
-        //else go to default method
     }
 
     @Override
