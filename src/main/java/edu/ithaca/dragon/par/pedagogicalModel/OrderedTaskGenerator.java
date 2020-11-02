@@ -5,7 +5,12 @@ import edu.ithaca.dragon.par.domainModel.QuestionOrderedInfo;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
+import edu.ithaca.dragon.util.JsonIoHelperDefault;
+import edu.ithaca.dragon.util.JsonIoHelperSpring;
+import edu.ithaca.dragon.util.JsonIoUtil;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,8 +56,14 @@ public class OrderedTaskGenerator implements TaskGenerator {
 
     private List<QuestionOrderedInfo> createQuestionOrderedInfoList(){
         // if filename exists, create from file
+        try {
+            JsonIoUtil jsonIoUtil = new JsonIoUtil(new JsonIoHelperDefault());
+            return jsonIoUtil.listFromFile(this.questionOrderedListFilename, QuestionOrderedInfo.class);
+        } catch (IOException e) {
+            System.out.println("Filename passed into OrderedTaskGenerator not found. Please check again. Creating a default QuestionOrderedInfoList");
+            return createDefaultQuestionOrderedInfoList(this.questionPool, true);
+        }
         //else go to default method
-        return null;
     }
 
     @Override
