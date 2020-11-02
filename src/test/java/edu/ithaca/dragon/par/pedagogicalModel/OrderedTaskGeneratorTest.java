@@ -1,6 +1,5 @@
 package edu.ithaca.dragon.par.pedagogicalModel;
 
-import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionOrderedInfo;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.io.ImageTask;
@@ -9,6 +8,8 @@ import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.util.JsonIoHelperDefault;
 import edu.ithaca.dragon.util.JsonIoUtil;
 import org.junit.jupiter.api.Test;
+import org.mockito.internal.matchers.Or;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
@@ -55,6 +56,29 @@ public class OrderedTaskGeneratorTest {
         assertNotEquals(test1List, test2List);
     }
 
+    @Test
+    public void createQuestionOrderedInfoListTest() throws IOException {
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPool.json").getAllQuestions());
+
+        List<QuestionOrderedInfo> toTest = OrderedTaskGenerator.createDefaultQuestionOrderedInfoList(questionPool, true);
+        assertEquals(questionPool.getAllQuestions().size(), toTest.size());
+        for (int i = 0; i < toTest.size(); i++){
+            assertEquals(questionPool.getAllQuestions().get(i).getId(), toTest.get(i).getQuestionID());
+            assertTrue(toTest.get(i).isIncludesFollowup());
+        }
+
+        //default with new method
+        OrderedTaskGenerator testOTG1 = new OrderedTaskGenerator(questionPool, "src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoList.json");
+        assertEquals(questionPool.getAllQuestions().size(), testOTG1.getQuestionOrderedInfoList().size());
+        for (int i = 0; i < toTest.size(); i++){
+            assertEquals(questionPool.getAllQuestions().get(i).getId(), toTest.get(i).getQuestionID());
+            assertTrue(toTest.get(i).isIncludesFollowup());
+        }
+
+        //TODO test case for custom order
+    }
+
+
     //main:
     //take in file name to Question Pool, then use static method to create List<QuestionOrderedInfo> (creates default)
         //eventually if hasFollowUpQuestions should not be necessary; (needs default value)
@@ -63,7 +87,7 @@ public class OrderedTaskGeneratorTest {
     public static void main(String[] args) throws IOException {
         QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("localData/currentQuestionPool.json").getAllQuestions());
 //        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
-        List<QuestionOrderedInfo> orderedInfoList = OrderedTaskGenerator.createOrderedQuestionInfoListFromQuestionPool(questionPool, true);
+        List<QuestionOrderedInfo> orderedInfoList = OrderedTaskGenerator.createDefaultQuestionOrderedInfoList(questionPool, true);
         JsonIoUtil writer = new JsonIoUtil(new JsonIoHelperDefault());
         writer.toFile("src/main/resources/author/orderedQuestionInfo/currentOrderedQuestionInfoList.json", orderedInfoList);
     }

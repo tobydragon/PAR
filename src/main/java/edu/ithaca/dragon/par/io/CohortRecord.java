@@ -5,10 +5,7 @@ import edu.ithaca.dragon.par.domainModel.QuestionOrderedInfo;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.pedagogicalModel.*;
-import edu.ithaca.dragon.util.JsonIoHelperDefault;
-import edu.ithaca.dragon.util.JsonIoUtil;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -98,7 +95,7 @@ public class CohortRecord {
         return null;
     }
 
-    public static Cohort makeCohortFromCohortRecord(CohortRecord cohortRecordIn) throws IOException {
+    public static Cohort makeCohortFromCohortRecord(CohortRecord cohortRecordIn) {
         String taskGeneratorType = cohortRecordIn.getTaskGeneratorType();
         String messageGeneratorType = cohortRecordIn.getMessageGeneratorType();
 
@@ -112,15 +109,13 @@ public class CohortRecord {
                 }
                 break;
             case "OrderedTaskGenerator":
-                JsonIoUtil reader = new JsonIoUtil(new JsonIoHelperDefault());
                 //TODO this should not reference resource files, should be questionPool
-                QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
-                List<QuestionOrderedInfo> defaultQuestionOrderedInfoList = reader.listFromFile("src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoList.json", QuestionOrderedInfo.class);
+                List<QuestionOrderedInfo> defaultQuestionOrderedInfoList = OrderedTaskGenerator.createDefaultQuestionOrderedInfoList(cohortRecordIn.getQuestionPool(), true);
                 if (messageGeneratorType.equals("SilentMessageGenerator")){
-                    return new Cohort(new OrderedTaskGenerator(questionPool, defaultQuestionOrderedInfoList), cohortRecordIn.getStudentIDs(), new SilentMessageGenerator(), cohortRecordIn.getQuestionPool());
+                    return new Cohort(new OrderedTaskGenerator(cohortRecordIn.getQuestionPool(), defaultQuestionOrderedInfoList), cohortRecordIn.getStudentIDs(), new SilentMessageGenerator(), cohortRecordIn.getQuestionPool());
                 }
                 else if (messageGeneratorType.equals("LevelMessageGenerator")){
-                    return new Cohort(new OrderedTaskGenerator(questionPool, defaultQuestionOrderedInfoList), cohortRecordIn.getStudentIDs(), new LevelMessageGenerator(), cohortRecordIn.getQuestionPool());
+                    return new Cohort(new OrderedTaskGenerator(cohortRecordIn.getQuestionPool(), defaultQuestionOrderedInfoList), cohortRecordIn.getStudentIDs(), new LevelMessageGenerator(), cohortRecordIn.getQuestionPool());
                 }
                 break;
             case "LevelTaskGenerator":
@@ -135,14 +130,7 @@ public class CohortRecord {
         return null;
     }
 
-    public static JSONCohortDatastore makeCohortDatastoreFromCohortRecords(List<CohortRecord> cohortRecordsList) throws IOException {
-        JsonIoUtil reader = new JsonIoUtil(new JsonIoHelperDefault());
-        //TODO the next two lines change if test or production
-        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/main/resources/author/defaultQuestionPool.json").getAllQuestions());
-        List<QuestionOrderedInfo> defaultQuestionOrderedInfoList = reader.listFromFile("src/main/resources/author/orderedQuestionInfo/currentOrderedQuestionInfoList.json", QuestionOrderedInfo.class);
-//        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
-//        List<QuestionOrderedInfo> defaultQuestionOrderedInfoList = reader.listFromFile("src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoList.json", QuestionOrderedInfo.class);
-
+    public static JSONCohortDatastore makeCohortDatastoreFromCohortRecords(List<CohortRecord> cohortRecordsList) {
         JSONCohortDatastore toReturn = new JSONCohortDatastore();
 
         for (CohortRecord cohortRecord : cohortRecordsList) {
@@ -160,11 +148,12 @@ public class CohortRecord {
                     }
                     break;
                 case "OrderedTaskGenerator":
+                    List<QuestionOrderedInfo> defaultQuestionOrderedInfoList = OrderedTaskGenerator.createDefaultQuestionOrderedInfoList(cohortRecord.getQuestionPool(), true);
                     if (messageGeneratorType.equals("SilentMessageGenerator")){
-                        toReturn.addCohort(new OrderedTaskGenerator(questionPool, defaultQuestionOrderedInfoList), studentIDs, new SilentMessageGenerator(), cohortRecord.getQuestionPool());
+                        toReturn.addCohort(new OrderedTaskGenerator(cohortRecord.getQuestionPool(), defaultQuestionOrderedInfoList), studentIDs, new SilentMessageGenerator(), cohortRecord.getQuestionPool());
                     }
                     else if (messageGeneratorType.equals("LevelMessageGenerator")){
-                        toReturn.addCohort(new OrderedTaskGenerator(questionPool, defaultQuestionOrderedInfoList), studentIDs, new LevelMessageGenerator(), cohortRecord.getQuestionPool());
+                        toReturn.addCohort(new OrderedTaskGenerator(cohortRecord.getQuestionPool(), defaultQuestionOrderedInfoList), studentIDs, new LevelMessageGenerator(), cohortRecord.getQuestionPool());
                     }
                     break;
                 case "LevelTaskGenerator":
