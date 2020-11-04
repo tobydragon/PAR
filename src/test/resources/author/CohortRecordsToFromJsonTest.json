@@ -7,6 +7,10 @@
   "studentIDs" : [ "testStudent1", "testStudent2", "testStudent3", "masteredStudent", "buckmank", "s2", "s1", "testUser111" ],
   "messageGeneratorType" : "LevelMessageGenerator"
 }, {
+  "taskGeneratorType" : "LevelTaskGeneratorAttachment",
+  "studentIDs" : [ "testStudent1", "testStudent2", "testStudent3", "masteredStudent", "buckmank", "s2", "s1", "testUser111" ],
+  "messageGeneratorType" : "LevelMessageGeneratorAttachment"
+}, {
   "taskGeneratorType" : "OrderedTaskGenerator",
   "studentIDs" : [ "testStudent4", "testStudent5", "testStudent6" ],
   "messageGeneratorType" : "SilentMessageGenerator"

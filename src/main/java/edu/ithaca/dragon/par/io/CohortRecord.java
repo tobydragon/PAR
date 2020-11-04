@@ -67,6 +67,9 @@ public class CohortRecord {
                 else if (messageGenerator instanceof LevelMessageGenerator){
                     return new CohortRecord("RandomTaskGenerator", cohortIn.getStudentIDs(), "LevelMessageGenerator");
                 }
+                else if (messageGenerator instanceof LevelMessageGeneratorAttachment){
+                    return new CohortRecord("RandomTaskGenerator", cohortIn.getStudentIDs(), "LevelMessageGeneratorAttachment");
+                }
             } else if (taskGenerator instanceof OrderedTaskGenerator) {
                 if (messageGenerator instanceof SilentMessageGenerator){
                     return new CohortRecord("OrderedTaskGenerator", cohortIn.getStudentIDs(), "SilentMessageGenerator");
@@ -74,12 +77,29 @@ public class CohortRecord {
                 else if (messageGenerator instanceof LevelMessageGenerator){
                     return new CohortRecord("OrderedTaskGenerator", cohortIn.getStudentIDs(), "LevelMessageGenerator");
                 }
+                else if (messageGenerator instanceof LevelMessageGeneratorAttachment){
+                    return new CohortRecord("OrderedTaskGenerator", cohortIn.getStudentIDs(), "LevelMessageGeneratorAttachment");
+                }
             } else if (taskGenerator instanceof LevelTaskGenerator) {
                 if (messageGenerator instanceof SilentMessageGenerator){
                     return new CohortRecord("LevelTaskGenerator", cohortIn.getStudentIDs(), "SilentMessageGenerator");
                 }
                 else if (messageGenerator instanceof LevelMessageGenerator){
                     return new CohortRecord("LevelTaskGenerator", cohortIn.getStudentIDs(), "LevelMessageGenerator");
+                }
+                else if (messageGenerator instanceof LevelMessageGeneratorAttachment){
+                    return new CohortRecord("LevelTaskGenerator", cohortIn.getStudentIDs(), "LevelMessageGeneratorAttachment");
+                }
+            }
+            else if (taskGenerator instanceof LevelTaskGeneratorAttachment) {
+                if (messageGenerator instanceof SilentMessageGenerator){
+                    return new CohortRecord("LevelTaskGeneratorAttachment", cohortIn.getStudentIDs(), "SilentMessageGenerator");
+                }
+                else if (messageGenerator instanceof LevelMessageGenerator){
+                    return new CohortRecord("LevelTaskGeneratorAttachment", cohortIn.getStudentIDs(), "LevelMessageGenerator");
+                }
+                else if (messageGenerator instanceof LevelMessageGeneratorAttachment){
+                    return new CohortRecord("LevelTaskGeneratorAttachment", cohortIn.getStudentIDs(), "LevelMessageGeneratorAttachment");
                 }
             }
         }
@@ -98,6 +118,9 @@ public class CohortRecord {
                 else if (messageGeneratorType.equals("LevelMessageGenerator")){
                     return new Cohort(new RandomTaskGenerator(), cohortRecordIn.getStudentIDs(), new LevelMessageGenerator());
                 }
+                else if (messageGeneratorType.equals("LevelMessageGeneratorAttachment")){
+                    return new Cohort(new RandomTaskGenerator(), cohortRecordIn.getStudentIDs(), new LevelMessageGeneratorAttachment());
+                }
 
             case "OrderedTaskGenerator":
                 JsonIoUtil reader = new JsonIoUtil(new JsonIoHelperDefault());
@@ -109,12 +132,28 @@ public class CohortRecord {
                 else if (messageGeneratorType.equals("LevelMessageGenerator")){
                     return new Cohort(new OrderedTaskGenerator(questionPool, defaultQuestionOrderedInfoList), cohortRecordIn.getStudentIDs(), new LevelMessageGenerator());
                 }
+                else if (messageGeneratorType.equals("LevelMessageGeneratorAttachment")){
+                    return new Cohort(new OrderedTaskGenerator(questionPool, defaultQuestionOrderedInfoList), cohortRecordIn.getStudentIDs(), new LevelMessageGeneratorAttachment());
+                }
             case "LevelTaskGenerator":
                 if (messageGeneratorType.equals("SilentMessageGenerator")){
                     return new Cohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), cohortRecordIn.getStudentIDs(), new SilentMessageGenerator());
                 }
                 else if (messageGeneratorType.equals("LevelMessageGenerator")){
                     return new Cohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), cohortRecordIn.getStudentIDs(), new LevelMessageGenerator());
+                }
+                else if (messageGeneratorType.equals("LevelMessageGeneratorAttachment")){
+                    return new Cohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), cohortRecordIn.getStudentIDs(), new LevelMessageGeneratorAttachment());
+                }
+            case "LevelTaskGeneratorAttachment":
+                if (messageGeneratorType.equals("SilentMessageGenerator")){
+                    return new Cohort(new LevelTaskGeneratorAttachment(EquineQuestionTypes.makeLevelToTypesMap()), cohortRecordIn.getStudentIDs(), new SilentMessageGenerator());
+                }
+                else if (messageGeneratorType.equals("LevelMessageGenerator")){
+                    return new Cohort(new LevelTaskGeneratorAttachment(EquineQuestionTypes.makeLevelToTypesMap()), cohortRecordIn.getStudentIDs(), new LevelMessageGenerator());
+                }
+                else if (messageGeneratorType.equals("LevelMessageGeneratorAttachment")){
+                    return new Cohort(new LevelTaskGeneratorAttachment(EquineQuestionTypes.makeLevelToTypesMap()), cohortRecordIn.getStudentIDs(), new LevelMessageGeneratorAttachment());
                 }
         }
         return null;
@@ -143,6 +182,9 @@ public class CohortRecord {
                     else if (messageGeneratorType.equals("LevelMessageGenerator")){
                         toReturn.addCohort(new RandomTaskGenerator(), studentIDs, new LevelMessageGenerator());
                     }
+                    else if (messageGeneratorType.equals("LevelMessageGeneratorAttachment")){
+                        toReturn.addCohort(new RandomTaskGenerator(), studentIDs, new LevelMessageGeneratorAttachment());
+                    }
                     break;
                 case "OrderedTaskGenerator":
                     if (messageGeneratorType.equals("SilentMessageGenerator")){
@@ -151,6 +193,9 @@ public class CohortRecord {
                     else if (messageGeneratorType.equals("LevelMessageGenerator")){
                         toReturn.addCohort(new OrderedTaskGenerator(questionPool, defaultQuestionOrderedInfoList), studentIDs, new LevelMessageGenerator());
                     }
+                    else if (messageGeneratorType.equals("LevelMessageGeneratorAttachment")){
+                        toReturn.addCohort(new OrderedTaskGenerator(questionPool, defaultQuestionOrderedInfoList), studentIDs, new LevelMessageGeneratorAttachment());
+                    }
                     break;
                 case "LevelTaskGenerator":
                     if (messageGeneratorType.equals("SilentMessageGenerator")){
@@ -158,6 +203,20 @@ public class CohortRecord {
                     }
                     else if (messageGeneratorType.equals("LevelMessageGenerator")){
                         toReturn.addCohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), studentIDs, new LevelMessageGenerator());
+                    }
+                    else if (messageGeneratorType.equals("LevelMessageGeneratorAttachment")){
+                        toReturn.addCohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), studentIDs, new LevelMessageGeneratorAttachment());
+                    }
+                    break;
+                case "LevelTaskGeneratorAttachment":
+                    if (messageGeneratorType.equals("SilentMessageGenerator")){
+                        toReturn.addCohort(new LevelTaskGeneratorAttachment(EquineQuestionTypes.makeLevelToTypesMap()), studentIDs, new SilentMessageGenerator());
+                    }
+                    else if (messageGeneratorType.equals("LevelMessageGenerator")){
+                        toReturn.addCohort(new LevelTaskGeneratorAttachment(EquineQuestionTypes.makeLevelToTypesMap()), studentIDs, new LevelMessageGenerator());
+                    }
+                    else if (messageGeneratorType.equals("LevelMessageGeneratorAttachment")){
+                        toReturn.addCohort(new LevelTaskGeneratorAttachment(EquineQuestionTypes.makeLevelToTypesMap()), studentIDs, new LevelMessageGeneratorAttachment());
                     }
                     break;
             }

@@ -10,4 +10,8 @@
   "taskGeneratorType" : "RandomTaskGenerator",
   "studentIDs" : [ "testStudent7", "testStudent8", "testStudent9" ],
   "messageGeneratorType" : "SilentMessageGenerator"
+}, {
+  "taskGeneratorType" : "LevelTaskGeneratorAttachment",
+  "studentIDs" : [ "testStudent7", "testStudent8", "testStudent9" ],
+  "messageGeneratorType" : "LevelMessageGeneratorAttachment"
 } ]

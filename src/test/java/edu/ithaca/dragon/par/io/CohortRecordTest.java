@@ -38,6 +38,13 @@ public class CohortRecordTest {
         assertTrue(cohort.getTaskGenerator() instanceof LevelTaskGenerator);
         assertEquals(testStudents, cohort.getStudentIDs());
 
+        //level attach task
+        CohortRecord lCR = new CohortRecord("LevelTaskGeneratorAttachment", testStudents, "LevelMessageGeneratorAttachment");
+        cohort = CohortRecord.makeCohortFromCohortRecord(lCR);
+        assert cohort != null;
+        assertTrue(cohort.getTaskGenerator() instanceof LevelTaskGeneratorAttachment);
+        assertEquals(testStudents, cohort.getStudentIDs());
+
         //ordered task
         CohortRecord orderedCohortRecord = new CohortRecord("OrderedTaskGenerator", testStudents, "SilentMessageGenerator");
         cohort = CohortRecord.makeCohortFromCohortRecord(orderedCohortRecord);
@@ -133,6 +140,9 @@ public class CohortRecordTest {
         //level task
         CohortRecord levelRecord = new CohortRecord("LevelTaskGenerator", testStudents, "LevelMessageGenerator");
         originalCohortRecords.add(levelRecord);
+        //level attachment task
+        CohortRecord levelARecord = new CohortRecord("LevelTaskGeneratorAttachment", testStudents, "LevelMessageGeneratorAttachment");
+        originalCohortRecords.add(levelARecord);
         //ordered task
         CohortRecord orderedRecord = new CohortRecord("OrderedTaskGenerator", testStudents2, "SilentMessageGenerator");
         originalCohortRecords.add(orderedRecord);
@@ -173,6 +183,13 @@ public class CohortRecordTest {
         randomStudentIDs.add("testStudent8");
         randomStudentIDs.add("testStudent9");
         toFile.add(new CohortRecord("RandomTaskGenerator", randomStudentIDs, "SilentMessageGenerator"));
+
+
+        List<String> attachStudentIDs = new ArrayList<>();
+        attachStudentIDs.add("testStudent7");
+        attachStudentIDs.add("testStudent8");
+        attachStudentIDs.add("testStudent9");
+        toFile.add(new CohortRecord("LevelTaskGeneratorAttachment", attachStudentIDs, "LevelMessageGeneratorAttachment"));
 
         JsonIoHelper jsonIoHelper = new JsonIoHelperDefault();
         JsonIoUtil jsonIoUtil = new JsonIoUtil(jsonIoHelper);

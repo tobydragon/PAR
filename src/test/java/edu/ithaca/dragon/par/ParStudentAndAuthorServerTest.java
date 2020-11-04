@@ -298,7 +298,7 @@ class ParStudentAndAuthorServerTest {
         String message = server.getMessage(student.getUserId(), it);
         assertEquals("You have mastered the material, feel free to keep practicing", message);
 
-        //not level 7, no message to display
+        //not level 4, no message to display
         StudentModel student2 = jsonStudentDatastore.getOrCreateStudentModel("buckmank");
         ImageTask it2 = server.nextImageTask(student2.getUserId());
         student2.setPreviousLevel(4);
