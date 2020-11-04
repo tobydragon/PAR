@@ -6,6 +6,7 @@ import edu.ithaca.dragon.par.pedagogicalModel.OrderedTaskGenerator;
 import edu.ithaca.dragon.par.pedagogicalModel.TaskGenerator;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Cohort {
     private final TaskGenerator taskGenerator;
@@ -53,4 +54,20 @@ public class Cohort {
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Cohort)) return false;
+        Cohort cohort = (Cohort) o;
+        return Objects.equals(taskGenerator, cohort.taskGenerator) &&
+                Objects.equals(studentIDs, cohort.studentIDs) &&
+                Objects.equals(messageGenerator, cohort.messageGenerator) &&
+                Objects.equals(questionPool, cohort.questionPool) &&
+                Objects.equals(questionOrderedInfoFilename, cohort.questionOrderedInfoFilename);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(taskGenerator, studentIDs, messageGenerator, questionPool, questionOrderedInfoFilename);
+    }
 }

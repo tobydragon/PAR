@@ -22,13 +22,14 @@ public class CohortDatastoreTest {
         JsonIoUtil reader = new JsonIoUtil(new JsonIoHelperDefault());
         QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
         List<QuestionOrderedInfo> defaultQuestionOrderedInfoList = reader.listFromFile("src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoList.json", QuestionOrderedInfo.class);
+        String testCohortDatastoreFilename = "src/test/resources/author/currentCohortDatastore.json";
 
         //first method signature (taskGenerator)
-        JSONCohortDatastore cohortDatastore = new JSONCohortDatastore();
+        JSONCohortDatastore cohortDatastore = new JSONCohortDatastore(testCohortDatastoreFilename);
         assertEquals(0, cohortDatastore.getNumberCohorts());
 
         //second method signature (taskGenerator and students)
-        JSONCohortDatastore cohortDatastore2 = new JSONCohortDatastore();
+        JSONCohortDatastore cohortDatastore2 = new JSONCohortDatastore(testCohortDatastoreFilename);
         assertEquals(0, cohortDatastore2.getNumberCohorts());
 
         List<String> studentIDs = new ArrayList<>();
@@ -52,7 +53,8 @@ public class CohortDatastoreTest {
 
     @Test
     public void getTaskGeneratorFromStudentID() throws IOException {
-        JSONCohortDatastore cohortDatastore = new JSONCohortDatastore();
+        String testCohortDatastoreFilename = "src/test/resources/author/currentCohortDatastore.json";
+        JSONCohortDatastore cohortDatastore = new JSONCohortDatastore(testCohortDatastoreFilename);
         RandomTaskGenerator randomTaskGenerator = new RandomTaskGenerator();
         JsonIoUtil reader = new JsonIoUtil(new JsonIoHelperDefault());
         QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
@@ -99,6 +101,7 @@ public class CohortDatastoreTest {
     @Test
     public void makeCohortDatastoreFromCohortRecords() throws IOException {
         QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
+        String testCohortDatastoreFilename = "src/test/resources/author/currentCohortDatastore.json";
 
         List<String> studentIDs1 = new ArrayList<>();
         studentIDs1.add("testStudent1");
@@ -118,7 +121,7 @@ public class CohortDatastoreTest {
         Cohort cohort1 = new Cohort(new RandomTaskGenerator(), studentIDs1, new SilentMessageGenerator(), questionPool);
         listToConvert.add(CohortRecord.makeCohortRecordFromCohort(cohort1));
 
-        JSONCohortDatastore cohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(listToConvert);
+        JSONCohortDatastore cohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(listToConvert, testCohortDatastoreFilename);
         assertEquals(1, cohortDatastore.getNumberCohorts());
         assertEquals(3, cohortDatastore.getTotalNumberStudents());
 
@@ -129,7 +132,7 @@ public class CohortDatastoreTest {
         List<QuestionOrderedInfo> toPassToOTG = CohortRecord.createQuestionOrderedInfoList("src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoList.json", questionPool);
         Cohort cohort3 = new Cohort(new OrderedTaskGenerator(questionPool, toPassToOTG), studentIDs3, new SilentMessageGenerator(), questionPool, "src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoList.json");
         listToConvert.add(CohortRecord.makeCohortRecordFromCohort(cohort3));
-        cohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(listToConvert);
+        cohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(listToConvert, testCohortDatastoreFilename);
 
         assertEquals(3, cohortDatastore.getNumberCohorts());
         assertEquals(7, cohortDatastore.getTotalNumberStudents());
@@ -141,6 +144,7 @@ public class CohortDatastoreTest {
         JsonIoUtil reader = new JsonIoUtil(new JsonIoHelperDefault());
         QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
         List<QuestionOrderedInfo> defaultQuestionOrderedInfoList = reader.listFromFile("src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoList.json", QuestionOrderedInfo.class);
+        String testCohortDatastoreFilename = "src/test/resources/author/currentCohortDatastore.json";
 
         List<String> studentIDs1 = new ArrayList<>();
         studentIDs1.add("testStudent1");
@@ -156,7 +160,7 @@ public class CohortDatastoreTest {
         studentIDs3.add("testStudent7");
 
         //empty CohortDatastore
-        JSONCohortDatastore cohortDatastore = new JSONCohortDatastore();
+        JSONCohortDatastore cohortDatastore = new JSONCohortDatastore(testCohortDatastoreFilename);
         List<CohortRecord> cohortRecords = CohortRecord.makeCohortRecordsFromCohortDatastore(cohortDatastore);
         assertEquals(0, cohortRecords.size());
 

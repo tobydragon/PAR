@@ -1,6 +1,6 @@
 [ {
   "taskGeneratorType" : "LevelTaskGenerator",
-  "studentIDs" : [],
+  "studentIDs" : [ ],
   "messageGeneratorType" : "LevelMessageGenerator",
   "questionPool" : {
     "allQuestions" : [ {

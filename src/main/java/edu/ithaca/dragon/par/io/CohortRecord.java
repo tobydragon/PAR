@@ -150,8 +150,8 @@ public class CohortRecord {
         return null;
     }
 
-    public static JSONCohortDatastore makeCohortDatastoreFromCohortRecords(List<CohortRecord> cohortRecordsList) {
-        JSONCohortDatastore toReturn = new JSONCohortDatastore();
+    public static JSONCohortDatastore makeCohortDatastoreFromCohortRecords(List<CohortRecord> cohortRecordsList, String cohortDatastoreFilename) {
+        JSONCohortDatastore toReturn = new JSONCohortDatastore(cohortDatastoreFilename);
 
         for (CohortRecord cohortRecord : cohortRecordsList) {
             String taskGeneratorType = cohortRecord.getTaskGeneratorType();
@@ -208,5 +208,9 @@ public class CohortRecord {
             System.out.println("Filename passed into OrderedTaskGenerator not found. Please check again. Creating a default QuestionOrderedInfoList");
             return OrderedTaskGenerator.createDefaultQuestionOrderedInfoList(questionPool, true);
         }
+    }
+
+    public static void overwriteCohortDatastoreFile(CohortDatastore cohortDatastore){
+
     }
 }

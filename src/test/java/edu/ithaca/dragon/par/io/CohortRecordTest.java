@@ -1,7 +1,6 @@
 package edu.ithaca.dragon.par.io;
 
 import edu.ithaca.dragon.par.cohortModel.Cohort;
-import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionOrderedInfo;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
@@ -167,6 +166,7 @@ public class CohortRecordTest {
         }
     }
 
+    @Test
     public void createQuestionOrderedInfoListTest() throws IOException {
         QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPool.json").getAllQuestions());
 
@@ -212,10 +212,46 @@ public class CohortRecordTest {
         }
     }
 
+    @Test
+    public void overwriteCohortDatastoreFileTest() throws IOException {
+        JsonIoUtil jsonIoUtil = new JsonIoUtil(new JsonIoHelperDefault());
+        //read in 2 cohort datastores- 1 not altered for comparison, 1 to alter
+        List<CohortRecord> testCohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/defaultCohortDatastore.json", CohortRecord.class);
+        JSONCohortDatastore toReference = CohortRecord.makeCohortDatastoreFromCohortRecords(testCohortRecords, "src/test/resources/author/defaultCohortDatastore.json");
+        JSONCohortDatastore toTest = CohortRecord.makeCohortDatastoreFromCohortRecords(testCohortRecords, "src/test/resources/author/defaultCohortDatastore.json");
+
+        //ask for TaskGenerator of studentID that does not exist
+        TaskGenerator taskGeneratorRequested = toTest.getTaskGeneratorFromStudentID("taskGeneratorStudent");
+        assertTrue (taskGeneratorRequested instanceof LevelTaskGenerator);
+        assertNotEquals(toTest.getMasterCohortList(), toReference.getMasterCohortList());
+        assertTrue(toTest.getDefaultCohort().getStudentIDs().contains("taskGeneratorStudent"));
+        assertEquals(1, toTest.getDefaultCohort().getStudentIDs().size());
+
+        String toTestFilename = toTest.getCohortDatastoreFilename();
+        JSONCohortDatastore fromFilename = jsonIoUtil.fromFile(toTestFilename, JSONCohortDatastore.class);
+        assertEquals(toTest.getMasterCohortList(), fromFilename.getMasterCohortList());
+        assertNotEquals(toReference.getMasterCohortList(), fromFilename.getMasterCohortList());
+
+        //ask for MessageGenerator of StudentID that does not exist
+        MessageGenerator messageGeneratorRequested = toTest.getMessageGeneratorFromStudentID("messageGeneratorStudent");
+        assertTrue(messageGeneratorRequested instanceof LevelMessageGenerator);
+        assertNotEquals(toReference.getMasterCohortList(), toTest.getMasterCohortList());
+        assertTrue(toTest.getDefaultCohort().getStudentIDs().contains("messageGeneratorStudent"));
+        assertEquals(2, toTest.getDefaultCohort().getStudentIDs().size());
+
+        toTestFilename = toTest.getCohortDatastoreFilename();
+        fromFilename = jsonIoUtil.fromFile(toTestFilename, JSONCohortDatastore.class);
+        assertEquals(toTest.getMasterCohortList(), fromFilename.getMasterCohortList());
+        assertNotEquals(toReference.getMasterCohortList(), fromFilename.getMasterCohortList());
+    }
+
     //generate CohortDatastore JSON file for production code
     public static void main(String[] args) throws IOException {
         QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/main/resources/author/defaultQuestionPool.json").getAllQuestions());
         List<CohortRecord> toFile = new ArrayList<>();
+
+        //default cohort
+        toFile.add(new CohortRecord("LevelTaskGenerator", new ArrayList<>(), "LevelMessageGenerator", questionPool));
 
         List<String> levelStudentIDs = new ArrayList<>();
         levelStudentIDs.add("testStudent1");

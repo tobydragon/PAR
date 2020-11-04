@@ -12,12 +12,21 @@ import java.util.Map;
 public class JSONCohortDatastore implements CohortDatastore {
     private final Map<String, Cohort> cohortMap;
     private final List<Cohort> masterCohortList;
-    // TODO default Cohort Pointer (get(0))
-    // TODO cohortDatastoreFilename
+    private final Cohort defaultCohort;
+    private final String cohortDatastoreFilename;
 
-    public JSONCohortDatastore(){
+    public JSONCohortDatastore(String filenameIn){
         this.cohortMap = new HashMap<>();
         this.masterCohortList = new ArrayList<>();
+        this.defaultCohort = getDefaultCohort();
+        this.cohortDatastoreFilename = filenameIn;
+    }
+
+    public Cohort getDefaultCohort() {
+        if (masterCohortList.size() == 0){
+            return null;
+        }
+        return masterCohortList.get(0);
     }
 
     @Override
@@ -31,6 +40,10 @@ public class JSONCohortDatastore implements CohortDatastore {
     @Override
     public List<Cohort> getMasterCohortList(){
         return masterCohortList;
+    }
+
+    public String getCohortDatastoreFilename() {
+        return cohortDatastoreFilename;
     }
 
     public void addCohort(TaskGenerator taskGenerator, List<String> studentIDs, MessageGenerator messageGenerator, QuestionPool questionPool){
