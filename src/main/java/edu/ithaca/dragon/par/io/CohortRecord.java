@@ -1,10 +1,14 @@
 package edu.ithaca.dragon.par.io;
 
 import edu.ithaca.dragon.par.cohortModel.Cohort;
+import edu.ithaca.dragon.par.domainModel.QuestionOrderedInfo;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.pedagogicalModel.*;
+import edu.ithaca.dragon.util.JsonIoHelperDefault;
+import edu.ithaca.dragon.util.JsonIoUtil;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -126,11 +130,12 @@ public class CohortRecord {
                 }
                 break;
             case "OrderedTaskGenerator":
+                List<QuestionOrderedInfo> forOTG = createQuestionOrderedInfoList(cohortRecordIn.getQuestionOrderedInfoFilename(), cohortRecordIn.getQuestionPool());
                 if (messageGeneratorType.equals("SilentMessageGenerator")){
-                    return new Cohort(new OrderedTaskGenerator(cohortRecordIn.getQuestionPool(), cohortRecordIn.getQuestionOrderedInfoFilename()), cohortRecordIn.getStudentIDs(), new SilentMessageGenerator(), cohortRecordIn.getQuestionPool(), cohortRecordIn.getQuestionOrderedInfoFilename());
+                    return new Cohort(new OrderedTaskGenerator(cohortRecordIn.getQuestionPool(), forOTG), cohortRecordIn.getStudentIDs(), new SilentMessageGenerator(), cohortRecordIn.getQuestionPool(), cohortRecordIn.getQuestionOrderedInfoFilename());
                 }
                 else if (messageGeneratorType.equals("LevelMessageGenerator")){
-                    return new Cohort(new OrderedTaskGenerator(cohortRecordIn.getQuestionPool(), cohortRecordIn.getQuestionOrderedInfoFilename()), cohortRecordIn.getStudentIDs(), new LevelMessageGenerator(), cohortRecordIn.getQuestionPool(), cohortRecordIn.getQuestionOrderedInfoFilename());
+                    return new Cohort(new OrderedTaskGenerator(cohortRecordIn.getQuestionPool(), forOTG), cohortRecordIn.getStudentIDs(), new LevelMessageGenerator(), cohortRecordIn.getQuestionPool(), cohortRecordIn.getQuestionOrderedInfoFilename());
                 }
                 break;
             case "LevelTaskGenerator":
@@ -163,11 +168,12 @@ public class CohortRecord {
                     }
                     break;
                 case "OrderedTaskGenerator":
+                    List<QuestionOrderedInfo> forOTG = createQuestionOrderedInfoList(cohortRecord.getQuestionOrderedInfoFilename(), cohortRecord.getQuestionPool());
                     if (messageGeneratorType.equals("SilentMessageGenerator")){
-                        toReturn.addCohort(new OrderedTaskGenerator(cohortRecord.getQuestionPool(), cohortRecord.getQuestionOrderedInfoFilename()), studentIDs, new SilentMessageGenerator(), cohortRecord.getQuestionPool(), cohortRecord.getQuestionOrderedInfoFilename());
+                        toReturn.addCohort(new OrderedTaskGenerator(cohortRecord.getQuestionPool(), forOTG), studentIDs, new SilentMessageGenerator(), cohortRecord.getQuestionPool(), cohortRecord.getQuestionOrderedInfoFilename());
                     }
                     else if (messageGeneratorType.equals("LevelMessageGenerator")){
-                        toReturn.addCohort(new OrderedTaskGenerator(cohortRecord.getQuestionPool(), cohortRecord.getQuestionOrderedInfoFilename()), studentIDs, new LevelMessageGenerator(), cohortRecord.getQuestionPool(), cohortRecord.getQuestionOrderedInfoFilename());
+                        toReturn.addCohort(new OrderedTaskGenerator(cohortRecord.getQuestionPool(), forOTG), studentIDs, new LevelMessageGenerator(), cohortRecord.getQuestionPool(), cohortRecord.getQuestionOrderedInfoFilename());
                     }
                     break;
                 case "LevelTaskGenerator":
@@ -190,5 +196,17 @@ public class CohortRecord {
             toReturn.add(CohortRecord.makeCohortRecordFromCohort(cohort));
         }
         return toReturn;
+    }
+
+    public static List<QuestionOrderedInfo> createQuestionOrderedInfoList(String questionOrderedListFilename, QuestionPool questionPool){
+        // if filename exists, create from file
+        try {
+            JsonIoUtil jsonIoUtil = new JsonIoUtil(new JsonIoHelperDefault());
+            return jsonIoUtil.listFromFile(questionOrderedListFilename, QuestionOrderedInfo.class);
+        } catch (IOException | NullPointerException e) {
+            //else go to default method
+            System.out.println("Filename passed into OrderedTaskGenerator not found. Please check again. Creating a default QuestionOrderedInfoList");
+            return OrderedTaskGenerator.createDefaultQuestionOrderedInfoList(questionPool, true);
+        }
     }
 }

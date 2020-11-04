@@ -98,9 +98,7 @@ public class CohortDatastoreTest {
 
     @Test
     public void makeCohortDatastoreFromCohortRecords() throws IOException {
-        JsonIoUtil reader = new JsonIoUtil(new JsonIoHelperDefault());
         QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
-        List<QuestionOrderedInfo> defaultQuestionOrderedInfoList = reader.listFromFile("src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoList.json", QuestionOrderedInfo.class);
 
         List<String> studentIDs1 = new ArrayList<>();
         studentIDs1.add("testStudent1");
@@ -128,7 +126,8 @@ public class CohortDatastoreTest {
         Cohort cohort2 = new Cohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), studentIDs2, new LevelMessageGenerator(), questionPool);
         listToConvert.add(CohortRecord.makeCohortRecordFromCohort(cohort2));
 
-        Cohort cohort3 = new Cohort(new OrderedTaskGenerator(questionPool, "src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoList.json"), studentIDs3, new SilentMessageGenerator(), questionPool, "src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoList.json");
+        List<QuestionOrderedInfo> toPassToOTG = CohortRecord.createQuestionOrderedInfoList("src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoList.json", questionPool);
+        Cohort cohort3 = new Cohort(new OrderedTaskGenerator(questionPool, toPassToOTG), studentIDs3, new SilentMessageGenerator(), questionPool, "src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoList.json");
         listToConvert.add(CohortRecord.makeCohortRecordFromCohort(cohort3));
         cohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(listToConvert);
 

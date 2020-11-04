@@ -12,6 +12,8 @@ import java.util.Map;
 public class JSONCohortDatastore implements CohortDatastore {
     private final Map<String, Cohort> cohortMap;
     private final List<Cohort> masterCohortList;
+    // TODO default Cohort Pointer (get(0))
+    // TODO cohortDatastoreFilename
 
     public JSONCohortDatastore(){
         this.cohortMap = new HashMap<>();

@@ -167,6 +167,51 @@ public class CohortRecordTest {
         }
     }
 
+    public void createQuestionOrderedInfoListTest() throws IOException {
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPool.json").getAllQuestions());
+
+        List<QuestionOrderedInfo> toTest = OrderedTaskGenerator.createDefaultQuestionOrderedInfoList(questionPool, true);
+        assertEquals(questionPool.getAllQuestions().size(), toTest.size());
+        for (int i = 0; i < toTest.size(); i++){
+            assertEquals(questionPool.getAllQuestions().get(i).getId(), toTest.get(i).getQuestionID());
+            assertTrue(toTest.get(i).isIncludesFollowup());
+        }
+
+        //default with new method
+        List<QuestionOrderedInfo> toPassToOTG1 = CohortRecord.createQuestionOrderedInfoList("src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoList.json", questionPool);
+        OrderedTaskGenerator testOTG1 = new OrderedTaskGenerator(questionPool, toPassToOTG1);
+        assertEquals(questionPool.getAllQuestions().size(), testOTG1.getQuestionOrderedInfoList().size());
+        for (int i = 0; i < toTest.size(); i++){
+            assertEquals(questionPool.getAllQuestions().get(i).getId(), toTest.get(i).getQuestionID());
+            assertTrue(toTest.get(i).isIncludesFollowup());
+        }
+
+        // test for file with different order/ followup inclusions
+        JsonIoUtil jsonIoUtil = new JsonIoUtil(new JsonIoHelperDefault());
+        List<QuestionOrderedInfo> toPassToOTG2 = CohortRecord.createQuestionOrderedInfoList("src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoListTest1.json", questionPool);
+        OrderedTaskGenerator testOTG2 = new OrderedTaskGenerator(questionPool, toPassToOTG2);
+        assertNotNull(testOTG2.getQuestionOrderedInfoList());
+        List<QuestionOrderedInfo> checkCustom = jsonIoUtil.listFromFile("src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoListTest1.json", QuestionOrderedInfo.class);
+        List<QuestionOrderedInfo> fromOTG2 = testOTG2.getQuestionOrderedInfoList();
+        assertEquals(checkCustom.size(), fromOTG2.size());
+        for (int i = 0; i < checkCustom.size(); i++){
+            assertEquals(checkCustom.get(i).getQuestionID(), fromOTG2.get(i).getQuestionID());
+            assertEquals(checkCustom.get(i).isIncludesFollowup(), fromOTG2.get(i).isIncludesFollowup());
+        }
+
+        // test for non existent file; creates default with true followup and prints warning
+        List<QuestionOrderedInfo> toPassToOTG3 = CohortRecord.createQuestionOrderedInfoList("src/test/resources/author/orderedQuestionInfo/fileDoesNotExist.json", questionPool);
+        OrderedTaskGenerator testOTG3 = new OrderedTaskGenerator(questionPool, toPassToOTG3);
+        assertNotNull(testOTG3.getQuestionOrderedInfoList());
+        List<QuestionOrderedInfo> checkDoNotExist = OrderedTaskGenerator.createDefaultQuestionOrderedInfoList(questionPool, true);
+        List<QuestionOrderedInfo> fromOTG3 = testOTG3.getQuestionOrderedInfoList();
+        assertEquals(checkDoNotExist.size(), fromOTG3.size());
+        for(int i = 0; i < checkDoNotExist.size(); i++){
+            assertEquals(checkDoNotExist.get(i).getQuestionID(), fromOTG3.get(i).getQuestionID());
+            assertEquals(checkDoNotExist.get(i).isIncludesFollowup(), fromOTG3.get(i).isIncludesFollowup());
+        }
+    }
+
     //generate CohortDatastore JSON file for production code
     public static void main(String[] args) throws IOException {
         QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/main/resources/author/defaultQuestionPool.json").getAllQuestions());

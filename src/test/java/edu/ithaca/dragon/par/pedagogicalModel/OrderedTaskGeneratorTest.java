@@ -2,6 +2,7 @@ package edu.ithaca.dragon.par.pedagogicalModel;
 
 import edu.ithaca.dragon.par.domainModel.QuestionOrderedInfo;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
+import edu.ithaca.dragon.par.io.CohortRecord;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.JsonQuestionPoolDatastore;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
@@ -57,47 +58,7 @@ public class OrderedTaskGeneratorTest {
     }
 
     @Test
-    public void createQuestionOrderedInfoListTest() throws IOException {
-        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPool.json").getAllQuestions());
 
-        List<QuestionOrderedInfo> toTest = OrderedTaskGenerator.createDefaultQuestionOrderedInfoList(questionPool, true);
-        assertEquals(questionPool.getAllQuestions().size(), toTest.size());
-        for (int i = 0; i < toTest.size(); i++){
-            assertEquals(questionPool.getAllQuestions().get(i).getId(), toTest.get(i).getQuestionID());
-            assertTrue(toTest.get(i).isIncludesFollowup());
-        }
-
-        //default with new method
-        OrderedTaskGenerator testOTG1 = new OrderedTaskGenerator(questionPool, "src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoList.json");
-        assertEquals(questionPool.getAllQuestions().size(), testOTG1.getQuestionOrderedInfoList().size());
-        for (int i = 0; i < toTest.size(); i++){
-            assertEquals(questionPool.getAllQuestions().get(i).getId(), toTest.get(i).getQuestionID());
-            assertTrue(toTest.get(i).isIncludesFollowup());
-        }
-
-        // test for file with different order/ followup inclusions
-        JsonIoUtil jsonIoUtil = new JsonIoUtil(new JsonIoHelperDefault());
-        OrderedTaskGenerator testOTG2 = new OrderedTaskGenerator(questionPool, "src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoListTest1.json");
-        assertNotNull(testOTG2.getQuestionOrderedInfoList());
-        List<QuestionOrderedInfo> checkCustom = jsonIoUtil.listFromFile("src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoListTest1.json", QuestionOrderedInfo.class);
-        List<QuestionOrderedInfo> fromOTG2 = testOTG2.getQuestionOrderedInfoList();
-        assertEquals(checkCustom.size(), fromOTG2.size());
-        for (int i = 0; i < checkCustom.size(); i++){
-            assertEquals(checkCustom.get(i).getQuestionID(), fromOTG2.get(i).getQuestionID());
-            assertEquals(checkCustom.get(i).isIncludesFollowup(), fromOTG2.get(i).isIncludesFollowup());
-        }
-
-        // test for non existent file; creates default with true followup and prints warning
-        OrderedTaskGenerator testOTG3 = new OrderedTaskGenerator(questionPool, "src/test/resources/author/orderedQuestionInfo/fileDoesNotExist.json");
-        assertNotNull(testOTG3.getQuestionOrderedInfoList());
-        List<QuestionOrderedInfo> checkDoNotExist = OrderedTaskGenerator.createDefaultQuestionOrderedInfoList(questionPool, true);
-        List<QuestionOrderedInfo> fromOTG3 = testOTG3.getQuestionOrderedInfoList();
-        assertEquals(checkDoNotExist.size(), fromOTG3.size());
-        for(int i = 0; i < checkDoNotExist.size(); i++){
-            assertEquals(checkDoNotExist.get(i).getQuestionID(), fromOTG3.get(i).getQuestionID());
-            assertEquals(checkDoNotExist.get(i).isIncludesFollowup(), fromOTG3.get(i).isIncludesFollowup());
-        }
-    }
 
 
     //main:

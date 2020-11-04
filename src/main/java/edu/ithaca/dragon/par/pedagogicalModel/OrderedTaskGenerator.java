@@ -17,24 +17,20 @@ import java.util.List;
 
 public class OrderedTaskGenerator implements TaskGenerator {
     private final List<QuestionOrderedInfo> questionOrderedInfoList;
-    private final String questionOrderedListFilename;
     private int lastQuestionAskedIndex;
     private final QuestionPool questionPool;
 
     //orderedQuestionList assumed to be subset of StudentModel QuestionPool
-    // TODO: make this constructor just take question pool if Toby likes filename version; QOIList is then default
     public OrderedTaskGenerator(QuestionPool questionsToAsk, List<QuestionOrderedInfo> orderedQuestionList) {
         this.questionOrderedInfoList = orderedQuestionList;
         this.lastQuestionAskedIndex = 0;
         this.questionPool = questionsToAsk;
-        this.questionOrderedListFilename = null;
     }
 
-    // TODO: 10/1/20 make robust by handling bad IDs
-    public OrderedTaskGenerator(QuestionPool questionsToAsk, String orderedQuestionListFilename) {
+    // creates a default QuestionOrderedInfoList
+    public OrderedTaskGenerator(QuestionPool questionsToAsk) {
         this.questionPool = questionsToAsk;
-        this.questionOrderedListFilename = orderedQuestionListFilename;
-        this.questionOrderedInfoList = createQuestionOrderedInfoList();
+        this.questionOrderedInfoList = createDefaultQuestionOrderedInfoList(questionPool, true);
         this.lastQuestionAskedIndex = 0;
 
     }
@@ -53,18 +49,6 @@ public class OrderedTaskGenerator implements TaskGenerator {
             toReturn.add(tempInfo);
         }
         return toReturn;
-    }
-
-    private List<QuestionOrderedInfo> createQuestionOrderedInfoList(){
-        // if filename exists, create from file
-        try {
-            JsonIoUtil jsonIoUtil = new JsonIoUtil(new JsonIoHelperDefault());
-            return jsonIoUtil.listFromFile(this.questionOrderedListFilename, QuestionOrderedInfo.class);
-        } catch (IOException | NullPointerException e) {
-            //else go to default method
-            System.out.println("Filename passed into OrderedTaskGenerator not found. Please check again. Creating a default QuestionOrderedInfoList");
-            return createDefaultQuestionOrderedInfoList(this.questionPool, true);
-        }
     }
 
     @Override
