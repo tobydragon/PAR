@@ -1,0 +1,21 @@
+[ {
+  "taskGeneratorType" : "RandomTaskGenerator",
+  "studentIDs" : [ "testStudent13", "testStudent14", "testStudent15"],
+  "messageGeneratorType" : "SilentMessageGenerator"
+}, {
+  "taskGeneratorType" : "LevelTaskGenerator",
+  "studentIDs" : [ "testStudent10", "testStudent11", "testStudent12", "masteredStudent", "buckmank", "s2", "s1", "testUser111" ],
+  "messageGeneratorType" : "LevelMessageGenerator"
+}, {
+  "taskGeneratorType" : "LevelTaskGeneratorAttachment",
+  "studentIDs" : [ "testStudent1", "testStudent2", "testStudent3"],
+  "messageGeneratorType" : "LevelMessageGeneratorAttachment"
+}, {
+  "taskGeneratorType" : "OrderedTaskGenerator",
+  "studentIDs" : [ "testStudent4", "testStudent5", "testStudent6" ],
+  "messageGeneratorType" : "SilentMessageGenerator"
+}, {
+  "taskGeneratorType" : "RandomTaskGenerator",
+  "studentIDs" : [ "testStudent7", "testStudent8", "testStudent9" ],
+  "messageGeneratorType" : "SilentMessageGenerator"
+} ]

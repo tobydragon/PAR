@@ -10,9 +10,11 @@ import edu.ithaca.dragon.par.io.ImageTaskResponseOOP;
 import edu.ithaca.dragon.par.io.StudentModelDatastore;
 import edu.ithaca.dragon.par.pedagogicalModel.LevelMessageGenerator;
 import edu.ithaca.dragon.par.pedagogicalModel.LevelTaskGeneratorAttachment;
+import edu.ithaca.dragon.par.pedagogicalModel.TaskGenerator;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.par.studentModel.StudentReportCreator;
 import edu.ithaca.dragon.util.DataUtil;
+import org.springframework.scheduling.config.Task;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,24 +38,23 @@ public class ParStudentAndAuthorServer {
     //----------- Student methods  --------------//
 
     public ImageTask nextImageTask( String userId) throws IOException {
+        ImageTask imageTask = null;
         if (idealQuestionCountPerTypeForAnalysis <= studentModelDatastore.getMinQuestionCountPerType()){
-            ImageTask imageTask = cohortDatastore.getTaskGeneratorFromStudentID(userId).makeTask(studentModelDatastore.getStudentModel(userId), idealQuestionCountPerTypeForAnalysis);
-            LevelTaskGeneratorAttachment.calcLevel(studentModelDatastore.getStudentModel(userId).calcKnowledgeEstimateByType(idealQuestionCountPerTypeForAnalysis));
-            studentModelDatastore.increaseTimesSeen(userId, imageTask.getTaskQuestions());
-            return imageTask;
+            imageTask = cohortDatastore.getTaskGeneratorFromStudentID(userId).makeTask(studentModelDatastore.getStudentModel(userId), idealQuestionCountPerTypeForAnalysis);
+        } else{
+            imageTask = cohortDatastore.getTaskGeneratorFromStudentID(userId).makeTask(studentModelDatastore.getStudentModel(userId), studentModelDatastore.getMinQuestionCountPerType());
         }
-        else {
-            ImageTask imageTask = cohortDatastore.getTaskGeneratorFromStudentID(userId).makeTask(studentModelDatastore.getStudentModel(userId), studentModelDatastore.getMinQuestionCountPerType());
+        TaskGenerator tg = cohortDatastore.getTaskGeneratorFromStudentID(userId);
+        if (tg instanceof LevelTaskGeneratorAttachment){
             LevelTaskGeneratorAttachment.calcLevel(studentModelDatastore.getStudentModel(userId).calcKnowledgeEstimateByType(idealQuestionCountPerTypeForAnalysis));
-            studentModelDatastore.increaseTimesSeen(userId, imageTask.getTaskQuestions());
-            //TODO: use getMessage method. will there be a separate call to getMessage?
-            // should i delete any message stuff in here?
-            return imageTask;
+        } else{
+            LevelTaskGenerator.calcLevel(studentModelDatastore.getStudentModel(userId).calcKnowledgeEstimateByType(idealQuestionCountPerTypeForAnalysis));
         }
+        studentModelDatastore.increaseTimesSeen(userId, imageTask.getTaskQuestions());
+        return imageTask;
     }
 
     public String getMessage(String userId, ImageTask it) throws IOException{
-//        return new LevelMessageGenerator().generateMessage(studentModelDatastore.getStudentModel(userId), it);
         return cohortDatastore.getMessageGeneratorFromStudentID(userId).generateMessage(studentModelDatastore.getStudentModel(userId), it);
     }
 
