@@ -186,9 +186,9 @@ public class CohortRecordTest {
 
 
         List<String> attachStudentIDs = new ArrayList<>();
-        attachStudentIDs.add("testStudent7");
-        attachStudentIDs.add("testStudent8");
-        attachStudentIDs.add("testStudent9");
+        attachStudentIDs.add("testStudent10");
+        attachStudentIDs.add("testStudent11");
+        attachStudentIDs.add("testStudent12");
         toFile.add(new CohortRecord("LevelTaskGeneratorAttachment", attachStudentIDs, "LevelMessageGeneratorAttachment"));
 
         JsonIoHelper jsonIoHelper = new JsonIoHelperDefault();

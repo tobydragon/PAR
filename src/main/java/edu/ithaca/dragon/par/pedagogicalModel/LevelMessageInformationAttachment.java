@@ -19,7 +19,7 @@ public class LevelMessageInformationAttachment {
     }
 
     public void setPreviousLevel(int levelIn) {
-        if (levelIn < 1 || levelIn > 6){
+        if (levelIn < 1 || levelIn > 5){
             throw new IllegalArgumentException("Invalid previousLevel");
         }
         this.previousLevel = levelIn;
@@ -29,7 +29,7 @@ public class LevelMessageInformationAttachment {
     }
 
     public void setCurrentLevel(int levelIn) {
-        if (levelIn < 1 || levelIn > 6){
+        if (levelIn < 1 || levelIn > 5){
             throw new IllegalArgumentException("Invalid previousLevel");
         }
         this.currentLevel = levelIn;

@@ -36,13 +36,13 @@ public class LevelMessageGeneratorAttachmentTest {
 
         //mastered
 
-        masteredStudentModel.setCurrentLevel(6);
-        masteredStudentModel.setPreviousLevel(5);
+        masteredStudentModel.setCurrentLevel(5);
+        masteredStudentModel.setPreviousLevel(4);
         String message = lmg.generateMessage(masteredStudentModel, it);
         assertEquals("You have mastered the material, feel free to keep practicing", message);
 
         //not level 7, no message to display
-        masteredStudentModel.setPreviousLevel(7);
+        masteredStudentModel.setPreviousLevel(5);
         StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/buckmank.json", StudentModelRecord.class);
         StudentModel level2Student = smr2.buildStudentModel(myQP);
         ImageTask it2 = taskGenerator.makeTask(level2Student, 4);
@@ -63,9 +63,9 @@ public class LevelMessageGeneratorAttachmentTest {
         message = lmg.generateMessage(level2Student, it2);
         assertEquals("You're doing great!", message);
 
-        //stay on level 7, repeated question
-        masteredStudentModel.setPreviousLevel(6);
-        masteredStudentModel.setCurrentLevel(6);
+        //stay on level 5, repeated question
+        masteredStudentModel.setPreviousLevel(5);
+        masteredStudentModel.setCurrentLevel(5);
 
         Date date = new Date();
         for (ResponsesPerQuestion response:masteredStudentModel.getUserResponseSet().getResponsesPerQuestionList()){
@@ -149,7 +149,7 @@ public class LevelMessageGeneratorAttachmentTest {
     }
 
     @Test
-    public void level6MessageTest() throws IOException{
+    public void level5MessageTest() throws IOException{
         TaskGenerator taskGenerator = new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap());
 
         QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/TestQP.json").getAllQuestions());
@@ -161,8 +161,8 @@ public class LevelMessageGeneratorAttachmentTest {
 
 
         //mastered
-        masteredStudentModel.setCurrentLevel(6);
-        String message = lmg.level6Message(masteredStudentModel, it);
+        masteredStudentModel.setCurrentLevel(5);
+        String message = lmg.level5Message(masteredStudentModel, it);
         assertEquals("You have mastered the material, feel free to keep practicing", message);
 
         //not level 6, no message to display
@@ -172,12 +172,12 @@ public class LevelMessageGeneratorAttachmentTest {
         level2Student.setPreviousLevel(1);
         ImageTask it2 = taskGenerator.makeTask(level2Student, 4);
         level2Student.setPreviousLevel(LevelTaskGenerator.calcLevel(level2Student.calcKnowledgeEstimateByType(4)));
-        message = lmg.level6Message(level2Student, it2);
+        message = lmg.level5Message(level2Student, it2);
         assertNull(message);
 
         //stay on level 8, repeated question
-        masteredStudentModel.setPreviousLevel(6);
-        masteredStudentModel.setCurrentLevel(6);
+        masteredStudentModel.setPreviousLevel(5);
+        masteredStudentModel.setCurrentLevel(5);
 
         Date date = new Date();
         for (ResponsesPerQuestion response:masteredStudentModel.getUserResponseSet().getResponsesPerQuestionList()){
@@ -198,20 +198,20 @@ public class LevelMessageGeneratorAttachmentTest {
         questionList.add(q);
         it.setTaskQuestions(questionList);
 
-        message = lmg.level6Message(masteredStudentModel, it);
+        message = lmg.level5Message(masteredStudentModel, it);
         assertEquals("You've mastered the material and started repeating questions", message);
 
         //down level, no message
-        masteredStudentModel.setPreviousLevel(6);
-        masteredStudentModel.setCurrentLevel(5);
-        message = lmg.level6Message(masteredStudentModel, it);
+        masteredStudentModel.setPreviousLevel(5);
+        masteredStudentModel.setCurrentLevel(4);
+        message = lmg.level5Message(masteredStudentModel, it);
         assertNull(message);
 
         //up level, no message
-        masteredStudentModel.setPreviousLevel(4);
-        masteredStudentModel.setCurrentLevel(5);
+        masteredStudentModel.setPreviousLevel(2);
+        masteredStudentModel.setCurrentLevel(3);
 
-        message = lmg.level6Message(masteredStudentModel, it);
+        message = lmg.level5Message(masteredStudentModel, it);
         assertNull(message);
     }
 

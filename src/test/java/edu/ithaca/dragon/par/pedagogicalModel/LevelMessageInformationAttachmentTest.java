@@ -36,14 +36,14 @@ public class LevelMessageInformationAttachmentTest {
         assertEquals(5, levMes.getPreviousLevel());
 
         //set again
-        levMes.setPreviousLevel(6);
-        assertEquals(6, levMes.getPreviousLevel());
+        levMes.setPreviousLevel(5);
+        assertEquals(5, levMes.getPreviousLevel());
 
         //new studentModel
         LevelMessageInformationAttachment levMes2 = new LevelMessageInformationAttachment();
         levMes2.setPreviousLevel(3);
         assertEquals(3, levMes2.getPreviousLevel());
-        assertEquals(6, levMes.getPreviousLevel());
+        assertEquals(5, levMes.getPreviousLevel());
 
         //set old one again
         levMes.setPreviousLevel(1);
@@ -77,14 +77,14 @@ public class LevelMessageInformationAttachmentTest {
         assertEquals(5, levmes.getCurrentLevel());
 
         //set again
-        levmes.setCurrentLevel(6);
-        assertEquals(6, levmes.getCurrentLevel());
+        levmes.setCurrentLevel(5);
+        assertEquals(5, levmes.getCurrentLevel());
 
         //new studentModel
         LevelMessageInformationAttachment levmes2 = new LevelMessageInformationAttachment();
         levmes2.setCurrentLevel(3);
         assertEquals(3, levmes2.getCurrentLevel());
-        assertEquals(6, levmes.getCurrentLevel());
+        assertEquals(5, levmes.getCurrentLevel());
 
         //set old one again
         levmes.setCurrentLevel(1);

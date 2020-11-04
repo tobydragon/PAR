@@ -12,6 +12,6 @@
   "messageGeneratorType" : "SilentMessageGenerator"
 }, {
   "taskGeneratorType" : "LevelTaskGeneratorAttachment",
-  "studentIDs" : [ "testStudent7", "testStudent8", "testStudent9" ],
+  "studentIDs" : [ "testStudent10", "testStudent11", "testStudent12" ],
   "messageGeneratorType" : "LevelMessageGeneratorAttachment"
 } ]

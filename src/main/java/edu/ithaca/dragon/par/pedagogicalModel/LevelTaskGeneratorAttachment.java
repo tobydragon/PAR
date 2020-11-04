@@ -87,10 +87,7 @@ public class LevelTaskGeneratorAttachment implements TaskGenerator {
     public static int calcLevel(Map<String, Double> scoresPerType) {
         List<Double> orderedScores = orderedScores(scoresPerType);
 
-        if (orderedScores.get(0) == 100 && orderedScores.get(1) == 100 && orderedScores.get(2) == 100) { //all 100
-            return 6;
-        }
-        else if (orderedScores.get(0) == 100 && orderedScores.get(1) == 100 && orderedScores.get(2) > 50) { //above 50 on attachment
+        if (orderedScores.get(0) == 100 && orderedScores.get(1) == 100 && orderedScores.get(2) > 50) { //above 50 on attachment
             return 5;
         }
         else if (orderedScores.get(0) == 100 && orderedScores.get(1) == 100) { //100 on structure

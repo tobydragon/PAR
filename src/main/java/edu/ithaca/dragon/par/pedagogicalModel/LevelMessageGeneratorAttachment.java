@@ -33,8 +33,8 @@ public class LevelMessageGeneratorAttachment implements MessageGenerator{
         else {
 
             //mastered student message
-            if (currentLevel == 6) {
-                message = level6Message(studentModel, imageTask);
+            if (currentLevel == 5) {
+                message = level5Message(studentModel, imageTask);
             } else {
                 //down level
                 //if the student has just decreased in level, this will set the appropriate message.
@@ -119,11 +119,11 @@ public class LevelMessageGeneratorAttachment implements MessageGenerator{
         }
     }
 
-    public static String level6Message(StudentModel studentModel, ImageTask imageTask){
+    public static String level5Message(StudentModel studentModel, ImageTask imageTask){
         int currentLevel = studentModel.getCurrentLevel();
 
         //check level
-        if (currentLevel != 6){
+        if (currentLevel != 5){
             return null;
         }
 
