@@ -271,13 +271,12 @@ public class CohortRecord {
                     return OrderedTaskGenerator.createDefaultQuestionOrderedInfoList(questionPool, true);
                 }
             }
+            return toCheck;
         } catch (IOException | NullPointerException e) {
             //else go to default method
             System.out.println("Filename passed into OrderedTaskGenerator not found. Please check again. Creating a default QuestionOrderedInfoList");
             return OrderedTaskGenerator.createDefaultQuestionOrderedInfoList(questionPool, true);
         }
-        //shouldn't ever get here
-        return null;
     }
 
     public static void overwriteCohortDatastoreFile(JSONCohortDatastore cohortDatastore) throws IOException {
