@@ -14,6 +14,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class OrderedTaskGenerator implements TaskGenerator {
     private final List<QuestionOrderedInfo> questionOrderedInfoList;
@@ -69,5 +70,20 @@ public class OrderedTaskGenerator implements TaskGenerator {
             this.lastQuestionAskedIndex = (this.lastQuestionAskedIndex + 1) % questionOrderedInfoList.size();
         }
         return imageTask;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof OrderedTaskGenerator)) return false;
+        OrderedTaskGenerator that = (OrderedTaskGenerator) o;
+        return lastQuestionAskedIndex == that.lastQuestionAskedIndex &&
+                Objects.equals(questionOrderedInfoList, that.questionOrderedInfoList) &&
+                Objects.equals(questionPool, that.questionPool);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(questionOrderedInfoList, lastQuestionAskedIndex, questionPool);
     }
 }

@@ -151,9 +151,10 @@ public class CohortRecord {
     }
 
     public static JSONCohortDatastore makeCohortDatastoreFromCohortRecords(List<CohortRecord> cohortRecordsList, String cohortDatastoreFilename) {
-        JSONCohortDatastore toReturn = new JSONCohortDatastore(cohortDatastoreFilename);
+        JSONCohortDatastore toReturn = new JSONCohortDatastore(cohortDatastoreFilename, CohortRecord.makeCohortFromCohortRecord(cohortRecordsList.get(0)));
 
-        for (CohortRecord cohortRecord : cohortRecordsList) {
+        for (int i = 1; i < cohortRecordsList.size(); i++) {
+            CohortRecord cohortRecord = cohortRecordsList.get(i);
             String taskGeneratorType = cohortRecord.getTaskGeneratorType();
             String messageGeneratorType = cohortRecord.getMessageGeneratorType();
             List<String> studentIDs = cohortRecord.getStudentIDs();
@@ -210,7 +211,9 @@ public class CohortRecord {
         }
     }
 
-    public static void overwriteCohortDatastoreFile(CohortDatastore cohortDatastore){
-
+    public static void overwriteCohortDatastoreFile(JSONCohortDatastore cohortDatastore) throws IOException {
+        JsonIoUtil jsonIoUtil = new JsonIoUtil(new JsonIoHelperDefault());
+        List<CohortRecord> toWrite = CohortRecord.makeCohortRecordsFromCohortDatastore(cohortDatastore);
+        jsonIoUtil.toFile(cohortDatastore.getCohortDatastoreFilename(), toWrite);
     }
 }

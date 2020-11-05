@@ -54,6 +54,7 @@ public class Cohort {
         }
     }
 
+    // NOTE: MESSAGE GENERATORS DO NOT HAVE CONSTRUCTORS SO TYPES MUST BE EQUAL
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

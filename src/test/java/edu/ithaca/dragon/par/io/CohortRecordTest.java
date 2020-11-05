@@ -215,12 +215,18 @@ public class CohortRecordTest {
     @Test
     public void overwriteCohortDatastoreFileTest() throws IOException {
         JsonIoUtil jsonIoUtil = new JsonIoUtil(new JsonIoHelperDefault());
+        //OVERWRITE TEST FILES FIRST; OTHERWISE TESTS FAIL
+        List<CohortRecord> reset = jsonIoUtil.listFromFile("src/test/resources/author/resetCohortDatastoreTestFiles.json", CohortRecord.class);
+        jsonIoUtil.toFile("src/test/resources/author/defaultCohortDatastore.json", reset);
+        jsonIoUtil.toFile("src/test/resources/author/currentCohortDatastore.json", reset);
+
         //read in 2 cohort datastores- 1 not altered for comparison, 1 to alter
         List<CohortRecord> testCohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/defaultCohortDatastore.json", CohortRecord.class);
         JSONCohortDatastore toReference = CohortRecord.makeCohortDatastoreFromCohortRecords(testCohortRecords, "src/test/resources/author/defaultCohortDatastore.json");
-        JSONCohortDatastore toTest = CohortRecord.makeCohortDatastoreFromCohortRecords(testCohortRecords, "src/test/resources/author/defaultCohortDatastore.json");
+        JSONCohortDatastore toTest = CohortRecord.makeCohortDatastoreFromCohortRecords(testCohortRecords, "src/test/resources/author/currentCohortDatastore.json");
 
         //ask for TaskGenerator of studentID that does not exist
+        assertFalse(toTest.isStudentIDInDatastore("taskGeneratorStudent"));
         TaskGenerator taskGeneratorRequested = toTest.getTaskGeneratorFromStudentID("taskGeneratorStudent");
         assertTrue (taskGeneratorRequested instanceof LevelTaskGenerator);
         assertNotEquals(toTest.getMasterCohortList(), toReference.getMasterCohortList());
@@ -228,11 +234,23 @@ public class CohortRecordTest {
         assertEquals(1, toTest.getDefaultCohort().getStudentIDs().size());
 
         String toTestFilename = toTest.getCohortDatastoreFilename();
-        JSONCohortDatastore fromFilename = jsonIoUtil.fromFile(toTestFilename, JSONCohortDatastore.class);
-        assertEquals(toTest.getMasterCohortList(), fromFilename.getMasterCohortList());
+        List<CohortRecord> toTestFilenameRecords = jsonIoUtil.listFromFile(toTestFilename, CohortRecord.class);
+        JSONCohortDatastore fromFilename = CohortRecord.makeCohortDatastoreFromCohortRecords(toTestFilenameRecords, toTestFilename);
+        List<Cohort> toTestList = toTest.getMasterCohortList();
+        List<Cohort> fromFilenameList = toReference.getMasterCohortList();
+        assertEquals(toTestList.size(), fromFilenameList.size());
+        for (int i = 0; i < toTest.getMasterCohortList().size(); i++){
+            assertEquals(toTestList.get(i).getTaskGenerator().getClass(), fromFilenameList.get(i).getTaskGenerator().getClass());
+            assertEquals(toTestList.get(i).getMessageGenerator().getClass(), fromFilenameList.get(i).getMessageGenerator().getClass());
+            assertEquals(toTestList.get(i).getStudentIDs(), fromFilenameList.get(i).getStudentIDs());
+            assertEquals(toTestList.get(i).getQuestionPool(), fromFilenameList.get(i).getQuestionPool());
+            assertEquals(toTestList.get(i).getQuestionOrderedInfoFilename(), fromFilenameList.get(i).getQuestionOrderedInfoFilename());
+
+        }
         assertNotEquals(toReference.getMasterCohortList(), fromFilename.getMasterCohortList());
 
         //ask for MessageGenerator of StudentID that does not exist
+        assertFalse(toTest.isStudentIDInDatastore("messageGeneratorStudent"));
         MessageGenerator messageGeneratorRequested = toTest.getMessageGeneratorFromStudentID("messageGeneratorStudent");
         assertTrue(messageGeneratorRequested instanceof LevelMessageGenerator);
         assertNotEquals(toReference.getMasterCohortList(), toTest.getMasterCohortList());
@@ -240,8 +258,19 @@ public class CohortRecordTest {
         assertEquals(2, toTest.getDefaultCohort().getStudentIDs().size());
 
         toTestFilename = toTest.getCohortDatastoreFilename();
-        fromFilename = jsonIoUtil.fromFile(toTestFilename, JSONCohortDatastore.class);
-        assertEquals(toTest.getMasterCohortList(), fromFilename.getMasterCohortList());
+        toTestFilenameRecords = jsonIoUtil.listFromFile(toTestFilename, CohortRecord.class);
+        fromFilename = CohortRecord.makeCohortDatastoreFromCohortRecords(toTestFilenameRecords, toTestFilename);
+        toTestList = toTest.getMasterCohortList();
+        fromFilenameList = toReference.getMasterCohortList();
+        assertEquals(toTestList.size(), fromFilenameList.size());
+        for (int i = 0; i < toTest.getMasterCohortList().size(); i++){
+            assertEquals(toTestList.get(i).getTaskGenerator().getClass(), fromFilenameList.get(i).getTaskGenerator().getClass());
+            assertEquals(toTestList.get(i).getMessageGenerator().getClass(), fromFilenameList.get(i).getMessageGenerator().getClass());
+            assertEquals(toTestList.get(i).getStudentIDs(), fromFilenameList.get(i).getStudentIDs());
+            assertEquals(toTestList.get(i).getQuestionPool(), fromFilenameList.get(i).getQuestionPool());
+            assertEquals(toTestList.get(i).getQuestionOrderedInfoFilename(), fromFilenameList.get(i).getQuestionOrderedInfoFilename());
+
+        }
         assertNotEquals(toReference.getMasterCohortList(), fromFilename.getMasterCohortList());
     }
 
