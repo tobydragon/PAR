@@ -264,12 +264,20 @@ public class CohortRecord {
         // if filename exists, create from file
         try {
             JsonIoUtil jsonIoUtil = new JsonIoUtil(new JsonIoHelperDefault());
-            return jsonIoUtil.listFromFile(questionOrderedListFilename, QuestionOrderedInfo.class);
+            List<QuestionOrderedInfo> toCheck = jsonIoUtil.listFromFile(questionOrderedListFilename, QuestionOrderedInfo.class);
+            for (QuestionOrderedInfo questionOrderedInfo : toCheck) {
+                if (!questionPool.isIdTaken(questionOrderedInfo.getQuestionID())) {
+                    System.out.println("Filename passed into OrderedTaskGenerator contains questions not in QuestionPool. Please check again. Creating a default QuestionOrderedInfoList");
+                    return OrderedTaskGenerator.createDefaultQuestionOrderedInfoList(questionPool, true);
+                }
+            }
         } catch (IOException | NullPointerException e) {
             //else go to default method
             System.out.println("Filename passed into OrderedTaskGenerator not found. Please check again. Creating a default QuestionOrderedInfoList");
             return OrderedTaskGenerator.createDefaultQuestionOrderedInfoList(questionPool, true);
         }
+        //shouldn't ever get here
+        return null;
     }
 
     public static void overwriteCohortDatastoreFile(JSONCohortDatastore cohortDatastore) throws IOException {
