@@ -16,17 +16,32 @@ public class CohortRecord {
     private final String taskGeneratorType;
     private final List<String> studentIDs;
     private final String messageGeneratorType;
+    private final QuestionPool questionPool;
+    private final String questionOrderedInfoFilename;
 
     public CohortRecord() {
         this.taskGeneratorType = null;
         this.studentIDs = null;
         this.messageGeneratorType = null;
+        this.questionPool = null;
+        this.questionOrderedInfoFilename = null;
     }
 
-    public CohortRecord(String taskGeneratorType, List<String> studentIDs, String messageGeneratorType){
+    public CohortRecord(String taskGeneratorType, List<String> studentIDs, String messageGeneratorType, QuestionPool questionPool){
         this.taskGeneratorType = taskGeneratorType;
         this.studentIDs = studentIDs;
         this.messageGeneratorType = messageGeneratorType;
+        this.questionPool = questionPool;
+        this.questionOrderedInfoFilename = null;
+    }
+
+    //this constructor should only be used for OrderedTaskGenerator; questionOrderedInfoFilename is not used by other TaskGenerators
+    public CohortRecord(String taskGeneratorType, List<String> studentIDs, String messageGeneratorType, QuestionPool questionPool, String questionOrderedInfoFilename){
+        this.taskGeneratorType = taskGeneratorType;
+        this.studentIDs = studentIDs;
+        this.messageGeneratorType = messageGeneratorType;
+        this.questionPool = questionPool;
+        this.questionOrderedInfoFilename = questionOrderedInfoFilename;
     }
 
     public String getTaskGeneratorType() {
@@ -37,6 +52,12 @@ public class CohortRecord {
         return studentIDs;
     }
     public String getMessageGeneratorType(){ return messageGeneratorType; }
+    public QuestionPool getQuestionPool(){
+        return questionPool;
+    }
+    public String getQuestionOrderedInfoFilename() {
+        return questionOrderedInfoFilename;
+    }
 
     @Override
     public boolean equals(Object otherObj){
@@ -48,9 +69,18 @@ public class CohortRecord {
         }
         CohortRecord other = (CohortRecord) otherObj;
         assert this.messageGeneratorType != null;
-        if (!this.messageGeneratorType.equals(other.getMessageGeneratorType())) return false;
+        if (!this.messageGeneratorType.equals(other.messageGeneratorType)) return false;
         assert this.taskGeneratorType != null;
-        return this.taskGeneratorType.equals(other.taskGeneratorType) && this.studentIDs.equals(other.studentIDs);
+        if (!this.taskGeneratorType.equals(other.taskGeneratorType)) return false;
+        assert this.questionPool != null;
+        if (!this.questionPool.equals(other.questionPool)) return false;
+        if (this.questionOrderedInfoFilename != null){
+            if (!this.questionOrderedInfoFilename.equals(other.questionOrderedInfoFilename)){
+                return false;
+            }
+        }
+        assert this.studentIDs != null;
+        return this.studentIDs.equals(other.studentIDs);
     }
 
     public static CohortRecord makeCohortRecordFromCohort(Cohort cohortIn){
@@ -62,114 +92,110 @@ public class CohortRecord {
 
             if (taskGenerator instanceof RandomTaskGenerator) {
                 if (messageGenerator instanceof SilentMessageGenerator){
-                    return new CohortRecord("RandomTaskGenerator", cohortIn.getStudentIDs(), "SilentMessageGenerator");
+                    return new CohortRecord("RandomTaskGenerator", cohortIn.getStudentIDs(), "SilentMessageGenerator", cohortIn.getQuestionPool());
                 }
                 else if (messageGenerator instanceof LevelMessageGenerator){
-                    return new CohortRecord("RandomTaskGenerator", cohortIn.getStudentIDs(), "LevelMessageGenerator");
+                    return new CohortRecord("RandomTaskGenerator", cohortIn.getStudentIDs(), "LevelMessageGenerator", cohortIn.getQuestionPool());
                 }
                 else if (messageGenerator instanceof LevelMessageGeneratorAttachment){
-                    return new CohortRecord("RandomTaskGenerator", cohortIn.getStudentIDs(), "LevelMessageGeneratorAttachment");
+                    return new CohortRecord("RandomTaskGenerator", cohortIn.getStudentIDs(), "LevelMessageGeneratorAttachment", cohortIn.getQuestionPool());
                 }
             } else if (taskGenerator instanceof OrderedTaskGenerator) {
                 if (messageGenerator instanceof SilentMessageGenerator){
-                    return new CohortRecord("OrderedTaskGenerator", cohortIn.getStudentIDs(), "SilentMessageGenerator");
+                    return new CohortRecord("OrderedTaskGenerator", cohortIn.getStudentIDs(), "SilentMessageGenerator", cohortIn.getQuestionPool(), cohortIn.getQuestionOrderedInfoFilename());
                 }
                 else if (messageGenerator instanceof LevelMessageGenerator){
-                    return new CohortRecord("OrderedTaskGenerator", cohortIn.getStudentIDs(), "LevelMessageGenerator");
+                    return new CohortRecord("OrderedTaskGenerator", cohortIn.getStudentIDs(), "LevelMessageGenerator", cohortIn.getQuestionPool(), cohortIn.getQuestionOrderedInfoFilename());
                 }
                 else if (messageGenerator instanceof LevelMessageGeneratorAttachment){
-                    return new CohortRecord("OrderedTaskGenerator", cohortIn.getStudentIDs(), "LevelMessageGeneratorAttachment");
+                    return new CohortRecord("OrderedTaskGenerator", cohortIn.getStudentIDs(), "LevelMessageGeneratorAttachment", cohortIn.getQuestionPool());
                 }
             } else if (taskGenerator instanceof LevelTaskGenerator) {
                 if (messageGenerator instanceof SilentMessageGenerator){
-                    return new CohortRecord("LevelTaskGenerator", cohortIn.getStudentIDs(), "SilentMessageGenerator");
+                    return new CohortRecord("LevelTaskGenerator", cohortIn.getStudentIDs(), "SilentMessageGenerator", cohortIn.getQuestionPool());
                 }
                 else if (messageGenerator instanceof LevelMessageGenerator){
-                    return new CohortRecord("LevelTaskGenerator", cohortIn.getStudentIDs(), "LevelMessageGenerator");
+                    return new CohortRecord("LevelTaskGenerator", cohortIn.getStudentIDs(), "LevelMessageGenerator", cohortIn.getQuestionPool());
                 }
                 else if (messageGenerator instanceof LevelMessageGeneratorAttachment){
-                    return new CohortRecord("LevelTaskGenerator", cohortIn.getStudentIDs(), "LevelMessageGeneratorAttachment");
+                    return new CohortRecord("LevelTaskGenerator", cohortIn.getStudentIDs(), "LevelMessageGeneratorAttachment", cohortIn.getQuestionPool());
                 }
             }
             else if (taskGenerator instanceof LevelTaskGeneratorAttachment) {
                 if (messageGenerator instanceof SilentMessageGenerator){
-                    return new CohortRecord("LevelTaskGeneratorAttachment", cohortIn.getStudentIDs(), "SilentMessageGenerator");
+                    return new CohortRecord("LevelTaskGeneratorAttachment", cohortIn.getStudentIDs(), "SilentMessageGenerator", cohortIn.getQuestionPool());
                 }
                 else if (messageGenerator instanceof LevelMessageGenerator){
-                    return new CohortRecord("LevelTaskGeneratorAttachment", cohortIn.getStudentIDs(), "LevelMessageGenerator");
+                    return new CohortRecord("LevelTaskGeneratorAttachment", cohortIn.getStudentIDs(), "LevelMessageGenerator", cohortIn.getQuestionPool());
                 }
                 else if (messageGenerator instanceof LevelMessageGeneratorAttachment){
-                    return new CohortRecord("LevelTaskGeneratorAttachment", cohortIn.getStudentIDs(), "LevelMessageGeneratorAttachment");
+                    return new CohortRecord("LevelTaskGeneratorAttachment", cohortIn.getStudentIDs(), "LevelMessageGeneratorAttachment", cohortIn.getQuestionPool());
                 }
             }
         }
         return null;
     }
 
-    public static Cohort makeCohortFromCohortRecord(CohortRecord cohortRecordIn) throws IOException {
+    public static Cohort makeCohortFromCohortRecord(CohortRecord cohortRecordIn) {
         String taskGeneratorType = cohortRecordIn.getTaskGeneratorType();
         String messageGeneratorType = cohortRecordIn.getMessageGeneratorType();
 
         switch (taskGeneratorType) {
             case "RandomTaskGenerator":
                 if (messageGeneratorType.equals("SilentMessageGenerator")){
-                    return new Cohort(new RandomTaskGenerator(), cohortRecordIn.getStudentIDs(), new SilentMessageGenerator());
+                    return new Cohort(new RandomTaskGenerator(), cohortRecordIn.getStudentIDs(), new SilentMessageGenerator(), cohortRecordIn.getQuestionPool());
                 }
                 else if (messageGeneratorType.equals("LevelMessageGenerator")){
-                    return new Cohort(new RandomTaskGenerator(), cohortRecordIn.getStudentIDs(), new LevelMessageGenerator());
-                }
-                else if (messageGeneratorType.equals("LevelMessageGeneratorAttachment")){
-                    return new Cohort(new RandomTaskGenerator(), cohortRecordIn.getStudentIDs(), new LevelMessageGeneratorAttachment());
+                    return new Cohort(new RandomTaskGenerator(), cohortRecordIn.getStudentIDs(), new LevelMessageGenerator(), cohortRecordIn.getQuestionPool());
                 }
 
+                else if (messageGeneratorType.equals("LevelMessageGeneratorAttachment")){
+                    return new Cohort(new RandomTaskGenerator(), cohortRecordIn.getStudentIDs(), new LevelMessageGeneratorAttachment(), cohortRecordIn.getQuestionPool());
+                }
+                break;
             case "OrderedTaskGenerator":
-                JsonIoUtil reader = new JsonIoUtil(new JsonIoHelperDefault());
-                QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
-                List<QuestionOrderedInfo> defaultQuestionOrderedInfoList = reader.listFromFile("src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoList.json", QuestionOrderedInfo.class);
+                List<QuestionOrderedInfo> forOTG = createQuestionOrderedInfoList(cohortRecordIn.getQuestionOrderedInfoFilename(), cohortRecordIn.getQuestionPool());
                 if (messageGeneratorType.equals("SilentMessageGenerator")){
-                    return new Cohort(new OrderedTaskGenerator(questionPool, defaultQuestionOrderedInfoList), cohortRecordIn.getStudentIDs(), new SilentMessageGenerator());
+                    return new Cohort(new OrderedTaskGenerator(cohortRecordIn.getQuestionPool(), forOTG), cohortRecordIn.getStudentIDs(), new SilentMessageGenerator(), cohortRecordIn.getQuestionPool(), cohortRecordIn.getQuestionOrderedInfoFilename());
                 }
                 else if (messageGeneratorType.equals("LevelMessageGenerator")){
-                    return new Cohort(new OrderedTaskGenerator(questionPool, defaultQuestionOrderedInfoList), cohortRecordIn.getStudentIDs(), new LevelMessageGenerator());
+                    return new Cohort(new OrderedTaskGenerator(cohortRecordIn.getQuestionPool(), forOTG), cohortRecordIn.getStudentIDs(), new LevelMessageGenerator(), cohortRecordIn.getQuestionPool(), cohortRecordIn.getQuestionOrderedInfoFilename());
                 }
                 else if (messageGeneratorType.equals("LevelMessageGeneratorAttachment")){
-                    return new Cohort(new OrderedTaskGenerator(questionPool, defaultQuestionOrderedInfoList), cohortRecordIn.getStudentIDs(), new LevelMessageGeneratorAttachment());
+                    return new Cohort(new OrderedTaskGenerator(cohortRecordIn.getQuestionPool(), forOTG), cohortRecordIn.getStudentIDs(), new LevelMessageGeneratorAttachment(), cohortRecordIn.getQuestionPool());
                 }
+                break;
             case "LevelTaskGenerator":
                 if (messageGeneratorType.equals("SilentMessageGenerator")){
-                    return new Cohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), cohortRecordIn.getStudentIDs(), new SilentMessageGenerator());
+                    return new Cohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), cohortRecordIn.getStudentIDs(), new SilentMessageGenerator(), cohortRecordIn.getQuestionPool());
                 }
                 else if (messageGeneratorType.equals("LevelMessageGenerator")){
-                    return new Cohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), cohortRecordIn.getStudentIDs(), new LevelMessageGenerator());
+                    return new Cohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), cohortRecordIn.getStudentIDs(), new LevelMessageGenerator(), cohortRecordIn.getQuestionPool());
                 }
                 else if (messageGeneratorType.equals("LevelMessageGeneratorAttachment")){
-                    return new Cohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), cohortRecordIn.getStudentIDs(), new LevelMessageGeneratorAttachment());
+                    return new Cohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), cohortRecordIn.getStudentIDs(), new LevelMessageGeneratorAttachment(), cohortRecordIn.getQuestionPool());
                 }
+                break;
             case "LevelTaskGeneratorAttachment":
                 if (messageGeneratorType.equals("SilentMessageGenerator")){
-                    return new Cohort(new LevelTaskGeneratorAttachment(EquineQuestionTypes.makeLevelToTypesMap()), cohortRecordIn.getStudentIDs(), new SilentMessageGenerator());
+                    return new Cohort(new LevelTaskGeneratorAttachment(EquineQuestionTypes.makeLevelToTypesMap()), cohortRecordIn.getStudentIDs(), new SilentMessageGenerator(), cohortRecordIn.getQuestionPool());
                 }
                 else if (messageGeneratorType.equals("LevelMessageGenerator")){
-                    return new Cohort(new LevelTaskGeneratorAttachment(EquineQuestionTypes.makeLevelToTypesMap()), cohortRecordIn.getStudentIDs(), new LevelMessageGenerator());
+                    return new Cohort(new LevelTaskGeneratorAttachment(EquineQuestionTypes.makeLevelToTypesMap()), cohortRecordIn.getStudentIDs(), new LevelMessageGenerator(), cohortRecordIn.getQuestionPool());
                 }
                 else if (messageGeneratorType.equals("LevelMessageGeneratorAttachment")){
-                    return new Cohort(new LevelTaskGeneratorAttachment(EquineQuestionTypes.makeLevelToTypesMap()), cohortRecordIn.getStudentIDs(), new LevelMessageGeneratorAttachment());
+                    return new Cohort(new LevelTaskGeneratorAttachment(EquineQuestionTypes.makeLevelToTypesMap()), cohortRecordIn.getStudentIDs(), new LevelMessageGeneratorAttachment(), cohortRecordIn.getQuestionPool());
                 }
+                break;
         }
         return null;
     }
 
-    public static JSONCohortDatastore makeCohortDatastoreFromCohortRecords(List<CohortRecord> cohortRecordsList) throws IOException {
-        JsonIoUtil reader = new JsonIoUtil(new JsonIoHelperDefault());
-        //TODO the next two lines change if test or production
-        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/main/resources/author/defaultQuestionPool.json").getAllQuestions());
-        List<QuestionOrderedInfo> defaultQuestionOrderedInfoList = reader.listFromFile("src/main/resources/author/orderedQuestionInfo/currentOrderedQuestionInfoList.json", QuestionOrderedInfo.class);
-//        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
-//        List<QuestionOrderedInfo> defaultQuestionOrderedInfoList = reader.listFromFile("src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoList.json", QuestionOrderedInfo.class);
+    public static JSONCohortDatastore makeCohortDatastoreFromCohortRecords(List<CohortRecord> cohortRecordsList, String cohortDatastoreFilename) {
+        JSONCohortDatastore toReturn = new JSONCohortDatastore(cohortDatastoreFilename, CohortRecord.makeCohortFromCohortRecord(cohortRecordsList.get(0)));
 
-        JSONCohortDatastore toReturn = new JSONCohortDatastore();
-
-        for (CohortRecord cohortRecord : cohortRecordsList) {
+        for (int i = 1; i < cohortRecordsList.size(); i++) {
+            CohortRecord cohortRecord = cohortRecordsList.get(i);
             String taskGeneratorType = cohortRecord.getTaskGeneratorType();
             String messageGeneratorType = cohortRecord.getMessageGeneratorType();
             List<String> studentIDs = cohortRecord.getStudentIDs();
@@ -177,46 +203,47 @@ public class CohortRecord {
             switch (taskGeneratorType) {
                 case "RandomTaskGenerator":
                     if (messageGeneratorType.equals("SilentMessageGenerator")){
-                        toReturn.addCohort(new RandomTaskGenerator(), studentIDs, new SilentMessageGenerator());
+                        toReturn.addCohort(new RandomTaskGenerator(), studentIDs, new SilentMessageGenerator(), cohortRecord.getQuestionPool());
                     }
                     else if (messageGeneratorType.equals("LevelMessageGenerator")){
-                        toReturn.addCohort(new RandomTaskGenerator(), studentIDs, new LevelMessageGenerator());
+                        toReturn.addCohort(new RandomTaskGenerator(), studentIDs, new LevelMessageGenerator(), cohortRecord.getQuestionPool());
                     }
                     else if (messageGeneratorType.equals("LevelMessageGeneratorAttachment")){
-                        toReturn.addCohort(new RandomTaskGenerator(), studentIDs, new LevelMessageGeneratorAttachment());
+                        toReturn.addCohort(new RandomTaskGenerator(), studentIDs, new LevelMessageGeneratorAttachment(), cohortRecord.getQuestionPool());
                     }
                     break;
                 case "OrderedTaskGenerator":
+                    List<QuestionOrderedInfo> forOTG = createQuestionOrderedInfoList(cohortRecord.getQuestionOrderedInfoFilename(), cohortRecord.getQuestionPool());
                     if (messageGeneratorType.equals("SilentMessageGenerator")){
-                        toReturn.addCohort(new OrderedTaskGenerator(questionPool, defaultQuestionOrderedInfoList), studentIDs, new SilentMessageGenerator());
+                        toReturn.addCohort(new OrderedTaskGenerator(cohortRecord.getQuestionPool(), forOTG), studentIDs, new SilentMessageGenerator(), cohortRecord.getQuestionPool(), cohortRecord.getQuestionOrderedInfoFilename());
                     }
                     else if (messageGeneratorType.equals("LevelMessageGenerator")){
-                        toReturn.addCohort(new OrderedTaskGenerator(questionPool, defaultQuestionOrderedInfoList), studentIDs, new LevelMessageGenerator());
+                        toReturn.addCohort(new OrderedTaskGenerator(cohortRecord.getQuestionPool(), forOTG), studentIDs, new LevelMessageGenerator(), cohortRecord.getQuestionPool(), cohortRecord.getQuestionOrderedInfoFilename());
                     }
                     else if (messageGeneratorType.equals("LevelMessageGeneratorAttachment")){
-                        toReturn.addCohort(new OrderedTaskGenerator(questionPool, defaultQuestionOrderedInfoList), studentIDs, new LevelMessageGeneratorAttachment());
+                        toReturn.addCohort(new OrderedTaskGenerator(cohortRecord.getQuestionPool(), forOTG), studentIDs, new LevelMessageGeneratorAttachment(), cohortRecord.getQuestionPool());
                     }
                     break;
                 case "LevelTaskGenerator":
                     if (messageGeneratorType.equals("SilentMessageGenerator")){
-                        toReturn.addCohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), studentIDs, new SilentMessageGenerator());
+                        toReturn.addCohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), studentIDs, new SilentMessageGenerator(), cohortRecord.getQuestionPool());
                     }
                     else if (messageGeneratorType.equals("LevelMessageGenerator")){
-                        toReturn.addCohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), studentIDs, new LevelMessageGenerator());
+                        toReturn.addCohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), studentIDs, new LevelMessageGenerator(), cohortRecord.getQuestionPool());
                     }
                     else if (messageGeneratorType.equals("LevelMessageGeneratorAttachment")){
-                        toReturn.addCohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), studentIDs, new LevelMessageGeneratorAttachment());
+                        toReturn.addCohort(new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()), studentIDs, new LevelMessageGeneratorAttachment(), cohortRecord.getQuestionPool());
                     }
                     break;
                 case "LevelTaskGeneratorAttachment":
                     if (messageGeneratorType.equals("SilentMessageGenerator")){
-                        toReturn.addCohort(new LevelTaskGeneratorAttachment(EquineQuestionTypes.makeLevelToTypesMap()), studentIDs, new SilentMessageGenerator());
+                        toReturn.addCohort(new LevelTaskGeneratorAttachment(EquineQuestionTypes.makeLevelToTypesMap()), studentIDs, new SilentMessageGenerator(), cohortRecord.getQuestionPool());
                     }
                     else if (messageGeneratorType.equals("LevelMessageGenerator")){
-                        toReturn.addCohort(new LevelTaskGeneratorAttachment(EquineQuestionTypes.makeLevelToTypesMap()), studentIDs, new LevelMessageGenerator());
+                        toReturn.addCohort(new LevelTaskGeneratorAttachment(EquineQuestionTypes.makeLevelToTypesMap()), studentIDs, new LevelMessageGenerator(), cohortRecord.getQuestionPool());
                     }
                     else if (messageGeneratorType.equals("LevelMessageGeneratorAttachment")){
-                        toReturn.addCohort(new LevelTaskGeneratorAttachment(EquineQuestionTypes.makeLevelToTypesMap()), studentIDs, new LevelMessageGeneratorAttachment());
+                        toReturn.addCohort(new LevelTaskGeneratorAttachment(EquineQuestionTypes.makeLevelToTypesMap()), studentIDs, new LevelMessageGeneratorAttachment(), cohortRecord.getQuestionPool());
                     }
                     break;
             }
@@ -231,5 +258,23 @@ public class CohortRecord {
             toReturn.add(CohortRecord.makeCohortRecordFromCohort(cohort));
         }
         return toReturn;
+    }
+
+    public static List<QuestionOrderedInfo> createQuestionOrderedInfoList(String questionOrderedListFilename, QuestionPool questionPool){
+        // if filename exists, create from file
+        try {
+            JsonIoUtil jsonIoUtil = new JsonIoUtil(new JsonIoHelperDefault());
+            return jsonIoUtil.listFromFile(questionOrderedListFilename, QuestionOrderedInfo.class);
+        } catch (IOException | NullPointerException e) {
+            //else go to default method
+            System.out.println("Filename passed into OrderedTaskGenerator not found. Please check again. Creating a default QuestionOrderedInfoList");
+            return OrderedTaskGenerator.createDefaultQuestionOrderedInfoList(questionPool, true);
+        }
+    }
+
+    public static void overwriteCohortDatastoreFile(JSONCohortDatastore cohortDatastore) throws IOException {
+        JsonIoUtil jsonIoUtil = new JsonIoUtil(new JsonIoHelperDefault());
+        List<CohortRecord> toWrite = CohortRecord.makeCohortRecordsFromCohortDatastore(cohortDatastore);
+        jsonIoUtil.toFile(cohortDatastore.getCohortDatastoreFilename(), toWrite);
     }
 }
