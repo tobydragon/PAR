@@ -63,15 +63,15 @@ public class ParStudentAndAuthorServer {
         studentModelDatastore.submitImageTaskResponse(userId, response, idealQuestionCountPerTypeForAnalysis);
         TaskGenerator tg = cohortDatastore.getTaskGeneratorFromStudentID(userId);
         if (tg instanceof LevelTaskGeneratorAttachment){
-            int level = LevelTaskGenerator.calcLevel(studentModelDatastore.getStudentModel(response.getUserId()).calcKnowledgeEstimateByType(idealQuestionCountPerTypeForAnalysis));
+            int level = LevelTaskGeneratorAttachment.calcLevel(studentModelDatastore.getStudentModel(response.getUserId()).calcKnowledgeEstimateByType(idealQuestionCountPerTypeForAnalysis));
             if (level < 1 || level > 5){
-                throw new IllegalArgumentException("Invalid previousLevel");
+                throw new IllegalArgumentException("Invalid level calculated");
             }
             studentModelDatastore.getStudentModel(response.getUserId()).setCurrentLevel(level);
         } else{
             int level = LevelTaskGenerator.calcLevel(studentModelDatastore.getStudentModel(response.getUserId()).calcKnowledgeEstimateByType(idealQuestionCountPerTypeForAnalysis));
             if (level < 1 || level > 8){
-                throw new IllegalArgumentException("Invalid previousLevel");
+                throw new IllegalArgumentException("Invalid level calculated");
             }
             studentModelDatastore.getStudentModel(response.getUserId()).setCurrentLevel(level);
         }
