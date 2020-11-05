@@ -283,8 +283,10 @@ class ParStudentAndAuthorServerTest {
 
         JsonIoHelper jsonIoHelper = new JsonIoHelperDefault();
         JsonIoUtil jsonIoUtil = new JsonIoUtil(jsonIoHelper);
-        List<CohortRecord> cohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/CohortRecordsToFromJsonTest.json", CohortRecord.class);
+
+        List<CohortRecord> cohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/CohortServerTest.json", CohortRecord.class);
         JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords, testCohortDatastoreFilename);
+
         ParStudentAndAuthorServer server = new ParStudentAndAuthorServer(jsonStudentDatastore, null, jsonCohortDatastore);
 
         StudentModel student = jsonStudentDatastore.getOrCreateStudentModel("masteredStudent");
@@ -302,7 +304,7 @@ class ParStudentAndAuthorServerTest {
         String message = server.getMessage(student.getUserId(), it);
         assertEquals("You have mastered the material, feel free to keep practicing", message);
 
-        //not level 7, no message to display
+        //not level 4, no message to display
         StudentModel student2 = jsonStudentDatastore.getOrCreateStudentModel("buckmank");
         ImageTask it2 = server.nextImageTask(student2.getUserId());
         student2.setPreviousLevel(4);
