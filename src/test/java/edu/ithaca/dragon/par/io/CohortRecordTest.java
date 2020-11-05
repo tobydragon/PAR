@@ -287,10 +287,11 @@ public class CohortRecordTest {
     //generate CohortDatastore JSON file for production code
     public static void main(String[] args) throws IOException {
         QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/main/resources/author/defaultQuestionPool.json").getAllQuestions());
+        QuestionPool questionPoolSmall = new QuestionPool(new JsonQuestionPoolDatastore("src/main/resources/author/defaultQuestionPoolSmall.json").getAllQuestions());
         List<CohortRecord> toFile = new ArrayList<>();
 
         //default cohort
-        toFile.add(new CohortRecord("LevelTaskGenerator", new ArrayList<>(), "LevelMessageGenerator", questionPool));
+        toFile.add(new CohortRecord("LevelTaskGeneratorAttachment", new ArrayList<>(), "LevelMessageGeneratorAttachment", questionPool));
 
         List<String> levelStudentIDs = new ArrayList<>();
         levelStudentIDs.add("testStudent1");
@@ -302,20 +303,20 @@ public class CohortRecordTest {
         orderedStudentIDs.add("testStudent4");
         orderedStudentIDs.add("testStudent5");
         orderedStudentIDs.add("testStudent6");
-        toFile.add(new CohortRecord("OrderedTaskGenerator", orderedStudentIDs, "SilentMessageGenerator", questionPool, "src/main/resources/author/orderedQuestionInfoList/currentOrderedQuestionInfoList.json"));
+        toFile.add(new CohortRecord("OrderedTaskGenerator", orderedStudentIDs, "SilentMessageGenerator", questionPool, "src/main/resources/author/orderedQuestionInfo/currentOrderedQuestionInfoListSmall.json"));
+
+        orderedStudentIDs = new ArrayList<>();
+        orderedStudentIDs.add("testStudent7");
+        orderedStudentIDs.add("testStudent8");
+        orderedStudentIDs.add("testStudent9");
+        toFile.add(new CohortRecord("OrderedTaskGenerator", orderedStudentIDs, "SilentMessageGenerator", questionPoolSmall, "src/main/resources/author/orderedQuestionInfo/currentOrderedQuestionInfoList.json"));
+
 
         List<String> randomStudentIDs = new ArrayList<>();
-        randomStudentIDs.add("testStudent7");
-        randomStudentIDs.add("testStudent8");
-        randomStudentIDs.add("testStudent9");
+        randomStudentIDs.add("testStudent10");
+        randomStudentIDs.add("testStudent11");
+        randomStudentIDs.add("testStudent12");
         toFile.add(new CohortRecord("RandomTaskGenerator", randomStudentIDs, "SilentMessageGenerator", questionPool));
-
-
-        List<String> attachStudentIDs = new ArrayList<>();
-        attachStudentIDs.add("testStudent10");
-        attachStudentIDs.add("testStudent11");
-        attachStudentIDs.add("testStudent12");
-        toFile.add(new CohortRecord("LevelTaskGeneratorAttachment", attachStudentIDs, "LevelMessageGeneratorAttachment", questionPool));
 
         JsonIoHelper jsonIoHelper = new JsonIoHelperDefault();
         JsonIoUtil jsonIoUtil = new JsonIoUtil(jsonIoHelper);
