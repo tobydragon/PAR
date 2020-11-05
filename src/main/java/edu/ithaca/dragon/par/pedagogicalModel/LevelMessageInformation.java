@@ -19,9 +19,6 @@ public class LevelMessageInformation {
     }
 
     public void setPreviousLevel(int levelIn) {
-        if (levelIn < 1 || levelIn > 8){
-            throw new IllegalArgumentException("Invalid previousLevel");
-        }
         this.previousLevel = levelIn;
     }
     public int getCurrentLevel() {
@@ -29,9 +26,6 @@ public class LevelMessageInformation {
     }
 
     public void setCurrentLevel(int levelIn) {
-        if (levelIn < 1 || levelIn > 8){
-            throw new IllegalArgumentException("Invalid previousLevel");
-        }
         this.currentLevel = levelIn;
     }
 }

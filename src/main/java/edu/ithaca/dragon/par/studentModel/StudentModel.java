@@ -38,6 +38,8 @@ public class StudentModel {
         userResponseSet.addAllResponses(createUserResponseObj(imageTaskResponses,questions,this.userId));
         setPreviousLevel(levelMessageInformation.getCurrentLevel());
         setCurrentLevel(LevelTaskGenerator.calcLevel(calcKnowledgeEstimateByType(questionCountPerTypeForAnalysis)));
+
+        //TODO: currentLevel is updated in server, will this ever be called besides through the server?
     }
 
     public static List<ResponsesPerQuestion> createUserResponseObj(ImageTaskResponseOOP imageTaskResponses, QuestionPool questions, String userId){

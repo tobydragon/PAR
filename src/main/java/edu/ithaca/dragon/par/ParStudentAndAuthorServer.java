@@ -58,8 +58,24 @@ public class ParStudentAndAuthorServer {
         return cohortDatastore.getMessageGeneratorFromStudentID(userId).generateMessage(studentModelDatastore.getStudentModel(userId), it);
     }
 
-    public void submitImageTaskResponse( ImageTaskResponseOOP response) throws IOException {
-            studentModelDatastore.submitImageTaskResponse(response.getUserId(), response, idealQuestionCountPerTypeForAnalysis);
+    public void submitImageTaskResponse( ImageTaskResponseOOP response) throws IOException, IllegalArgumentException {
+        String userId = response.getUserId();
+        studentModelDatastore.submitImageTaskResponse(userId, response, idealQuestionCountPerTypeForAnalysis);
+        TaskGenerator tg = cohortDatastore.getTaskGeneratorFromStudentID(userId);
+        if (tg instanceof LevelTaskGeneratorAttachment){
+            int level = LevelTaskGenerator.calcLevel(studentModelDatastore.getStudentModel(response.getUserId()).calcKnowledgeEstimateByType(idealQuestionCountPerTypeForAnalysis));
+            if (level < 1 || level > 5){
+                throw new IllegalArgumentException("Invalid previousLevel");
+            }
+            studentModelDatastore.getStudentModel(response.getUserId()).setCurrentLevel(level);
+        } else{
+            int level = LevelTaskGenerator.calcLevel(studentModelDatastore.getStudentModel(response.getUserId()).calcKnowledgeEstimateByType(idealQuestionCountPerTypeForAnalysis));
+            if (level < 1 || level > 8){
+                throw new IllegalArgumentException("Invalid previousLevel");
+            }
+            studentModelDatastore.getStudentModel(response.getUserId()).setCurrentLevel(level);
+        }
+
     }
 
     public void logout(String userId) throws IOException{

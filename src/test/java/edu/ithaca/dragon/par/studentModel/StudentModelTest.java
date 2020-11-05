@@ -7,6 +7,7 @@ import edu.ithaca.dragon.par.io.ImageTaskResponseOOP;
 import edu.ithaca.dragon.par.io.JsonQuestionPoolDatastore;
 import edu.ithaca.dragon.par.io.StudentData;
 import edu.ithaca.dragon.par.io.StudentModelRecord;
+import edu.ithaca.dragon.par.pedagogicalModel.LevelTaskGenerator;
 import edu.ithaca.dragon.util.DataUtil;
 import edu.ithaca.dragon.util.JsonUtil;
 import org.junit.jupiter.api.AfterEach;
@@ -86,6 +87,7 @@ public class StudentModelTest {
         assertEquals(15, studentModel.getResponseCount());
         assertEquals(15, studentModel.countTotalResponsesFromUserResponseSet());
         assertEquals( 1, studentModel.getPreviousLevel());
+        studentModel.setCurrentLevel(LevelTaskGenerator.calcLevel(studentModel.calcKnowledgeEstimateByType(4)));
         assertEquals( 4, studentModel.getCurrentLevel());
 
         // submit 15 new responses to the 15 questions that have already been responded to
@@ -93,6 +95,7 @@ public class StudentModelTest {
         assertEquals(15, studentModel.getResponseCount());
         assertEquals(30, studentModel.countTotalResponsesFromUserResponseSet());
         assertEquals(4, studentModel.getPreviousLevel());
+        studentModel.setCurrentLevel(LevelTaskGenerator.calcLevel(studentModel.calcKnowledgeEstimateByType(4)));
         assertEquals( 1, studentModel.getCurrentLevel());
     }
     @Test
@@ -172,22 +175,6 @@ public class StudentModelTest {
         studentModel.setPreviousLevel(5);
         assertEquals(5, studentModel.getPreviousLevel());
 
-        //invalid set- too high
-        assertThrows(IllegalArgumentException.class, ()-> studentModel.setPreviousLevel(19));
-        assertEquals(5, studentModel.getPreviousLevel());
-
-        //invalid set- too high (border)
-        assertThrows(IllegalArgumentException.class, ()-> studentModel.setPreviousLevel(9));
-        assertEquals(5, studentModel.getPreviousLevel());
-
-        //invalid set- too low
-        assertThrows(IllegalArgumentException.class, ()-> studentModel.setPreviousLevel(-3));
-        assertEquals(5, studentModel.getPreviousLevel());
-
-        //invalid set- too low (border)
-        assertThrows(IllegalArgumentException.class, ()-> studentModel.setPreviousLevel(0));
-        assertEquals(5, studentModel.getPreviousLevel());
-
         //set again
         studentModel.setPreviousLevel(6);
         assertEquals(6, studentModel.getPreviousLevel());
@@ -212,22 +199,6 @@ public class StudentModelTest {
 
         //set once
         studentModel.setCurrentLevel(5);
-        assertEquals(5, studentModel.getCurrentLevel());
-
-        //invalid set- too high
-        assertThrows(IllegalArgumentException.class, ()-> studentModel.setCurrentLevel(19));
-        assertEquals(5, studentModel.getCurrentLevel());
-
-        //invalid set- too high (border)
-        assertThrows(IllegalArgumentException.class, ()-> studentModel.setCurrentLevel(9));
-        assertEquals(5, studentModel.getCurrentLevel());
-
-        //invalid set- too low
-        assertThrows(IllegalArgumentException.class, ()-> studentModel.setCurrentLevel(-3));
-        assertEquals(5, studentModel.getCurrentLevel());
-
-        //invalid set- too low (border)
-        assertThrows(IllegalArgumentException.class, ()-> studentModel.setCurrentLevel(0));
         assertEquals(5, studentModel.getCurrentLevel());
 
         //set again
