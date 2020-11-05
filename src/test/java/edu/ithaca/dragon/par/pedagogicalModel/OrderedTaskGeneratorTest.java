@@ -1,14 +1,16 @@
 package edu.ithaca.dragon.par.pedagogicalModel;
 
-import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionOrderedInfo;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
+import edu.ithaca.dragon.par.io.CohortRecord;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.JsonQuestionPoolDatastore;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.util.JsonIoHelperDefault;
 import edu.ithaca.dragon.util.JsonIoUtil;
 import org.junit.jupiter.api.Test;
+import org.mockito.internal.matchers.Or;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
@@ -55,6 +57,10 @@ public class OrderedTaskGeneratorTest {
         assertNotEquals(test1List, test2List);
     }
 
+    @Test
+
+
+
     //main:
     //take in file name to Question Pool, then use static method to create List<QuestionOrderedInfo> (creates default)
         //eventually if hasFollowUpQuestions should not be necessary; (needs default value)
@@ -63,7 +69,7 @@ public class OrderedTaskGeneratorTest {
     public static void main(String[] args) throws IOException {
         QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("localData/currentQuestionPool.json").getAllQuestions());
 //        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
-        List<QuestionOrderedInfo> orderedInfoList = OrderedTaskGenerator.createOrderedQuestionInfoListFromQuestionPool(questionPool, true);
+        List<QuestionOrderedInfo> orderedInfoList = OrderedTaskGenerator.createDefaultQuestionOrderedInfoList(questionPool, true);
         JsonIoUtil writer = new JsonIoUtil(new JsonIoHelperDefault());
         writer.toFile("src/main/resources/author/orderedQuestionInfo/currentOrderedQuestionInfoList.json", orderedInfoList);
     }

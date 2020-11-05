@@ -184,4 +184,16 @@ public class LevelTaskGenerator implements TaskGenerator {
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof LevelTaskGenerator)) return false;
+        LevelTaskGenerator that = (LevelTaskGenerator) o;
+        return Objects.equals(levelToTypesMap, that.levelToTypesMap);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(levelToTypesMap);
+    }
 }

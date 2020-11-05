@@ -1,12 +1,9 @@
 package edu.ithaca.dragon.par.io;
 
 import edu.ithaca.dragon.par.cohortModel.Cohort;
-import edu.ithaca.dragon.par.domainModel.QuestionOrderedInfo;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.pedagogicalModel.*;
-import edu.ithaca.dragon.util.JsonIoHelperDefault;
-import edu.ithaca.dragon.util.JsonIoUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,10 +14,23 @@ import java.util.Map;
 public class JSONCohortDatastore implements CohortDatastore {
     private final Map<String, Cohort> cohortMap;
     private final List<Cohort> masterCohortList;
+    private final Cohort defaultCohort;
+    private final String cohortDatastoreFilename;
 
-    public JSONCohortDatastore(){
+    public JSONCohortDatastore(String filenameIn, Cohort defaultCohort){
         this.cohortMap = new HashMap<>();
         this.masterCohortList = new ArrayList<>();
+        this.defaultCohort = defaultCohort;
+        this.cohortDatastoreFilename = filenameIn;
+
+        this.masterCohortList.add(this.defaultCohort);
+        for(int i = 0; i < this.defaultCohort.getStudentIDs().size(); i++){
+            this.cohortMap.put(this.defaultCohort.getStudentIDs().get(i), this.defaultCohort);
+        }
+    }
+
+    public Cohort getDefaultCohort() {
+        return masterCohortList.get(0);
     }
 
     @Override
@@ -36,8 +46,24 @@ public class JSONCohortDatastore implements CohortDatastore {
         return masterCohortList;
     }
 
-    public void addCohort(TaskGenerator taskGenerator, List<String> studentIDs, MessageGenerator messageGenerator){
-        Cohort toAdd = new Cohort(taskGenerator, studentIDs, messageGenerator);
+    @Override
+    public String getCohortDatastoreFilename() {
+        return cohortDatastoreFilename;
+    }
+
+    public boolean isStudentIDInDatastore(String studentID){ return this.cohortMap.containsKey(studentID);}
+
+    public void addCohort(TaskGenerator taskGenerator, List<String> studentIDs, MessageGenerator messageGenerator, QuestionPool questionPool){
+        Cohort toAdd = new Cohort(taskGenerator, studentIDs, messageGenerator, questionPool);
+        masterCohortList.add(toAdd);
+
+        for (String studentID : studentIDs) {
+            cohortMap.put(studentID, masterCohortList.get(masterCohortList.size() - 1));
+        }
+    }
+
+    public void addCohort(OrderedTaskGenerator taskGenerator, List<String> studentIDs, MessageGenerator messageGenerator, QuestionPool questionPool, String questionOrderedInfoFilename){
+        Cohort toAdd = new Cohort(taskGenerator, studentIDs, messageGenerator, questionPool, questionOrderedInfoFilename);
         masterCohortList.add(toAdd);
 
         for (String studentID : studentIDs) {
@@ -46,9 +72,12 @@ public class JSONCohortDatastore implements CohortDatastore {
     }
 
     @Override
-    public TaskGenerator getTaskGeneratorFromStudentID(String studentIDIn){
+    public TaskGenerator getTaskGeneratorFromStudentID(String studentIDIn) throws IOException {
         if (!cohortMap.containsKey(studentIDIn)){
-            return null;
+            this.defaultCohort.addStudent(studentIDIn);
+            this.cohortMap.put(studentIDIn, this.defaultCohort);
+            CohortRecord.overwriteCohortDatastoreFile(this);
+            return this.defaultCohort.getTaskGenerator();
         } else {
             Cohort cohortOfStudent = cohortMap.get(studentIDIn);
             return cohortOfStudent.getTaskGenerator();
@@ -56,9 +85,12 @@ public class JSONCohortDatastore implements CohortDatastore {
     }
 
     @Override
-    public MessageGenerator getMessageGeneratorFromStudentID(String studentIDIn) {
+    public MessageGenerator getMessageGeneratorFromStudentID(String studentIDIn) throws IOException {
         if (!cohortMap.containsKey(studentIDIn)){
-            return null;
+            this.defaultCohort.addStudent(studentIDIn);
+            this.cohortMap.put(studentIDIn, this.defaultCohort);
+            CohortRecord.overwriteCohortDatastoreFile(this);
+            return this.defaultCohort.getMessageGenerator();
         } else {
             Cohort cohortOfStudent = cohortMap.get(studentIDIn);
             return cohortOfStudent.getMessageGenerator();
