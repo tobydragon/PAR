@@ -1,7 +1,7 @@
 [ {
-  "taskGeneratorType" : "LevelTaskGeneratorAttachment",
-  "studentIDs" : [ "josephbiden", "kamalaHarris" ],
-  "messageGeneratorType" : "LevelMessageGeneratorAttachment",
+  "taskGeneratorType" : "levelTaskGeneratorAttachment",
+  "studentIDs" : [ ],
+  "messageGeneratorType" : "levelMessageGeneratorAttachment",
   "questionPool" : {
     "allQuestions" : [ {
       "id" : "614-plane-./images/3CTransverse.jpg",
@@ -1975,9 +1975,9 @@
   },
   "questionOrderedInfoFilename" : null
 }, {
-  "taskGeneratorType" : "LevelTaskGenerator",
+  "taskGeneratorType" : "levelTaskGenerator",
   "studentIDs" : [ "testStudent1", "testStudent2", "testStudent3" ],
-  "messageGeneratorType" : "LevelMessageGenerator",
+  "messageGeneratorType" : "levelMessageGenerator",
   "questionPool" : {
     "allQuestions" : [ {
       "id" : "614-plane-./images/3CTransverse.jpg",
@@ -3951,9 +3951,9 @@
   },
   "questionOrderedInfoFilename" : null
 }, {
-  "taskGeneratorType" : "OrderedTaskGenerator",
+  "taskGeneratorType" : "orderedTaskGenerator",
   "studentIDs" : [ "testStudent4", "testStudent5", "testStudent6" ],
-  "messageGeneratorType" : "SilentMessageGenerator",
+  "messageGeneratorType" : "silentMessageGenerator",
   "questionPool" : {
     "allQuestions" : [ {
       "id" : "614-plane-./images/3CTransverse.jpg",
@@ -5927,9 +5927,9 @@
   },
   "questionOrderedInfoFilename" : "src/main/resources/author/orderedQuestionInfo/currentOrderedQuestionInfoListSmall.json"
 }, {
-  "taskGeneratorType" : "OrderedTaskGenerator",
+  "taskGeneratorType" : "orderedTaskGenerator",
   "studentIDs" : [ "testStudent7", "testStudent8", "testStudent9" ],
-  "messageGeneratorType" : "SilentMessageGenerator",
+  "messageGeneratorType" : "silentMessageGenerator",
   "questionPool" : {
     "allQuestions" : [ {
       "id" : "682-structure3-./images/ExtraAnnotated1ATrans.jpg",
@@ -6007,9 +6007,9 @@
   },
   "questionOrderedInfoFilename" : "src/main/resources/author/orderedQuestionInfo/currentOrderedQuestionInfoList.json"
 }, {
-  "taskGeneratorType" : "RandomTaskGenerator",
+  "taskGeneratorType" : "randomTaskGenerator",
   "studentIDs" : [ "testStudent10", "testStudent11", "testStudent12" ],
-  "messageGeneratorType" : "SilentMessageGenerator",
+  "messageGeneratorType" : "silentMessageGenerator",
   "questionPool" : {
     "allQuestions" : [ {
       "id" : "614-plane-./images/3CTransverse.jpg",
