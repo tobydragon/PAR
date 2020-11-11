@@ -1,6 +1,6 @@
 [ {
   "taskGeneratorType" : "LevelTaskGeneratorAttachment",
-  "studentIDs" : [ "josephbiden", "kamalaHarris" ],
+  "studentIDs" : [ "josephbiden", "kamalaHarris", "josephBiden" ],
   "messageGeneratorType" : "LevelMessageGeneratorAttachment",
   "questionPool" : {
     "allQuestions" : [ {

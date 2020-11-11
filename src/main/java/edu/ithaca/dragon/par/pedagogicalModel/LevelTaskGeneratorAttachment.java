@@ -22,9 +22,6 @@ public class LevelTaskGeneratorAttachment implements TaskGenerator {
     public ImageTask makeTask(StudentModel studentModel, int questionCountPerTypeForAnalysis) {
         int studentLevel = calcLevel(studentModel.calcKnowledgeEstimateByType(questionCountPerTypeForAnalysis));
         ImageTask im = makeTaskGivenLevel(studentModel, levelToTypesMap.get(studentLevel), studentLevel);
-        if(studentLevel==7){
-            im.setMessage("You have mastered the material! Feel free to keep practicing");
-        }
         return im;
     }
 

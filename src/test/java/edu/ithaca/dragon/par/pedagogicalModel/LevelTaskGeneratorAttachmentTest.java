@@ -346,29 +346,6 @@ public class LevelTaskGeneratorAttachmentTest {
     }
 
     @Test
-    public void taskMessageTest() throws IOException{
-
-        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
-
-        StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
-        StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
-
-        TaskGenerator taskGenerator = new LevelTaskGeneratorAttachment(EquineQuestionTypes.makeLevelToTypesMap());
-
-        masteredStudentModel.setPreviousLevel(8);
-        masteredStudentModel.setCurrentLevel(7);
-        ImageTask it = taskGenerator.makeTask(masteredStudentModel, 4);
-        assertEquals("None", it.getMessage());
-
-
-        StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/notMasteredStudent.json", StudentModelRecord.class);
-        StudentModel badStudentModel = smr2.buildStudentModel(myQP);
-
-        ImageTask it2 = taskGenerator.makeTask(badStudentModel, 4);
-        assertEquals("None", it2.getMessage());
-    }
-
-    @Test
     public void pickLeastSeenParentQuestionTest() throws IOException{
         TaskGenerator taskGenerator = new LevelTaskGeneratorAttachment(EquineQuestionTypes.makeLevelToTypesMap());
         StudentModelDatastore studentModelDatastore = new JsonStudentModelDatastore("src/test/resources/author/testFullQP.json", "src/test/resources/author/students");

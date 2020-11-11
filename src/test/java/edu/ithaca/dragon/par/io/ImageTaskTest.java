@@ -38,31 +38,4 @@ public class ImageTaskTest {
         Assertions.assertTrue(Files.deleteIfExists(path));
 
     }
-
-    @Test
-    public void changeMessageTest() throws IOException{
-        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/SampleQuestionPool.json").getAllQuestions());
-        List<Question> myQPList = myQP.getAllQuestions();
-        ImageTask testImageTask = new ImageTask("../static/images/equine02.jpg\"", myQPList, "None");
-
-        assertEquals("None", testImageTask.getMessage());
-
-        //change message
-        testImageTask.changeMessage("You have mastered the material! Feel free to keep practicing");
-        assertEquals("You have mastered the material! Feel free to keep practicing", testImageTask.getMessage());
-
-        //change to the same thing
-        testImageTask.changeMessage("You have mastered the material! Feel free to keep practicing");
-        assertEquals("You have mastered the material! Feel free to keep practicing", testImageTask.getMessage());
-
-
-        //change to the something different
-        testImageTask.changeMessage("asdfghjkl");
-        assertEquals("asdfghjkl", testImageTask.getMessage());
-
-        //change back to original
-        testImageTask.changeMessage("None");
-        assertEquals("None", testImageTask.getMessage());
-
-    }
 }
