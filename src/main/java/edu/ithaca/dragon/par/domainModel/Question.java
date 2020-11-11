@@ -4,6 +4,7 @@ import edu.ithaca.dragon.util.DataUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Question {
 
@@ -83,10 +84,10 @@ public class Question {
             return false;
         }
         Question other = (Question) otherObj;
-        if (!DataUtil.objectEqualsIncludingNull(this.getQuestionText(), other.getQuestionText())) {
+        if (!Objects.equals(this.getQuestionText(), other.getQuestionText())) {
             return false;
         }
-        if (!DataUtil.objectEqualsIncludingNull(this.getCorrectAnswer(), other.getCorrectAnswer())) {
+        if (!Objects.equals(this.getCorrectAnswer(), other.getCorrectAnswer())) {
             return false;
         }
         return this.getId().equals(other.getId())
