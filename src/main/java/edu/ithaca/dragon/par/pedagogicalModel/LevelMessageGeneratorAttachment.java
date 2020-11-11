@@ -30,30 +30,28 @@ public class LevelMessageGeneratorAttachment implements MessageGenerator{
         if (currentLevel < 1) {
             return message;
         }
+        //mastered student message
+        if (currentLevel == 6) {
+            message = level6Message(studentModel, imageTask);
+        }
         else {
+            //down level
+            //if the student has just decreased in level, this will set the appropriate message.
+            message = decreaseLevelMessage(studentModel);
 
-            //mastered student message
-            if (currentLevel == 6) {
-                message = level6Message(studentModel, imageTask);
-            } else {
-                //down level
-                //if the student has just decreased in level, this will set the appropriate message.
-                message = decreaseLevelMessage(studentModel);
-
-                //up level
-                if (message == null) {
-                    message = increaseLevelMessage(studentModel);
-                }
-
-                //stayed on same level, not mastered
-                if (message == null) {
-                    message = repeatLevelMessage(studentModel, imageTask);
-                }
-
+            //up level
+            if (message == null) {
+                message = increaseLevelMessage(studentModel);
             }
-            return message;
+
+            //stayed on same level, not mastered
+            if (message == null) {
+                message = repeatLevelMessage(studentModel, imageTask);
+            }
 
         }
+        return message;
+
     }
 
     public static String decreaseLevelMessage(StudentModel studentModel){

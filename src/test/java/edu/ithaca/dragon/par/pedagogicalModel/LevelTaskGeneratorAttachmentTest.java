@@ -334,10 +334,10 @@ public class LevelTaskGeneratorAttachmentTest {
         questionList = LevelTaskGeneratorAttachment.filterQuestions(5, questionList);
         assertEquals(27, questionList.size());
 
-        //structure, attachment, and zone only
+        //structure, attachment only
         questionList = questionPool.getAllQuestions();
         questionList = LevelTaskGeneratorAttachment.filterQuestions(6, questionList);
-        assertEquals(37, questionList.size());
+        assertEquals(27, questionList.size());
 
         //zone only
         questionList = questionPool.getAllQuestions();

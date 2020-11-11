@@ -22,10 +22,7 @@ public class LevelTaskGeneratorAttachment implements TaskGenerator {
     public ImageTask makeTask(StudentModel studentModel, int questionCountPerTypeForAnalysis) {
         int studentLevel = calcLevel(studentModel.calcKnowledgeEstimateByType(questionCountPerTypeForAnalysis));
         List<String> levelTypes = levelToTypesMap.get(studentLevel);
-        if (studentLevel == 6){
-            levelTypes.remove("zone");
-        }
-        ImageTask im = makeTaskGivenLevel(studentModel, levelToTypesMap.get(studentLevel), studentLevel);
+        ImageTask im = makeTaskGivenLevel(studentModel, levelTypes, studentLevel);
         return im;
     }
 
@@ -135,7 +132,7 @@ public class LevelTaskGeneratorAttachment implements TaskGenerator {
         if(level < 4 || level > 6){
             questionList = removeTypeFromQuestionList(questionList, EquineQuestionTypes.attachment.toString());
         }
-        if(level < 6){
+        if(level <= 6){
             questionList = removeTypeFromQuestionList(questionList,  EquineQuestionTypes.zone.toString());
         }
         return questionList;
