@@ -16,13 +16,4 @@ public class DataUtil {
         DecimalFormat df = new DecimalFormat("####0.000");
         return df.format(toFormat);
     }
-
-    public static boolean objectEqualsIncludingNull(Object thing1, Object thing2){
-        if (thing1 == null){
-            return thing2 == null;
-        }
-        else {
-            return thing1.equals(thing2);
-        }
-    }
 }
