@@ -181,16 +181,16 @@ public class CohortDatastoreTest {
         assertEquals(TaskGeneratorType.randomTaskGenerator, cohortRecords.get(1).getTaskGeneratorType());
         assertEquals(studentIDs1, cohortRecords.get(1).getStudentIDs());
         assertEquals(questionPool, cohortRecords.get(1).getQuestionPool());
-        assertEquals("SilentMessageGenerator", cohortRecords.get(1).getMessageGeneratorType());
+        assertEquals(MessageGeneratorType.silentMessageGenerator, cohortRecords.get(1).getMessageGeneratorType());
 
         assertEquals(TaskGeneratorType.levelTaskGenerator, cohortRecords.get(2).getTaskGeneratorType());
         assertEquals(studentIDs2, cohortRecords.get(2).getStudentIDs());
         assertEquals(questionPool, cohortRecords.get(2).getQuestionPool());
-        assertEquals("LevelMessageGenerator", cohortRecords.get(2).getMessageGeneratorType());
+        assertEquals(MessageGeneratorType.levelMessageGenerator, cohortRecords.get(2).getMessageGeneratorType());
 
         assertEquals(TaskGeneratorType.orderedTaskGenerator, cohortRecords.get(3).getTaskGeneratorType());
         assertEquals(studentIDs3, cohortRecords.get(3).getStudentIDs());
         assertEquals(questionPool, cohortRecords.get(3).getQuestionPool());
-        assertEquals("SilentMessageGenerator", cohortRecords.get(3).getMessageGeneratorType());
+        assertEquals(MessageGeneratorType.silentMessageGenerator, cohortRecords.get(3).getMessageGeneratorType());
     }
 }

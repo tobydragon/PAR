@@ -1,7 +1,7 @@
 [ {
   "taskGeneratorType" : "randomTaskGenerator",
   "studentIDs" : [ ],
-  "messageGeneratorType" : "SilentMessageGenerator",
+  "messageGeneratorType" : "silentMessageGenerator",
   "questionPool" : {
     "allQuestions" : [ {
       "id" : "plane./images/demoEquine14.jpg",
@@ -513,7 +513,7 @@
 }, {
   "taskGeneratorType" : "levelTaskGenerator",
   "studentIDs" : [ "testStudent1", "testStudent2", "testStudent3", "masteredStudent", "buckmank", "s2", "s1", "testUser111" ],
-  "messageGeneratorType" : "LevelMessageGenerator",
+  "messageGeneratorType" : "levelMessageGenerator",
   "questionPool" : {
     "allQuestions" : [ {
       "id" : "plane./images/demoEquine14.jpg",
@@ -1025,7 +1025,7 @@
 }, {
   "taskGeneratorType" : "levelTaskGeneratorAttachment",
   "studentIDs" : [ "testStudent1", "testStudent2", "testStudent3", "masteredStudent", "buckmank", "s2", "s1", "testUser111" ],
-  "messageGeneratorType" : "LevelMessageGeneratorAttachment",
+  "messageGeneratorType" : "levelMessageGeneratorAttachment",
   "questionPool" : {
     "allQuestions" : [ {
       "id" : "plane./images/demoEquine14.jpg",
@@ -1537,7 +1537,7 @@
 }, {
   "taskGeneratorType" : "orderedTaskGenerator",
   "studentIDs" : [ "testStudent4", "testStudent5", "testStudent6" ],
-  "messageGeneratorType" : "SilentMessageGenerator",
+  "messageGeneratorType" : "silentMessageGenerator",
   "questionPool" : {
     "allQuestions" : [ {
       "id" : "plane./images/demoEquine14.jpg",
@@ -2049,7 +2049,7 @@
 }, {
   "taskGeneratorType" : "randomTaskGenerator",
   "studentIDs" : [ "testStudent7", "testStudent8", "testStudent9" ],
-  "messageGeneratorType" : "SilentMessageGenerator",
+  "messageGeneratorType" : "silentMessageGenerator",
   "questionPool" : {
     "allQuestions" : [ {
       "id" : "plane./images/demoEquine14.jpg",
