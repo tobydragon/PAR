@@ -1,5 +1,5 @@
 [ {
-  "taskGeneratorType" : "RandomTaskGenerator",
+  "taskGeneratorType" : "randomTaskGenerator",
   "studentIDs" : [ "s3" ],
   "messageGeneratorType" : "SilentMessageGenerator",
   "questionPool" : {
@@ -511,7 +511,7 @@
   },
   "questionOrderedInfoFilename" : null
 }, {
-  "taskGeneratorType" : "LevelTaskGenerator",
+  "taskGeneratorType" : "levelTaskGenerator",
   "studentIDs" : [ "testStudent1", "testStudent2", "testStudent3", "masteredStudent", "buckmank", "s2", "s1", "testUser111" ],
   "messageGeneratorType" : "LevelMessageGenerator",
   "questionPool" : {
@@ -1023,7 +1023,7 @@
   },
   "questionOrderedInfoFilename" : null
 }, {
-  "taskGeneratorType" : "LevelTaskGeneratorAttachment",
+  "taskGeneratorType" : "levelTaskGeneratorAttachment",
   "studentIDs" : [ "testStudent1", "testStudent2", "testStudent3", "masteredStudent", "buckmank", "s2", "s1", "testUser111" ],
   "messageGeneratorType" : "LevelMessageGeneratorAttachment",
   "questionPool" : {
@@ -1535,7 +1535,7 @@
   },
   "questionOrderedInfoFilename" : null
 }, {
-  "taskGeneratorType" : "OrderedTaskGenerator",
+  "taskGeneratorType" : "orderedTaskGenerator",
   "studentIDs" : [ "testStudent4", "testStudent5", "testStudent6" ],
   "messageGeneratorType" : "SilentMessageGenerator",
   "questionPool" : {
@@ -2047,7 +2047,7 @@
   },
   "questionOrderedInfoFilename" : "src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoListTest1.json"
 }, {
-  "taskGeneratorType" : "RandomTaskGenerator",
+  "taskGeneratorType" : "randomTaskGenerator",
   "studentIDs" : [ "testStudent7", "testStudent8", "testStudent9" ],
   "messageGeneratorType" : "SilentMessageGenerator",
   "questionPool" : {

@@ -1,5 +1,5 @@
 [ {
-  "taskGeneratorType" : "LevelTaskGenerator",
+  "taskGeneratorType" : "levelTaskGenerator",
   "studentIDs" : [ ],
   "messageGeneratorType" : "LevelMessageGenerator",
   "questionPool" : {
@@ -511,7 +511,7 @@
   },
   "questionOrderedInfoFilename" : null
 }, {
-  "taskGeneratorType" : "RandomTaskGenerator",
+  "taskGeneratorType" : "randomTaskGenerator",
   "studentIDs" : [ "testStudent1", "testStudent2", "testStudent3" ],
   "messageGeneratorType" : "SilentMessageGenerator",
   "questionPool" : {
@@ -1023,7 +1023,7 @@
   },
   "questionOrderedInfoFilename" : null
 }, {
-  "taskGeneratorType" : "OrderedTaskGenerator",
+  "taskGeneratorType" : "orderedTaskGenerator",
   "studentIDs" : [ "testStudent4", "testStudent5", "testStudent6" ],
   "messageGeneratorType" : "SilentMessageGenerator",
   "questionPool" : {
@@ -1535,7 +1535,7 @@
   },
   "questionOrderedInfoFilename" : "src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoList.json"
 }, {
-  "taskGeneratorType" : "LevelTaskGenerator",
+  "taskGeneratorType" : "levelTaskGenerator",
   "studentIDs" : [ "testStudent7", "testStudent8", "testStudent9" ],
   "messageGeneratorType" : "LevelMessageGenerator",
   "questionPool" : {

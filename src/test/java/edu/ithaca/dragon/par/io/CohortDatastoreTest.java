@@ -168,7 +168,7 @@ public class CohortDatastoreTest {
         cohortDatastore.addCohort(new RandomTaskGenerator(), studentIDs1, new SilentMessageGenerator(), questionPool);
         cohortRecords = CohortRecord.makeCohortRecordsFromCohortDatastore(cohortDatastore);
         assertEquals(2, cohortRecords.size());
-        assertEquals("RandomTaskGenerator", cohortRecords.get(1).getTaskGeneratorType());
+        assertEquals(TaskGeneratorType.randomTaskGenerator, cohortRecords.get(1).getTaskGeneratorType());
         assertEquals(studentIDs1, cohortRecords.get(1).getStudentIDs());
         assertEquals(questionPool, cohortRecords.get(1).getQuestionPool());
 
@@ -178,17 +178,17 @@ public class CohortDatastoreTest {
         cohortRecords = CohortRecord.makeCohortRecordsFromCohortDatastore(cohortDatastore);
         assertEquals(4, cohortRecords.size());
 
-        assertEquals("RandomTaskGenerator", cohortRecords.get(1).getTaskGeneratorType());
+        assertEquals(TaskGeneratorType.randomTaskGenerator, cohortRecords.get(1).getTaskGeneratorType());
         assertEquals(studentIDs1, cohortRecords.get(1).getStudentIDs());
         assertEquals(questionPool, cohortRecords.get(1).getQuestionPool());
         assertEquals("SilentMessageGenerator", cohortRecords.get(1).getMessageGeneratorType());
 
-        assertEquals("LevelTaskGenerator", cohortRecords.get(2).getTaskGeneratorType());
+        assertEquals(TaskGeneratorType.levelTaskGenerator, cohortRecords.get(2).getTaskGeneratorType());
         assertEquals(studentIDs2, cohortRecords.get(2).getStudentIDs());
         assertEquals(questionPool, cohortRecords.get(2).getQuestionPool());
         assertEquals("LevelMessageGenerator", cohortRecords.get(2).getMessageGeneratorType());
 
-        assertEquals("OrderedTaskGenerator", cohortRecords.get(3).getTaskGeneratorType());
+        assertEquals(TaskGeneratorType.orderedTaskGenerator, cohortRecords.get(3).getTaskGeneratorType());
         assertEquals(studentIDs3, cohortRecords.get(3).getStudentIDs());
         assertEquals(questionPool, cohortRecords.get(3).getQuestionPool());
         assertEquals("SilentMessageGenerator", cohortRecords.get(3).getMessageGeneratorType());

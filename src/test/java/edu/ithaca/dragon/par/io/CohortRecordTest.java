@@ -9,6 +9,8 @@ import edu.ithaca.dragon.util.JsonIoHelper;
 import edu.ithaca.dragon.util.JsonIoHelperDefault;
 import edu.ithaca.dragon.util.JsonIoUtil;
 import org.junit.jupiter.api.Test;
+import org.springframework.core.task.TaskRejectedException;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +28,7 @@ public class CohortRecordTest {
         testStudents.add("testStudent3");
 
         //empty student list
-        CohortRecord emptyCohortRecord = new CohortRecord("RandomTaskGenerator", new ArrayList<>(), "SilentMessageGenerator", questionPool);
+        CohortRecord emptyCohortRecord = new CohortRecord(TaskGeneratorType.randomTaskGenerator, new ArrayList<>(), "SilentMessageGenerator", questionPool);
         Cohort cohort = CohortRecord.makeCohortFromCohortRecord(emptyCohortRecord);
         assert cohort != null;
         assertTrue(cohort.getTaskGenerator() instanceof RandomTaskGenerator);
@@ -35,7 +37,7 @@ public class CohortRecordTest {
         assertEquals(questionPool, cohort.getQuestionPool());
 
         //level task
-        CohortRecord levelCohortRecord = new CohortRecord("LevelTaskGenerator", testStudents, "LevelMessageGenerator", questionPool);
+        CohortRecord levelCohortRecord = new CohortRecord(TaskGeneratorType.levelTaskGenerator, testStudents, "LevelMessageGenerator", questionPool);
         cohort = CohortRecord.makeCohortFromCohortRecord(levelCohortRecord);
         assert cohort != null;
         assertTrue(cohort.getTaskGenerator() instanceof LevelTaskGenerator);
@@ -44,14 +46,14 @@ public class CohortRecordTest {
         assertEquals(questionPool, cohort.getQuestionPool());
 
         //level attach task
-        CohortRecord lCR = new CohortRecord("LevelTaskGeneratorAttachment", testStudents, "LevelMessageGeneratorAttachment", questionPool);
+        CohortRecord lCR = new CohortRecord(TaskGeneratorType.levelTaskGeneratorAttachment, testStudents, "LevelMessageGeneratorAttachment", questionPool);
         cohort = CohortRecord.makeCohortFromCohortRecord(lCR);
         assert cohort != null;
         assertTrue(cohort.getTaskGenerator() instanceof LevelTaskGeneratorAttachment);
         assertEquals(testStudents, cohort.getStudentIDs());
 
         //ordered task
-        CohortRecord orderedCohortRecord = new CohortRecord("OrderedTaskGenerator", testStudents, "SilentMessageGenerator", questionPool, "src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoList.json");
+        CohortRecord orderedCohortRecord = new CohortRecord(TaskGeneratorType.orderedTaskGenerator, testStudents, "SilentMessageGenerator", questionPool, "src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoList.json");
         cohort = CohortRecord.makeCohortFromCohortRecord(orderedCohortRecord);
         assert cohort != null;
         assertTrue(cohort.getTaskGenerator() instanceof OrderedTaskGenerator);
@@ -60,7 +62,7 @@ public class CohortRecordTest {
         assertEquals(questionPool, cohort.getQuestionPool());
 
         //random task
-        CohortRecord randomCohortRecord = new CohortRecord("RandomTaskGenerator", testStudents, "SilentMessageGenerator", questionPool);
+        CohortRecord randomCohortRecord = new CohortRecord(TaskGeneratorType.randomTaskGenerator, testStudents, "SilentMessageGenerator", questionPool);
         cohort = CohortRecord.makeCohortFromCohortRecord(randomCohortRecord);
         assert cohort != null;
         assertTrue(cohort.getTaskGenerator() instanceof RandomTaskGenerator);
@@ -88,7 +90,7 @@ public class CohortRecordTest {
         CohortRecord cohortRecord = CohortRecord.makeCohortRecordFromCohort(emptyCohort);
         assert cohortRecord != null;
         assertEquals(emptyCohort.getStudentIDs(), cohortRecord.getStudentIDs());
-        assertEquals("RandomTaskGenerator", cohortRecord.getTaskGeneratorType());
+        assertEquals(TaskGeneratorType.randomTaskGenerator, cohortRecord.getTaskGeneratorType());
         assertEquals("SilentMessageGenerator", cohortRecord.getMessageGeneratorType());
         assertEquals(questionPool, cohortRecord.getQuestionPool());
 
@@ -97,7 +99,7 @@ public class CohortRecordTest {
         cohortRecord = CohortRecord.makeCohortRecordFromCohort(levelCohort);
         assert cohortRecord != null;
         assertEquals(levelCohort.getStudentIDs(), cohortRecord.getStudentIDs());
-        assertEquals("LevelTaskGenerator", cohortRecord.getTaskGeneratorType());
+        assertEquals(TaskGeneratorType.levelTaskGenerator, cohortRecord.getTaskGeneratorType());
         assertEquals("LevelMessageGenerator", cohortRecord.getMessageGeneratorType());
         assertEquals(questionPool, cohortRecord.getQuestionPool());
 
@@ -106,7 +108,7 @@ public class CohortRecordTest {
         cohortRecord = CohortRecord.makeCohortRecordFromCohort(orderedCohort);
         assert cohortRecord != null;
         assertEquals(orderedCohort.getStudentIDs(), cohortRecord.getStudentIDs());
-        assertEquals("OrderedTaskGenerator", cohortRecord.getTaskGeneratorType());
+        assertEquals(TaskGeneratorType.orderedTaskGenerator, cohortRecord.getTaskGeneratorType());
         assertEquals("SilentMessageGenerator", cohortRecord.getMessageGeneratorType());
         assertEquals(questionPool, cohortRecord.getQuestionPool());
 
@@ -115,7 +117,7 @@ public class CohortRecordTest {
         cohortRecord = CohortRecord.makeCohortRecordFromCohort(randomCohort);
         assert cohortRecord != null;
         assertEquals(randomCohort.getStudentIDs(), cohortRecord.getStudentIDs());
-        assertEquals("RandomTaskGenerator", cohortRecord.getTaskGeneratorType());
+        assertEquals(TaskGeneratorType.randomTaskGenerator, cohortRecord.getTaskGeneratorType());
         assertEquals("SilentMessageGenerator", cohortRecord.getMessageGeneratorType());
         assertEquals(questionPool, cohortRecord.getQuestionPool());
 
@@ -149,19 +151,19 @@ public class CohortRecordTest {
         QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
         List<CohortRecord> originalCohortRecords = new ArrayList<>();
         //empty student list
-        CohortRecord emptyRecord = new CohortRecord("RandomTaskGenerator", new ArrayList<>(), "SilentMessageGenerator", questionPool);
+        CohortRecord emptyRecord = new CohortRecord(TaskGeneratorType.randomTaskGenerator, new ArrayList<>(), "SilentMessageGenerator", questionPool);
         originalCohortRecords.add(emptyRecord);
         //level task
-        CohortRecord levelRecord = new CohortRecord("LevelTaskGenerator", testStudents, "LevelMessageGenerator", questionPool);
+        CohortRecord levelRecord = new CohortRecord(TaskGeneratorType.levelTaskGenerator, testStudents, "LevelMessageGenerator", questionPool);
         originalCohortRecords.add(levelRecord);
         //level attachment task
-        CohortRecord levelARecord = new CohortRecord("LevelTaskGeneratorAttachment", testStudents, "LevelMessageGeneratorAttachment", questionPool);
+        CohortRecord levelARecord = new CohortRecord(TaskGeneratorType.levelTaskGeneratorAttachment, testStudents, "LevelMessageGeneratorAttachment", questionPool);
         originalCohortRecords.add(levelARecord);
         //ordered task
-        CohortRecord orderedRecord = new CohortRecord("OrderedTaskGenerator", testStudents2, "SilentMessageGenerator", questionPool, "src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoListTest1.json");
+        CohortRecord orderedRecord = new CohortRecord(TaskGeneratorType.orderedTaskGenerator, testStudents2, "SilentMessageGenerator", questionPool, "src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoListTest1.json");
         originalCohortRecords.add(orderedRecord);
         //random task
-        CohortRecord randomRecord = new CohortRecord("RandomTaskGenerator", testStudents3, "SilentMessageGenerator", questionPool);
+        CohortRecord randomRecord = new CohortRecord(TaskGeneratorType.randomTaskGenerator, testStudents3, "SilentMessageGenerator", questionPool);
         originalCohortRecords.add(randomRecord);
 
         //write to json
@@ -291,32 +293,32 @@ public class CohortRecordTest {
         List<CohortRecord> toFile = new ArrayList<>();
 
         //default cohort
-        toFile.add(new CohortRecord("LevelTaskGeneratorAttachment", new ArrayList<>(), "LevelMessageGeneratorAttachment", questionPool));
+        toFile.add(new CohortRecord(TaskGeneratorType.levelTaskGeneratorAttachment, new ArrayList<>(), "LevelMessageGeneratorAttachment", questionPool));
 
         List<String> levelStudentIDs = new ArrayList<>();
         levelStudentIDs.add("testStudent1");
         levelStudentIDs.add("testStudent2");
         levelStudentIDs.add("testStudent3");
-        toFile.add(new CohortRecord("LevelTaskGenerator", levelStudentIDs, "LevelMessageGenerator", questionPool));
+        toFile.add(new CohortRecord(TaskGeneratorType.levelTaskGenerator, levelStudentIDs, "LevelMessageGenerator", questionPool));
 
         List<String> orderedStudentIDs = new ArrayList<>();
         orderedStudentIDs.add("testStudent4");
         orderedStudentIDs.add("testStudent5");
         orderedStudentIDs.add("testStudent6");
-        toFile.add(new CohortRecord("OrderedTaskGenerator", orderedStudentIDs, "SilentMessageGenerator", questionPool, "src/main/resources/author/orderedQuestionInfo/currentOrderedQuestionInfoListSmall.json"));
+        toFile.add(new CohortRecord(TaskGeneratorType.orderedTaskGenerator, orderedStudentIDs, "SilentMessageGenerator", questionPool, "src/main/resources/author/orderedQuestionInfo/currentOrderedQuestionInfoListSmall.json"));
 
         orderedStudentIDs = new ArrayList<>();
         orderedStudentIDs.add("testStudent7");
         orderedStudentIDs.add("testStudent8");
         orderedStudentIDs.add("testStudent9");
-        toFile.add(new CohortRecord("OrderedTaskGenerator", orderedStudentIDs, "SilentMessageGenerator", questionPoolSmall, "src/main/resources/author/orderedQuestionInfo/currentOrderedQuestionInfoList.json"));
+        toFile.add(new CohortRecord(TaskGeneratorType.orderedTaskGenerator, orderedStudentIDs, "SilentMessageGenerator", questionPoolSmall, "src/main/resources/author/orderedQuestionInfo/currentOrderedQuestionInfoList.json"));
 
 
         List<String> randomStudentIDs = new ArrayList<>();
         randomStudentIDs.add("testStudent10");
         randomStudentIDs.add("testStudent11");
         randomStudentIDs.add("testStudent12");
-        toFile.add(new CohortRecord("RandomTaskGenerator", randomStudentIDs, "SilentMessageGenerator", questionPool));
+        toFile.add(new CohortRecord(TaskGeneratorType.randomTaskGenerator, randomStudentIDs, "SilentMessageGenerator", questionPool));
 
         JsonIoHelper jsonIoHelper = new JsonIoHelperDefault();
         JsonIoUtil jsonIoUtil = new JsonIoUtil(jsonIoHelper);

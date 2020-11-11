@@ -1,6 +1,6 @@
 [ {
-  "taskGeneratorType" : "LevelTaskGeneratorAttachment",
-  "studentIDs" : [ "josephbiden", "kamalaHarris" ],
+  "taskGeneratorType" : "levelTaskGeneratorAttachment",
+  "studentIDs" : [ ],
   "messageGeneratorType" : "LevelMessageGeneratorAttachment",
   "questionPool" : {
     "allQuestions" : [ {
@@ -1975,7 +1975,7 @@
   },
   "questionOrderedInfoFilename" : null
 }, {
-  "taskGeneratorType" : "LevelTaskGenerator",
+  "taskGeneratorType" : "levelTaskGenerator",
   "studentIDs" : [ "testStudent1", "testStudent2", "testStudent3" ],
   "messageGeneratorType" : "LevelMessageGenerator",
   "questionPool" : {
@@ -3951,7 +3951,7 @@
   },
   "questionOrderedInfoFilename" : null
 }, {
-  "taskGeneratorType" : "OrderedTaskGenerator",
+  "taskGeneratorType" : "orderedTaskGenerator",
   "studentIDs" : [ "testStudent4", "testStudent5", "testStudent6" ],
   "messageGeneratorType" : "SilentMessageGenerator",
   "questionPool" : {
@@ -5927,7 +5927,7 @@
   },
   "questionOrderedInfoFilename" : "src/main/resources/author/orderedQuestionInfo/currentOrderedQuestionInfoListSmall.json"
 }, {
-  "taskGeneratorType" : "OrderedTaskGenerator",
+  "taskGeneratorType" : "orderedTaskGenerator",
   "studentIDs" : [ "testStudent7", "testStudent8", "testStudent9" ],
   "messageGeneratorType" : "SilentMessageGenerator",
   "questionPool" : {
@@ -6007,7 +6007,7 @@
   },
   "questionOrderedInfoFilename" : "src/main/resources/author/orderedQuestionInfo/currentOrderedQuestionInfoList.json"
 }, {
-  "taskGeneratorType" : "RandomTaskGenerator",
+  "taskGeneratorType" : "randomTaskGenerator",
   "studentIDs" : [ "testStudent10", "testStudent11", "testStudent12" ],
   "messageGeneratorType" : "SilentMessageGenerator",
   "questionPool" : {
