@@ -256,7 +256,7 @@ public class LevelTaskGeneratorAttachmentTest {
         m2.put(EquineQuestionTypes.plane.toString(), 100.0);
         m2.put(EquineQuestionTypes.structure.toString(), 100.0);
         m2.put(EquineQuestionTypes.attachment.toString(), 100.0);
-        assertEquals(5, LevelTaskGeneratorAttachment.calcLevel(m2));
+        assertEquals(6, LevelTaskGeneratorAttachment.calcLevel(m2));
 
     }
 

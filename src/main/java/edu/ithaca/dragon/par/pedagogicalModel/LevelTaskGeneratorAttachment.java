@@ -21,6 +21,10 @@ public class LevelTaskGeneratorAttachment implements TaskGenerator {
     @Override
     public ImageTask makeTask(StudentModel studentModel, int questionCountPerTypeForAnalysis) {
         int studentLevel = calcLevel(studentModel.calcKnowledgeEstimateByType(questionCountPerTypeForAnalysis));
+        List<String> levelTypes = levelToTypesMap.get(studentLevel);
+        if (studentLevel == 6){
+            levelTypes.remove("zone");
+        }
         ImageTask im = makeTaskGivenLevel(studentModel, levelToTypesMap.get(studentLevel), studentLevel);
         return im;
     }
@@ -83,8 +87,10 @@ public class LevelTaskGeneratorAttachment implements TaskGenerator {
 
     public static int calcLevel(Map<String, Double> scoresPerType) {
         List<Double> orderedScores = orderedScores(scoresPerType);
-
-        if (orderedScores.get(0) == 100 && orderedScores.get(1) == 100 && orderedScores.get(2) > 50) { //above 50 on attachment
+        if (orderedScores.get(0) == 100 && orderedScores.get(1) == 100 && orderedScores.get(2) == 100) { //100 on all
+            return 6;
+        }
+        else if (orderedScores.get(0) == 100 && orderedScores.get(1) == 100 && orderedScores.get(2) > 50) { //above 50 on attachment
             return 5;
         }
         else if (orderedScores.get(0) == 100 && orderedScores.get(1) == 100) { //100 on structure

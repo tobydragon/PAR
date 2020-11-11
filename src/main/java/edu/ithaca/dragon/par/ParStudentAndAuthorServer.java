@@ -64,7 +64,7 @@ public class ParStudentAndAuthorServer {
         TaskGenerator tg = cohortDatastore.getTaskGeneratorFromStudentID(userId);
         if (tg instanceof LevelTaskGeneratorAttachment){
             int level = LevelTaskGeneratorAttachment.calcLevel(studentModelDatastore.getStudentModel(response.getUserId()).calcKnowledgeEstimateByType(idealQuestionCountPerTypeForAnalysis));
-            if (level < 1 || level > 5){
+            if (level < 1 || level > 6){
                 throw new IllegalArgumentException("Invalid level calculated");
             }
             studentModelDatastore.getStudentModel(response.getUserId()).setCurrentLevel(level);
