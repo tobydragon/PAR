@@ -21,10 +21,8 @@ public class LevelTaskGeneratorAttachment implements TaskGenerator {
     @Override
     public ImageTask makeTask(StudentModel studentModel, int questionCountPerTypeForAnalysis) {
         int studentLevel = calcLevel(studentModel.calcKnowledgeEstimateByType(questionCountPerTypeForAnalysis));
-        ImageTask im = makeTaskGivenLevel(studentModel, levelToTypesMap.get(studentLevel), studentLevel);
-        if(studentLevel==7){
-            im.setMessage("You have mastered the material! Feel free to keep practicing");
-        }
+        List<String> levelTypes = levelToTypesMap.get(studentLevel);
+        ImageTask im = makeTaskGivenLevel(studentModel, levelTypes, studentLevel);
         return im;
     }
 
@@ -86,8 +84,10 @@ public class LevelTaskGeneratorAttachment implements TaskGenerator {
 
     public static int calcLevel(Map<String, Double> scoresPerType) {
         List<Double> orderedScores = orderedScores(scoresPerType);
-
-        if (orderedScores.get(0) == 100 && orderedScores.get(1) == 100 && orderedScores.get(2) > 50) { //above 50 on attachment
+        if (orderedScores.get(0) == 100 && orderedScores.get(1) == 100 && orderedScores.get(2) == 100) { //100 on all
+            return 6;
+        }
+        else if (orderedScores.get(0) == 100 && orderedScores.get(1) == 100 && orderedScores.get(2) > 50) { //above 50 on attachment
             return 5;
         }
         else if (orderedScores.get(0) == 100 && orderedScores.get(1) == 100) { //100 on structure
@@ -132,7 +132,7 @@ public class LevelTaskGeneratorAttachment implements TaskGenerator {
         if(level < 4 || level > 6){
             questionList = removeTypeFromQuestionList(questionList, EquineQuestionTypes.attachment.toString());
         }
-        if(level < 6){
+        if(level <= 6){
             questionList = removeTypeFromQuestionList(questionList,  EquineQuestionTypes.zone.toString());
         }
         return questionList;
