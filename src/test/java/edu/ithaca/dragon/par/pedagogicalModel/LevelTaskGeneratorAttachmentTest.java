@@ -111,6 +111,10 @@ public class LevelTaskGeneratorAttachmentTest {
 
         assertEquals(1, task1.getTaskQuestions().size());
 
+        for(Question currQ: task1.getTaskQuestions()) {
+            studentModel.increaseTimesSeen(currQ.getId());
+        }
+
         //make a new imageTask and check aspects of it
         ImageTask task2 = taskGenerator.makeTask(studentModel, 4);
         assertEquals("./images/demoEquine02.jpg", task2.getImageUrl());
@@ -132,6 +136,10 @@ public class LevelTaskGeneratorAttachmentTest {
         ImageTask task1 = new ImageTask(task1Question.getImageUrl(), Arrays.asList(task1Question), "None");
         assertEquals("./images/demoEquine04.jpg", task1.getImageUrl());
         assertEquals(1, task1.getTaskQuestions().size());
+
+        for(Question currQ: task1.getTaskQuestions()) {
+            studentModel.increaseTimesSeen(currQ.getId());
+        }
 
         //make a new imageTask and check aspects of it
         Question task2Question = LevelTaskGeneratorAttachment.leastSeenQuestionWithTypesNeeded(Arrays.asList(EquineQuestionTypes.plane.toString()),studentModel);
@@ -356,6 +364,9 @@ public class LevelTaskGeneratorAttachmentTest {
         assertEquals("./images/metacarpal42.jpg", it.getImageUrl()); //If it isn't working, it would get metacarpal56
         assertEquals("341-structure0-./images/metacarpal42.jpg", it.getTaskQuestions().get(0).getId());
 
+        for(Question currQ: it.getTaskQuestions()) {
+            followupTestUser.increaseTimesSeen(currQ.getId());
+        }
         ImageTask it2 = taskGenerator.makeTask(followupTestUser, 4);
         assertEquals("./images/metacarpal41.jpg",it2.getImageUrl());
         assertEquals("369-structure0-./images/metacarpal41.jpg", it2.getTaskQuestions().get(0).getId());

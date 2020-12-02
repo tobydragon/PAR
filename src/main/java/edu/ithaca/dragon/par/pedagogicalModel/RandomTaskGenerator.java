@@ -15,8 +15,6 @@ public class RandomTaskGenerator implements TaskGenerator {
         Question initialQuestion= questionsToSelect.get(new Random().nextInt(questionsToSelect.size()));
         List<Question> questionList = QuestionPool.getTopLevelQuestionsFromUrl(studentModel.getUserQuestionSet().getAllQuestions(), initialQuestion.getImageUrl());
         ImageTask imageTask = new ImageTask(initialQuestion.getImageUrl(), questionList, "None");
-
-        studentModel.getUserQuestionSet().increaseTimesSeenAllQuestions(questionList);
         return imageTask;
     }
 }

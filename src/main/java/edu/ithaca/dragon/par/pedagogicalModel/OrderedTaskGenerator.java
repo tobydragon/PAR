@@ -63,7 +63,6 @@ public class OrderedTaskGenerator implements TaskGenerator {
         }
         addToTask.add(topQuestion);
         ImageTask imageTask = new ImageTask(topQuestion.getImageUrl(), addToTask, "None");
-        studentModel.getUserQuestionSet().increaseTimesSeenAllQuestions(addToTask);
         if(this.lastQuestionAskedIndex == questionOrderedInfoList.size() - 1){
             this.lastQuestionAskedIndex = 0;
         } else {
