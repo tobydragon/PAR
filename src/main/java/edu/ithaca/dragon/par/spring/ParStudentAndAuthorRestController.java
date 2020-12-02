@@ -84,7 +84,7 @@ public class ParStudentAndAuthorRestController {
     @GetMapping("/getImageTask")
     public ImageTask getImageTask(@RequestParam String userId) throws IOException {
         logger.info("nextImageTask for:" + userId);
-        ImageTask imageTask = parServer.nextImageTask(userId);
+        ImageTask imageTask = parServer.getImageTask(userId);
         String message = parServer.getMessage(userId, imageTask);
         logger.info("Responding with:" + JsonUtil.toJsonString(imageTask));
         logger.info("message: " + message);

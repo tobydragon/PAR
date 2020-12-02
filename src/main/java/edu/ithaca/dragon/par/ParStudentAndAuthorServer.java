@@ -44,12 +44,13 @@ public class ParStudentAndAuthorServer {
         } else{
             imageTask = cohortDatastore.getTaskGeneratorFromStudentID(userId).makeTask(studentModelDatastore.getStudentModel(userId), studentModelDatastore.getMinQuestionCountPerType());
         }
-        TaskGenerator tg = cohortDatastore.getTaskGeneratorFromStudentID(userId);
-        if (tg instanceof LevelTaskGeneratorAttachment){
-            LevelTaskGeneratorAttachment.calcLevel(studentModelDatastore.getStudentModel(userId).calcKnowledgeEstimateByType(idealQuestionCountPerTypeForAnalysis));
-        } else{
-            LevelTaskGenerator.calcLevel(studentModelDatastore.getStudentModel(userId).calcKnowledgeEstimateByType(idealQuestionCountPerTypeForAnalysis));
-        }
+        //TODO: is this important? It looks unnecessary
+//        TaskGenerator tg = cohortDatastore.getTaskGeneratorFromStudentID(userId);
+//        if (tg instanceof LevelTaskGeneratorAttachment){
+//            LevelTaskGeneratorAttachment.calcLevel(studentModelDatastore.getStudentModel(userId).calcKnowledgeEstimateByType(idealQuestionCountPerTypeForAnalysis));
+//        } else{
+//            LevelTaskGenerator.calcLevel(studentModelDatastore.getStudentModel(userId).calcKnowledgeEstimateByType(idealQuestionCountPerTypeForAnalysis));
+//        }
         studentModelDatastore.increaseTimesSeen(userId, imageTask.getTaskQuestions());
         return imageTask;
     }
@@ -60,12 +61,6 @@ public class ParStudentAndAuthorServer {
             imageTask = cohortDatastore.getTaskGeneratorFromStudentID(userId).makeTask(studentModelDatastore.getStudentModel(userId), idealQuestionCountPerTypeForAnalysis);
         } else{
             imageTask = cohortDatastore.getTaskGeneratorFromStudentID(userId).makeTask(studentModelDatastore.getStudentModel(userId), studentModelDatastore.getMinQuestionCountPerType());
-        }
-        TaskGenerator tg = cohortDatastore.getTaskGeneratorFromStudentID(userId);
-        if (tg instanceof LevelTaskGeneratorAttachment){
-            LevelTaskGeneratorAttachment.calcLevel(studentModelDatastore.getStudentModel(userId).calcKnowledgeEstimateByType(idealQuestionCountPerTypeForAnalysis));
-        } else{
-            LevelTaskGenerator.calcLevel(studentModelDatastore.getStudentModel(userId).calcKnowledgeEstimateByType(idealQuestionCountPerTypeForAnalysis));
         }
         return imageTask;
     }
