@@ -60,7 +60,12 @@ public class JsonStudentModelDatastoreTest {
 
         //a file should not have have been written until an imageTask is submitted
         assertFalse(Files.exists(tempDir.resolve("NewUser1.json")));
-        taskGenerator.makeTask(studentModel2, 4);
+        ImageTask it = taskGenerator.makeTask(studentModel2, 4);
+
+        for(Question currQ: it.getTaskQuestions()) {
+            studentModel2.increaseTimesSeen(currQ.getId());
+        }
+
         assertEquals(1, studentModel2.getSeenQuestionCount());
         jsonStudentModelDatastore.submitImageTaskResponse(studentModel2.getUserId(), new ImageTaskResponseOOP("NewUser1", Arrays.asList("plane./images/demoEquine04.jpg"), Arrays.asList("longitudinal")), 4);
         assertEquals(1, studentModel2.getResponseCount());
@@ -68,7 +73,12 @@ public class JsonStudentModelDatastoreTest {
         assertTrue(Files.exists(tempDir.resolve("NewUser1.json")));
 
         //make a change to a user, log them out, then reload them to see if changes were saved
-        taskGenerator.makeTask(studentModel1, 4);
+        it = taskGenerator.makeTask(studentModel1, 4);
+
+        for(Question currQ: it.getTaskQuestions()) {
+            studentModel1.increaseTimesSeen(currQ.getId());
+        }
+
         assertEquals(2, studentModel1.getSeenQuestionCount());
         jsonStudentModelDatastore.submitImageTaskResponse(studentModel1.getUserId(), new ImageTaskResponseOOP("TestUser100", Arrays.asList("plane./images/demoEquine10.jpg"), Arrays.asList("longitudinal")), 4);
 

@@ -31,7 +31,6 @@ public class LevelTaskGenerator implements TaskGenerator {
         questionList = filterQuestions(level, questionList);
         ImageTask imageTask = new ImageTask(initialQuestion.getImageUrl(), questionList, "None");
 
-        studentModel.getUserQuestionSet().increaseTimesSeenAllQuestions(questionList);
         return imageTask;
     }
 

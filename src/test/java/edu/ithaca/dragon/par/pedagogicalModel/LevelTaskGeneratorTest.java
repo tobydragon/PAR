@@ -109,6 +109,10 @@ public class LevelTaskGeneratorTest {
 
         assertEquals(1, task1.getTaskQuestions().size());
 
+        for(Question currQ: task1.getTaskQuestions()) {
+            studentModel.increaseTimesSeen(currQ.getId());
+        }
+
         //make a new imageTask and check aspects of it
         ImageTask task2 = taskGenerator.makeTask(studentModel, 4);
         assertEquals("./images/demoEquine02.jpg", task2.getImageUrl());
@@ -496,6 +500,10 @@ public class LevelTaskGeneratorTest {
         ImageTask it = taskGenerator.makeTask(followupTestUser, 4);
         assertEquals("./images/metacarpal42.jpg", it.getImageUrl()); //If it isn't working, it would get metacarpal56
         assertEquals("341-structure0-./images/metacarpal42.jpg", it.getTaskQuestions().get(0).getId());
+
+        for(Question currQ: it.getTaskQuestions()) {
+            followupTestUser.increaseTimesSeen(currQ.getId());
+        }
 
         ImageTask it2 = taskGenerator.makeTask(followupTestUser, 4);
         assertEquals("./images/metacarpal41.jpg",it2.getImageUrl());

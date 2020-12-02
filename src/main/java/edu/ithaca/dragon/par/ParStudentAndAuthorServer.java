@@ -54,6 +54,22 @@ public class ParStudentAndAuthorServer {
         return imageTask;
     }
 
+    public ImageTask getImageTask(String userId) throws IOException {
+        ImageTask imageTask = null;
+        if (idealQuestionCountPerTypeForAnalysis <= studentModelDatastore.getMinQuestionCountPerType()){
+            imageTask = cohortDatastore.getTaskGeneratorFromStudentID(userId).makeTask(studentModelDatastore.getStudentModel(userId), idealQuestionCountPerTypeForAnalysis);
+        } else{
+            imageTask = cohortDatastore.getTaskGeneratorFromStudentID(userId).makeTask(studentModelDatastore.getStudentModel(userId), studentModelDatastore.getMinQuestionCountPerType());
+        }
+        TaskGenerator tg = cohortDatastore.getTaskGeneratorFromStudentID(userId);
+        if (tg instanceof LevelTaskGeneratorAttachment){
+            LevelTaskGeneratorAttachment.calcLevel(studentModelDatastore.getStudentModel(userId).calcKnowledgeEstimateByType(idealQuestionCountPerTypeForAnalysis));
+        } else{
+            LevelTaskGenerator.calcLevel(studentModelDatastore.getStudentModel(userId).calcKnowledgeEstimateByType(idealQuestionCountPerTypeForAnalysis));
+        }
+        return imageTask;
+    }
+
     public String getMessage(String userId, ImageTask it) throws IOException{
         return cohortDatastore.getMessageGeneratorFromStudentID(userId).generateMessage(studentModelDatastore.getStudentModel(userId), it);
     }
