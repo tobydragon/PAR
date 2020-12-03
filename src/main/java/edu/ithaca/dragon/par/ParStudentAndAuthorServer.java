@@ -1,6 +1,7 @@
 package edu.ithaca.dragon.par;
 
 import edu.ithaca.dragon.par.authorModel.AuthorServer;
+import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.*;
 import edu.ithaca.dragon.par.pedagogicalModel.LevelTaskGenerator;
@@ -44,13 +45,6 @@ public class ParStudentAndAuthorServer {
         } else{
             imageTask = cohortDatastore.getTaskGeneratorFromStudentID(userId).makeTask(studentModelDatastore.getStudentModel(userId), studentModelDatastore.getMinQuestionCountPerType());
         }
-        //TODO: is this important? It looks unnecessary
-//        TaskGenerator tg = cohortDatastore.getTaskGeneratorFromStudentID(userId);
-//        if (tg instanceof LevelTaskGeneratorAttachment){
-//            LevelTaskGeneratorAttachment.calcLevel(studentModelDatastore.getStudentModel(userId).calcKnowledgeEstimateByType(idealQuestionCountPerTypeForAnalysis));
-//        } else{
-//            LevelTaskGenerator.calcLevel(studentModelDatastore.getStudentModel(userId).calcKnowledgeEstimateByType(idealQuestionCountPerTypeForAnalysis));
-//        }
         studentModelDatastore.increaseTimesSeen(userId, imageTask.getTaskQuestions());
         return imageTask;
     }
@@ -63,6 +57,13 @@ public class ParStudentAndAuthorServer {
             imageTask = cohortDatastore.getTaskGeneratorFromStudentID(userId).makeTask(studentModelDatastore.getStudentModel(userId), studentModelDatastore.getMinQuestionCountPerType());
         }
         return imageTask;
+    }
+
+    public void updateTimesSeen(String userId, List<Question> questions) throws IOException{
+        StudentModel sm = studentModelDatastore.getStudentModel(userId);
+        for (Question currQ: questions){
+            sm.increaseTimesSeen(currQ.getId());
+        }
     }
 
     public String getMessage(String userId, ImageTask it) throws IOException{

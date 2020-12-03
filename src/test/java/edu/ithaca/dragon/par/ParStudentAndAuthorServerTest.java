@@ -165,12 +165,54 @@ class ParStudentAndAuthorServerTest {
         sameTask = parStudentAndAuthorServer.getImageTask("s1");
 
         assertNotNull(sameTask);
-        ImageTask intendedLastTask = new JsonIoUtil(new JsonIoHelperDefault()).fromFile("src/test/resources/author/nextImageTaskTest2.json", ImageTask.class);
         assertEquals(intendedFirstTask, sameTask);
 
         sameTask = parStudentAndAuthorServer.getImageTask("s2");
         assertNotNull(sameTask);
         assertEquals(intendedFirstTask, sameTask);
+
+    }
+
+    @Test
+    public void updateTimesSeenTest(@TempDir Path tempDir) throws IOException{
+        //this test shows that getImageTask will get a different imageTask after updateTimesSeen is called
+        // it gets the same tasks that nextImageTask would get
+
+        String testCohortDatastoreFilename = "src/test/resources/author/currentCohortDatastore.json";
+        Path currentStudentModelDir = tempDir.resolve("students");
+        assertTrue(new File(currentStudentModelDir.toString()).mkdir());
+        JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
+                tempDir.resolve("currentQuestions.json").toString(),
+                "src/test/resources/author/SampleQuestionPool3.json",
+                new JsonIoHelperDefault(),
+                currentStudentModelDir.toString());
+
+        JsonIoHelper jsonIoHelper = new JsonIoHelperDefault();
+        JsonIoUtil jsonIoUtil = new JsonIoUtil(jsonIoHelper);
+        List<CohortRecord> cohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/CohortRecordsToFromJsonTest.json", CohortRecord.class);
+        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords, testCohortDatastoreFilename);
+        ParStudentAndAuthorServer parStudentAndAuthorServer = new ParStudentAndAuthorServer(jsonStudentDatastore, null, jsonCohortDatastore);
+
+        ImageTask sameTask = parStudentAndAuthorServer.getImageTask("s1");
+        ImageTask intendedFirstTask = new JsonIoUtil(new JsonIoHelperDefault()).fromFile("src/test/resources/author/nextImageTaskTest1.json", ImageTask.class);
+        assertEquals(intendedFirstTask, sameTask);
+
+        parStudentAndAuthorServer.updateTimesSeen("s1", sameTask.getTaskQuestions());
+
+        sameTask = parStudentAndAuthorServer.getImageTask("s2");
+        assertEquals(intendedFirstTask, sameTask);
+
+        parStudentAndAuthorServer.updateTimesSeen("s2", sameTask.getTaskQuestions());
+
+        sameTask = parStudentAndAuthorServer.getImageTask("s1");
+
+        assertNotNull(sameTask);
+        ImageTask intendedLastTask = new JsonIoUtil(new JsonIoHelperDefault()).fromFile("src/test/resources/author/nextImageTaskTest2.json", ImageTask.class);
+        assertEquals(intendedLastTask, sameTask);
+
+        sameTask = parStudentAndAuthorServer.getImageTask("s2");
+        assertNotNull(sameTask);
+        assertEquals(intendedLastTask, sameTask);
 
     }
 
