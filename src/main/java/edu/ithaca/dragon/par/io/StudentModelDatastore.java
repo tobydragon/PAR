@@ -16,7 +16,7 @@ public interface StudentModelDatastore {
 
     void submitImageTaskResponse(String userId, ImageTaskResponseOOP imageTaskResponse, int questionCountPerTypeForAnalysis) throws IOException;
 
-    void increaseTimesSeen(String userId, List<Question> questions) throws IOException;
+    void increaseTimesAttempted(String userId, List<Question> questions) throws IOException;
 
     int getMinQuestionCountPerType();
 

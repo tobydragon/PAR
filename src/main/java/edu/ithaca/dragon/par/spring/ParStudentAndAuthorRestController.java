@@ -93,7 +93,7 @@ public class ParStudentAndAuthorRestController {
 
     @PostMapping("/updateTimesSeen")
     public void updateTimesSeen(@RequestParam String userId, @RequestParam ImageTask it) throws IOException{
-        parServer.updateTimesSeen(userId, it.getTaskQuestions());
+        parServer.updateTimesAttempted(userId, it.getTaskQuestions());
         logger.info("Task questions marked as seen by user: " + userId);
     }
 

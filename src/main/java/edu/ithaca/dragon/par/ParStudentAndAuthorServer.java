@@ -9,13 +9,11 @@ import edu.ithaca.dragon.par.io.AuthorDatastore;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.io.ImageTaskResponseOOP;
 import edu.ithaca.dragon.par.io.StudentModelDatastore;
-import edu.ithaca.dragon.par.pedagogicalModel.LevelMessageGenerator;
 import edu.ithaca.dragon.par.pedagogicalModel.LevelTaskGeneratorAttachment;
 import edu.ithaca.dragon.par.pedagogicalModel.TaskGenerator;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.par.studentModel.StudentReportCreator;
 import edu.ithaca.dragon.util.DataUtil;
-import org.springframework.scheduling.config.Task;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -45,7 +43,7 @@ public class ParStudentAndAuthorServer {
         } else{
             imageTask = cohortDatastore.getTaskGeneratorFromStudentID(userId).makeTask(studentModelDatastore.getStudentModel(userId), studentModelDatastore.getMinQuestionCountPerType());
         }
-        studentModelDatastore.increaseTimesSeen(userId, imageTask.getTaskQuestions());
+        studentModelDatastore.increaseTimesAttempted(userId, imageTask.getTaskQuestions());
         return imageTask;
     }
 
@@ -59,8 +57,8 @@ public class ParStudentAndAuthorServer {
         return imageTask;
     }
 
-    public void updateTimesSeen(String userId, List<Question> questions) throws IOException{
-        studentModelDatastore.increaseTimesSeen(userId, questions);
+    public void updateTimesAttempted(String userId, List<Question> questions) throws IOException{
+        studentModelDatastore.increaseTimesAttempted(userId, questions);
     }
 
     public String getMessage(String userId, ImageTask it) throws IOException{

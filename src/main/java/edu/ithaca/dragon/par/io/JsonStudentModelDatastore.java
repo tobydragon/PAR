@@ -71,7 +71,7 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
     }
 
     @Override
-    public void increaseTimesSeen(String userId, List<Question> questions) throws IOException {
+    public void increaseTimesAttempted(String userId, List<Question> questions) throws IOException {
         StudentModel studentModel = getStudentModel(userId);
         for(Question currQuestion : questions){
             studentModel.increaseTimesAttempted(currQuestion.getId());

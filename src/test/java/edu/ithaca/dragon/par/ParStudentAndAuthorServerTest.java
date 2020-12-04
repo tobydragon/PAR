@@ -175,7 +175,7 @@ class ParStudentAndAuthorServerTest {
 
     @Test
     public void updateTimesSeenTest(@TempDir Path tempDir) throws IOException{
-        //this test shows that getImageTask will get a different imageTask after updateTimesSeen is called
+        //this test shows that getImageTask will get a different imageTask after updateTimesAttempted is called
         // it gets the same tasks that nextImageTask would get
 
         String testCohortDatastoreFilename = "src/test/resources/author/currentCohortDatastore.json";
@@ -197,12 +197,12 @@ class ParStudentAndAuthorServerTest {
         ImageTask intendedFirstTask = new JsonIoUtil(new JsonIoHelperDefault()).fromFile("src/test/resources/author/nextImageTaskTest1.json", ImageTask.class);
         assertEquals(intendedFirstTask, sameTask);
 
-        parStudentAndAuthorServer.updateTimesSeen("s1", sameTask.getTaskQuestions());
+        parStudentAndAuthorServer.updateTimesAttempted("s1", sameTask.getTaskQuestions());
 
         sameTask = parStudentAndAuthorServer.getImageTask("s2");
         assertEquals(intendedFirstTask, sameTask);
 
-        parStudentAndAuthorServer.updateTimesSeen("s2", sameTask.getTaskQuestions());
+        parStudentAndAuthorServer.updateTimesAttempted("s2", sameTask.getTaskQuestions());
 
         sameTask = parStudentAndAuthorServer.getImageTask("s1");
 
