@@ -75,8 +75,8 @@ public class LevelMessageGeneratorAttachmentTest {
             response.setAllResponses(r);
         }
         for (Question question : it.getTaskQuestions()){
-            if (masteredStudentModel.getUserQuestionSet().getTimesSeen(question.getId())==0){
-                masteredStudentModel.increaseTimesSeen(question.getId());
+            if (masteredStudentModel.getUserQuestionSet().getTimesAttempted(question.getId())==0){
+                masteredStudentModel.increaseTimesAttempted(question.getId());
             }
         }
 
@@ -187,8 +187,8 @@ public class LevelMessageGeneratorAttachmentTest {
             response.setAllResponses(r);
         }
         for (Question question : it.getTaskQuestions()){
-            if (masteredStudentModel.getUserQuestionSet().getTimesSeen(question.getId())==0){
-                masteredStudentModel.increaseTimesSeen(question.getId());
+            if (masteredStudentModel.getUserQuestionSet().getTimesAttempted(question.getId())==0){
+                masteredStudentModel.increaseTimesAttempted(question.getId());
             }
         }
 

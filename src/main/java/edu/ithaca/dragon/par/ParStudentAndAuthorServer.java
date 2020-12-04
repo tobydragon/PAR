@@ -60,10 +60,7 @@ public class ParStudentAndAuthorServer {
     }
 
     public void updateTimesSeen(String userId, List<Question> questions) throws IOException{
-        StudentModel sm = studentModelDatastore.getStudentModel(userId);
-        for (Question currQ: questions){
-            sm.increaseTimesSeen(currQ.getId());
-        }
+        studentModelDatastore.increaseTimesSeen(userId, questions);
     }
 
     public String getMessage(String userId, ImageTask it) throws IOException{

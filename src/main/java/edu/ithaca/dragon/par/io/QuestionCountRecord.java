@@ -17,7 +17,7 @@ public class QuestionCountRecord {
 
     public QuestionCountRecord(QuestionCount questionCount) {
         questionId = questionCount.getQuestion().getId();
-        timesSeen = questionCount.getTimesSeen();
+        timesSeen = questionCount.getTimesAttempted();
         if (questionCount.getFollowupCounts().size()>0) {
             followupCountRecords = QuestionCountRecord.questionCountToQuestionCountRecord(questionCount.getFollowupCounts());
         }
@@ -46,7 +46,7 @@ public class QuestionCountRecord {
 
     public QuestionCount buildQuestionCount(QuestionPool questionPool) {
         QuestionCount questionCount = new QuestionCount(QuestionPool.getQuestionFromId(questionId, questionPool.getAllQuestions()));
-        questionCount.setTimesSeen(timesSeen);
+        questionCount.setTimesAttempted(timesSeen);
         if (followupCountRecords.size()>0){
             List<QuestionCount> followupList = new ArrayList<>();
             followupList = questionCountRecordToQuestionCount(followupCountRecords, questionPool);

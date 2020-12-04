@@ -50,8 +50,8 @@ public class LevelTaskGeneratorAttachment implements TaskGenerator {
                     //set leastSeenWithTypesNeeded to the current QuestionCount
                     leastSeenWithTypesNeeded = questionCount;
                 }
-                //if leastSeenWithTypesNeeded hasn't been set to a questionCount yet and the current's timesSeen is less than leastSeenWithTypesNeeded
-                else if(questionCount.getTimesSeen() < leastSeenWithTypesNeeded.getTimesSeen()) {
+                //if leastSeenWithTypesNeeded hasn't been set to a questionCount yet and the current's timesAttempted is less than leastSeenWithTypesNeeded
+                else if(questionCount.getTimesAttempted() < leastSeenWithTypesNeeded.getTimesAttempted()) {
                     //set leastSeenWithTypesNeeded to the current QuestionCount
                     leastSeenWithTypesNeeded = questionCount;
                 }

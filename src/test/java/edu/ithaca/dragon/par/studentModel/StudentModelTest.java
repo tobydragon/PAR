@@ -45,18 +45,18 @@ public class StudentModelTest {
     @Test
     public void constructorTest() throws IOException {
         assertEquals("TestUser1", studentModel.getUserId());
-        assertEquals(15, studentModel.getUnseenQuestionCount());
-        assertEquals(0, studentModel.getSeenQuestionCount());
+        assertEquals(15, studentModel.getUnattemptedQuestionCount());
+        assertEquals(0, studentModel.getAttemptedQuestionCount());
         assertEquals(0, studentModel.getResponseCount());
     }
 
     @Test
     public void testPickingQuestionsAndReceivingResponses(){
-        studentModel.increaseTimesSeen("PlaneQ1");
-        studentModel.increaseTimesSeen("PlaneQ1");
-        studentModel.increaseTimesSeen("ZoneQ1");
-        assertEquals(2, studentModel.getSeenQuestionCount());
-        assertEquals(13, studentModel.getUnseenQuestionCount());
+        studentModel.increaseTimesAttempted("PlaneQ1");
+        studentModel.increaseTimesAttempted("PlaneQ1");
+        studentModel.increaseTimesAttempted("ZoneQ1");
+        assertEquals(2, studentModel.getAttemptedQuestionCount());
+        assertEquals(13, studentModel.getUnattemptedQuestionCount());
 
         studentModel.imageTaskResponseSubmitted(responsesFromFile.get(0),questionPool, 4);
         studentModel.imageTaskResponseSubmitted(responsesFromFile.get(0),questionPool, 4);
@@ -104,14 +104,14 @@ public class StudentModelTest {
         StudentModel studentModel = new StudentModel("TestUser1", questions);
         Question q = new Question("Question1", "What is this question?", "Good", "A very good one", Arrays.asList("A very good one", "A great one", ":("), "/images/AnImage");
         studentModel.addQuestion(q);
-        assertEquals(48, studentModel.getUserQuestionSet().getTopLevelUnseenQuestions().size());
-        assertEquals(q, studentModel.getUserQuestionSet().getTopLevelUnseenQuestions().get(47));
+        assertEquals(48, studentModel.getUserQuestionSet().getTopLevelUnattemptedQuestions().size());
+        assertEquals(q, studentModel.getUserQuestionSet().getTopLevelUnattemptedQuestions().get(47));
 
 
         Question q2 = new Question("Question2", "What is a question?", "Question", "Something important", Arrays.asList("Something important", ":)", ">:/"), "/images/aBetterImage");
         studentModel.addQuestion(q2);
-        assertEquals(49, studentModel.getUserQuestionSet().getTopLevelUnseenQuestions().size());
-        assertEquals(q2, studentModel.getUserQuestionSet().getTopLevelUnseenQuestions().get(48));
+        assertEquals(49, studentModel.getUserQuestionSet().getTopLevelUnattemptedQuestions().size());
+        assertEquals(q2, studentModel.getUserQuestionSet().getTopLevelUnattemptedQuestions().get(48));
 
         //TODO: see implementation for comment
         //assertThrows(RuntimeException.class, ()->{studentModel.addQuestion(q2);});

@@ -6,12 +6,8 @@ import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.ImageTaskResponseOOP;
 import edu.ithaca.dragon.par.pedagogicalModel.LevelMessageInformation;
 import edu.ithaca.dragon.par.pedagogicalModel.LevelTaskGenerator;
-import edu.ithaca.dragon.par.pedagogicalModel.TaskGenerator;
 
-import java.text.DecimalFormat;
 import java.util.*;
-
-import static java.lang.Double.parseDouble;
 
 public class StudentModel {
 
@@ -79,16 +75,16 @@ public class StudentModel {
         return userQuestionSet;
     }
 
-    public int getSeenQuestionCount(){
-        return userQuestionSet.getTopLevelSeenQuestions().size();
+    public int getAttemptedQuestionCount(){
+        return userQuestionSet.getTopLevelAttemptedQuestions().size();
     }
 
-    public int getUnseenQuestionCount(){
-        return userQuestionSet.getTopLevelUnseenQuestions().size();
+    public int getUnattemptedQuestionCount(){
+        return userQuestionSet.getTopLevelUnattemptedQuestions().size();
     }
 
-    public void increaseTimesSeen(String questionId){
-        userQuestionSet.increaseTimesSeen(questionId);
+    public void increaseTimesAttempted(String questionId){
+        userQuestionSet.increaseTimesAttempted(questionId);
     }
 
     public UserResponseSet getUserResponseSet() {
@@ -144,15 +140,15 @@ public class StudentModel {
     public List<QuestionCount> calcQuestionsWrong(){
         List<QuestionCount> incorrectQuestions = new ArrayList<>();
         //uses questionCount objects to keep track of all incorrect questions and
-        // how many times they've been answered incorrectly. timesseen = timesWrong
+        // how many times they've been answered incorrectly. timesattempted = timesWrong
         for (ResponsesPerQuestion questionResponse : userResponseSet.getResponsesPerQuestionList()){
             QuestionCount question = new QuestionCount(questionResponse.getQuestion());
             for(QuestionResponse response: questionResponse.getAllResponses()){
                 if(!response.getResponseText().equalsIgnoreCase(questionResponse.getQuestion().getCorrectAnswer())){
-                    question.increaseTimesSeen();
+                    question.increaseTimesAttempted();
                 }
             }
-            if (question.getTimesSeen()>0){
+            if (question.getTimesAttempted()>0){
                 incorrectQuestions.add(question);
             }
         }

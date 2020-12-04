@@ -1,11 +1,8 @@
 package edu.ithaca.dragon.par.authorModel;
 
 import edu.ithaca.dragon.par.domainModel.Question;
-import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.studentModel.QuestionCount;
-import edu.ithaca.dragon.par.studentModel.UserQuestionSet;
-import org.apache.catalina.User;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -62,7 +59,7 @@ public class AuthorTaskGenerator {
     public static QuestionCount getInitialQuestion(List<QuestionCount> questionCountList){
         int index = 0;
         for (int i = 0; i < questionCountList.size(); i++){
-            if (questionCountList.get(i).getTimesSeen()<questionCountList.get(index).getTimesSeen()){
+            if (questionCountList.get(i).getTimesAttempted()<questionCountList.get(index).getTimesAttempted()){
                 index = i;
             }
         }

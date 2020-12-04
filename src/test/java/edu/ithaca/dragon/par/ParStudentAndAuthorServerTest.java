@@ -285,19 +285,19 @@ class ParStudentAndAuthorServerTest {
         ParStudentAndAuthorServer parStudentAndAuthorServer = new ParStudentAndAuthorServer(jsonStudentDatastore, null, jsonCohortDatastore);
 
         //user has seen no questions
-        assertEquals(0,jsonStudentDatastore.getOrCreateStudentModel("testUser111").getSeenQuestionCount());
+        assertEquals(0,jsonStudentDatastore.getOrCreateStudentModel("testUser111").getAttemptedQuestionCount());
 
-        //calling nextImageTask should increase timesSeen
+        //calling nextImageTask should increase timesAttempted
         parStudentAndAuthorServer.nextImageTask("testUser111");
-        assertEquals(1,jsonStudentDatastore.getOrCreateStudentModel("testUser111").getSeenQuestionCount());
+        assertEquals(1,jsonStudentDatastore.getOrCreateStudentModel("testUser111").getAttemptedQuestionCount());
 
-        //even after logging out, the increase of timesSeen should have been saved
+        //even after logging out, the increase of timesAttempted should have been saved
         parStudentAndAuthorServer.logout("testUser111");
-        assertEquals(1,jsonStudentDatastore.getOrCreateStudentModel("testUser111").getSeenQuestionCount());
+        assertEquals(1,jsonStudentDatastore.getOrCreateStudentModel("testUser111").getAttemptedQuestionCount());
 
-        //submitting answers should not increase timesSeen
+        //submitting answers should not increase timesAttempted
         parStudentAndAuthorServer.submitImageTaskResponse(new ImageTaskResponseOOP("testUser111", Arrays.asList("PlaneQ1"), Arrays.asList("Longitudinal")));
-        assertEquals(1,jsonStudentDatastore.getOrCreateStudentModel("testUser111").getSeenQuestionCount());
+        assertEquals(1,jsonStudentDatastore.getOrCreateStudentModel("testUser111").getAttemptedQuestionCount());
     }
 
     @Test
@@ -426,8 +426,8 @@ class ParStudentAndAuthorServerTest {
             response.setAllResponses(r);
         }
         for (Question question : it.getTaskQuestions()){
-            if (student.getUserQuestionSet().getTimesSeen(question.getId())==0){
-                student.increaseTimesSeen(question.getId());
+            if (student.getUserQuestionSet().getTimesAttempted(question.getId())==0){
+                student.increaseTimesAttempted(question.getId());
             }
         }
 

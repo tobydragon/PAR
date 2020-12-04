@@ -24,7 +24,7 @@ public class LevelTaskGeneratorAttachmentTest {
     public void makeTaskWithSingleQuestionTestFix() throws IOException{
         QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/SampleQuestionPool.json").getAllQuestions());
         StudentModel studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
-        studentModel.getUserQuestionSet().increaseTimesSeenAllQuestions(studentModel.getUserQuestionSet().getTopLevelUnseenQuestions());
+        studentModel.getUserQuestionSet().increaseTimesAttemptedAllQuestions(studentModel.getUserQuestionSet().getTopLevelUnattemptedQuestions());
 
         Question task1Question = LevelTaskGeneratorAttachment.leastSeenQuestionWithTypesNeeded(Arrays.asList(EquineQuestionTypes.plane.toString()),studentModel);
         ImageTask task1 = new ImageTask(task1Question.getImageUrl(), Arrays.asList(task1Question), "None");
@@ -112,7 +112,7 @@ public class LevelTaskGeneratorAttachmentTest {
         assertEquals(1, task1.getTaskQuestions().size());
 
         for(Question currQ: task1.getTaskQuestions()) {
-            studentModel.increaseTimesSeen(currQ.getId());
+            studentModel.increaseTimesAttempted(currQ.getId());
         }
 
         //make a new imageTask and check aspects of it
@@ -128,7 +128,7 @@ public class LevelTaskGeneratorAttachmentTest {
         StudentModel studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
 
         //no questions have been seen
-        assertEquals(15, studentModel.getUnseenQuestionCount());
+        assertEquals(15, studentModel.getUnattemptedQuestionCount());
 
         //make an imageTask and check aspects of it
         Question task1Question = LevelTaskGeneratorAttachment.leastSeenQuestionWithTypesNeeded(Arrays.asList(EquineQuestionTypes.plane.toString()),studentModel);
@@ -138,7 +138,7 @@ public class LevelTaskGeneratorAttachmentTest {
         assertEquals(1, task1.getTaskQuestions().size());
 
         for(Question currQ: task1.getTaskQuestions()) {
-            studentModel.increaseTimesSeen(currQ.getId());
+            studentModel.increaseTimesAttempted(currQ.getId());
         }
 
         //make a new imageTask and check aspects of it
@@ -365,7 +365,7 @@ public class LevelTaskGeneratorAttachmentTest {
         assertEquals("341-structure0-./images/metacarpal42.jpg", it.getTaskQuestions().get(0).getId());
 
         for(Question currQ: it.getTaskQuestions()) {
-            followupTestUser.increaseTimesSeen(currQ.getId());
+            followupTestUser.increaseTimesAttempted(currQ.getId());
         }
         ImageTask it2 = taskGenerator.makeTask(followupTestUser, 4);
         assertEquals("./images/metacarpal41.jpg",it2.getImageUrl());

@@ -91,6 +91,12 @@ public class ParStudentAndAuthorRestController {
         return imageTask;
     }
 
+    @PostMapping("/updateTimesSeen")
+    public void updateTimesSeen(@RequestParam String userId, @RequestParam ImageTask it) throws IOException{
+        parServer.updateTimesSeen(userId, it.getTaskQuestions());
+        logger.info("Task questions marked as seen by user: " + userId);
+    }
+
     @PostMapping("/recordResponse")
     public ResponseEntity<String> recordResponse(@RequestBody ImageTaskResponseOOP response) {
         try {

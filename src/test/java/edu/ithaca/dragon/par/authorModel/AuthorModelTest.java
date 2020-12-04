@@ -50,17 +50,17 @@ public class AuthorModelTest {
 
     @Test
     public void increaseTimesSeen(){
-        assertEquals(0, authorModel.questionCountList.get(0).timesSeen);
+        assertEquals(0, authorModel.questionCountList.get(0).timesAttempted);
         authorModel.increaseTimesSeen("plane./images/demoEquine14.jpg");
-        assertEquals(1, authorModel.questionCountList.get(0).timesSeen);
+        assertEquals(1, authorModel.questionCountList.get(0).timesAttempted);
         authorModel.increaseTimesSeen("plane./images/demoEquine14.jpg");
-        assertEquals(2, authorModel.questionCountList.get(0).timesSeen);
+        assertEquals(2, authorModel.questionCountList.get(0).timesAttempted);
 
-        assertEquals(0, authorModel.questionCountList.get(6).timesSeen);
+        assertEquals(0, authorModel.questionCountList.get(6).timesAttempted);
         authorModel.increaseTimesSeen("structure0./images/demoEquine02.jpg");
-        assertEquals(1, authorModel.questionCountList.get(6).timesSeen);
+        assertEquals(1, authorModel.questionCountList.get(6).timesAttempted);
         authorModel.increaseTimesSeen("structure0./images/demoEquine02.jpg");
-        assertEquals(2, authorModel.questionCountList.get(6).timesSeen);
+        assertEquals(2, authorModel.questionCountList.get(6).timesAttempted);
 
         assertThrows(InvalidParameterException.class, ()-> {authorModel.increaseTimesSeen("NotAValidQuestionId");});
     }

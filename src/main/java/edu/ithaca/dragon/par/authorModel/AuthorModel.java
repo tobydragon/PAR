@@ -47,7 +47,7 @@ public class AuthorModel {
         boolean found = false;
         for(QuestionCount questionCount : questionCountList){
             if(questionCount.getQuestion().getId().equals(questionId)){
-                questionCount.increaseTimesSeen();
+                questionCount.increaseTimesAttempted();
                 found = true;
             }
         }

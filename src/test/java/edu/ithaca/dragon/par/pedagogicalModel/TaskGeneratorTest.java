@@ -26,7 +26,7 @@ public class TaskGeneratorTest {
         assertEquals(1, task1.getTaskQuestions().size());
 
         for(Question currQ: task1.getTaskQuestions()) {
-            studentModel.increaseTimesSeen(currQ.getId());
+            studentModel.increaseTimesAttempted(currQ.getId());
         }
 
         //make a new imageTask and check aspects of it

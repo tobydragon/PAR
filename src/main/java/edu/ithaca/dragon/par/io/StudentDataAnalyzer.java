@@ -11,7 +11,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Scanner;
 
@@ -214,7 +213,7 @@ public class StudentDataAnalyzer {
                 for (QuestionCount qcConsolidated: consolidatedList){
                     if (qcStudent.getQuestion().getId().equals(qcConsolidated.getQuestion().getId())){
                         found = true;
-                        qcConsolidated.setTimesSeen(qcConsolidated.getTimesSeen()+qcStudent.getTimesSeen());
+                        qcConsolidated.setTimesAttempted(qcConsolidated.getTimesAttempted()+qcStudent.getTimesAttempted());
                     }
                 }
                 if(!found){
@@ -234,10 +233,10 @@ public class StudentDataAnalyzer {
             if(topQCs.size()>numOfQuestions){
                 int lowestIndex = 0;
                 int currIndex = 0;
-                int lowestSeen = topQCs.get(0).getTimesSeen();
+                int lowestAttempted = topQCs.get(0).getTimesAttempted();
                 for(QuestionCount currTopQC: topQCs){
-                    if (currTopQC.getTimesSeen()<lowestSeen){
-                        lowestSeen = currTopQC.getTimesSeen();
+                    if (currTopQC.getTimesAttempted()<lowestAttempted){
+                        lowestAttempted = currTopQC.getTimesAttempted();
                         lowestIndex = currIndex;
                     }
 
@@ -297,7 +296,7 @@ public class StudentDataAnalyzer {
             }
             writer.writeNext(header2);
             for(QuestionCount currQC: qc){
-                String [] currLine = {currQC.getQuestion().getId(), currQC.getQuestion().getQuestionText(), Integer.toString(currQC.getTimesSeen())};
+                String [] currLine = {currQC.getQuestion().getId(), currQC.getQuestion().getQuestionText(), Integer.toString(currQC.getTimesAttempted())};
                 writer.writeNext(currLine);
             }
 

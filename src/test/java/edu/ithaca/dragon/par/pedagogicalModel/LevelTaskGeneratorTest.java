@@ -8,7 +8,6 @@ import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.util.JsonUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import org.springframework.scheduling.config.Task;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -22,7 +21,7 @@ public class LevelTaskGeneratorTest {
     public void makeTaskWithSingleQuestionTestFix() throws IOException{
         QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/SampleQuestionPool.json").getAllQuestions());
         StudentModel studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
-        studentModel.getUserQuestionSet().increaseTimesSeenAllQuestions(studentModel.getUserQuestionSet().getTopLevelUnseenQuestions());
+        studentModel.getUserQuestionSet().increaseTimesAttemptedAllQuestions(studentModel.getUserQuestionSet().getTopLevelUnattemptedQuestions());
 
         Question task1Question = LevelTaskGenerator.leastSeenQuestionWithTypesNeeded(Arrays.asList(EquineQuestionTypes.plane.toString()),studentModel);
         ImageTask task1 = new ImageTask(task1Question.getImageUrl(), Arrays.asList(task1Question), "None");
@@ -110,7 +109,7 @@ public class LevelTaskGeneratorTest {
         assertEquals(1, task1.getTaskQuestions().size());
 
         for(Question currQ: task1.getTaskQuestions()) {
-            studentModel.increaseTimesSeen(currQ.getId());
+            studentModel.increaseTimesAttempted(currQ.getId());
         }
 
         //make a new imageTask and check aspects of it
@@ -125,8 +124,8 @@ public class LevelTaskGeneratorTest {
         QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/SampleQuestionPool.json").getAllQuestions());
         StudentModel studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
 
-        //no questions have been seen
-        assertEquals(15, studentModel.getUnseenQuestionCount());
+        //no questions have been attempted
+        assertEquals(15, studentModel.getUnattemptedQuestionCount());
 
         //make an imageTask and check aspects of it
         Question task1Question = LevelTaskGenerator.leastSeenQuestionWithTypesNeeded(Arrays.asList(EquineQuestionTypes.plane.toString()),studentModel);
@@ -502,7 +501,7 @@ public class LevelTaskGeneratorTest {
         assertEquals("341-structure0-./images/metacarpal42.jpg", it.getTaskQuestions().get(0).getId());
 
         for(Question currQ: it.getTaskQuestions()) {
-            followupTestUser.increaseTimesSeen(currQ.getId());
+            followupTestUser.increaseTimesAttempted(currQ.getId());
         }
 
         ImageTask it2 = taskGenerator.makeTask(followupTestUser, 4);

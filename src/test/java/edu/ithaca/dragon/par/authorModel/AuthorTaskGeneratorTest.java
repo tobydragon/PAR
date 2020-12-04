@@ -1,16 +1,13 @@
 package edu.ithaca.dragon.par.authorModel;
 
 import edu.ithaca.dragon.par.domainModel.Question;
-import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.io.ImageTask;
-import edu.ithaca.dragon.par.io.JsonQuestionPoolDatastore;
 import edu.ithaca.dragon.par.studentModel.QuestionCount;
 import edu.ithaca.dragon.util.JsonUtil;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -37,18 +34,18 @@ public class AuthorTaskGeneratorTest {
         QuestionCount firstQuestion = AuthorTaskGenerator.getInitialQuestion(questionCountList);
         assertEquals("./images/demoEquine14.jpg", firstQuestion.getQuestion().getImageUrl());
         for (int i = 0; i < 5; i++) {
-            questionCountList.get(i).setTimesSeen(1);
+            questionCountList.get(i).setTimesAttempted(1);
         }
         QuestionCount secondQuestion = AuthorTaskGenerator.getInitialQuestion(questionCountList);
         assertEquals("./images/demoEquine02.jpg", secondQuestion.getQuestion().getImageUrl());
         for (int i = 5; i < 11; i++) {
-            questionCountList.get(i).setTimesSeen(1);
+            questionCountList.get(i).setTimesAttempted(1);
         }
         QuestionCount thirdQuestion = AuthorTaskGenerator.getInitialQuestion(questionCountList);
         assertEquals("./images/demoEquine13.jpg", thirdQuestion.getQuestion().getImageUrl());
 
         for (int i = 0; i < questionCountList.size(); i++){
-            questionCountList.get(i).setTimesSeen(1);
+            questionCountList.get(i).setTimesAttempted(1);
         }
         QuestionCount fourthQuestion = AuthorTaskGenerator.getInitialQuestion(questionCountList);
         assertEquals("./images/demoEquine14.jpg", fourthQuestion.getQuestion().getImageUrl());

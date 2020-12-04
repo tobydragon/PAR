@@ -1,11 +1,8 @@
 package edu.ithaca.dragon.par.studentModel;
 
 import edu.ithaca.dragon.par.domainModel.Question;
-import edu.ithaca.dragon.util.JsonUtil;
 
-import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
 
 
 import org.junit.jupiter.api.Test;
@@ -14,22 +11,22 @@ import static org.junit.jupiter.api.Assertions.*;
 public class QuestionCountTest {
 
     @Test
-    public void timesSeenTest(){
+    public void timesAttemptedTest(){
         Question q1 = new Question("1","what plane?", "plane", "transverse", Arrays.asList("transverse", "longitudinal"), "/imageURL");
         QuestionCount qc1 = new QuestionCount(q1);
 
-        assertEquals(0, qc1.getTimesSeen());
-        qc1.increaseTimesSeen();
-        assertEquals(1, qc1.getTimesSeen());
+        assertEquals(0, qc1.getTimesAttempted());
+        qc1.increaseTimesAttempted();
+        assertEquals(1, qc1.getTimesAttempted());
 
-        qc1.increaseTimesSeen();
-        qc1.increaseTimesSeen();
-        qc1.increaseTimesSeen();
-        qc1.increaseTimesSeen();
-        assertEquals(5, qc1.getTimesSeen());
-        assertEquals(5, qc1.getTimesSeen());
-        qc1.increaseTimesSeen();
-        assertEquals(6, qc1.getTimesSeen());
+        qc1.increaseTimesAttempted();
+        qc1.increaseTimesAttempted();
+        qc1.increaseTimesAttempted();
+        qc1.increaseTimesAttempted();
+        assertEquals(5, qc1.getTimesAttempted());
+        assertEquals(5, qc1.getTimesAttempted());
+        qc1.increaseTimesAttempted();
+        assertEquals(6, qc1.getTimesAttempted());
     }
 
     @Test
@@ -58,7 +55,7 @@ public class QuestionCountTest {
         Question q3 = new Question("1","what plane?", "plane", "transverse", Arrays.asList("transverse", "longitudinal"), "/imageURL");
         QuestionCount qc3 = new QuestionCount(q3);
         assertEquals(qc1, qc3);
-        qc3.increaseTimesSeen();
+        qc3.increaseTimesAttempted();
         assertNotEquals(qc1, qc3);
 
     }
