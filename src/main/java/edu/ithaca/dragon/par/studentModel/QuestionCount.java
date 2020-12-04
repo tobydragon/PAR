@@ -13,6 +13,8 @@ public class QuestionCount {
 
     public QuestionCount(Question questionIn){
         question = questionIn;
+
+        //this represents that you’ve seen it AND either skipped or answered.
         timesAttempted = 0;
         followupCounts = questionToQuestionCount(questionIn.getFollowupQuestions());
     }
