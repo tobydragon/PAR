@@ -2,7 +2,10 @@ package edu.ithaca.dragon.par.authorModel;
 
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.io.ImageTask;
+import edu.ithaca.dragon.par.io.JsonAuthorDatastore;
 import edu.ithaca.dragon.par.studentModel.QuestionCount;
+import edu.ithaca.dragon.util.JsonIoHelper;
+import edu.ithaca.dragon.util.JsonIoHelperSpring;
 import edu.ithaca.dragon.util.JsonUtil;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -14,7 +17,7 @@ import java.util.Set;
 public class AuthorTaskGeneratorTest {
 
     @Test
-    public void nextImageTaskTemplateTest() throws IOException{
+    public void makeImageTaskTemplateTest() throws IOException{
         List<Question> questions = JsonUtil.listFromJsonFile("src/test/resources/author/DemoQuestionPoolTemplate.json", Question.class);
         AuthorModel authorModel = new AuthorModel("user1", QuestionCount.questionToQuestionCount(questions));
         ImageTask im = AuthorTaskGenerator.makeTaskTemplate(authorModel);

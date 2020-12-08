@@ -24,6 +24,10 @@ public class AuthorServer {
         return it;
     }
 
+    public ImageTask getImageTaskTemplate() {
+        return AuthorTaskGenerator.makeTaskTemplate(authorDatastore.getAuthorModel());
+    }
+
     public void imageTaskResponseSubmitted(ImageTaskResponseOOP imageTaskResponse) throws IOException{
         for(String currId : imageTaskResponse.getTaskQuestionIds()){
             Question currQuestion = authorDatastore.findTopLevelQuestionTemplateById(currId);

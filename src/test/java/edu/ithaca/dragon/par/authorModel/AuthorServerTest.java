@@ -51,7 +51,7 @@ public class AuthorServerTest {
     }
 
     @Test
-    public void nextImageTaskTemplate(@TempDir Path tempDir) throws IOException{
+    public void nextImageTaskTemplateTest(@TempDir Path tempDir) throws IOException{
         //make paths for copies of the files
         Path currentQuestionPath = tempDir.resolve("currentQuestions.json");
         Path currentQuestionTemplatePath = tempDir.resolve("currentQuestionTemplates.json");
@@ -111,6 +111,47 @@ public class AuthorServerTest {
         ImageTask imageTask12 = pas.nextImageTaskTemplate();
         assertEquals(6, imageTask12.getTaskQuestions().size());
         assertEquals("./images/demoEquine02.jpg", imageTask12.getImageUrl());
+    }
+
+    @Test
+    public void getImageTaskTemplateTest(@TempDir Path tempDir) throws IOException{
+        //make paths for copies of the files
+        Path currentQuestionPath = tempDir.resolve("currentQuestions.json");
+        Path currentQuestionTemplatePath = tempDir.resolve("currentQuestionTemplates.json");
+        //copy the files to use to the paths (these temp files will change as work is done)
+        Files.copy(Paths.get("src/test/resources/author/SampleQuestionsEmpty.json"), currentQuestionPath, StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(Paths.get("src/test/resources/author/DemoQuestionPoolTemplate.json"), currentQuestionTemplatePath, StandardCopyOption.REPLACE_EXISTING);
+
+        AuthorServer pas = new AuthorServer(new JsonAuthorDatastore(currentQuestionPath.toString(),
+                currentQuestionTemplatePath.toString(), tempDir.resolve("currentAuthorModel.json").toString()));
+
+        ImageTask imageTask = pas.getImageTaskTemplate();
+        assertEquals(5, imageTask.getTaskQuestions().size());
+        assertEquals("./images/demoEquine14.jpg", imageTask.getImageUrl());
+
+        imageTask = pas.getImageTaskTemplate();
+        assertEquals(5, imageTask.getTaskQuestions().size());
+        assertEquals("./images/demoEquine14.jpg", imageTask.getImageUrl());
+
+        imageTask = pas.getImageTaskTemplate();
+        assertEquals(5, imageTask.getTaskQuestions().size());
+        assertEquals("./images/demoEquine14.jpg", imageTask.getImageUrl());
+
+        imageTask = pas.getImageTaskTemplate();
+        assertEquals(5, imageTask.getTaskQuestions().size());
+        assertEquals("./images/demoEquine14.jpg", imageTask.getImageUrl());
+
+        imageTask = pas.getImageTaskTemplate();
+        assertEquals(5, imageTask.getTaskQuestions().size());
+        assertEquals("./images/demoEquine14.jpg", imageTask.getImageUrl());
+
+        imageTask = pas.getImageTaskTemplate();
+        assertEquals(5, imageTask.getTaskQuestions().size());
+        assertEquals("./images/demoEquine14.jpg", imageTask.getImageUrl());
+
+        imageTask = pas.getImageTaskTemplate();
+        assertEquals(5, imageTask.getTaskQuestions().size());
+        assertEquals("./images/demoEquine14.jpg", imageTask.getImageUrl());
     }
 
     @Test
