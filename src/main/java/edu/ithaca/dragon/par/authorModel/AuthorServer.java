@@ -28,6 +28,13 @@ public class AuthorServer {
         return AuthorTaskGenerator.makeTaskTemplate(authorDatastore.getAuthorModel());
     }
 
+    public void updateAuthorTimesAttempted(List<String> questionIds){
+        AuthorModel am = authorDatastore.getAuthorModel();
+        for (String id: questionIds){
+            am.increaseTimesSeen(id);
+        }
+    }
+
     public void imageTaskResponseSubmitted(ImageTaskResponseOOP imageTaskResponse) throws IOException{
         for(String currId : imageTaskResponse.getTaskQuestionIds()){
             Question currQuestion = authorDatastore.findTopLevelQuestionTemplateById(currId);

@@ -134,6 +134,10 @@ public class ParStudentAndAuthorServer {
         return authorServer.getImageTaskTemplate();
     }
 
+    public void updateAuthorTimesAttempted(List<String> questionIds) {
+        authorServer.updateAuthorTimesAttempted(questionIds);
+    }
+
     public void submitAuthorImageTaskResponse(ImageTaskResponseOOP response) throws IOException{
             authorServer.imageTaskResponseSubmitted(response);
     }

@@ -92,10 +92,8 @@ public class ParStudentAndAuthorRestController {
         return imageTask;
     }
 
-
-    //TODO: switch it to list of question ids.
-    @PostMapping("/updateTimesSeen")
-    public void updateTimesSeen(@RequestParam String userId, @RequestParam List<String> questionIds) throws IOException{
+    @PostMapping("/updateTimesAttempted")
+    public void updateTimesAttempted(@RequestParam String userId, @RequestParam List<String> questionIds) throws IOException{
         parServer.updateTimesAttempted(userId, questionIds);
         logger.info("Task questions marked as seen by user: " + userId);
     }
@@ -138,6 +136,12 @@ public class ParStudentAndAuthorRestController {
     @GetMapping("/getAuthorImageTask")
     public ImageTask getAuthorImageTask() throws IOException {
         return parServer.getAuthorImageTask();
+    }
+
+    @PostMapping("/updateTimesAttempted")
+    public void updateAuthorTimesAttempted(@RequestParam List<String> questionIds) throws IOException{
+        parServer.updateAuthorTimesAttempted(questionIds);
+        logger.info("Task questions marked as seen by Author");
     }
 
     @PostMapping("/submitAuthorImageTaskResponse")
