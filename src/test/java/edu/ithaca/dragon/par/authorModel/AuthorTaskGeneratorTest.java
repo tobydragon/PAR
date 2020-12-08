@@ -21,6 +21,10 @@ public class AuthorTaskGeneratorTest {
         ImageTask intendedFirstTask = JsonUtil.fromJsonFile("src/test/resources/author/nextImageTaskTemplateTest1.json", ImageTask.class);
         assertEquals(intendedFirstTask, im);
 
+        for (int i = 0; i < intendedFirstTask.getTaskQuestions().size(); i++){
+            authorModel.increaseTimesSeen(intendedFirstTask.getTaskQuestions().get(i).getId());
+        }
+
         ImageTask im2 = AuthorTaskGenerator.makeTaskTemplate(authorModel);
         ImageTask intendedSecondTask = JsonUtil.fromJsonFile("src/test/resources/author/nextImageTaskTemplateTest2.json", ImageTask.class);
         assertEquals(intendedSecondTask, im2);

@@ -130,6 +130,10 @@ public class ParStudentAndAuthorServer {
         return authorServer.nextImageTaskTemplate();
     }
 
+    public ImageTask getAuthorImageTask() {
+        return authorServer.nextImageTaskTemplate();
+    }
+
     public void submitAuthorImageTaskResponse(ImageTaskResponseOOP response) throws IOException{
             authorServer.imageTaskResponseSubmitted(response);
     }

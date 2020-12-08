@@ -135,6 +135,11 @@ public class ParStudentAndAuthorRestController {
         return parServer.nextAuthorImageTask();
     }
 
+    @GetMapping("/getAuthorImageTask")
+    public ImageTask getAuthorImageTask() throws IOException {
+        return parServer.nextAuthorImageTask();
+    }
+
     @PostMapping("/submitAuthorImageTaskResponse")
     public ResponseEntity<String> submitAuthorImageTaskResponse(@RequestBody ImageTaskResponseOOP response) {
         try {

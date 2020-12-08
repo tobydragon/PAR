@@ -23,9 +23,6 @@ public class AuthorTaskGenerator {
             forTask.add(imageTaskList.get(i).getQuestion());
         }
         ImageTask task = new ImageTask(imageTaskList.get(0).getQuestion().getImageUrl(), forTask, "None");
-        for (int i = 0; i < forTask.size(); i++){
-            authorModel.increaseTimesSeen(forTask.get(i).getId());
-        }
         return task;
     }
 
