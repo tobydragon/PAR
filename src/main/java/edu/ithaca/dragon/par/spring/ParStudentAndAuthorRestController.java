@@ -138,7 +138,7 @@ public class ParStudentAndAuthorRestController {
         return parServer.getAuthorImageTask();
     }
 
-    @PostMapping("/updateTimesAttempted")
+    @PostMapping("/updateTimesAuthorAttempted")
     public void updateAuthorTimesAttempted(@RequestParam List<String> questionIds) throws IOException{
         parServer.updateAuthorTimesAttempted(questionIds);
         logger.info("Task questions marked as seen by Author");
