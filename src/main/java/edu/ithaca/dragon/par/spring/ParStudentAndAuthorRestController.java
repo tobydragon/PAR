@@ -137,7 +137,7 @@ public class ParStudentAndAuthorRestController {
 
     @GetMapping("/getAuthorImageTask")
     public ImageTask getAuthorImageTask() throws IOException {
-        return parServer.nextAuthorImageTask();
+        return parServer.getAuthorImageTask();
     }
 
     @PostMapping("/submitAuthorImageTaskResponse")
