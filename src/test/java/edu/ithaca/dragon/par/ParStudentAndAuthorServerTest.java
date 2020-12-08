@@ -197,12 +197,22 @@ class ParStudentAndAuthorServerTest {
         ImageTask intendedFirstTask = new JsonIoUtil(new JsonIoHelperDefault()).fromFile("src/test/resources/author/nextImageTaskTest1.json", ImageTask.class);
         assertEquals(intendedFirstTask, sameTask);
 
-        parStudentAndAuthorServer.updateTimesAttempted("s1", sameTask.getTaskQuestions());
+        List<String> ids = new ArrayList<>();
+        for(Question q: sameTask.getTaskQuestions()){
+            ids.add(q.getId());
+        }
+
+        parStudentAndAuthorServer.updateTimesAttempted("s1", ids);
 
         sameTask = parStudentAndAuthorServer.getImageTask("s2");
         assertEquals(intendedFirstTask, sameTask);
 
-        parStudentAndAuthorServer.updateTimesAttempted("s2", sameTask.getTaskQuestions());
+        ids = new ArrayList<>();
+        for(Question q: sameTask.getTaskQuestions()){
+            ids.add(q.getId());
+        }
+
+        parStudentAndAuthorServer.updateTimesAttempted("s2", ids);
 
         sameTask = parStudentAndAuthorServer.getImageTask("s1");
 

@@ -1,6 +1,7 @@
 package edu.ithaca.dragon.par.spring;
 
 import edu.ithaca.dragon.par.ParStudentAndAuthorServer;
+import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.*;
 import edu.ithaca.dragon.par.pedagogicalModel.ImageTaskSettings;
@@ -91,9 +92,11 @@ public class ParStudentAndAuthorRestController {
         return imageTask;
     }
 
+
+    //TODO: switch it to list of question ids.
     @PostMapping("/updateTimesSeen")
-    public void updateTimesSeen(@RequestParam String userId, @RequestParam ImageTask it) throws IOException{
-        parServer.updateTimesAttempted(userId, it.getTaskQuestions());
+    public void updateTimesSeen(@RequestParam String userId, @RequestParam List<String> questionIds) throws IOException{
+        parServer.updateTimesAttempted(userId, questionIds);
         logger.info("Task questions marked as seen by user: " + userId);
     }
 

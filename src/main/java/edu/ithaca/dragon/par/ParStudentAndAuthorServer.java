@@ -57,8 +57,8 @@ public class ParStudentAndAuthorServer {
         return imageTask;
     }
 
-    public void updateTimesAttempted(String userId, List<Question> questions) throws IOException{
-        studentModelDatastore.increaseTimesAttempted(userId, questions);
+    public void updateTimesAttempted(String userId, List<String> questionIds) throws IOException{
+        studentModelDatastore.increaseTimesAttemptedById(userId, questionIds);
     }
 
     public String getMessage(String userId, ImageTask it) throws IOException{

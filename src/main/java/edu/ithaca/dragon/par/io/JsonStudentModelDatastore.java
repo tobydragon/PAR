@@ -80,6 +80,15 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
     }
 
     @Override
+    public void increaseTimesAttemptedById(String userId, List<String> questionIds) throws IOException {
+        StudentModel studentModel = getStudentModel(userId);
+        for(String id : questionIds){
+            studentModel.increaseTimesAttempted(id);
+        }
+        overwriteStudentFile(studentModel, studentModelFilePath, jsonIoUtil);
+    }
+
+    @Override
     public int getMinQuestionCountPerType() {
         return minQuestionsPerType;
     }

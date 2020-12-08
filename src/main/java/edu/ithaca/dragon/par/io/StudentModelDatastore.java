@@ -18,6 +18,8 @@ public interface StudentModelDatastore {
 
     void increaseTimesAttempted(String userId, List<Question> questions) throws IOException;
 
+    void increaseTimesAttemptedById(String userId, List<String> questionIds) throws IOException;
+
     int getMinQuestionCountPerType();
 
     void addQuestions(List<Question> questions) throws IOException;
