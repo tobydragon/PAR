@@ -49,20 +49,29 @@ public class AuthorModelTest {
     }
 
     @Test
-    public void increaseTimesSeen(){
+    public void increaseTimesAttemptedTest(){
         assertEquals(0, authorModel.questionCountList.get(0).timesAttempted);
-        authorModel.increaseTimesSeen("plane./images/demoEquine14.jpg");
+        authorModel.increaseTimesAttempted("plane./images/demoEquine14.jpg");
         assertEquals(1, authorModel.questionCountList.get(0).timesAttempted);
-        authorModel.increaseTimesSeen("plane./images/demoEquine14.jpg");
+        authorModel.increaseTimesAttempted("plane./images/demoEquine14.jpg");
         assertEquals(2, authorModel.questionCountList.get(0).timesAttempted);
 
         assertEquals(0, authorModel.questionCountList.get(6).timesAttempted);
-        authorModel.increaseTimesSeen("structure0./images/demoEquine02.jpg");
+        authorModel.increaseTimesAttempted("structure0./images/demoEquine02.jpg");
         assertEquals(1, authorModel.questionCountList.get(6).timesAttempted);
-        authorModel.increaseTimesSeen("structure0./images/demoEquine02.jpg");
+        authorModel.increaseTimesAttempted("structure0./images/demoEquine02.jpg");
         assertEquals(2, authorModel.questionCountList.get(6).timesAttempted);
 
-        assertThrows(InvalidParameterException.class, ()-> {authorModel.increaseTimesSeen("NotAValidQuestionId");});
+
+        assertEquals(0, authorModel.questionCountList.get(1).getFollowupCounts().get(0).timesAttempted);
+        authorModel.increaseTimesAttempted("AttachQ1");
+        System.out.println(authorModel.questionCountList.get(1).getFollowupCounts().get(0).getQuestion().getId());
+        assertEquals(1, authorModel.questionCountList.get(1).getFollowupCounts().get(0).timesAttempted);
+        authorModel.increaseTimesAttempted("AttachQ1");
+        assertEquals(2, authorModel.questionCountList.get(1).getFollowupCounts().get(0).timesAttempted);
+
+
+        assertThrows(InvalidParameterException.class, ()-> {authorModel.increaseTimesAttempted("NotAValidQuestionId");});
     }
 
     @Test

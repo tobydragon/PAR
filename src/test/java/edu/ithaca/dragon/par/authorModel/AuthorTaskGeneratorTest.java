@@ -25,7 +25,7 @@ public class AuthorTaskGeneratorTest {
         assertEquals(intendedFirstTask, im);
 
         for (int i = 0; i < intendedFirstTask.getTaskQuestions().size(); i++){
-            authorModel.increaseTimesSeen(intendedFirstTask.getTaskQuestions().get(i).getId());
+            authorModel.increaseTimesAttempted(intendedFirstTask.getTaskQuestions().get(i).getId());
         }
 
         ImageTask im2 = AuthorTaskGenerator.makeTaskTemplate(authorModel);

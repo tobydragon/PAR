@@ -43,17 +43,28 @@ public class AuthorModel {
         return questionCountList;
     }
 
-    public void increaseTimesSeen(String questionId){
+    public boolean increaseTimesAttempted(String questionId){
         boolean found = false;
         for(QuestionCount questionCount : questionCountList){
             if(questionCount.getQuestion().getId().equals(questionId)){
                 questionCount.increaseTimesAttempted();
                 found = true;
+                break;
+            }
+            if(questionCount.getFollowupCounts().size()>0){ //attachment
+                for(QuestionCount qc : questionCount.getFollowupCounts()){
+                    if (qc.getQuestion().getId().equals(questionId)){
+                        qc.increaseTimesAttempted();
+                        found = true;
+                        break;
+                    }
+                }
             }
         }
         if(!found){
             throw new InvalidParameterException("Question with id:" + questionId + " does not exist in authorModel:" + authorId);
         }
+        return found;
     }
 
     @Override

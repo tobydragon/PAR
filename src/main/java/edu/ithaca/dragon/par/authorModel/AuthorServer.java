@@ -19,7 +19,7 @@ public class AuthorServer {
         AuthorModel am = authorDatastore.getAuthorModel();
         ImageTask it = AuthorTaskGenerator.makeTaskTemplate(am);
         for (int i = 0; i < it.getTaskQuestions().size(); i++){
-            am.increaseTimesSeen(it.getTaskQuestions().get(i).getId());
+            am.increaseTimesAttempted(it.getTaskQuestions().get(i).getId());
         }
         return it;
     }
@@ -31,7 +31,7 @@ public class AuthorServer {
     public void updateAuthorTimesAttempted(List<String> questionIds){
         AuthorModel am = authorDatastore.getAuthorModel();
         for (String id: questionIds){
-            am.increaseTimesSeen(id);
+            am.increaseTimesAttempted(id);
         }
     }
 
