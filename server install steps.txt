@@ -1,3 +1,34 @@
+----------------------------------
+For first-time deployment on linux
+----------------------------------
+ssh into server
+git clone https://github.com/tobydragon/PAR.git
+git checkout <branch>, current tested version: deploymentHotFixes
+cd PAR
+mvn test, all should pass
+
+To run on port other than 8080:
+update port setting in application.properties, here: https://github.com/tobydragon/PAR/blob/master/src/main/resources
+
+mvn install
+
+Starting the server:
+cd target
+sudo java -jar par-0.1.0.jar
+ctrl-z (pause)
+bg (put process into background)
+
+Stopping the server:
+ps -A | grep java
+sudo kill PID
+
+All user data located in:
+target/localData/
+
+-------------------------------------
+redeployment
+-------------------------------------
+
 ssh <username>@par.eastus.cloudapp.azure.com
 cd PAR/
 git stash
