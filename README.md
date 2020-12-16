@@ -17,6 +17,6 @@ One instance of this system is currently being developed and tested with those i
 
 ### [Use Case Diagram](https://drive.google.com/file/d/1_G7bq2_z3fQ1a7Jyr3C9ewXK3StfCI2W/view?usp=sharing)
 
-### [Class Diagram](https://drive.google.com/file/d/1VdcpBtuRQkmUegNbxLKA2ve9hrQkaYYX/view?usp=sharing)c
+### [Class Diagram](https://drive.google.com/file/d/1wG69G15rbGzOp_05EmG-m_0HfDTmPSEA/view?usp=sharing)
 
 ### [Research Publications](https://github.com/tobydragon/PAR/tree/master/src/Research)
