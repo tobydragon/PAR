@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ResponsesPerQuestion {
-    public static final long SECONDS_BETWEEN =30;//TODO
+    public static final long SECONDS_BETWEEN =30;
     private String questionId;
     private String userId;
     private Question question;

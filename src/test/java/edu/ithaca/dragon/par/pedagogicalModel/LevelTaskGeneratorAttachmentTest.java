@@ -42,7 +42,6 @@ public class LevelTaskGeneratorAttachmentTest {
         assertEquals(3, imageTask.getTaskQuestions().size());
         assertEquals(0, imageTask.getTaskQuestions().get(0).getFollowupQuestions().size());
 
-        //TODO: check increase of times seen
 
         studentModel = new StudentModel("TestUser112", questionPool.getAllQuestions());
         imageTask = LevelTaskGeneratorAttachment.makeTaskGivenLevel(studentModel, EquineQuestionTypes.makeLevelToTypesMap().get(4), 4);
@@ -72,7 +71,6 @@ public class LevelTaskGeneratorAttachmentTest {
         assertEquals(false,LevelTaskGeneratorAttachment.checkRelatedImageHasAllNeededTypesOfQuestions(Arrays.asList(EquineQuestionTypes.plane.toString(),EquineQuestionTypes.structure.toString()),testUser2,testUser2.getUserQuestionSet().getQuestionCounts().get(3).getQuestion()));
         assertEquals(true,LevelTaskGeneratorAttachment.checkRelatedImageHasAllNeededTypesOfQuestions(Arrays.asList(EquineQuestionTypes.plane.toString(),EquineQuestionTypes.structure.toString()),testUser2,testUser2.getUserQuestionSet().getQuestionCounts().get(0).getQuestion()));
         assertEquals(true,LevelTaskGeneratorAttachment.checkRelatedImageHasAllNeededTypesOfQuestions(Arrays.asList(EquineQuestionTypes.structure.toString(),EquineQuestionTypes.attachment.toString()),testUser2,testUser2.getUserQuestionSet().getQuestionCounts().get(1).getQuestion()));
-        //TODO: test with followup questions
     }
 
     @Test
@@ -85,7 +83,6 @@ public class LevelTaskGeneratorAttachmentTest {
         assertEquals( "structure0./images/demoEquine02.jpg",LevelTaskGeneratorAttachment.leastSeenQuestionWithTypesNeeded(Arrays.asList(EquineQuestionTypes.structure.toString()),testUser2).getId());
         assertEquals( "structure0./images/demoEquine02.jpg",LevelTaskGeneratorAttachment.leastSeenQuestionWithTypesNeeded(Arrays.asList(EquineQuestionTypes.structure.toString(),EquineQuestionTypes.attachment.toString()),testUser2).getId());
         assertEquals( "structure0./images/demoEquine02.jpg",LevelTaskGeneratorAttachment.leastSeenQuestionWithTypesNeeded(Arrays.asList(EquineQuestionTypes.attachment.toString()),testUser2).getId());
-        //TODO: need to test when the least seen question does not have the proper types
 
         try{
             LevelTaskGeneratorAttachment.leastSeenQuestionWithTypesNeeded(Arrays.asList(EquineQuestionTypes.attachment.toString(),EquineQuestionTypes.zone.toString()),testUser2).getId();

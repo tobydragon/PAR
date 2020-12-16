@@ -26,7 +26,6 @@ public class StudentData {
     public StudentData(StudentModel student){
         studentId = student.getUserId();
         level = LevelTaskGenerator.calcLevel(student.calcKnowledgeEstimateByType(4));
-        //TODO: is there any way to keep the numOfResponsesToConsider in sync with levelTaskGenerator?
         totalAnswersGiven = student.getUserResponseSet().getAllResponseCount();
         percentWrongFirstTime = student.getUserResponseSet().calcPercentWrongFirstTime();
         percentRightAfterWrongFirstTime = student.getUserResponseSet().calcPercentLastAnswerRightAfterWrong();

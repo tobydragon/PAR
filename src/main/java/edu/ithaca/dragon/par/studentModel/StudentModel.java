@@ -40,7 +40,6 @@ public class StudentModel {
 
     public static List<ResponsesPerQuestion> createUserResponseObj(ImageTaskResponseOOP imageTaskResponses, QuestionPool questions, String userId){
         List<ResponsesPerQuestion> userResponse = new ArrayList<>();
-        // TODO why are these declared outside of the for loop
         ResponsesPerQuestion response;
         Question ques;
         for(int i = 0; i< imageTaskResponses.getTaskQuestionIds().size(); i++){

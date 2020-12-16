@@ -113,9 +113,6 @@ public class StudentModelTest {
         assertEquals(49, studentModel.getUserQuestionSet().getTopLevelUnattemptedQuestions().size());
         assertEquals(q2, studentModel.getUserQuestionSet().getTopLevelUnattemptedQuestions().get(48));
 
-        //TODO: see implementation for comment
-        //assertThrows(RuntimeException.class, ()->{studentModel.addQuestion(q2);});
-
     }
 
     @Test

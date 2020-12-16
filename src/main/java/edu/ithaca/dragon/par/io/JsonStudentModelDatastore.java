@@ -105,7 +105,6 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
             for (Question question : questions){
                 currModel.addQuestion(question);
             }
-            //TODO: set studentModel's window size
             overwriteStudentFile(currModel, studentModelFilePath, jsonIoUtil);
         }
     }

@@ -17,7 +17,6 @@ public class LevelTaskGeneratorAttachment implements TaskGenerator {
         this.levelToTypesMap = levelToTypesMap;
     }
 
-    //TODO: test makeTask more thoroughly
     @Override
     public ImageTask makeTask(StudentModel studentModel, int questionCountPerTypeForAnalysis) {
         int studentLevel = calcLevel(studentModel.calcKnowledgeEstimateByType(questionCountPerTypeForAnalysis));

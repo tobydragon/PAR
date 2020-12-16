@@ -309,7 +309,6 @@ public class StudentDataAnalyzer {
             writer.close();
         }
         catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -357,9 +356,7 @@ public class StudentDataAnalyzer {
         }
         sda.writeStudentDataFile(fileName);
 
-        //TODO: try catch for topIncorrectQuestions
-        // return as many as available
-        // use on cohort
+
 
     }
 }

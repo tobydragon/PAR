@@ -32,7 +32,6 @@ public class UserQuestionSet {
 
     public List<QuestionCount> getQuestionCounts(){ return questionCounts; }
 
-    //TODO NEW
     public List<Question> getAllQuestions(){
         List<Question> allQuestions=new ArrayList<>();
         for(QuestionCount currQuestion: questionCounts){
