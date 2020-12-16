@@ -3,7 +3,7 @@ For first-time deployment on linux
 ----------------------------------
 ssh into server
 git clone https://github.com/tobydragon/PAR.git
-git checkout <branch>, current tested version: deploymentHotFixes
+git checkout <branch>, current tested version: deploy
 cd PAR
 mvn test, all should pass
 
