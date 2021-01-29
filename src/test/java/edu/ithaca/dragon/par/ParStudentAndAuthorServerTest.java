@@ -456,4 +456,31 @@ class ParStudentAndAuthorServerTest {
         assertEquals("You've mastered the material and started repeating questions", message);
 
     }
+
+    @Test
+    public void calcStudentDataTest(@TempDir Path tempDir) throws IOException{
+        String testCohortDatastoreFilename = "src/test/resources/author/currentCohortDatastore.json";
+        Path currentStudentModelDir = tempDir.resolve("students");
+        assertTrue(new File(currentStudentModelDir.toString()).mkdir());
+        JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
+                tempDir.resolve("currentQP-10-5-2020.json").toString(),
+                "src/test/resources/author/currentQP-10-5-2020.json",
+                new JsonIoHelperDefault(),
+                currentStudentModelDir.toString());
+
+        JsonIoHelper jsonIoHelper = new JsonIoHelperDefault();
+        JsonIoUtil jsonIoUtil = new JsonIoUtil(jsonIoHelper);
+
+        List<CohortRecord> cohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/CohortServerTest2.json", CohortRecord.class);
+        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords, testCohortDatastoreFilename);
+
+        ParStudentAndAuthorServer server = new ParStudentAndAuthorServer(jsonStudentDatastore, null, jsonCohortDatastore);
+
+        List<StudentData> sdList = server.cohortToStudentDataList("c3");
+
+        assertEquals(sdList.get(0).getStudentId(), "testStudent1");
+        assertEquals(sdList.get(1).getStudentId(), "testStudent2");
+        assertEquals(sdList.get(2).getStudentId(), "testStudent3");
+
+    }
 } 

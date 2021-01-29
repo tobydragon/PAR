@@ -51,10 +51,22 @@ public class JSONCohortDatastore implements CohortDatastore {
         return cohortDatastoreFilename;
     }
 
+    @Override
+    public Cohort getCohortById(String cohortIdIn) {
+        for (Cohort cohort: masterCohortList){
+            if (cohortIdIn.equals(cohort.getCohortId())){
+                return cohort;
+            }
+        }
+
+        //TODO: is this the right thing to do??
+        return null;
+    }
+
     public boolean isStudentIDInDatastore(String studentID){ return this.cohortMap.containsKey(studentID);}
 
-    public void addCohort(TaskGenerator taskGenerator, List<String> studentIDs, MessageGenerator messageGenerator, QuestionPool questionPool){
-        Cohort toAdd = new Cohort(taskGenerator, studentIDs, messageGenerator, questionPool);
+    public void addCohort(String cohortIDIn, TaskGenerator taskGenerator, List<String> studentIDs, MessageGenerator messageGenerator, QuestionPool questionPool){
+        Cohort toAdd = new Cohort(cohortIDIn, taskGenerator, studentIDs, messageGenerator, questionPool);
         masterCohortList.add(toAdd);
 
         for (String studentID : studentIDs) {
@@ -62,8 +74,8 @@ public class JSONCohortDatastore implements CohortDatastore {
         }
     }
 
-    public void addCohort(OrderedTaskGenerator taskGenerator, List<String> studentIDs, MessageGenerator messageGenerator, QuestionPool questionPool, String questionOrderedInfoFilename){
-        Cohort toAdd = new Cohort(taskGenerator, studentIDs, messageGenerator, questionPool, questionOrderedInfoFilename);
+    public void addCohort(String cohortIDIn, OrderedTaskGenerator taskGenerator, List<String> studentIDs, MessageGenerator messageGenerator, QuestionPool questionPool, String questionOrderedInfoFilename){
+        Cohort toAdd = new Cohort(cohortIDIn, taskGenerator, studentIDs, messageGenerator, questionPool, questionOrderedInfoFilename);
         masterCohortList.add(toAdd);
 
         for (String studentID : studentIDs) {

@@ -28,8 +28,9 @@ public class CohortTest {
 
         //construct a cohort with studentIDs when created
         QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
-        Cohort cohort = new Cohort(taskGenerator, studentList, new LevelMessageGenerator(), questionPool);
+        Cohort cohort = new Cohort("c1", taskGenerator, studentList, new LevelMessageGenerator(), questionPool);
 
+        assertEquals("c1", cohort.getCohortId());
         assertEquals(taskGenerator, cohort.getTaskGenerator());
         assertEquals(studentList, cohort.getStudentIDs());
         assertEquals(questionPool, cohort.getQuestionPool());

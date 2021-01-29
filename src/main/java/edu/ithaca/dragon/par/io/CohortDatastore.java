@@ -15,4 +15,5 @@ public interface CohortDatastore {
     TaskGenerator getTaskGeneratorFromStudentID(String studentIDIn) throws IOException;
     MessageGenerator getMessageGeneratorFromStudentID(String studentIDIn) throws IOException;
     String getCohortDatastoreFilename();
+    Cohort getCohortById(String cohortIdIn);
 }

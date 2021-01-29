@@ -1,4 +1,5 @@
 [ {
+  "cohortId" : "c1",
   "taskGeneratorType" : "randomTaskGenerator",
   "studentIDs" : [ ],
   "messageGeneratorType" : "silentMessageGenerator",
@@ -511,6 +512,7 @@
   },
   "questionOrderedInfoFilename" : null
 }, {
+  "cohortId" : "c2",
   "taskGeneratorType" : "levelTaskGenerator",
   "studentIDs" : [ "testStudent1", "testStudent2", "testStudent3", "masteredStudent", "buckmank", "s2", "s1", "testUser111" ],
   "messageGeneratorType" : "levelMessageGenerator",
@@ -1023,6 +1025,7 @@
   },
   "questionOrderedInfoFilename" : null
 }, {
+  "cohortId" : "c3",
   "taskGeneratorType" : "levelTaskGeneratorAttachment",
   "studentIDs" : [ "testStudent1", "testStudent2", "testStudent3", "masteredStudent", "buckmank", "s2", "s1", "testUser111" ],
   "messageGeneratorType" : "levelMessageGeneratorAttachment",
@@ -1535,6 +1538,7 @@
   },
   "questionOrderedInfoFilename" : null
 }, {
+  "cohortId" : "c4",
   "taskGeneratorType" : "orderedTaskGenerator",
   "studentIDs" : [ "testStudent4", "testStudent5", "testStudent6" ],
   "messageGeneratorType" : "silentMessageGenerator",
@@ -2047,6 +2051,7 @@
   },
   "questionOrderedInfoFilename" : "src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoListTest1.json"
 }, {
+  "cohortId" : "c5",
   "taskGeneratorType" : "randomTaskGenerator",
   "studentIDs" : [ "testStudent7", "testStudent8", "testStudent9" ],
   "messageGeneratorType" : "silentMessageGenerator",

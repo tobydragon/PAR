@@ -9,13 +9,15 @@ import java.util.List;
 import java.util.Objects;
 
 public class Cohort {
+    private final String cohortId;
     private final TaskGenerator taskGenerator;
     private final List<String> studentIDs;
     private final MessageGenerator messageGenerator;
     private final QuestionPool questionPool;
     private final String questionOrderedInfoFilename;
 
-    public Cohort(TaskGenerator taskGenerator, List<String> studentIDs, MessageGenerator messageGenerator, QuestionPool questionPool){
+    public Cohort(String cohortIdIn, TaskGenerator taskGenerator, List<String> studentIDs, MessageGenerator messageGenerator, QuestionPool questionPool){
+        this.cohortId = cohortIdIn;
         this.taskGenerator = taskGenerator;
         this.studentIDs = studentIDs;
         this.messageGenerator = messageGenerator;
@@ -24,13 +26,16 @@ public class Cohort {
     }
 
     // this constructor should only be used for OrderedTaskGenerator; questionOrderedInfoFilename is not used by other TaskGenerators
-    public Cohort(OrderedTaskGenerator taskGenerator, List<String> studentIDs, MessageGenerator messageGenerator, QuestionPool questionPool, String questionOrderedInfoFilename){
+    public Cohort(String cohortIdIn, OrderedTaskGenerator taskGenerator, List<String> studentIDs, MessageGenerator messageGenerator, QuestionPool questionPool, String questionOrderedInfoFilename){
+        this.cohortId = cohortIdIn;
         this.taskGenerator = taskGenerator;
         this.studentIDs = studentIDs;
         this.messageGenerator = messageGenerator;
         this.questionPool = questionPool;
         this.questionOrderedInfoFilename = questionOrderedInfoFilename;
     }
+
+    public String getCohortId(){ return cohortId;}
 
     public List<String> getStudentIDs() {
         return studentIDs;

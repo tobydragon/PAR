@@ -1,6 +1,7 @@
 package edu.ithaca.dragon.par;
 
 import edu.ithaca.dragon.par.authorModel.AuthorServer;
+import edu.ithaca.dragon.par.cohortModel.Cohort;
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.*;
@@ -152,4 +153,18 @@ public class ParStudentAndAuthorServer {
         studentModelDatastore.addQuestions(authorServer.removeAllAuthoredQuestions());
     }
 
+    //----------- StudentData methods  --------------//
+    public List<StudentData> cohortToStudentDataList(String cohortId) throws IOException{
+        Cohort cohort = cohortDatastore.getCohortById(cohortId);
+        if (cohort==null){
+            return null;
+        }
+        List<StudentData> sdList = new ArrayList<>();
+        for (String id: cohort.getStudentIDs()){
+            StudentModel currStudent = studentModelDatastore.getStudentModel(id);
+            StudentData sd = new StudentData(currStudent);
+            sdList.add(sd);
+        }
+        return sdList;
+    }
 }
