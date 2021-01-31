@@ -16,6 +16,15 @@ import java.util.Scanner;
 
 public class StudentDataAnalyzer {
     List<StudentData> studentDataList;
+    double averageLevel;
+    double averageTotalAnswers;
+    double averagePercentCorrectResponses;
+    double averagePercentWrongFirstTime;
+    double averagePercentRightAfterWrongFirstTime;
+    List<QuestionCount> mostIncorrectQuestions;
+
+
+
 
     /**
      * creates StudentDataAnalyzer object
@@ -60,6 +69,21 @@ public class StudentDataAnalyzer {
     public void removeStudentData(String studentId) throws IllegalArgumentException{
         studentDataList.remove(getStudentData(studentId));
     }
+
+    /**
+     * Updates the student data analyzer to hold the most updated statistics
+     */
+    public void calcStatistics(){
+        averageLevel = calcAverageLevel();
+        averageTotalAnswers = calcAverageTotalAnswers();
+        averagePercentCorrectResponses = calcAveragePercentCorrectResponses();
+        averagePercentWrongFirstTime = calcAveragePercentWrongFirstTime();
+        averagePercentRightAfterWrongFirstTime = calcAveragePercentRightAfterWrongFirstTime();
+        mostIncorrectQuestions = findMostIncorrectQuestions(5);
+        //TODO: who decides how many questions to find? Is this like the window size of 4?
+        // Or should it be up to the instructor?
+    }
+
 
     /**
      * @throws ArithmeticException if list is empty (because getting an average of 0 numbers is impossible)

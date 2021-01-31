@@ -545,4 +545,51 @@ public class StudentDataAnalyzerTest {
         assertEquals("491-zone-./images/metacarpal37.jpg", incorrect.get(2).getQuestion().getId());
 
     }
+
+
+    @Test
+    public void calcStatisticsTest() throws IOException{
+        StudentDataAnalyzer sda = new StudentDataAnalyzer(new ArrayList<>());
+
+        //add 1 student
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
+        StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
+        StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
+        StudentData masteredStudent = new StudentData(masteredStudentModel);
+        sda.addStudentData(masteredStudent);
+
+        //student2
+        StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/level4Student.json", StudentModelRecord.class);
+        StudentModel level4Student = smr2.buildStudentModel(myQP);
+        StudentData level4StudentData = new StudentData(level4Student);
+        sda.addStudentData(level4StudentData);
+
+        //student3
+        List<Question> noQuestions = new ArrayList<Question>();
+        StudentModel student = new StudentModel("student", noQuestions);
+        StudentData newStudent = new StudentData(student);
+        sda.addStudentData(newStudent);
+
+        //student4
+        StudentModelRecord  smr3 = JsonUtil.fromJsonFile("src/test/resources/author/students/incorrectStudent.json", StudentModelRecord.class);
+        StudentModel stud = smr3.buildStudentModel(myQP);
+        StudentData studData = new StudentData(stud);
+        sda.addStudentData(studData);
+
+        //student5
+        StudentModelRecord  smr4 = JsonUtil.fromJsonFile("src/test/resources/author/students/notMasteredStudent.json", StudentModelRecord.class);
+        StudentModel stud2 = smr4.buildStudentModel(myQP);
+        StudentData studData2 = new StudentData(stud2);
+        sda.addStudentData(studData2);
+
+        sda.calcStatistics();
+        assertTrue(2.75 < sda.averageLevel && 2.85 > sda.averageLevel);
+        assertTrue(19.75 < sda.averageTotalAnswers && 19.85 > sda.averageTotalAnswers);
+        assertTrue( 62.6 < sda.averagePercentCorrectResponses && 62.7 > sda.averagePercentCorrectResponses);
+        assertTrue(19.6 < sda.averagePercentWrongFirstTime && 19.7 > sda.averagePercentWrongFirstTime);
+        assertTrue(31.6 < sda.averagePercentRightAfterWrongFirstTime && 31.7 > sda.averagePercentRightAfterWrongFirstTime);
+        assertEquals("491-zone-./images/metacarpal37.jpg", sda.mostIncorrectQuestions.get(0).getQuestion().getId());
+
+    }
+
 }
