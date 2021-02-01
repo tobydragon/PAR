@@ -11,6 +11,7 @@ import edu.ithaca.dragon.par.studentModel.UserResponseSet;
 import edu.ithaca.dragon.util.JsonIoHelper;
 import edu.ithaca.dragon.util.JsonIoHelperDefault;
 import edu.ithaca.dragon.util.JsonIoUtil;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -458,7 +459,7 @@ class ParStudentAndAuthorServerTest {
     }
 
     @Test
-    public void calcStudentDataTest(@TempDir Path tempDir) throws IOException{
+    public void cohortToStudentDataListTest(@TempDir Path tempDir) throws IOException{
         String testCohortDatastoreFilename = "src/test/resources/author/currentCohortDatastore.json";
         Path currentStudentModelDir = tempDir.resolve("students");
         assertTrue(new File(currentStudentModelDir.toString()).mkdir());
@@ -482,5 +483,94 @@ class ParStudentAndAuthorServerTest {
         assertEquals(sdList.get(1).getStudentId(), "testStudent2");
         assertEquals(sdList.get(2).getStudentId(), "testStudent3");
 
+    }
+
+
+    @Test
+    public void getCohortStatisticsTest(@TempDir Path tempDir) throws IOException{
+        String testCohortDatastoreFilename = "src/test/resources/author/currentCohortDatastore.json";
+        Path currentStudentModelDir = tempDir.resolve("students");
+        assertTrue(new File(currentStudentModelDir.toString()).mkdir());
+        JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
+                tempDir.resolve("currentQP-10-5-2020.json").toString(),
+                "src/test/resources/author/currentQP-10-5-2020.json",
+                new JsonIoHelperDefault(),
+                currentStudentModelDir.toString());
+
+        JsonIoHelper jsonIoHelper = new JsonIoHelperDefault();
+        JsonIoUtil jsonIoUtil = new JsonIoUtil(jsonIoHelper);
+
+        List<CohortRecord> cohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/CohortServerTest2.json", CohortRecord.class);
+        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords, testCohortDatastoreFilename);
+
+        ParStudentAndAuthorServer server = new ParStudentAndAuthorServer(jsonStudentDatastore, null, jsonCohortDatastore);
+
+        StudentDataAnalyzer sda = server.getCohortStatistics("c3");
+
+        sda.calcStatistics();
+        assertTrue(.9 < sda.getAverageLevel() && 1.1 > sda.getAverageLevel());
+        assertTrue(-.1 < sda.getAverageTotalAnswers() && .1 > sda.getAverageTotalAnswers());
+        assertTrue( -.1 < sda.getAveragePercentCorrectResponses() && .1 > sda.getAveragePercentCorrectResponses());
+        assertTrue(-.1 < sda.getAveragePercentWrongFirstTime() && .1 > sda.getAveragePercentWrongFirstTime());
+        assertTrue(-.1 < sda.getAveragePercentRightAfterWrongFirstTime() && .1 > sda.getAveragePercentRightAfterWrongFirstTime());
+        Assertions.assertEquals(0, sda.getMostIncorrectQuestions().size());
+
+        ImageTask it = server.getImageTask("testStudent1");
+        List<String> idList = new ArrayList<>();
+        idList.add("464-plane-./images/metacarpal19.jpg");
+        List<String> responseList = new ArrayList<>();
+        responseList.add("longitudinal (long axis)");
+        ImageTaskResponseOOP itr = new ImageTaskResponseOOP("testStudent1", idList, responseList);
+        server.submitImageTaskResponse(itr);
+        server.updateTimesAttempted("testStudent1", idList);
+
+        it = server.getImageTask("testStudent1");
+        idList = new ArrayList<>();
+        idList.add("324-plane-./images/metacarpal56.jpg");
+        responseList = new ArrayList<>();
+        responseList.add("longitudinal (long axis)");
+        itr = new ImageTaskResponseOOP("testStudent1", idList, responseList);
+        server.submitImageTaskResponse(itr);
+        server.updateTimesAttempted("testStudent1", idList);
+
+        it = server.getImageTask("testStudent1");
+        idList = new ArrayList<>();
+        idList.add("338-plane-./images/metacarpal42.jpg");
+        responseList = new ArrayList<>();
+        responseList.add("transverse (short axis)");
+        itr = new ImageTaskResponseOOP("testStudent1", idList, responseList);
+        server.submitImageTaskResponse(itr);
+        server.updateTimesAttempted("testStudent1", idList);
+
+        it = server.getImageTask("testStudent1");
+        idList = new ArrayList<>();
+        idList.add("366-plane-./images/metacarpal41.jpg");
+        responseList = new ArrayList<>();
+        responseList.add("transverse (short axis)");
+        itr = new ImageTaskResponseOOP("testStudent1", idList, responseList);
+        server.submitImageTaskResponse(itr);
+        server.updateTimesAttempted("testStudent1", idList);
+
+        it = server.getImageTask("testStudent1");
+        idList = new ArrayList<>();
+        idList.add("450-plane-./images/metacarpal25.jpg");
+        idList.add("453-structure0-./images/metacarpal25.jpg");
+        idList.add("456-structure1-./images/metacarpal25.jpg");
+        responseList = new ArrayList<>();
+        responseList.add("transverse (short axis)");
+        responseList.add("suspensory ligament (branches)");
+        responseList.add("deep digital flexor tendon");
+        itr = new ImageTaskResponseOOP("testStudent1", idList, responseList);
+        server.submitImageTaskResponse(itr);
+        server.updateTimesAttempted("testStudent1", idList);
+
+
+        sda = server.getCohortStatistics("c3");
+        assertTrue(1.3 < sda.getAverageLevel() && 1.4 > sda.getAverageLevel());
+        assertTrue(2.3 < sda.getAverageTotalAnswers() && 2.4 > sda.getAverageTotalAnswers());
+        assertTrue( 28.5 < sda.getAveragePercentCorrectResponses() && 28.6 > sda.getAveragePercentCorrectResponses());
+        assertTrue(4.7 < sda.getAveragePercentWrongFirstTime() && 4.8 > sda.getAveragePercentWrongFirstTime());
+        assertTrue(-.1 < sda.getAveragePercentRightAfterWrongFirstTime() && .1 > sda.getAveragePercentRightAfterWrongFirstTime());
+        Assertions.assertEquals(1, sda.getMostIncorrectQuestions().size());
     }
 } 

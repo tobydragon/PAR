@@ -497,7 +497,8 @@ public class StudentDataAnalyzerTest {
     public void findMostIncorrectQuestionsTest() throws IOException{
         //empty StudentDataAnalyzer
         StudentDataAnalyzer sda = new StudentDataAnalyzer(new ArrayList<>());
-        assertThrows(IllegalArgumentException.class, ()-> sda.findMostIncorrectQuestions(4));
+        List<QuestionCount> incorrect = sda.findMostIncorrectQuestions(1);
+        assertEquals(0, incorrect.size());
 
         //add 1 student
         QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
@@ -508,14 +509,13 @@ public class StudentDataAnalyzerTest {
         sda.addStudentData(masteredStudent);
 
 
-        List<QuestionCount> incorrect = sda.findMostIncorrectQuestions(1);
+        incorrect = sda.findMostIncorrectQuestions(1);
         assertEquals("491-zone-./images/metacarpal37.jpg", incorrect.get(0).getQuestion().getId());
 
 
         //invalid numbers
         assertThrows(IllegalArgumentException.class, ()-> sda.findMostIncorrectQuestions(-3));
-        assertThrows(IllegalArgumentException.class, ()-> sda.findMostIncorrectQuestions(0));
-        assertThrows(IllegalArgumentException.class, ()-> sda.findMostIncorrectQuestions(9999999));
+        assertThrows(IllegalArgumentException.class, ()-> sda.findMostIncorrectQuestions(-1));
 
 
 

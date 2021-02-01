@@ -167,4 +167,11 @@ public class ParStudentAndAuthorServer {
         }
         return sdList;
     }
+
+    public StudentDataAnalyzer getCohortStatistics(String cohortId) throws IOException{
+        List<StudentData> sdList = cohortToStudentDataList(cohortId);
+        StudentDataAnalyzer sda = new StudentDataAnalyzer(sdList);
+        sda.calcStatistics();
+        return sda;
+    }
 }

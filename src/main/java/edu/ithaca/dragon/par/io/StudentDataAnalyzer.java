@@ -226,10 +226,14 @@ public class StudentDataAnalyzer {
     }
 
     /**
-     * @throws IllegalArgumentException if the requested number of incorrectly answered questions is higher than the number that was answered incorrectly
      * @return a list of the top incorrect questions and the number of times it was answered incorrectly.
      */
     public List<QuestionCount> findMostIncorrectQuestions(int numOfQuestions){
+        if(numOfQuestions<0){
+            throw new IllegalArgumentException("Cannot generate a negative number of incorrect questions");
+        }
+
+
         List<QuestionCount> consolidatedList = new ArrayList<>();
         for(StudentData sd: studentDataList){
             for (QuestionCount qcStudent: sd.getQuestionsWrong()){
@@ -246,8 +250,8 @@ public class StudentDataAnalyzer {
             }
         }
 
-        if(numOfQuestions>consolidatedList.size() || numOfQuestions < 1){
-            throw new IllegalArgumentException("More incorrect questions requested than available");
+        if(numOfQuestions>consolidatedList.size()){
+            return consolidatedList; //already small enough.
         }
 
 
@@ -386,4 +390,29 @@ public class StudentDataAnalyzer {
         // use on cohort
 
     }
+
+    public double getAverageLevel() {
+        return averageLevel;
+    }
+
+    public double getAverageTotalAnswers() {
+        return averageTotalAnswers;
+    }
+
+    public double getAveragePercentCorrectResponses() {
+        return averagePercentCorrectResponses;
+    }
+
+    public double getAveragePercentWrongFirstTime() {
+        return averagePercentWrongFirstTime;
+    }
+
+    public double getAveragePercentRightAfterWrongFirstTime() {
+        return averagePercentRightAfterWrongFirstTime;
+    }
+
+    public List<QuestionCount> getMostIncorrectQuestions() {
+        return mostIncorrectQuestions;
+    }
+
 }
