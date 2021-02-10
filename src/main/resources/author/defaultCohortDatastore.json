@@ -1,6 +1,7 @@
 [ {
+  "cohortId" : "c1",
   "taskGeneratorType" : "levelTaskGeneratorAttachment",
-  "studentIDs" : [ ],
+  "studentIDs" : [ "testStudent3"],
   "messageGeneratorType" : "levelMessageGeneratorAttachment",
   "questionPool" : {
     "allQuestions" : [ {
@@ -1975,6 +1976,7 @@
   },
   "questionOrderedInfoFilename" : null
 }, {
+  "cohortId" : "c2",
   "taskGeneratorType" : "levelTaskGenerator",
   "studentIDs" : [ "testStudent1", "testStudent2", "testStudent3" ],
   "messageGeneratorType" : "levelMessageGenerator",
@@ -3951,6 +3953,7 @@
   },
   "questionOrderedInfoFilename" : null
 }, {
+  "cohortId" : "c3",
   "taskGeneratorType" : "orderedTaskGenerator",
   "studentIDs" : [ "testStudent4", "testStudent5", "testStudent6" ],
   "messageGeneratorType" : "silentMessageGenerator",
@@ -5927,6 +5930,7 @@
   },
   "questionOrderedInfoFilename" : "src/main/resources/author/orderedQuestionInfo/currentOrderedQuestionInfoListSmall.json"
 }, {
+  "cohortId" : "c4",
   "taskGeneratorType" : "orderedTaskGenerator",
   "studentIDs" : [ "testStudent7", "testStudent8", "testStudent9" ],
   "messageGeneratorType" : "silentMessageGenerator",
@@ -6007,6 +6011,7 @@
   },
   "questionOrderedInfoFilename" : "src/main/resources/author/orderedQuestionInfo/currentOrderedQuestionInfoList.json"
 }, {
+  "cohortId" : "c5",
   "taskGeneratorType" : "randomTaskGenerator",
   "studentIDs" : [ "testStudent10", "testStudent11", "testStudent12" ],
   "messageGeneratorType" : "silentMessageGenerator",

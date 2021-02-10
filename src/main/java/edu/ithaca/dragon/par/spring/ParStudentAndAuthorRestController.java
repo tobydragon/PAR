@@ -177,4 +177,9 @@ public class ParStudentAndAuthorRestController {
         return parServer.buildTeacherReport();
     }
 
+    @GetMapping("/getCohortStatistics")
+    public StudentDataAnalyzer getCohortStatistics(@RequestParam String cohortId) throws IOException {
+        return parServer.getCohortStatistics(cohortId);
+    }
+
 }
