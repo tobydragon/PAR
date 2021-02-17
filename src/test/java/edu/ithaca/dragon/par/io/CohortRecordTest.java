@@ -234,8 +234,8 @@ public class CohortRecordTest {
 
         //read in 2 cohort datastores- 1 not altered for comparison, 1 to alter
         List<CohortRecord> testCohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/defaultCohortDatastore.json", CohortRecord.class);
-        JSONCohortDatastore toReference = CohortRecord.makeCohortDatastoreFromCohortRecords(testCohortRecords, "src/test/resources/author/defaultCohortDatastore.json");
-        JSONCohortDatastore toTest = CohortRecord.makeCohortDatastoreFromCohortRecords(testCohortRecords, "src/test/resources/author/currentCohortDatastore.json");
+        JSONCohortDatastore toReference = CohortRecord.makeCohortDatastoreFromCohortRecords(testCohortRecords, "src/test/resources/author/defaultCohortDatastore.json", new JsonIoHelperDefault());
+        JSONCohortDatastore toTest = CohortRecord.makeCohortDatastoreFromCohortRecords(testCohortRecords, "src/test/resources/author/currentCohortDatastore.json", new JsonIoHelperDefault());
 
         //ask for TaskGenerator of studentID that does not exist
         assertFalse(toTest.isStudentIDInDatastore("taskGeneratorStudent"));
@@ -247,7 +247,7 @@ public class CohortRecordTest {
 
         String toTestFilename = toTest.getCohortDatastoreFilename();
         List<CohortRecord> toTestFilenameRecords = jsonIoUtil.listFromFile(toTestFilename, CohortRecord.class);
-        JSONCohortDatastore fromFilename = CohortRecord.makeCohortDatastoreFromCohortRecords(toTestFilenameRecords, toTestFilename);
+        JSONCohortDatastore fromFilename = CohortRecord.makeCohortDatastoreFromCohortRecords(toTestFilenameRecords, toTestFilename, new JsonIoHelperDefault());
         List<Cohort> toTestList = toTest.getMasterCohortList();
         List<Cohort> fromFilenameList = toReference.getMasterCohortList();
         assertEquals(toTestList.size(), fromFilenameList.size());
@@ -271,7 +271,7 @@ public class CohortRecordTest {
 
         toTestFilename = toTest.getCohortDatastoreFilename();
         toTestFilenameRecords = jsonIoUtil.listFromFile(toTestFilename, CohortRecord.class);
-        fromFilename = CohortRecord.makeCohortDatastoreFromCohortRecords(toTestFilenameRecords, toTestFilename);
+        fromFilename = CohortRecord.makeCohortDatastoreFromCohortRecords(toTestFilenameRecords, toTestFilename, new JsonIoHelperDefault());
         toTestList = toTest.getMasterCohortList();
         fromFilenameList = toReference.getMasterCohortList();
         assertEquals(toTestList.size(), fromFilenameList.size());

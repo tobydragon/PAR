@@ -4,6 +4,9 @@ import edu.ithaca.dragon.par.cohortModel.Cohort;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.pedagogicalModel.*;
+import edu.ithaca.dragon.util.JsonIoHelper;
+import edu.ithaca.dragon.util.JsonIoHelperDefault;
+import edu.ithaca.dragon.util.JsonIoUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,12 +19,14 @@ public class JSONCohortDatastore implements CohortDatastore {
     private final List<Cohort> masterCohortList;
     private final Cohort defaultCohort;
     private final String cohortDatastoreFilename;
+    private JsonIoUtil jsonIoUtil;
 
-    public JSONCohortDatastore(String filenameIn, Cohort defaultCohort){
+    public JSONCohortDatastore(String filenameIn, Cohort defaultCohort, JsonIoHelper jsonIoHelper){
         this.cohortMap = new HashMap<>();
         this.masterCohortList = new ArrayList<>();
         this.defaultCohort = defaultCohort;
         this.cohortDatastoreFilename = filenameIn;
+        this.jsonIoUtil = new JsonIoUtil(jsonIoHelper);
 
         this.masterCohortList.add(this.defaultCohort);
         for(int i = 0; i < this.defaultCohort.getStudentIDs().size(); i++){
@@ -88,7 +93,7 @@ public class JSONCohortDatastore implements CohortDatastore {
         if (!cohortMap.containsKey(studentIDIn)){
             this.defaultCohort.addStudent(studentIDIn);
             this.cohortMap.put(studentIDIn, this.defaultCohort);
-            CohortRecord.overwriteCohortDatastoreFile(this);
+            overwriteCohortDatastoreFile();
             return this.defaultCohort.getTaskGenerator();
         } else {
             Cohort cohortOfStudent = cohortMap.get(studentIDIn);
@@ -101,11 +106,25 @@ public class JSONCohortDatastore implements CohortDatastore {
         if (!cohortMap.containsKey(studentIDIn)){
             this.defaultCohort.addStudent(studentIDIn);
             this.cohortMap.put(studentIDIn, this.defaultCohort);
-            CohortRecord.overwriteCohortDatastoreFile(this);
+            overwriteCohortDatastoreFile();
             return this.defaultCohort.getMessageGenerator();
         } else {
             Cohort cohortOfStudent = cohortMap.get(studentIDIn);
             return cohortOfStudent.getMessageGenerator();
         }
+    }
+
+    public void overwriteCohortDatastoreFile() throws IOException {
+        List<CohortRecord> toWrite = makeCohortRecords();
+        jsonIoUtil.toFile(cohortDatastoreFilename, toWrite);
+    }
+
+    public List<CohortRecord> makeCohortRecords() {
+        List<CohortRecord> toReturn = new ArrayList<>();
+        List<Cohort> masterCohortList = getMasterCohortList();
+        for (Cohort cohort : masterCohortList) {
+            toReturn.add(CohortRecord.makeCohortRecordFromCohort(cohort));
+        }
+        return toReturn;
     }
 }

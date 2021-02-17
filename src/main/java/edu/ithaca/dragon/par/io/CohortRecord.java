@@ -5,6 +5,7 @@ import edu.ithaca.dragon.par.domainModel.QuestionOrderedInfo;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.pedagogicalModel.*;
+import edu.ithaca.dragon.util.JsonIoHelper;
 import edu.ithaca.dragon.util.JsonIoHelperDefault;
 import edu.ithaca.dragon.util.JsonIoUtil;
 
@@ -197,8 +198,8 @@ public class CohortRecord {
         return null;
     }
 
-    public static JSONCohortDatastore makeCohortDatastoreFromCohortRecords(List<CohortRecord> cohortRecordsList, String cohortDatastoreFilename) {
-        JSONCohortDatastore toReturn = new JSONCohortDatastore(cohortDatastoreFilename, CohortRecord.makeCohortFromCohortRecord(cohortRecordsList.get(0)));
+    public static JSONCohortDatastore makeCohortDatastoreFromCohortRecords(List<CohortRecord> cohortRecordsList, String cohortDatastoreFilename, JsonIoHelper jsonIoHelper) {
+        JSONCohortDatastore toReturn = new JSONCohortDatastore(cohortDatastoreFilename, CohortRecord.makeCohortFromCohortRecord(cohortRecordsList.get(0)), jsonIoHelper);
 
         for (int i = 1; i < cohortRecordsList.size(); i++) {
             CohortRecord cohortRecord = cohortRecordsList.get(i);
@@ -258,15 +259,6 @@ public class CohortRecord {
         return toReturn;
     }
 
-    public static List<CohortRecord> makeCohortRecordsFromCohortDatastore(JSONCohortDatastore cohortDatastoreIn) {
-        List<CohortRecord> toReturn = new ArrayList<>();
-        List<Cohort> masterCohortList = cohortDatastoreIn.getMasterCohortList();
-        for (Cohort cohort : masterCohortList) {
-            toReturn.add(CohortRecord.makeCohortRecordFromCohort(cohort));
-        }
-        return toReturn;
-    }
-
     public static List<QuestionOrderedInfo> createQuestionOrderedInfoList(String questionOrderedListFilename, QuestionPool questionPool){
         // if filename exists, create from file
         try {
@@ -281,14 +273,9 @@ public class CohortRecord {
             return toCheck;
         } catch (IOException | NullPointerException e) {
             //else go to default method
-            System.out.println("Filename passed into OrderedTaskGenerator not found. Please check again. Creating a default QuestionOrderedInfoList");
+            System.out.println("File likely not found: " + questionOrderedListFilename + ". Creating a default QuestionOrderedInfoList");
+            e.printStackTrace();
             return OrderedTaskGenerator.createDefaultQuestionOrderedInfoList(questionPool, true);
         }
-    }
-
-    public static void overwriteCohortDatastoreFile(JSONCohortDatastore cohortDatastore) throws IOException {
-        JsonIoUtil jsonIoUtil = new JsonIoUtil(new JsonIoHelperDefault());
-        List<CohortRecord> toWrite = CohortRecord.makeCohortRecordsFromCohortDatastore(cohortDatastore);
-        jsonIoUtil.toFile(cohortDatastore.getCohortDatastoreFilename(), toWrite);
     }
 }

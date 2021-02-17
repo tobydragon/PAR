@@ -52,7 +52,7 @@ class ParStudentAndAuthorServerTest {
         JsonIoHelper jsonIoHelper = new JsonIoHelperDefault();
         JsonIoUtil jsonIoUtil = new JsonIoUtil(jsonIoHelper);
         List<CohortRecord> cohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/CohortRecordsToFromJsonTest.json", CohortRecord.class);
-        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords, testCohortDatastoreFilename);
+        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords, testCohortDatastoreFilename, new JsonIoHelperDefault());
         ParStudentAndAuthorServer parStudentAndAuthorServer = new ParStudentAndAuthorServer(jsonStudentDatastore, jsonAuthorDatastore, jsonCohortDatastore);
         parStudentAndAuthorServer.transferAuthoredQuestionsToStudentServer();
 
@@ -88,7 +88,7 @@ class ParStudentAndAuthorServerTest {
         JsonIoHelper jsonIoHelper = new JsonIoHelperDefault();
         JsonIoUtil jsonIoUtil = new JsonIoUtil(jsonIoHelper);
         List<CohortRecord> cohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/CohortRecordsToFromJsonTest.json", CohortRecord.class);
-        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords, testCohortDatastoreFilename);
+        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords, testCohortDatastoreFilename, new JsonIoHelperDefault());
         ParStudentAndAuthorServer parStudentAndAuthorServer = new ParStudentAndAuthorServer(jsonStudentDatastore, jsonAuthorDatastore, jsonCohortDatastore);
         Map<EquineQuestionTypes, String> estStrings = parStudentAndAuthorServer.calcKnowledgeEstimateStringsByType("no one");
         assertEquals(4, estStrings.size());
@@ -117,7 +117,7 @@ class ParStudentAndAuthorServerTest {
         JsonIoHelper jsonIoHelper = new JsonIoHelperDefault();
         JsonIoUtil jsonIoUtil = new JsonIoUtil(jsonIoHelper);
         List<CohortRecord> cohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/CohortRecordsToFromJsonTest.json", CohortRecord.class);
-        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords, testCohortDatastoreFilename);
+        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords, testCohortDatastoreFilename, new JsonIoHelperDefault());
         ParStudentAndAuthorServer parStudentAndAuthorServer = new ParStudentAndAuthorServer(jsonStudentDatastore, null, jsonCohortDatastore);
 
         ImageTask nextTask = parStudentAndAuthorServer.nextImageTask("s1");
@@ -153,7 +153,7 @@ class ParStudentAndAuthorServerTest {
         JsonIoHelper jsonIoHelper = new JsonIoHelperDefault();
         JsonIoUtil jsonIoUtil = new JsonIoUtil(jsonIoHelper);
         List<CohortRecord> cohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/CohortRecordsToFromJsonTest.json", CohortRecord.class);
-        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords, testCohortDatastoreFilename);
+        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords, testCohortDatastoreFilename, new JsonIoHelperDefault());
         ParStudentAndAuthorServer parStudentAndAuthorServer = new ParStudentAndAuthorServer(jsonStudentDatastore, null, jsonCohortDatastore);
 
         ImageTask sameTask = parStudentAndAuthorServer.getImageTask("s1");
@@ -191,7 +191,7 @@ class ParStudentAndAuthorServerTest {
         JsonIoHelper jsonIoHelper = new JsonIoHelperDefault();
         JsonIoUtil jsonIoUtil = new JsonIoUtil(jsonIoHelper);
         List<CohortRecord> cohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/CohortRecordsToFromJsonTest.json", CohortRecord.class);
-        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords, testCohortDatastoreFilename);
+        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords, testCohortDatastoreFilename, new JsonIoHelperDefault());
         ParStudentAndAuthorServer parStudentAndAuthorServer = new ParStudentAndAuthorServer(jsonStudentDatastore, null, jsonCohortDatastore);
 
         ImageTask sameTask = parStudentAndAuthorServer.getImageTask("s1");
@@ -241,7 +241,7 @@ class ParStudentAndAuthorServerTest {
         JsonIoHelper jsonIoHelper = new JsonIoHelperDefault();
         JsonIoUtil jsonIoUtil = new JsonIoUtil(jsonIoHelper);
         List<CohortRecord> cohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/CohortRecordsToFromJsonTest.json", CohortRecord.class);
-        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords, testCohortDatastoreFilename);
+        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords, testCohortDatastoreFilename, new JsonIoHelperDefault());
         ParStudentAndAuthorServer parStudentAndAuthorServer = new ParStudentAndAuthorServer(jsonStudentDatastore, null, jsonCohortDatastore);
 
         ImageTaskResponseOOP responseSet2=new ImageTaskResponseOOP("response1", Arrays.asList("PlaneQ1", "PlaneQ2", "PlaneQ3", "PlaneQ4", "PlaneQ5", "StructureQ1", "StructureQ2", "StructureQ3", "StructureQ4", "StructureQ5", "ZoneQ1", "ZoneQ2", "ZoneQ3", "ZoneQ4", "ZoneQ5"),Arrays.asList("Latera", "Transvers", "Latera", "Latera", "Transvers", "bone", "ligament", "tendon", "bone", "tumor", "3c", "1b", "3c", "2a", "2b"));
@@ -292,7 +292,7 @@ class ParStudentAndAuthorServerTest {
         JsonIoHelper jsonIoHelper = new JsonIoHelperDefault();
         JsonIoUtil jsonIoUtil = new JsonIoUtil(jsonIoHelper);
         List<CohortRecord> cohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/CohortRecordsToFromJsonTest.json", CohortRecord.class);
-        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords, testCohortDatastoreFilename);
+        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords, testCohortDatastoreFilename, new JsonIoHelperDefault());
         ParStudentAndAuthorServer parStudentAndAuthorServer = new ParStudentAndAuthorServer(jsonStudentDatastore, null, jsonCohortDatastore);
 
         //user has seen no questions
@@ -325,7 +325,7 @@ class ParStudentAndAuthorServerTest {
         JsonIoHelper jsonIoHelper = new JsonIoHelperDefault();
         JsonIoUtil jsonIoUtil = new JsonIoUtil(jsonIoHelper);
         List<CohortRecord> cohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/CohortRecordsToFromJsonTest.json", CohortRecord.class);
-        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords, testCohortDatastoreFilename);
+        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords, testCohortDatastoreFilename, new JsonIoHelperDefault());
         ParStudentAndAuthorServer parStudentAndAuthorServer = new ParStudentAndAuthorServer(jsonStudentDatastore, null, jsonCohortDatastore);
 
         //load existing student into the jsonStudentDatastore
@@ -374,7 +374,7 @@ class ParStudentAndAuthorServerTest {
         JsonIoUtil jsonIoUtil = new JsonIoUtil(jsonIoHelper);
 
         List<CohortRecord> cohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/CohortServerTest.json", CohortRecord.class);
-        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords, testCohortDatastoreFilename);
+        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords, testCohortDatastoreFilename, new JsonIoHelperDefault());
 
         ParStudentAndAuthorServer server = new ParStudentAndAuthorServer(jsonStudentDatastore, null, jsonCohortDatastore);
 
@@ -473,7 +473,7 @@ class ParStudentAndAuthorServerTest {
         JsonIoUtil jsonIoUtil = new JsonIoUtil(jsonIoHelper);
 
         List<CohortRecord> cohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/CohortServerTest2.json", CohortRecord.class);
-        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords, testCohortDatastoreFilename);
+        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords, testCohortDatastoreFilename, new JsonIoHelperDefault());
 
         ParStudentAndAuthorServer server = new ParStudentAndAuthorServer(jsonStudentDatastore, null, jsonCohortDatastore);
 
@@ -501,7 +501,7 @@ class ParStudentAndAuthorServerTest {
         JsonIoUtil jsonIoUtil = new JsonIoUtil(jsonIoHelper);
 
         List<CohortRecord> cohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/CohortServerTest2.json", CohortRecord.class);
-        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords, testCohortDatastoreFilename);
+        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords, testCohortDatastoreFilename, new JsonIoHelperDefault());
 
         ParStudentAndAuthorServer server = new ParStudentAndAuthorServer(jsonStudentDatastore, null, jsonCohortDatastore);
 
