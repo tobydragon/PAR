@@ -42,8 +42,11 @@ public class ParStudentAndAuthorRestController {
                     "author/defaultQuestionPool.json",
                     jsonIoHelper,
                     "localData/students");
-            List<CohortRecord> cohortRecordList = jsonIoUtil.listfromReadOnlyFile("author/defaultCohortDatastore.json", CohortRecord.class);
-            JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecordList, "author/defaultCohortDatastore.json", jsonIoHelper);
+            JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(
+                    "localData/currentCohortDatastore.json",
+                    "author/defaultCohortDatastore.json",
+                    jsonIoHelper);
+
             parServer = new ParStudentAndAuthorServer(jsonStudentDatastore, jsonAuthorDatastore, jsonCohortDatastore);
         }
         catch(IOException e){

@@ -1,8 +1,8 @@
 [ {
   "cohortId" : "c1",
-  "taskGeneratorType" : "levelTaskGeneratorAttachment",
-  "studentIDs" : [ "testStudent3"],
-  "messageGeneratorType" : "levelMessageGeneratorAttachment",
+  "taskGeneratorType" : "levelTaskGenerator",
+  "studentIDs" : [ "testStudent1", "testStudent2", "testStudent3" ],
+  "messageGeneratorType" : "levelMessageGenerator",
   "questionPool" : {
     "allQuestions" : [ {
       "id" : "614-plane-./images/3CTransverse.jpg",
@@ -1977,9 +1977,9 @@
   "questionOrderedInfoFilename" : null
 }, {
   "cohortId" : "c2",
-  "taskGeneratorType" : "levelTaskGenerator",
-  "studentIDs" : [ "testStudent1", "testStudent2", "testStudent3" ],
-  "messageGeneratorType" : "levelMessageGenerator",
+  "taskGeneratorType" : "levelTaskGeneratorAttachment",
+  "studentIDs" : [ "testStudent3"],
+  "messageGeneratorType" : "levelMessageGeneratorAttachment",
   "questionPool" : {
     "allQuestions" : [ {
       "id" : "614-plane-./images/3CTransverse.jpg",

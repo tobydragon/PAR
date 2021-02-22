@@ -198,6 +198,12 @@ public class CohortRecord {
         return null;
     }
 
+    public static JSONCohortDatastore makeCohortDatastoreFromCohortRecords(String cohortRecordFilepath, String defaultCohortRecordReadOnlyFilepath, JsonIoHelper jsonIoHelper) throws IOException{
+        JsonIoUtil jsonIoUtil = new JsonIoUtil(jsonIoHelper);
+        List<CohortRecord> cohortRecordList = jsonIoUtil.listFromFileOrCopyFromReadOnlyFile(cohortRecordFilepath, defaultCohortRecordReadOnlyFilepath, CohortRecord.class);
+        return makeCohortDatastoreFromCohortRecords(cohortRecordList, cohortRecordFilepath, jsonIoHelper);
+    }
+
     public static JSONCohortDatastore makeCohortDatastoreFromCohortRecords(List<CohortRecord> cohortRecordsList, String cohortDatastoreFilename, JsonIoHelper jsonIoHelper) {
         JSONCohortDatastore toReturn = new JSONCohortDatastore(cohortDatastoreFilename, CohortRecord.makeCohortFromCohortRecord(cohortRecordsList.get(0)), jsonIoHelper);
 
