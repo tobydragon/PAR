@@ -103,9 +103,9 @@ public class QuestionTest {
         Question attach2 = new Question("AttachQ2", "Which attachment is this?", "Attachment",
                 "Type3", Arrays.asList("Type1", "Type2", "Type3"), "../static/images/equine02.jpg");
         Question attach3 = new Question("AttachQ1", "Which attachment is this?", "Attachment",
-                "Type2", Arrays.asList("Type1", "Type2", "Type3"), "../static/images/equine02.jpg", Arrays.asList(bonusQuestion));
+                "Type2", Arrays.asList("Type1", "Type2", "Type3"), "../static/images/equine02.jpg", Arrays.asList(bonusQuestion), "feedback");
         List<Question> attachmentQuestions = Arrays.asList(attach1, attach2, attach3);
-        Question myQ = new Question("StructureQ1", "What kind of structure is this?", EquineQuestionTypes.structure.toString(), "Structure1", Arrays.asList("Structure1", "Structure2", "Structure3"), "../static/images/equine02.jpg", attachmentQuestions);
+        Question myQ = new Question("StructureQ1", "What kind of structure is this?", EquineQuestionTypes.structure.toString(), "Structure1", Arrays.asList("Structure1", "Structure2", "Structure3"), "../static/images/equine02.jpg", attachmentQuestions,"feedback");
         Question myQ2 = new Question("PlaneQ1", "What plane is this?", EquineQuestionTypes.plane.toString(), "Transverse", Arrays.asList("Transverse", "Longitudinal"), "../static/images/equine02.jpg");
         List<Question> hardcodedQuestions = Arrays.asList(myQ, myQ2);
 
@@ -120,6 +120,18 @@ public class QuestionTest {
         assertEquals(3, questionWithFollowups.getFollowupQuestions().size());
         Question questionWithoutFollowups = questionsFromFile.get(1);
         assertEquals(0, questionWithoutFollowups.getFollowupQuestions().size());
+
+    }
+
+    @Test
+    public void feedbackTest(){
+        Question q1 = new Question("BonusQ1", "This is a followupCounts to a followupCounts question!", "Plane", "Nice!", Arrays.asList("Nice!", "Sweet!", "Cool!"), "../static/images/equine02.jpg", ":(");
+        Question q2 = new Question("BonusQ1", "This is a followupCounts to a followupCounts question!", "Plane", "Nice!", Arrays.asList("Nice!", "Sweet!", "Cool!"), "../static/images/equine02.jpg", ":)");
+        Question q3 = new Question("BonusQ1", "This is a followupCounts to a followupCounts question!", "Plane", "Nice!", Arrays.asList("Nice!", "Sweet!", "Cool!"), "../static/images/equine02.jpg", ">:|");
+        assertEquals(":(", q1.getFeedback());
+        assertEquals(":)", q2.getFeedback());
+        assertEquals(">:|", q3.getFeedback());
+
 
     }
 

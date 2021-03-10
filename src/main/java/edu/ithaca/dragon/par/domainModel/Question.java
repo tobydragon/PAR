@@ -15,6 +15,7 @@ public class Question {
     private List<String> possibleAnswers;
     private String imageUrl;
     private List<Question> followupQuestions;
+    private String feedback;
 
     public Question(){
         this.possibleAnswers = new ArrayList<>();
@@ -22,10 +23,14 @@ public class Question {
     }
 
     public Question(String idIn, String questionTextIn, String typeIn, String correctAnswerIn, List<String> answersIn, String imageUrlIn){
-        this(idIn, questionTextIn, typeIn, correctAnswerIn, answersIn, imageUrlIn, new ArrayList<>());
+        this(idIn, questionTextIn, typeIn, correctAnswerIn, answersIn, imageUrlIn, new ArrayList<>(), null);
     }
 
-    public Question(String idIn, String questionTextIn, String typeIn, String correctAnswerIn, List<String> answersIn, String imageUrlIn, List<Question> followupQuestionsIn) {
+    public Question(String idIn, String questionTextIn, String typeIn, String correctAnswerIn, List<String> answersIn, String imageUrlIn, String feedbackIn){
+        this(idIn, questionTextIn, typeIn, correctAnswerIn, answersIn, imageUrlIn, new ArrayList<>(), feedbackIn);
+    }
+
+    public Question(String idIn, String questionTextIn, String typeIn, String correctAnswerIn, List<String> answersIn, String imageUrlIn, List<Question> followupQuestionsIn, String feedbackIn) {
         this.id = idIn;
         this.questionText = questionTextIn;
         this.type = typeIn;
@@ -33,19 +38,20 @@ public class Question {
         this.possibleAnswers = answersIn;
         this.imageUrl = imageUrlIn;
         this.followupQuestions = followupQuestionsIn;
+        this.feedback = feedbackIn;
     }
 
     public Question(Question toCopy, String correctAnswer, List<Question> differentFollowups){
-        this(toCopy.id, toCopy.questionText, toCopy.type, correctAnswer, new ArrayList<>(toCopy.possibleAnswers), toCopy.imageUrl, differentFollowups);
+        this(toCopy.id, toCopy.questionText, toCopy.type, correctAnswer, new ArrayList<>(toCopy.possibleAnswers), toCopy.imageUrl, differentFollowups, toCopy.feedback);
     }
 
     //used for AuthorServer.buildQuestionFromTemplate for custom questions
     public Question(Question toCopy, String questionText, String correctAnswer, List<Question> differentFollowups){
-        this(toCopy.id, questionText, toCopy.type, correctAnswer, new ArrayList<>(toCopy.possibleAnswers), toCopy.imageUrl, differentFollowups);
+        this(toCopy.id, questionText, toCopy.type, correctAnswer, new ArrayList<>(toCopy.possibleAnswers), toCopy.imageUrl, differentFollowups, toCopy.feedback);
     }
 
     public Question(Question toCopy, List<Question> differentFollowups){
-        this(toCopy.id, toCopy.questionText, toCopy.type, toCopy.correctAnswer, new ArrayList<>(toCopy.possibleAnswers), toCopy.imageUrl, differentFollowups);
+        this(toCopy.id, toCopy.questionText, toCopy.type, toCopy.correctAnswer, new ArrayList<>(toCopy.possibleAnswers), toCopy.imageUrl, differentFollowups, toCopy.feedback);
     }
 
     public String getId() {return id;}
@@ -69,6 +75,10 @@ public class Question {
     public List<Question> getFollowupQuestions() {return followupQuestions;}
     public void setFollowupQuestions(List<Question> followupQuestionsIn) {
         followupQuestions = followupQuestionsIn; }
+
+    public String getFeedback() {return feedback;}
+    public void setFeedback(String feedback) {this.feedback = feedback;}
+
 
     @Override
     public String toString() {

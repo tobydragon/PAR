@@ -80,7 +80,7 @@ public class EquineQuestionTemplateCreator {
         for (int i=0; i<structureQuestions.size(); i++){
             String structureId = EquineQuestionTypes.structure.toString()+i+"-"+imagePath;
             List<Question> attachmentQuestionsToAdd = createAttachmentQuestionsList(imagePath, structureId);
-            questions.add(new Question(createQuestionId(structureId), structureQuestions.get(i), EquineQuestionTypes.structure.toString(), null, structureResponses, imagePath, attachmentQuestionsToAdd));
+            questions.add(new Question(createQuestionId(structureId), structureQuestions.get(i), EquineQuestionTypes.structure.toString(), null, structureResponses, imagePath, attachmentQuestionsToAdd, null));
         }
         questions.add(new Question(createQuestionId(EquineQuestionTypes.zone.toString()+"-"+imagePath), zoneQuestion,
                 EquineQuestionTypes.zone.toString(), null, zoneResponses, imagePath));
