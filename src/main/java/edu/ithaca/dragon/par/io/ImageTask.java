@@ -11,12 +11,20 @@ public class ImageTask{
 
     private String imageUrl;
     private List<Question> taskQuestions;
+    private String feedback;
 
     public ImageTask(){};
 
-    public ImageTask(String imageUrlIn, List<Question> taskQuestionsIn, String messageIn){
+    public ImageTask(String imageUrlIn, List<Question> taskQuestionsIn){
         imageUrl = imageUrlIn;
         taskQuestions = new ArrayList<>(taskQuestionsIn);
+        this.feedback = null;
+    }
+
+    public ImageTask(String imageUrlIn, List<Question> taskQuestionsIn, String feedbackIn){
+        imageUrl = imageUrlIn;
+        taskQuestions = new ArrayList<>(taskQuestionsIn);
+        this.feedback = feedbackIn;
     }
 
     public String getImageUrl() {return imageUrl;}
@@ -24,6 +32,10 @@ public class ImageTask{
 
     public List<Question> getTaskQuestions() {return taskQuestions;}
     public void setTaskQuestions(List<Question> taskQuestionsIn) {taskQuestions = taskQuestionsIn;}
+
+    public String getFeedback() {return feedback;}
+    public void setFeedback(String feedback) {this.feedback = feedback;}
+
 
     public void addQuestion(Question questionToAdd){
         taskQuestions.add(questionToAdd);
