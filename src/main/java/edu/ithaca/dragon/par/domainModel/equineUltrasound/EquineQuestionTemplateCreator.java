@@ -17,6 +17,10 @@ public class EquineQuestionTemplateCreator {
         nextIdNumberToGive++;
         return id;
     }
+    public static final String planefeedback = "plane feedback!";
+    public static final String structurefeedback = "structure feedback!";
+    public static final String attachmentfeedback = "attachment feedback!";
+    public static final String zonefeedback = "zone feedback!";
 
     public static final String planeQuestion = "On which plane is the ultrasound taken?";
     public static final List<String> planeResponses = Arrays.asList("transverse (short axis)", "longitudinal (long axis)");
