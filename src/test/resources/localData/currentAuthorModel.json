@@ -1,0 +1,28 @@
+{
+  "authorId" : "author",
+  "questionCountRecords" : [ {
+    "questionId" : "640-structure3-./images/Zone3Longitudinal.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ {
+      "questionId" : "638-attachment0-structure3-./images/Zone3Longitudinal.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "639-attachment1-structure3-./images/Zone3Longitudinal.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    } ]
+  }, {
+    "questionId" : "794-structure3-./images/Annotated3Long.jpg",
+    "timesSeen" : 0,
+    "followupCountRecords" : [ {
+      "questionId" : "792-attachment0-structure3-./images/Annotated3Long.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "793-attachment1-structure3-./images/Annotated3Long.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    } ]
+  } ]
+}

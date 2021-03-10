@@ -337,7 +337,6 @@ public class StudentDataAnalyzer {
             writer.close();
         }
         catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -345,37 +344,20 @@ public class StudentDataAnalyzer {
     public static void main(String[] args) throws IOException{
         StudentDataAnalyzer sda = new StudentDataAnalyzer(new ArrayList<>());
 
-        //add 1 student
+        //change the QP to be the QP of the student files.
         QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
-        StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
-        StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
-        StudentData masteredStudent = new StudentData(masteredStudentModel);
-        sda.addStudentData(masteredStudent);
 
-        //student2
-        StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/level4Student.json", StudentModelRecord.class);
-        StudentModel level4Student = smr2.buildStudentModel(myQP);
-        StudentData level4StudentData = new StudentData(level4Student);
-        sda.addStudentData(level4StudentData);
 
-        //student3
-        List<Question> noQuestions = new ArrayList<Question>();
-        StudentModel student = new StudentModel("student", noQuestions);
-        StudentData newStudent = new StudentData(student);
-        sda.addStudentData(newStudent);
-
-        //student4
-        StudentModelRecord  smr3 = JsonUtil.fromJsonFile("src/test/resources/author/students/incorrectStudent.json", StudentModelRecord.class);
-        StudentModel stud = smr3.buildStudentModel(myQP);
-        StudentData studData = new StudentData(stud);
-        sda.addStudentData(studData);
-
-        //student5
-        StudentModelRecord  smr4 = JsonUtil.fromJsonFile("src/test/resources/author/students/notMasteredStudent.json", StudentModelRecord.class);
-        StudentModel stud2 = smr4.buildStudentModel(myQP);
-        StudentData studData2 = new StudentData(stud2);
-        sda.addStudentData(studData2);
-
+        //replace folder path here
+        File dir = new File("src/test/resources/author/sda_practice/");
+        String[] pathnames = dir.list();
+        for (String pathname : pathnames) {
+            //replace folder path here
+            StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/sda_practice/" + pathname, StudentModelRecord.class);
+            StudentModel student = smr.buildStudentModel(myQP);
+            StudentData sd = new StudentData(student);
+            sda.addStudentData(sd);
+        }
 
         Scanner scan = new Scanner(System.in);
         System.out.println("What would you like your filename to be?");

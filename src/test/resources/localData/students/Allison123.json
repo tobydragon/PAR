@@ -1,0 +1,1354 @@
+{
+  "userId" : "Allison123",
+  "userQuestionSetRecord" : {
+    "userId" : "Allison123",
+    "questionCountRecords" : [ {
+      "questionId" : "614-plane-./images/3CTransverse.jpg",
+      "timesSeen" : 1,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "617-structure0-./images/3CTransverse.jpg",
+      "timesSeen" : 1,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "620-structure1-./images/3CTransverse.jpg",
+      "timesSeen" : 1,
+      "followupCountRecords" : [ {
+        "questionId" : "618-attachment0-structure1-./images/3CTransverse.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "619-attachment1-structure1-./images/3CTransverse.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "623-structure2-./images/3CTransverse.jpg",
+      "timesSeen" : 1,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "626-structure3-./images/3CTransverse.jpg",
+      "timesSeen" : 1,
+      "followupCountRecords" : [ {
+        "questionId" : "624-attachment0-structure3-./images/3CTransverse.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "625-attachment1-structure3-./images/3CTransverse.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "627-zone-./images/3CTransverse.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "628-plane-./images/Zone3Longitudinal.jpg",
+      "timesSeen" : 1,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "631-structure0-./images/Zone3Longitudinal.jpg",
+      "timesSeen" : 1,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "634-structure1-./images/Zone3Longitudinal.jpg",
+      "timesSeen" : 1,
+      "followupCountRecords" : [ {
+        "questionId" : "632-attachment0-structure1-./images/Zone3Longitudinal.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "633-attachment1-structure1-./images/Zone3Longitudinal.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "637-structure2-./images/Zone3Longitudinal.jpg",
+      "timesSeen" : 1,
+      "followupCountRecords" : [ {
+        "questionId" : "635-attachment0-structure2-./images/Zone3Longitudinal.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "636-attachment1-structure2-./images/Zone3Longitudinal.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "641-zone-./images/Zone3Longitudinal.jpg",
+      "timesSeen" : 1,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "656-plane-./images/Annotated3ATrans.jpg",
+      "timesSeen" : 1,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "659-structure0-./images/Annotated3ATrans.jpg",
+      "timesSeen" : 1,
+      "followupCountRecords" : [ {
+        "questionId" : "657-attachment0-structure0-./images/Annotated3ATrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "658-attachment1-structure0-./images/Annotated3ATrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "662-structure1-./images/Annotated3ATrans.jpg",
+      "timesSeen" : 1,
+      "followupCountRecords" : [ {
+        "questionId" : "660-attachment0-structure1-./images/Annotated3ATrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "661-attachment1-structure1-./images/Annotated3ATrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "665-structure2-./images/Annotated3ATrans.jpg",
+      "timesSeen" : 1,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "668-structure3-./images/Annotated3ATrans.jpg",
+      "timesSeen" : 1,
+      "followupCountRecords" : [ {
+        "questionId" : "666-attachment0-structure3-./images/Annotated3ATrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "667-attachment1-structure3-./images/Annotated3ATrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "669-zone-./images/Annotated3ATrans.jpg",
+      "timesSeen" : 1,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "670-plane-./images/ExtraAnnotated1ATrans.jpg",
+      "timesSeen" : 1,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "673-structure0-./images/ExtraAnnotated1ATrans.jpg",
+      "timesSeen" : 1,
+      "followupCountRecords" : [ {
+        "questionId" : "671-attachment0-structure0-./images/ExtraAnnotated1ATrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "672-attachment1-structure0-./images/ExtraAnnotated1ATrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "676-structure1-./images/ExtraAnnotated1ATrans.jpg",
+      "timesSeen" : 1,
+      "followupCountRecords" : [ {
+        "questionId" : "674-attachment0-structure1-./images/ExtraAnnotated1ATrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "675-attachment1-structure1-./images/ExtraAnnotated1ATrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "679-structure2-./images/ExtraAnnotated1ATrans.jpg",
+      "timesSeen" : 1,
+      "followupCountRecords" : [ {
+        "questionId" : "677-attachment0-structure2-./images/ExtraAnnotated1ATrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "678-attachment1-structure2-./images/ExtraAnnotated1ATrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "682-structure3-./images/ExtraAnnotated1ATrans.jpg",
+      "timesSeen" : 1,
+      "followupCountRecords" : [ {
+        "questionId" : "680-attachment0-structure3-./images/ExtraAnnotated1ATrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "681-attachment1-structure3-./images/ExtraAnnotated1ATrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "683-zone-./images/ExtraAnnotated1ATrans.jpg",
+      "timesSeen" : 1,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "684-plane-./images/Annotated2ATrans.jpg",
+      "timesSeen" : 1,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "687-structure0-./images/Annotated2ATrans.jpg",
+      "timesSeen" : 1,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "690-structure1-./images/Annotated2ATrans.jpg",
+      "timesSeen" : 1,
+      "followupCountRecords" : [ {
+        "questionId" : "688-attachment0-structure1-./images/Annotated2ATrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "689-attachment1-structure1-./images/Annotated2ATrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "693-structure2-./images/Annotated2ATrans.jpg",
+      "timesSeen" : 1,
+      "followupCountRecords" : [ {
+        "questionId" : "691-attachment0-structure2-./images/Annotated2ATrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "692-attachment1-structure2-./images/Annotated2ATrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "696-structure3-./images/Annotated2ATrans.jpg",
+      "timesSeen" : 1,
+      "followupCountRecords" : [ {
+        "questionId" : "694-attachment0-structure3-./images/Annotated2ATrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "695-attachment1-structure3-./images/Annotated2ATrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "697-zone-./images/Annotated2ATrans.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "698-plane-./images/Annotated3BTrans.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "701-structure0-./images/Annotated3BTrans.jpg",
+      "timesSeen" : 1,
+      "followupCountRecords" : [ {
+        "questionId" : "699-attachment0-structure0-./images/Annotated3BTrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "700-attachment1-structure0-./images/Annotated3BTrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "704-structure1-./images/Annotated3BTrans.jpg",
+      "timesSeen" : 1,
+      "followupCountRecords" : [ {
+        "questionId" : "702-attachment0-structure1-./images/Annotated3BTrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "703-attachment1-structure1-./images/Annotated3BTrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "707-structure2-./images/Annotated3BTrans.jpg",
+      "timesSeen" : 1,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "710-structure3-./images/Annotated3BTrans.jpg",
+      "timesSeen" : 1,
+      "followupCountRecords" : [ {
+        "questionId" : "708-attachment0-structure3-./images/Annotated3BTrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "709-attachment1-structure3-./images/Annotated3BTrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "711-zone-./images/Annotated3BTrans.jpg",
+      "timesSeen" : 1,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "712-plane-./images/Annotated3CTrans.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "715-structure0-./images/Annotated3CTrans.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "718-structure1-./images/Annotated3CTrans.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "721-structure2-./images/Annotated3CTrans.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "724-structure3-./images/Annotated3CTrans.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "722-attachment0-structure3-./images/Annotated3CTrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "723-attachment1-structure3-./images/Annotated3CTrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "725-zone-./images/Annotated3CTrans.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "726-plane-./images/1BTransverse.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "729-structure0-./images/1BTransverse.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "727-attachment0-structure0-./images/1BTransverse.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "728-attachment1-structure0-./images/1BTransverse.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "732-structure1-./images/1BTransverse.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "735-structure2-./images/1BTransverse.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "733-attachment0-structure2-./images/1BTransverse.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "734-attachment1-structure2-./images/1BTransverse.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "738-structure3-./images/1BTransverse.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "736-attachment0-structure3-./images/1BTransverse.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "737-attachment1-structure3-./images/1BTransverse.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "739-zone-./images/1BTransverse.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "740-plane-./images/AlternativeZone2Long.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "743-structure0-./images/AlternativeZone2Long.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "746-structure1-./images/AlternativeZone2Long.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "744-attachment0-structure1-./images/AlternativeZone2Long.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "745-attachment1-structure1-./images/AlternativeZone2Long.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "749-structure2-./images/AlternativeZone2Long.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "747-attachment0-structure2-./images/AlternativeZone2Long.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "748-attachment1-structure2-./images/AlternativeZone2Long.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "752-structure3-./images/AlternativeZone2Long.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "750-attachment0-structure3-./images/AlternativeZone2Long.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "751-attachment1-structure3-./images/AlternativeZone2Long.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "753-zone-./images/AlternativeZone2Long.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "754-plane-./images/Annotated1ATrans.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "757-structure0-./images/Annotated1ATrans.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "755-attachment0-structure0-./images/Annotated1ATrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "756-attachment1-structure0-./images/Annotated1ATrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "760-structure1-./images/Annotated1ATrans.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "758-attachment0-structure1-./images/Annotated1ATrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "759-attachment1-structure1-./images/Annotated1ATrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "763-structure2-./images/Annotated1ATrans.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "761-attachment0-structure2-./images/Annotated1ATrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "762-attachment1-structure2-./images/Annotated1ATrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "766-structure3-./images/Annotated1ATrans.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "764-attachment0-structure3-./images/Annotated1ATrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "765-attachment1-structure3-./images/Annotated1ATrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "767-zone-./images/Annotated1ATrans.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "768-plane-./images/1ATransverse.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "771-structure0-./images/1ATransverse.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "769-attachment0-structure0-./images/1ATransverse.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "770-attachment1-structure0-./images/1ATransverse.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "774-structure1-./images/1ATransverse.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "772-attachment0-structure1-./images/1ATransverse.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "773-attachment1-structure1-./images/1ATransverse.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "777-structure2-./images/1ATransverse.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "775-attachment0-structure2-./images/1ATransverse.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "776-attachment1-structure2-./images/1ATransverse.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "780-structure3-./images/1ATransverse.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "778-attachment0-structure3-./images/1ATransverse.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "779-attachment1-structure3-./images/1ATransverse.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "781-zone-./images/1ATransverse.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "782-plane-./images/Annotated3Long.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "785-structure0-./images/Annotated3Long.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "783-attachment0-structure0-./images/Annotated3Long.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "784-attachment1-structure0-./images/Annotated3Long.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "788-structure1-./images/Annotated3Long.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "786-attachment0-structure1-./images/Annotated3Long.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "787-attachment1-structure1-./images/Annotated3Long.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "791-structure2-./images/Annotated3Long.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "795-zone-./images/Annotated3Long.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "796-plane-./images/2BTransverse.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "799-structure0-./images/2BTransverse.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "797-attachment0-structure0-./images/2BTransverse.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "798-attachment1-structure0-./images/2BTransverse.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "802-structure1-./images/2BTransverse.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "805-structure2-./images/2BTransverse.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "803-attachment0-structure2-./images/2BTransverse.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "804-attachment1-structure2-./images/2BTransverse.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "808-structure3-./images/2BTransverse.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "806-attachment0-structure3-./images/2BTransverse.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "807-attachment1-structure3-./images/2BTransverse.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "809-zone-./images/2BTransverse.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "810-plane-./images/Annotated2BTrans.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "813-structure0-./images/Annotated2BTrans.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "816-structure1-./images/Annotated2BTrans.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "814-attachment0-structure1-./images/Annotated2BTrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "815-attachment1-structure1-./images/Annotated2BTrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "819-structure2-./images/Annotated2BTrans.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "822-structure3-./images/Annotated2BTrans.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "820-attachment0-structure3-./images/Annotated2BTrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "821-attachment1-structure3-./images/Annotated2BTrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "823-zone-./images/Annotated2BTrans.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "824-plane-./images/3ATransverse.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "827-structure0-./images/3ATransverse.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "825-attachment0-structure0-./images/3ATransverse.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "826-attachment1-structure0-./images/3ATransverse.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "830-structure1-./images/3ATransverse.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "828-attachment0-structure1-./images/3ATransverse.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "829-attachment1-structure1-./images/3ATransverse.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "833-structure2-./images/3ATransverse.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "836-structure3-./images/3ATransverse.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "834-attachment0-structure3-./images/3ATransverse.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "835-attachment1-structure3-./images/3ATransverse.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "837-zone-./images/3ATransverse.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "838-plane-./images/Annotated2Long.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "841-structure0-./images/Annotated2Long.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "839-attachment0-structure0-./images/Annotated2Long.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "840-attachment1-structure0-./images/Annotated2Long.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "844-structure1-./images/Annotated2Long.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "842-attachment0-structure1-./images/Annotated2Long.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "843-attachment1-structure1-./images/Annotated2Long.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "847-structure2-./images/Annotated2Long.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "845-attachment0-structure2-./images/Annotated2Long.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "846-attachment1-structure2-./images/Annotated2Long.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "850-structure3-./images/Annotated2Long.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "848-attachment0-structure3-./images/Annotated2Long.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "849-attachment1-structure3-./images/Annotated2Long.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "851-zone-./images/Annotated2Long.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "852-plane-./images/2ATransverse.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "855-structure0-./images/2ATransverse.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "853-attachment0-structure0-./images/2ATransverse.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "854-attachment1-structure0-./images/2ATransverse.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "858-structure1-./images/2ATransverse.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "856-attachment0-structure1-./images/2ATransverse.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "857-attachment1-structure1-./images/2ATransverse.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "861-structure2-./images/2ATransverse.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "864-structure3-./images/2ATransverse.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "862-attachment0-structure3-./images/2ATransverse.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "863-attachment1-structure3-./images/2ATransverse.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "865-zone-./images/2ATransverse.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "866-plane-./images/3BTransverse.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "869-structure0-./images/3BTransverse.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "867-attachment0-structure0-./images/3BTransverse.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "868-attachment1-structure0-./images/3BTransverse.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "872-structure1-./images/3BTransverse.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "875-structure2-./images/3BTransverse.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "873-attachment0-structure2-./images/3BTransverse.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "874-attachment1-structure2-./images/3BTransverse.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "878-structure3-./images/3BTransverse.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "876-attachment0-structure3-./images/3BTransverse.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "877-attachment1-structure3-./images/3BTransverse.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "879-zone-./images/3BTransverse.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "880-plane-./images/AlternativeZone1Long.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "883-structure0-./images/AlternativeZone1Long.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "886-structure1-./images/AlternativeZone1Long.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "884-attachment0-structure1-./images/AlternativeZone1Long.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "885-attachment1-structure1-./images/AlternativeZone1Long.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "889-structure2-./images/AlternativeZone1Long.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "887-attachment0-structure2-./images/AlternativeZone1Long.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "888-attachment1-structure2-./images/AlternativeZone1Long.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "892-structure3-./images/AlternativeZone1Long.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "890-attachment0-structure3-./images/AlternativeZone1Long.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "891-attachment1-structure3-./images/AlternativeZone1Long.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "893-zone-./images/AlternativeZone1Long.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "600-plane-./images/Annotated1BTrans.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "603-structure0-./images/Annotated1BTrans.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "601-attachment0-structure0-./images/Annotated1BTrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "602-attachment1-structure0-./images/Annotated1BTrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "606-structure1-./images/Annotated1BTrans.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "604-attachment0-structure1-./images/Annotated1BTrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "605-attachment1-structure1-./images/Annotated1BTrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "609-structure2-./images/Annotated1BTrans.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "607-attachment0-structure2-./images/Annotated1BTrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "608-attachment1-structure2-./images/Annotated1BTrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "612-structure3-./images/Annotated1BTrans.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "610-attachment0-structure3-./images/Annotated1BTrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "611-attachment1-structure3-./images/Annotated1BTrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "613-zone-./images/Annotated1BTrans.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "642-plane-./images/AddlAnnotated2ATrans.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "645-structure0-./images/AddlAnnotated2ATrans.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "643-attachment0-structure0-./images/AddlAnnotated2ATrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "644-attachment1-structure0-./images/AddlAnnotated2ATrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "648-structure1-./images/AddlAnnotated2ATrans.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "646-attachment0-structure1-./images/AddlAnnotated2ATrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "647-attachment1-structure1-./images/AddlAnnotated2ATrans.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "651-structure2-./images/AddlAnnotated2ATrans.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "654-structure3-./images/AddlAnnotated2ATrans.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "655-zone-./images/AddlAnnotated2ATrans.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    } ]
+  },
+  "userResponseSetRecord" : {
+    "userId" : "Allison123",
+    "responsesPerQuestionRecords" : [ {
+      "userId" : "Allison123",
+      "questionId" : "614-plane-./images/3CTransverse.jpg",
+      "responseText" : "transverse (short axis)",
+      "allResponseTexts" : [ {
+        "responseText" : "transverse (short axis)",
+        "millSeconds" : 1614025089816
+      } ]
+    }, {
+      "userId" : "Allison123",
+      "questionId" : "656-plane-./images/Annotated3ATrans.jpg",
+      "responseText" : "transverse (short axis)",
+      "allResponseTexts" : [ {
+        "responseText" : "transverse (short axis)",
+        "millSeconds" : 1614025193825
+      } ]
+    }, {
+      "userId" : "Allison123",
+      "questionId" : "670-plane-./images/ExtraAnnotated1ATrans.jpg",
+      "responseText" : "transverse (short axis)",
+      "allResponseTexts" : [ {
+        "responseText" : "transverse (short axis)",
+        "millSeconds" : 1614025198478
+      } ]
+    }, {
+      "userId" : "Allison123",
+      "questionId" : "684-plane-./images/Annotated2ATrans.jpg",
+      "responseText" : "transverse (short axis)",
+      "allResponseTexts" : [ {
+        "responseText" : "transverse (short axis)",
+        "millSeconds" : 1614025204367
+      }, {
+        "responseText" : "transverse (short axis)",
+        "millSeconds" : 1614025222744
+      }, {
+        "responseText" : "transverse (short axis)",
+        "millSeconds" : 1614025255594
+      } ]
+    }, {
+      "userId" : "Allison123",
+      "questionId" : "687-structure0-./images/Annotated2ATrans.jpg",
+      "responseText" : "Palmar vessels (medial/lateral)",
+      "allResponseTexts" : [ {
+        "responseText" : "Palmar vessels (medial/lateral)",
+        "millSeconds" : 1614025222744
+      }, {
+        "responseText" : "Palmar vessels (medial/lateral)",
+        "millSeconds" : 1614025255594
+      } ]
+    }, {
+      "userId" : "Allison123",
+      "questionId" : "690-structure1-./images/Annotated2ATrans.jpg",
+      "responseText" : "Distal check ligament (accessory ligament of the deep digital flexor tendon)",
+      "allResponseTexts" : [ {
+        "responseText" : "Distal check ligament (accessory ligament of the deep digital flexor tendon)",
+        "millSeconds" : 1614025255594
+      } ]
+    }, {
+      "userId" : "Allison123",
+      "questionId" : "693-structure2-./images/Annotated2ATrans.jpg",
+      "responseText" : "Deep digital flexor tendon",
+      "allResponseTexts" : [ {
+        "responseText" : "Deep digital flexor tendon",
+        "millSeconds" : 1614025255594
+      } ]
+    }, {
+      "userId" : "Allison123",
+      "questionId" : "696-structure3-./images/Annotated2ATrans.jpg",
+      "responseText" : "Suspensory ligament (body)",
+      "allResponseTexts" : [ {
+        "responseText" : "Suspensory ligament (body)",
+        "millSeconds" : 1614025255594
+      } ]
+    }, {
+      "userId" : "Allison123",
+      "questionId" : "617-structure0-./images/3CTransverse.jpg",
+      "responseText" : "Palmar annular ligament",
+      "allResponseTexts" : [ {
+        "responseText" : "Palmar annular ligament",
+        "millSeconds" : 1614025493591
+      }, {
+        "responseText" : "Palmar annular ligament",
+        "millSeconds" : 1614025519826
+      }, {
+        "responseText" : "Palmar annular ligament",
+        "millSeconds" : 1614025526932
+      }, {
+        "responseText" : "Palmar annular ligament",
+        "millSeconds" : 1614025536383
+      }, {
+        "responseText" : "Palmar annular ligament",
+        "millSeconds" : 1614025581394
+      } ]
+    }, {
+      "userId" : "Allison123",
+      "questionId" : "620-structure1-./images/3CTransverse.jpg",
+      "responseText" : "Superficial digital flexor tendon",
+      "allResponseTexts" : [ {
+        "responseText" : "Superficial digital flexor tendon",
+        "millSeconds" : 1614025493591
+      }, {
+        "responseText" : "Superficial digital flexor tendon",
+        "millSeconds" : 1614025519826
+      }, {
+        "responseText" : "Superficial digital flexor tendon",
+        "millSeconds" : 1614025526932
+      }, {
+        "responseText" : "Superficial digital flexor tendon",
+        "millSeconds" : 1614025536383
+      }, {
+        "responseText" : "Superficial digital flexor tendon",
+        "millSeconds" : 1614025581394
+      } ]
+    }, {
+      "userId" : "Allison123",
+      "questionId" : "618-attachment0-structure1-./images/3CTransverse.jpg",
+      "responseText" : "Medial humeral epicondyle",
+      "allResponseTexts" : [ {
+        "responseText" : "Medial humeral epicondyle",
+        "millSeconds" : 1614025519826
+      }, {
+        "responseText" : "Medial humeral epicondyle",
+        "millSeconds" : 1614025526932
+      }, {
+        "responseText" : "Medial humeral epicondyle",
+        "millSeconds" : 1614025536383
+      }, {
+        "responseText" : "Medial humeral epicondyle",
+        "millSeconds" : 1614025581394
+      } ]
+    }, {
+      "userId" : "Allison123",
+      "questionId" : "619-attachment1-structure1-./images/3CTransverse.jpg",
+      "responseText" : "Both proximal and middle phalanxes",
+      "allResponseTexts" : [ {
+        "responseText" : "Both proximal and middle phalanxes",
+        "millSeconds" : 1614025519826
+      }, {
+        "responseText" : "Both proximal and middle phalanxes",
+        "millSeconds" : 1614025526932
+      }, {
+        "responseText" : "Both proximal and middle phalanxes",
+        "millSeconds" : 1614025536383
+      }, {
+        "responseText" : "Both proximal and middle phalanxes",
+        "millSeconds" : 1614025581394
+      } ]
+    }, {
+      "userId" : "Allison123",
+      "questionId" : "623-structure2-./images/3CTransverse.jpg",
+      "responseText" : "Proximal sesamoid bones",
+      "allResponseTexts" : [ {
+        "responseText" : "Proximal sesamoid bones",
+        "millSeconds" : 1614025519826
+      }, {
+        "responseText" : "Proximal sesamoid bones",
+        "millSeconds" : 1614025526932
+      }, {
+        "responseText" : "Proximal sesamoid bones",
+        "millSeconds" : 1614025536383
+      }, {
+        "responseText" : "Proximal sesamoid bones",
+        "millSeconds" : 1614025581394
+      } ]
+    }, {
+      "userId" : "Allison123",
+      "questionId" : "626-structure3-./images/3CTransverse.jpg",
+      "responseText" : "Superficial digital flexor tendon",
+      "allResponseTexts" : [ {
+        "responseText" : "Superficial digital flexor tendon",
+        "millSeconds" : 1614025526932
+      }, {
+        "responseText" : "Deep digital flexor tendon",
+        "millSeconds" : 1614025536383
+      }, {
+        "responseText" : "Deep digital flexor tendon",
+        "millSeconds" : 1614025581394
+      } ]
+    }, {
+      "userId" : "Allison123",
+      "questionId" : "624-attachment0-structure3-./images/3CTransverse.jpg",
+      "responseText" : "Medial humeral epicondyle",
+      "allResponseTexts" : [ {
+        "responseText" : "Medial humeral epicondyle",
+        "millSeconds" : 1614025581394
+      } ]
+    }, {
+      "userId" : "Allison123",
+      "questionId" : "625-attachment1-structure3-./images/3CTransverse.jpg",
+      "responseText" : "Distal phalanx (P3)",
+      "allResponseTexts" : [ {
+        "responseText" : "Distal phalanx (P3)",
+        "millSeconds" : 1614025581394
+      } ]
+    }, {
+      "userId" : "Allison123",
+      "questionId" : "631-structure0-./images/Zone3Longitudinal.jpg",
+      "responseText" : "Metacarpus bone 3 (Third metacarpal bone)",
+      "allResponseTexts" : [ {
+        "responseText" : "Metacarpus bone 3 (Third metacarpal bone)",
+        "millSeconds" : 1614025615799
+      }, {
+        "responseText" : "Metacarpus bone 3 (Third metacarpal bone)",
+        "millSeconds" : 1614025620546
+      }, {
+        "responseText" : "Metacarpus bone 3 (Third metacarpal bone)",
+        "millSeconds" : 1614025627396
+      }, {
+        "responseText" : "Metacarpus bone 3 (Third metacarpal bone)",
+        "millSeconds" : 1614025651137
+      }, {
+        "responseText" : "Metacarpus bone 3 (Third metacarpal bone)",
+        "millSeconds" : 1614025670165
+      }, {
+        "responseText" : "Metacarpus bone 3 (Third metacarpal bone)",
+        "millSeconds" : 1614025696906
+      } ]
+    }, {
+      "userId" : "Allison123",
+      "questionId" : "634-structure1-./images/Zone3Longitudinal.jpg",
+      "responseText" : "Superficial digital flexor tendon",
+      "allResponseTexts" : [ {
+        "responseText" : "Superficial digital flexor tendon",
+        "millSeconds" : 1614025620546
+      }, {
+        "responseText" : "Superficial digital flexor tendon",
+        "millSeconds" : 1614025627396
+      }, {
+        "responseText" : "Superficial digital flexor tendon",
+        "millSeconds" : 1614025651137
+      }, {
+        "responseText" : "Superficial digital flexor tendon",
+        "millSeconds" : 1614025670165
+      }, {
+        "responseText" : "Superficial digital flexor tendon",
+        "millSeconds" : 1614025696906
+      } ]
+    }, {
+      "userId" : "Allison123",
+      "questionId" : "637-structure2-./images/Zone3Longitudinal.jpg",
+      "responseText" : "Deep digital flexor tendon",
+      "allResponseTexts" : [ {
+        "responseText" : "Deep digital flexor tendon",
+        "millSeconds" : 1614025627396
+      }, {
+        "responseText" : "Deep digital flexor tendon",
+        "millSeconds" : 1614025651137
+      }, {
+        "responseText" : "Deep digital flexor tendon",
+        "millSeconds" : 1614025670165
+      }, {
+        "responseText" : "Deep digital flexor tendon",
+        "millSeconds" : 1614025696906
+      } ]
+    }, {
+      "userId" : "Allison123",
+      "questionId" : "635-attachment0-structure2-./images/Zone3Longitudinal.jpg",
+      "responseText" : "Lateral humeral epicondyle",
+      "allResponseTexts" : [ {
+        "responseText" : "Lateral humeral epicondyle",
+        "millSeconds" : 1614025651137
+      }, {
+        "responseText" : "Medial humeral epicondyle",
+        "millSeconds" : 1614025670165
+      }, {
+        "responseText" : "Medial humeral epicondyle",
+        "millSeconds" : 1614025696906
+      } ]
+    }, {
+      "userId" : "Allison123",
+      "questionId" : "636-attachment1-structure2-./images/Zone3Longitudinal.jpg",
+      "responseText" : "Distal phalanx (P3)",
+      "allResponseTexts" : [ {
+        "responseText" : "Distal phalanx (P3)",
+        "millSeconds" : 1614025670165
+      }, {
+        "responseText" : "Distal phalanx (P3)",
+        "millSeconds" : 1614025696906
+      } ]
+    }, {
+      "userId" : "Allison123",
+      "questionId" : "641-zone-./images/Zone3Longitudinal.jpg",
+      "responseText" : "3",
+      "allResponseTexts" : [ {
+        "responseText" : "3",
+        "millSeconds" : 1614025696906
+      } ]
+    }, {
+      "userId" : "Allison123",
+      "questionId" : "659-structure0-./images/Annotated3ATrans.jpg",
+      "responseText" : "Superficial digital flexor tendon",
+      "allResponseTexts" : [ {
+        "responseText" : "Superficial digital flexor tendon",
+        "millSeconds" : 1614025949080
+      } ]
+    }, {
+      "userId" : "Allison123",
+      "questionId" : "662-structure1-./images/Annotated3ATrans.jpg",
+      "responseText" : "Deep digital flexor tendon",
+      "allResponseTexts" : [ {
+        "responseText" : "Deep digital flexor tendon",
+        "millSeconds" : 1614025949080
+      } ]
+    }, {
+      "userId" : "Allison123",
+      "questionId" : "665-structure2-./images/Annotated3ATrans.jpg",
+      "responseText" : "Palmar metacarpal vessels (medial/lateral)",
+      "allResponseTexts" : [ {
+        "responseText" : "Palmar metacarpal vessels (medial/lateral)",
+        "millSeconds" : 1614025949080
+      } ]
+    }, {
+      "userId" : "Allison123",
+      "questionId" : "668-structure3-./images/Annotated3ATrans.jpg",
+      "responseText" : "Suspensory ligament (branches)",
+      "allResponseTexts" : [ {
+        "responseText" : "Suspensory ligament (branches)",
+        "millSeconds" : 1614025949080
+      } ]
+    }, {
+      "userId" : "Allison123",
+      "questionId" : "669-zone-./images/Annotated3ATrans.jpg",
+      "responseText" : "3A",
+      "allResponseTexts" : [ {
+        "responseText" : "3A",
+        "millSeconds" : 1614025949080
+      } ]
+    }, {
+      "userId" : "Allison123",
+      "questionId" : "673-structure0-./images/ExtraAnnotated1ATrans.jpg",
+      "responseText" : "Superficial digital flexor tendon",
+      "allResponseTexts" : [ {
+        "responseText" : "Superficial digital flexor tendon",
+        "millSeconds" : 1614025968575
+      } ]
+    }, {
+      "userId" : "Allison123",
+      "questionId" : "676-structure1-./images/ExtraAnnotated1ATrans.jpg",
+      "responseText" : "Deep digital flexor tendon",
+      "allResponseTexts" : [ {
+        "responseText" : "Deep digital flexor tendon",
+        "millSeconds" : 1614025968575
+      } ]
+    }, {
+      "userId" : "Allison123",
+      "questionId" : "679-structure2-./images/ExtraAnnotated1ATrans.jpg",
+      "responseText" : "Distal check ligament (accessory ligament of the deep digital flexor tendon)",
+      "allResponseTexts" : [ {
+        "responseText" : "Distal check ligament (accessory ligament of the deep digital flexor tendon)",
+        "millSeconds" : 1614025968575
+      } ]
+    }, {
+      "userId" : "Allison123",
+      "questionId" : "682-structure3-./images/ExtraAnnotated1ATrans.jpg",
+      "responseText" : "Suspensory ligament (body)",
+      "allResponseTexts" : [ {
+        "responseText" : "Suspensory ligament (body)",
+        "millSeconds" : 1614025968575
+      } ]
+    } ]
+  }
+}

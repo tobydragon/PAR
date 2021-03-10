@@ -1,0 +1,345 @@
+{
+  "userId" : "level4Student",
+  "userQuestionSetRecord" : {
+    "userId" : "level4Student",
+    "questionCountRecords" : [ {
+      "questionId" : "324-plane-./images/metacarpal56.jpg",
+      "timesSeen" : 2,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "327-structure0-./images/metacarpal56.jpg",
+      "timesSeen" : 4,
+      "followupCountRecords" : [ {
+        "questionId" : "325-attachment0-structure0-./images/metacarpal56.jpg",
+        "timesSeen" : 1,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "326-attachment1-structure0-./images/metacarpal56.jpg",
+        "timesSeen" : 1,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "330-structure1-./images/metacarpal56.jpg",
+      "timesSeen" : 4,
+      "followupCountRecords" : [ {
+        "questionId" : "328-attachment0-structure1-./images/metacarpal56.jpg",
+        "timesSeen" : 1,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "329-attachment1-structure1-./images/metacarpal56.jpg",
+        "timesSeen" : 1,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "333-structure2-./images/metacarpal56.jpg",
+      "timesSeen" : 4,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "336-structure3-./images/metacarpal56.jpg",
+      "timesSeen" : 4,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "337-zone-./images/metacarpal56.jpg",
+      "timesSeen" : 4,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "338-plane-./images/metacarpal42.jpg",
+      "timesSeen" : 2,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "341-structure0-./images/metacarpal42.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "339-attachment0-structure0-./images/metacarpal42.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "340-attachment1-structure0-./images/metacarpal42.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "344-structure1-./images/metacarpal42.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "342-attachment0-structure1-./images/metacarpal42.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "342-attachment1-structure1-./images/metacarpal42.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "347-structure2-./images/metacarpal42.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "345-attachment0-structure2-./images/metacarpal42.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "346-attachment1-structure2-./images/metacarpal42.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "350-structure3-./images/metacarpal42.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "351-zone-./images/metacarpal42.jpg",
+      "timesSeen" : 4,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "366-plane-./images/metacarpal41.jpg",
+      "timesSeen" : 2,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "369-structure0-./images/metacarpal41.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "367-attachment0-structure0-./images/metacarpal41.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "368-attachment1-structure0-./images/metacarpal41.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "372-structure1-./images/metacarpal41.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "375-structure2-./images/metacarpal41.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "373-attachment0-structure2-./images/metacarpal41.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "374-attachment1-structure2-./images/metacarpal41.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "378-structure3-./images/metacarpal41.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "376-attachment0-structure3-./images/metacarpal41.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "377-attachment1-structure3-./images/metacarpal41.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "379-zone-./images/metacarpal41.jpg",
+      "timesSeen" : 4,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "450-plane-./images/metacarpal25.jpg",
+      "timesSeen" : 2,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "453-structure0-./images/metacarpal25.jpg",
+      "timesSeen" : 2,
+      "followupCountRecords" : [ {
+        "questionId" : "451-attachment0-structure0-./images/metacarpal25.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "374-attachment1-structure2-./images/metacarpal25.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "456-structure1-./images/metacarpal25.jpg",
+      "timesSeen" : 2,
+      "followupCountRecords" : [ {
+        "questionId" : "454-attachment0-structure1-./images/metacarpal25.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "455-attachment1-structure1-./images/metacarpal25.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "463-zone-./images/metacarpal25.jpg",
+      "timesSeen" : 4,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "464-plane-./images/metacarpal19.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "467-structure0-./images/metacarpal19.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "470-structure1-./images/metacarpal19.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "468-attachment0-structure1-./images/metacarpal19.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "374-attachment1-structure2-./images/metacarpal19.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "473-structure2-./images/metacarpal19.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "476-structure3-./images/metacarpal19.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "474-attachment0-structure3-./images/metacarpal19.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "475-attachment1-structure3-./images/metacarpal19.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "477-zone-./images/metacarpal19.jpg",
+      "timesSeen" : 2,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "478-plane-./images/metacarpal37.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "481-structure0-./images/metacarpal37.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "479-attachment0-structure0-./images/metacarpal37.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "480-attachment1-structure0-./images/metacarpal37.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "484-structure1-./images/metacarpal37.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "482-attachment0-structure1-./images/metacarpal37.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "483-attachment1-structure1-./images/metacarpal37.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "487-structure2-./images/metacarpal37.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ ]
+    }, {
+      "questionId" : "490-structure3-./images/metacarpal37.jpg",
+      "timesSeen" : 0,
+      "followupCountRecords" : [ {
+        "questionId" : "488-attachment0-structure3-./images/metacarpal37.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      }, {
+        "questionId" : "489-attachment1-structure3-./images/metacarpal37.jpg",
+        "timesSeen" : 0,
+        "followupCountRecords" : [ ]
+      } ]
+    }, {
+      "questionId" : "491-zone-./images/metacarpal37.jpg",
+      "timesSeen" : 2,
+      "followupCountRecords" : [ ]
+    } ]
+  },
+  "userResponseSetRecord" : {
+    "userId" : "level4Student",
+    "responsesPerQuestionRecords" : [ {
+      "userId" : "level4Student",
+      "questionId" : "324-plane-./images/metacarpal56.jpg",
+      "responseText" : "longitudinal (long axis)",
+      "allResponseTexts" : [ {
+        "responseText" : "longitudinal (long axis)",
+        "millSeconds" : 1583315553595
+      } ]
+    }, {
+      "userId" : "level4Student",
+      "questionId" : "338-plane-./images/metacarpal42.jpg",
+      "responseText" : "transverse (short axis)",
+      "allResponseTexts" : [ {
+        "responseText" : "transverse (short axis)",
+        "millSeconds" : 1583315558413
+      } ]
+    }, {
+      "userId" : "level4Student",
+      "questionId" : "366-plane-./images/metacarpal41.jpg",
+      "responseText" : "transverse (short axis)",
+      "allResponseTexts" : [ {
+        "responseText" : "transverse (short axis)",
+        "millSeconds" : 1583315563560
+      } ]
+    }, {
+      "userId" : "level4Student",
+      "questionId" : "450-plane-./images/metacarpal25.jpg",
+      "responseText" : "transverse (short axis)",
+      "allResponseTexts" : [ {
+        "responseText" : "transverse (short axis)",
+        "millSeconds" : 1583315576414
+      } ]
+    }, {
+      "userId" : "level4Student",
+      "questionId" : "453-structure0-./images/metacarpal25.jpg",
+      "responseText" : "Suspensory ligament (branches)",
+      "allResponseTexts" : [ {
+        "responseText" : "Suspensory ligament (branches)",
+        "millSeconds" : 1583315576414
+      } ]
+    }, {
+      "userId" : "level4Student",
+      "questionId" : "456-structure1-./images/metacarpal25.jpg",
+      "responseText" : "Deep digital flexor tendon",
+      "allResponseTexts" : [ {
+        "responseText" : "Deep digital flexor tendon",
+        "millSeconds" : 1583315576414
+      } ]
+    }, {
+      "userId" : "level4Student",
+      "questionId" : "327-structure0-./images/metacarpal56.jpg",
+      "responseText" : "Distal check ligament (accessory ligament of the deep digital flexor tendon)",
+      "allResponseTexts" : [ {
+        "responseText" : "Distal check ligament (accessory ligament of the deep digital flexor tendon)",
+        "millSeconds" : 1583315757321
+      }, {
+        "responseText" : "Distal check ligament (accessory ligament of the deep digital flexor tendon)",
+        "millSeconds" : 1583315808782
+      }, {
+        "responseText" : "Distal check ligament (accessory ligament of the deep digital flexor tendon)",
+        "millSeconds" : 1583315853680
+      } ]
+    }, {
+      "userId" : "level4Student",
+      "questionId" : "325-attachment0-structure0-./images/metacarpal56.jpg",
+      "responseText" : "Both the proximal metacarpus 3 and distal row of carpal bones",
+      "allResponseTexts" : [ {
+        "responseText" : "Both the proximal metacarpus 3 and distal row of carpal bones",
+        "millSeconds" : 1583315853680
+      } ]
+    }, {
+      "userId" : "level4Student",
+      "questionId" : "326-attachment1-structure0-./images/metacarpal56.jpg",
+      "responseText" : "Deep digital flexor tendon",
+      "allResponseTexts" : [ {
+        "responseText" : "Deep digital flexor tendon",
+        "millSeconds" : 1583315853680
+      } ]
+    }]
+  }
+}
