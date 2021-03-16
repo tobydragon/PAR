@@ -489,16 +489,16 @@ public class UserQuestionSetTest {
 
     @Test
     public void questionTypesMapTest() throws IOException{
-        List<Question> questions= JsonUtil.listFromJsonFile("src/test/resources/author/DemoQuestionPoolFewFollowups.json", Question.class);
+        List<Question> questions= JsonUtil.listFromJsonFile("src/test/resources/author/DemoQuestionPoolFollowup.json", Question.class);
         UserQuestionSet que1 = UserQuestionSet.buildNewUserQuestionSetFromQuestions("1", questions);
 
         Map<String,List<QuestionCount>> questionByTypesMap= que1.questionCountsByTypeMap();
 
         assertEquals(4,questionByTypesMap.size());
         //do bonus and attachment not being recorded
-        assertEquals(13,questionByTypesMap.get(EquineQuestionTypes.plane.toString()).size());
+        assertEquals(15,questionByTypesMap.get(EquineQuestionTypes.plane.toString()).size());
         assertEquals(27,questionByTypesMap.get(EquineQuestionTypes.structure.toString()).size());
-        assertEquals(7,questionByTypesMap.get(EquineQuestionTypes.attachment.toString()).size());
+        assertEquals(11,questionByTypesMap.get(EquineQuestionTypes.attachment.toString()).size());
         assertEquals(10,questionByTypesMap.get(EquineQuestionTypes.zone.toString()).size());
     }
 

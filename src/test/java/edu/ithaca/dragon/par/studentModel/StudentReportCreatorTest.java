@@ -75,14 +75,14 @@ class StudentReportCreatorTest {
 
     @Test
     public void numberOfQuestionsPerTypeTest()throws IOException{
-        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFewFollowups.json").getAllQuestions());
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
         StudentModel studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
         Map<String, List<QuestionCount>> questionTypesListMap=studentModel.questionCountsByTypeMap();
         Map<String, Integer> numberOfQuestionsPerType=StudentReportCreator.numberOfQuestionsPerType(questionTypesListMap);
 
-        assertEquals(13,numberOfQuestionsPerType.get(EquineQuestionTypes.plane.toString()).intValue());
+        assertEquals(15,numberOfQuestionsPerType.get(EquineQuestionTypes.plane.toString()).intValue());
         assertEquals(27,numberOfQuestionsPerType.get(EquineQuestionTypes.structure.toString()).intValue());
-        assertEquals(7,numberOfQuestionsPerType.get(EquineQuestionTypes.attachment.toString()).intValue());
+        assertEquals(11,numberOfQuestionsPerType.get(EquineQuestionTypes.attachment.toString()).intValue());
         assertEquals(10,numberOfQuestionsPerType.get(EquineQuestionTypes.zone.toString()).intValue());
 
     }

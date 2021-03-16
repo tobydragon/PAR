@@ -143,9 +143,6 @@ public class JsonStudentModelDatastoreTest {
         assertEquals(2, JsonStudentModelDatastore.calcMinQuestionCountPerType(questions.subList(0,11)));
         //10 images
         assertEquals(10, JsonStudentModelDatastore.calcMinQuestionCountPerType(questions));
-        //less followups than anything else
-        questions = new JsonIoUtil(new JsonIoHelperDefault()).listfromReadOnlyFile("src/test/resources/author/DemoQuestionPoolFewFollowups.json", Question.class);
-        assertEquals(7, JsonStudentModelDatastore.calcMinQuestionCountPerType(questions));
 
         assertEquals(0, JsonStudentModelDatastore.calcMinQuestionCountPerType(new ArrayList<>()));
     }
