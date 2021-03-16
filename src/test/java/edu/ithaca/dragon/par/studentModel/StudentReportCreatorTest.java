@@ -28,7 +28,7 @@ class StudentReportCreatorTest {
         for(ResponsesPerQuestion responsesPerQuestion:responsesPerQuestions){
             userResponseSet.addResponse(responsesPerQuestion);
         }
-        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/SampleQuestionPoolWithAttachment.json").getAllQuestions());
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/SampleQuestionPool.json").getAllQuestions());
         StudentModel studentModel1 = new StudentModel("TestUser-A", questionPool.getAllQuestions());
         StudentModel studentModel2 = new StudentModel("TestUser-B", questionPool.getAllQuestions());
         StudentModel studentModel3 = new StudentModel("TestUser-C", questionPool.getAllQuestions());
