@@ -43,7 +43,7 @@ public class JsonStudentModelDatastoreTest {
     public void getOrCreateStudentModelTest(@TempDir Path tempDir) throws IOException{
         TaskGenerator taskGenerator = new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap());
 
-        JsonStudentModelDatastore jsonStudentModelDatastore = new JsonStudentModelDatastore("src/test/resources/author/questionPools/TestFullQP.json", tempDir.toString());
+        JsonStudentModelDatastore jsonStudentModelDatastore = new JsonStudentModelDatastore("src/test/resources/author/questionPools/testFullQP.json", tempDir.toString());
         Path newStudentPath = tempDir.resolve("buckmank.json");
         Files.copy(Paths.get("src/test/resources/author/students/buckmank.json"), newStudentPath, StandardCopyOption.REPLACE_EXISTING);
 
