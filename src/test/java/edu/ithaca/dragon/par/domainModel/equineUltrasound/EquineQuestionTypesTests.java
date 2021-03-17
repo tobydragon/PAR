@@ -34,7 +34,7 @@ public class EquineQuestionTypesTests {
     @Test
     public void getParentQuestionCountswithChildren() throws IOException {
         //param: List<QuestionCount>> questionTypesListMap
-        StudentModelDatastore studentModelDatastore = new JsonStudentModelDatastore("src/test/resources/author/testFullQP.json", "src/test/resources/author/students");
+        StudentModelDatastore studentModelDatastore = new JsonStudentModelDatastore("src/test/resources/author/QuestionPools/testFullQP.json", "src/test/resources/author/students");
         StudentModel studentModel = studentModelDatastore.getStudentModel("followupTestStudent");
 
         Map<String,List<QuestionCount>> questionTypesListMap = studentModel.questionCountsByTypeMap();

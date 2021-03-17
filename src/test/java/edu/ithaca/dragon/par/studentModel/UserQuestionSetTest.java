@@ -30,15 +30,15 @@ public class UserQuestionSetTest {
     public void userQuestionSetEqualsTest() throws IOException{
 
         //compare two UserQuestionSets with different content (different Json files)
-        List<Question> questionsFromFile1a = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
-        List<Question> questionsFromFile2a = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool3.json", Question.class);
+        List<Question> questionsFromFile1a = JsonUtil.listFromJsonFile("src/test/resources/author/QuestionPools/SampleQuestionPool.json", Question.class);
+        List<Question> questionsFromFile2a = JsonUtil.listFromJsonFile("src/test/resources/author/QuestionPools/SampleQuestionPool3.json", Question.class);
         UserQuestionSet UQS1a = UserQuestionSet.buildNewUserQuestionSetFromQuestions("99", questionsFromFile1a);
         UserQuestionSet UQS2a = UserQuestionSet.buildNewUserQuestionSetFromQuestions("99", questionsFromFile2a);
         assertFalse(UQS1a.equals(UQS2a));
 
         //compare two UserQuestionSets with the same content, but different memory addresses
-        List<Question> questionsFromFile1 = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
-        List<Question> questionsFromFile2 = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
+        List<Question> questionsFromFile1 = JsonUtil.listFromJsonFile("src/test/resources/author/QuestionPools/SampleQuestionPool.json", Question.class);
+        List<Question> questionsFromFile2 = JsonUtil.listFromJsonFile("src/test/resources/author/QuestionPools/SampleQuestionPool.json", Question.class);
         UserQuestionSet UQS1 = UserQuestionSet.buildNewUserQuestionSetFromQuestions("99", questionsFromFile1);
         UserQuestionSet UQS2 = UserQuestionSet.buildNewUserQuestionSetFromQuestions("99", questionsFromFile2);
         assertEquals(UQS1, UQS2);
@@ -58,7 +58,7 @@ public class UserQuestionSetTest {
 
     @Test
     public void getTimesSeenTest() throws IOException{
-        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
+        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/QuestionPools/SampleQuestionPool.json", Question.class);
         UserQuestionSet que = UserQuestionSet.buildNewUserQuestionSetFromQuestions("101", questionsFromFile);
 
         //checks question has not been seen
@@ -98,7 +98,7 @@ public class UserQuestionSetTest {
 
     @Test
     public void getUserIdTest() throws IOException{
-        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
+        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/QuestionPools/SampleQuestionPool.json", Question.class);
         UserQuestionSet que1 = UserQuestionSet.buildNewUserQuestionSetFromQuestions("1", questionsFromFile);
 
         //checks correct user ID is retrieved
@@ -132,7 +132,7 @@ public class UserQuestionSetTest {
 
     @Test
     public void givenQuestionTest() throws IOException{
-        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
+        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/QuestionPools/SampleQuestionPool.json", Question.class);
         UserQuestionSet que = UserQuestionSet.buildNewUserQuestionSetFromQuestions("1", questionsFromFile);
 
         //checks times seen increases consecutively
@@ -185,7 +185,7 @@ public class UserQuestionSetTest {
 
     @Test
     public void givenQuestionTest2() throws IOException{
-        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
+        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/QuestionPools/SampleQuestionPool.json", Question.class);
         UserQuestionSet que = UserQuestionSet.buildNewUserQuestionSetFromQuestions("14", questionsFromFile);
 
         //checks all questions are unseen before tests start
@@ -267,7 +267,7 @@ public class UserQuestionSetTest {
 
 
         //new question set
-        List<Question> qFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
+        List<Question> qFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/QuestionPools/SampleQuestionPool.json", Question.class);
         UserQuestionSet qSet = UserQuestionSet.buildNewUserQuestionSetFromQuestions("14", qFromFile);
 
 
@@ -300,7 +300,7 @@ public class UserQuestionSetTest {
 
     @Test
     public void getUnseenQuestionsTest() throws IOException{
-        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
+        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/QuestionPools/SampleQuestionPool.json", Question.class);
         UserQuestionSet que = UserQuestionSet.buildNewUserQuestionSetFromQuestions("1", questionsFromFile);
 
         //checks all questions are unseen
@@ -360,7 +360,7 @@ public class UserQuestionSetTest {
 
     @Test
     public void getSeenQuestionsTest() throws IOException{
-        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
+        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/QuestionPools/SampleQuestionPool.json", Question.class);
         UserQuestionSet que = UserQuestionSet.buildNewUserQuestionSetFromQuestions("1", questionsFromFile);
 
         //checks all questions are seen
@@ -429,7 +429,7 @@ public class UserQuestionSetTest {
 
     @Test
     public void writeUserQuestionSet() throws IOException{
-        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
+        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/QuestionPools/SampleQuestionPool.json", Question.class);
         UserQuestionSet userQuestionSet = UserQuestionSet.buildNewUserQuestionSetFromQuestions("kerryAnne", questionsFromFile);
         userQuestionSet.increaseTimesAttempted("PlaneQ1");
         userQuestionSet.increaseTimesAttempted("ZoneQ1");
@@ -445,7 +445,7 @@ public class UserQuestionSetTest {
 
     @Test
     public void increaseTimesSeenAllQuestionsTest() throws IOException{
-        List<Question> questions= JsonUtil.listFromJsonFile("src/test/resources/author/DemoQuestionPoolFollowup.json", Question.class);
+        List<Question> questions= JsonUtil.listFromJsonFile("src/test/resources/author/QuestionPools/DemoQuestionPoolFollowup.json", Question.class);
         questions = questions.subList(0,5);
         StudentModel studentModel = new StudentModel("TestUser1", questions);
         studentModel.getUserQuestionSet().increaseTimesAttemptedAllQuestions(questions);
@@ -470,7 +470,7 @@ public class UserQuestionSetTest {
 
     @Test
     public void addQuestionTest() throws IOException{
-        List<Question> questions= JsonUtil.listFromJsonFile("src/test/resources/author/DemoQuestionPoolFollowup.json", Question.class);
+        List<Question> questions= JsonUtil.listFromJsonFile("src/test/resources/author/QuestionPools/DemoQuestionPoolFollowup.json", Question.class);
         StudentModel studentModel = new StudentModel("TestUser1", questions);
         Question q = new Question("Question1", "What is this question?", "Good", "A very good one", Arrays.asList("A very good one", "A great one", ":("), "/images/AnImage");
         studentModel.getUserQuestionSet().addQuestion(q);
@@ -489,7 +489,7 @@ public class UserQuestionSetTest {
 
     @Test
     public void questionTypesMapTest() throws IOException{
-        List<Question> questions= JsonUtil.listFromJsonFile("src/test/resources/author/DemoQuestionPoolFollowup.json", Question.class);
+        List<Question> questions= JsonUtil.listFromJsonFile("src/test/resources/author/QuestionPools/DemoQuestionPoolFollowup.json", Question.class);
         UserQuestionSet que1 = UserQuestionSet.buildNewUserQuestionSetFromQuestions("1", questions);
 
         Map<String,List<QuestionCount>> questionByTypesMap= que1.questionCountsByTypeMap();
@@ -504,7 +504,7 @@ public class UserQuestionSetTest {
 
     @Test
     public void getAllResponseCountTest() throws IOException{
-        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/testFullQP.json").getAllQuestions());
 
         //mastered student
         StudentModelRecord smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);

@@ -18,7 +18,7 @@ public class AuthorTaskGeneratorTest {
 
     @Test
     public void makeImageTaskTemplateTest() throws IOException{
-        List<Question> questions = JsonUtil.listFromJsonFile("src/test/resources/author/DemoQuestionPoolTemplate.json", Question.class);
+        List<Question> questions = JsonUtil.listFromJsonFile("src/test/resources/author/QuestionPools/DemoQuestionPoolTemplate.json", Question.class);
         AuthorModel authorModel = new AuthorModel("user1", QuestionCount.questionToQuestionCount(questions));
         ImageTask im = AuthorTaskGenerator.makeTaskTemplate(authorModel);
         ImageTask intendedFirstTask = JsonUtil.fromJsonFile("src/test/resources/author/nextImageTaskTemplateTest1.json", ImageTask.class);
@@ -36,7 +36,7 @@ public class AuthorTaskGeneratorTest {
 
     @Test
     void getInitialQuestionTest() throws IOException {
-        List<Question> questions = JsonUtil.listFromJsonFile("src/test/resources/author/DemoQuestionPoolFollowup.json", Question.class);
+        List<Question> questions = JsonUtil.listFromJsonFile("src/test/resources/author/QuestionPools/DemoQuestionPoolFollowup.json", Question.class);
         List<QuestionCount> questionCountList = QuestionCount.questionToQuestionCount(questions);
         QuestionCount firstQuestion = AuthorTaskGenerator.getInitialQuestion(questionCountList);
         assertEquals("./images/demoEquine14.jpg", firstQuestion.getQuestion().getImageUrl());
@@ -61,7 +61,7 @@ public class AuthorTaskGeneratorTest {
 
     @Test
     void getAllQuestionsWithSameUrlTest() throws IOException{
-        List<Question> questions = JsonUtil.listFromJsonFile("src/test/resources/author/DemoQuestionPoolFollowup.json", Question.class);
+        List<Question> questions = JsonUtil.listFromJsonFile("src/test/resources/author/QuestionPools/DemoQuestionPoolFollowup.json", Question.class);
         AuthorModel authorModel = new AuthorModel("user1", QuestionCount.questionToQuestionCount(questions));
         List<QuestionCount> questionCountList = QuestionCount.questionToQuestionCount(questions);
         QuestionCount question = questionCountList.get(0);
@@ -79,7 +79,7 @@ public class AuthorTaskGeneratorTest {
 
     @Test
     public void urlsTest()throws IOException {
-        List<Question> questions = JsonUtil.listFromJsonFile("src/test/resources/author/DemoQuestionPoolFollowup.json", Question.class);
+        List<Question> questions = JsonUtil.listFromJsonFile("src/test/resources/author/QuestionPools/DemoQuestionPoolFollowup.json", Question.class);
         Set<String> urls = AuthorTaskGenerator.urls(questions);
         assertEquals(10, urls.size());
 
@@ -87,7 +87,7 @@ public class AuthorTaskGeneratorTest {
 
     @Test
     public void authoredQuestionsTest()throws IOException{
-        List<Question> questions = JsonUtil.listFromJsonFile("src/test/resources/author/DemoQuestionPoolFollowup.json", Question.class);
+        List<Question> questions = JsonUtil.listFromJsonFile("src/test/resources/author/QuestionPools/DemoQuestionPoolFollowup.json", Question.class);
         List<ImageTask> authoredImageTasks=AuthorTaskGenerator.authoredQuestions(questions);
 
         assertEquals(10,authoredImageTasks.size());

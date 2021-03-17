@@ -35,8 +35,8 @@ class ParStudentAndAuthorServerTest {
         Path currentQuestionPath = tempDir.resolve("currentAuthorQuestions.json");
         Path currentQuestionTemplatePath = tempDir.resolve("currentQuestionTemplates.json");
         JsonAuthorDatastore jsonAuthorDatastore = new JsonAuthorDatastore(
-                currentQuestionPath.toString(), "src/test/resources/author/SampleQuestionPool.json",
-                currentQuestionTemplatePath.toString(), "src/test/resources/author/DemoQuestionPoolTemplate.json",
+                currentQuestionPath.toString(), "src/test/resources/author/QuestionPools/SampleQuestionPool.json",
+                currentQuestionTemplatePath.toString(), "src/test/resources/author/QuestionPools/DemoQuestionPoolTemplate.json",
                 tempDir.resolve("currentAuthorModel.json").toString(), new JsonIoHelperDefault());
         assertEquals(15, jsonAuthorDatastore.getAllAuthoredQuestions().size());
 
@@ -44,7 +44,7 @@ class ParStudentAndAuthorServerTest {
         assertTrue(new File(currentStudentModelDir.toString()).mkdir());
         JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
                 tempDir.resolve("currentQuestions.json").toString(),
-                "src/test/resources/author/DemoQuestionPoolFollowup.json",
+                "src/test/resources/author/QuestionPools/DemoQuestionPoolFollowup.json",
                 new JsonIoHelperDefault(),
                 currentStudentModelDir.toString());
         assertEquals(47, jsonStudentDatastore.getAllQuestions().size());
@@ -73,15 +73,15 @@ class ParStudentAndAuthorServerTest {
         Path currentQuestionPath = tempDir.resolve("currentAuthorQuestions.json");
         Path currentQuestionTemplatePath = tempDir.resolve("currentQuestionTemplates.json");
         JsonAuthorDatastore jsonAuthorDatastore = new JsonAuthorDatastore(
-                currentQuestionPath.toString(), "src/test/resources/author/SampleQuestionPool.json",
-                currentQuestionTemplatePath.toString(), "src/test/resources/author/DemoQuestionPoolTemplate.json",
+                currentQuestionPath.toString(), "src/test/resources/author/QuestionPools/SampleQuestionPool.json",
+                currentQuestionTemplatePath.toString(), "src/test/resources/author/QuestionPools/DemoQuestionPoolTemplate.json",
                 tempDir.resolve("currentAuthorModel.json").toString(), new JsonIoHelperDefault());
 
         Path currentStudentModelDir = tempDir.resolve("students");
         assertTrue(new File(currentStudentModelDir.toString()).mkdir());
         JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
                 tempDir.resolve("currentQuestions.json").toString(),
-                "src/test/resources/author/SampleQuestionsEmpty.json",
+                "src/test/resources/author/QuestionPools/SampleQuestionsEmpty.json",
                 new JsonIoHelperDefault(),
                 currentStudentModelDir.toString());
 
@@ -110,7 +110,7 @@ class ParStudentAndAuthorServerTest {
         assertTrue(new File(currentStudentModelDir.toString()).mkdir());
         JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
                 tempDir.resolve("currentQuestions.json").toString(),
-                "src/test/resources/author/SampleQuestionPool3.json",
+                "src/test/resources/author/QuestionPools/SampleQuestionPool3.json",
                 new JsonIoHelperDefault(),
                 currentStudentModelDir.toString());
 
@@ -146,7 +146,7 @@ class ParStudentAndAuthorServerTest {
         assertTrue(new File(currentStudentModelDir.toString()).mkdir());
         JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
                 tempDir.resolve("currentQuestions.json").toString(),
-                "src/test/resources/author/SampleQuestionPool3.json",
+                "src/test/resources/author/QuestionPools/SampleQuestionPool3.json",
                 new JsonIoHelperDefault(),
                 currentStudentModelDir.toString());
 
@@ -184,7 +184,7 @@ class ParStudentAndAuthorServerTest {
         assertTrue(new File(currentStudentModelDir.toString()).mkdir());
         JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
                 tempDir.resolve("currentQuestions.json").toString(),
-                "src/test/resources/author/SampleQuestionPool3.json",
+                "src/test/resources/author/QuestionPools/SampleQuestionPool3.json",
                 new JsonIoHelperDefault(),
                 currentStudentModelDir.toString());
 
@@ -234,7 +234,7 @@ class ParStudentAndAuthorServerTest {
         assertTrue(new File(currentStudentModelDir.toString()).mkdir());
         JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
                 tempDir.resolve("currentQuestions.json").toString(),
-                "src/test/resources/author/SampleQuestionPool3.json",
+                "src/test/resources/author/QuestionPools/SampleQuestionPool3.json",
                 new JsonIoHelperDefault(),
                 currentStudentModelDir.toString());
 
@@ -286,7 +286,7 @@ class ParStudentAndAuthorServerTest {
         assertTrue(new File(currentStudentModelDir.toString()).mkdir());
         JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
                 tempDir.resolve("currentQuestions.json").toString(),
-                "src/test/resources/author/SampleQuestionPool3.json",
+                "src/test/resources/author/QuestionPools/SampleQuestionPool3.json",
                 new JsonIoHelperDefault(),
                 currentStudentModelDir.toString());
         JsonIoHelper jsonIoHelper = new JsonIoHelperDefault();
@@ -318,7 +318,7 @@ class ParStudentAndAuthorServerTest {
         assertTrue(new File(currentStudentModelDir.toString()).mkdir());
         JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
                 tempDir.resolve("currentQuestions.json").toString(),
-                "src/test/resources/author/SampleQuestionPool4.json",
+                "src/test/resources/author/QuestionPools/SampleQuestionPool4.json",
                 new JsonIoHelperDefault(),
                 currentStudentModelDir.toString());
 
@@ -366,21 +366,21 @@ class ParStudentAndAuthorServerTest {
         assertTrue(new File(currentStudentModelDir.toString()).mkdir());
         JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
                 tempDir.resolve("currentQP-10-5-2020.json").toString(),
-                "src/test/resources/author/currentQP-10-5-2020.json",
+                "src/test/resources/author/QuestionPools/currentQP-10-5-2020.json",
                 new JsonIoHelperDefault(),
                 currentStudentModelDir.toString());
 
         JsonIoHelper jsonIoHelper = new JsonIoHelperDefault();
         JsonIoUtil jsonIoUtil = new JsonIoUtil(jsonIoHelper);
 
-        List<CohortRecord> cohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/CohortServerTest.json", CohortRecord.class);
+        List<CohortRecord> cohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/Cohorts/CohortServerTest.json", CohortRecord.class);
         JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords, testCohortDatastoreFilename, new JsonIoHelperDefault());
 
         ParStudentAndAuthorServer server = new ParStudentAndAuthorServer(jsonStudentDatastore, null, jsonCohortDatastore);
 
         StudentModel student = jsonStudentDatastore.getOrCreateStudentModel("masteredStudent");
 
-        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/currentQP-10-5-2020.json").getAllQuestions());
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/currentQP-10-5-2020.json").getAllQuestions());
 
 
 
@@ -465,14 +465,14 @@ class ParStudentAndAuthorServerTest {
         assertTrue(new File(currentStudentModelDir.toString()).mkdir());
         JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
                 tempDir.resolve("currentQP-10-5-2020.json").toString(),
-                "src/test/resources/author/currentQP-10-5-2020.json",
+                "src/test/resources/author/QuestionPools/currentQP-10-5-2020.json",
                 new JsonIoHelperDefault(),
                 currentStudentModelDir.toString());
 
         JsonIoHelper jsonIoHelper = new JsonIoHelperDefault();
         JsonIoUtil jsonIoUtil = new JsonIoUtil(jsonIoHelper);
 
-        List<CohortRecord> cohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/CohortServerTest2.json", CohortRecord.class);
+        List<CohortRecord> cohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/Cohorts/CohortServerTest2.json", CohortRecord.class);
         JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords, testCohortDatastoreFilename, new JsonIoHelperDefault());
 
         ParStudentAndAuthorServer server = new ParStudentAndAuthorServer(jsonStudentDatastore, null, jsonCohortDatastore);
@@ -493,14 +493,14 @@ class ParStudentAndAuthorServerTest {
         assertTrue(new File(currentStudentModelDir.toString()).mkdir());
         JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
                 tempDir.resolve("currentQP-10-5-2020.json").toString(),
-                "src/test/resources/author/currentQP-10-5-2020.json",
+                "src/test/resources/author/QuestionPools/currentQP-10-5-2020.json",
                 new JsonIoHelperDefault(),
                 currentStudentModelDir.toString());
 
         JsonIoHelper jsonIoHelper = new JsonIoHelperDefault();
         JsonIoUtil jsonIoUtil = new JsonIoUtil(jsonIoHelper);
 
-        List<CohortRecord> cohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/CohortServerTest2.json", CohortRecord.class);
+        List<CohortRecord> cohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/Cohorts/CohortServerTest2.json", CohortRecord.class);
         JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords, testCohortDatastoreFilename, new JsonIoHelperDefault());
 
         ParStudentAndAuthorServer server = new ParStudentAndAuthorServer(jsonStudentDatastore, null, jsonCohortDatastore);

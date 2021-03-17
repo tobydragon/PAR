@@ -31,7 +31,7 @@ public class StudentModelTest {
 
     @BeforeEach
     public void setUp() throws IOException{
-        questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/SampleQuestionPool.json").getAllQuestions());
+        questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/SampleQuestionPool.json").getAllQuestions());
         studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
         responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponseOOP.class);
     }
@@ -100,7 +100,7 @@ public class StudentModelTest {
     }
     @Test
     public void addQuestionTest() throws IOException{
-        List<Question> questions= JsonUtil.listFromJsonFile("src/test/resources/author/DemoQuestionPoolFollowup.json", Question.class);
+        List<Question> questions= JsonUtil.listFromJsonFile("src/test/resources/author/QuestionPools/DemoQuestionPoolFollowup.json", Question.class);
         StudentModel studentModel = new StudentModel("TestUser1", questions);
         Question q = new Question("Question1", "What is this question?", "Good", "A very good one", Arrays.asList("A very good one", "A great one", ":("), "/images/AnImage");
         studentModel.addQuestion(q);
@@ -129,7 +129,7 @@ public class StudentModelTest {
 
 
         //mastered student
-        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/testFullQP.json").getAllQuestions());
 
         StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
         StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
@@ -150,7 +150,7 @@ public class StudentModelTest {
     @Test
     public void calcQuestionsWrongTest() throws IOException{
         //mastered student creation
-        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/testFullQP.json").getAllQuestions());
 
         StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
         StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
@@ -167,7 +167,7 @@ public class StudentModelTest {
 
     @Test
     public void getAndSetPreviousLevelTest() throws IOException{
-        List<Question> questions= JsonUtil.listFromJsonFile("src/test/resources/author/DemoQuestionPoolFollowup.json", Question.class);
+        List<Question> questions= JsonUtil.listFromJsonFile("src/test/resources/author/QuestionPools/DemoQuestionPoolFollowup.json", Question.class);
         StudentModel studentModel = new StudentModel("TestUser", questions);
         assertEquals(1, studentModel.getPreviousLevel());
 
@@ -193,7 +193,7 @@ public class StudentModelTest {
 
     @Test
     public void getAndSetCurrentLevelTest() throws IOException{
-        List<Question> questions= JsonUtil.listFromJsonFile("src/test/resources/author/DemoQuestionPoolFollowup.json", Question.class);
+        List<Question> questions= JsonUtil.listFromJsonFile("src/test/resources/author/QuestionPools/DemoQuestionPoolFollowup.json", Question.class);
         StudentModel studentModel = new StudentModel("TestUser", questions);
         assertEquals(1, studentModel.getCurrentLevel());
 

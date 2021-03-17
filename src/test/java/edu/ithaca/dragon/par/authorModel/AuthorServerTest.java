@@ -24,8 +24,8 @@ public class AuthorServerTest {
         Path currentQuestionPath = tempDir.resolve("currentQuestions.json");
         Path currentQuestionTemplatePath = tempDir.resolve("currentQuestionTemplates.json");
         //copy the files to use to the paths (these temp files will change as work is done)
-        Files.copy(Paths.get("src/test/resources/author/SampleQuestionsEmpty.json"), currentQuestionPath, StandardCopyOption.REPLACE_EXISTING);
-        Files.copy(Paths.get("src/test/resources/author/DemoQuestionPoolTemplate.json"), currentQuestionTemplatePath, StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(Paths.get("src/test/resources/author/QuestionPools/SampleQuestionsEmpty.json"), currentQuestionPath, StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(Paths.get("src/test/resources/author/QuestionPools/DemoQuestionPoolTemplate.json"), currentQuestionTemplatePath, StandardCopyOption.REPLACE_EXISTING);
 
         AuthorServer pas = new AuthorServer(new JsonAuthorDatastore(currentQuestionPath.toString(),
                 currentQuestionTemplatePath.toString(), tempDir.resolve("currentAuthorModel.json").toString()));
@@ -58,8 +58,8 @@ public class AuthorServerTest {
         Path currentQuestionPath = tempDir.resolve("currentQuestions.json");
         Path currentQuestionTemplatePath = tempDir.resolve("currentQuestionTemplates.json");
         //copy the files to use to the paths (these temp files will change as work is done)
-        Files.copy(Paths.get("src/test/resources/author/SampleQuestionsEmpty.json"), currentQuestionPath, StandardCopyOption.REPLACE_EXISTING);
-        Files.copy(Paths.get("src/test/resources/author/DemoQuestionPoolTemplate.json"), currentQuestionTemplatePath, StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(Paths.get("src/test/resources/author/QuestionPools/SampleQuestionsEmpty.json"), currentQuestionPath, StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(Paths.get("src/test/resources/author/QuestionPools/DemoQuestionPoolTemplate.json"), currentQuestionTemplatePath, StandardCopyOption.REPLACE_EXISTING);
 
         AuthorServer pas = new AuthorServer(new JsonAuthorDatastore(currentQuestionPath.toString(),
                 currentQuestionTemplatePath.toString(), tempDir.resolve("currentAuthorModel.json").toString()));
@@ -121,8 +121,8 @@ public class AuthorServerTest {
         Path currentQuestionPath = tempDir.resolve("currentQuestions.json");
         Path currentQuestionTemplatePath = tempDir.resolve("currentQuestionTemplates.json");
         //copy the files to use to the paths (these temp files will change as work is done)
-        Files.copy(Paths.get("src/test/resources/author/SampleQuestionsEmpty.json"), currentQuestionPath, StandardCopyOption.REPLACE_EXISTING);
-        Files.copy(Paths.get("src/test/resources/author/DemoQuestionPoolTemplate.json"), currentQuestionTemplatePath, StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(Paths.get("src/test/resources/author/QuestionPools/SampleQuestionsEmpty.json"), currentQuestionPath, StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(Paths.get("src/test/resources/author/QuestionPools/DemoQuestionPoolTemplate.json"), currentQuestionTemplatePath, StandardCopyOption.REPLACE_EXISTING);
 
         AuthorServer pas = new AuthorServer(new JsonAuthorDatastore(currentQuestionPath.toString(),
                 currentQuestionTemplatePath.toString(), tempDir.resolve("currentAuthorModel.json").toString()));
@@ -166,8 +166,8 @@ public class AuthorServerTest {
         Path currentQuestionPath = tempDir.resolve("currentQuestions.json");
         Path currentQuestionTemplatePath = tempDir.resolve("currentQuestionTemplates.json");
         //copy the files to use to the paths (these temp files will change as work is done)
-        Files.copy(Paths.get("src/test/resources/author/SampleQuestionsEmpty.json"), currentQuestionPath, StandardCopyOption.REPLACE_EXISTING);
-        Files.copy(Paths.get("src/test/resources/author/DemoQuestionPoolTemplate.json"), currentQuestionTemplatePath, StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(Paths.get("src/test/resources/author/QuestionPools/SampleQuestionsEmpty.json"), currentQuestionPath, StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(Paths.get("src/test/resources/author/QuestionPools/DemoQuestionPoolTemplate.json"), currentQuestionTemplatePath, StandardCopyOption.REPLACE_EXISTING);
 
         AuthorServer pas = new AuthorServer(new JsonAuthorDatastore(currentQuestionPath.toString(),
                 currentQuestionTemplatePath.toString(), tempDir.resolve("currentAuthorModel.json").toString()));
@@ -294,8 +294,8 @@ public class AuthorServerTest {
         Path currentQuestionPath = tempDir.resolve("currentQuestions.json");
         Path currentQuestionTemplatePath = tempDir.resolve("currentQuestionTemplates.json");
         //copy the files to use to the paths (these temp files will change as work is done)
-        Files.copy(Paths.get("src/test/resources/author/SampleQuestionsEmpty.json"), currentQuestionPath, StandardCopyOption.REPLACE_EXISTING);
-        Files.copy(Paths.get("src/test/resources/author/DemoQuestionPoolTemplateSmall.json"), currentQuestionTemplatePath, StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(Paths.get("src/test/resources/author/QuestionPools/SampleQuestionsEmpty.json"), currentQuestionPath, StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(Paths.get("src/test/resources/author/QuestionPools/DemoQuestionPoolTemplateSmall.json"), currentQuestionTemplatePath, StandardCopyOption.REPLACE_EXISTING);
 
         AuthorServer pas = new AuthorServer(new JsonAuthorDatastore(currentQuestionPath.toString(),
                 currentQuestionTemplatePath.toString(), tempDir.resolve("currentAuthorModel.json").toString()));
@@ -331,8 +331,8 @@ public class AuthorServerTest {
         Path currentQuestionPath = tempDir.resolve("currentQuestions.json");
         Path currentQuestionTemplatePath = tempDir.resolve("currentQuestionTemplates.json");
         //copy the files to use to the paths (these temp files will change as work is done)
-        Files.copy(Paths.get("src/test/resources/author/SampleQuestionsEmpty.json"), currentQuestionPath, StandardCopyOption.REPLACE_EXISTING);
-        Files.copy(Paths.get("src/test/resources/author/DemoQuestionPoolTemplate.json"), currentQuestionTemplatePath, StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(Paths.get("src/test/resources/author/QuestionPools/SampleQuestionsEmpty.json"), currentQuestionPath, StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(Paths.get("src/test/resources/author/QuestionPools/DemoQuestionPoolTemplate.json"), currentQuestionTemplatePath, StandardCopyOption.REPLACE_EXISTING);
 
         AuthorServer pas = new AuthorServer(new JsonAuthorDatastore(currentQuestionPath.toString(),
                 currentQuestionTemplatePath.toString(), tempDir.resolve("currentAuthorModel.json").toString()));
@@ -352,8 +352,8 @@ public class AuthorServerTest {
         //set up authorDatastore files and the AuthorServer
         Path currentQuestionPath = tempDir.resolve("currentQuestions.json");
         Path currentQuestionTemplatePath = tempDir.resolve("currentQuestionTemplates.json");
-        Files.copy(Paths.get("src/test/resources/author/SampleQuestionsEmpty.json"), currentQuestionPath, StandardCopyOption.REPLACE_EXISTING);
-        Files.copy(Paths.get("src/test/resources/author/DemoQuestionPoolTemplateWithCustom.json"), currentQuestionTemplatePath, StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(Paths.get("src/test/resources/author/QuestionPools/SampleQuestionsEmpty.json"), currentQuestionPath, StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(Paths.get("src/test/resources/author/QuestionPools/DemoQuestionPoolTemplateWithCustom.json"), currentQuestionTemplatePath, StandardCopyOption.REPLACE_EXISTING);
 
         AuthorServer pas = new AuthorServer(new JsonAuthorDatastore(currentQuestionPath.toString(),
                 currentQuestionTemplatePath.toString(), tempDir.resolve("currentAuthorModel.json").toString()));

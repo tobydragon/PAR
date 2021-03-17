@@ -23,7 +23,7 @@ public class StudentDataAnalyzerTest {
         assertEquals(0, sda.getStudentDataList().size());
 
         //1 student
-        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/testFullQP.json").getAllQuestions());
 
         StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
         StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
@@ -54,7 +54,7 @@ public class StudentDataAnalyzerTest {
         assertEquals(0, sda.getStudentDataList().size());
 
         //1 student
-        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/testFullQP.json").getAllQuestions());
 
         StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
         StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
@@ -83,7 +83,7 @@ public class StudentDataAnalyzerTest {
         StudentDataAnalyzer sda = new StudentDataAnalyzer(new ArrayList<>());
 
         //add 1 student
-        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/testFullQP.json").getAllQuestions());
         StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
         StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
         StudentData masteredStudent = new StudentData(masteredStudentModel);
@@ -128,7 +128,7 @@ public class StudentDataAnalyzerTest {
         StudentDataAnalyzer sda = new StudentDataAnalyzer(new ArrayList<>());
 
         //add 1 student
-        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/testFullQP.json").getAllQuestions());
         StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
         StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
         StudentData masteredStudent = new StudentData(masteredStudentModel);
@@ -164,7 +164,7 @@ public class StudentDataAnalyzerTest {
         assertThrows(ArithmeticException.class, ()-> sda.calcAverageLevel());
 
         //add 1 student
-        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/testFullQP.json").getAllQuestions());
         StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
         StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
         StudentData masteredStudent = new StudentData(masteredStudentModel);
@@ -198,7 +198,7 @@ public class StudentDataAnalyzerTest {
         assertThrows(ArithmeticException.class, ()-> sda.calcAverageTotalAnswers());
 
         //add 1 student
-        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/testFullQP.json").getAllQuestions());
         StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
         StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
         StudentData masteredStudent = new StudentData(masteredStudentModel);
@@ -231,7 +231,7 @@ public class StudentDataAnalyzerTest {
         assertThrows(IllegalArgumentException.class, ()-> sda.getListGivenLevel(4));
 
         //add 1 student
-        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/testFullQP.json").getAllQuestions());
         StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
         StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
         StudentData masteredStudent = new StudentData(masteredStudentModel);
@@ -291,7 +291,7 @@ public class StudentDataAnalyzerTest {
         assertThrows(ArithmeticException.class, ()-> sda.calcAverageTotalAnswersGivenLevel(4));
 
         //add 1 student
-        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/testFullQP.json").getAllQuestions());
         StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
         StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
         StudentData masteredStudent = new StudentData(masteredStudentModel);
@@ -361,7 +361,7 @@ public class StudentDataAnalyzerTest {
         assertThrows(ArithmeticException.class, ()-> sda.calcAveragePercentCorrectResponses());
 
         //add 1 student
-        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/testFullQP.json").getAllQuestions());
         StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
         StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
         StudentData masteredStudent = new StudentData(masteredStudentModel);
@@ -393,7 +393,7 @@ public class StudentDataAnalyzerTest {
         assertThrows(ArithmeticException.class, ()-> sda.calcAveragePercentWrongFirstTime());
 
         //add 1 student
-        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/testFullQP.json").getAllQuestions());
         StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
         StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
         StudentData masteredStudent = new StudentData(masteredStudentModel);
@@ -426,7 +426,7 @@ public class StudentDataAnalyzerTest {
         assertThrows(ArithmeticException.class, ()-> sda.calcAveragePercentRightAfterWrongFirstTime());
 
         //add 1 student
-        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/testFullQP.json").getAllQuestions());
         StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
         StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
         StudentData masteredStudent = new StudentData(masteredStudentModel);
@@ -459,7 +459,7 @@ public class StudentDataAnalyzerTest {
 //empty StudentDataAnalyzer
         StudentDataAnalyzer sda = new StudentDataAnalyzer(new ArrayList<>());
         //add 1 student
-        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/testFullQP.json").getAllQuestions());
         StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
         StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
         StudentData masteredStudent = new StudentData(masteredStudentModel);
@@ -501,7 +501,7 @@ public class StudentDataAnalyzerTest {
         assertEquals(0, incorrect.size());
 
         //add 1 student
-        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/testFullQP.json").getAllQuestions());
         StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
         StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
         StudentData masteredStudent = new StudentData(masteredStudentModel);
@@ -552,7 +552,7 @@ public class StudentDataAnalyzerTest {
         StudentDataAnalyzer sda = new StudentDataAnalyzer(new ArrayList<>());
 
         //add 1 student
-        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/testFullQP.json").getAllQuestions());
         StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
         StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
         StudentData masteredStudent = new StudentData(masteredStudentModel);

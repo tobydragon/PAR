@@ -21,7 +21,7 @@ public class CohortRecordTest {
 
     @Test
     public void makeCohortFromCohortRecordTest() throws IOException {
-        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/DemoQuestionPoolFollowup.json").getAllQuestions());
         List<String> testStudents = new ArrayList<>();
         testStudents.add("testStudent1");
         testStudents.add("testStudent2");
@@ -75,7 +75,7 @@ public class CohortRecordTest {
     public void makeCohortRecordFromCohortTest() throws IOException {
         RandomTaskGenerator randomTaskGenerator = new RandomTaskGenerator();
         JsonIoUtil reader = new JsonIoUtil(new JsonIoHelperDefault());
-        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/DemoQuestionPoolFollowup.json").getAllQuestions());
         List<QuestionOrderedInfo> defaultQuestionOrderedInfoList = reader.listFromFile("src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoList.json", QuestionOrderedInfo.class);
         OrderedTaskGenerator orderedTaskGenerator = new OrderedTaskGenerator(questionPool, defaultQuestionOrderedInfoList);
         LevelTaskGenerator levelTaskGenerator = new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap());
@@ -148,7 +148,7 @@ public class CohortRecordTest {
 
 
         //create list of cohort records
-        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/DemoQuestionPoolFollowup.json").getAllQuestions());
         List<CohortRecord> originalCohortRecords = new ArrayList<>();
         //empty student list
         CohortRecord emptyRecord = new CohortRecord("c1", TaskGeneratorType.randomTaskGenerator, new ArrayList<>(), MessageGeneratorType.silentMessageGenerator, questionPool);
@@ -180,7 +180,7 @@ public class CohortRecordTest {
 
     @Test
     public void createQuestionOrderedInfoListTest() throws IOException {
-        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPool.json").getAllQuestions());
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/DemoQuestionPool.json").getAllQuestions());
 
         List<QuestionOrderedInfo> toTest = OrderedTaskGenerator.createDefaultQuestionOrderedInfoList(questionPool, true);
         assertEquals(questionPool.getAllQuestions().size(), toTest.size());

@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class UserQuestionSetRecordTest {
     @Test
     public void toJsonAndBackTest() throws IOException {
-        QuestionPool qp = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/SampleQuestionPool.json").getAllQuestions());
+        QuestionPool qp = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/SampleQuestionPool.json").getAllQuestions());
         UserQuestionSet que = UserQuestionSet.buildNewUserQuestionSetFromQuestions("99", qp.getAllQuestions());
 
         UserQuestionSetRecord myUQSR = new UserQuestionSetRecord(que);
