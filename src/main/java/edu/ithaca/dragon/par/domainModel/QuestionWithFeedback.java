@@ -25,7 +25,13 @@ public class QuestionWithFeedback {
 
 
     public static List<QuestionWithFeedback> questionListToQuestionWithFeedbackList(List<Question> questions){
-        return new ArrayList<>();
+        List<QuestionWithFeedback> questionWithFeedbackList = new ArrayList<>();
+
+        for(Question q: questions){
+            questionWithFeedbackList.add(new QuestionWithFeedback(q));
+        }
+
+        return questionWithFeedbackList;
     }
 
 
