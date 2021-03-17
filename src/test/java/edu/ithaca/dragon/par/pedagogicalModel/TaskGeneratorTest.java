@@ -17,7 +17,7 @@ public class TaskGeneratorTest {
     //TODO: tests should be more thorough
     public void makeTaskTest(TaskGenerator taskGenerator) throws IOException {
         //set up questionPool and studentModel, create an imageTask with the studentModel
-        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/DemoQuestionPool.json").getAllQuestions());
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/questionPools/DemoQuestionPool.json").getAllQuestions());
         StudentModel studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
 
         //make an imageTask and check aspects of it

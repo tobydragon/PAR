@@ -22,7 +22,7 @@ public class LevelTaskGeneratorAttachmentTest {
 
     @Test
     public void makeTaskWithSingleQuestionTestFix() throws IOException{
-        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/SampleQuestionPool.json").getAllQuestions());
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/questionPools/SampleQuestionPool.json").getAllQuestions());
         StudentModel studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
         studentModel.getUserQuestionSet().increaseTimesAttemptedAllQuestions(studentModel.getUserQuestionSet().getTopLevelUnattemptedQuestions());
 
@@ -34,7 +34,7 @@ public class LevelTaskGeneratorAttachmentTest {
 
     @Test
     public void imageTaskWithFollowupQuestionsTest(@TempDir Path tempDir) throws IOException{
-        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/DemoQuestionPoolFollowup.json").getAllQuestions());
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/questionPools/DemoQuestionPoolFollowup.json").getAllQuestions());
         StudentModel studentModel = new StudentModel("TestUser111", questionPool.getAllQuestions());
 
         ImageTask imageTask = LevelTaskGeneratorAttachment.makeTaskGivenLevel(studentModel, EquineQuestionTypes.makeLevelToTypesMap().get(3), 3);
@@ -101,7 +101,7 @@ public class LevelTaskGeneratorAttachmentTest {
     public void makeTaskImp2Test() throws IOException{
         TaskGenerator taskGenerator = new LevelTaskGeneratorAttachment(EquineQuestionTypes.makeLevelToTypesMap());
         //set up questionPool and studentModel, create an imageTask with the studentModel
-        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/DemoQuestionPool.json").getAllQuestions());
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/questionPools/DemoQuestionPool.json").getAllQuestions());
         StudentModel studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
 
         //make an imageTask and check aspects of it
@@ -124,7 +124,7 @@ public class LevelTaskGeneratorAttachmentTest {
     @Test
     public void makeTaskWithSingleQuestionImp2Test() throws IOException {
         //set up questionPool and studentModel, create an imageTask with the studentModel
-        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/SampleQuestionPool.json").getAllQuestions());
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/questionPools/SampleQuestionPool.json").getAllQuestions());
         StudentModel studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
 
         //no questions have been seen
@@ -151,7 +151,7 @@ public class LevelTaskGeneratorAttachmentTest {
 
     @Test
     public void studentModelWithNoQuestionsImp2Test() throws IOException{
-        QuestionPool emptyQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/SampleQuestionsEmpty.json").getAllQuestions());
+        QuestionPool emptyQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/questionPools/SampleQuestionsEmpty.json").getAllQuestions());
         StudentModel studentModel = new StudentModel("TestUser1", emptyQP.getAllQuestions());
 
         //try to make a single Question
@@ -270,7 +270,7 @@ public class LevelTaskGeneratorAttachmentTest {
 
     @Test
     public void removeTypeFromQuestionTest() throws IOException{
-        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/DemoQuestionPoolFollowup.json").getAllQuestions());
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/questionPools/DemoQuestionPoolFollowup.json").getAllQuestions());
         Question noFollowups = questionPool.getQuestionFromId("plane./images/demoEquine14.jpg");
         Question twoFollowups = questionPool.getQuestionFromId("structure3./images/demoEquine10.jpg");
         Question recFollowups = questionPool.getQuestionFromId("structure0./images/demoEquine14.jpg");
@@ -296,7 +296,7 @@ public class LevelTaskGeneratorAttachmentTest {
 
     @Test
     public void removeTypeTest() throws IOException{
-        List<Question> questions= JsonUtil.listFromJsonFile("src/test/resources/author/QuestionPools/SampleQuestionPool.json", Question.class);
+        List<Question> questions= JsonUtil.listFromJsonFile("src/test/resources/author/questionPools/SampleQuestionPool.json", Question.class);
         questions = LevelTaskGeneratorAttachment.removeTypeFromQuestionList(questions, EquineQuestionTypes.plane.toString());
         assertEquals(10, questions.size());
         questions = LevelTaskGeneratorAttachment.removeTypeFromQuestionList(questions, EquineQuestionTypes.structure.toString());
@@ -317,7 +317,7 @@ public class LevelTaskGeneratorAttachmentTest {
     @Test
     public void filterQuestionsTest()throws IOException{
         //plane only
-        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/DemoQuestionPool.json").getAllQuestions());
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/questionPools/DemoQuestionPool.json").getAllQuestions());
         List<Question> questionList = questionPool.getAllQuestions();
         questionList = LevelTaskGeneratorAttachment.filterQuestions(1, questionList);
         assertEquals(10, questionList.size());
@@ -356,7 +356,7 @@ public class LevelTaskGeneratorAttachmentTest {
     @Test
     public void pickLeastSeenParentQuestionTest() throws IOException{
         TaskGenerator taskGenerator = new LevelTaskGeneratorAttachment(EquineQuestionTypes.makeLevelToTypesMap());
-        StudentModelDatastore studentModelDatastore = new JsonStudentModelDatastore("src/test/resources/author/QuestionPools/testFullQP.json", "src/test/resources/author/students");
+        StudentModelDatastore studentModelDatastore = new JsonStudentModelDatastore("src/test/resources/author/questionPools/testFullQP.json", "src/test/resources/author/students");
 
         StudentModel followupTestUser = studentModelDatastore.getStudentModel("followupTestStudent");
 

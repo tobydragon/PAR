@@ -26,7 +26,7 @@ public class AuthorModelTest {
     @BeforeEach
     public void setUp() throws IOException {
         //TODO: the questionPool should load in questionTemplates
-        questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/DemoQuestionPoolFollowup.json").getAllQuestions());
+        questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/questionPools/DemoQuestionPoolFollowup.json").getAllQuestions());
         authorModel = new AuthorModel("TestAuthor1", QuestionCount.questionToQuestionCount(questionPool.getAllQuestions()));
     }
 

@@ -17,7 +17,7 @@ public class QuestionPoolTest {
     @Test
     public void createQuestionPoolTest() throws IOException{
         //create QuestionPool with JsonStudentModelDatastore
-        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/SampleQuestionPool.json").getAllQuestions());
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/questionPools/SampleQuestionPool.json").getAllQuestions());
         //get all questions and check them
         List<Question> myQPList = myQP.getAllQuestions();
         Assert.assertTrue(myQPList.size() == 15);
@@ -25,7 +25,7 @@ public class QuestionPoolTest {
 
     @Test
     public void getQuestionsFromUrlTest() throws IOException {
-        QuestionPool qp = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/SampleQuestionPool.json").getAllQuestions());
+        QuestionPool qp = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/questionPools/SampleQuestionPool.json").getAllQuestions());
         List<Question> questionsFromUrl = qp.getQuestionsFromUrl("./images/demoEquine04.jpg");
         assertTrue(questionsFromUrl.size() == 3);
 
@@ -38,7 +38,7 @@ public class QuestionPoolTest {
 
     @Test
     public void getQuestionFromId() throws IOException {
-        QuestionPool qp = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/SampleQuestionPool.json").getAllQuestions());
+        QuestionPool qp = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/questionPools/SampleQuestionPool.json").getAllQuestions());
         Question questionFromId = qp.getQuestionFromId("PlaneQ3");
         assertTrue(questionFromId.getQuestionText().equals("On which plane is the ultrasound taken?"));
         assertTrue(questionFromId.getCorrectAnswer().equals("Lateral"));
@@ -57,14 +57,14 @@ public class QuestionPoolTest {
         }
 
         //Test for follow up Questions
-        QuestionPool qp2 = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/DemoQuestionPoolFollowup.json").getAllQuestions());
+        QuestionPool qp2 = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/questionPools/DemoQuestionPoolFollowup.json").getAllQuestions());
         Question followupQuestionFromId = qp2.getQuestionFromId("AttachQ1");
         assertEquals("attachment", followupQuestionFromId.getType());
     }
 
     @Test
     public void removeQuestionFromIdTest() throws IOException{
-        QuestionPool qp = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/DemoQuestionPoolFollowup.json").getAllQuestions());
+        QuestionPool qp = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/questionPools/DemoQuestionPoolFollowup.json").getAllQuestions());
         qp.removeQuestionById("plane./images/demoEquine14.jpg");
         assertEquals(46, qp.getAllQuestions().size());
 
@@ -82,7 +82,7 @@ public class QuestionPoolTest {
 
     @Test
     public void getTopLevelQuestionByIdTest() throws IOException{
-        QuestionPool qp = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/DemoQuestionPoolFollowup.json").getAllQuestions());
+        QuestionPool qp = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/questionPools/DemoQuestionPoolFollowup.json").getAllQuestions());
         Question firstQuestion = qp.getQuestionFromId("plane./images/demoEquine14.jpg");
         assertEquals(qp.getAllQuestions().get(0), firstQuestion);
 
@@ -99,7 +99,7 @@ public class QuestionPoolTest {
 
     @Test
     public void buildQuestionListWithSameUrlImp2Test()throws IOException{
-        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/DemoQuestionPool.json").getAllQuestions());
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/questionPools/DemoQuestionPool.json").getAllQuestions());
         //first url
         Question q = questionPool.getAllQuestions().get(0);
         List<Question> qs = QuestionPool.getTopLevelQuestionsFromUrl(questionPool.getAllQuestions(), q.getImageUrl());

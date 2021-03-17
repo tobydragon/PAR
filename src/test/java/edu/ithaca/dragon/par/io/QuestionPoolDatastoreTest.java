@@ -19,7 +19,7 @@ public class QuestionPoolDatastoreTest {
     public void interfaceSetup(@TempDir Path tempDir) throws IOException {
         //Test the Json Implementation
         Path currentQuestionPath = tempDir.resolve("currentQuestions.json");
-        Files.copy(Paths.get("src/test/resources/author/QuestionPools/DemoQuestionPoolFollowup.json"), currentQuestionPath, StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(Paths.get("src/test/resources/author/questionPools/DemoQuestionPoolFollowup.json"), currentQuestionPath, StandardCopyOption.REPLACE_EXISTING);
         QuestionPoolDatastore jsonQuestionPoolDatastore = new JsonQuestionPoolDatastore(currentQuestionPath.toString());
         interfaceTest(jsonQuestionPoolDatastore);
 

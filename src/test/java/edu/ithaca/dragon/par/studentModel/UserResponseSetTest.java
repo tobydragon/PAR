@@ -21,7 +21,7 @@ public class UserResponseSetTest {
 
     @Test
     public void getResponseSizeTest()throws IOException{
-        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/QuestionPools/SampleQuestionPool.json", Question.class);
+        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/questionPools/SampleQuestionPool.json", Question.class);
         List<ImageTaskResponseOOP> responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponseOOP.class);
         UserResponseSet respSet=new UserResponseSet(responsesFromFile.get(0).getUserId());
         List<ResponsesPerQuestion> userResponse =new ArrayList<>();
@@ -36,7 +36,7 @@ public class UserResponseSetTest {
 
     @Test
     public void addToResponsesPerQuestionTest() throws IOException{
-        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/QuestionPools/SampleQuestionPool.json", Question.class);
+        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/questionPools/SampleQuestionPool.json", Question.class);
         List<ImageTaskResponseOOP> responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponseOOP.class);
         UserResponseSet respSet=new UserResponseSet(responsesFromFile.get(0).getUserId());
 
@@ -50,7 +50,7 @@ public class UserResponseSetTest {
 
     @Test
     public void addAllResponseTest()throws IOException{
-        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/SampleQuestionPool.json").getAllQuestions());
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/questionPools/SampleQuestionPool.json").getAllQuestions());
         List<ImageTaskResponseOOP> responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponseOOP.class);
         List<ResponsesPerQuestion> responsesPerQuestions=StudentModel.createUserResponseObj(responsesFromFile.get(0),questionPool,"s1");
         UserResponseSet respSet=new UserResponseSet(responsesFromFile.get(0).getUserId());
@@ -70,7 +70,7 @@ public class UserResponseSetTest {
 
     @Test
     public void knowledgeCalcTest() throws IOException{
-        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/QuestionPools/SampleQuestionPool.json", Question.class);
+        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/questionPools/SampleQuestionPool.json", Question.class);
         List<ImageTaskResponseOOP> responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponseOOP.class);
 
         //For empty list returns -1
@@ -115,7 +115,7 @@ public class UserResponseSetTest {
 
     @Test
     public void calcKnowledgeEstimateStringTest()throws IOException{
-        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/QuestionPools/DemoQuestionPoolFollowup.json", Question.class);
+        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/questionPools/DemoQuestionPoolFollowup.json", Question.class);
         UserResponseSet allRight = new UserResponseSet("allRight");
         for (Question questionFromFile : questionsFromFile ) {
             allRight.addResponse(new ResponsesPerQuestion("allRight", questionFromFile, questionFromFile.getCorrectAnswer()));
@@ -165,7 +165,7 @@ public class UserResponseSetTest {
 
     @Test
     public void calcKnowledgeEstimateStringsByTypeTest()throws IOException{
-        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/QuestionPools/DemoQuestionPoolFollowup.json", Question.class);
+        List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/questionPools/DemoQuestionPoolFollowup.json", Question.class);
         UserResponseSet userResponseSet = new UserResponseSet("TestUser1");
 
         Map<EquineQuestionTypes, String> m1 = userResponseSet.calcKnowledgeEstimateStringsByType(4);
@@ -259,7 +259,7 @@ public class UserResponseSetTest {
     @Test
     public void calcPercentRightAfterWrongTest() throws IOException{
         //mastered student, some right
-        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/testFullQP.json").getAllQuestions());
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/questionPools/testFullQP.json").getAllQuestions());
         StudentModelRecord smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
         StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
         Assertions.assertEquals(33.33, masteredStudentModel.getUserResponseSet().calcPercentLastAnswerRightAfterWrong());
@@ -278,7 +278,7 @@ public class UserResponseSetTest {
     @Test
     public void calcPercentWrongFirstTimeTest() throws IOException{
         //mastered student
-        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/testFullQP.json").getAllQuestions());
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/questionPools/testFullQP.json").getAllQuestions());
         StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
         StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
         Assertions.assertEquals(17.65, masteredStudentModel.getUserResponseSet().calcPercentWrongFirstTime());

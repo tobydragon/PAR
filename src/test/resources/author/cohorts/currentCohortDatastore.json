@@ -1,7 +1,7 @@
 [ {
   "cohortId" : null,
   "taskGeneratorType" : "levelTaskGenerator",
-  "studentIDs" : [ ],
+  "studentIDs" : [ "taskGeneratorStudent", "messageGeneratorStudent" ],
   "messageGeneratorType" : "levelMessageGenerator",
   "questionPool" : {
     "allQuestions" : [ {

@@ -28,7 +28,7 @@ class StudentReportCreatorTest {
         for(ResponsesPerQuestion responsesPerQuestion:responsesPerQuestions){
             userResponseSet.addResponse(responsesPerQuestion);
         }
-        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/SampleQuestionPool.json").getAllQuestions());
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/questionPools/SampleQuestionPool.json").getAllQuestions());
         StudentModel studentModel1 = new StudentModel("TestUser-A", questionPool.getAllQuestions());
         StudentModel studentModel2 = new StudentModel("TestUser-B", questionPool.getAllQuestions());
         StudentModel studentModel3 = new StudentModel("TestUser-C", questionPool.getAllQuestions());
@@ -75,7 +75,7 @@ class StudentReportCreatorTest {
 
     @Test
     public void numberOfQuestionsPerTypeTest()throws IOException{
-        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/QuestionPools/DemoQuestionPoolFollowup.json").getAllQuestions());
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/questionPools/DemoQuestionPoolFollowup.json").getAllQuestions());
         StudentModel studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
         Map<String, List<QuestionCount>> questionTypesListMap=studentModel.questionCountsByTypeMap();
         Map<String, Integer> numberOfQuestionsPerType=StudentReportCreator.numberOfQuestionsPerType(questionTypesListMap);
