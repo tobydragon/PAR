@@ -28,7 +28,7 @@ public class JsonStudentModelDatastoreTest {
 
     @Test
     public void loadIndividualStudentTest() throws IOException{
-        StudentModelDatastore studentModelDatastore = new JsonStudentModelDatastore("src/test/resources/author/questionPools/TestFullQP.json", "src/test/resources/author/students");
+        StudentModelDatastore studentModelDatastore = new JsonStudentModelDatastore("src/test/resources/author/questionPools/testFullQP.json", "src/test/resources/author/students");
 
         //load an existing file and make sure it exists
         StudentModel student = studentModelDatastore.getStudentModel("PSaASTestUser");
