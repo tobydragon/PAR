@@ -1,5 +1,6 @@
 package edu.ithaca.dragon.par.domainModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class QuestionWithFeedback {
@@ -21,6 +22,16 @@ public class QuestionWithFeedback {
         this.question = questionIn;
         this.feedback = feedbackIn;
     }
+
+
+    public static List<QuestionWithFeedback> questionListToQuestionWithFeedbackList(List<Question> questions){
+        return new ArrayList<>();
+    }
+
+
+
+
+
 
     public Question getQuestion(){ return question;}
     public String getFeedback(){ return feedback;}

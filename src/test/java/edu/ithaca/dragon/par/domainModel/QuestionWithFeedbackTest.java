@@ -3,9 +3,12 @@ package edu.ithaca.dragon.par.domainModel;
 import edu.ithaca.dragon.par.studentModel.QuestionCount;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class QuestionWithFeedbackTest {
 
@@ -40,4 +43,30 @@ public class QuestionWithFeedbackTest {
         assertEquals(q2.getPossibleAnswers(), qf2.getQuestionPossibleAnswers());
 
     }
+
+    @Test
+    public void questionListToQuestionWithFeedbackListTest(){
+
+        List<Question> questionList = new ArrayList<>();
+
+        Question q1 = new Question("1", "what plane?", "plane", "transverse", Arrays.asList("transverse", "longitudinal"), "/imageURL");
+        Question q2 = new Question("2", "what plane??", "plane", "longitudinal", Arrays.asList("transverse", "longitudinal"), "/imageURL2");
+        Question q3 = new Question("3", "what plane???", "plane", "transverse", Arrays.asList("transverse", "longitudinal"), "/imageURL3");
+        Question q4 = new Question("4", "what plane????", "plane", "transverse", Arrays.asList("transverse", "longitudinal"), "/imageURL4");
+        Question q5 = new Question("5", "what plane?????", "plane", "longitudinal", Arrays.asList("transverse", "longitudinal"), "/imageURL5");
+        questionList.add(q1);
+        questionList.add(q2);
+        questionList.add(q3);
+        questionList.add(q4);
+        questionList.add(q5);
+
+        List<QuestionWithFeedback> questionWithFeedbackList = QuestionWithFeedback.questionListToQuestionWithFeedbackList(questionList);
+
+        for (int i = 0; i < questionList.size(); i++){
+            assertTrue(questionList.get(i).equals(questionWithFeedbackList.get(i).getQuestion()));
+        }
+
+
+    }
+
 }
