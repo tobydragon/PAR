@@ -110,7 +110,7 @@ class ParStudentAndAuthorServerTest {
         assertTrue(new File(currentStudentModelDir.toString()).mkdir());
         JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
                 tempDir.resolve("currentQuestions.json").toString(),
-                "src/test/resources/author/questionPools/SampleQuestionPool3.json",
+                "src/test/resources/author/questionPools/SampleQuestionPool.json",
                 new JsonIoHelperDefault(),
                 currentStudentModelDir.toString());
 
@@ -146,7 +146,7 @@ class ParStudentAndAuthorServerTest {
         assertTrue(new File(currentStudentModelDir.toString()).mkdir());
         JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
                 tempDir.resolve("currentQuestions.json").toString(),
-                "src/test/resources/author/questionPools/SampleQuestionPool3.json",
+                "src/test/resources/author/questionPools/SampleQuestionPool.json",
                 new JsonIoHelperDefault(),
                 currentStudentModelDir.toString());
 
@@ -184,7 +184,7 @@ class ParStudentAndAuthorServerTest {
         assertTrue(new File(currentStudentModelDir.toString()).mkdir());
         JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
                 tempDir.resolve("currentQuestions.json").toString(),
-                "src/test/resources/author/questionPools/SampleQuestionPool3.json",
+                "src/test/resources/author/questionPools/SampleQuestionPool.json",
                 new JsonIoHelperDefault(),
                 currentStudentModelDir.toString());
 
@@ -234,7 +234,7 @@ class ParStudentAndAuthorServerTest {
         assertTrue(new File(currentStudentModelDir.toString()).mkdir());
         JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
                 tempDir.resolve("currentQuestions.json").toString(),
-                "src/test/resources/author/questionPools/SampleQuestionPool3.json",
+                "src/test/resources/author/questionPools/SampleQuestionPool.json",
                 new JsonIoHelperDefault(),
                 currentStudentModelDir.toString());
 
@@ -286,7 +286,7 @@ class ParStudentAndAuthorServerTest {
         assertTrue(new File(currentStudentModelDir.toString()).mkdir());
         JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
                 tempDir.resolve("currentQuestions.json").toString(),
-                "src/test/resources/author/questionPools/SampleQuestionPool3.json",
+                "src/test/resources/author/questionPools/SampleQuestionPool.json",
                 new JsonIoHelperDefault(),
                 currentStudentModelDir.toString());
         JsonIoHelper jsonIoHelper = new JsonIoHelperDefault();
@@ -318,7 +318,7 @@ class ParStudentAndAuthorServerTest {
         assertTrue(new File(currentStudentModelDir.toString()).mkdir());
         JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
                 tempDir.resolve("currentQuestions.json").toString(),
-                "src/test/resources/author/questionPools/SampleQuestionPool4.json",
+                "src/test/resources/author/questionPools/TestQP.json",
                 new JsonIoHelperDefault(),
                 currentStudentModelDir.toString());
 
