@@ -358,7 +358,7 @@ public class LevelTaskGeneratorAttachmentTest {
         TaskGenerator taskGenerator = new LevelTaskGeneratorAttachment(EquineQuestionTypes.makeLevelToTypesMap());
         StudentModelDatastore studentModelDatastore = new JsonStudentModelDatastore("src/test/resources/author/questionPools/testFullQP.json", "src/test/resources/author/students");
 
-        StudentModel followupTestUser = studentModelDatastore.getStudentModel("followupTestStudent");
+        StudentModel followupTestUser = studentModelDatastore.getStudentModel("PSaASTestUser");
 
         ImageTask it = taskGenerator.makeTask(followupTestUser, 4);
         assertEquals("./images/metacarpal42.jpg", it.getImageUrl()); //If it isn't working, it would get metacarpal56

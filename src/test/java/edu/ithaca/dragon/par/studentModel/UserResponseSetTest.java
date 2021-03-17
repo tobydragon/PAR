@@ -22,7 +22,7 @@ public class UserResponseSetTest {
     @Test
     public void getResponseSizeTest()throws IOException{
         List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/questionPools/SampleQuestionPool.json", Question.class);
-        List<ImageTaskResponseOOP> responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponseOOP.class);
+        List<ImageTaskResponseOOP> responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/responses/SampleResponses.json", ImageTaskResponseOOP.class);
         UserResponseSet respSet=new UserResponseSet(responsesFromFile.get(0).getUserId());
         List<ResponsesPerQuestion> userResponse =new ArrayList<>();
         for(int i=0;i<questionsFromFile.size();i++){
@@ -37,7 +37,7 @@ public class UserResponseSetTest {
     @Test
     public void addToResponsesPerQuestionTest() throws IOException{
         List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/questionPools/SampleQuestionPool.json", Question.class);
-        List<ImageTaskResponseOOP> responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponseOOP.class);
+        List<ImageTaskResponseOOP> responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/responses/SampleResponses.json", ImageTaskResponseOOP.class);
         UserResponseSet respSet=new UserResponseSet(responsesFromFile.get(0).getUserId());
 
         ResponsesPerQuestion response1 = new ResponsesPerQuestion(responsesFromFile.get(0).getUserId(), questionsFromFile.get(0),responsesFromFile.get(0).getResponseTexts().get(0));
@@ -51,7 +51,7 @@ public class UserResponseSetTest {
     @Test
     public void addAllResponseTest()throws IOException{
         QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/questionPools/SampleQuestionPool.json").getAllQuestions());
-        List<ImageTaskResponseOOP> responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponseOOP.class);
+        List<ImageTaskResponseOOP> responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/responses/SampleResponses.json", ImageTaskResponseOOP.class);
         List<ResponsesPerQuestion> responsesPerQuestions=StudentModel.createUserResponseObj(responsesFromFile.get(0),questionPool,"s1");
         UserResponseSet respSet=new UserResponseSet(responsesFromFile.get(0).getUserId());
         respSet.addAllResponses(responsesPerQuestions.subList(0,10));
@@ -71,7 +71,7 @@ public class UserResponseSetTest {
     @Test
     public void knowledgeCalcTest() throws IOException{
         List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/questionPools/SampleQuestionPool.json", Question.class);
-        List<ImageTaskResponseOOP> responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponseOOP.class);
+        List<ImageTaskResponseOOP> responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/responses/SampleResponses.json", ImageTaskResponseOOP.class);
 
         //For empty list returns -1
         UserResponseSet responseSet=new UserResponseSet(responsesFromFile.get(0).getUserId());

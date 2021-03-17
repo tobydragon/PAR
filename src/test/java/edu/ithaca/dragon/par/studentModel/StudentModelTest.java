@@ -33,7 +33,7 @@ public class StudentModelTest {
     public void setUp() throws IOException{
         questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/questionPools/SampleQuestionPool.json").getAllQuestions());
         studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
-        responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponseOOP.class);
+        responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/responses/SampleResponses.json", ImageTaskResponseOOP.class);
     }
 
     @AfterEach
