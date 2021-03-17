@@ -28,7 +28,7 @@ public class LevelMessageGeneratorAttachmentTest {
 
         TaskGenerator taskGenerator = new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap());
 
-        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/questionPools/TestQP.json").getAllQuestions());
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/questionPools/TestFullQP.json").getAllQuestions());
         StudentModelRecord smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
         StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
         masteredStudentModel.setPreviousLevel(LevelTaskGenerator.calcLevel(masteredStudentModel.calcKnowledgeEstimateByType(4)));
@@ -114,7 +114,7 @@ public class LevelMessageGeneratorAttachmentTest {
 
         TaskGenerator taskGenerator = new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap());
 
-        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/questionPools/TestQP.json").getAllQuestions());
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/questionPools/TestFullQP.json").getAllQuestions());
         StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/buckmank.json", StudentModelRecord.class);
         StudentModel level2Student = smr2.buildStudentModel(myQP);
         ImageTask it2 = taskGenerator.makeTask(level2Student, 4);
@@ -152,7 +152,7 @@ public class LevelMessageGeneratorAttachmentTest {
     public void level6MessageTest() throws IOException{
         TaskGenerator taskGenerator = new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap());
 
-        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/questionPools/TestQP.json").getAllQuestions());
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/questionPools/TestFullQP.json").getAllQuestions());
         StudentModelRecord smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
         StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
         masteredStudentModel.setPreviousLevel(LevelTaskGenerator.calcLevel(masteredStudentModel.calcKnowledgeEstimateByType(4)));
@@ -219,10 +219,10 @@ public class LevelMessageGeneratorAttachmentTest {
     public void repeatLevelMessageTest() throws IOException{
         TaskGenerator taskGenerator = new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap());
 
-        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/questionPools/TestQP.json").getAllQuestions());
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/questionPools/TestFullQP.json").getAllQuestions());
 
         //repeated within 30 min, message
-        StudentModelRecord  smr30 = JsonUtil.fromJsonFile("src/test/resources/author/students/RepeatAfter30MinTest.json", StudentModelRecord.class);
+        StudentModelRecord  smr30 = JsonUtil.fromJsonFile("src/test/resources/author/students/buckmank.json", StudentModelRecord.class);
         StudentModel student30 = smr30.buildStudentModel(myQP);
 
         Date date = new Date();
@@ -240,7 +240,7 @@ public class LevelMessageGeneratorAttachmentTest {
         assertEquals("You've seen this question recently, you might be stuck on plane/structure questions.", message);
 
         //repeated within 29 min, message
-        StudentModelRecord  smr29 = JsonUtil.fromJsonFile("src/test/resources/author/students/RepeatAfter30MinTest.json", StudentModelRecord.class);
+        StudentModelRecord  smr29 = JsonUtil.fromJsonFile("src/test/resources/author/students/buckmank.json", StudentModelRecord.class);
         StudentModel student29 = smr29.buildStudentModel(myQP);
 
         for (ResponsesPerQuestion response:student29.getUserResponseSet().getResponsesPerQuestionList()){
@@ -256,7 +256,7 @@ public class LevelMessageGeneratorAttachmentTest {
         assertEquals("You've seen this question recently, you might be stuck on plane/structure questions.", message);
 
         //repeated within 31 min, no message
-        StudentModelRecord  smr31 = JsonUtil.fromJsonFile("src/test/resources/author/students/RepeatAfter30MinTest.json", StudentModelRecord.class);
+        StudentModelRecord  smr31 = JsonUtil.fromJsonFile("src/test/resources/author/students/buckmank.json", StudentModelRecord.class);
         StudentModel student31 = smr31.buildStudentModel(myQP);
 
         for (ResponsesPerQuestion response:student31.getUserResponseSet().getResponsesPerQuestionList()){

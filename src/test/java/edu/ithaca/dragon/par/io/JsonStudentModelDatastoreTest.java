@@ -28,7 +28,7 @@ public class JsonStudentModelDatastoreTest {
 
     @Test
     public void loadIndividualStudentTest() throws IOException{
-        StudentModelDatastore studentModelDatastore = new JsonStudentModelDatastore("src/test/resources/author/questionPools/TestQP.json", "src/test/resources/author/students");
+        StudentModelDatastore studentModelDatastore = new JsonStudentModelDatastore("src/test/resources/author/questionPools/TestFullQP.json", "src/test/resources/author/students");
 
         //load an existing file and make sure it exists
         StudentModel student = studentModelDatastore.getStudentModel("PSaASTestUser");
@@ -43,7 +43,7 @@ public class JsonStudentModelDatastoreTest {
     public void getOrCreateStudentModelTest(@TempDir Path tempDir) throws IOException{
         TaskGenerator taskGenerator = new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap());
 
-        JsonStudentModelDatastore jsonStudentModelDatastore = new JsonStudentModelDatastore("src/test/resources/author/questionPools/TestQP.json", tempDir.toString());
+        JsonStudentModelDatastore jsonStudentModelDatastore = new JsonStudentModelDatastore("src/test/resources/author/questionPools/TestFullQP.json", tempDir.toString());
         Path newStudentPath = tempDir.resolve("buckmank.json");
         Files.copy(Paths.get("src/test/resources/author/students/buckmank.json"), newStudentPath, StandardCopyOption.REPLACE_EXISTING);
 
@@ -93,7 +93,7 @@ public class JsonStudentModelDatastoreTest {
     @Test
     public void getAllSavedStudentIdsTest() throws IOException{
         List<String> usernames = JsonStudentModelDatastore.getAllSavedStudentIds("src/test/resources/author/students");
-        assertEquals(9, usernames.size());
+        assertEquals(6, usernames.size());
         assertTrue(usernames.contains("masteredStudent"));
         assertTrue(usernames.contains("notMasteredStudent"));
         assertTrue(usernames.contains("buckmank"));
