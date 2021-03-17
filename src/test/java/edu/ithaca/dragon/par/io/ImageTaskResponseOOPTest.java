@@ -17,7 +17,7 @@ public class ImageTaskResponseOOPTest {
 
     @Test
     public void findResponseToQuestionTest() throws IOException {
-        QuestionPool qp = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
+        QuestionPool qp = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/questionPools/DemoQuestionPoolFollowup.json").getAllQuestions());
         ImageTaskResponseOOP responseSet = new ImageTaskResponseOOP("response1", Arrays.asList("plane./images/demoEquine14.jpg","structure0./images/demoEquine14.jpg", "AttachQ1"),Arrays.asList("Lateral","bone","3c"));
 
         //test for sucsessfully getting the answer to a parent question
@@ -31,7 +31,7 @@ public class ImageTaskResponseOOPTest {
 
     @Test
     public void toJsonAndBackTest(@TempDir Path tempDir) throws IOException {
-        QuestionPool qp = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
+        QuestionPool qp = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/questionPools/DemoQuestionPoolFollowup.json").getAllQuestions());
         ImageTaskResponseOOP responseSet = new ImageTaskResponseOOP("response1", Arrays.asList("plane./images/demoEquine14.jpg","structure0./images/demoEquine14.jpg", "AttachQ1"),Arrays.asList("Lateral","bone","3c"));
 
         Path path = tempDir.resolve("ImageTaskResponseOOP.json");

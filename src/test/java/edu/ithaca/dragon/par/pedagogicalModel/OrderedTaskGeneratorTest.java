@@ -22,7 +22,7 @@ public class OrderedTaskGeneratorTest {
     public void makeTaskTest() throws IOException {
         JsonIoUtil reader = new JsonIoUtil(new JsonIoHelperDefault());
 
-        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/questionPools/DemoQuestionPoolFollowup.json").getAllQuestions());
         List<QuestionOrderedInfo> defaultQuestionOrderedInfoList = reader.listFromFile("src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoList.json", QuestionOrderedInfo.class);
         List<QuestionOrderedInfo> QuestionOrderedInfoListTest1 = reader.listFromFile("src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoListTest1.json", QuestionOrderedInfo.class);
         List<QuestionOrderedInfo> QuestionOrderedInfoListTest2 = reader.listFromFile("src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoListTest2.json", QuestionOrderedInfo.class);

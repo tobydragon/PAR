@@ -21,7 +21,7 @@ public class CohortRecordTest {
 
     @Test
     public void makeCohortFromCohortRecordTest() throws IOException {
-        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/questionPools/DemoQuestionPoolFollowup.json").getAllQuestions());
         List<String> testStudents = new ArrayList<>();
         testStudents.add("testStudent1");
         testStudents.add("testStudent2");
@@ -75,7 +75,7 @@ public class CohortRecordTest {
     public void makeCohortRecordFromCohortTest() throws IOException {
         RandomTaskGenerator randomTaskGenerator = new RandomTaskGenerator();
         JsonIoUtil reader = new JsonIoUtil(new JsonIoHelperDefault());
-        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/questionPools/DemoQuestionPoolFollowup.json").getAllQuestions());
         List<QuestionOrderedInfo> defaultQuestionOrderedInfoList = reader.listFromFile("src/test/resources/author/orderedQuestionInfo/OrderedQuestionInfoList.json", QuestionOrderedInfo.class);
         OrderedTaskGenerator orderedTaskGenerator = new OrderedTaskGenerator(questionPool, defaultQuestionOrderedInfoList);
         LevelTaskGenerator levelTaskGenerator = new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap());
@@ -148,7 +148,7 @@ public class CohortRecordTest {
 
 
         //create list of cohort records
-        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json").getAllQuestions());
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/questionPools/DemoQuestionPoolFollowup.json").getAllQuestions());
         List<CohortRecord> originalCohortRecords = new ArrayList<>();
         //empty student list
         CohortRecord emptyRecord = new CohortRecord("c1", TaskGeneratorType.randomTaskGenerator, new ArrayList<>(), MessageGeneratorType.silentMessageGenerator, questionPool);
@@ -168,9 +168,9 @@ public class CohortRecordTest {
 
         //write to json
         JsonIoUtil jsonIoUtil = new JsonIoUtil(new JsonIoHelperDefault());
-        jsonIoUtil.toFile("src/test/resources/author/CohortRecordsToFromJsonTest.json", originalCohortRecords);
+        jsonIoUtil.toFile("src/test/resources/author/cohorts/CohortRecordsToFromJsonTest.json", originalCohortRecords);
         //read from json
-        List<CohortRecord> testCohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/CohortRecordsToFromJsonTest.json", CohortRecord.class);
+        List<CohortRecord> testCohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/cohorts/CohortRecordsToFromJsonTest.json", CohortRecord.class);
         //assert two lists are equal
         assertEquals(originalCohortRecords.size(), testCohortRecords.size());
         for (int i = 0; i <originalCohortRecords.size(); i++){
@@ -180,7 +180,7 @@ public class CohortRecordTest {
 
     @Test
     public void createQuestionOrderedInfoListTest() throws IOException {
-        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPool.json").getAllQuestions());
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/questionPools/DemoQuestionPool.json").getAllQuestions());
 
         List<QuestionOrderedInfo> toTest = OrderedTaskGenerator.createDefaultQuestionOrderedInfoList(questionPool, true);
         assertEquals(questionPool.getAllQuestions().size(), toTest.size());
@@ -228,14 +228,14 @@ public class CohortRecordTest {
     public void overwriteCohortDatastoreFileTest() throws IOException {
         JsonIoUtil jsonIoUtil = new JsonIoUtil(new JsonIoHelperDefault());
         //OVERWRITE TEST FILES FIRST; OTHERWISE TESTS FAIL
-        List<CohortRecord> reset = jsonIoUtil.listFromFile("src/test/resources/author/resetCohortDatastoreTestFiles.json", CohortRecord.class);
-        jsonIoUtil.toFile("src/test/resources/author/defaultCohortDatastore.json", reset);
-        jsonIoUtil.toFile("src/test/resources/author/currentCohortDatastore.json", reset);
+        List<CohortRecord> reset = jsonIoUtil.listFromFile("src/test/resources/author/cohorts/resetCohortDatastoreTestFiles.json", CohortRecord.class);
+        jsonIoUtil.toFile("src/test/resources/author/cohorts/defaultCohortDatastore.json", reset);
+        jsonIoUtil.toFile("src/test/resources/author/cohorts/currentCohortDatastore.json", reset);
 
         //read in 2 cohort datastores- 1 not altered for comparison, 1 to alter
-        List<CohortRecord> testCohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/defaultCohortDatastore.json", CohortRecord.class);
-        JSONCohortDatastore toReference = CohortRecord.makeCohortDatastoreFromCohortRecords(testCohortRecords, "src/test/resources/author/defaultCohortDatastore.json", new JsonIoHelperDefault());
-        JSONCohortDatastore toTest = CohortRecord.makeCohortDatastoreFromCohortRecords(testCohortRecords, "src/test/resources/author/currentCohortDatastore.json", new JsonIoHelperDefault());
+        List<CohortRecord> testCohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/cohorts/defaultCohortDatastore.json", CohortRecord.class);
+        JSONCohortDatastore toReference = CohortRecord.makeCohortDatastoreFromCohortRecords(testCohortRecords, "src/test/resources/author/cohorts/defaultCohortDatastore.json", new JsonIoHelperDefault());
+        JSONCohortDatastore toTest = CohortRecord.makeCohortDatastoreFromCohortRecords(testCohortRecords, "src/test/resources/author/cohorts/currentCohortDatastore.json", new JsonIoHelperDefault());
 
         //ask for TaskGenerator of studentID that does not exist
         assertFalse(toTest.isStudentIDInDatastore("taskGeneratorStudent"));

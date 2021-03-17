@@ -19,7 +19,7 @@ class JsonQuestionPoolDatastoreTest {
     void removeAllQuestionsTest(@TempDir Path tempDir) throws IOException {
         //make paths for copies of the files
         Path currentQuestionPath = tempDir.resolve("currentQuestions.json");
-        Files.copy(Paths.get("src/test/resources/author/DemoQuestionPoolFollowup.json"), currentQuestionPath, StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(Paths.get("src/test/resources/author/questionPools/DemoQuestionPoolFollowup.json"), currentQuestionPath, StandardCopyOption.REPLACE_EXISTING);
         JsonQuestionPoolDatastore jsonQuestionPoolDatastore = new JsonQuestionPoolDatastore(currentQuestionPath.toString());
         assertEquals(47, jsonQuestionPoolDatastore.getAllQuestions().size());
         List<Question> questions = jsonQuestionPoolDatastore.removeAllQuestions();
