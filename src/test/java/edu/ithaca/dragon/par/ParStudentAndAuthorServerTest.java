@@ -318,7 +318,7 @@ class ParStudentAndAuthorServerTest {
         assertTrue(new File(currentStudentModelDir.toString()).mkdir());
         JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
                 tempDir.resolve("currentQuestions.json").toString(),
-                "src/test/resources/author/questionPools/TestFullQP.json",
+                "src/test/resources/author/questionPools/testFullQP.json",
                 new JsonIoHelperDefault(),
                 currentStudentModelDir.toString());
 
