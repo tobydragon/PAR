@@ -8,7 +8,6 @@ import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.util.JsonIoHelperDefault;
 import edu.ithaca.dragon.util.JsonIoHelperSpring;
 import edu.ithaca.dragon.util.JsonIoUtil;
-import org.apache.commons.lang3.ObjectUtils;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
