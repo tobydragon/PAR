@@ -1,12 +1,17 @@
 package edu.ithaca.dragon.par;
 
+import edu.ithaca.dragon.par.domainModel.Question;
+import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.*;
+import edu.ithaca.dragon.par.studentModel.QuestionResponse;
 import edu.ithaca.dragon.par.studentModel.ResponsesPerQuestion;
+import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.par.studentModel.UserResponseSet;
+import edu.ithaca.dragon.util.JsonIoHelper;
 import edu.ithaca.dragon.util.JsonIoHelperDefault;
 import edu.ithaca.dragon.util.JsonIoUtil;
-import edu.ithaca.dragon.util.JsonUtil;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -16,16 +21,17 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ParStudentAndAuthorServerTest {
 
     @Test
     void transferAuthoredQuestionsToStudentServerTest(@TempDir Path tempDir) throws IOException {
+        String testCohortDatastoreFilename = "src/test/resources/author/currentCohortDatastore.json";
         Path currentQuestionPath = tempDir.resolve("currentAuthorQuestions.json");
         Path currentQuestionTemplatePath = tempDir.resolve("currentQuestionTemplates.json");
         JsonAuthorDatastore jsonAuthorDatastore = new JsonAuthorDatastore(
@@ -43,7 +49,11 @@ class ParStudentAndAuthorServerTest {
                 currentStudentModelDir.toString());
         assertEquals(47, jsonStudentDatastore.getAllQuestions().size());
 
-        ParStudentAndAuthorServer parStudentAndAuthorServer = new ParStudentAndAuthorServer(jsonStudentDatastore, jsonAuthorDatastore);
+        JsonIoHelper jsonIoHelper = new JsonIoHelperDefault();
+        JsonIoUtil jsonIoUtil = new JsonIoUtil(jsonIoHelper);
+        List<CohortRecord> cohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/CohortRecordsToFromJsonTest.json", CohortRecord.class);
+        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords, testCohortDatastoreFilename, new JsonIoHelperDefault());
+        ParStudentAndAuthorServer parStudentAndAuthorServer = new ParStudentAndAuthorServer(jsonStudentDatastore, jsonAuthorDatastore, jsonCohortDatastore);
         parStudentAndAuthorServer.transferAuthoredQuestionsToStudentServer();
 
         assertEquals(0, jsonAuthorDatastore.getAllAuthoredQuestions().size());
@@ -59,6 +69,7 @@ class ParStudentAndAuthorServerTest {
 
     @Test
     void windowSizeTests(@TempDir Path tempDir) throws IOException {
+        String testCohortDatastoreFilename = "src/test/resources/author/currentCohortDatastore.json";
         Path currentQuestionPath = tempDir.resolve("currentAuthorQuestions.json");
         Path currentQuestionTemplatePath = tempDir.resolve("currentQuestionTemplates.json");
         JsonAuthorDatastore jsonAuthorDatastore = new JsonAuthorDatastore(
@@ -74,7 +85,11 @@ class ParStudentAndAuthorServerTest {
                 new JsonIoHelperDefault(),
                 currentStudentModelDir.toString());
 
-        ParStudentAndAuthorServer parStudentAndAuthorServer = new ParStudentAndAuthorServer(jsonStudentDatastore, jsonAuthorDatastore);
+        JsonIoHelper jsonIoHelper = new JsonIoHelperDefault();
+        JsonIoUtil jsonIoUtil = new JsonIoUtil(jsonIoHelper);
+        List<CohortRecord> cohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/CohortRecordsToFromJsonTest.json", CohortRecord.class);
+        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords, testCohortDatastoreFilename, new JsonIoHelperDefault());
+        ParStudentAndAuthorServer parStudentAndAuthorServer = new ParStudentAndAuthorServer(jsonStudentDatastore, jsonAuthorDatastore, jsonCohortDatastore);
         Map<EquineQuestionTypes, String> estStrings = parStudentAndAuthorServer.calcKnowledgeEstimateStringsByType("no one");
         assertEquals(4, estStrings.size());
         assertEquals("", estStrings.get(EquineQuestionTypes.plane));
@@ -90,6 +105,7 @@ class ParStudentAndAuthorServerTest {
 
     @Test
     public void nextImageTaskTest(@TempDir Path tempDir) throws IOException{
+        String testCohortDatastoreFilename = "src/test/resources/author/currentCohortDatastore.json";
         Path currentStudentModelDir = tempDir.resolve("students");
         assertTrue(new File(currentStudentModelDir.toString()).mkdir());
         JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
@@ -98,7 +114,11 @@ class ParStudentAndAuthorServerTest {
                 new JsonIoHelperDefault(),
                 currentStudentModelDir.toString());
 
-        ParStudentAndAuthorServer parStudentAndAuthorServer = new ParStudentAndAuthorServer(jsonStudentDatastore, null);
+        JsonIoHelper jsonIoHelper = new JsonIoHelperDefault();
+        JsonIoUtil jsonIoUtil = new JsonIoUtil(jsonIoHelper);
+        List<CohortRecord> cohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/CohortRecordsToFromJsonTest.json", CohortRecord.class);
+        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords, testCohortDatastoreFilename, new JsonIoHelperDefault());
+        ParStudentAndAuthorServer parStudentAndAuthorServer = new ParStudentAndAuthorServer(jsonStudentDatastore, null, jsonCohortDatastore);
 
         ImageTask nextTask = parStudentAndAuthorServer.nextImageTask("s1");
         ImageTask intendedFirstTask = new JsonIoUtil(new JsonIoHelperDefault()).fromFile("src/test/resources/author/nextImageTaskTest1.json", ImageTask.class);
@@ -120,8 +140,8 @@ class ParStudentAndAuthorServerTest {
     }
 
     @Test
-    public void imageTaskResponseSubmittedAndCalcScoreTest(@TempDir Path tempDir) throws IOException{
-
+    public void getImageTaskTest(@TempDir Path tempDir) throws IOException{
+        String testCohortDatastoreFilename = "src/test/resources/author/currentCohortDatastore.json";
         Path currentStudentModelDir = tempDir.resolve("students");
         assertTrue(new File(currentStudentModelDir.toString()).mkdir());
         JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
@@ -130,7 +150,99 @@ class ParStudentAndAuthorServerTest {
                 new JsonIoHelperDefault(),
                 currentStudentModelDir.toString());
 
-        ParStudentAndAuthorServer parStudentAndAuthorServer = new ParStudentAndAuthorServer(jsonStudentDatastore, null);
+        JsonIoHelper jsonIoHelper = new JsonIoHelperDefault();
+        JsonIoUtil jsonIoUtil = new JsonIoUtil(jsonIoHelper);
+        List<CohortRecord> cohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/CohortRecordsToFromJsonTest.json", CohortRecord.class);
+        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords, testCohortDatastoreFilename, new JsonIoHelperDefault());
+        ParStudentAndAuthorServer parStudentAndAuthorServer = new ParStudentAndAuthorServer(jsonStudentDatastore, null, jsonCohortDatastore);
+
+        ImageTask sameTask = parStudentAndAuthorServer.getImageTask("s1");
+        ImageTask intendedFirstTask = new JsonIoUtil(new JsonIoHelperDefault()).fromFile("src/test/resources/author/nextImageTaskTest1.json", ImageTask.class);
+        assertEquals(intendedFirstTask, sameTask);
+
+        sameTask = parStudentAndAuthorServer.getImageTask("s2");
+        assertEquals(intendedFirstTask, sameTask);
+
+        sameTask = parStudentAndAuthorServer.getImageTask("s1");
+
+        assertNotNull(sameTask);
+        assertEquals(intendedFirstTask, sameTask);
+
+        sameTask = parStudentAndAuthorServer.getImageTask("s2");
+        assertNotNull(sameTask);
+        assertEquals(intendedFirstTask, sameTask);
+
+    }
+
+    @Test
+    public void updateTimesSeenTest(@TempDir Path tempDir) throws IOException{
+        //this test shows that getImageTask will get a different imageTask after updateTimesAttempted is called
+        // it gets the same tasks that nextImageTask would get
+
+        String testCohortDatastoreFilename = "src/test/resources/author/currentCohortDatastore.json";
+        Path currentStudentModelDir = tempDir.resolve("students");
+        assertTrue(new File(currentStudentModelDir.toString()).mkdir());
+        JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
+                tempDir.resolve("currentQuestions.json").toString(),
+                "src/test/resources/author/SampleQuestionPool3.json",
+                new JsonIoHelperDefault(),
+                currentStudentModelDir.toString());
+
+        JsonIoHelper jsonIoHelper = new JsonIoHelperDefault();
+        JsonIoUtil jsonIoUtil = new JsonIoUtil(jsonIoHelper);
+        List<CohortRecord> cohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/CohortRecordsToFromJsonTest.json", CohortRecord.class);
+        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords, testCohortDatastoreFilename, new JsonIoHelperDefault());
+        ParStudentAndAuthorServer parStudentAndAuthorServer = new ParStudentAndAuthorServer(jsonStudentDatastore, null, jsonCohortDatastore);
+
+        ImageTask sameTask = parStudentAndAuthorServer.getImageTask("s1");
+        ImageTask intendedFirstTask = new JsonIoUtil(new JsonIoHelperDefault()).fromFile("src/test/resources/author/nextImageTaskTest1.json", ImageTask.class);
+        assertEquals(intendedFirstTask, sameTask);
+
+        List<String> ids = new ArrayList<>();
+        for(Question q: sameTask.getTaskQuestions()){
+            ids.add(q.getId());
+        }
+
+        parStudentAndAuthorServer.updateTimesAttempted("s1", ids);
+
+        sameTask = parStudentAndAuthorServer.getImageTask("s2");
+        assertEquals(intendedFirstTask, sameTask);
+
+        ids = new ArrayList<>();
+        for(Question q: sameTask.getTaskQuestions()){
+            ids.add(q.getId());
+        }
+
+        parStudentAndAuthorServer.updateTimesAttempted("s2", ids);
+
+        sameTask = parStudentAndAuthorServer.getImageTask("s1");
+
+        assertNotNull(sameTask);
+        ImageTask intendedLastTask = new JsonIoUtil(new JsonIoHelperDefault()).fromFile("src/test/resources/author/nextImageTaskTest2.json", ImageTask.class);
+        assertEquals(intendedLastTask, sameTask);
+
+        sameTask = parStudentAndAuthorServer.getImageTask("s2");
+        assertNotNull(sameTask);
+        assertEquals(intendedLastTask, sameTask);
+
+    }
+
+    @Test
+    public void imageTaskResponseSubmittedAndCalcScoreTest(@TempDir Path tempDir) throws IOException{
+        String testCohortDatastoreFilename = "src/test/resources/author/currentCohortDatastore.json";
+        Path currentStudentModelDir = tempDir.resolve("students");
+        assertTrue(new File(currentStudentModelDir.toString()).mkdir());
+        JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
+                tempDir.resolve("currentQuestions.json").toString(),
+                "src/test/resources/author/SampleQuestionPool3.json",
+                new JsonIoHelperDefault(),
+                currentStudentModelDir.toString());
+
+        JsonIoHelper jsonIoHelper = new JsonIoHelperDefault();
+        JsonIoUtil jsonIoUtil = new JsonIoUtil(jsonIoHelper);
+        List<CohortRecord> cohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/CohortRecordsToFromJsonTest.json", CohortRecord.class);
+        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords, testCohortDatastoreFilename, new JsonIoHelperDefault());
+        ParStudentAndAuthorServer parStudentAndAuthorServer = new ParStudentAndAuthorServer(jsonStudentDatastore, null, jsonCohortDatastore);
 
         ImageTaskResponseOOP responseSet2=new ImageTaskResponseOOP("response1", Arrays.asList("PlaneQ1", "PlaneQ2", "PlaneQ3", "PlaneQ4", "PlaneQ5", "StructureQ1", "StructureQ2", "StructureQ3", "StructureQ4", "StructureQ5", "ZoneQ1", "ZoneQ2", "ZoneQ3", "ZoneQ4", "ZoneQ5"),Arrays.asList("Latera", "Transvers", "Latera", "Latera", "Transvers", "bone", "ligament", "tendon", "bone", "tumor", "3c", "1b", "3c", "2a", "2b"));
         ImageTaskResponseOOP responseSet3=new ImageTaskResponseOOP("response1", Arrays.asList("PlaneQ1", "PlaneQ2", "PlaneQ3", "PlaneQ4", "PlaneQ5", "StructureQ1", "StructureQ2", "StructureQ3", "StructureQ4", "StructureQ5", "ZoneQ1", "ZoneQ2", "ZoneQ3", "ZoneQ4", "ZoneQ5"),Arrays.asList("I'm","bad","student","I'm","bad","student","I'm","bad","student","I'm","bad","student","I'm","bad","student"));
@@ -168,7 +280,7 @@ class ParStudentAndAuthorServerTest {
 
     @Test
     public void increaseTimesSeenTest(@TempDir Path tempDir) throws IOException{
-
+        String testCohortDatastoreFilename = "src/test/resources/author/currentCohortDatastore.json";
         //set up
         Path currentStudentModelDir = tempDir.resolve("students");
         assertTrue(new File(currentStudentModelDir.toString()).mkdir());
@@ -177,27 +289,31 @@ class ParStudentAndAuthorServerTest {
                 "src/test/resources/author/SampleQuestionPool3.json",
                 new JsonIoHelperDefault(),
                 currentStudentModelDir.toString());
-        ParStudentAndAuthorServer parStudentAndAuthorServer = new ParStudentAndAuthorServer(jsonStudentDatastore, null);
+        JsonIoHelper jsonIoHelper = new JsonIoHelperDefault();
+        JsonIoUtil jsonIoUtil = new JsonIoUtil(jsonIoHelper);
+        List<CohortRecord> cohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/CohortRecordsToFromJsonTest.json", CohortRecord.class);
+        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords, testCohortDatastoreFilename, new JsonIoHelperDefault());
+        ParStudentAndAuthorServer parStudentAndAuthorServer = new ParStudentAndAuthorServer(jsonStudentDatastore, null, jsonCohortDatastore);
 
         //user has seen no questions
-        assertEquals(0,jsonStudentDatastore.getOrCreateStudentModel("testUser111").getSeenQuestionCount());
+        assertEquals(0,jsonStudentDatastore.getOrCreateStudentModel("testUser111").getAttemptedQuestionCount());
 
-        //calling nextImageTask should increase timesSeen
+        //calling nextImageTask should increase timesAttempted
         parStudentAndAuthorServer.nextImageTask("testUser111");
-        assertEquals(1,jsonStudentDatastore.getOrCreateStudentModel("testUser111").getSeenQuestionCount());
+        assertEquals(1,jsonStudentDatastore.getOrCreateStudentModel("testUser111").getAttemptedQuestionCount());
 
-        //even after logging out, the increase of timesSeen should have been saved
+        //even after logging out, the increase of timesAttempted should have been saved
         parStudentAndAuthorServer.logout("testUser111");
-        assertEquals(1,jsonStudentDatastore.getOrCreateStudentModel("testUser111").getSeenQuestionCount());
+        assertEquals(1,jsonStudentDatastore.getOrCreateStudentModel("testUser111").getAttemptedQuestionCount());
 
-        //submitting answers should not increase timesSeen
+        //submitting answers should not increase timesAttempted
         parStudentAndAuthorServer.submitImageTaskResponse(new ImageTaskResponseOOP("testUser111", Arrays.asList("PlaneQ1"), Arrays.asList("Longitudinal")));
-        assertEquals(1,jsonStudentDatastore.getOrCreateStudentModel("testUser111").getSeenQuestionCount());
+        assertEquals(1,jsonStudentDatastore.getOrCreateStudentModel("testUser111").getAttemptedQuestionCount());
     }
 
     @Test
     public void structureQuestionBug(@TempDir Path tempDir) throws IOException {
-
+        String testCohortDatastoreFilename = "src/test/resources/author/currentCohortDatastore.json";
         Path currentStudentModelDir = tempDir.resolve("students");
         assertTrue(new File(currentStudentModelDir.toString()).mkdir());
         JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
@@ -206,7 +322,11 @@ class ParStudentAndAuthorServerTest {
                 new JsonIoHelperDefault(),
                 currentStudentModelDir.toString());
 
-        ParStudentAndAuthorServer parStudentAndAuthorServer = new ParStudentAndAuthorServer(jsonStudentDatastore, null);
+        JsonIoHelper jsonIoHelper = new JsonIoHelperDefault();
+        JsonIoUtil jsonIoUtil = new JsonIoUtil(jsonIoHelper);
+        List<CohortRecord> cohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/CohortRecordsToFromJsonTest.json", CohortRecord.class);
+        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords, testCohortDatastoreFilename, new JsonIoHelperDefault());
+        ParStudentAndAuthorServer parStudentAndAuthorServer = new ParStudentAndAuthorServer(jsonStudentDatastore, null, jsonCohortDatastore);
 
         //load existing student into the jsonStudentDatastore
         Files.copy(Paths.get("src/test/resources/author/students/PSaASTestUser.json"), tempDir.resolve("students/PSaASTestUser.json"), StandardCopyOption.REPLACE_EXISTING);
@@ -237,5 +357,220 @@ class ParStudentAndAuthorServerTest {
         ResponsesPerQuestion responsesPerQuestion13 = new ResponsesPerQuestion("PSAaSTestUser", jsonStudentDatastore.findTopLevelQuestionTemplateById("347-structure2-./images/metacarpal42.jpg").getFollowupQuestions().get(1), "both proximal and middle phalanxes"); //attachment
 
 
+    }
+
+    @Test
+    public void getCorrectMessageTest(@TempDir Path tempDir) throws IOException{
+        String testCohortDatastoreFilename = "src/test/resources/author/currentCohortDatastore.json";
+        Path currentStudentModelDir = tempDir.resolve("students");
+        assertTrue(new File(currentStudentModelDir.toString()).mkdir());
+        JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
+                tempDir.resolve("currentQP-10-5-2020.json").toString(),
+                "src/test/resources/author/currentQP-10-5-2020.json",
+                new JsonIoHelperDefault(),
+                currentStudentModelDir.toString());
+
+        JsonIoHelper jsonIoHelper = new JsonIoHelperDefault();
+        JsonIoUtil jsonIoUtil = new JsonIoUtil(jsonIoHelper);
+
+        List<CohortRecord> cohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/CohortServerTest.json", CohortRecord.class);
+        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords, testCohortDatastoreFilename, new JsonIoHelperDefault());
+
+        ParStudentAndAuthorServer server = new ParStudentAndAuthorServer(jsonStudentDatastore, null, jsonCohortDatastore);
+
+        StudentModel student = jsonStudentDatastore.getOrCreateStudentModel("masteredStudent");
+
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/currentQP-10-5-2020.json").getAllQuestions());
+
+
+
+
+        ImageTask it = server.nextImageTask(student.getUserId());
+
+        //mastered
+        student.setCurrentLevel(8);
+        student.setPreviousLevel(7);
+        String message = server.getMessage(student.getUserId(), it);
+        assertEquals("You have mastered the material, feel free to keep practicing", message);
+
+        //not level 4, no message to display
+        StudentModel student2 = jsonStudentDatastore.getOrCreateStudentModel("buckmank");
+        ImageTask it2 = server.nextImageTask(student2.getUserId());
+        student2.setPreviousLevel(4);
+        student2.setCurrentLevel(4);
+        message = server.getMessage(student2.getUserId(), it2);
+        assertNull(message);
+
+
+        //goes down level, structure
+        List<QuestionResponseOOP> resp= new ArrayList<>();
+        resp.add(new QuestionResponseOOP("491-zone-./images/metacarpal37.jpg", "In which zone is the ultrasound taken?", "1"));
+        resp.add(new QuestionResponseOOP("463-zone-./images/metacarpal25.jpg", "In which zone is the ultrasound taken?", "1"));
+        resp.add(new QuestionResponseOOP("379-zone-./images/metacarpal41.jpg", "In which zone is the ultrasound taken?", "1"));
+        resp.add(new QuestionResponseOOP("351-zone-./images/metacarpal42.jpg", "In which zone is the ultrasound taken?", "1"));
+
+        ImageTaskResponseOOP itr = new ImageTaskResponseOOP();
+        itr.setUserId(student2.getUserId());
+        itr.setQuestionResponses(resp);
+        student2.imageTaskResponseSubmitted(itr, myQP, 4);
+
+        student2.setCurrentLevel(6);
+        student2.setPreviousLevel(7);
+        message = server.getMessage(student2.getUserId(), it2);
+        assertEquals("Looks like you're having trouble with zone questions, go look at resources and come back if you need to", message);
+
+        //goes up level
+        student2.setPreviousLevel(5);
+        message = server.getMessage(student2.getUserId(), it2);
+        assertEquals("You're doing great!", message);
+
+        //stay on level 8, repeated question
+        student.setPreviousLevel(8);
+        student.setCurrentLevel(8);
+
+
+        Date date = new Date();
+        for (ResponsesPerQuestion response:student.getUserResponseSet().getResponsesPerQuestionList()){
+            List<QuestionResponse> r = response.getAllResponses();
+            QuestionResponse last = r.get(response.getAllResponses().size()-1);
+            last.setMillSeconds(date.getTime()-1799500);
+            response.setAllResponses(r);
+        }
+        for (Question question : it.getTaskQuestions()){
+            if (student.getUserQuestionSet().getTimesAttempted(question.getId())==0){
+                student.increaseTimesAttempted(question.getId());
+            }
+        }
+
+        Question q = student.getUserQuestionSet().getAllQuestions().get(0);
+        List<Question> questionList = new ArrayList<>();
+        questionList.add(q);
+        it.setTaskQuestions(questionList);
+
+
+        ResponsesPerQuestion rpq = new ResponsesPerQuestion(student.getUserId(), q, "huh");
+        student.getUserResponseSet().addResponse(rpq);
+
+
+
+        message = server.getMessage(student.getUserId(), it);
+        assertEquals("You've mastered the material and started repeating questions", message);
+
+    }
+
+    @Test
+    public void cohortToStudentDataListTest(@TempDir Path tempDir) throws IOException{
+        String testCohortDatastoreFilename = "src/test/resources/author/currentCohortDatastore.json";
+        Path currentStudentModelDir = tempDir.resolve("students");
+        assertTrue(new File(currentStudentModelDir.toString()).mkdir());
+        JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
+                tempDir.resolve("currentQP-10-5-2020.json").toString(),
+                "src/test/resources/author/currentQP-10-5-2020.json",
+                new JsonIoHelperDefault(),
+                currentStudentModelDir.toString());
+
+        JsonIoHelper jsonIoHelper = new JsonIoHelperDefault();
+        JsonIoUtil jsonIoUtil = new JsonIoUtil(jsonIoHelper);
+
+        List<CohortRecord> cohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/CohortServerTest2.json", CohortRecord.class);
+        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords, testCohortDatastoreFilename, new JsonIoHelperDefault());
+
+        ParStudentAndAuthorServer server = new ParStudentAndAuthorServer(jsonStudentDatastore, null, jsonCohortDatastore);
+
+        List<StudentData> sdList = server.cohortToStudentDataList("c3");
+
+        assertEquals(sdList.get(0).getStudentId(), "testStudent1");
+        assertEquals(sdList.get(1).getStudentId(), "testStudent2");
+        assertEquals(sdList.get(2).getStudentId(), "testStudent3");
+
+    }
+
+
+    @Test
+    public void getCohortStatisticsTest(@TempDir Path tempDir) throws IOException{
+        String testCohortDatastoreFilename = "src/test/resources/author/currentCohortDatastore.json";
+        Path currentStudentModelDir = tempDir.resolve("students");
+        assertTrue(new File(currentStudentModelDir.toString()).mkdir());
+        JsonStudentModelDatastore jsonStudentDatastore = new JsonStudentModelDatastore(
+                tempDir.resolve("currentQP-10-5-2020.json").toString(),
+                "src/test/resources/author/currentQP-10-5-2020.json",
+                new JsonIoHelperDefault(),
+                currentStudentModelDir.toString());
+
+        JsonIoHelper jsonIoHelper = new JsonIoHelperDefault();
+        JsonIoUtil jsonIoUtil = new JsonIoUtil(jsonIoHelper);
+
+        List<CohortRecord> cohortRecords = jsonIoUtil.listFromFile("src/test/resources/author/CohortServerTest2.json", CohortRecord.class);
+        JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(cohortRecords, testCohortDatastoreFilename, new JsonIoHelperDefault());
+
+        ParStudentAndAuthorServer server = new ParStudentAndAuthorServer(jsonStudentDatastore, null, jsonCohortDatastore);
+
+        StudentDataAnalyzer sda = server.getCohortStatistics("c3");
+
+        sda.calcStatistics();
+        assertTrue(.9 < sda.getAverageLevel() && 1.1 > sda.getAverageLevel());
+        assertTrue(-.1 < sda.getAverageTotalAnswers() && .1 > sda.getAverageTotalAnswers());
+        assertTrue( -.1 < sda.getAveragePercentCorrectResponses() && .1 > sda.getAveragePercentCorrectResponses());
+        assertTrue(-.1 < sda.getAveragePercentWrongFirstTime() && .1 > sda.getAveragePercentWrongFirstTime());
+        assertTrue(-.1 < sda.getAveragePercentRightAfterWrongFirstTime() && .1 > sda.getAveragePercentRightAfterWrongFirstTime());
+        Assertions.assertEquals(0, sda.getMostIncorrectQuestions().size());
+
+        ImageTask it = server.getImageTask("testStudent1");
+        List<String> idList = new ArrayList<>();
+        idList.add("464-plane-./images/metacarpal19.jpg");
+        List<String> responseList = new ArrayList<>();
+        responseList.add("longitudinal (long axis)");
+        ImageTaskResponseOOP itr = new ImageTaskResponseOOP("testStudent1", idList, responseList);
+        server.submitImageTaskResponse(itr);
+        server.updateTimesAttempted("testStudent1", idList);
+
+        it = server.getImageTask("testStudent1");
+        idList = new ArrayList<>();
+        idList.add("324-plane-./images/metacarpal56.jpg");
+        responseList = new ArrayList<>();
+        responseList.add("longitudinal (long axis)");
+        itr = new ImageTaskResponseOOP("testStudent1", idList, responseList);
+        server.submitImageTaskResponse(itr);
+        server.updateTimesAttempted("testStudent1", idList);
+
+        it = server.getImageTask("testStudent1");
+        idList = new ArrayList<>();
+        idList.add("338-plane-./images/metacarpal42.jpg");
+        responseList = new ArrayList<>();
+        responseList.add("transverse (short axis)");
+        itr = new ImageTaskResponseOOP("testStudent1", idList, responseList);
+        server.submitImageTaskResponse(itr);
+        server.updateTimesAttempted("testStudent1", idList);
+
+        it = server.getImageTask("testStudent1");
+        idList = new ArrayList<>();
+        idList.add("366-plane-./images/metacarpal41.jpg");
+        responseList = new ArrayList<>();
+        responseList.add("transverse (short axis)");
+        itr = new ImageTaskResponseOOP("testStudent1", idList, responseList);
+        server.submitImageTaskResponse(itr);
+        server.updateTimesAttempted("testStudent1", idList);
+
+        it = server.getImageTask("testStudent1");
+        idList = new ArrayList<>();
+        idList.add("450-plane-./images/metacarpal25.jpg");
+        idList.add("453-structure0-./images/metacarpal25.jpg");
+        idList.add("456-structure1-./images/metacarpal25.jpg");
+        responseList = new ArrayList<>();
+        responseList.add("transverse (short axis)");
+        responseList.add("suspensory ligament (branches)");
+        responseList.add("deep digital flexor tendon");
+        itr = new ImageTaskResponseOOP("testStudent1", idList, responseList);
+        server.submitImageTaskResponse(itr);
+        server.updateTimesAttempted("testStudent1", idList);
+
+
+        sda = server.getCohortStatistics("c3");
+        assertTrue(1.3 < sda.getAverageLevel() && 1.4 > sda.getAverageLevel());
+        assertTrue(2.3 < sda.getAverageTotalAnswers() && 2.4 > sda.getAverageTotalAnswers());
+        assertTrue( 28.5 < sda.getAveragePercentCorrectResponses() && 28.6 > sda.getAveragePercentCorrectResponses());
+        assertTrue(4.7 < sda.getAveragePercentWrongFirstTime() && 4.8 > sda.getAveragePercentWrongFirstTime());
+        assertTrue(-.1 < sda.getAveragePercentRightAfterWrongFirstTime() && .1 > sda.getAveragePercentRightAfterWrongFirstTime());
+        Assertions.assertEquals(1, sda.getMostIncorrectQuestions().size());
     }
 } 

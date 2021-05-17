@@ -45,43 +45,44 @@ public class UserQuestionSet {
     }
 
 
-    public List<Question> getTopLevelSeenQuestions(){
-        List<Question> seen = new ArrayList<>();
+    public List<Question> getTopLevelAttemptedQuestions(){
+        List<Question> attempted = new ArrayList<>();
         for (QuestionCount currQuestion: questionCounts){
-            if (currQuestion.getTimesSeen()>0){
-                seen.add(currQuestion.getQuestion());
+            if (currQuestion.getTimesAttempted()>0){
+                attempted.add(currQuestion.getQuestion());
             }
         }
-        return seen;
+        return attempted;
     }
 
-    public List<QuestionCount> getTopLevelSeenQuestionCounts(){
-        List<QuestionCount> seen = new ArrayList<>();
+    //TODO: this method isn't used. that means it also isn't tested.
+    public List<QuestionCount> getTopLevelAttemptedQuestionCounts(){
+        List<QuestionCount> attempted = new ArrayList<>();
         for (QuestionCount currQuestion: questionCounts){
-            if (currQuestion.getTimesSeen()>0){
-                seen.add(currQuestion);
+            if (currQuestion.getTimesAttempted()>0){
+                attempted.add(currQuestion);
             }
         }
-        return seen;
+        return attempted;
     }
 
-    public List<Question> getTopLevelUnseenQuestions(){
-        List<Question> unseen = new ArrayList<>();
+    public List<Question> getTopLevelUnattemptedQuestions(){
+        List<Question> unattempted = new ArrayList<>();
         for (QuestionCount currQuestion: questionCounts){
-            if (currQuestion.getTimesSeen()==0){
-                unseen.add(currQuestion.getQuestion());
+            if (currQuestion.getTimesAttempted()==0){
+                unattempted.add(currQuestion.getQuestion());
             }
         }
-        return unseen;
+        return unattempted;
     }
 
 
-    public int getTimesSeen (String questionId){
+    public int getTimesAttempted(String questionId){
         QuestionCount qc = getQuestionCountFromId(questionId);
         if(qc == null){
             throw new RuntimeException("QuestionCount with id:" + questionId + " does not exist");
         }
-        return qc.timesSeen;
+        return qc.timesAttempted;
     }
 
 
@@ -89,12 +90,12 @@ public class UserQuestionSet {
         return userId;
     }
 
-    public void increaseTimesSeen(String questionId){
+    public void increaseTimesAttempted(String questionId){
         QuestionCount qc = getQuestionCountFromId(questionId);
         if(qc == null){
             throw new RuntimeException("QuestionCount with id:" + questionId + " does not exist");
         }
-        qc.increaseTimesSeen();
+        qc.increaseTimesAttempted();
 
     }
 
@@ -134,11 +135,11 @@ public class UserQuestionSet {
                 && this.getQuestionCounts().equals(other.getQuestionCounts());
     }
 
-    public void increaseTimesSeenAllQuestions(List<Question> questions){
+    public void increaseTimesAttemptedAllQuestions(List<Question> questions){
         for (int i = 0; i < questions.size(); i++){
-            increaseTimesSeen(questions.get(i).getId());
+            increaseTimesAttempted(questions.get(i).getId());
             if (questions.get(i).getFollowupQuestions().size()>0){
-                increaseTimesSeenAllQuestions(questions.get(i).getFollowupQuestions());
+                increaseTimesAttemptedAllQuestions(questions.get(i).getFollowupQuestions());
             }
         }
     }

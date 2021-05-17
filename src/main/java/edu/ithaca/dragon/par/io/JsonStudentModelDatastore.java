@@ -64,17 +64,26 @@ public class JsonStudentModelDatastore extends JsonQuestionPoolDatastore impleme
     }
 
     @Override
-    public void submitImageTaskResponse(String userId, ImageTaskResponseOOP imageTaskResponse) throws IOException{
+    public void submitImageTaskResponse(String userId, ImageTaskResponseOOP imageTaskResponse, int questionCountPerTypeForAnalysis) throws IOException{
         StudentModel currentStudent = getStudentModel(userId);
-        currentStudent.imageTaskResponseSubmitted(imageTaskResponse, questionPool);
+        currentStudent.imageTaskResponseSubmitted(imageTaskResponse, questionPool, questionCountPerTypeForAnalysis);
         overwriteStudentFile(currentStudent, studentModelFilePath, jsonIoUtil);
     }
 
     @Override
-    public void increaseTimesSeen(String userId, List<Question> questions) throws IOException {
+    public void increaseTimesAttempted(String userId, List<Question> questions) throws IOException {
         StudentModel studentModel = getStudentModel(userId);
         for(Question currQuestion : questions){
-            studentModel.increaseTimesSeen(currQuestion.getId());
+            studentModel.increaseTimesAttempted(currQuestion.getId());
+        }
+        overwriteStudentFile(studentModel, studentModelFilePath, jsonIoUtil);
+    }
+
+    @Override
+    public void increaseTimesAttemptedById(String userId, List<String> questionIds) throws IOException {
+        StudentModel studentModel = getStudentModel(userId);
+        for(String id : questionIds){
+            studentModel.increaseTimesAttempted(id);
         }
         overwriteStudentFile(studentModel, studentModelFilePath, jsonIoUtil);
     }

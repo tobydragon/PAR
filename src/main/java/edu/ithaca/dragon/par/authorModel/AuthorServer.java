@@ -16,7 +16,23 @@ public class AuthorServer {
     }
 
     public ImageTask nextImageTaskTemplate() {
+        AuthorModel am = authorDatastore.getAuthorModel();
+        ImageTask it = AuthorTaskGenerator.makeTaskTemplate(am);
+        for (int i = 0; i < it.getTaskQuestions().size(); i++){
+            am.increaseTimesAttempted(it.getTaskQuestions().get(i).getId());
+        }
+        return it;
+    }
+
+    public ImageTask getImageTaskTemplate() {
         return AuthorTaskGenerator.makeTaskTemplate(authorDatastore.getAuthorModel());
+    }
+
+    public void updateAuthorTimesAttempted(List<String> questionIds){
+        AuthorModel am = authorDatastore.getAuthorModel();
+        for (String id: questionIds){
+            am.increaseTimesAttempted(id);
+        }
     }
 
     public void imageTaskResponseSubmitted(ImageTaskResponseOOP imageTaskResponse) throws IOException{

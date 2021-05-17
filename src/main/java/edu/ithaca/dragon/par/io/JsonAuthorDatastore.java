@@ -78,6 +78,7 @@ public class JsonAuthorDatastore implements AuthorDatastore {
     @Override
     public void removeQuestionTemplateById(String templateId) throws IOException{
         questionTemplatesDatastore.removeQuestionById(templateId);
+        //TODO remove question return never used?
         authorModel.removeQuestion(templateId);
         overwriteAuthorFile();
     }

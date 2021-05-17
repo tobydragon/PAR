@@ -1,5 +1,6 @@
 package edu.ithaca.dragon.par.pedagogicalModel;
 
+import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.ImageTask;
@@ -23,6 +24,10 @@ public class TaskGeneratorTest {
         ImageTask task1 = taskGenerator.makeTask(studentModel, 4);
         assertEquals("./images/demoEquine14.jpg", task1.getImageUrl());
         assertEquals(1, task1.getTaskQuestions().size());
+
+        for(Question currQ: task1.getTaskQuestions()) {
+            studentModel.increaseTimesAttempted(currQ.getId());
+        }
 
         //make a new imageTask and check aspects of it
         ImageTask task2 = taskGenerator.makeTask(studentModel, 4);

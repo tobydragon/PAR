@@ -3,10 +3,15 @@ package edu.ithaca.dragon.par.domainModel;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 public class QuestionPool {
 
     private List<Question> allQuestions;
+
+    public QuestionPool(){
+        this.allQuestions = null;
+    }
 
     public QuestionPool(List<Question> allQuestions){
         this.allQuestions = new ArrayList<>(allQuestions);
@@ -68,9 +73,9 @@ public class QuestionPool {
 
     public static List<Question> getTopLevelQuestionsFromUrl(List<Question> questions, String imageUrlIn){
         List<Question> toReturn = new ArrayList<>();
-        for(int i=0; i < questions.size(); i++){
-            if(questions.get(i).getImageUrl().equals(imageUrlIn))
-                toReturn.add(questions.get(i));
+        for (Question question : questions) {
+            if (question.getImageUrl().equals(imageUrlIn))
+                toReturn.add(question);
         }
         return toReturn;
     }
@@ -93,11 +98,24 @@ public class QuestionPool {
     }
 
     public Question getTopLevelQuestionById(String id){
-        for (int i = 0; i <allQuestions.size(); i++){
-            if (allQuestions.get(i).getId().equals(id)){
-                return allQuestions.get(i);
+        for (Question allQuestion : allQuestions) {
+            if (allQuestion.getId().equals(id)) {
+                return allQuestion;
             }
         }
         return null;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof QuestionPool)) return false;
+        QuestionPool that = (QuestionPool) o;
+        return Objects.equals(allQuestions, that.allQuestions);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(allQuestions);
     }
 }

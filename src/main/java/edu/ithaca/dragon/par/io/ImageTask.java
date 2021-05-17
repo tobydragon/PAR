@@ -14,7 +14,7 @@ public class ImageTask{
 
     public ImageTask(){};
 
-    public ImageTask(String imageUrlIn, List<Question> taskQuestionsIn){
+    public ImageTask(String imageUrlIn, List<Question> taskQuestionsIn, String messageIn){
         imageUrl = imageUrlIn;
         taskQuestions = new ArrayList<>(taskQuestionsIn);
     }

@@ -3,9 +3,7 @@ package edu.ithaca.dragon.par.pedagogicalModel;
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
-import edu.ithaca.dragon.par.io.ImageTask;
-import edu.ithaca.dragon.par.io.JsonQuestionPoolDatastore;
-import edu.ithaca.dragon.par.io.JsonStudentModelDatastore;
+import edu.ithaca.dragon.par.io.*;
 import edu.ithaca.dragon.par.studentModel.StudentModel;
 import edu.ithaca.dragon.util.JsonUtil;
 import org.junit.jupiter.api.Test;
@@ -23,10 +21,10 @@ public class LevelTaskGeneratorTest {
     public void makeTaskWithSingleQuestionTestFix() throws IOException{
         QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/SampleQuestionPool.json").getAllQuestions());
         StudentModel studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
-        studentModel.getUserQuestionSet().increaseTimesSeenAllQuestions(studentModel.getUserQuestionSet().getTopLevelUnseenQuestions());
+        studentModel.getUserQuestionSet().increaseTimesAttemptedAllQuestions(studentModel.getUserQuestionSet().getTopLevelUnattemptedQuestions());
 
         Question task1Question = LevelTaskGenerator.leastSeenQuestionWithTypesNeeded(Arrays.asList(EquineQuestionTypes.plane.toString()),studentModel);
-        ImageTask task1 = new ImageTask(task1Question.getImageUrl(), Arrays.asList(task1Question));
+        ImageTask task1 = new ImageTask(task1Question.getImageUrl(), Arrays.asList(task1Question), "None");
         assertEquals("./images/demoEquine04.jpg", task1.getImageUrl());
 
     }
@@ -54,8 +52,8 @@ public class LevelTaskGeneratorTest {
 
     @Test
     public void emptyQuestionSetTest()throws IOException {
-        JsonStudentModelDatastore datastore = new JsonStudentModelDatastore("src/test/resources/author/simpleTestSet/currentQuestionPool.json", "src/test/resources/author/simpleTestSet/students");
-        StudentModel testUser2 = datastore.getOrCreateStudentModel("testUser2");
+        JsonStudentModelDatastore datastore = new JsonStudentModelDatastore("src/test/resources/author/simpleTestSet/smallQP.json", "src/test/resources/author/simpleTestSet/students");
+        StudentModel testUser2 = datastore.getOrCreateStudentModel("testUser22");
 
         ImageTask imageTask = new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap()).makeTask(testUser2,4);
         assertEquals(1,imageTask.getTaskQuestions().size());
@@ -67,10 +65,10 @@ public class LevelTaskGeneratorTest {
         JsonStudentModelDatastore datastore = new JsonStudentModelDatastore("src/test/resources/author/simpleTestSet/currentQuestionPool.json", "src/test/resources/author/simpleTestSet/students");
         StudentModel testUser2 = datastore.getOrCreateStudentModel("testUser2");
 
-        assertEquals(true,LevelTaskGenerator.checkForAllNeededTypesOfQuestions(Arrays.asList(EquineQuestionTypes.plane.toString(),EquineQuestionTypes.plane.toString()),testUser2,testUser2.getUserQuestionSet().getQuestionCounts().get(3).getQuestion()));
-        assertEquals(false,LevelTaskGenerator.checkForAllNeededTypesOfQuestions(Arrays.asList(EquineQuestionTypes.plane.toString(),EquineQuestionTypes.structure.toString()),testUser2,testUser2.getUserQuestionSet().getQuestionCounts().get(3).getQuestion()));
-        assertEquals(true,LevelTaskGenerator.checkForAllNeededTypesOfQuestions(Arrays.asList(EquineQuestionTypes.plane.toString(),EquineQuestionTypes.structure.toString()),testUser2,testUser2.getUserQuestionSet().getQuestionCounts().get(0).getQuestion()));
-        assertEquals(true,LevelTaskGenerator.checkForAllNeededTypesOfQuestions(Arrays.asList(EquineQuestionTypes.structure.toString(),EquineQuestionTypes.attachment.toString()),testUser2,testUser2.getUserQuestionSet().getQuestionCounts().get(1).getQuestion()));
+        assertEquals(true,LevelTaskGenerator.checkRelatedImageHasAllNeededTypesOfQuestions(Arrays.asList(EquineQuestionTypes.plane.toString(),EquineQuestionTypes.plane.toString()),testUser2,testUser2.getUserQuestionSet().getQuestionCounts().get(3).getQuestion()));
+        assertEquals(false,LevelTaskGenerator.checkRelatedImageHasAllNeededTypesOfQuestions(Arrays.asList(EquineQuestionTypes.plane.toString(),EquineQuestionTypes.structure.toString()),testUser2,testUser2.getUserQuestionSet().getQuestionCounts().get(3).getQuestion()));
+        assertEquals(true,LevelTaskGenerator.checkRelatedImageHasAllNeededTypesOfQuestions(Arrays.asList(EquineQuestionTypes.plane.toString(),EquineQuestionTypes.structure.toString()),testUser2,testUser2.getUserQuestionSet().getQuestionCounts().get(0).getQuestion()));
+        assertEquals(true,LevelTaskGenerator.checkRelatedImageHasAllNeededTypesOfQuestions(Arrays.asList(EquineQuestionTypes.structure.toString(),EquineQuestionTypes.attachment.toString()),testUser2,testUser2.getUserQuestionSet().getQuestionCounts().get(1).getQuestion()));
         //TODO: test with followup questions
     }
 
@@ -83,7 +81,7 @@ public class LevelTaskGeneratorTest {
         assertEquals("plane./images/demoEquine13.jpg",LevelTaskGenerator.leastSeenQuestionWithTypesNeeded(Arrays.asList(EquineQuestionTypes.plane.toString()),testUser2).getId());
         assertEquals( "structure0./images/demoEquine02.jpg",LevelTaskGenerator.leastSeenQuestionWithTypesNeeded(Arrays.asList(EquineQuestionTypes.structure.toString()),testUser2).getId());
         assertEquals( "structure0./images/demoEquine02.jpg",LevelTaskGenerator.leastSeenQuestionWithTypesNeeded(Arrays.asList(EquineQuestionTypes.structure.toString(),EquineQuestionTypes.attachment.toString()),testUser2).getId());
-        assertEquals( "AttachQ5",LevelTaskGenerator.leastSeenQuestionWithTypesNeeded(Arrays.asList(EquineQuestionTypes.attachment.toString()),testUser2).getId());
+        assertEquals( "structure0./images/demoEquine02.jpg",LevelTaskGenerator.leastSeenQuestionWithTypesNeeded(Arrays.asList(EquineQuestionTypes.attachment.toString()),testUser2).getId());
         //TODO: need to test when the least seen question does not have the proper types
 
         try{
@@ -110,6 +108,10 @@ public class LevelTaskGeneratorTest {
 
         assertEquals(1, task1.getTaskQuestions().size());
 
+        for(Question currQ: task1.getTaskQuestions()) {
+            studentModel.increaseTimesAttempted(currQ.getId());
+        }
+
         //make a new imageTask and check aspects of it
         ImageTask task2 = taskGenerator.makeTask(studentModel, 4);
         assertEquals("./images/demoEquine02.jpg", task2.getImageUrl());
@@ -122,19 +124,19 @@ public class LevelTaskGeneratorTest {
         QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/SampleQuestionPool.json").getAllQuestions());
         StudentModel studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
 
-        //no questions have been seen
-        assertEquals(15, studentModel.getUnseenQuestionCount());
+        //no questions have been attempted
+        assertEquals(15, studentModel.getUnattemptedQuestionCount());
 
         //make an imageTask and check aspects of it
         Question task1Question = LevelTaskGenerator.leastSeenQuestionWithTypesNeeded(Arrays.asList(EquineQuestionTypes.plane.toString()),studentModel);
 
-        ImageTask task1 = new ImageTask(task1Question.getImageUrl(), Arrays.asList(task1Question));
+        ImageTask task1 = new ImageTask(task1Question.getImageUrl(), Arrays.asList(task1Question), "None");
         assertEquals("./images/demoEquine04.jpg", task1.getImageUrl());
         assertEquals(1, task1.getTaskQuestions().size());
 
         //make a new imageTask and check aspects of it
         Question task2Question = LevelTaskGenerator.leastSeenQuestionWithTypesNeeded(Arrays.asList(EquineQuestionTypes.plane.toString()),studentModel);
-        ImageTask task2 = new ImageTask(task2Question.getImageUrl(), Arrays.asList(task1Question));
+        ImageTask task2 = new ImageTask(task2Question.getImageUrl(), Arrays.asList(task1Question), "None");
         assertEquals("./images/demoEquine04.jpg", task1.getImageUrl());
         assertEquals(1, task2.getTaskQuestions().size());
 
@@ -221,27 +223,34 @@ public class LevelTaskGeneratorTest {
         m2.put(EquineQuestionTypes.structure.toString(), 75.0);
         m2.put(EquineQuestionTypes.attachment.toString(), -1.0);
         m2.put(EquineQuestionTypes.zone.toString(), -1.0);
-        assertEquals(4, LevelTaskGenerator.calcLevel(m2));
+        assertEquals(3, LevelTaskGenerator.calcLevel(m2));
 
         m2=new HashMap<>();
         m2.put(EquineQuestionTypes.plane.toString(), 100.0);
         m2.put(EquineQuestionTypes.structure.toString(), 75.0);
         m2.put(EquineQuestionTypes.attachment.toString(), 75.0);
         m2.put(EquineQuestionTypes.zone.toString(), -1.0);
-        assertEquals(4, LevelTaskGenerator.calcLevel(m2));
+        assertEquals(3, LevelTaskGenerator.calcLevel(m2));
 
         m2=new HashMap<>();
         m2.put(EquineQuestionTypes.plane.toString(), 100.0);
         m2.put(EquineQuestionTypes.structure.toString(), 100.0);
         m2.put(EquineQuestionTypes.attachment.toString(), -1.0);
         m2.put(EquineQuestionTypes.zone.toString(), -1.0);
-        assertEquals(5, LevelTaskGenerator.calcLevel(m2));
+        assertEquals(4, LevelTaskGenerator.calcLevel(m2));
 
         m2=new HashMap<>();
         m2.put(EquineQuestionTypes.plane.toString(), 100.0);
         m2.put(EquineQuestionTypes.structure.toString(), 100.0);
         m2.put(EquineQuestionTypes.attachment.toString(), 34.0);
         m2.put(EquineQuestionTypes.zone.toString(), -1.0);
+        assertEquals(4, LevelTaskGenerator.calcLevel(m2));
+
+        m2=new HashMap<>();
+        m2.put(EquineQuestionTypes.plane.toString(), 100.0);
+        m2.put(EquineQuestionTypes.structure.toString(), 100.0);
+        m2.put(EquineQuestionTypes.attachment.toString(), 75.0);
+        m2.put(EquineQuestionTypes.zone.toString(), -1.0);
         assertEquals(5, LevelTaskGenerator.calcLevel(m2));
 
         m2=new HashMap<>();
@@ -249,19 +258,26 @@ public class LevelTaskGeneratorTest {
         m2.put(EquineQuestionTypes.structure.toString(), 100.0);
         m2.put(EquineQuestionTypes.attachment.toString(), 75.0);
         m2.put(EquineQuestionTypes.zone.toString(), -1.0);
-        assertEquals(6, LevelTaskGenerator.calcLevel(m2));
+        assertEquals(5, LevelTaskGenerator.calcLevel(m2));
 
         m2=new HashMap<>();
         m2.put(EquineQuestionTypes.plane.toString(), 100.0);
         m2.put(EquineQuestionTypes.structure.toString(), 100.0);
-        m2.put(EquineQuestionTypes.attachment.toString(), 75.0);
+        m2.put(EquineQuestionTypes.attachment.toString(), 99.0);
+        m2.put(EquineQuestionTypes.zone.toString(), 23.0);
+        assertEquals(5, LevelTaskGenerator.calcLevel(m2));
+
+        m2=new HashMap<>();
+        m2.put(EquineQuestionTypes.plane.toString(), 100.0);
+        m2.put(EquineQuestionTypes.structure.toString(), 100.0);
+        m2.put(EquineQuestionTypes.attachment.toString(), 100.0);
         m2.put(EquineQuestionTypes.zone.toString(), -1.0);
         assertEquals(6, LevelTaskGenerator.calcLevel(m2));
 
         m2=new HashMap<>();
         m2.put(EquineQuestionTypes.plane.toString(), 100.0);
         m2.put(EquineQuestionTypes.structure.toString(), 100.0);
-        m2.put(EquineQuestionTypes.attachment.toString(), 99.0);
+        m2.put(EquineQuestionTypes.attachment.toString(), 100.0);
         m2.put(EquineQuestionTypes.zone.toString(), 23.0);
         assertEquals(6, LevelTaskGenerator.calcLevel(m2));
 
@@ -269,7 +285,7 @@ public class LevelTaskGeneratorTest {
         m2.put(EquineQuestionTypes.plane.toString(), 100.0);
         m2.put(EquineQuestionTypes.structure.toString(), 100.0);
         m2.put(EquineQuestionTypes.attachment.toString(), 100.0);
-        m2.put(EquineQuestionTypes.zone.toString(), -1.0);
+        m2.put(EquineQuestionTypes.zone.toString(), 55.0);
         assertEquals(7, LevelTaskGenerator.calcLevel(m2));
 
         m2=new HashMap<>();
@@ -278,6 +294,113 @@ public class LevelTaskGeneratorTest {
         m2.put(EquineQuestionTypes.attachment.toString(), 100.0);
         m2.put(EquineQuestionTypes.zone.toString(), 75.0);
         assertEquals(7, LevelTaskGenerator.calcLevel(m2));
+
+
+
+        m2=new HashMap<>();
+        m2.put(EquineQuestionTypes.plane.toString(), 100.0);
+        m2.put(EquineQuestionTypes.structure.toString(), 100.0);
+        m2.put(EquineQuestionTypes.attachment.toString(), 100.0);
+        m2.put(EquineQuestionTypes.zone.toString(), 100.0);
+        assertEquals(8, LevelTaskGenerator.calcLevel(m2));
+
+    }
+
+
+    @Test
+    public void calcLevelAttachmentTest() {
+        //throws exception when the types are invalid
+        try{
+            Map<String, Double> m1 = new HashMap<>();
+            // m1.put(EquineQuestionTypes.plane.toString(), 1.1);
+            m1.put("NotValidKey", -1.0);
+        }
+        catch(RuntimeException ee){
+        }
+
+        Map<String, Double> m2 = new HashMap<>();
+        m2.put(EquineQuestionTypes.plane.toString(), 0.0);
+        m2.put(EquineQuestionTypes.structure.toString(), 0.0);
+        m2.put(EquineQuestionTypes.attachment.toString(), 90.0);
+        assertEquals(1, LevelTaskGenerator.calcLevelAttachment(m2));
+
+        m2 = new HashMap<>();
+        m2.put(EquineQuestionTypes.plane.toString(), -1.0);
+        m2.put(EquineQuestionTypes.structure.toString(), -1.0);
+        m2.put(EquineQuestionTypes.attachment.toString(), -1.0);
+        assertEquals(1, LevelTaskGenerator.calcLevelAttachment(m2));
+        m2 = new HashMap<>();
+        m2.put(EquineQuestionTypes.plane.toString(), 75.0);
+        m2.put(EquineQuestionTypes.structure.toString(), 20.0);
+        m2.put(EquineQuestionTypes.attachment.toString(), -1.0);
+        assertEquals(2, LevelTaskGenerator.calcLevelAttachment(m2));
+
+        m2 = new HashMap<>();
+        m2.put(EquineQuestionTypes.plane.toString(), 75.0);
+        m2.put(EquineQuestionTypes.structure.toString(), 100.0);
+        m2.put(EquineQuestionTypes.attachment.toString(), 30.0);
+        assertEquals(2, LevelTaskGenerator.calcLevelAttachment(m2));
+
+
+        m2 = new HashMap<>();
+        m2.put(EquineQuestionTypes.plane.toString(), 75.0);
+        m2.put(EquineQuestionTypes.structure.toString(), 75.0);
+        m2.put(EquineQuestionTypes.attachment.toString(), -1.0);
+        assertEquals(2, LevelTaskGenerator.calcLevelAttachment(m2));
+
+        m2=new HashMap<>();
+        m2.put(EquineQuestionTypes.plane.toString(), 100.0);
+        m2.put(EquineQuestionTypes.structure.toString(), 59.0);
+        m2.put(EquineQuestionTypes.attachment.toString(), -1.0);
+        assertEquals(3, LevelTaskGenerator.calcLevelAttachment(m2));
+
+        m2=new HashMap<>();
+        m2.put(EquineQuestionTypes.plane.toString(), 100.0);
+        m2.put(EquineQuestionTypes.structure.toString(), 75.0);
+        m2.put(EquineQuestionTypes.attachment.toString(), -1.0);
+        assertEquals(3, LevelTaskGenerator.calcLevelAttachment(m2));
+
+        m2=new HashMap<>();
+        m2.put(EquineQuestionTypes.plane.toString(), 100.0);
+        m2.put(EquineQuestionTypes.structure.toString(), 75.0);
+        m2.put(EquineQuestionTypes.attachment.toString(), 75.0);
+        assertEquals(3, LevelTaskGenerator.calcLevelAttachment(m2));
+
+        m2=new HashMap<>();
+        m2.put(EquineQuestionTypes.plane.toString(), 100.0);
+        m2.put(EquineQuestionTypes.structure.toString(), 100.0);
+        m2.put(EquineQuestionTypes.attachment.toString(), -1.0);
+        assertEquals(4, LevelTaskGenerator.calcLevelAttachment(m2));
+
+        m2=new HashMap<>();
+        m2.put(EquineQuestionTypes.plane.toString(), 100.0);
+        m2.put(EquineQuestionTypes.structure.toString(), 100.0);
+        m2.put(EquineQuestionTypes.attachment.toString(), 34.0);
+        assertEquals(4, LevelTaskGenerator.calcLevelAttachment(m2));
+
+        m2=new HashMap<>();
+        m2.put(EquineQuestionTypes.plane.toString(), 100.0);
+        m2.put(EquineQuestionTypes.structure.toString(), 100.0);
+        m2.put(EquineQuestionTypes.attachment.toString(), 75.0);
+        assertEquals(5, LevelTaskGenerator.calcLevelAttachment(m2));
+
+        m2=new HashMap<>();
+        m2.put(EquineQuestionTypes.plane.toString(), 100.0);
+        m2.put(EquineQuestionTypes.structure.toString(), 100.0);
+        m2.put(EquineQuestionTypes.attachment.toString(), 75.0);
+        assertEquals(5, LevelTaskGenerator.calcLevelAttachment(m2));
+
+        m2=new HashMap<>();
+        m2.put(EquineQuestionTypes.plane.toString(), 100.0);
+        m2.put(EquineQuestionTypes.structure.toString(), 100.0);
+        m2.put(EquineQuestionTypes.attachment.toString(), 99.0);
+        assertEquals(5, LevelTaskGenerator.calcLevelAttachment(m2));
+
+        m2=new HashMap<>();
+        m2.put(EquineQuestionTypes.plane.toString(), 100.0);
+        m2.put(EquineQuestionTypes.structure.toString(), 100.0);
+        m2.put(EquineQuestionTypes.attachment.toString(), 100.0);
+        assertEquals(6, LevelTaskGenerator.calcLevelAttachment(m2));
 
     }
 
@@ -364,6 +487,26 @@ public class LevelTaskGeneratorTest {
         questionList = questionPool.getAllQuestions();
         questionList = LevelTaskGenerator.filterQuestions(7, questionList);
         assertEquals(10, questionList.size());
+    }
+
+    @Test
+    public void pickLeastSeenParentQuestionTest() throws IOException{
+        TaskGenerator taskGenerator = new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap());
+        StudentModelDatastore studentModelDatastore = new JsonStudentModelDatastore("src/test/resources/author/testFullQP.json", "src/test/resources/author/students");
+
+        StudentModel followupTestUser = studentModelDatastore.getStudentModel("followupTestStudent");
+
+        ImageTask it = taskGenerator.makeTask(followupTestUser, 4);
+        assertEquals("./images/metacarpal42.jpg", it.getImageUrl()); //If it isn't working, it would get metacarpal56
+        assertEquals("341-structure0-./images/metacarpal42.jpg", it.getTaskQuestions().get(0).getId());
+
+        for(Question currQ: it.getTaskQuestions()) {
+            followupTestUser.increaseTimesAttempted(currQ.getId());
+        }
+
+        ImageTask it2 = taskGenerator.makeTask(followupTestUser, 4);
+        assertEquals("./images/metacarpal41.jpg",it2.getImageUrl());
+        assertEquals("369-structure0-./images/metacarpal41.jpg", it2.getTaskQuestions().get(0).getId());
     }
 
 }

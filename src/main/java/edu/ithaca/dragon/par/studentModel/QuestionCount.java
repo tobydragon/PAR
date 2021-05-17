@@ -8,12 +8,14 @@ import java.util.List;
 public class QuestionCount {
 
     public Question question;
-    public int timesSeen;
+    public int timesAttempted;
     public List<QuestionCount> followupCounts;
 
     public QuestionCount(Question questionIn){
         question = questionIn;
-        timesSeen = 0;
+
+        //this represents that you’ve seen it AND either skipped or answered.
+        timesAttempted = 0;
         followupCounts = questionToQuestionCount(questionIn.getFollowupQuestions());
     }
 
@@ -21,7 +23,7 @@ public class QuestionCount {
         List<QuestionCount> questionCountList = new ArrayList<QuestionCount>();
         for (int i = 0; i<questions.size(); i++){
             QuestionCount qc = new QuestionCount(questions.get(i));
-            qc.setTimesSeen(0);
+            qc.setTimesAttempted(0);
             questionCountList.add(qc);
         }
         return questionCountList;
@@ -39,20 +41,20 @@ public class QuestionCount {
         return followupCounts;
     }
 
-    public int getTimesSeen(){
-        return timesSeen;
+    public int getTimesAttempted(){
+        return timesAttempted;
     }
 
-    public void increaseTimesSeen(){
-        timesSeen+=1;
+    public void increaseTimesAttempted(){
+        timesAttempted +=1;
     }
 
     public Question getQuestion(){
         return question;
     }
 
-    public void setTimesSeen(int seen){
-        timesSeen = seen;
+    public void setTimesAttempted(int seen){
+        timesAttempted = seen;
     }
 
     public boolean equals(Object otherObj){
@@ -64,7 +66,7 @@ public class QuestionCount {
         }
         QuestionCount other = (QuestionCount) otherObj;
         return this.getQuestion().equals(other.getQuestion())
-                && this.getTimesSeen()==(other.getTimesSeen());
+                && this.getTimesAttempted()==(other.getTimesAttempted());
     }
 
 }

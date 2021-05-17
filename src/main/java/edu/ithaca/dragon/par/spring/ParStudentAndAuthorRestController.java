@@ -1,6 +1,7 @@
 package edu.ithaca.dragon.par.spring;
 
 import edu.ithaca.dragon.par.ParStudentAndAuthorServer;
+import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.*;
 import edu.ithaca.dragon.par.pedagogicalModel.ImageTaskSettings;
@@ -41,7 +42,12 @@ public class ParStudentAndAuthorRestController {
                     "author/defaultQuestionPool.json",
                     jsonIoHelper,
                     "localData/students");
-            parServer = new ParStudentAndAuthorServer(jsonStudentDatastore, jsonAuthorDatastore);
+            JSONCohortDatastore jsonCohortDatastore = CohortRecord.makeCohortDatastoreFromCohortRecords(
+                    "localData/currentCohortDatastore.json",
+                    "author/defaultCohortDatastore.json",
+                    jsonIoHelper);
+
+            parServer = new ParStudentAndAuthorServer(jsonStudentDatastore, jsonAuthorDatastore, jsonCohortDatastore);
         }
         catch(IOException e){
             throw new RuntimeException("Server can't start without all necessary files loaded: ", e);
@@ -73,8 +79,26 @@ public class ParStudentAndAuthorRestController {
     public ImageTask nextImageTask(@RequestParam String userId) throws IOException {
         logger.info("nextImageTask for:" + userId);
         ImageTask imageTask = parServer.nextImageTask(userId);
+        String message = parServer.getMessage(userId, imageTask);
         logger.info("Responding with:" + JsonUtil.toJsonString(imageTask));
+        logger.info("message: " + message);
         return imageTask;
+    }
+
+    @GetMapping("/getImageTask")
+    public ImageTask getImageTask(@RequestParam String userId) throws IOException {
+        logger.info("nextImageTask for:" + userId);
+        ImageTask imageTask = parServer.getImageTask(userId);
+        String message = parServer.getMessage(userId, imageTask);
+        logger.info("Responding with:" + JsonUtil.toJsonString(imageTask));
+        logger.info("message: " + message);
+        return imageTask;
+    }
+
+    @PostMapping("/updateTimesAttempted")
+    public void updateTimesAttempted(@RequestParam String userId, @RequestParam List<String> questionIds) throws IOException{
+        parServer.updateTimesAttempted(userId, questionIds);
+        logger.info("Task questions marked as seen by user: " + userId);
     }
 
     @PostMapping("/recordResponse")
@@ -112,6 +136,17 @@ public class ParStudentAndAuthorRestController {
         return parServer.nextAuthorImageTask();
     }
 
+    @GetMapping("/getAuthorImageTask")
+    public ImageTask getAuthorImageTask() throws IOException {
+        return parServer.getAuthorImageTask();
+    }
+
+    @PostMapping("/updateTimesAuthorAttempted")
+    public void updateAuthorTimesAttempted(@RequestParam List<String> questionIds) throws IOException{
+        parServer.updateAuthorTimesAttempted(questionIds);
+        logger.info("Task questions marked as seen by Author");
+    }
+
     @PostMapping("/submitAuthorImageTaskResponse")
     public ResponseEntity<String> submitAuthorImageTaskResponse(@RequestBody ImageTaskResponseOOP response) {
         try {
@@ -143,6 +178,11 @@ public class ParStudentAndAuthorRestController {
     @GetMapping("/teacherReport")
     public TeacherReport getTeacherReport()throws IOException{
         return parServer.buildTeacherReport();
+    }
+
+    @GetMapping("/getCohortStatistics")
+    public StudentDataAnalyzer getCohortStatistics(@RequestParam String cohortId) throws IOException {
+        return parServer.getCohortStatistics(cohortId);
     }
 
 }

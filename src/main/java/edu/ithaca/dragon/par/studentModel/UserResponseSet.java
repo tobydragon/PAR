@@ -2,7 +2,10 @@ package edu.ithaca.dragon.par.studentModel;
 
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 
+import java.text.DecimalFormat;
 import java.util.*;
+
+import static java.lang.Double.parseDouble;
 
 public class UserResponseSet {
     private String userId;
@@ -25,6 +28,14 @@ public class UserResponseSet {
             responsesPerQuestionList.remove(index);//removes old index
             responsesPerQuestionList.add(response1);//updates to the last position (most recently answered)
         }
+    }
+    public ResponsesPerQuestion getResponseById(String Id){
+        for (ResponsesPerQuestion response : responsesPerQuestionList){
+            if (response.getQuestionId().equals(Id)){
+                return response;
+            }
+        }
+        throw new IllegalArgumentException();
     }
 
     public void addAllResponses(List<ResponsesPerQuestion> allResponsesIn) {
@@ -50,6 +61,10 @@ public class UserResponseSet {
         return responsesPerQuestionList.size();
     }
 
+    /**
+     *
+     * @return the number of questions that have been responded to
+     */
     public int countTotalResponses() {
         int count = 0;
         for (ResponsesPerQuestion responses : responsesPerQuestionList) {
@@ -142,18 +157,18 @@ public class UserResponseSet {
     public static String calcKnowledgeEstimateString(List<ResponsesPerQuestion> allResponses, int numOfRecentResponsesToConsider) {
         String estimateString = "";
         if (allResponses.size() >= numOfRecentResponsesToConsider ){
-            for( int i = allResponses.size()-numOfRecentResponsesToConsider; i<allResponses.size(); i++){
+            for( int i = allResponses.size()-1; i>=allResponses.size()-numOfRecentResponsesToConsider; i--){
                 estimateString += convertNumEstimateToStringRepresentation(allResponses.get(i).knowledgeCalc());
             }
             return estimateString;
         }
         else {
-            for( int i = 0; i<allResponses.size(); i++){
+            for( int i = allResponses.size()-1; i>=0; i--){
                 estimateString += convertNumEstimateToStringRepresentation(allResponses.get(i).knowledgeCalc());
             }
             int numBlank = numOfRecentResponsesToConsider-allResponses.size();
             for (int i=0; i < numBlank; i++){
-                estimateString = "_" + estimateString;
+                estimateString = estimateString + "_";
             }
             return estimateString;
         }
@@ -180,5 +195,68 @@ public class UserResponseSet {
         UserResponseSet other = (UserResponseSet) otherObj;
         return this.getResponsesPerQuestionList().equals(other.getResponsesPerQuestionList())
                 && this.getUserId().equals(other.getUserId());
+    }
+
+    /**
+     *
+     * @return number of responses across all questions
+     */
+    public int getAllResponseCount() {
+        int count = 0;
+        List<ResponsesPerQuestion> responseList = getResponsesPerQuestionList();
+        for (ResponsesPerQuestion response : responseList){
+            count += response.getAllResponses().size();
+        }
+        return count;
+    }
+
+    /**
+     *
+     * @return percent of questions that were most recently answered right after being answered wrong the first time
+     */
+    public double calcPercentLastAnswerRightAfterWrong(){
+        if (responsesPerQuestionList.size()==0){
+            return -1.0;
+        }
+        double origWrongCount = 0.0;
+        double countRightAfterWrong = 0.0;
+        for(ResponsesPerQuestion responseObject: responsesPerQuestionList){
+            //if the first answer is wrong
+            if (!responseObject.getFirstResponse().equalsIgnoreCase(responseObject.getQuestion().getCorrectAnswer())){
+                origWrongCount += 1;
+                int i = 1;
+                //if the current response is a correct response
+                if (responseObject.getAllResponses().get(responseObject.allResponsesSize()-1).getResponseText().equalsIgnoreCase(responseObject.getQuestion().getCorrectAnswer())){
+                    countRightAfterWrong += 1.0;
+                }
+            }
+        }
+
+        DecimalFormat df = new DecimalFormat(".##"); //format output to 2 decimal places
+        if (origWrongCount == 0.0 || countRightAfterWrong == 0.0){
+            return 0;
+        }
+        return parseDouble(df.format(countRightAfterWrong / origWrongCount * 100.00));
+    }
+
+    /**
+     *
+     * @return percent of questions that were answered incorrectly the first time
+     */
+    public double calcPercentWrongFirstTime() {
+        //no responses
+        if (responsesPerQuestionList.size()==0){
+            return -1.0;
+        }
+        double count = 0.0;
+        //for every respinse object
+        for(ResponsesPerQuestion responseObject: responsesPerQuestionList){
+            //if the first answer is wrong
+            if (!responseObject.getFirstResponse().equalsIgnoreCase(responseObject.getQuestion().getCorrectAnswer())){
+                count += 1;
+            }
+        }
+        DecimalFormat df = new DecimalFormat(".##"); //format output to 2 decimal places
+        return parseDouble(df.format(count / responsesPerQuestionList.size() * 100.00));
     }
 }

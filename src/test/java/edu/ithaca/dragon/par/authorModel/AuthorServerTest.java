@@ -1,5 +1,6 @@
 package edu.ithaca.dragon.par.authorModel;
 
+import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.io.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -11,6 +12,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -51,7 +53,7 @@ public class AuthorServerTest {
     }
 
     @Test
-    public void nextImageTaskTemplate(@TempDir Path tempDir) throws IOException{
+    public void nextImageTaskTemplateTest(@TempDir Path tempDir) throws IOException{
         //make paths for copies of the files
         Path currentQuestionPath = tempDir.resolve("currentQuestions.json");
         Path currentQuestionTemplatePath = tempDir.resolve("currentQuestionTemplates.json");
@@ -107,6 +109,180 @@ public class AuthorServerTest {
         ImageTask imageTask11 = pas.nextImageTaskTemplate();
         assertEquals(5, imageTask11.getTaskQuestions().size());
         assertEquals("./images/demoEquine14.jpg", imageTask11.getImageUrl());
+
+        ImageTask imageTask12 = pas.nextImageTaskTemplate();
+        assertEquals(6, imageTask12.getTaskQuestions().size());
+        assertEquals("./images/demoEquine02.jpg", imageTask12.getImageUrl());
+    }
+
+    @Test
+    public void getImageTaskTemplateTest(@TempDir Path tempDir) throws IOException{
+        //make paths for copies of the files
+        Path currentQuestionPath = tempDir.resolve("currentQuestions.json");
+        Path currentQuestionTemplatePath = tempDir.resolve("currentQuestionTemplates.json");
+        //copy the files to use to the paths (these temp files will change as work is done)
+        Files.copy(Paths.get("src/test/resources/author/SampleQuestionsEmpty.json"), currentQuestionPath, StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(Paths.get("src/test/resources/author/DemoQuestionPoolTemplate.json"), currentQuestionTemplatePath, StandardCopyOption.REPLACE_EXISTING);
+
+        AuthorServer pas = new AuthorServer(new JsonAuthorDatastore(currentQuestionPath.toString(),
+                currentQuestionTemplatePath.toString(), tempDir.resolve("currentAuthorModel.json").toString()));
+
+        ImageTask imageTask = pas.getImageTaskTemplate();
+        assertEquals(5, imageTask.getTaskQuestions().size());
+        assertEquals("./images/demoEquine14.jpg", imageTask.getImageUrl());
+
+        imageTask = pas.getImageTaskTemplate();
+        assertEquals(5, imageTask.getTaskQuestions().size());
+        assertEquals("./images/demoEquine14.jpg", imageTask.getImageUrl());
+
+        imageTask = pas.getImageTaskTemplate();
+        assertEquals(5, imageTask.getTaskQuestions().size());
+        assertEquals("./images/demoEquine14.jpg", imageTask.getImageUrl());
+
+        imageTask = pas.getImageTaskTemplate();
+        assertEquals(5, imageTask.getTaskQuestions().size());
+        assertEquals("./images/demoEquine14.jpg", imageTask.getImageUrl());
+
+        imageTask = pas.getImageTaskTemplate();
+        assertEquals(5, imageTask.getTaskQuestions().size());
+        assertEquals("./images/demoEquine14.jpg", imageTask.getImageUrl());
+
+        imageTask = pas.getImageTaskTemplate();
+        assertEquals(5, imageTask.getTaskQuestions().size());
+        assertEquals("./images/demoEquine14.jpg", imageTask.getImageUrl());
+
+        imageTask = pas.getImageTaskTemplate();
+        assertEquals(5, imageTask.getTaskQuestions().size());
+        assertEquals("./images/demoEquine14.jpg", imageTask.getImageUrl());
+    }
+
+    @Test
+    public void getImageTaskTemplateAndUpdateAuthorTimesAttemptedTest(@TempDir Path tempDir) throws IOException{
+        //This test demonstrates that the combination of getImageTaskTemplate and
+        //UpdateAuthorTimesAttempted works the same as nextImageTaskTemplate
+
+
+        //make paths for copies of the files
+        Path currentQuestionPath = tempDir.resolve("currentQuestions.json");
+        Path currentQuestionTemplatePath = tempDir.resolve("currentQuestionTemplates.json");
+        //copy the files to use to the paths (these temp files will change as work is done)
+        Files.copy(Paths.get("src/test/resources/author/SampleQuestionsEmpty.json"), currentQuestionPath, StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(Paths.get("src/test/resources/author/DemoQuestionPoolTemplate.json"), currentQuestionTemplatePath, StandardCopyOption.REPLACE_EXISTING);
+
+        AuthorServer pas = new AuthorServer(new JsonAuthorDatastore(currentQuestionPath.toString(),
+                currentQuestionTemplatePath.toString(), tempDir.resolve("currentAuthorModel.json").toString()));
+
+        ImageTask imageTask = pas.nextImageTaskTemplate();
+        assertEquals(5, imageTask.getTaskQuestions().size());
+        assertEquals("./images/demoEquine14.jpg", imageTask.getImageUrl());
+
+        List<String> ids = new ArrayList<>();
+        for(Question q: imageTask.getTaskQuestions()){
+            ids.add(q.getId());
+        }
+        pas.updateAuthorTimesAttempted(ids);
+
+        ImageTask imageTask2 = pas.nextImageTaskTemplate();
+        assertEquals(6, imageTask2.getTaskQuestions().size());
+        assertEquals("./images/demoEquine02.jpg", imageTask2.getImageUrl());
+
+        ids = new ArrayList<>();
+        for(Question q: imageTask2.getTaskQuestions()){
+            ids.add(q.getId());
+        }
+        pas.updateAuthorTimesAttempted(ids);
+
+        ImageTask imageTask3 = pas.nextImageTaskTemplate();
+        assertEquals(4, imageTask3.getTaskQuestions().size());
+        assertEquals("./images/demoEquine13.jpg", imageTask3.getImageUrl());
+
+        ids = new ArrayList<>();
+        for(Question q: imageTask3.getTaskQuestions()){
+            ids.add(q.getId());
+        }
+        pas.updateAuthorTimesAttempted(ids);
+
+        ImageTask imageTask4 = pas.nextImageTaskTemplate();
+        assertEquals(3, imageTask4.getTaskQuestions().size());
+        assertEquals("./images/demoEquine04.jpg", imageTask4.getImageUrl());
+
+        ids = new ArrayList<>();
+        for(Question q: imageTask4.getTaskQuestions()){
+            ids.add(q.getId());
+        }
+        pas.updateAuthorTimesAttempted(ids);
+
+        ImageTask imageTask5 = pas.nextImageTaskTemplate();
+        assertEquals(6, imageTask5.getTaskQuestions().size());
+        assertEquals("./images/demoEquine10.jpg", imageTask5.getImageUrl());
+
+        ids = new ArrayList<>();
+        for(Question q: imageTask5.getTaskQuestions()){
+            ids.add(q.getId());
+        }
+        pas.updateAuthorTimesAttempted(ids);
+
+        ImageTask imageTask6 = pas.nextImageTaskTemplate();
+        assertEquals(4, imageTask6.getTaskQuestions().size());
+        assertEquals("./images/demoEquine11.jpg", imageTask6.getImageUrl());
+
+        ids = new ArrayList<>();
+        for(Question q: imageTask6.getTaskQuestions()){
+            ids.add(q.getId());
+        }
+        pas.updateAuthorTimesAttempted(ids);
+
+        ImageTask imageTask7 = pas.nextImageTaskTemplate();
+        assertEquals(5, imageTask7.getTaskQuestions().size());
+        assertEquals("./images/demoEquine05.jpg", imageTask7.getImageUrl());
+
+        ids = new ArrayList<>();
+        for(Question q: imageTask7.getTaskQuestions()){
+            ids.add(q.getId());
+        }
+        pas.updateAuthorTimesAttempted(ids);
+
+        ImageTask imageTask8 = pas.nextImageTaskTemplate();
+        assertEquals(5, imageTask8.getTaskQuestions().size());
+        assertEquals("./images/demoEquine09.jpg", imageTask8.getImageUrl());
+
+        ids = new ArrayList<>();
+        for(Question q: imageTask8.getTaskQuestions()){
+            ids.add(q.getId());
+        }
+        pas.updateAuthorTimesAttempted(ids);
+
+        ImageTask imageTask9 = pas.nextImageTaskTemplate();
+        assertEquals(3, imageTask9.getTaskQuestions().size());
+        assertEquals("./images/demoEquine37.jpg", imageTask9.getImageUrl());
+
+        ids = new ArrayList<>();
+        for(Question q: imageTask9.getTaskQuestions()){
+            ids.add(q.getId());
+        }
+        pas.updateAuthorTimesAttempted(ids);
+
+        ImageTask imageTask10 = pas.nextImageTaskTemplate();
+        assertEquals(6, imageTask10.getTaskQuestions().size());
+        assertEquals("./images/demoEquine32.jpg", imageTask10.getImageUrl());
+
+        ids = new ArrayList<>();
+        for(Question q: imageTask10.getTaskQuestions()){
+            ids.add(q.getId());
+        }
+        pas.updateAuthorTimesAttempted(ids);
+
+        //At this point, every single question has been seen. The system successfully loops.
+
+        ImageTask imageTask11 = pas.nextImageTaskTemplate();
+        assertEquals(5, imageTask11.getTaskQuestions().size());
+        assertEquals("./images/demoEquine14.jpg", imageTask11.getImageUrl());
+
+        ids = new ArrayList<>();
+        for(Question q: imageTask11.getTaskQuestions()){
+            ids.add(q.getId());
+        }
+        pas.updateAuthorTimesAttempted(ids);
 
         ImageTask imageTask12 = pas.nextImageTaskTemplate();
         assertEquals(6, imageTask12.getTaskQuestions().size());

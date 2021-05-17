@@ -1,0 +1,28 @@
+[ {
+  "questionID" : "754-plane-./images/Annotated1ATrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "757-structure0-./images/Annotated1ATrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "760-structure1-./images/Annotated1ATrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "819-structure2-./images/Annotated2BTrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "851-zone-./images/Annotated2Long.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "852-plane-./images/2ATransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "855-structure0-./images/2ATransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "603-structure0-./images/Annotated1BTrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "606-structure1-./images/Annotated1BTrans.jpg",
+  "includesFollowup" : true
+} ]

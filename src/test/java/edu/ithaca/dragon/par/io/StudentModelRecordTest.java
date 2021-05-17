@@ -45,10 +45,10 @@ public class StudentModelRecordTest {
         List<ImageTaskResponseOOP> responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponseOOP.class);
         ImageTaskResponseOOP responseSet3=new ImageTaskResponseOOP("response1", Arrays.asList("PlaneQ1","StructureQ1","ZoneQ1"),Arrays.asList("I'm","bad","student"));
         //terrible student
-        studentModel.imageTaskResponseSubmitted(responsesFromFile.get(0),questionPool);
-        studentModel.imageTaskResponseSubmitted(responsesFromFile.get(0),questionPool);
+        studentModel.imageTaskResponseSubmitted(responsesFromFile.get(0),questionPool, 4);
+        studentModel.imageTaskResponseSubmitted(responsesFromFile.get(0),questionPool, 4);
         for(int i=0;i<3;i++){
-            studentModel.imageTaskResponseSubmitted(responseSet3,questionPool);
+            studentModel.imageTaskResponseSubmitted(responseSet3,questionPool, 4);
         }
         JsonUtil.toJsonFile("src/test/resources/author/SampleStudentModelBusy.json", Arrays.asList(new StudentModelRecord(studentModel)));
     }

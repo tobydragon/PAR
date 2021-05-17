@@ -5,8 +5,10 @@ import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.ImageTaskResponseOOP;
 import edu.ithaca.dragon.par.io.JsonQuestionPoolDatastore;
+import edu.ithaca.dragon.par.io.StudentModelRecord;
 import edu.ithaca.dragon.util.DataUtil;
 import edu.ithaca.dragon.util.JsonUtil;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -148,17 +150,17 @@ public class UserResponseSetTest {
         assertEquals("__", UserResponseSet.calcKnowledgeEstimateString(new ArrayList<>(), 2));
         assertEquals("OO", UserResponseSet.calcKnowledgeEstimateString(allRight.getResponsesPerQuestionList(), 2));
         assertEquals("XX", UserResponseSet.calcKnowledgeEstimateString(allWrong.getResponsesPerQuestionList(), 2));
-        assertEquals("XO", UserResponseSet.calcKnowledgeEstimateString(everyOtherRight.getResponsesPerQuestionList(), 2));
+        assertEquals("OX", UserResponseSet.calcKnowledgeEstimateString(everyOtherRight.getResponsesPerQuestionList(), 2));
 
         assertEquals("______", UserResponseSet.calcKnowledgeEstimateString(new ArrayList<>(), 6));
         assertEquals("OOOOOO", UserResponseSet.calcKnowledgeEstimateString(allRight.getResponsesPerQuestionList(), 6));
         assertEquals("XXXXXX", UserResponseSet.calcKnowledgeEstimateString(allWrong.getResponsesPerQuestionList(), 6));
-        assertEquals("XOXOXO", UserResponseSet.calcKnowledgeEstimateString(everyOtherRight.getResponsesPerQuestionList(), 6));
+        assertEquals("OXOXOX", UserResponseSet.calcKnowledgeEstimateString(everyOtherRight.getResponsesPerQuestionList(), 6));
 
         assertEquals("______", UserResponseSet.calcKnowledgeEstimateString(new ArrayList<>(), 6));
-        assertEquals("___OOO", UserResponseSet.calcKnowledgeEstimateString(allRight.getResponsesPerQuestionList().subList(0,3), 6));
-        assertEquals("___XXX", UserResponseSet.calcKnowledgeEstimateString(allWrong.getResponsesPerQuestionList().subList(0,3), 6));
-        assertEquals("___OXO", UserResponseSet.calcKnowledgeEstimateString(everyOtherRight.getResponsesPerQuestionList().subList(0,3), 6));
+        assertEquals("OOO___", UserResponseSet.calcKnowledgeEstimateString(allRight.getResponsesPerQuestionList().subList(0,3), 6));
+        assertEquals("XXX___", UserResponseSet.calcKnowledgeEstimateString(allWrong.getResponsesPerQuestionList().subList(0,3), 6));
+        assertEquals("OXO___", UserResponseSet.calcKnowledgeEstimateString(everyOtherRight.getResponsesPerQuestionList().subList(0,3), 6));
     }
 
     @Test
@@ -175,7 +177,7 @@ public class UserResponseSetTest {
         ResponsesPerQuestion response = new ResponsesPerQuestion("TestUser1", questionsFromFile.get(0),questionsFromFile.get(0).getCorrectAnswer());
         userResponseSet.addResponse(response);
         m1 = userResponseSet.calcKnowledgeEstimateStringsByType(4);
-        assertEquals("___O", m1.get(EquineQuestionTypes.plane));
+        assertEquals("O___", m1.get(EquineQuestionTypes.plane));
         assertEquals("____", m1.get(EquineQuestionTypes.structure));
         assertEquals("____", m1.get(EquineQuestionTypes.attachment));
         assertEquals("____", m1.get(EquineQuestionTypes.zone));
@@ -183,75 +185,113 @@ public class UserResponseSetTest {
         response = new ResponsesPerQuestion("TestUser1",questionsFromFile.get(1),questionsFromFile.get(1).getCorrectAnswer());
         userResponseSet.addResponse(response);
         m1 = userResponseSet.calcKnowledgeEstimateStringsByType(4);
-        assertEquals("___O", m1.get(EquineQuestionTypes.plane));
-        assertEquals("___O", m1.get(EquineQuestionTypes.structure));
+        assertEquals("O___", m1.get(EquineQuestionTypes.plane));
+        assertEquals("O___", m1.get(EquineQuestionTypes.structure));
         assertEquals("____", m1.get(EquineQuestionTypes.attachment));
         assertEquals("____", m1.get(EquineQuestionTypes.zone));
 
         response = new ResponsesPerQuestion("TestUser1", questionsFromFile.get(2),"wrong");
         userResponseSet.addResponse(response);
         m1 = userResponseSet.calcKnowledgeEstimateStringsByType(4);
-        assertEquals("___O", m1.get(EquineQuestionTypes.plane));
-        assertEquals("__OX", m1.get(EquineQuestionTypes.structure));
+        assertEquals("O___", m1.get(EquineQuestionTypes.plane));
+        assertEquals("XO__", m1.get(EquineQuestionTypes.structure));
         assertEquals("____", m1.get(EquineQuestionTypes.attachment));
         assertEquals("____", m1.get(EquineQuestionTypes.zone));
 
         response = new ResponsesPerQuestion("TestUser1", questionsFromFile.get(1).getFollowupQuestions().get(0),"wrong");
         userResponseSet.addResponse(response);
         m1 = userResponseSet.calcKnowledgeEstimateStringsByType(4);
-        assertEquals("___O", m1.get(EquineQuestionTypes.plane));
-        assertEquals("__OX", m1.get(EquineQuestionTypes.structure));
-        assertEquals("___X", m1.get(EquineQuestionTypes.attachment));
+        assertEquals("O___", m1.get(EquineQuestionTypes.plane));
+        assertEquals("XO__", m1.get(EquineQuestionTypes.structure));
+        assertEquals("X___", m1.get(EquineQuestionTypes.attachment));
         assertEquals("____", m1.get(EquineQuestionTypes.zone));
 
         response = new ResponsesPerQuestion("TestUser1", questionsFromFile.get(1).getFollowupQuestions().get(1),questionsFromFile.get(1).getFollowupQuestions().get(1).getCorrectAnswer());
         userResponseSet.addResponse(response);
         m1 = userResponseSet.calcKnowledgeEstimateStringsByType(4);
-        assertEquals("___O", m1.get(EquineQuestionTypes.plane));
-        assertEquals("__OX", m1.get(EquineQuestionTypes.structure));
-        assertEquals("__XO", m1.get(EquineQuestionTypes.attachment));
+        assertEquals("O___", m1.get(EquineQuestionTypes.plane));
+        assertEquals("XO__", m1.get(EquineQuestionTypes.structure));
+        assertEquals("OX__", m1.get(EquineQuestionTypes.attachment));
         assertEquals("____", m1.get(EquineQuestionTypes.zone));
 
         response = new ResponsesPerQuestion("TestUser1", questionsFromFile.get(4),questionsFromFile.get(4).getCorrectAnswer());
         userResponseSet.addResponse(response);
         m1 = userResponseSet.calcKnowledgeEstimateStringsByType(4);
-        assertEquals("___O", m1.get(EquineQuestionTypes.plane));
-        assertEquals("__OX", m1.get(EquineQuestionTypes.structure));
-        assertEquals("__XO", m1.get(EquineQuestionTypes.attachment));
-        assertEquals("___O", m1.get(EquineQuestionTypes.zone));
+        assertEquals("O___", m1.get(EquineQuestionTypes.plane));
+        assertEquals("XO__", m1.get(EquineQuestionTypes.structure));
+        assertEquals("OX__", m1.get(EquineQuestionTypes.attachment));
+        assertEquals("O___", m1.get(EquineQuestionTypes.zone));
 
         response = new ResponsesPerQuestion("TestUser1", questionsFromFile.get(3),questionsFromFile.get(3).getCorrectAnswer());
         userResponseSet.addResponse(response);
         m1 = userResponseSet.calcKnowledgeEstimateStringsByType(4);
-        assertEquals("___O", m1.get(EquineQuestionTypes.plane));
-        assertEquals("_OXO", m1.get(EquineQuestionTypes.structure));
-        assertEquals("__XO", m1.get(EquineQuestionTypes.attachment));
-        assertEquals("___O", m1.get(EquineQuestionTypes.zone));
+        assertEquals("O___", m1.get(EquineQuestionTypes.plane));
+        assertEquals("OXO_", m1.get(EquineQuestionTypes.structure));
+        assertEquals("OX__", m1.get(EquineQuestionTypes.attachment));
+        assertEquals("O___", m1.get(EquineQuestionTypes.zone));
 
         response = new ResponsesPerQuestion("TestUser1", questionsFromFile.get(6),questionsFromFile.get(6).getCorrectAnswer());
         userResponseSet.addResponse(response);
         m1 = userResponseSet.calcKnowledgeEstimateStringsByType(4);
-        assertEquals("___O", m1.get(EquineQuestionTypes.plane));
-        assertEquals("OXOO", m1.get(EquineQuestionTypes.structure));
-        assertEquals("__XO", m1.get(EquineQuestionTypes.attachment));
-        assertEquals("___O", m1.get(EquineQuestionTypes.zone));
+        assertEquals("O___", m1.get(EquineQuestionTypes.plane));
+        assertEquals("OOXO", m1.get(EquineQuestionTypes.structure));
+        assertEquals("OX__", m1.get(EquineQuestionTypes.attachment));
+        assertEquals("O___", m1.get(EquineQuestionTypes.zone));
 
         response = new ResponsesPerQuestion("TestUser1", questionsFromFile.get(7),questionsFromFile.get(7).getCorrectAnswer());
         userResponseSet.addResponse(response);
         m1 = userResponseSet.calcKnowledgeEstimateStringsByType(4);
-        assertEquals("___O", m1.get(EquineQuestionTypes.plane));
-        assertEquals("XOOO", m1.get(EquineQuestionTypes.structure));
-        assertEquals("__XO", m1.get(EquineQuestionTypes.attachment));
-        assertEquals("___O", m1.get(EquineQuestionTypes.zone));
+        assertEquals("O___", m1.get(EquineQuestionTypes.plane));
+        assertEquals("OOOX", m1.get(EquineQuestionTypes.structure));
+        assertEquals("OX__", m1.get(EquineQuestionTypes.attachment));
+        assertEquals("O___", m1.get(EquineQuestionTypes.zone));
 
         response = new ResponsesPerQuestion("TestUser1", questionsFromFile.get(8),"wrong");
         userResponseSet.addResponse(response);
         m1 = userResponseSet.calcKnowledgeEstimateStringsByType(4);
-        assertEquals("___O", m1.get(EquineQuestionTypes.plane));
-        assertEquals("OOOX", m1.get(EquineQuestionTypes.structure));
-        assertEquals("__XO", m1.get(EquineQuestionTypes.attachment));
-        assertEquals("___O", m1.get(EquineQuestionTypes.zone));
+        assertEquals("O___", m1.get(EquineQuestionTypes.plane));
+        assertEquals("XOOO", m1.get(EquineQuestionTypes.structure));
+        assertEquals("OX__", m1.get(EquineQuestionTypes.attachment));
+        assertEquals("O___", m1.get(EquineQuestionTypes.zone));
 
+    }
+
+    @Test
+    public void calcPercentRightAfterWrongTest() throws IOException{
+        //mastered student, some right
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
+        StudentModelRecord smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
+        StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
+        Assertions.assertEquals(33.33, masteredStudentModel.getUserResponseSet().calcPercentLastAnswerRightAfterWrong());
+
+        //level 4 student, none
+        StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/level4Student.json", StudentModelRecord.class);
+        StudentModel level4Student = smr2.buildStudentModel(myQP);
+        Assertions.assertEquals(0.0, level4Student.getUserResponseSet().calcPercentLastAnswerRightAfterWrong());
+
+        //new student, no responses.
+        List<Question> noQuestions = new ArrayList<Question>();
+        StudentModel student = new StudentModel("student", noQuestions);
+        Assertions.assertEquals(-1.0, student.getUserResponseSet().calcPercentLastAnswerRightAfterWrong());
+    }
+
+    @Test
+    public void calcPercentWrongFirstTimeTest() throws IOException{
+        //mastered student
+        QuestionPool myQP = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/testFullQP.json").getAllQuestions());
+        StudentModelRecord  smr = JsonUtil.fromJsonFile("src/test/resources/author/students/masteredStudent.json", StudentModelRecord.class);
+        StudentModel masteredStudentModel = smr.buildStudentModel(myQP);
+        Assertions.assertEquals(17.65, masteredStudentModel.getUserResponseSet().calcPercentWrongFirstTime());
+
+        //level 4 student
+        StudentModelRecord  smr2 = JsonUtil.fromJsonFile("src/test/resources/author/students/level4Student.json", StudentModelRecord.class);
+        StudentModel level4Student = smr2.buildStudentModel(myQP);
+        Assertions.assertEquals(0.0, level4Student.getUserResponseSet().calcPercentWrongFirstTime());
+
+        //new student
+        List<Question> noQuestions = new ArrayList<Question>();
+        StudentModel student = new StudentModel("student", noQuestions);
+        Assertions.assertEquals(-1.0, student.getUserResponseSet().calcPercentWrongFirstTime());
     }
 
     //TODO: why are these commented out?
@@ -260,10 +300,10 @@ public class UserResponseSetTest {
     public void splitResponsesByTypeTest()throws IOException{
         List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
         List<ImageTaskResponseImp1> responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponseImp1.class);
-        UserResponseSet respSet=new UserResponseSet(responsesFromFile.get(0).getUserId());
+        UserResponseSet respSet=new UserResponseSet(responsesFromFile.get(0).getStudentId());
         List<ResponsesPerQuestion> userResponse =new ArrayList<>();
         for(int i=0;i<questionsFromFile.size();i++){
-            ResponsesPerQuestion response = new ResponsesPerQuestion(responsesFromFile.get(0).getUserId(), questionsFromFile.get(i),responsesFromFile.get(0).getResponseTexts().get(i));
+            ResponsesPerQuestion response = new ResponsesPerQuestion(responsesFromFile.get(0).getStudentId(), questionsFromFile.get(i),responsesFromFile.get(0).getResponseTexts().get(i));
             userResponse.add(response);
         }
         respSet.addAllResponses(userResponse);
@@ -281,10 +321,10 @@ public class UserResponseSetTest {
     public void knowledgeBaseCalcTest()throws IOException{
         List<Question> questionsFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleQuestionPool.json", Question.class);
         List<ImageTaskResponseImp1> responsesFromFile = JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponses.json", ImageTaskResponseImp1.class);
-        UserResponseSet respSet=new UserResponseSet(responsesFromFile.get(0).getUserId());
+        UserResponseSet respSet=new UserResponseSet(responsesFromFile.get(0).getStudentId());
         List<ResponsesPerQuestion> userResponse =new ArrayList<>();
         for(int i=0;i<questionsFromFile.size();i++){
-            ResponsesPerQuestion response = new ResponsesPerQuestion(responsesFromFile.get(0).getUserId(), questionsFromFile.get(i),responsesFromFile.get(0).getResponseTexts().get(i));
+            ResponsesPerQuestion response = new ResponsesPerQuestion(responsesFromFile.get(0).getStudentId(), questionsFromFile.get(i),responsesFromFile.get(0).getResponseTexts().get(i));
             userResponse.add(response);
         }
         respSet.addAllResponses(userResponse);
@@ -295,12 +335,12 @@ public class UserResponseSetTest {
         userResponse=new ArrayList<>();
         respSet=new UserResponseSet("TestUser");
         for(int i=0;i<3;i++){
-            ResponsesPerQuestion response = new ResponsesPerQuestion(responsesFromFile.get(0).getUserId(), questionsFromFile.get(i),responsesFromFile.get(0).getResponseTexts().get(i));
+            ResponsesPerQuestion response = new ResponsesPerQuestion(responsesFromFile.get(0).getStudentId(), questionsFromFile.get(i),responsesFromFile.get(0).getResponseTexts().get(i));
             userResponse.add(response);
         }
-        ResponsesPerQuestion response = new ResponsesPerQuestion(responsesFromFile.get(0).getUserId(), questionsFromFile.get(3),"Wrong");
+        ResponsesPerQuestion response = new ResponsesPerQuestion(responsesFromFile.get(0).getStudentId(), questionsFromFile.get(3),"Wrong");
         userResponse.add(response);
-        response = new ResponsesPerQuestion(responsesFromFile.get(0).getUserId(), questionsFromFile.get(4),"Wrong");
+        response = new ResponsesPerQuestion(responsesFromFile.get(0).getStudentId(), questionsFromFile.get(4),"Wrong");
         userResponse.add(response);
 
         respSet.addAllResponses(userResponse);

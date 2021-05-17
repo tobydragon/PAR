@@ -1,11 +1,8 @@
 package edu.ithaca.dragon.par.authorModel;
 
 import edu.ithaca.dragon.par.domainModel.Question;
-import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.io.ImageTask;
 import edu.ithaca.dragon.par.studentModel.QuestionCount;
-import edu.ithaca.dragon.par.studentModel.UserQuestionSet;
-import org.apache.catalina.User;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -16,7 +13,7 @@ public class AuthorTaskGenerator {
 
     public static ImageTask makeTaskTemplate(AuthorModel authorModel){
         if (authorModel.getQuestionCountList().size()<1){
-            return new ImageTask("noMoreQuestions", new ArrayList<>());//TODO:NEED LINE
+            return new ImageTask("noMoreQuestions", new ArrayList<>(), "None");//TODO:NEED LINE
         }
 
         QuestionCount initialQuestion = getInitialQuestion(authorModel.getQuestionCountList());
@@ -25,10 +22,7 @@ public class AuthorTaskGenerator {
         for (int i = 0; i < imageTaskList.size(); i++){
             forTask.add(imageTaskList.get(i).getQuestion());
         }
-        ImageTask task = new ImageTask(imageTaskList.get(0).getQuestion().getImageUrl(), forTask);
-        for (int i = 0; i < forTask.size(); i++){
-            authorModel.increaseTimesSeen(forTask.get(i).getId());
-        }
+        ImageTask task = new ImageTask(imageTaskList.get(0).getQuestion().getImageUrl(), forTask, "None");
         return task;
     }
 
@@ -52,7 +46,7 @@ public class AuthorTaskGenerator {
                     forTask.add(questionList.get(k));
                 }
             }
-            ImageTask task = new ImageTask(currUrl, forTask);
+            ImageTask task = new ImageTask(currUrl, forTask, "None");
             authoredQuestions.add(task);
         }
         return authoredQuestions;
@@ -62,7 +56,7 @@ public class AuthorTaskGenerator {
     public static QuestionCount getInitialQuestion(List<QuestionCount> questionCountList){
         int index = 0;
         for (int i = 0; i < questionCountList.size(); i++){
-            if (questionCountList.get(i).getTimesSeen()<questionCountList.get(index).getTimesSeen()){
+            if (questionCountList.get(i).getTimesAttempted()<questionCountList.get(index).getTimesAttempted()){
                 index = i;
             }
         }

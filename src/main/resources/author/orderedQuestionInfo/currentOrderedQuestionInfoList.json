@@ -1,0 +1,373 @@
+[ {
+  "questionID" : "614-plane-./images/3CTransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "617-structure0-./images/3CTransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "620-structure1-./images/3CTransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "623-structure2-./images/3CTransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "626-structure3-./images/3CTransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "627-zone-./images/3CTransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "628-plane-./images/Zone3Longitudinal.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "631-structure0-./images/Zone3Longitudinal.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "634-structure1-./images/Zone3Longitudinal.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "637-structure2-./images/Zone3Longitudinal.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "641-zone-./images/Zone3Longitudinal.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "656-plane-./images/Annotated3ATrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "659-structure0-./images/Annotated3ATrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "662-structure1-./images/Annotated3ATrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "665-structure2-./images/Annotated3ATrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "668-structure3-./images/Annotated3ATrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "669-zone-./images/Annotated3ATrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "670-plane-./images/ExtraAnnotated1ATrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "673-structure0-./images/ExtraAnnotated1ATrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "676-structure1-./images/ExtraAnnotated1ATrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "679-structure2-./images/ExtraAnnotated1ATrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "682-structure3-./images/ExtraAnnotated1ATrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "683-zone-./images/ExtraAnnotated1ATrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "684-plane-./images/Annotated2ATrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "687-structure0-./images/Annotated2ATrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "690-structure1-./images/Annotated2ATrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "693-structure2-./images/Annotated2ATrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "696-structure3-./images/Annotated2ATrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "697-zone-./images/Annotated2ATrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "698-plane-./images/Annotated3BTrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "701-structure0-./images/Annotated3BTrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "704-structure1-./images/Annotated3BTrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "707-structure2-./images/Annotated3BTrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "710-structure3-./images/Annotated3BTrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "711-zone-./images/Annotated3BTrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "712-plane-./images/Annotated3CTrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "715-structure0-./images/Annotated3CTrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "718-structure1-./images/Annotated3CTrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "721-structure2-./images/Annotated3CTrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "724-structure3-./images/Annotated3CTrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "725-zone-./images/Annotated3CTrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "726-plane-./images/1BTransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "729-structure0-./images/1BTransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "732-structure1-./images/1BTransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "735-structure2-./images/1BTransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "738-structure3-./images/1BTransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "739-zone-./images/1BTransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "740-plane-./images/AlternativeZone2Long.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "743-structure0-./images/AlternativeZone2Long.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "746-structure1-./images/AlternativeZone2Long.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "749-structure2-./images/AlternativeZone2Long.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "752-structure3-./images/AlternativeZone2Long.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "753-zone-./images/AlternativeZone2Long.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "754-plane-./images/Annotated1ATrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "757-structure0-./images/Annotated1ATrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "760-structure1-./images/Annotated1ATrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "763-structure2-./images/Annotated1ATrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "766-structure3-./images/Annotated1ATrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "767-zone-./images/Annotated1ATrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "768-plane-./images/1ATransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "771-structure0-./images/1ATransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "774-structure1-./images/1ATransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "777-structure2-./images/1ATransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "780-structure3-./images/1ATransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "781-zone-./images/1ATransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "782-plane-./images/Annotated3Long.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "785-structure0-./images/Annotated3Long.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "788-structure1-./images/Annotated3Long.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "791-structure2-./images/Annotated3Long.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "795-zone-./images/Annotated3Long.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "796-plane-./images/2BTransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "799-structure0-./images/2BTransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "802-structure1-./images/2BTransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "805-structure2-./images/2BTransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "808-structure3-./images/2BTransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "809-zone-./images/2BTransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "810-plane-./images/Annotated2BTrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "813-structure0-./images/Annotated2BTrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "816-structure1-./images/Annotated2BTrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "819-structure2-./images/Annotated2BTrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "822-structure3-./images/Annotated2BTrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "823-zone-./images/Annotated2BTrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "824-plane-./images/3ATransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "827-structure0-./images/3ATransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "830-structure1-./images/3ATransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "833-structure2-./images/3ATransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "836-structure3-./images/3ATransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "837-zone-./images/3ATransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "838-plane-./images/Annotated2Long.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "841-structure0-./images/Annotated2Long.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "844-structure1-./images/Annotated2Long.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "847-structure2-./images/Annotated2Long.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "850-structure3-./images/Annotated2Long.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "851-zone-./images/Annotated2Long.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "852-plane-./images/2ATransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "855-structure0-./images/2ATransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "858-structure1-./images/2ATransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "861-structure2-./images/2ATransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "864-structure3-./images/2ATransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "865-zone-./images/2ATransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "866-plane-./images/3BTransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "869-structure0-./images/3BTransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "872-structure1-./images/3BTransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "875-structure2-./images/3BTransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "878-structure3-./images/3BTransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "879-zone-./images/3BTransverse.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "880-plane-./images/AlternativeZone1Long.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "883-structure0-./images/AlternativeZone1Long.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "886-structure1-./images/AlternativeZone1Long.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "889-structure2-./images/AlternativeZone1Long.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "892-structure3-./images/AlternativeZone1Long.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "893-zone-./images/AlternativeZone1Long.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "600-plane-./images/Annotated1BTrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "603-structure0-./images/Annotated1BTrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "606-structure1-./images/Annotated1BTrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "609-structure2-./images/Annotated1BTrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "612-structure3-./images/Annotated1BTrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "613-zone-./images/Annotated1BTrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "642-plane-./images/AddlAnnotated2ATrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "645-structure0-./images/AddlAnnotated2ATrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "648-structure1-./images/AddlAnnotated2ATrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "651-structure2-./images/AddlAnnotated2ATrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "654-structure3-./images/AddlAnnotated2ATrans.jpg",
+  "includesFollowup" : true
+}, {
+  "questionID" : "655-zone-./images/AddlAnnotated2ATrans.jpg",
+  "includesFollowup" : true
+} ]

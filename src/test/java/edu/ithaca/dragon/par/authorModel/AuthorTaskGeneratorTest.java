@@ -1,28 +1,32 @@
 package edu.ithaca.dragon.par.authorModel;
 
 import edu.ithaca.dragon.par.domainModel.Question;
-import edu.ithaca.dragon.par.domainModel.QuestionPool;
 import edu.ithaca.dragon.par.io.ImageTask;
-import edu.ithaca.dragon.par.io.JsonQuestionPoolDatastore;
+import edu.ithaca.dragon.par.io.JsonAuthorDatastore;
 import edu.ithaca.dragon.par.studentModel.QuestionCount;
+import edu.ithaca.dragon.util.JsonIoHelper;
+import edu.ithaca.dragon.util.JsonIoHelperSpring;
 import edu.ithaca.dragon.util.JsonUtil;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 public class AuthorTaskGeneratorTest {
 
     @Test
-    public void nextImageTaskTemplateTest() throws IOException{
+    public void makeImageTaskTemplateTest() throws IOException{
         List<Question> questions = JsonUtil.listFromJsonFile("src/test/resources/author/DemoQuestionPoolTemplate.json", Question.class);
         AuthorModel authorModel = new AuthorModel("user1", QuestionCount.questionToQuestionCount(questions));
         ImageTask im = AuthorTaskGenerator.makeTaskTemplate(authorModel);
         ImageTask intendedFirstTask = JsonUtil.fromJsonFile("src/test/resources/author/nextImageTaskTemplateTest1.json", ImageTask.class);
         assertEquals(intendedFirstTask, im);
+
+        for (int i = 0; i < intendedFirstTask.getTaskQuestions().size(); i++){
+            authorModel.increaseTimesAttempted(intendedFirstTask.getTaskQuestions().get(i).getId());
+        }
 
         ImageTask im2 = AuthorTaskGenerator.makeTaskTemplate(authorModel);
         ImageTask intendedSecondTask = JsonUtil.fromJsonFile("src/test/resources/author/nextImageTaskTemplateTest2.json", ImageTask.class);
@@ -37,18 +41,18 @@ public class AuthorTaskGeneratorTest {
         QuestionCount firstQuestion = AuthorTaskGenerator.getInitialQuestion(questionCountList);
         assertEquals("./images/demoEquine14.jpg", firstQuestion.getQuestion().getImageUrl());
         for (int i = 0; i < 5; i++) {
-            questionCountList.get(i).setTimesSeen(1);
+            questionCountList.get(i).setTimesAttempted(1);
         }
         QuestionCount secondQuestion = AuthorTaskGenerator.getInitialQuestion(questionCountList);
         assertEquals("./images/demoEquine02.jpg", secondQuestion.getQuestion().getImageUrl());
         for (int i = 5; i < 11; i++) {
-            questionCountList.get(i).setTimesSeen(1);
+            questionCountList.get(i).setTimesAttempted(1);
         }
         QuestionCount thirdQuestion = AuthorTaskGenerator.getInitialQuestion(questionCountList);
         assertEquals("./images/demoEquine13.jpg", thirdQuestion.getQuestion().getImageUrl());
 
         for (int i = 0; i < questionCountList.size(); i++){
-            questionCountList.get(i).setTimesSeen(1);
+            questionCountList.get(i).setTimesAttempted(1);
         }
         QuestionCount fourthQuestion = AuthorTaskGenerator.getInitialQuestion(questionCountList);
         assertEquals("./images/demoEquine14.jpg", fourthQuestion.getQuestion().getImageUrl());

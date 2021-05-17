@@ -21,13 +21,13 @@ public class QuestionCountRecordTest {
         QuestionCount qc1 = new QuestionCount(questionsFromFile.get(0));
         QuestionCountRecord qc1Record = new QuestionCountRecord(qc1);
         assertEquals(qc1.getQuestion().getId(), qc1Record.getQuestionId());
-        assertEquals(qc1.getTimesSeen(), qc1Record.getTimesSeen());
+        assertEquals(qc1.getTimesAttempted(), qc1Record.getTimesSeen());
         assertEquals(0, qc1Record.getFollowupCountRecords().size());
 
         QuestionCount qc2 = new QuestionCount(questionsFromFile.get(1));
         QuestionCountRecord qc2Record = new QuestionCountRecord(qc2);
         assertEquals(qc2.getQuestion().getId(), qc2Record.getQuestionId());
-        assertEquals(qc2.getTimesSeen(), qc2Record.getTimesSeen());
+        assertEquals(qc2.getTimesAttempted(), qc2Record.getTimesSeen());
         assertEquals(3, qc2Record.getFollowupCountRecords().size());
         assertEquals(0, qc2Record.getFollowupCountRecords().get(0).getFollowupCountRecords().size());
         assertEquals(0, qc2Record.getFollowupCountRecords().get(1).getFollowupCountRecords().size());
@@ -41,14 +41,14 @@ public class QuestionCountRecordTest {
         QuestionCountRecord qc1Record = new QuestionCountRecord(qc1);
         QuestionCount fromRecord = qc1Record.buildQuestionCount(myQP);
         assertEquals("plane./images/demoEquine14.jpg", fromRecord.getQuestion().getId());
-        assertEquals(0, fromRecord.getTimesSeen());
+        assertEquals(0, fromRecord.getTimesAttempted());
         assertEquals(0, fromRecord.getFollowupCounts().size());
 
         QuestionCount qc2 = new QuestionCount(myQP.getAllQuestions().get(1));;
         QuestionCountRecord qc2Record = new QuestionCountRecord(qc2);
         fromRecord = qc2Record.buildQuestionCount(myQP);
         assertEquals("structure0./images/demoEquine14.jpg", fromRecord.getQuestion().getId());
-        assertEquals(0, fromRecord.getTimesSeen());
+        assertEquals(0, fromRecord.getTimesAttempted());
         assertEquals(3, fromRecord.getFollowupCounts().size());
         assertEquals(0, fromRecord.getFollowupCounts().get(0).getFollowupCounts().size());
         assertEquals(0, fromRecord.getFollowupCounts().get(1).getFollowupCounts().size());

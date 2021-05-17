@@ -21,30 +21,38 @@ public class LevelTaskGenerator implements TaskGenerator {
     @Override
     public ImageTask makeTask(StudentModel studentModel, int questionCountPerTypeForAnalysis) {
         int studentLevel = calcLevel(studentModel.calcKnowledgeEstimateByType(questionCountPerTypeForAnalysis));
-        return makeTaskGivenLevel(studentModel, levelToTypesMap.get(studentLevel), studentLevel);
+        ImageTask im = makeTaskGivenLevel(studentModel, levelToTypesMap.get(studentLevel), studentLevel);
+        return im;
     }
 
     public static ImageTask makeTaskGivenLevel(StudentModel studentModel, List<String> levelTypes, int level) {
         Question initialQuestion= leastSeenQuestionWithTypesNeeded(levelTypes,studentModel);
         List<Question> questionList = QuestionPool.getTopLevelQuestionsFromUrl(studentModel.getUserQuestionSet().getAllQuestions(), initialQuestion.getImageUrl());
         questionList = filterQuestions(level, questionList);
-        ImageTask imageTask = new ImageTask(initialQuestion.getImageUrl(), questionList);
+        ImageTask imageTask = new ImageTask(initialQuestion.getImageUrl(), questionList, "None");
 
-        studentModel.getUserQuestionSet().increaseTimesSeenAllQuestions(questionList);
         return imageTask;
     }
 
     public static Question leastSeenQuestionWithTypesNeeded(List<String> typesNeeded, StudentModel studentModel){
         Map<String,List<QuestionCount>> questionTypesListMap = studentModel.questionCountsByTypeMap();
         List<QuestionCount> typeQuestions=questionTypesListMap.get(typesNeeded.get(0));
-
+        //if the questionType we're basing our selection on is a childType, the list of questions we select from is their parentType (that has children)
+        if(EquineQuestionTypes.isChildQuestionType(typesNeeded.get(0))){
+            typeQuestions = EquineQuestionTypes.getParentQuestionCountsWithChildren(questionTypesListMap.get("structure"));
+        }
         QuestionCount leastSeenWithTypesNeeded = null;
+        //for every questionCount object in the list
         for(QuestionCount questionCount : typeQuestions){
-            if(checkForAllNeededTypesOfQuestions(typesNeeded,studentModel,questionCount.getQuestion())) {
+            if(checkRelatedImageHasAllNeededTypesOfQuestions(typesNeeded,studentModel,questionCount.getQuestion())) {
+
                 if (leastSeenWithTypesNeeded == null  ){
+                    //set leastSeenWithTypesNeeded to the current QuestionCount
                     leastSeenWithTypesNeeded = questionCount;
                 }
-                else if(questionCount.getTimesSeen() < leastSeenWithTypesNeeded.getTimesSeen()) {
+                //if leastSeenWithTypesNeeded hasn't been set to a questionCount yet and the current's timesAttempted is less than leastSeenWithTypesNeeded
+                else if(questionCount.getTimesAttempted() < leastSeenWithTypesNeeded.getTimesAttempted()) {
+                    //set leastSeenWithTypesNeeded to the current QuestionCount
                     leastSeenWithTypesNeeded = questionCount;
                 }
             }
@@ -57,9 +65,9 @@ public class LevelTaskGenerator implements TaskGenerator {
         }
     }
 
-    public static boolean checkForAllNeededTypesOfQuestions(List<String> types, StudentModel studentModel, Question question){
+    public static boolean checkRelatedImageHasAllNeededTypesOfQuestions(List<String> types, StudentModel studentModel, Question question){
         Set<String> typesPresent=new LinkedHashSet<>();
-        List<Question> questionList =QuestionPool.getQuestionsWithUrl(studentModel.getUserQuestionSet().getAllQuestions(), question.getImageUrl());
+        List<Question> questionList = QuestionPool.getQuestionsWithUrl(studentModel.getUserQuestionSet().getAllQuestions(), question.getImageUrl());
         for(Question currQuestion: questionList){
             typesPresent.add(currQuestion.getType());
         }
@@ -73,24 +81,41 @@ public class LevelTaskGenerator implements TaskGenerator {
 
     public static int calcLevel(Map<String, Double> scoresPerType) {
         List<Double> orderedScores = orderedScores(scoresPerType);
-        int level = 1;//sets score to one
 
-        if (orderedScores.get(0) < 60)
-            return level;//if user has score less than 75 on plane , returns level 1
+        if (orderedScores.get(0) == 100 && orderedScores.get(1)==100 && orderedScores.get(2)==100 && orderedScores.get(3) == 100){ //all 100
+            return 8;
+        }
+        else if (orderedScores.get(0) == 100 && orderedScores.get(1)==100 && orderedScores.get(2)==100 &&orderedScores.get(3)>50){ //all 100 but zone over 50
+            return 7;
+        }
+        else{
+            return calcLevelAttachment(scoresPerType);
+        }
+    }
 
+    public static int calcLevelAttachment(Map<String, Double> scoresPerType) {
+        List<Double> orderedScores = orderedScores(scoresPerType);
+
+        if (orderedScores.get(0) == 100 && orderedScores.get(1) == 100 && orderedScores.get(2) == 100) { //all 100
+            return 6;
+        }
+        else if (orderedScores.get(0) == 100 && orderedScores.get(1) == 100 && orderedScores.get(2) > 50) { //above 50 on attachment
+            return 5;
+        }
+        else if (orderedScores.get(0) == 100 && orderedScores.get(1) == 100) { //100 on structure
+            return 4;
+        }
+        else if (orderedScores.get(0) == 100 && orderedScores.get(1) > 50 && orderedScores.get(1) < 100) { //100 on plane, between 50 and 100 on structure
+            return 3;
+        }
+        else if (orderedScores.get(0) > 50) { //over 50 on plane
+            return 2;
+        }
+        else if (orderedScores.get(0) <= 50) { //less than 50 on plane
+            return 1;
+        }
         else {
-            for(int i = 0; i < orderedScores.size()-1; i++) {
-
-                if (orderedScores.get(i) >= 60 && orderedScores.get(i) < 100) {//if score is less than 100 and greater than 74, adds a level
-                    level = level + 1;
-                    return level;//returns level in this case
-                }
-
-                else if (orderedScores.get(i) == 100)
-                    level = level + 2;//if score is 100, adds 2 to level/skips a level
-            }
-
-            return level;
+            throw new RuntimeException("no valid level for data");
         }
     }
 
@@ -155,4 +180,16 @@ public class LevelTaskGenerator implements TaskGenerator {
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof LevelTaskGenerator)) return false;
+        LevelTaskGenerator that = (LevelTaskGenerator) o;
+        return Objects.equals(levelToTypesMap, that.levelToTypesMap);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(levelToTypesMap);
+    }
 }

@@ -50,43 +50,55 @@ public class JsonStudentModelDatastoreTest {
         //load a user that already has a file
         StudentModel studentModel1 = jsonStudentModelDatastore.getOrCreateStudentModel("TestUser100");
         assertEquals("TestUser100", studentModel1.getUserId());
-        assertEquals(2, studentModel1.getSeenQuestionCount());
+        assertEquals(2, studentModel1.getAttemptedQuestionCount());
         assertEquals(1, studentModel1.getResponseCount());
 
         //load a user that does not have a file
         StudentModel studentModel2 = jsonStudentModelDatastore.getOrCreateStudentModel("NewUser1");
         assertEquals("NewUser1", studentModel2.getUserId());
-        assertEquals(0, studentModel2.getSeenQuestionCount());
+        assertEquals(0, studentModel2.getAttemptedQuestionCount());
 
         //a file should not have have been written until an imageTask is submitted
         assertFalse(Files.exists(tempDir.resolve("NewUser1.json")));
-        taskGenerator.makeTask(studentModel2, 4);
-        assertEquals(1, studentModel2.getSeenQuestionCount());
-        jsonStudentModelDatastore.submitImageTaskResponse(studentModel2.getUserId(), new ImageTaskResponseOOP("NewUser1", Arrays.asList("plane./images/demoEquine04.jpg"), Arrays.asList("longitudinal")));
+        ImageTask it = taskGenerator.makeTask(studentModel2, 4);
+
+        for(Question currQ: it.getTaskQuestions()) {
+            studentModel2.increaseTimesAttempted(currQ.getId());
+        }
+
+        assertEquals(1, studentModel2.getAttemptedQuestionCount());
+        jsonStudentModelDatastore.submitImageTaskResponse(studentModel2.getUserId(), new ImageTaskResponseOOP("NewUser1", Arrays.asList("plane./images/demoEquine04.jpg"), Arrays.asList("longitudinal")), 4);
         assertEquals(1, studentModel2.getResponseCount());
         //a file should now been written
         assertTrue(Files.exists(tempDir.resolve("NewUser1.json")));
 
         //make a change to a user, log them out, then reload them to see if changes were saved
-        taskGenerator.makeTask(studentModel1, 4);
-        assertEquals(2, studentModel1.getSeenQuestionCount());
-        jsonStudentModelDatastore.submitImageTaskResponse(studentModel1.getUserId(), new ImageTaskResponseOOP("TestUser100", Arrays.asList("plane./images/demoEquine10.jpg"), Arrays.asList("longitudinal")));
+        it = taskGenerator.makeTask(studentModel1, 4);
+
+        for(Question currQ: it.getTaskQuestions()) {
+            studentModel1.increaseTimesAttempted(currQ.getId());
+        }
+
+        assertEquals(2, studentModel1.getAttemptedQuestionCount());
+        jsonStudentModelDatastore.submitImageTaskResponse(studentModel1.getUserId(), new ImageTaskResponseOOP("TestUser100", Arrays.asList("plane./images/demoEquine10.jpg"), Arrays.asList("longitudinal")), 4);
 
         assertEquals(2, studentModel1.getResponseCount());
 
         jsonStudentModelDatastore.logout("TestUser100");
         StudentModel studentModel3 = jsonStudentModelDatastore.getOrCreateStudentModel("TestUser100");
-        assertEquals(2, studentModel3.getSeenQuestionCount());
+        assertEquals(2, studentModel3.getAttemptedQuestionCount());
         assertEquals(2, studentModel3.getResponseCount());
     }
 
     @Test
     public void getAllSavedStudentIdsTest() throws IOException{
         List<String> usernames = JsonStudentModelDatastore.getAllSavedStudentIds("src/test/resources/author/students");
-        assertEquals(4, usernames.size());
+        assertEquals(13, usernames.size());
         assertTrue(usernames.contains("TestUser100"));
         assertTrue(usernames.contains("TestUser101"));
         assertTrue(usernames.contains("TestUser102"));
+        assertTrue(usernames.contains("buckmank"));
+        assertTrue(usernames.contains("PSaASTestUser"));
     }
 
     @Test
