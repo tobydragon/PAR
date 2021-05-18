@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -95,10 +96,16 @@ public class ParStudentAndAuthorRestController {
         return imageTask;
     }
 
+//    @PostMapping("/updateTimesAttempted")
+//    public void updateTimesAttempted(@RequestParam String userId, @RequestParam List<String> questionIds) throws IOException{
+//        parServer.updateTimesAttempted(userId, questionIds);
+//        logger.info("Task questions marked as seen by user: " + userId);
+//    }
+
     @PostMapping("/updateTimesAttempted")
-    public void updateTimesAttempted(@RequestParam String userId, @RequestParam List<String> questionIds) throws IOException{
-        parServer.updateTimesAttempted(userId, questionIds);
-        logger.info("Task questions marked as seen by user: " + userId);
+    public void updateTimesAttempted(@RequestBody QuestionSeenJson questionSeenJson) throws IOException{
+        parServer.updateTimesAttempted(questionSeenJson.userId, Arrays.asList(questionSeenJson.questionId));
+        logger.info("UpdateTimesAttempted:" + questionSeenJson);
     }
 
     @PostMapping("/recordResponse")
