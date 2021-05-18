@@ -489,8 +489,8 @@ public class StudentDataAnalyzerTest {
         StudentData studData2 = new StudentData(stud2);
         sda.addStudentData(studData2);
 
-        String fileName = "studentDataYay.csv";
-        sda.writeStudentDataFile(fileName);
+//        String fileName = "studentDataYay.csv";
+//        sda.writeStudentDataFile(fileName);
     }
 
     @Test
