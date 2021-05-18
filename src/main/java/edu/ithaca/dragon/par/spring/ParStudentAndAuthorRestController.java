@@ -60,22 +60,6 @@ public class ParStudentAndAuthorRestController {
         return "Greetings from PAR API!";
     }
 
-    @GetMapping("/getPageSettings")
-    public PageSettings getPageSettings(@RequestParam String userId) throws IOException  {
-        if(userId.equals("author")){
-            return jsonIoUtil.fromReadOnlyFile("author/AuthorPageSettingsExample.json", PageSettings.class);
-        }
-        return jsonIoUtil.fromReadOnlyFile("author/PageSettingsExample.json", PageSettings.class);
-    }
-
-    @GetMapping("/getImageTaskSettings")
-    public ImageTaskSettings getImageTaskSettings(@RequestParam String userId) throws IOException  {
-        if(userId.equals("author")){
-            return jsonIoUtil.fromReadOnlyFile("author/AuthorSettingsExample.json", ImageTaskSettings.class);
-        }
-        return jsonIoUtil.fromReadOnlyFile("author/SettingsExample.json", ImageTaskSettings.class);
-    }
-
     @GetMapping("/nextImageTask")
     public ImageTask nextImageTask(@RequestParam String userId) throws IOException {
         logger.info("nextImageTask for:" + userId);
@@ -96,14 +80,9 @@ public class ParStudentAndAuthorRestController {
         return imageTask;
     }
 
-//    @PostMapping("/updateTimesAttempted")
-//    public void updateTimesAttempted(@RequestParam String userId, @RequestParam List<String> questionIds) throws IOException{
-//        parServer.updateTimesAttempted(userId, questionIds);
-//        logger.info("Task questions marked as seen by user: " + userId);
-//    }
-
     @PostMapping("/updateTimesAttempted")
     public void updateTimesAttempted(@RequestBody QuestionSeenJson questionSeenJson) throws IOException{
+        //TODO: shouldn't take a list, you'll get these one at a time
         parServer.updateTimesAttempted(questionSeenJson.userId, Arrays.asList(questionSeenJson.questionId));
         logger.info("UpdateTimesAttempted:" + questionSeenJson);
     }
