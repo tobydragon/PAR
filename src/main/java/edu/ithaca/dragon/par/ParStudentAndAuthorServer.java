@@ -32,7 +32,6 @@ public class ParStudentAndAuthorServer {
             this.studentModelDatastore = studentModelDatastore;
             authorServer = new AuthorServer(authorDatastore);
             this.cohortDatastore = cohortDatastore;
-        System.out.println();
     }
 
     //----------- Student methods  --------------//

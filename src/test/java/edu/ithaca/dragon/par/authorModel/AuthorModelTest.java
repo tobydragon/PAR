@@ -65,7 +65,7 @@ public class AuthorModelTest {
 
         assertEquals(0, authorModel.questionCountList.get(1).getFollowupCounts().get(0).timesAttempted);
         authorModel.increaseTimesAttempted("AttachQ1");
-        System.out.println(authorModel.questionCountList.get(1).getFollowupCounts().get(0).getQuestion().getId());
+//        System.out.println(authorModel.questionCountList.get(1).getFollowupCounts().get(0).getQuestion().getId());
         assertEquals(1, authorModel.questionCountList.get(1).getFollowupCounts().get(0).timesAttempted);
         authorModel.increaseTimesAttempted("AttachQ1");
         assertEquals(2, authorModel.questionCountList.get(1).getFollowupCounts().get(0).timesAttempted);
