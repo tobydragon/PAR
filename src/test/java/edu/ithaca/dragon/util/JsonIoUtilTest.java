@@ -30,7 +30,7 @@ public class JsonIoUtilTest {
         ImageTaskResponseOOP aCurrentResponse = new ImageTaskResponseOOP("resp1", Arrays.asList("id1", "id2"), Arrays.asList("ans1", "ans2"));
         new JsonIoUtil(new JsonIoHelperDefault()).toFile(aCurrentResponsePath.toString(), aCurrentResponse);
 
-        String aDefaultResponsePath = "src/test/resources/author/SampleResponse.json";
+        String aDefaultResponsePath = "src/test/resources/author/responses/SampleResponse.json";
         ImageTaskResponseOOP aDefaultResponse = new JsonIoUtil(new JsonIoHelperDefault()).fromReadOnlyFile(aDefaultResponsePath, ImageTaskResponseOOP.class);
 
         Path aMissingCurrentResponsePath = tempDir.resolve("aMissingResponse.json");

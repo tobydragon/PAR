@@ -23,12 +23,12 @@ class StudentReportCreatorTest {
 
     @Test
     public void toAndFromJsonTest() throws IOException {
-        List<ResponsesPerQuestion> responsesPerQuestions= JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponsePerQuestionSet.json",ResponsesPerQuestion.class);
+        List<ResponsesPerQuestion> responsesPerQuestions= JsonUtil.listFromJsonFile("src/test/resources/author/responses/SampleResponsePerQuestionSet.json",ResponsesPerQuestion.class);
         UserResponseSet userResponseSet=new UserResponseSet(responsesPerQuestions.get(0).getUserId());
         for(ResponsesPerQuestion responsesPerQuestion:responsesPerQuestions){
             userResponseSet.addResponse(responsesPerQuestion);
         }
-        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/SampleQuestionPoolWithAttachment.json").getAllQuestions());
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/questionPools/SampleQuestionPool.json").getAllQuestions());
         StudentModel studentModel1 = new StudentModel("TestUser-A", questionPool.getAllQuestions());
         StudentModel studentModel2 = new StudentModel("TestUser-B", questionPool.getAllQuestions());
         StudentModel studentModel3 = new StudentModel("TestUser-C", questionPool.getAllQuestions());
@@ -56,7 +56,7 @@ class StudentReportCreatorTest {
 
     @Test
     public void allResponsesPerTypeTest() throws IOException{
-        List<ResponsesPerQuestion> responsesPerQuestions=JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponsePerQuestionSet.json",ResponsesPerQuestion.class);
+        List<ResponsesPerQuestion> responsesPerQuestions=JsonUtil.listFromJsonFile("src/test/resources/author/responses/SampleResponsePerQuestionSet.json",ResponsesPerQuestion.class);
         UserResponseSet userResponseSet=new UserResponseSet(responsesPerQuestions.get(0).getUserId());
 
         for(ResponsesPerQuestion responsesPerQuestion:responsesPerQuestions){
@@ -75,21 +75,21 @@ class StudentReportCreatorTest {
 
     @Test
     public void numberOfQuestionsPerTypeTest()throws IOException{
-        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/DemoQuestionPoolFewFollowups.json").getAllQuestions());
+        QuestionPool questionPool = new QuestionPool(new JsonQuestionPoolDatastore("src/test/resources/author/questionPools/DemoQuestionPoolFollowup.json").getAllQuestions());
         StudentModel studentModel = new StudentModel("TestUser1", questionPool.getAllQuestions());
         Map<String, List<QuestionCount>> questionTypesListMap=studentModel.questionCountsByTypeMap();
         Map<String, Integer> numberOfQuestionsPerType=StudentReportCreator.numberOfQuestionsPerType(questionTypesListMap);
 
-        assertEquals(13,numberOfQuestionsPerType.get(EquineQuestionTypes.plane.toString()).intValue());
+        assertEquals(15,numberOfQuestionsPerType.get(EquineQuestionTypes.plane.toString()).intValue());
         assertEquals(27,numberOfQuestionsPerType.get(EquineQuestionTypes.structure.toString()).intValue());
-        assertEquals(7,numberOfQuestionsPerType.get(EquineQuestionTypes.attachment.toString()).intValue());
+        assertEquals(11,numberOfQuestionsPerType.get(EquineQuestionTypes.attachment.toString()).intValue());
         assertEquals(10,numberOfQuestionsPerType.get(EquineQuestionTypes.zone.toString()).intValue());
 
     }
 
     @Test
     public void numberOfQuestionsAnsweredByTypeTest()throws IOException{
-        List<ResponsesPerQuestion> responsesPerQuestions=JsonUtil.listFromJsonFile("src/test/resources/author/SampleResponsePerQuestionSet.json",ResponsesPerQuestion.class);
+        List<ResponsesPerQuestion> responsesPerQuestions=JsonUtil.listFromJsonFile("src/test/resources/author/responses/SampleResponsePerQuestionSet.json",ResponsesPerQuestion.class);
         UserResponseSet userResponseSet=new UserResponseSet(responsesPerQuestions.get(0).getUserId());
 
         for(ResponsesPerQuestion responsesPerQuestion:responsesPerQuestions){

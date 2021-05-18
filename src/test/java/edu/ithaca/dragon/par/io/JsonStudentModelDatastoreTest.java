@@ -28,30 +28,30 @@ public class JsonStudentModelDatastoreTest {
 
     @Test
     public void loadIndividualStudentTest() throws IOException{
-        StudentModelDatastore studentModelDatastore = new JsonStudentModelDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json", "src/test/resources/author/students");
+        StudentModelDatastore studentModelDatastore = new JsonStudentModelDatastore("src/test/resources/author/questionPools/testFullQP.json", "src/test/resources/author/students");
 
         //load an existing file and make sure it exists
-        StudentModel testUser100 = studentModelDatastore.getStudentModel("TestUser100");
-        assertEquals("TestUser100", testUser100.getUserId());
+        StudentModel student = studentModelDatastore.getStudentModel("PSaASTestUser");
+        assertEquals("PSaASTestUser", student.getUserId());
 
         //try to load in a non-existing file
-        StudentModel testUser103 = studentModelDatastore.getStudentModel("TestUser103");
-        assertEquals("TestUser103", testUser103.getUserId());
+        StudentModel uhh = studentModelDatastore.getStudentModel("uhh");
+        assertEquals("uhh", uhh.getUserId());
     }
 
     @Test
     public void getOrCreateStudentModelTest(@TempDir Path tempDir) throws IOException{
         TaskGenerator taskGenerator = new LevelTaskGenerator(EquineQuestionTypes.makeLevelToTypesMap());
 
-        JsonStudentModelDatastore jsonStudentModelDatastore = new JsonStudentModelDatastore("src/test/resources/author/DemoQuestionPoolFollowup.json", tempDir.toString());
-        Path newStudentPath = tempDir.resolve("TestUser100.json");
-        Files.copy(Paths.get("src/test/resources/author/students/TestUser100.json"), newStudentPath, StandardCopyOption.REPLACE_EXISTING);
+        JsonStudentModelDatastore jsonStudentModelDatastore = new JsonStudentModelDatastore("src/test/resources/author/questionPools/testFullQP.json", tempDir.toString());
+        Path newStudentPath = tempDir.resolve("buckmank.json");
+        Files.copy(Paths.get("src/test/resources/author/students/buckmank.json"), newStudentPath, StandardCopyOption.REPLACE_EXISTING);
 
         //load a user that already has a file
-        StudentModel studentModel1 = jsonStudentModelDatastore.getOrCreateStudentModel("TestUser100");
-        assertEquals("TestUser100", studentModel1.getUserId());
-        assertEquals(2, studentModel1.getAttemptedQuestionCount());
-        assertEquals(1, studentModel1.getResponseCount());
+        StudentModel studentModel1 = jsonStudentModelDatastore.getOrCreateStudentModel("buckmank");
+        assertEquals("buckmank", studentModel1.getUserId());
+        assertEquals(20, studentModel1.getAttemptedQuestionCount());
+        assertEquals(20, studentModel1.getResponseCount());
 
         //load a user that does not have a file
         StudentModel studentModel2 = jsonStudentModelDatastore.getOrCreateStudentModel("NewUser1");
@@ -67,7 +67,7 @@ public class JsonStudentModelDatastoreTest {
         }
 
         assertEquals(1, studentModel2.getAttemptedQuestionCount());
-        jsonStudentModelDatastore.submitImageTaskResponse(studentModel2.getUserId(), new ImageTaskResponseOOP("NewUser1", Arrays.asList("plane./images/demoEquine04.jpg"), Arrays.asList("longitudinal")), 4);
+        jsonStudentModelDatastore.submitImageTaskResponse(studentModel2.getUserId(), new ImageTaskResponseOOP("NewUser1", Arrays.asList("324-plane-./images/metacarpal56.jpg"), Arrays.asList("longitudinal")), 4);
         assertEquals(1, studentModel2.getResponseCount());
         //a file should now been written
         assertTrue(Files.exists(tempDir.resolve("NewUser1.json")));
@@ -79,26 +79,27 @@ public class JsonStudentModelDatastoreTest {
             studentModel1.increaseTimesAttempted(currQ.getId());
         }
 
-        assertEquals(2, studentModel1.getAttemptedQuestionCount());
-        jsonStudentModelDatastore.submitImageTaskResponse(studentModel1.getUserId(), new ImageTaskResponseOOP("TestUser100", Arrays.asList("plane./images/demoEquine10.jpg"), Arrays.asList("longitudinal")), 4);
+        assertEquals(24, studentModel1.getAttemptedQuestionCount());
+        jsonStudentModelDatastore.submitImageTaskResponse(studentModel1.getUserId(), new ImageTaskResponseOOP("buckmank", Arrays.asList("324-plane-./images/metacarpal56.jpg"), Arrays.asList("longitudinal")), 4);
 
-        assertEquals(2, studentModel1.getResponseCount());
+        assertEquals(20, studentModel1.getResponseCount());
 
-        jsonStudentModelDatastore.logout("TestUser100");
-        StudentModel studentModel3 = jsonStudentModelDatastore.getOrCreateStudentModel("TestUser100");
-        assertEquals(2, studentModel3.getAttemptedQuestionCount());
-        assertEquals(2, studentModel3.getResponseCount());
+        jsonStudentModelDatastore.logout("buckmank");
+        StudentModel studentModel3 = jsonStudentModelDatastore.getOrCreateStudentModel("buckmank");
+        assertEquals(24, studentModel3.getAttemptedQuestionCount());
+        assertEquals(20, studentModel3.getResponseCount());
     }
 
     @Test
     public void getAllSavedStudentIdsTest() throws IOException{
         List<String> usernames = JsonStudentModelDatastore.getAllSavedStudentIds("src/test/resources/author/students");
-        assertEquals(13, usernames.size());
-        assertTrue(usernames.contains("TestUser100"));
-        assertTrue(usernames.contains("TestUser101"));
-        assertTrue(usernames.contains("TestUser102"));
+        assertEquals(6, usernames.size());
+        assertTrue(usernames.contains("masteredStudent"));
+        assertTrue(usernames.contains("notMasteredStudent"));
         assertTrue(usernames.contains("buckmank"));
         assertTrue(usernames.contains("PSaASTestUser"));
+
+        assertFalse(usernames.contains("TestUser100"));
     }
 
     @Test
@@ -107,7 +108,7 @@ public class JsonStudentModelDatastoreTest {
         assertTrue(new File(currentStudentModelsPath.toString()).mkdir());
         StudentModelDatastore studentModelDatastore = new JsonStudentModelDatastore(
                 tempDir.resolve("currentQuestions.json").toString(),
-                "src/test/resources/author/DemoQuestionPoolFollowup.json",
+                "src/test/resources/author/questionPools/DemoQuestionPoolFollowup.json",
                 new JsonIoHelperDefault(),
                 currentStudentModelsPath.toString());
         assertEquals(47, studentModelDatastore.getStudentModel("TestUser100").getUserQuestionSet().getQuestionCounts().size());
@@ -136,16 +137,13 @@ public class JsonStudentModelDatastoreTest {
 
     @Test
     public void calcMinQuestionCountPerTypeTest() throws IOException{
-        List<Question> questions = new JsonIoUtil(new JsonIoHelperDefault()).listfromReadOnlyFile("src/test/resources/author/DemoQuestionPoolFollowup.json", Question.class);
+        List<Question> questions = new JsonIoUtil(new JsonIoHelperDefault()).listfromReadOnlyFile("src/test/resources/author/questionPools/DemoQuestionPoolFollowup.json", Question.class);
         //one zone
         assertEquals(1, JsonStudentModelDatastore.calcMinQuestionCountPerType(questions.subList(0,6)));
         //min two of everything
         assertEquals(2, JsonStudentModelDatastore.calcMinQuestionCountPerType(questions.subList(0,11)));
         //10 images
         assertEquals(10, JsonStudentModelDatastore.calcMinQuestionCountPerType(questions));
-        //less followups than anything else
-        questions = new JsonIoUtil(new JsonIoHelperDefault()).listfromReadOnlyFile("src/test/resources/author/DemoQuestionPoolFewFollowups.json", Question.class);
-        assertEquals(7, JsonStudentModelDatastore.calcMinQuestionCountPerType(questions));
 
         assertEquals(0, JsonStudentModelDatastore.calcMinQuestionCountPerType(new ArrayList<>()));
     }
@@ -157,7 +155,7 @@ public class JsonStudentModelDatastoreTest {
 
         File studentDir = tempDir.resolve("testStudents").toFile();
         studentDir.mkdir();
-        StudentModelDatastore studentModelDatastore = new JsonStudentModelDatastore(currentQuestionFile.toString(), "src/test/resources/author/DemoQuestionPool.json", new JsonIoHelperDefault(), studentDir.toString());
+        StudentModelDatastore studentModelDatastore = new JsonStudentModelDatastore(currentQuestionFile.toString(), "src/test/resources/author/questionPools/DemoQuestionPool.json", new JsonIoHelperDefault(), studentDir.toString());
 
         assertTrue(currentQuestionFile.toFile().exists());
         assertEquals(47, studentModelDatastore.getAllQuestions().size());
@@ -165,7 +163,7 @@ public class JsonStudentModelDatastoreTest {
 
     @Test
     public void useCurrentQuestionsTest(@TempDir Path tempDir) throws IOException{
-        StudentModelDatastore studentModelDatastore = new JsonStudentModelDatastore("src/test/resources/author/DemoQuestionPool.json", "bad path", new JsonIoHelperDefault(), tempDir.toString());
+        StudentModelDatastore studentModelDatastore = new JsonStudentModelDatastore("src/test/resources/author/questionPools/DemoQuestionPool.json", "bad path", new JsonIoHelperDefault(), tempDir.toString());
         assertEquals(47, studentModelDatastore.getAllQuestions().size());
     }
 }
