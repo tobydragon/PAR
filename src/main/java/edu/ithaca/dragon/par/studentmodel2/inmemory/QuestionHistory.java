@@ -1,4 +1,4 @@
-package edu.ithaca.dragon.par.studentmodel2;
+package edu.ithaca.dragon.par.studentmodel2.inmemory;
 
 import edu.ithaca.dragon.par.studentModel.QuestionResponse;
 
@@ -15,6 +15,10 @@ public class QuestionHistory {
         this.questionId = questionId;
         timesSeen = new ArrayList<>();
         responses = new ArrayList<>();
+    }
+
+    public int getTimesSeenCount(){
+        return timesSeen.size();
     }
 
     public void addTimeSeen(){

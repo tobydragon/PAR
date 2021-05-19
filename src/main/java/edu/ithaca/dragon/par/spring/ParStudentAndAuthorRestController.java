@@ -4,8 +4,6 @@ import edu.ithaca.dragon.par.ParStudentAndAuthorServer;
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
 import edu.ithaca.dragon.par.io.*;
-import edu.ithaca.dragon.par.pedagogicalModel.ImageTaskSettings;
-import edu.ithaca.dragon.par.pedagogicalModel.PageSettings;
 import edu.ithaca.dragon.util.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

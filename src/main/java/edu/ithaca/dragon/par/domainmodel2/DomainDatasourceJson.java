@@ -18,11 +18,7 @@ public class DomainDatasourceJson implements  DomainDatasource{
     private List<Question> questions;
 
     public DomainDatasourceJson(String questionFilePath) throws IOException {
-        this(questionFilePath, new JsonIoHelperDefault());
-    }
-
-    public DomainDatasourceJson(String questionFilePath, JsonIoHelper jsonIoHelper) throws IOException {
-        this(questionFilePath, null, jsonIoHelper);
+        this(questionFilePath, null, new JsonIoHelperDefault());
     }
 
     public DomainDatasourceJson(String questionFilePath, String defaultQuestionReadOnlyFilePath, JsonIoHelper jsonIoHelper) throws IOException {
@@ -39,5 +35,14 @@ public class DomainDatasourceJson implements  DomainDatasource{
     @Override
     public List<Question> getAllQuestions() {
         return questions;
+    }
+
+    public Question getQuestion(String id){
+        for (Question question: questions){
+            if (question.getId().equalsIgnoreCase(id)){
+                return question;
+            }
+        }
+        throw new IllegalArgumentException("No question found, bad ID:" + id);
     }
 }

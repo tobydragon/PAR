@@ -1,4 +1,6 @@
-package edu.ithaca.dragon.par.studentmodel2;
+package edu.ithaca.dragon.par.studentmodel2.inmemory;
+
+import edu.ithaca.dragon.par.studentmodel2.inmemory.StudentModelDatasourceInMemory;
 
 public class StudentModelDatasourceInMemoryExample {
 

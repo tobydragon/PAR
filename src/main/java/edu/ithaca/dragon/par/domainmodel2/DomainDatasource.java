@@ -5,5 +5,7 @@ import edu.ithaca.dragon.par.domainModel.Question;
 import java.util.List;
 
 public interface DomainDatasource {
-    public List<Question> getAllQuestions();
+    List<Question> getAllQuestions();
+    Question getQuestion(String id);
+
 }

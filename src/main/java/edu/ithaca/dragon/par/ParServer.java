@@ -18,7 +18,7 @@ public class ParServer {
     }
 
     public Question getCurrentQuestion(String studentId){
-        return questionChooser.chooseQuestion(domainDatasource);
+        return questionChooser.chooseQuestion(studentId, domainDatasource, studentModelDatasource);
     }
 
     public void addTimeSeen(String studentId, String questionId){
