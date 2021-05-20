@@ -1,8 +1,8 @@
-package edu.ithaca.dragon.par.pedagogicalmodel2;
+package edu.ithaca.dragon.par.pedagogy;
 
 import edu.ithaca.dragon.par.domainModel.Question;
-import edu.ithaca.dragon.par.domainmodel2.DomainDatasource;
-import edu.ithaca.dragon.par.studentmodel2.StudentModelDatasource;
+import edu.ithaca.dragon.par.domain.DomainDatasource;
+import edu.ithaca.dragon.par.student.StudentModelDatasource;
 
 import java.util.List;
 import java.util.Random;

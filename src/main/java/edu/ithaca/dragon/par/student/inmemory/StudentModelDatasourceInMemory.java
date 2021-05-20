@@ -1,6 +1,6 @@
-package edu.ithaca.dragon.par.studentmodel2.inmemory;
+package edu.ithaca.dragon.par.student.inmemory;
 
-import edu.ithaca.dragon.par.studentmodel2.StudentModelDatasource;
+import edu.ithaca.dragon.par.student.StudentModelDatasource;
 
 import java.util.HashMap;
 import java.util.List;

@@ -1,4 +1,4 @@
-package edu.ithaca.dragon.par.domainmodel2;
+package edu.ithaca.dragon.par.domain;
 
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.util.JsonIoHelper;

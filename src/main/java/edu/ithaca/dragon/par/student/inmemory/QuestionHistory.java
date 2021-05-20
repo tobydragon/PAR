@@ -1,4 +1,4 @@
-package edu.ithaca.dragon.par.studentmodel2.inmemory;
+package edu.ithaca.dragon.par.student.inmemory;
 
 import edu.ithaca.dragon.par.studentModel.QuestionResponse;
 

@@ -1,10 +1,7 @@
 package edu.ithaca.dragon.par.cohort;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import edu.ithaca.dragon.par.io.ImageTaskResponseOOP;
-import edu.ithaca.dragon.par.pedagogicalmodel2.QuestionChooser;
-import edu.ithaca.dragon.par.pedagogicalmodel2.QuestionChooserInOrder;
-import edu.ithaca.dragon.par.pedagogicalmodel2.QuestionChooserRandom;
+import edu.ithaca.dragon.par.pedagogy.QuestionChooserInOrder;
+import edu.ithaca.dragon.par.pedagogy.QuestionChooserRandom;
 import edu.ithaca.dragon.util.JsonIoHelperDefault;
 import edu.ithaca.dragon.util.JsonIoUtil;
 import org.junit.jupiter.api.Test;

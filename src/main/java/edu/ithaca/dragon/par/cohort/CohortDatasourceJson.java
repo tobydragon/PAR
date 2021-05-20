@@ -1,15 +1,18 @@
 package edu.ithaca.dragon.par.cohort;
 
-import edu.ithaca.dragon.par.domainModel.Question;
-import edu.ithaca.dragon.par.pedagogicalmodel2.QuestionChooser;
+import edu.ithaca.dragon.par.pedagogy.QuestionChooser;
 import edu.ithaca.dragon.util.JsonIoHelper;
 import edu.ithaca.dragon.util.JsonIoHelperDefault;
 import edu.ithaca.dragon.util.JsonIoUtil;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.util.List;
 
 public class CohortDatasourceJson implements CohortDatasource{
+    private final Logger logger = LogManager.getLogger(this.getClass());
+
     private final String id;
     private final String filePath;
     private List<Cohort> cohorts;
@@ -41,6 +44,7 @@ public class CohortDatasourceJson implements CohortDatasource{
             }
         }
         //first cohort is default
+        logger.info("Student not in any cohort, using default");
         return cohorts.get(0).getQuestionChooser();
     }
 }

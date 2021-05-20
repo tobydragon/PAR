@@ -1,8 +1,5 @@
-package edu.ithaca.dragon.par.studentmodel2;
+package edu.ithaca.dragon.par.student;
 
-import edu.ithaca.dragon.par.studentModel.QuestionResponse;
-
-import java.io.IOException;
 import java.util.List;
 
 public interface StudentModelDatasource {

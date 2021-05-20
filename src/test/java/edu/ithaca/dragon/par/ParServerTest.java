@@ -1,9 +1,5 @@
 package edu.ithaca.dragon.par;
 
-import edu.ithaca.dragon.par.domainModel.Question;
-import edu.ithaca.dragon.par.domainmodel2.DomainDatasourceJson;
-import edu.ithaca.dragon.par.pedagogicalmodel2.QuestionChooserRandom;
-import edu.ithaca.dragon.par.studentmodel2.inmemory.StudentModelDatasourceInMemoryExample;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;

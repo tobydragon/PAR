@@ -1,4 +1,4 @@
-package edu.ithaca.dragon.par.studentmodel2.inmemory;
+package edu.ithaca.dragon.par.student.inmemory;
 
 import java.util.HashMap;
 import java.util.Map;
