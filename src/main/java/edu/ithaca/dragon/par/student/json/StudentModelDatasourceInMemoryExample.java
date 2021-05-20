@@ -1,4 +1,4 @@
-package edu.ithaca.dragon.par.student.inmemory;
+package edu.ithaca.dragon.par.student.json;
 
 import java.util.List;
 

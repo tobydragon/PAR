@@ -1,4 +1,4 @@
-package edu.ithaca.dragon.par.student.inmemory;
+package edu.ithaca.dragon.par.student.json;
 
 import edu.ithaca.dragon.par.student.StudentModelDatasource;
 
@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public class StudentModelDatasourceInMemory implements StudentModelDatasource {
-    private Map<String, StudentModelInMemory> studentMap;
+    private Map<String, StudentModel> studentMap;
 
 
     public StudentModelDatasourceInMemory(){
@@ -22,11 +22,11 @@ public class StudentModelDatasourceInMemory implements StudentModelDatasource {
     @Override
     public String findQuestionLeastSeen(String studentId, List<String> questionIdsToCheck){
         if (questionIdsToCheck.size() > 0) {
-            StudentModelInMemory studModel = studentMap.get(studentId);
+            StudentModel studModel = studentMap.get(studentId);
             String questionLeastSeen = questionIdsToCheck.get(0);
-            int numTimesLeastHasBeenSeen = studModel.getTimesSeenCount(questionIdsToCheck.get(0));
+            int numTimesLeastHasBeenSeen = studModel.checkTimesSeenCount(questionIdsToCheck.get(0));
             for (String questionIdToCheck : questionIdsToCheck) {
-                int numTimesSeen = studModel.getTimesSeenCount(questionIdToCheck);
+                int numTimesSeen = studModel.checkTimesSeenCount(questionIdToCheck);
                 if (numTimesSeen < numTimesLeastHasBeenSeen) {
                     numTimesLeastHasBeenSeen = numTimesSeen;
                     questionLeastSeen = questionIdToCheck;
@@ -53,7 +53,7 @@ public class StudentModelDatasourceInMemory implements StudentModelDatasource {
     @Override
     public void createNewModelForId(String newId) {
         if(idIsAvailable(newId)){
-            studentMap.put(newId, new StudentModelInMemory(newId));
+            studentMap.put(newId, new StudentModel(newId));
         }
         else {
             throw new IllegalArgumentException("id is already taken: " + newId);

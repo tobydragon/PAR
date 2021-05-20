@@ -6,10 +6,8 @@ import edu.ithaca.dragon.par.comm.StudentAction;
 import edu.ithaca.dragon.par.comm.StudentResponseAction;
 import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.par.domain.DomainDatasourceJson;
-import edu.ithaca.dragon.par.student.inmemory.StudentModelDatasourceInMemoryExample;
+import edu.ithaca.dragon.par.student.json.StudentModelDatasourceJson;
 import edu.ithaca.dragon.util.JsonIoHelperSpring;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -27,12 +25,16 @@ public class ParController {
                 "author/defaultQuestionPool.json",
                 new JsonIoHelperSpring()
             ),
-            StudentModelDatasourceInMemoryExample.createExample(),
+            new StudentModelDatasourceJson(
+                "allStudents",
+                "localData/student",
+                new JsonIoHelperSpring()
+            ),
             new CohortDatasourceJson(
-                    "allCohorts",
-                    "localData/currentCohorts.json",
-                    "author/defaultCohorts.json",
-                    new JsonIoHelperSpring()
+                "allCohorts",
+                "localData/currentCohorts.json",
+                "author/defaultCohorts.json",
+                new JsonIoHelperSpring()
             )
         );
     }

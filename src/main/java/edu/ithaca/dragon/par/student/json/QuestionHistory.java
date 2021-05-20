@@ -1,15 +1,15 @@
-package edu.ithaca.dragon.par.student.inmemory;
-
-import edu.ithaca.dragon.par.studentModel.QuestionResponse;
+package edu.ithaca.dragon.par.student.json;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class QuestionHistory {
-    private String questionId;
-    private List<Long> timesSeen;
-    private List<QuestionResponse> responses;
+    public String questionId;
+    public List<Long> timesSeen;
+    public List<Response> responses;
+
+    public QuestionHistory(){}
 
     public QuestionHistory(String questionId) {
         this.questionId = questionId;
@@ -17,7 +17,7 @@ public class QuestionHistory {
         responses = new ArrayList<>();
     }
 
-    public int getTimesSeenCount(){
+    public int checkTimesSeenCount(){
         return timesSeen.size();
     }
 
@@ -26,7 +26,7 @@ public class QuestionHistory {
     }
 
     public void addResponse(String newResponseText){
-        responses.add(new QuestionResponse(newResponseText));
+        responses.add(new Response(newResponseText));
     }
 
     public String getQuestionId() {

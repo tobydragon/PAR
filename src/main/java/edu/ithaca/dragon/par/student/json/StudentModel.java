@@ -1,20 +1,22 @@
-package edu.ithaca.dragon.par.student.inmemory;
+package edu.ithaca.dragon.par.student.json;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class StudentModelInMemory {
-    private String studentId;
-    private Map<String, QuestionHistory> questionHistories;
+public class StudentModel {
+    public String studentId;
+    public Map<String, QuestionHistory> questionHistories;
 
-    public StudentModelInMemory(String studentId){
+    public StudentModel(){ }
+
+    public StudentModel(String studentId){
         this.studentId = studentId;
         questionHistories = new HashMap<>();
     }
 
-    public int getTimesSeenCount(String questionId){
+    public int checkTimesSeenCount(String questionId){
         if (questionHistories.containsKey(questionId)){
-            return questionHistories.get(questionId).getTimesSeenCount();
+            return questionHistories.get(questionId).checkTimesSeenCount();
         }
         else {
             return 0;
@@ -22,14 +24,14 @@ public class StudentModelInMemory {
     }
 
     public void addTimeSeen(String questionId){
-        getOrCreateHistory(questionId).addTimeSeen();
+        retrieveOrCreateNewHistory(questionId).addTimeSeen();
     }
 
     public void addResponse(String questionId, String newResponseText){
-        getOrCreateHistory(questionId).addResponse(newResponseText);
+        retrieveOrCreateNewHistory(questionId).addResponse(newResponseText);
     }
 
-    private QuestionHistory getOrCreateHistory(String questionId){
+    private QuestionHistory retrieveOrCreateNewHistory(String questionId){
         QuestionHistory questionHistory = questionHistories.get(questionId);
         if (questionHistory == null){
             questionHistory = new QuestionHistory(questionId);
