@@ -6,7 +6,7 @@
     "type" : "QuestionChooserRandom"
   }
 }, {
-  "id" : "random",
+  "id" : "inOrder",
   "domainId" : "HorseUltrasound",
   "studentIds" : [ "o2", "o1", "o4", "o3" ],
   "questionChooser" : {
