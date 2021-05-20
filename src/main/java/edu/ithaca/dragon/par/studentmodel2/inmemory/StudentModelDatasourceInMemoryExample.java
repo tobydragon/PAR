@@ -2,6 +2,8 @@ package edu.ithaca.dragon.par.studentmodel2.inmemory;
 
 import edu.ithaca.dragon.par.studentmodel2.inmemory.StudentModelDatasourceInMemory;
 
+import java.util.List;
+
 public class StudentModelDatasourceInMemoryExample {
 
     public static StudentModelDatasourceInMemory createExample(){
@@ -26,6 +28,7 @@ public class StudentModelDatasourceInMemoryExample {
         example.addTimeSeen("Lisa", "q3");
         example.addResponse("Lisa", "q3", "being well rested");
 
+        List.of("r1", "r2", "r3", "o1", "o2", "o3", "o4").forEach(example::createNewModelForId);
         return example;
     }
 }

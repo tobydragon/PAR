@@ -4,25 +4,23 @@ import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.util.JsonIoHelper;
 import edu.ithaca.dragon.util.JsonIoHelperDefault;
 import edu.ithaca.dragon.util.JsonIoUtil;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
 
 import java.io.IOException;
 import java.util.List;
 
 public class DomainDatasourceJson implements  DomainDatasource{
-    private final Logger logger = LogManager.getLogger(this.getClass());
-    private JsonIoUtil jsonIoUtil;
-
-    private String questionFilePath;
+    private final String id;
+    private final String questionFilePath;
     private List<Question> questions;
 
-    public DomainDatasourceJson(String questionFilePath) throws IOException {
-        this(questionFilePath, null, new JsonIoHelperDefault());
+    public DomainDatasourceJson(String id, String questionFilePath) throws IOException {
+        this(id, questionFilePath, null, new JsonIoHelperDefault());
     }
 
-    public DomainDatasourceJson(String questionFilePath, String defaultQuestionReadOnlyFilePath, JsonIoHelper jsonIoHelper) throws IOException {
-        jsonIoUtil = new JsonIoUtil(jsonIoHelper);
+    public DomainDatasourceJson(String id, String questionFilePath, String defaultQuestionReadOnlyFilePath, JsonIoHelper jsonIoHelper) throws IOException {
+        this.id = id;
+        JsonIoUtil jsonIoUtil = new JsonIoUtil(jsonIoHelper);
         this.questionFilePath = questionFilePath;
         if (defaultQuestionReadOnlyFilePath != null){
             questions = jsonIoUtil.listFromFileOrCopyFromReadOnlyFile(questionFilePath, defaultQuestionReadOnlyFilePath, Question.class);

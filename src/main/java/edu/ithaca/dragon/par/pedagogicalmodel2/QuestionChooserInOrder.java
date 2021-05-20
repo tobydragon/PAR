@@ -9,7 +9,9 @@ import java.util.List;
 
 public class QuestionChooserInOrder  implements  QuestionChooser{
 
-    private ArrayList<String> questionIdsInOrder;
+    public ArrayList<String> questionIdsInOrder;
+
+    public QuestionChooserInOrder(){}
 
     public QuestionChooserInOrder(List<String> questionIdsInOrder){
         this.questionIdsInOrder = new ArrayList<>(questionIdsInOrder);

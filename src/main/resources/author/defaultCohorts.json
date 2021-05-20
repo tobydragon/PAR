@@ -1,0 +1,16 @@
+[ {
+  "id" : "random",
+  "domainId" : "HorseUltrasound",
+  "studentIds" : [ "r1, r2, r3" ],
+  "questionChooser" : {
+    "type" : "QuestionChooserRandom"
+  }
+}, {
+  "id" : "random",
+  "domainId" : "HorseUltrasound",
+  "studentIds" : [ "o1, o2, o3" ],
+  "questionChooser" : {
+    "type" : "QuestionChooserInOrder",
+    "questionIdsInOrder" : [ "858-structure1-./images/2ATransverse.jpg", "850-structure3-./images/Annotated2Long.jpg", "866-plane-./images/3BTransverse.jpg", "847-structure2-./images/Annotated2Long.jpg", "614-plane-./images/3CTransverse.jpg" ]
+  }
+} ]
