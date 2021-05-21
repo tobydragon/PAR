@@ -1,7 +1,7 @@
 package edu.ithaca.dragon.par.authorModel;
 
-import edu.ithaca.dragon.par.domainModel.Question;
-import edu.ithaca.dragon.par.io.*;
+import edu.ithaca.dragon.par.domain.Question;
+import edu.ithaca.dragon.par.deprecated.io.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 

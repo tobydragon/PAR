@@ -1,6 +1,5 @@
 package edu.ithaca.dragon.par.domain;
 
-import edu.ithaca.dragon.par.domainModel.Question;
 import edu.ithaca.dragon.util.JsonIoHelper;
 import edu.ithaca.dragon.util.JsonIoHelperDefault;
 import edu.ithaca.dragon.util.JsonIoUtil;

@@ -1,11 +1,9 @@
 package edu.ithaca.dragon.par;
 
 import edu.ithaca.dragon.par.cohort.CohortDatasource;
-import edu.ithaca.dragon.par.domainModel.Question;
+import edu.ithaca.dragon.par.domain.Question;
 import edu.ithaca.dragon.par.domain.DomainDatasource;
 import edu.ithaca.dragon.par.student.StudentModelDatasource;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class ParServer {
     private final DomainDatasource domainDatasource;

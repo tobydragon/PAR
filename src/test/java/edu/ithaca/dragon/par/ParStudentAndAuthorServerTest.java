@@ -1,13 +1,13 @@
 package edu.ithaca.dragon.par;
 
-import edu.ithaca.dragon.par.domainModel.Question;
-import edu.ithaca.dragon.par.domainModel.QuestionPool;
-import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
-import edu.ithaca.dragon.par.io.*;
-import edu.ithaca.dragon.par.studentModel.QuestionResponse;
-import edu.ithaca.dragon.par.studentModel.ResponsesPerQuestion;
-import edu.ithaca.dragon.par.studentModel.StudentModel;
-import edu.ithaca.dragon.par.studentModel.UserResponseSet;
+import edu.ithaca.dragon.par.domain.Question;
+import edu.ithaca.dragon.par.deprecated.domainModel.QuestionPool;
+import edu.ithaca.dragon.par.deprecated.domainModel.equineUltrasound.EquineQuestionTypes;
+import edu.ithaca.dragon.par.deprecated.io.*;
+import edu.ithaca.dragon.par.deprecated.studentModel.QuestionResponse;
+import edu.ithaca.dragon.par.deprecated.studentModel.ResponsesPerQuestion;
+import edu.ithaca.dragon.par.deprecated.studentModel.StudentModel;
+import edu.ithaca.dragon.par.deprecated.studentModel.UserResponseSet;
 import edu.ithaca.dragon.util.JsonIoHelper;
 import edu.ithaca.dragon.util.JsonIoHelperDefault;
 import edu.ithaca.dragon.util.JsonIoUtil;

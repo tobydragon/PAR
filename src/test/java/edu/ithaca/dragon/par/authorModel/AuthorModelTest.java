@@ -1,9 +1,9 @@
 package edu.ithaca.dragon.par.authorModel;
 
-import edu.ithaca.dragon.par.domainModel.QuestionPool;
-import edu.ithaca.dragon.par.io.AuthorModelRecord;
-import edu.ithaca.dragon.par.io.JsonQuestionPoolDatastore;
-import edu.ithaca.dragon.par.studentModel.QuestionCount;
+import edu.ithaca.dragon.par.deprecated.domainModel.QuestionPool;
+import edu.ithaca.dragon.par.deprecated.io.AuthorModelRecord;
+import edu.ithaca.dragon.par.deprecated.io.JsonQuestionPoolDatastore;
+import edu.ithaca.dragon.par.deprecated.studentModel.QuestionCount;
 import edu.ithaca.dragon.util.JsonUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

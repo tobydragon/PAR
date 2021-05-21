@@ -4,7 +4,7 @@ import edu.ithaca.dragon.par.ParServer;
 import edu.ithaca.dragon.par.cohort.CohortDatasourceJson;
 import edu.ithaca.dragon.par.comm.StudentAction;
 import edu.ithaca.dragon.par.comm.StudentResponseAction;
-import edu.ithaca.dragon.par.domainModel.Question;
+import edu.ithaca.dragon.par.domain.Question;
 import edu.ithaca.dragon.par.domain.DomainDatasourceJson;
 import edu.ithaca.dragon.par.student.json.StudentModelDatasourceJson;
 import edu.ithaca.dragon.util.JsonIoHelperSpring;

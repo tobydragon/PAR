@@ -1,6 +1,6 @@
 package edu.ithaca.dragon.par.pedagogy;
 
-import edu.ithaca.dragon.par.domainModel.Question;
+import edu.ithaca.dragon.par.domain.Question;
 import edu.ithaca.dragon.par.domain.DomainDatasource;
 import edu.ithaca.dragon.par.student.StudentModelDatasource;
 

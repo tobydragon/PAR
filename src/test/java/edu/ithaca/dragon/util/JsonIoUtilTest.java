@@ -1,6 +1,6 @@
 package edu.ithaca.dragon.util;
 
-import edu.ithaca.dragon.par.io.ImageTaskResponseOOP;
+import edu.ithaca.dragon.par.deprecated.io.ImageTaskResponseOOP;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 

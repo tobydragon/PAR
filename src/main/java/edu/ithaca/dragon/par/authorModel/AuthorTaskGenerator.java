@@ -1,8 +1,8 @@
 package edu.ithaca.dragon.par.authorModel;
 
-import edu.ithaca.dragon.par.domainModel.Question;
-import edu.ithaca.dragon.par.io.ImageTask;
-import edu.ithaca.dragon.par.studentModel.QuestionCount;
+import edu.ithaca.dragon.par.domain.Question;
+import edu.ithaca.dragon.par.deprecated.io.ImageTask;
+import edu.ithaca.dragon.par.deprecated.studentModel.QuestionCount;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;

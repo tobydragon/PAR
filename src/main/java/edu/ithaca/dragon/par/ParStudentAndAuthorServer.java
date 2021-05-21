@@ -1,19 +1,18 @@
 package edu.ithaca.dragon.par;
 
 import edu.ithaca.dragon.par.authorModel.AuthorServer;
-import edu.ithaca.dragon.par.cohortModel.Cohort;
-import edu.ithaca.dragon.par.domainModel.Question;
-import edu.ithaca.dragon.par.domainModel.equineUltrasound.EquineQuestionTypes;
-import edu.ithaca.dragon.par.io.*;
-import edu.ithaca.dragon.par.pedagogicalModel.LevelTaskGenerator;
-import edu.ithaca.dragon.par.io.AuthorDatastore;
-import edu.ithaca.dragon.par.io.ImageTask;
-import edu.ithaca.dragon.par.io.ImageTaskResponseOOP;
-import edu.ithaca.dragon.par.io.StudentModelDatastore;
-import edu.ithaca.dragon.par.pedagogicalModel.LevelTaskGeneratorAttachment;
-import edu.ithaca.dragon.par.pedagogicalModel.TaskGenerator;
-import edu.ithaca.dragon.par.studentModel.StudentModel;
-import edu.ithaca.dragon.par.studentModel.StudentReportCreator;
+import edu.ithaca.dragon.par.deprecated.cohortModel.Cohort;
+import edu.ithaca.dragon.par.deprecated.domainModel.equineUltrasound.EquineQuestionTypes;
+import edu.ithaca.dragon.par.deprecated.io.*;
+import edu.ithaca.dragon.par.deprecated.pedagogicalModel.LevelTaskGenerator;
+import edu.ithaca.dragon.par.deprecated.io.AuthorDatastore;
+import edu.ithaca.dragon.par.deprecated.io.ImageTask;
+import edu.ithaca.dragon.par.deprecated.io.ImageTaskResponseOOP;
+import edu.ithaca.dragon.par.deprecated.io.StudentModelDatastore;
+import edu.ithaca.dragon.par.deprecated.pedagogicalModel.LevelTaskGeneratorAttachment;
+import edu.ithaca.dragon.par.deprecated.pedagogicalModel.TaskGenerator;
+import edu.ithaca.dragon.par.deprecated.studentModel.StudentModel;
+import edu.ithaca.dragon.par.deprecated.studentModel.StudentReportCreator;
 import edu.ithaca.dragon.util.DataUtil;
 
 import java.io.IOException;
