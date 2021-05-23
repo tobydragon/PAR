@@ -5,7 +5,7 @@ import java.util.List;
 public interface StudentModelDatasource {
 
     boolean idIsAvailable(String studentId);
-    String findQuestionLeastSeen(String studentId, List<String> questionIdsToCheck);
+    String findQuestionSeenLeastRecently(String studentId, List<String> questionIdsToCheck);
 
     //mutators
     void addTimeSeen(String studentId, String questionId);

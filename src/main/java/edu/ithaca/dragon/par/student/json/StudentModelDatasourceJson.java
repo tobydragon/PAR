@@ -35,7 +35,7 @@ public class StudentModelDatasourceJson implements StudentModelDatasource {
     }
 
     @Override
-    public String findQuestionLeastSeen(String studentId, List<String> questionIdsToCheck){
+    public String findQuestionSeenLeastRecently(String studentId, List<String> questionIdsToCheck){
         if (questionIdsToCheck.size() > 0) {
             StudentModel studModel = getStudentModel(studentId);
             String questionLeastSeen = questionIdsToCheck.get(0);

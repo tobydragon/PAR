@@ -19,7 +19,7 @@ public class QuestionChooserInOrder  implements  QuestionChooser{
 
     @Override
     public Question chooseQuestion( String studentId, DomainDatasource domainDatasource, StudentModelDatasource studentModelDatasource) {
-        String questionId = studentModelDatasource.findQuestionLeastSeen(studentId, questionIdsInOrder);
+        String questionId = studentModelDatasource.findQuestionSeenLeastRecently(studentId, questionIdsInOrder);
         return domainDatasource.getQuestion(questionId);
     }
 }

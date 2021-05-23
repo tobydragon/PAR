@@ -6,7 +6,8 @@ import java.util.List;
 public class QuestionHistorySummary {
     private List<String> questionsSeen;
     private List<String> questionsAnswered;
-    private List<String> questionsCorrectFirstTime;
-    private List<String> questionsCorrectAfterIncorrect;
-    private List<String> questionsOnlyAnsweredIncorrect;
+    private List<String> questionsAnsweredDontKnow;
+    private List<String> questionsAnsweredCorrectFirstTime;
+    private List<String> questionsAnsweredCorrectAfterIncorrect;
+    private List<String> questionsAnsweredOnlyIncorrect;
 }
