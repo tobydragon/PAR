@@ -26,7 +26,7 @@ public class ParServer {
     }
 
     public void addTimeSeen(String studentId, String questionId){
-        logger.info("addTimeSeem for : "+studentId + ", " + questionId);
+        logger.info("addTimeSeen for : "+studentId + ", " + questionId);
         studentModelDatasource.addTimeSeen(studentId, questionId);
     }
 

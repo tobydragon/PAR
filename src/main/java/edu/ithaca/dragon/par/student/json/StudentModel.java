@@ -31,6 +31,19 @@ public class StudentModel {
         retrieveOrCreateNewHistory(questionId).addResponse(newResponseText);
     }
 
+    /**
+     * @return the timestamp when the question was seen, or 0 if not seen
+     */
+    public long checkTimeLastSeen(String questionId){
+        QuestionHistory questionHistory = questionHistories.get(questionId);
+        if (questionHistory != null){
+            return questionHistory.checkLastTimeSeen();
+        }
+        else {
+            return 0;
+        }
+    }
+
     private QuestionHistory retrieveOrCreateNewHistory(String questionId){
         QuestionHistory questionHistory = questionHistories.get(questionId);
         if (questionHistory == null){

@@ -6,6 +6,7 @@ import edu.ithaca.dragon.util.JsonIoUtil;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,21 +37,28 @@ public class StudentModelDatasourceJson implements StudentModelDatasource {
 
     @Override
     public String findQuestionSeenLeastRecently(String studentId, List<String> questionIdsToCheck){
-        if (questionIdsToCheck.size() > 0) {
-            StudentModel studModel = getStudentModel(studentId);
-            String questionLeastSeen = questionIdsToCheck.get(0);
-            int numTimesLeastHasBeenSeen = studModel.checkTimesSeenCount(questionIdsToCheck.get(0));
-            for (String questionIdToCheck : questionIdsToCheck) {
-                int numTimesSeen = studModel.checkTimesSeenCount(questionIdToCheck);
-                if (numTimesSeen < numTimesLeastHasBeenSeen) {
-                    numTimesLeastHasBeenSeen = numTimesSeen;
-                    questionLeastSeen = questionIdToCheck;
+        long currTimestamp = new Date().getTime();
+        if (questionIdsToCheck.size() >0) {
+            String leastRecentQuestionSoFar = questionIdsToCheck.get(0);
+            StudentModel studentModel = getStudentModel(studentId);
+            if (studentModel != null) {
+                long timeElapsedForLeastRecent = currTimestamp - studentModel.checkTimeLastSeen(leastRecentQuestionSoFar);
+                for (String questionId : questionIdsToCheck) {
+                    long timeElapsed = currTimestamp - studentModel.checkTimeLastSeen(questionId);
+                    if (timeElapsed > timeElapsedForLeastRecent) {
+                        leastRecentQuestionSoFar = questionId;
+                        timeElapsedForLeastRecent = timeElapsed;
+                    }
                 }
+                return leastRecentQuestionSoFar;
             }
-            return questionLeastSeen;
+            else {
+              throw new IllegalArgumentException("Bad student id: " +studentId);
+            }
+
         }
         else {
-            throw new IllegalArgumentException("no question ids included, empty list");
+            throw new IllegalArgumentException("empty questionIdsToCheck List");
         }
     }
 

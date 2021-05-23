@@ -21,6 +21,10 @@ public class QuestionHistory {
         return timesSeen.size();
     }
 
+    public long checkLastTimeSeen() {
+        return timesSeen.get(timesSeen.size()-1);
+    }
+
     public void addTimeSeen(){
         timesSeen.add(new Date().getTime());
     }
