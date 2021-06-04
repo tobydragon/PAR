@@ -17,6 +17,16 @@ public class QuestionHistoryTest {
         ex1.addResponse("b");
         examples.put(ex1.getQuestionId(), ex1);
 
+        QuestionHistory ex2 = new QuestionHistory("q2");
+        ex2.addTimeSeen();
+        ex2.addResponse("b");
+        examples.put(ex2.getQuestionId(), ex2);
+
+        QuestionHistory ex3 = new QuestionHistory("q3");
+        ex1.addTimeSeen();
+        ex1.addTimeSeen();
+        examples.put(ex3.getQuestionId(), ex3);
+
         return examples;
     }
 
