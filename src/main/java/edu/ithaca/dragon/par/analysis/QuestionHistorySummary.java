@@ -2,6 +2,7 @@ package edu.ithaca.dragon.par.analysis;
 
 import edu.ithaca.dragon.par.student.json.QuestionHistory;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -16,11 +17,33 @@ public class QuestionHistorySummary {
 
     public QuestionHistorySummary(Map<String, QuestionHistory> questionHistoryMap){
         questionIdsSeen = buildQuestionIdsSeen(questionHistoryMap);
-        throw new RuntimeException("Not implemented");
     }
 
     public static List<String> buildQuestionIdsSeen(Map<String, QuestionHistory> questionHistoryMap){
-        throw new RuntimeException("Not implemented");
+        List<String> questionIdsList;
+        if (questionHistoryMap.size() >0){
+            questionIdsList = new ArrayList<String>(questionHistoryMap.keySet());
+        }
+        else{
+            throw new RuntimeException("No Question Ids found");
+        }
+        return questionIdsList;
+    }
+
+    // public static List<String> buildQuestionAnswered(Map<String, QuestionHistory> questionHistoryMap){
+    //     return null;
+    // }
+
+    public static List<String> buildQuestionsCorrectFirstTime(Map<String, QuestionHistory> questionHistoryMap){
+        List<QuestionHistory> questionHist = new ArrayList<QuestionHistory>(questionHistoryMap.values());
+        List<String> questionFirstTime = new ArrayList<String>();
+
+        for(int i=0; i < questionHist.size(); i++){
+            if (questionHist.get(i).checkTimesSeenCount() == 1){
+                questionFirstTime.add(questionHist.get(i).getQuestionId());
+            }
+        }
+        return questionFirstTime;
     }
 
     public List<String> getQuestionIdsSeen() {
@@ -33,13 +56,5 @@ public class QuestionHistorySummary {
 
     public List<String> getQuestionsCorrectFirstTime() {
         return questionsCorrectFirstTime;
-    }
-
-    public List<String> getQuestionsCorrectAfterIncorrect() {
-        return questionsCorrectAfterIncorrect;
-    }
-
-    public List<String> getQuestionsOnlyAnsweredIncorrect() {
-        return questionsOnlyAnsweredIncorrect;
     }
 }
