@@ -19,17 +19,21 @@ class QuestionHistorySummaryTest {
     @Test
     public void buildQuestionIdsSeenTest(){
         List<String> questionIdsSeen = QuestionHistorySummary.buildQuestionIdsSeen(QuestionHistoryTest.makeExamples());
-        assertEquals(3, questionIdsSeen.size());
+        assertEquals(5, questionIdsSeen.size());
         assertEquals("q1", questionIdsSeen.get(0));
         assertEquals("q2", questionIdsSeen.get(1));
-        assertEquals("q3", questionIdsSeen.get(1));
+        assertEquals("q3", questionIdsSeen.get(2));
+        assertEquals("q4", questionIdsSeen.get(3));
+        assertEquals("q5", questionIdsSeen.get(4));
     }
 
     @Test
-    public void buildQuestionsCorrectFirstTime(){
-        List<String> questionsCorrectFirstTime = QuestionHistorySummary.buildQuestionsCorrectFirstTime(QuestionHistoryTest.makeExamples());
-        assertEquals(1, questionsCorrectFirstTime.size());
-        assertEquals("q2", questionsCorrectFirstTime.get(0));
+    public void checkQuestionsAnsweredTest(){
+        List<String> questionsAnswered = QuestionHistorySummary.checkQuestionsAnswered(QuestionHistoryTest.makeExamples());
+        assertEquals(3, questionsAnswered.size());
+        assertEquals("q1", questionsAnswered.get(0));
+        assertEquals("q3", questionsAnswered.get(1));
+        assertEquals("q5", questionsAnswered.get(2));
     }
 
 }
