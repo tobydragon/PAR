@@ -17,11 +17,12 @@ public class QuestionHistorySummary {
 
     public QuestionHistorySummary(Map<String, QuestionHistory> questionHistoryMap){
         questionIdsSeen = buildQuestionIdsSeen(questionHistoryMap);
+        questionsAnswered = checkQuestionsAnswered(questionHistoryMap);
     }
 
     public static List<String> buildQuestionIdsSeen(Map<String, QuestionHistory> questionHistoryMap){
         List<String> questionIdsList;
-        if (questionHistoryMap.size() >0){
+        if (questionHistoryMap.size() > 0){
             questionIdsList = new ArrayList<String>(questionHistoryMap.keySet());
         }
         else{
@@ -30,21 +31,29 @@ public class QuestionHistorySummary {
         return questionIdsList;
     }
 
-    // public static List<String> buildQuestionAnswered(Map<String, QuestionHistory> questionHistoryMap){
-    //     return null;
-    // }
-
-    public static List<String> buildQuestionsCorrectFirstTime(Map<String, QuestionHistory> questionHistoryMap){
+    public static List<String> checkQuestionsAnswered(Map<String, QuestionHistory> questionHistoryMap){
         List<QuestionHistory> questionHist = new ArrayList<QuestionHistory>(questionHistoryMap.values());
-        List<String> questionFirstTime = new ArrayList<String>();
+        List<String> questionsAnsweredList = new ArrayList<String>();
 
         for(int i=0; i < questionHist.size(); i++){
-            if (questionHist.get(i).checkTimesSeenCount() == 1){
-                questionFirstTime.add(questionHist.get(i).getQuestionId());
+            if (questionHist.get(i).responses.isEmpty() != true){
+                questionsAnsweredList.add(questionHist.get(i).getQuestionId());
             }
         }
-        return questionFirstTime;
+        return questionsAnsweredList;
     }
+
+    // public static List<String> buildQuestionsCorrectFirstTime(Map<String, QuestionHistory> questionHistoryMap){
+    //     List<QuestionHistory> questionHist = new ArrayList<QuestionHistory>(questionHistoryMap.values());
+    //     List<String> questionFirstTime = new ArrayList<String>();
+
+    //     for(int i=0; i < questionHist.size(); i++){
+    //         if (questionHist.get(i).checkTimesSeenCount() == 1){
+    //             questionFirstTime.add(questionHist.get(i).getQuestionId());
+    //         }
+    //     }
+    //     return questionFirstTime;
+    // }
 
     public List<String> getQuestionIdsSeen() {
         return questionIdsSeen;
@@ -54,7 +63,7 @@ public class QuestionHistorySummary {
         return questionsAnswered;
     }
 
-    public List<String> getQuestionsCorrectFirstTime() {
-        return questionsCorrectFirstTime;
-    }
+    // public List<String> getQuestionsCorrectFirstTime() {
+    //     return questionsCorrectFirstTime;
+    // }
 }
