@@ -33,12 +33,11 @@ public class QuestionHistorySummary {
     }
 
     public static List<String> checkQuestionsResponded(Map<String, QuestionHistory> questionHistoryMap){
-        List<QuestionHistory> questionHist = new ArrayList<QuestionHistory>(questionHistoryMap.values());
         List<String> questionsAnsweredList = new ArrayList<String>();
 
-        for(int i=0; i < questionHist.size(); i++){
-            if (questionHist.get(i).responses.isEmpty() != true){
-                questionsAnsweredList.add(questionHist.get(i).getQuestionId());
+        for( QuestionHistory questionHist : questionHistoryMap.values()){
+            if (questionHist.responses.isEmpty() != true){
+                questionsAnsweredList.add(questionHist.getQuestionId());
             }
         }
         return questionsAnsweredList;

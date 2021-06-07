@@ -2,8 +2,11 @@ package edu.ithaca.dragon.par.analysis;
 
 import edu.ithaca.dragon.par.domain.DomainDatasourceJson;
 import edu.ithaca.dragon.par.student.json.QuestionHistoryTest;
+import edu.ithaca.dragon.util.JsonIoHelperSpring;
+
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -38,13 +41,13 @@ class QuestionHistorySummaryTest {
     }
 
     @Test
-    public void findQuestionsCorrectTest(){
+    public void findQuestionsCorrectTest() throws IOException{
         DomainDatasourceJson data = new DomainDatasourceJson
         (
-            id, 
-            questionFilePath, 
-            defaultQuestionReadOnlyFilePath, 
-            jsonIoHelper
+            "sampleQuestions", 
+            "src/main/analysis/SampleQuestions.json", 
+            "src/main/analysis/SampleQuestions.json", 
+            new JsonIoHelperSpring()
         );
 
         List<String> questionsCorrect = QuestionHistorySummary.findQuestionsCorrect(QuestionHistoryTest.makeExamples(), data);
