@@ -1,5 +1,6 @@
 package edu.ithaca.dragon.par.analysis;
 
+import edu.ithaca.dragon.par.domain.DomainDatasourceJson;
 import edu.ithaca.dragon.par.student.json.QuestionHistoryTest;
 import org.junit.jupiter.api.Test;
 
@@ -28,12 +29,32 @@ class QuestionHistorySummaryTest {
     }
 
     @Test
-    public void checkQuestionsAnsweredTest(){
-        List<String> questionsAnswered = QuestionHistorySummary.checkQuestionsAnswered(QuestionHistoryTest.makeExamples());
-        assertEquals(3, questionsAnswered.size());
-        assertEquals("q1", questionsAnswered.get(0));
-        assertEquals("q3", questionsAnswered.get(1));
-        assertEquals("q5", questionsAnswered.get(2));
+    public void checkQuestionsRespondedTest(){
+        List<String> questionsResponded = QuestionHistorySummary.checkQuestionsResponded(QuestionHistoryTest.makeExamples());
+        assertEquals(3, questionsResponded.size());
+        assertEquals("q1", questionsResponded.get(0));
+        assertEquals("q3", questionsResponded.get(1));
+        assertEquals("q5", questionsResponded.get(2));
+    }
+
+    @Test
+    public void findQuestionsCorrectTest(){
+        DomainDatasourceJson data = new DomainDatasourceJson
+        (
+            id, 
+            questionFilePath, 
+            defaultQuestionReadOnlyFilePath, 
+            jsonIoHelper
+        );
+
+        List<String> questionsCorrect = QuestionHistorySummary.findQuestionsCorrect(QuestionHistoryTest.makeExamples(), data);
+
+        // Example Question 1: What color is the sky?
+        assertEquals("blue", questionsCorrect.get(0));
+        // Example Question 2: What is 1 + 1?
+        assertEquals("2", questionsCorrect.get(1));
+        // Example Question 3: What is your major?
+        assertEquals("CS", questionsCorrect.get(2));
     }
 
 }
