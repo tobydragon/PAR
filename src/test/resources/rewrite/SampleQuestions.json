@@ -1,5 +1,5 @@
 [ {
-    "id" : "614-plane-./images/3CTransverse.jpg",
+    "id" : "generic0",
     "type" : "sky",
     "questionText" : "What color is the sky?",
     "correctAnswer" : "blue",
@@ -7,7 +7,7 @@
     "imageUrl" : "./images/3CTransverse.jpg",
     "followupQuestions" : [ ]
   }, {
-    "id" : "617-structure0-./images/3CTransverse.jpg",
+    "id" : "generic1",
     "type" : "math",
     "questionText" : "What is 1 + 1?",
     "correctAnswer" : "2",
@@ -15,7 +15,7 @@
     "imageUrl" : "./images/3CTransverse.jpg",
     "followupQuestions" : [ ]
   }, {
-    "id" : "617-structure0-./images/3CTransverse.jpg",
+    "id" : "generic2",
     "type" : "major",
     "questionText" : "What is your major?",
     "correctAnswer" : "CS",
@@ -23,3 +23,4 @@
     "imageUrl" : "./images/3CTransverse.jpg",
     "followupQuestions" : [ ]
   }
+]
