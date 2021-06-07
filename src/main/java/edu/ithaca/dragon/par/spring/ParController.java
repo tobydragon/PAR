@@ -11,6 +11,7 @@ import edu.ithaca.dragon.util.JsonIoHelperSpring;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api2")
@@ -18,6 +19,19 @@ public class ParController {
     private final ParServer parServer;
 
     public ParController()throws IOException {
+
+        StudentModelDatasourceJson studentModelDatasourceJson = new StudentModelDatasourceJson(
+                "allStudents",
+                "localData/student",
+                new JsonIoHelperSpring()
+        );
+        //TODO: remove default users once there is a front-end way to create new users
+        List.of("r1", "r2", "r3", "o1", "o2", "o3", "o4").forEach((userId)-> {
+            if (studentModelDatasourceJson.idIsAvailable(userId)){
+                studentModelDatasourceJson.createNewModelForId(userId);
+            }
+        });
+
         parServer = new ParServer(
             new DomainDatasourceJson(
                 "HorseUltrasound",
@@ -25,11 +39,10 @@ public class ParController {
                 "author/defaultQuestionPool.json",
                 new JsonIoHelperSpring()
             ),
-            new StudentModelDatasourceJson(
-                "allStudents",
-                "localData/student",
-                new JsonIoHelperSpring()
-            ),
+
+            studentModelDatasourceJson,
+
+            //TODO: remove default users from cohort datastores once there is a viable way to add students
             new CohortDatasourceJson(
                 "allCohorts",
                 "localData/currentCohorts.json",
