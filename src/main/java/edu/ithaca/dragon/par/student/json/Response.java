@@ -12,4 +12,8 @@ public class Response {
         this.responseText = responseTextIn;
         this.millSeconds = new Date().getTime();
     }
+
+    public String getResponseText(){
+        return responseText;
+    }
 }
