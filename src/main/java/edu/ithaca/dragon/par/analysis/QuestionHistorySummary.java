@@ -1,6 +1,8 @@
 package edu.ithaca.dragon.par.analysis;
 
 import edu.ithaca.dragon.par.domain.DomainDatasourceJson;
+import edu.ithaca.dragon.par.domain.DomainDatasourceSimple;
+import edu.ithaca.dragon.par.domain.Question;
 import edu.ithaca.dragon.par.student.json.QuestionHistory;
 
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ public class QuestionHistorySummary {
     public QuestionHistorySummary(Collection<QuestionHistory> questionHistoryCollection){
         questionIdsSeen = buildQuestionIdsSeen(questionHistoryCollection);
         questionsRespondedTo = checkQuestionsRespondedTo(questionHistoryCollection);
+        //questionsCorrect = findQuestionsCorrect(questionHistoryCollection, domainData)
     }
 
     public static List<String> buildQuestionIdsSeen(Collection<QuestionHistory> questionHistoryCollection){
@@ -47,8 +50,18 @@ public class QuestionHistorySummary {
         return questionsAnsweredList;
     }
 
-    public static List<String> findQuestionsCorrect(Collection<QuestionHistory> questionHistoryCollection, DomainDatasourceJson domainData){
-        return null;
+    public static List<String> findQuestionsCorrect(Collection<QuestionHistory> questionHistoryCollection, DomainDatasourceSimple domainData){
+        List<String> correctQuestions = new ArrayList<String>();
+        List<QuestionHistory> historyOfQuestions = new ArrayList<QuestionHistory>(questionHistoryCollection);
+        List<Question> listOfQuestions = domainData.getAllQuestions();
+
+        // for(int i=0; i < historyOfQuestions.size(); i++){
+        //     if(historyOfQuestions.get(i).responses.get(i).equals(listOfQuestions.get(i).getCorrectAnswer())){
+        //         correctQuestions.add(listOfQuestions.get(i).getCorrectAnswer());
+        //     }
+        // }
+
+        return correctQuestions;
     }
 
     public List<String> getQuestionIdsSeen() {
@@ -61,5 +74,9 @@ public class QuestionHistorySummary {
 
     public List<String> getQuestionsCorrect() {
         return questionsCorrect;
+    }
+
+    public List<String> getQuestionsIncorrect(){
+        return questionsIncorrect;
     }
 }
