@@ -13,10 +13,10 @@ import java.util.Map;
 //TODO: can make these: across everyone for all types or certain type, for 1 student for all types or certain type, window size too
 public class QuestionHistorySummary {
     private List<String> questionIdsSeen;
-    private List<String> questionsRespondedTo; // changed from questionsAnswered
-    private List<String> questionsCorrect; // changed from questionsCorrectFirstTime
-    private List<String> questionsCorrectAfterIncorrect; // changed from questionsCorrectAfterIncorrect
-    private List<String> questionsIncorrect; // changed from questionsOnlyAnsweredIncorrect
+    private List<String> questionsRespondedTo;
+    private List<String> questionsCorrect;
+    private List<String> questionsCorrectAfterIncorrect;
+    private List<String> questionsIncorrect;
 
 
     public QuestionHistorySummary(Collection<QuestionHistory> questionHistoryCollection){
@@ -55,11 +55,11 @@ public class QuestionHistorySummary {
         List<QuestionHistory> historyOfQuestions = new ArrayList<QuestionHistory>(questionHistoryCollection);
         List<Question> listOfQuestions = domainData.getAllQuestions();
 
-        // for(int i=0; i < historyOfQuestions.size(); i++){
-        //     if(historyOfQuestions.get(i).responses.get(i).equals(listOfQuestions.get(i).getCorrectAnswer())){
-        //         correctQuestions.add(listOfQuestions.get(i).getCorrectAnswer());
-        //     }
-        // }
+        for(int i=0; i < historyOfQuestions.size(); i++){
+            if(historyOfQuestions.get(i).responses.get(i).getResponseText().equals(listOfQuestions.get(i).getCorrectAnswer())){
+                correctQuestions.add(listOfQuestions.get(i).getCorrectAnswer());
+            }
+        }
 
         return correctQuestions;
     }
