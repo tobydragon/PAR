@@ -46,4 +46,25 @@ public class QuestionHistoryTest {
         return examples;
     }
 
+    public static List<QuestionHistory> SampleQuestionsEx(){
+        List<QuestionHistory> sample = new ArrayList<>();
+
+        QuestionHistory sky = new QuestionHistory("generic0");
+        sky.addTimeSeen();
+        sky.addResponse("blue");
+        sample.add(sky);
+
+        QuestionHistory math = new QuestionHistory("generic1");
+        math.addTimeSeen();
+        math.addResponse("2");
+        sample.add(math);
+
+        QuestionHistory major = new QuestionHistory("generic2");
+        major.addTimeSeen();
+        major.addResponse("ENG");
+        sample.add(major);
+
+        return sample;
+    }
+
 }
