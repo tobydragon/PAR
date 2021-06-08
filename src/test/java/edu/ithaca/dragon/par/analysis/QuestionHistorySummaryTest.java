@@ -1,14 +1,18 @@
 package edu.ithaca.dragon.par.analysis;
 
 import edu.ithaca.dragon.par.domain.DomainDatasourceJson;
+import edu.ithaca.dragon.par.domain.DomainDatasourceSimple;
+import edu.ithaca.dragon.par.domain.Question;
 import edu.ithaca.dragon.par.student.json.QuestionHistoryTest;
 import edu.ithaca.dragon.util.JsonIoHelperSpring;
+import edu.ithaca.dragon.util.JsonUtil;
 
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.List;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -33,7 +37,7 @@ class QuestionHistorySummaryTest {
 
     @Test
     public void checkQuestionsRespondedTest(){
-        List<String> questionsResponded = QuestionHistorySummary.checkQuestionsResponded(QuestionHistoryTest.makeExamples());
+        List<String> questionsResponded = QuestionHistorySummary.checkQuestionsRespondedTo(QuestionHistoryTest.makeExamples());
         assertEquals(3, questionsResponded.size());
         assertEquals("q1", questionsResponded.get(0));
         assertEquals("q3", questionsResponded.get(1));
@@ -42,22 +46,18 @@ class QuestionHistorySummaryTest {
 
     @Test
     public void findQuestionsCorrectTest() throws IOException{
-        DomainDatasourceJson data = new DomainDatasourceJson
-        (
-            "sampleQuestions", 
-            "src/main/analysis/SampleQuestions.json", 
-            "src/main/analysis/SampleQuestions.json", 
-            new JsonIoHelperSpring()
-        );
+        DomainDatasourceSimple data = new DomainDatasourceSimple(JsonUtil.listFromJsonFile("src/test/resources/rewrite/SampleQuestions.json", Question.class));
+        List<String> questionsCorrect = QuestionHistorySummary.findQuestionsCorrect(QuestionHistoryTest.SampleQuestionsEx(), data);
 
-        List<String> questionsCorrect = QuestionHistorySummary.findQuestionsCorrect(QuestionHistoryTest.makeExamples(), data);
+        assertEquals(3, data.getAllQuestions().size());
 
-        // Example Question 1: What color is the sky?
+        assertEquals(2, questionsCorrect.size());
+
+        // Sample Question 1: What color is the sky?
         assertEquals("blue", questionsCorrect.get(0));
-        // Example Question 2: What is 1 + 1?
+
+        // Sample Question 2: What is 1 + 1?
         assertEquals("2", questionsCorrect.get(1));
-        // Example Question 3: What is your major?
-        assertEquals("CS", questionsCorrect.get(2));
     }
 
 }
