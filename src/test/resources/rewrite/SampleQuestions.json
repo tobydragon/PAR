@@ -22,5 +22,21 @@
     "possibleAnswers" : [ "CS", "ENG", "MATH"],
     "imageUrl" : "./images/3CTransverse.jpg",
     "followupQuestions" : [ ]
+  }, {
+    "id" : "generic3",
+    "type" : "year",
+    "questionText" : "What was the previous year?",
+    "correctAnswer" : "2020",
+    "possibleAnswers" : [ "2021", "2019", "2018"],
+    "imageUrl" : "./images/3CTransverse.jpg",
+    "followupQuestions" : [ ]
+  }, {
+    "id" : "generic4",
+    "type" : "google",
+    "questionText" : "When was Google founded?",
+    "correctAnswer" : "1998",
+    "possibleAnswers" : [ "1996", "2001", "2005"],
+    "imageUrl" : "./images/3CTransverse.jpg",
+    "followupQuestions" : [ ]
   }
 ]
