@@ -74,12 +74,10 @@ public class QuestionHistoryTest {
 
         QuestionHistory sky = new QuestionHistory("generic0");
         sky.addTimeSeen();
-        sky.addResponse("blue");
         poor.add(sky);
 
         QuestionHistory math = new QuestionHistory("generic1");
         math.addTimeSeen();
-        math.addResponse("3");
         poor.add(math);
 
         QuestionHistory major = new QuestionHistory("generic2");
@@ -94,7 +92,6 @@ public class QuestionHistoryTest {
 
         QuestionHistory google = new QuestionHistory("generic4");
         google.addTimeSeen();
-        google.addResponse("2005");
         poor.add(google);
 
         return poor;
@@ -136,8 +133,6 @@ public class QuestionHistoryTest {
 
         QuestionHistory sky = new QuestionHistory("generic0");
         sky.addTimeSeen();
-        sky.addResponse("orange");
-        sky.addResponse("blue");
         improving.add(sky);
 
         QuestionHistory math = new QuestionHistory("generic1");
@@ -147,8 +142,6 @@ public class QuestionHistoryTest {
 
         QuestionHistory major = new QuestionHistory("generic2");
         major.addTimeSeen();
-        major.addResponse("ENG");
-        major.addResponse("MATH");
         major.addResponse("CS");
         improving.add(major);
 
