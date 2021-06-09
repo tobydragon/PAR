@@ -62,9 +62,109 @@ public class QuestionHistoryTest {
         QuestionHistory major = new QuestionHistory("generic2");
         major.addTimeSeen();
         major.addResponse("ENG");
+        major.addResponse("MATH");
+        major.addResponse("CS");
         sample.add(major);
 
         return sample;
+    }
+
+    public static List<QuestionHistory> poorStudent(){
+        List<QuestionHistory> poor = new ArrayList<>();
+
+        QuestionHistory sky = new QuestionHistory("generic0");
+        sky.addTimeSeen();
+        sky.addResponse("blue");
+        poor.add(sky);
+
+        QuestionHistory math = new QuestionHistory("generic1");
+        math.addTimeSeen();
+        math.addResponse("3");
+        poor.add(math);
+
+        QuestionHistory major = new QuestionHistory("generic2");
+        major.addTimeSeen();
+        major.addResponse("ENG");
+        poor.add(major);
+
+        QuestionHistory year = new QuestionHistory("generic3");
+        year.addTimeSeen();
+        year.addResponse("2021");
+        poor.add(year);
+
+        QuestionHistory google = new QuestionHistory("generic4");
+        google.addTimeSeen();
+        google.addResponse("2005");
+        poor.add(google);
+
+        return poor;
+    }
+
+    public static List<QuestionHistory> strongStudent(){
+        List<QuestionHistory> strong = new ArrayList<>();
+
+        QuestionHistory sky = new QuestionHistory("generic0");
+        sky.addTimeSeen();
+        sky.addResponse("blue");
+        strong.add(sky);
+
+        QuestionHistory math = new QuestionHistory("generic1");
+        math.addTimeSeen();
+        math.addResponse("2");
+        strong.add(math);
+
+        QuestionHistory major = new QuestionHistory("generic2");
+        major.addTimeSeen();
+        major.addResponse("CS");
+        strong.add(major);
+
+        QuestionHistory year = new QuestionHistory("generic3");
+        year.addTimeSeen();
+        year.addResponse("2020");
+        strong.add(year);
+
+        QuestionHistory google = new QuestionHistory("generic4");
+        google.addTimeSeen();
+        google.addResponse("1998");
+        strong.add(google);
+
+        return strong;
+    }
+
+    public static List<QuestionHistory> improvingStudent(){
+        List<QuestionHistory> improving = new ArrayList<>();
+
+        QuestionHistory sky = new QuestionHistory("generic0");
+        sky.addTimeSeen();
+        sky.addResponse("orange");
+        sky.addResponse("blue");
+        improving.add(sky);
+
+        QuestionHistory math = new QuestionHistory("generic1");
+        math.addTimeSeen();
+        math.addResponse("2");
+        improving.add(math);
+
+        QuestionHistory major = new QuestionHistory("generic2");
+        major.addTimeSeen();
+        major.addResponse("ENG");
+        major.addResponse("MATH");
+        major.addResponse("CS");
+        improving.add(major);
+
+        QuestionHistory year = new QuestionHistory("generic3");
+        year.addTimeSeen();
+        year.addResponse("2021");
+        year.addResponse("2020");
+        improving.add(year);
+
+        QuestionHistory google = new QuestionHistory("generic4");
+        google.addTimeSeen();
+        google.addResponse("2005");
+        google.addResponse("1998");
+        improving.add(google);
+
+        return improving;
     }
 
 }
