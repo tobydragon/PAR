@@ -25,15 +25,12 @@ class QuestionHistorySummaryTest {
  
         QuestionHistorySummary poorPerformance = new QuestionHistorySummary(QuestionHistoryTest.poorStudent(), data);
         assertEquals(5, poorPerformance.getQuestionIdsSeen().size());
-        assertEquals(5, poorPerformance.getQuestionsRespondedTo().size());
-        assertEquals(1, poorPerformance.getQuestionsCorrect().size());
-        assertEquals("blue", poorPerformance.getQuestionsCorrect().get(0));
-        assertEquals(4, poorPerformance.getQuestionsIncorrect().size());
-        assertNotEquals("2", poorPerformance.getQuestionsIncorrect().get(0));
-        assertNotEquals("CS", poorPerformance.getQuestionsIncorrect().get(1));
-        assertNotEquals("2020", poorPerformance.getQuestionsIncorrect().get(2));
-        assertNotEquals("1998", poorPerformance.getQuestionsIncorrect().get(3));
- 
+        assertEquals(2, poorPerformance.getQuestionsRespondedTo().size());
+        assertEquals(0, poorPerformance.getQuestionsCorrect().size());
+        assertEquals(2, poorPerformance.getQuestionsIncorrect().size());
+        assertNotEquals("CS", poorPerformance.getQuestionsIncorrect().get(0));
+        assertNotEquals("2020", poorPerformance.getQuestionsIncorrect().get(1));
+
         QuestionHistorySummary strongPerformance = new QuestionHistorySummary(QuestionHistoryTest.strongStudent(), data);
         assertEquals(5, strongPerformance.getQuestionIdsSeen().size());
         assertEquals(5, strongPerformance.getQuestionsRespondedTo().size());
@@ -46,18 +43,16 @@ class QuestionHistorySummaryTest {
 
         QuestionHistorySummary improvingPerformance = new QuestionHistorySummary(QuestionHistoryTest.improvingStudent(), data);
         assertEquals(5, improvingPerformance.getQuestionIdsSeen().size());
-        assertEquals(5, improvingPerformance.getQuestionsRespondedTo().size());
-        assertEquals(1, improvingPerformance.getQuestionsCorrect().size());
+        assertEquals(4, improvingPerformance.getQuestionsRespondedTo().size());
+        assertEquals(2, improvingPerformance.getQuestionsCorrect().size());
         assertEquals("2", improvingPerformance.getQuestionsCorrect().get(0));
-        assertEquals(4, improvingPerformance.getQuestionsIncorrect().size());
-        assertEquals(5, improvingPerformance.getQuestionsCorrectAfterIncorrect().size());
-        assertEquals("blue", improvingPerformance.getQuestionsCorrectAfterIncorrect().get(0));
-        assertEquals("2", improvingPerformance.getQuestionsCorrectAfterIncorrect().get(1));
-        assertEquals("CS", improvingPerformance.getQuestionsCorrectAfterIncorrect().get(2));
-        assertEquals("2020", improvingPerformance.getQuestionsCorrectAfterIncorrect().get(3));
-        assertEquals("1998", improvingPerformance.getQuestionsCorrectAfterIncorrect().get(4));
-
-
+        assertEquals("CS", improvingPerformance.getQuestionsCorrect().get(1));
+        assertEquals(2, improvingPerformance.getQuestionsIncorrect().size());
+        assertEquals(4, improvingPerformance.getQuestionsCorrectAfterIncorrect().size());
+        assertEquals("2", improvingPerformance.getQuestionsCorrectAfterIncorrect().get(0));
+        assertEquals("CS", improvingPerformance.getQuestionsCorrectAfterIncorrect().get(1));
+        assertEquals("2020", improvingPerformance.getQuestionsCorrectAfterIncorrect().get(2));
+        assertEquals("1998", improvingPerformance.getQuestionsCorrectAfterIncorrect().get(3));
     }
 
     @Test
