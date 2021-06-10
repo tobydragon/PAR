@@ -12,7 +12,6 @@ import java.util.Map;
 
 //TODO: can make these: across everyone for all types or certain type, for 1 student for all types or certain type, window size too
 public class QuestionHistorySummary {
-
     private List<String> questionIdsSeen;
     private List<String> questionsRespondedTo;
     private List<String> questionsCorrect;

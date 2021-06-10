@@ -36,6 +36,7 @@ public class ParServer {
     }
 
     public boolean isUserIdAvailable(String studentId){
+        logger.info("isUserIdAvailable for : "+studentId);
         return studentModelDatasource.idIsAvailable(studentId);
     }
 

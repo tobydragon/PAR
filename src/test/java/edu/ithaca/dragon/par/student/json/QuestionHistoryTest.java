@@ -70,7 +70,6 @@ public class QuestionHistoryTest {
     }
 
     public static List<QuestionHistory> poorStudent(){
-
         QuestionHistory sky = new QuestionHistory("generic0");
         QuestionHistory math = new QuestionHistory("generic1");
         QuestionHistory major = new QuestionHistory("generic2");

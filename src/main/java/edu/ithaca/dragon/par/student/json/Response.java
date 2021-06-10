@@ -20,4 +20,5 @@ public class Response {
     public String getResponseText(){
         return responseText;
     }
+
 }
