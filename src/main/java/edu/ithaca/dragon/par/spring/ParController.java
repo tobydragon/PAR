@@ -12,6 +12,7 @@ import edu.ithaca.dragon.util.JsonIoHelperSpring;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api2")
@@ -50,9 +51,9 @@ public class ParController {
         return parServer.getCurrentQuestion(userId);
     }
 
-    @GetMapping("/getCurrentCohorts")
-    public Cohort getCurrentCohorts(@RequestParam String type){
-        return parServer.getCurrentCohorts(type);
+    @GetMapping("/getCohortIds")
+    public List<String> getCohortIds(){
+        return parServer.getCohortIds();
     }
 
     @PostMapping("/addTimeSeen")
