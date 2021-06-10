@@ -49,6 +49,11 @@ public class ParController {
         return parServer.getCurrentQuestion(userId);
     }
 
+    @GetMapping("/getCurrentCohorts")
+    public Cohort getCurrentCohorts(@RequestParam String type){
+        //return parServer.
+    }
+
     @PostMapping("/addTimeSeen")
     public void addTimeSeen(@RequestBody StudentAction studentAction){
         parServer.addTimeSeen(studentAction.studentId, studentAction.questionId);

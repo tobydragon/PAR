@@ -20,6 +20,10 @@ public class ParServer {
         return cohortDatasource.getQuestionChooser(studentId).chooseQuestion(studentId, domainDatasource, studentModelDatasource);
     }
 
+    public Cohort getCurrentCohorts(String type){
+        //return cohortDatasource.
+    }
+
     public void addTimeSeen(String studentId, String questionId){
         studentModelDatasource.addTimeSeen(studentId, questionId);
     }
