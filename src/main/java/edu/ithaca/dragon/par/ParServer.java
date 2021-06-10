@@ -35,4 +35,8 @@ public class ParServer {
         studentModelDatasource.addResponse(studentId, questionId, newResponseText);
     }
 
+    public boolean isUserIdAvailable(String studentId){
+        return studentModelDatasource.idIsAvailable(studentId);
+    }
+
 }

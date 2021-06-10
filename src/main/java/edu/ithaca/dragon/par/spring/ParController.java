@@ -62,6 +62,11 @@ public class ParController {
         return parServer.getCurrentQuestion(userId);
     }
 
+    @GetMapping("/isUserIdAvailable")
+    public Boolean isUserIdAvailable(@RequestParam String idToCheck){
+        return parServer.isUserIdAvailable(idToCheck);
+    }
+
     @PostMapping("/addTimeSeen")
     public void addTimeSeen(@RequestBody StudentAction studentAction){
         parServer.addTimeSeen(studentAction.studentId, studentAction.questionId);
