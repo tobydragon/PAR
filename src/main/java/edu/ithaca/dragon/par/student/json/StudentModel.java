@@ -2,10 +2,7 @@ package edu.ithaca.dragon.par.student.json;
 
 import edu.ithaca.dragon.par.domain.Question;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class StudentModel {
     public String studentId;
@@ -49,6 +46,30 @@ public class StudentModel {
         }
         else {
             return 0;
+        }
+    }
+
+    /**
+     * @param questionIdsToCheck list of questions in the order in which to check
+     * @return the id from questionIdsToCheck that has been seen least recently,
+     *          will return the first question never seen if any question is never seen
+     */
+    public String findQuestionSeenLeastRecently( List<String> questionIdsToCheck){
+        long currTimestamp = new Date().getTime();
+        if (questionIdsToCheck.size() >0) {
+            String leastRecentQuestionSoFar = questionIdsToCheck.get(0);
+            long timeElapsedForLeastRecent = currTimestamp - checkTimeLastSeen(leastRecentQuestionSoFar);
+            for (String questionId : questionIdsToCheck) {
+                long timeElapsed = currTimestamp - checkTimeLastSeen(questionId);
+                if (timeElapsed > timeElapsedForLeastRecent) {
+                    leastRecentQuestionSoFar = questionId;
+                    timeElapsedForLeastRecent = timeElapsed;
+                }
+            }
+            return leastRecentQuestionSoFar;
+        }
+        else {
+            throw new IllegalArgumentException("empty questionIdsToCheck List");
         }
     }
 

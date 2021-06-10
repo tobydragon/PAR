@@ -19,11 +19,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class StudentModelDatasourceJsonTest {
 
     @Test
-    public void findQuestionSeenLeastRecentlyTest(){
-        fail("todo");
-    }
-
-    @Test
     public void toAndFromJson(@TempDir Path tempDir) throws IOException {
         makeExampleInDir(tempDir.toString());
         assertEquals(10, FileSystemUtil.findAllFileNamesInDir(tempDir.toFile(), "json").size());

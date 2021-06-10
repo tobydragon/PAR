@@ -2,9 +2,20 @@ package edu.ithaca.dragon.par.student.json;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class StudentModelTest {
+
+    @Test
+    public void findQuestionSeenLeastRecentlyTest(){
+        StudentModel poor = new StudentModel("poor", QuestionHistoryTest.poorStudent());
+        assertEquals("generic4", poor.findQuestionSeenLeastRecently(List.of("generic0","generic1","generic2","generic3","generic4")));
+        poor.addTimeSeen("generic4", 20000L);
+        assertEquals("generic0", poor.findQuestionSeenLeastRecently(List.of("generic0","generic1","generic2","generic3","generic4")));
+
+    }
 
     @Test
     void checkTimeLastSeen() {

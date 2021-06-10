@@ -4,6 +4,7 @@ import edu.ithaca.dragon.par.cohort.CohortDatasource;
 import edu.ithaca.dragon.par.domain.Question;
 import edu.ithaca.dragon.par.domain.DomainDatasource;
 import edu.ithaca.dragon.par.student.StudentModelDatasource;
+import edu.ithaca.dragon.par.student.json.StudentModel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -22,7 +23,7 @@ public class ParServer {
 
     public Question getCurrentQuestion(String studentId){
         logger.info("Question for : "+studentId);
-        return cohortDatasource.getQuestionChooser(studentId).chooseQuestion(studentId, domainDatasource, studentModelDatasource);
+        return cohortDatasource.getQuestionChooser(studentId).chooseQuestion(studentModelDatasource.getStudentModel(studentId), domainDatasource);
     }
 
     public void addTimeSeen(String studentId, String questionId){
@@ -34,4 +35,5 @@ public class ParServer {
         logger.info("addResponse for : "+studentId + ", " + questionId +", "+ newResponseText);
         studentModelDatasource.addResponse(studentId, questionId, newResponseText);
     }
+
 }

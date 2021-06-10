@@ -36,34 +36,6 @@ public class StudentModelDatasourceJson implements StudentModelDatasource {
     }
 
     @Override
-    public String findQuestionSeenLeastRecently(String studentId, List<String> questionIdsToCheck){
-        long currTimestamp = new Date().getTime();
-        if (questionIdsToCheck.size() >0) {
-            String leastRecentQuestionSoFar = questionIdsToCheck.get(0);
-            StudentModel studentModel = getStudentModel(studentId);
-            if (studentModel != null) {
-                long timeElapsedForLeastRecent = currTimestamp - studentModel.checkTimeLastSeen(leastRecentQuestionSoFar);
-                for (String questionId : questionIdsToCheck) {
-                    long timeElapsed = currTimestamp - studentModel.checkTimeLastSeen(questionId);
-                    if (timeElapsed > timeElapsedForLeastRecent) {
-                        leastRecentQuestionSoFar = questionId;
-                        timeElapsedForLeastRecent = timeElapsed;
-                    }
-                }
-                return leastRecentQuestionSoFar;
-            }
-            else {
-              throw new IllegalArgumentException("Bad student id: " +studentId);
-            }
-
-        }
-        else {
-            throw new IllegalArgumentException("empty questionIdsToCheck List");
-        }
-    }
-
-
-    @Override
     public void addTimeSeen(String studentId, String questionId) {
         StudentModel studentModel =  getStudentModel(studentId);
         studentModel.addTimeSeen(questionId);
