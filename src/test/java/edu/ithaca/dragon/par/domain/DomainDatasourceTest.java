@@ -12,7 +12,7 @@ class DomainDatasourceTest {
     @Test
     void gettersTest() throws IOException {
         DomainDatasource domainDatasource = new DomainDatasourceSimple(JsonUtil.listFromJsonFile("src/test/resources/rewrite/SampleQuestions.json", Question.class));
-        assertEquals(3, domainDatasource.getAllQuestions().size());
+        assertEquals(5, domainDatasource.getAllQuestions().size());
 
         assertEquals("blue", domainDatasource.getQuestion("generic0").getCorrectAnswer());
         assertEquals("What is the color of the sky?", domainDatasource.getQuestion("generic0").getQuestionText());
