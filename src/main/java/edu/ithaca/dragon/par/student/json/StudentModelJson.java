@@ -1,20 +1,20 @@
 package edu.ithaca.dragon.par.student.json;
 
-import edu.ithaca.dragon.par.domain.Question;
+import edu.ithaca.dragon.par.student.StudentModelInfo;
 
 import java.util.*;
 
-public class StudentModel {
+public class StudentModelJson implements StudentModelInfo {
     public String studentId;
     public Map<String, QuestionHistory> questionHistories;
 
-    public StudentModel(){ }
+    public StudentModelJson(){ }
 
-    public StudentModel(String studentId) {
+    public StudentModelJson(String studentId) {
         this(studentId, new ArrayList<>());
     }
 
-    public StudentModel(String studentId, Collection<QuestionHistory> questionHistoryCollection) {
+    public StudentModelJson(String studentId, Collection<QuestionHistory> questionHistoryCollection) {
         this.studentId = studentId;
         questionHistories = new HashMap<>();
         questionHistoryCollection.forEach((questionHistory) -> questionHistories.put(questionHistory.getQuestionId(), questionHistory));
@@ -54,6 +54,7 @@ public class StudentModel {
      * @return the id from questionIdsToCheck that has been seen least recently,
      *          will return the first question never seen if any question is never seen
      */
+    @Override
     public String findQuestionSeenLeastRecently( List<String> questionIdsToCheck){
         long currTimestamp = new Date().getTime();
         if (questionIdsToCheck.size() >0) {

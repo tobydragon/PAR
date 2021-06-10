@@ -7,7 +7,6 @@ import edu.ithaca.dragon.util.JsonIoUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -22,7 +21,7 @@ class StudentModelDatasourceJsonTest {
     public void toAndFromJson(@TempDir Path tempDir) throws IOException {
         makeExampleInDir(tempDir.toString());
         assertEquals(10, FileSystemUtil.findAllFileNamesInDir(tempDir.toFile(), "json").size());
-        StudentModel bart =  new JsonIoUtil(new JsonIoHelperDefault()).fromFile(tempDir.toString() + "/Bart.json", StudentModel.class);
+        StudentModelJson bart =  new JsonIoUtil(new JsonIoHelperDefault()).fromFile(tempDir.toString() + "/Bart.json", StudentModelJson.class);
         assertEquals(2, bart.questionHistories.size());
         assertEquals(1, bart.questionHistories.get("q3").timesSeen.size());
     }

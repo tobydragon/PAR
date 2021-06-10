@@ -10,7 +10,7 @@ class StudentModelTest {
 
     @Test
     public void findQuestionSeenLeastRecentlyTest(){
-        StudentModel poor = new StudentModel("poor", QuestionHistoryTest.poorStudent());
+        StudentModelJson poor = new StudentModelJson("poor", QuestionHistoryTest.poorStudent());
         assertEquals("generic4", poor.findQuestionSeenLeastRecently(List.of("generic0","generic1","generic2","generic3","generic4")));
         poor.addTimeSeen("generic4", 20000L);
         assertEquals("generic0", poor.findQuestionSeenLeastRecently(List.of("generic0","generic1","generic2","generic3","generic4")));
@@ -19,7 +19,7 @@ class StudentModelTest {
 
     @Test
     void checkTimeLastSeen() {
-        StudentModel poor = new StudentModel("poor", QuestionHistoryTest.poorStudent());
+        StudentModelJson poor = new StudentModelJson("poor", QuestionHistoryTest.poorStudent());
 
         assertEquals(5000L, poor.checkTimeLastSeen("generic4"));
         assertEquals(6000L, poor.checkTimeLastSeen("generic0"));

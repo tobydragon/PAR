@@ -2,8 +2,7 @@ package edu.ithaca.dragon.par.pedagogy;
 
 import edu.ithaca.dragon.par.domain.Question;
 import edu.ithaca.dragon.par.domain.DomainDatasource;
-import edu.ithaca.dragon.par.student.StudentModelDatasource;
-import edu.ithaca.dragon.par.student.json.StudentModel;
+import edu.ithaca.dragon.par.student.StudentModelInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +18,8 @@ public class QuestionChooserInOrder  implements  QuestionChooser{
     }
 
     @Override
-    public Question chooseQuestion(StudentModel studentModel, DomainDatasource domainDatasource) {
-        String questionId = studentModel.findQuestionSeenLeastRecently(questionIdsInOrder);
+    public Question chooseQuestion(StudentModelInfo studentModelInfo, DomainDatasource domainDatasource) {
+        String questionId = studentModelInfo.findQuestionSeenLeastRecently(questionIdsInOrder);
         return domainDatasource.getQuestion(questionId);
     }
 }
