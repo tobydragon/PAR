@@ -17,20 +17,24 @@ public class QuestionHistory {
         responses = new ArrayList<>();
     }
 
-    public int checkTimesSeenCount(){
-        return timesSeen.size();
-    }
-
     public long checkLastTimeSeen() {
         return timesSeen.get(timesSeen.size()-1);
     }
 
     public void addTimeSeen(){
-        timesSeen.add(new Date().getTime());
+        addTimeSeen(new Date().getTime());
+    }
+
+    public void addTimeSeen(Long timestamp){
+        timesSeen.add(timestamp);
     }
 
     public void addResponse(String newResponseText){
         responses.add(new Response(newResponseText));
+    }
+
+    public void addResponse(String newResponseText, Long timestamp){
+        responses.add(new Response(newResponseText, timestamp));
     }
 
     public String getQuestionId() {
