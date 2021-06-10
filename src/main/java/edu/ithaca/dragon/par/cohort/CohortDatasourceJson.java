@@ -8,6 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CohortDatasourceJson implements CohortDatasource{
@@ -16,6 +17,7 @@ public class CohortDatasourceJson implements CohortDatasource{
     private final String id;
     private final String filePath;
     private List<Cohort> cohorts;
+    private List<String> cohortIds;
 
     public CohortDatasourceJson(String id, String filePath) throws IOException {
         this(id, filePath, null, new JsonIoHelperDefault());
@@ -46,5 +48,14 @@ public class CohortDatasourceJson implements CohortDatasource{
         //first cohort is default
         logger.info("Student not in any cohort, using default");
         return cohorts.get(0).getQuestionChooser();
+    }
+
+    @Override
+    public List<String> getCohortIds() {
+        cohortIds = new ArrayList<String>();
+        for (Cohort cohort: cohorts){
+            cohortIds.add(cohort.id);
+        }
+        return cohortIds;
     }
 }
