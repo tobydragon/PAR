@@ -1,6 +1,7 @@
 package edu.ithaca.dragon.par.spring;
 
 import edu.ithaca.dragon.par.ParServer;
+import edu.ithaca.dragon.par.cohort.Cohort;
 import edu.ithaca.dragon.par.cohort.CohortDatasourceJson;
 import edu.ithaca.dragon.par.comm.StudentAction;
 import edu.ithaca.dragon.par.comm.StudentResponseAction;
@@ -51,7 +52,7 @@ public class ParController {
 
     @GetMapping("/getCurrentCohorts")
     public Cohort getCurrentCohorts(@RequestParam String type){
-        //return parServer.
+        return parServer.getCurrentCohorts(type);
     }
 
     @PostMapping("/addTimeSeen")
