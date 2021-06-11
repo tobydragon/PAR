@@ -3,6 +3,7 @@ package edu.ithaca.dragon.par.spring;
 import edu.ithaca.dragon.par.ParServer;
 import edu.ithaca.dragon.par.cohort.Cohort;
 import edu.ithaca.dragon.par.cohort.CohortDatasourceJson;
+import edu.ithaca.dragon.par.comm.CreateStudentAction;
 import edu.ithaca.dragon.par.comm.StudentAction;
 import edu.ithaca.dragon.par.comm.StudentResponseAction;
 import edu.ithaca.dragon.par.domain.Question;
@@ -57,7 +58,7 @@ public class ParController {
     }
 
     @PostMapping("/addNewUser")
-    public void addNewUser(@RequestBody StudentAction studentAction){
+    public void addNewUser(@RequestBody CreateStudentAction studentAction){
         parServer.addNewUser(studentAction.studentId, studentAction.cohortId);
         
     }
