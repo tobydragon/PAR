@@ -29,7 +29,7 @@ public class ParServer {
 
     public void addNewUser(String studentId, String cohortId){
         studentModelDatasource.createNewModelForId(studentId);
-        cohortDatasource.addStudentToCohort(cohortId);
+        cohortDatasource.addStudentToCohort(cohortId, studentId);
 
     }
 

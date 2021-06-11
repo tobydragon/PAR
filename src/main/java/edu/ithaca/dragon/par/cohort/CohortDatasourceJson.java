@@ -10,8 +10,9 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
+
+import javax.management.RuntimeErrorException;
 
 public class CohortDatasourceJson implements CohortDatasource{
     private final Logger logger = LogManager.getLogger(this.getClass());
@@ -20,6 +21,7 @@ public class CohortDatasourceJson implements CohortDatasource{
     private final String filePath;
     private List<Cohort> cohorts;
     private List<String> cohortIds;
+    private JsonIoUtil jsonIoUtil;
 
     public CohortDatasourceJson(String id, String filePath) throws IOException {
         this(id, filePath, null, new JsonIoHelperDefault());
@@ -27,7 +29,7 @@ public class CohortDatasourceJson implements CohortDatasource{
 
     public CohortDatasourceJson(String id, String filePath, String defaultReadOnlyFilePath, JsonIoHelper jsonIoHelper) throws IOException {
         this.id = id;
-        JsonIoUtil jsonIoUtil = new JsonIoUtil(jsonIoHelper);
+        jsonIoUtil = new JsonIoUtil(jsonIoHelper);
         this.filePath = filePath;
         if (defaultReadOnlyFilePath != null){
             cohorts = jsonIoUtil.listFromFileOrCopyFromReadOnlyFile(filePath, defaultReadOnlyFilePath, Cohort.class);
@@ -71,6 +73,7 @@ public class CohortDatasourceJson implements CohortDatasource{
                 }
                 else{
                     cohort.addStudentId(studentId);
+                    overwriteFile();
                 }
             }
         }
@@ -84,5 +87,16 @@ public class CohortDatasourceJson implements CohortDatasource{
             }
         }
         throw new IllegalArgumentException("No cohort found for " + cohortId);
+    }
+
+    public void overwriteFile(){
+        try{
+            jsonIoUtil.toFile(filePath, cohorts);
+        }
+        catch(IOException e){
+            throw new RuntimeException("Unable to write to file");
+        }
+
+
     }
 }
