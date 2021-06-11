@@ -15,7 +15,7 @@ class DomainDatasourceTest {
         assertEquals(5, domainDatasource.getAllQuestions().size());
 
         assertEquals("blue", domainDatasource.getQuestion("generic0").getCorrectAnswer());
-        assertEquals("What is the color of the sky?", domainDatasource.getQuestion("generic0").getQuestionText());
+        assertEquals("What color is the sky?", domainDatasource.getQuestion("generic0").getQuestionText());
 
         assertEquals("2", domainDatasource.getQuestion("generic1").getCorrectAnswer());
         assertEquals("What is 1 + 1?", domainDatasource.getQuestion("generic1").getQuestionText());
