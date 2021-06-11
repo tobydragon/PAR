@@ -56,6 +56,12 @@ public class ParController {
         return parServer.getCohortIds();
     }
 
+    @PostMapping("/addNewUser")
+    public void addNewUser(@RequestBody StudentAction studentAction){
+        parServer.addNewUser(studentAction.studentId, studentAction.cohortId);
+        
+    }
+
     @PostMapping("/addTimeSeen")
     public void addTimeSeen(@RequestBody StudentAction studentAction){
         parServer.addTimeSeen(studentAction.studentId, studentAction.questionId);

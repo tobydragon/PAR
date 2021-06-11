@@ -27,6 +27,10 @@ public class ParServer {
         return cohortDatasource.getCohortIds();
     }
 
+    public void addNewUser(String studentId, String cohortId){
+        studentModelDatasource.createNewModelForId(studentId);
+    }
+
     public void addTimeSeen(String studentId, String questionId){
         studentModelDatasource.addTimeSeen(studentId, questionId);
     }
