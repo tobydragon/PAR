@@ -1,6 +1,7 @@
 package edu.ithaca.dragon.par.cohort;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
@@ -24,6 +25,7 @@ public class CohortDatasourceJsonTest {
 
         assertEquals(3, sample1.getStudentIdsForCohort("random").size());
         sample1.addStudentToCohort("random", "s1");
+        assertThrows(IllegalArgumentException.class, ()-> sample1.addStudentToCohort("random", "s1"));
         assertEquals(4, sample1.getStudentIdsForCohort("random").size());
         assertTrue(sample1.getStudentIdsForCohort("random").contains("s1"));
 

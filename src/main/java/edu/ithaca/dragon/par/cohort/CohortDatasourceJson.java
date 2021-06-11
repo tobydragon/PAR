@@ -64,6 +64,16 @@ public class CohortDatasourceJson implements CohortDatasource{
     @Override
     public void addStudentToCohort(String cohortId, String studentId) {
         //TODO: write test for addStudentToCohort
+        for(Cohort cohort : cohorts){
+            if(cohort.getId().equals(cohortId)){
+                if(cohort.getStudentIds().contains(studentId)){
+                    throw new IllegalArgumentException("Student id already exists: " + studentId);                
+                }
+                else{
+                    cohort.addStudentId(studentId);
+                }
+            }
+        }
 
     }
 
