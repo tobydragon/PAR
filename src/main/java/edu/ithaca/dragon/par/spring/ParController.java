@@ -1,7 +1,9 @@
 package edu.ithaca.dragon.par.spring;
 
 import edu.ithaca.dragon.par.ParServer;
+import edu.ithaca.dragon.par.cohort.Cohort;
 import edu.ithaca.dragon.par.cohort.CohortDatasourceJson;
+import edu.ithaca.dragon.par.comm.CreateStudentAction;
 import edu.ithaca.dragon.par.comm.StudentAction;
 import edu.ithaca.dragon.par.comm.StudentResponseAction;
 import edu.ithaca.dragon.par.domain.Question;
@@ -62,9 +64,21 @@ public class ParController {
         return parServer.getCurrentQuestion(userId);
     }
 
+
     @GetMapping("/isUserIdAvailable")
-    public Boolean isUserIdAvailable(@RequestParam String idToCheck){
+    public Boolean isUserIdAvailable(@RequestParam String idToCheck) {
         return parServer.isUserIdAvailable(idToCheck);
+    }
+
+    @GetMapping("/getCohortIds")
+    public List<String> getCohortIds(){
+        return parServer.getCohortIds();
+    }
+
+    @PostMapping("/addNewUser")
+    public void addNewUser(@RequestBody CreateStudentAction studentAction){
+        parServer.addNewUser(studentAction.studentId, studentAction.cohortId);
+
     }
 
     @PostMapping("/addTimeSeen")

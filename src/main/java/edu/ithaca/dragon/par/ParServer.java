@@ -1,5 +1,8 @@
 package edu.ithaca.dragon.par;
 
+import java.util.List;
+
+import edu.ithaca.dragon.par.cohort.Cohort;
 import edu.ithaca.dragon.par.cohort.CohortDatasource;
 import edu.ithaca.dragon.par.domain.Question;
 import edu.ithaca.dragon.par.domain.DomainDatasource;
@@ -23,6 +26,16 @@ public class ParServer {
     public Question getCurrentQuestion(String studentId){
         logger.info("Question for : "+studentId);
         return cohortDatasource.getQuestionChooser(studentId).chooseQuestion(studentModelDatasource.getStudentModel(studentId), domainDatasource);
+    }
+
+    public List<String> getCohortIds(){
+        return cohortDatasource.getCohortIds();
+    }
+
+    public void addNewUser(String studentId, String cohortId){
+        studentModelDatasource.createNewModelForId(studentId);
+        cohortDatasource.addStudentToCohort(cohortId, studentId);
+
     }
 
     public void addTimeSeen(String studentId, String questionId){
