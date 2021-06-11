@@ -26,4 +26,16 @@ public class Cohort{
     QuestionChooser getQuestionChooser(){
         return questionChooser;
     }
+
+    public void addStudentId(String studentId){
+        studentIds.add(studentId);
+    }
+
+    public Set<String> getStudentIds(){
+        return studentIds;
+    }
+
+    public String getId(){
+        return id;
+    }
 }

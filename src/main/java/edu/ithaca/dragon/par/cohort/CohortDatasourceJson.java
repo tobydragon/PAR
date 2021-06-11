@@ -9,6 +9,8 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class CohortDatasourceJson implements CohortDatasource{
@@ -57,5 +59,20 @@ public class CohortDatasourceJson implements CohortDatasource{
             cohortIds.add(cohort.id);
         }
         return cohortIds;
+    }
+
+    @Override
+    public void addStudentToCohort(String cohortId, String studentId) {
+        //TODO: write test for addStudentToCohort
+
+    }
+
+    public Collection<String> getStudentIdsForCohort(String cohortId){
+        for(Cohort cohort : cohorts){
+            if(cohort.getId().equals(cohortId)){
+                return cohort.getStudentIds();
+            }
+        }
+        throw new IllegalArgumentException("No cohort found for " + cohortId);
     }
 }
