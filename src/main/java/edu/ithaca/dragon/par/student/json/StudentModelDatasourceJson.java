@@ -7,14 +7,13 @@ import edu.ithaca.dragon.util.JsonIoUtil;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class StudentModelDatasourceJson implements StudentModelDatasource {
     private final String id;
     private final String directoryPath;
     private final JsonIoHelper jsonIoHelper;
-    private final Map<String, StudentModel> studentMap;
+    private final Map<String, StudentModelJson> studentMap;
 
     public StudentModelDatasourceJson(String id, String directoryPath, JsonIoHelper jsonIoHelper){
         this.studentMap = new HashMap<>();
@@ -35,36 +34,15 @@ public class StudentModelDatasourceJson implements StudentModelDatasource {
     }
 
     @Override
-    public String findQuestionLeastSeen(String studentId, List<String> questionIdsToCheck){
-        if (questionIdsToCheck.size() > 0) {
-            StudentModel studModel = getStudentModel(studentId);
-            String questionLeastSeen = questionIdsToCheck.get(0);
-            int numTimesLeastHasBeenSeen = studModel.checkTimesSeenCount(questionIdsToCheck.get(0));
-            for (String questionIdToCheck : questionIdsToCheck) {
-                int numTimesSeen = studModel.checkTimesSeenCount(questionIdToCheck);
-                if (numTimesSeen < numTimesLeastHasBeenSeen) {
-                    numTimesLeastHasBeenSeen = numTimesSeen;
-                    questionLeastSeen = questionIdToCheck;
-                }
-            }
-            return questionLeastSeen;
-        }
-        else {
-            throw new IllegalArgumentException("no question ids included, empty list");
-        }
-    }
-
-
-    @Override
     public void addTimeSeen(String studentId, String questionId) {
-        StudentModel studentModel =  getStudentModel(studentId);
+        StudentModelJson studentModel =  getStudentModel(studentId);
         studentModel.addTimeSeen(questionId);
         overwriteStudentFile(studentModel);
     }
 
     @Override
     public void addResponse(String studentId, String questionId, String newResponseText) {
-        StudentModel studentModel =  getStudentModel(studentId);
+        StudentModelJson studentModel =  getStudentModel(studentId);
         studentModel.addResponse(questionId, newResponseText);
         overwriteStudentFile(studentModel);
     }
@@ -72,7 +50,7 @@ public class StudentModelDatasourceJson implements StudentModelDatasource {
     @Override
     public void createNewModelForId(String newId) {
         if(idIsAvailable(newId)){
-            StudentModel studentModel = new StudentModel(newId);
+            StudentModelJson studentModel = new StudentModelJson(newId);
             studentMap.put(newId, studentModel);
             overwriteStudentFile(studentModel);
         }
@@ -81,8 +59,8 @@ public class StudentModelDatasourceJson implements StudentModelDatasource {
         }
     }
 
-    public StudentModel getStudentModel(String studentId) {
-        StudentModel studentModel = studentMap.get(studentId);
+    public StudentModelJson getStudentModel(String studentId) {
+        StudentModelJson studentModel = studentMap.get(studentId);
 
         //if the student wasn't in the map, try to load from file
         if (studentModel == null) {
@@ -102,17 +80,17 @@ public class StudentModelDatasourceJson implements StudentModelDatasource {
         return studentModel;
     }
 
-    private StudentModel loadStudentModelFromFileIfPresent(String studentId) throws IOException{
+    private StudentModelJson loadStudentModelFromFileIfPresent(String studentId) throws IOException{
         String fullFileName = directoryPath + "/" + studentId + ".json";
         //check if file exists, return null if it doesn't
         File checkFile = jsonIoHelper.getReadAndWriteFile(fullFileName);
         if(!checkFile.exists()){
             return null;
         }
-        return new JsonIoUtil(jsonIoHelper).fromFile(fullFileName, StudentModel.class);
+        return new JsonIoUtil(jsonIoHelper).fromFile(fullFileName, StudentModelJson.class);
     }
 
-    private void overwriteStudentFile(StudentModel studentToWrite){
+    private void overwriteStudentFile(StudentModelJson studentToWrite){
         String fullFileName = directoryPath + "/" + studentToWrite.studentId + ".json";
         try {
             new JsonIoUtil(jsonIoHelper).toFile(fullFileName, studentToWrite);
