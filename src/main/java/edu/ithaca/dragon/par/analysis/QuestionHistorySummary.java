@@ -1,14 +1,12 @@
 package edu.ithaca.dragon.par.analysis;
 
-import edu.ithaca.dragon.par.domain.DomainDatasourceJson;
-import edu.ithaca.dragon.par.domain.DomainDatasourceSimple;
+import edu.ithaca.dragon.par.domain.DomainDatasource;
 import edu.ithaca.dragon.par.domain.Question;
 import edu.ithaca.dragon.par.student.json.QuestionHistory;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 //TODO: can make these: across everyone for all types or certain type, for 1 student for all types or certain type, window size too
 public class QuestionHistorySummary {
@@ -19,7 +17,7 @@ public class QuestionHistorySummary {
     private List<String> questionsIncorrect;
 
 
-    public QuestionHistorySummary(Collection<QuestionHistory> questionHistoryCollection, DomainDatasourceSimple domainData){
+    public QuestionHistorySummary(Collection<QuestionHistory> questionHistoryCollection, DomainDatasource domainData){
         questionIdsSeen = buildQuestionIdsSeen(questionHistoryCollection);
         questionsRespondedTo = checkQuestionsRespondedTo(questionHistoryCollection);
         questionsCorrect = findQuestionsCorrect(questionHistoryCollection, domainData);
@@ -52,59 +50,59 @@ public class QuestionHistorySummary {
         return questionsRespondedList;
     }
 
-    public static List<String> findQuestionsCorrect(Collection<QuestionHistory> questionHistoryCollection, DomainDatasourceSimple domainData){
+    public static List<String> findQuestionsCorrect(Collection<QuestionHistory> questionHistoryCollection, DomainDatasource domainData){
         List<String> correctList = new ArrayList<String>();
-        List<QuestionHistory> historyOfQuestions = QuestionHistorySummary.checkForBlanks(questionHistoryCollection);
-        
+        List<QuestionHistory> historyOfQuestions = QuestionHistorySummary.findAllHistoriesWithResponses(questionHistoryCollection);
+        //TODO: get the question id
+        //TODO: use for each loop
+
         for(int i=0; i < historyOfQuestions.size(); i++){
-            String correctResponse = historyOfQuestions.get(i).responses.get(0).getResponseText();
-            String listOfQuestions = domainData.getQuestion(historyOfQuestions.get(i).getQuestionId()).getCorrectAnswer();
-            if(correctResponse.equals(listOfQuestions)){
-                correctList.add(listOfQuestions);
+            String correctAnswer = domainData.getQuestion(historyOfQuestions.get(i).getQuestionId()).getCorrectAnswer();
+            if(historyOfQuestions.get(i).responses.get(0).getResponseText().equals(correctAnswer)){
+                correctList.add(historyOfQuestions.get(i).getQuestionId());
             }
         }
+
         return correctList;
     }
 
-    public static List<String> findQuestionsIncorrect(Collection<QuestionHistory> questionHistoryCollection, DomainDatasourceSimple domainData){
+    public static List<String> findQuestionsIncorrect(Collection<QuestionHistory> questionHistoryCollection, DomainDatasource domainData){
         List<String> incorrectList = new ArrayList<String>();
-        List<QuestionHistory> historyOfQuestions = QuestionHistorySummary.checkForBlanks(questionHistoryCollection);
+        List<QuestionHistory> historyOfQuestions = QuestionHistorySummary.findAllHistoriesWithResponses(questionHistoryCollection);
 
         for(int i=0; i < historyOfQuestions.size(); i++){
-            String incorrectResponse = historyOfQuestions.get(i).responses.get(0).getResponseText();
             String listOfQuestions = domainData.getQuestion(historyOfQuestions.get(i).getQuestionId()).getCorrectAnswer();
-            if(!incorrectResponse.equals(listOfQuestions)){
-                incorrectList.add(incorrectResponse);
+            if(!historyOfQuestions.get(i).responses.get(0).getResponseText().equals(listOfQuestions)){
+                incorrectList.add(historyOfQuestions.get(i).getQuestionId());
             }
         }
         return incorrectList;
     }
 
 
-    public static List<String> findQuestionsCorrectAfterIncorrect(Collection<QuestionHistory> questionHistoryCollection, DomainDatasourceSimple domainData){
+    public static List<String> findQuestionsCorrectAfterIncorrect(Collection<QuestionHistory> questionHistoryCollection, DomainDatasource domainData){
         List<String> correctAfterIncorrect = new ArrayList<String>();
-        List<QuestionHistory> historyOfQuestions = QuestionHistorySummary.checkForBlanks(questionHistoryCollection);
-        for(int i=0; i < historyOfQuestions.size(); i++){
-            for(int j=0; j < historyOfQuestions.get(i).responses.size(); j++){                
-                String correctAfterIncorrectResponse = historyOfQuestions.get(i).responses.get(j).getResponseText();
-                String listOfQuestions = domainData.getQuestion(historyOfQuestions.get(i).getQuestionId()).getCorrectAnswer();    
-                if(correctAfterIncorrectResponse.equals(listOfQuestions)){
-                    correctAfterIncorrect.add(correctAfterIncorrectResponse);
+        List<QuestionHistory> historyOfQuestions = QuestionHistorySummary.findAllHistoriesWithResponses(questionHistoryCollection);
+        for(int questionIndex=0; questionIndex < historyOfQuestions.size(); questionIndex++){
+            for(int responseIndex=0; responseIndex < historyOfQuestions.get(questionIndex).responses.size(); responseIndex++){                
+                String listOfQuestions = domainData.getQuestion(historyOfQuestions.get(questionIndex).getQuestionId()).getCorrectAnswer();    
+                if(historyOfQuestions.get(questionIndex).responses.get(responseIndex).getResponseText().equals(listOfQuestions)){
+                    correctAfterIncorrect.add(historyOfQuestions.get(questionIndex).getQuestionId());
                 }
             }
         }
         return correctAfterIncorrect;
     }
 
-    public static List<QuestionHistory> checkForBlanks(Collection<QuestionHistory> questionHistoryCollection){
-        List<QuestionHistory> questionsNoBlanks = new ArrayList<QuestionHistory>();
+    public static List<QuestionHistory> findAllHistoriesWithResponses(Collection<QuestionHistory> questionHistoryCollection){
+        List<QuestionHistory> questionsWithResponses = new ArrayList<QuestionHistory>();
 
         for(QuestionHistory questionHist : questionHistoryCollection){
             if (questionHist.responses.isEmpty() != true){
-                questionsNoBlanks.add(questionHist);
+                questionsWithResponses.add(questionHist);
             }
         }
-        return questionsNoBlanks;
+        return questionsWithResponses;
     }
 
     public List<String> getQuestionIdsSeen() {

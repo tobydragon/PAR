@@ -49,22 +49,22 @@ public class QuestionHistoryTest {
     public static List<QuestionHistory> SampleQuestionsEx(){
         List<QuestionHistory> sample = new ArrayList<>();
 
-        QuestionHistory sky = new QuestionHistory("generic0");
-        sky.addTimeSeen();
-        sky.addResponse("blue");
-        sample.add(sky);
+        QuestionHistory q1 = new QuestionHistory("skyQ");
+        q1.addTimeSeen();
+        q1.addResponse("blue");
+        sample.add(q1);
 
-        QuestionHistory math = new QuestionHistory("generic1");
-        math.addTimeSeen();
-        math.addResponse("2");
-        sample.add(math);
+        QuestionHistory q2 = new QuestionHistory("mathQ");
+        q2.addTimeSeen();
+        q2.addResponse("2");
+        sample.add(q2);
 
-        QuestionHistory major = new QuestionHistory("generic2");
-        major.addTimeSeen();
-        major.addResponse("ENG");
-        major.addResponse("MATH");
-        major.addResponse("CS");
-        sample.add(major);
+        QuestionHistory q3 = new QuestionHistory("majorQ");
+        q3.addTimeSeen();
+        q3.addResponse("ENG");
+        q3.addResponse("MATH");
+        q3.addResponse("CS");
+        sample.add(q3);
 
         return sample;
     }
@@ -72,25 +72,25 @@ public class QuestionHistoryTest {
     public static List<QuestionHistory> poorStudent(){
         List<QuestionHistory> poor = new ArrayList<>();
 
-        QuestionHistory sky = new QuestionHistory("generic0");
+        QuestionHistory sky = new QuestionHistory("skyQ");
         sky.addTimeSeen();
         poor.add(sky);
 
-        QuestionHistory math = new QuestionHistory("generic1");
+        QuestionHistory math = new QuestionHistory("mathQ");
         math.addTimeSeen();
         poor.add(math);
 
-        QuestionHistory major = new QuestionHistory("generic2");
+        QuestionHistory major = new QuestionHistory("majorQ");
         major.addTimeSeen();
         major.addResponse("ENG");
         poor.add(major);
 
-        QuestionHistory year = new QuestionHistory("generic3");
+        QuestionHistory year = new QuestionHistory("yearQ");
         year.addTimeSeen();
         year.addResponse("2021");
         poor.add(year);
 
-        QuestionHistory google = new QuestionHistory("generic4");
+        QuestionHistory google = new QuestionHistory("googleQ");
         google.addTimeSeen();
         poor.add(google);
 
@@ -100,27 +100,27 @@ public class QuestionHistoryTest {
     public static List<QuestionHistory> strongStudent(){
         List<QuestionHistory> strong = new ArrayList<>();
 
-        QuestionHistory sky = new QuestionHistory("generic0");
+        QuestionHistory sky = new QuestionHistory("skyQ");
         sky.addTimeSeen();
         sky.addResponse("blue");
         strong.add(sky);
 
-        QuestionHistory math = new QuestionHistory("generic1");
+        QuestionHistory math = new QuestionHistory("mathQ");
         math.addTimeSeen();
         math.addResponse("2");
         strong.add(math);
 
-        QuestionHistory major = new QuestionHistory("generic2");
+        QuestionHistory major = new QuestionHistory("majorQ");
         major.addTimeSeen();
         major.addResponse("CS");
         strong.add(major);
 
-        QuestionHistory year = new QuestionHistory("generic3");
+        QuestionHistory year = new QuestionHistory("yearQ");
         year.addTimeSeen();
         year.addResponse("2020");
         strong.add(year);
 
-        QuestionHistory google = new QuestionHistory("generic4");
+        QuestionHistory google = new QuestionHistory("googleQ");
         google.addTimeSeen();
         google.addResponse("1998");
         strong.add(google);
@@ -131,27 +131,27 @@ public class QuestionHistoryTest {
     public static List<QuestionHistory> improvingStudent(){
         List<QuestionHistory> improving = new ArrayList<>();
 
-        QuestionHistory sky = new QuestionHistory("generic0");
+        QuestionHistory sky = new QuestionHistory("skyQ");
         sky.addTimeSeen();
         improving.add(sky);
 
-        QuestionHistory math = new QuestionHistory("generic1");
+        QuestionHistory math = new QuestionHistory("mathQ");
         math.addTimeSeen();
         math.addResponse("2");
         improving.add(math);
 
-        QuestionHistory major = new QuestionHistory("generic2");
+        QuestionHistory major = new QuestionHistory("majorQ");
         major.addTimeSeen();
         major.addResponse("CS");
         improving.add(major);
 
-        QuestionHistory year = new QuestionHistory("generic3");
+        QuestionHistory year = new QuestionHistory("yearQ");
         year.addTimeSeen();
         year.addResponse("2021");
         year.addResponse("2020");
         improving.add(year);
 
-        QuestionHistory google = new QuestionHistory("generic4");
+        QuestionHistory google = new QuestionHistory("googleQ");
         google.addTimeSeen();
         google.addResponse("2005");
         google.addResponse("1998");
