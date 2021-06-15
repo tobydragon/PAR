@@ -1,7 +1,7 @@
 
 ### Maven spring - downloaded with initial project from Spring Intitializer - https://start.spring.io/ ###
 /target/
-/frontend/
+/parui/
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
