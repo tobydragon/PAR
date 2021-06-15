@@ -3,6 +3,7 @@ package edu.ithaca.dragon.par.analysis;
 import edu.ithaca.dragon.par.domain.DomainDatasource;
 import edu.ithaca.dragon.par.domain.Question;
 import edu.ithaca.dragon.par.student.json.QuestionHistory;
+import edu.ithaca.dragon.par.student.json.Response;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -53,13 +54,11 @@ public class QuestionHistorySummary {
     public static List<String> findQuestionsCorrect(Collection<QuestionHistory> questionHistoryCollection, DomainDatasource domainData){
         List<String> correctList = new ArrayList<String>();
         List<QuestionHistory> historyOfQuestions = QuestionHistorySummary.findAllHistoriesWithResponses(questionHistoryCollection);
-        //TODO: get the question id
-        //TODO: use for each loop
-
-        for(int i=0; i < historyOfQuestions.size(); i++){
-            String correctAnswer = domainData.getQuestion(historyOfQuestions.get(i).getQuestionId()).getCorrectAnswer();
-            if(historyOfQuestions.get(i).responses.get(0).getResponseText().equals(correctAnswer)){
-                correctList.add(historyOfQuestions.get(i).getQuestionId());
+        
+        for (QuestionHistory questionHist : historyOfQuestions){
+            String correctAnswer = domainData.getQuestion(questionHist.getQuestionId()).getCorrectAnswer();
+            if (questionHist.responses.iterator().next().getResponseText().equals(correctAnswer)){
+                correctList.add(questionHist.getQuestionId());
             }
         }
 
@@ -70,10 +69,10 @@ public class QuestionHistorySummary {
         List<String> incorrectList = new ArrayList<String>();
         List<QuestionHistory> historyOfQuestions = QuestionHistorySummary.findAllHistoriesWithResponses(questionHistoryCollection);
 
-        for(int i=0; i < historyOfQuestions.size(); i++){
-            String listOfQuestions = domainData.getQuestion(historyOfQuestions.get(i).getQuestionId()).getCorrectAnswer();
-            if(!historyOfQuestions.get(i).responses.get(0).getResponseText().equals(listOfQuestions)){
-                incorrectList.add(historyOfQuestions.get(i).getQuestionId());
+        for (QuestionHistory questionHist : historyOfQuestions){
+            String correctAnswer = domainData.getQuestion(questionHist.getQuestionId()).getCorrectAnswer();
+            if (!questionHist.responses.iterator().next().getResponseText().equals(correctAnswer)){
+                incorrectList.add(questionHist.getQuestionId());
             }
         }
         return incorrectList;
@@ -83,14 +82,16 @@ public class QuestionHistorySummary {
     public static List<String> findQuestionsCorrectAfterIncorrect(Collection<QuestionHistory> questionHistoryCollection, DomainDatasource domainData){
         List<String> correctAfterIncorrect = new ArrayList<String>();
         List<QuestionHistory> historyOfQuestions = QuestionHistorySummary.findAllHistoriesWithResponses(questionHistoryCollection);
-        for(int questionIndex=0; questionIndex < historyOfQuestions.size(); questionIndex++){
-            for(int responseIndex=0; responseIndex < historyOfQuestions.get(questionIndex).responses.size(); responseIndex++){                
-                String listOfQuestions = domainData.getQuestion(historyOfQuestions.get(questionIndex).getQuestionId()).getCorrectAnswer();    
-                if(historyOfQuestions.get(questionIndex).responses.get(responseIndex).getResponseText().equals(listOfQuestions)){
-                    correctAfterIncorrect.add(historyOfQuestions.get(questionIndex).getQuestionId());
+        
+        for (QuestionHistory questionHist : historyOfQuestions){
+            for(Response questionResponse : questionHist.responses){
+                String correctAnswer = domainData.getQuestion(questionHist.getQuestionId()).getCorrectAnswer();
+                if (questionResponse.getResponseText().equals(correctAnswer)){
+                    correctAfterIncorrect.add(questionHist.getQuestionId()); 
                 }
             }
         }
+        
         return correctAfterIncorrect;
     }
 
