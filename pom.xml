@@ -165,6 +165,7 @@
                                 <copy todir="${project.build.directory}/classes/public">
                                     <fileset dir="${project.basedir}/parui/build"/>
                                 </copy>
+                                <mkdir dir="${project.build.directory}/localData/student"/>
                             </target>
                         </configuration>
                         <goals>
