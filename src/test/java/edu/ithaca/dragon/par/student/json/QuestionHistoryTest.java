@@ -94,7 +94,22 @@ public class QuestionHistoryTest {
         google.addTimeSeen();
         poor.add(google);
 
-        return poor;
+        //flipped through until repeat
+        sky.addTimeSeen(1000L);
+        math.addTimeSeen(2000L);
+        major.addTimeSeen(3000L);
+        year.addTimeSeen(4000L);
+        google.addTimeSeen(5000L);
+        //flipping again for known ones
+        sky.addTimeSeen(6000L);
+        math.addTimeSeen(7000L);
+        major.addTimeSeen(8000L);
+        //putting in a few answers
+        major.addResponse("ENG", 10000L);
+        year.addTimeSeen(11000L);
+        year.addResponse("2021", 13000L);
+
+        return List.of(sky, math, major, year, google);
     }
 
     public static List<QuestionHistory> strongStudent(){
@@ -159,5 +174,4 @@ public class QuestionHistoryTest {
 
         return improving;
     }
-
 }
