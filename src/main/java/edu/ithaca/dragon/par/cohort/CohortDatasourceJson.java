@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import javax.management.RuntimeErrorException;
 
@@ -19,7 +20,8 @@ public class CohortDatasourceJson implements CohortDatasource{
 
     private final String id;
     private final String filePath;
-    private List<Cohort> cohorts;
+    //private List<Cohort> cohorts;
+    private Map<String, Cohort> cohorts;
     private List<String> cohortIds;
     private JsonIoUtil jsonIoUtil;
 
@@ -32,10 +34,12 @@ public class CohortDatasourceJson implements CohortDatasource{
         jsonIoUtil = new JsonIoUtil(jsonIoHelper);
         this.filePath = filePath;
         if (defaultReadOnlyFilePath != null){
-            cohorts = jsonIoUtil.listFromFileOrCopyFromReadOnlyFile(filePath, defaultReadOnlyFilePath, Cohort.class);
+            //cohorts = jsonIoUtil.listFromFileOrCopyFromReadOnlyFile(filePath, defaultReadOnlyFilePath, Cohort.class);
+            cohorts = jsonIoUtil.mapfromReadOnlyFile(defaultReadOnlyFilePath, Cohort.class);
         }
         else {
-            cohorts = jsonIoUtil.listFromFile(filePath, Cohort.class);
+            //cohorts = jsonIoUtil.listFromFile(filePath, Cohort.class);
+            cohorts = jsonIoUtil.mapFromFile(filePath, Cohort.class);
         }
         if (cohorts.size()<1){
             throw new IllegalArgumentException("FilePaths led to empty list: " + filePath + ", " + defaultReadOnlyFilePath);
@@ -44,7 +48,7 @@ public class CohortDatasourceJson implements CohortDatasource{
 
     @Override
     public QuestionChooser getQuestionChooser(String studentId) {
-        for (Cohort cohort: cohorts){
+        for (Cohort cohort: cohorts.values()){
             if (cohort.containsStudent(studentId)){
                 return cohort.getQuestionChooser();
             }
@@ -57,7 +61,7 @@ public class CohortDatasourceJson implements CohortDatasource{
     @Override
     public List<String> getCohortIds() {
         cohortIds = new ArrayList<String>();
-        for (Cohort cohort: cohorts){
+        for (Cohort cohort: cohorts.values()){
             cohortIds.add(cohort.id);
         }
         return cohortIds;
@@ -66,7 +70,7 @@ public class CohortDatasourceJson implements CohortDatasource{
     @Override
     public void addStudentToCohort(String cohortId, String studentId) {
         //TODO: write test for addStudentToCohort
-        for(Cohort cohort : cohorts){
+        for(Cohort cohort : cohorts.values()){
             if(cohort.getId().equals(cohortId)){
                 if(cohort.getStudentIds().contains(studentId)){
                     throw new IllegalArgumentException("Student id already exists: " + studentId);                
@@ -81,7 +85,7 @@ public class CohortDatasourceJson implements CohortDatasource{
     }
 
     public Collection<String> getStudentIdsForCohort(String cohortId){
-        for(Cohort cohort : cohorts){
+        for(Cohort cohort : cohorts.values()){
             if(cohort.getId().equals(cohortId)){
                 return cohort.getStudentIds();
             }
