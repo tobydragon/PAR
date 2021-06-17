@@ -70,6 +70,16 @@ public class CohortDatasourceJson implements CohortDatasource{
     @Override
     public void addStudentToCohort(String cohortId, String studentId) {
         //TODO: write test for addStudentToCohort
+        //TODO: cohorts.get()
+
+        // if (cohorts.get(cohortId).getStudentIds().contains(studentId)){
+        //     throw new IllegalArgumentException("Student id already exists: " + studentId);
+        // }
+        // else{
+        //     cohorts.get(cohortId).addStudentId(studentId);
+        //     overwriteFile();
+        // }
+
         for(Cohort cohort : cohorts.values()){
             if(cohort.getId().equals(cohortId)){
                 if(cohort.getStudentIds().contains(studentId)){
@@ -85,6 +95,7 @@ public class CohortDatasourceJson implements CohortDatasource{
     }
 
     public Collection<String> getStudentIdsForCohort(String cohortId){
+        //TODO: cohorts.get()
         for(Cohort cohort : cohorts.values()){
             if(cohort.getId().equals(cohortId)){
                 return cohort.getStudentIds();
