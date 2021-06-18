@@ -3,10 +3,12 @@ package edu.ithaca.dragon.util;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.ser.impl.MapEntrySerializer;
+
+import org.apache.catalina.valves.rewrite.Substitution.MapElement;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -43,14 +45,12 @@ public class JsonIoUtil {
 
     public <T> Map<String, T> mapFromFile(String filename, Class<? extends T> classToBeCreated) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        //found this fix here: https://stackoverflow.com/questions/11659844/jackson-deserialize-generic-class-variable
-        return  mapper.readValue(jsonIoHelper.getReadAndWriteFile(filename), mapper.getTypeFactory().constructParametricType(HashMap.class, classToBeCreated));
+        return  mapper.readValue(jsonIoHelper.getReadAndWriteFile(filename), mapper.getTypeFactory().constructMapType(Map.class, String.class, classToBeCreated));
     }
 
     public <T> Map<String, T> mapfromReadOnlyFile(String filename, Class<? extends T> classToBeCreated) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        //found this fix here: https://stackoverflow.com/questions/11659844/jackson-deserialize-generic-class-variable
-        return  mapper.readValue(jsonIoHelper.getInputStream(filename), mapper.getTypeFactory().constructParametricType(HashMap.class, classToBeCreated));
+        return  mapper.readValue(jsonIoHelper.getInputStream(filename), mapper.getTypeFactory().constructMapType(Map.class, String.class, classToBeCreated));
     }
 
     public <T> List<T> listFromFile(String filename, Class<? extends T> classToBeCreated) throws IOException {
@@ -84,6 +84,17 @@ public class JsonIoUtil {
             List<T> defaultObject = listfromReadOnlyFile(inputStreamPath, classToBeCreated);
             toFile(filePath, defaultObject);
             return listFromFile(filePath, classToBeCreated);
+        }
+    }
+
+    public  <T> Map<String, T> mapFromFileOrCopyFromReadOnlyFile(String filePath, String inputStreamPath, Class<? extends T> classToBeCreated) throws IOException {
+        try {
+            return mapFromFile(filePath, classToBeCreated);
+        }
+        catch (Exception e){
+            Map<String, T> defaultObject = mapfromReadOnlyFile(inputStreamPath, classToBeCreated);
+            toFile(filePath, defaultObject);
+            return mapFromFile(filePath, classToBeCreated);
         }
     }
 }
