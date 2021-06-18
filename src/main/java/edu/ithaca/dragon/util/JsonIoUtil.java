@@ -9,7 +9,6 @@ import org.apache.catalina.valves.rewrite.Substitution.MapElement;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -85,6 +84,17 @@ public class JsonIoUtil {
             List<T> defaultObject = listfromReadOnlyFile(inputStreamPath, classToBeCreated);
             toFile(filePath, defaultObject);
             return listFromFile(filePath, classToBeCreated);
+        }
+    }
+
+    public  <T> Map<String, T> mapFromFileOrCopyFromReadOnlyFile(String filePath, String inputStreamPath, Class<? extends T> classToBeCreated) throws IOException {
+        try {
+            return mapFromFile(filePath, classToBeCreated);
+        }
+        catch (Exception e){
+            Map<String, T> defaultObject = mapfromReadOnlyFile(inputStreamPath, classToBeCreated);
+            toFile(filePath, defaultObject);
+            return mapFromFile(filePath, classToBeCreated);
         }
     }
 }
