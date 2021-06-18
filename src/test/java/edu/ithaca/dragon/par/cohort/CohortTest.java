@@ -53,7 +53,7 @@ public class CohortTest {
         assertEquals(4, cohorts.get("inOrder").studentIds.size());
         assertTrue(cohorts.get("inOrder").studentIds.contains("o2"));
 
-        assertEquals(4, cohorts.get("random").studentIds.size());
+        assertEquals(3, cohorts.get("random").studentIds.size());
         assertTrue(cohorts.get("random").studentIds.contains("r2"));
 
     }

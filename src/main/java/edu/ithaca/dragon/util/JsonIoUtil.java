@@ -46,12 +46,12 @@ public class JsonIoUtil {
 
     public <T> Map<String, T> mapFromFile(String filename, Class<? extends T> classToBeCreated) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        return  mapper.readValue(jsonIoHelper.getReadAndWriteFile(filename), mapper.getTypeFactory().constructParametricType(Map.class, classToBeCreated));
+        return  mapper.readValue(jsonIoHelper.getReadAndWriteFile(filename), mapper.getTypeFactory().constructMapType(Map.class, String.class, classToBeCreated));
     }
 
     public <T> Map<String, T> mapfromReadOnlyFile(String filename, Class<? extends T> classToBeCreated) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        return  mapper.readValue(jsonIoHelper.getInputStream(filename), mapper.getTypeFactory().constructParametricType(Map.class, classToBeCreated));
+        return  mapper.readValue(jsonIoHelper.getReadAndWriteFile(filename), mapper.getTypeFactory().constructMapType(Map.class, String.class, classToBeCreated));
     }
 
     public <T> List<T> listFromFile(String filename, Class<? extends T> classToBeCreated) throws IOException {
