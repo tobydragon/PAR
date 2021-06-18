@@ -46,14 +46,12 @@ public class JsonIoUtil {
 
     public <T> Map<String, T> mapFromFile(String filename, Class<? extends T> classToBeCreated) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        //found this fix here: https://stackoverflow.com/questions/11659844/jackson-deserialize-generic-class-variable
-        return  mapper.readValue(jsonIoHelper.getReadAndWriteFile(filename), mapper.getTypeFactory().constructParametricType(HashMap.class, classToBeCreated));
+        return  mapper.readValue(jsonIoHelper.getReadAndWriteFile(filename), mapper.getTypeFactory().constructParametricType(Map.class, classToBeCreated));
     }
 
     public <T> Map<String, T> mapfromReadOnlyFile(String filename, Class<? extends T> classToBeCreated) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        //found this fix here: https://stackoverflow.com/questions/11659844/jackson-deserialize-generic-class-variable
-        return  mapper.readValue(jsonIoHelper.getInputStream(filename), mapper.getTypeFactory().constructParametricType(HashMap.class, classToBeCreated));
+        return  mapper.readValue(jsonIoHelper.getInputStream(filename), mapper.getTypeFactory().constructParametricType(Map.class, classToBeCreated));
     }
 
     public <T> List<T> listFromFile(String filename, Class<? extends T> classToBeCreated) throws IOException {
