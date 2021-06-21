@@ -28,31 +28,34 @@ class QuestionHistorySummaryTest {
         assertEquals(2, poorPerformance.getQuestionsRespondedTo().size());
         assertEquals(0, poorPerformance.getQuestionsCorrect().size());
         assertEquals(2, poorPerformance.getQuestionsIncorrect().size());
-        assertNotEquals("CS", poorPerformance.getQuestionsIncorrect().get(0));
-        assertNotEquals("2020", poorPerformance.getQuestionsIncorrect().get(1));
+        assertEquals(3, poorPerformance.getQuestionIdsSeen().size() - poorPerformance.getQuestionsRespondedTo().size());
+        assertEquals("majorQ", poorPerformance.getQuestionsIncorrect().get(0));
+        assertEquals("yearQ", poorPerformance.getQuestionsIncorrect().get(1));
 
         QuestionHistorySummary strongPerformance = new QuestionHistorySummary(QuestionHistoryTest.strongStudent(), data);
         assertEquals(5, strongPerformance.getQuestionIdsSeen().size());
         assertEquals(5, strongPerformance.getQuestionsRespondedTo().size());
         assertEquals(5, strongPerformance.getQuestionsCorrect().size());
-        assertEquals("blue", strongPerformance.getQuestionsCorrect().get(0));
-        assertEquals("2", strongPerformance.getQuestionsCorrect().get(1));
-        assertEquals("CS", strongPerformance.getQuestionsCorrect().get(2));
-        assertEquals("2020", strongPerformance.getQuestionsCorrect().get(3));
-        assertEquals("1998", strongPerformance.getQuestionsCorrect().get(4));
+        assertEquals("skyQ", strongPerformance.getQuestionsCorrect().get(0));
+        assertEquals("mathQ", strongPerformance.getQuestionsCorrect().get(1));
+        assertEquals("majorQ", strongPerformance.getQuestionsCorrect().get(2));
+        assertEquals("yearQ", strongPerformance.getQuestionsCorrect().get(3));
+        assertEquals("googleQ", strongPerformance.getQuestionsCorrect().get(4));
 
         QuestionHistorySummary improvingPerformance = new QuestionHistorySummary(QuestionHistoryTest.improvingStudent(), data);
         assertEquals(5, improvingPerformance.getQuestionIdsSeen().size());
         assertEquals(4, improvingPerformance.getQuestionsRespondedTo().size());
         assertEquals(2, improvingPerformance.getQuestionsCorrect().size());
-        assertEquals("2", improvingPerformance.getQuestionsCorrect().get(0));
-        assertEquals("CS", improvingPerformance.getQuestionsCorrect().get(1));
+        assertEquals("mathQ", improvingPerformance.getQuestionsCorrect().get(0));
+        assertEquals("majorQ", improvingPerformance.getQuestionsCorrect().get(1));
         assertEquals(2, improvingPerformance.getQuestionsIncorrect().size());
+        assertEquals("yearQ", improvingPerformance.getQuestionsIncorrect().get(0));
+        assertEquals("googleQ", improvingPerformance.getQuestionsIncorrect().get(1));
         assertEquals(4, improvingPerformance.getQuestionsCorrectAfterIncorrect().size());
-        assertEquals("2", improvingPerformance.getQuestionsCorrectAfterIncorrect().get(0));
-        assertEquals("CS", improvingPerformance.getQuestionsCorrectAfterIncorrect().get(1));
-        assertEquals("2020", improvingPerformance.getQuestionsCorrectAfterIncorrect().get(2));
-        assertEquals("1998", improvingPerformance.getQuestionsCorrectAfterIncorrect().get(3));
+        assertEquals("mathQ", improvingPerformance.getQuestionsCorrectAfterIncorrect().get(0));
+        assertEquals("majorQ", improvingPerformance.getQuestionsCorrectAfterIncorrect().get(1));
+        assertEquals("yearQ", improvingPerformance.getQuestionsCorrectAfterIncorrect().get(2));
+        assertEquals("googleQ", improvingPerformance.getQuestionsCorrectAfterIncorrect().get(3));
     }
 
     @Test
@@ -83,9 +86,9 @@ class QuestionHistorySummaryTest {
         assertEquals(5, data.getAllQuestions().size());
         assertEquals(2, questionsCorrect.size());
         // Sample Question 1: What color is the sky?
-        assertEquals("blue", questionsCorrect.get(0));
+        assertEquals("skyQ", questionsCorrect.get(0));
         // Sample Question 2: What is 1 + 1?
-        assertEquals("2", questionsCorrect.get(1));
+        assertEquals("mathQ", questionsCorrect.get(1));
     }
 
     @Test
@@ -97,8 +100,7 @@ class QuestionHistorySummaryTest {
         assertEquals(1, questionsIncorrect.size());
 
         // Sample Question 3: What is your major?
-        assertNotEquals("CS", questionsIncorrect.get(0));
-        assertEquals("ENG", questionsIncorrect.get(0));
+        assertEquals("majorQ", questionsIncorrect.get(0));
     }
 
     @Test
@@ -110,9 +112,9 @@ class QuestionHistorySummaryTest {
         assertEquals(3, CorrectAfterIncorrect.size());
 
         // Sample Question 3: What is your major?
-        assertEquals("blue", CorrectAfterIncorrect.get(0));
-        assertEquals("2", CorrectAfterIncorrect.get(1));
-        assertEquals("CS", CorrectAfterIncorrect.get(2));
+        assertEquals("skyQ", CorrectAfterIncorrect.get(0));
+        assertEquals("mathQ", CorrectAfterIncorrect.get(1));
+        assertEquals("majorQ", CorrectAfterIncorrect.get(2));
     }
 
 }

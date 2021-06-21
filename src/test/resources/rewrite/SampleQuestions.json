@@ -1,5 +1,5 @@
 [ {
-    "id" : "generic0",
+    "id" : "skyQ",
     "type" : "sky",
     "questionText" : "What color is the sky?",
     "correctAnswer" : "blue",
@@ -7,7 +7,7 @@
     "imageUrl" : "./images/3CTransverse.jpg",
     "followupQuestions" : [ ]
   }, {
-    "id" : "generic1",
+    "id" : "mathQ",
     "type" : "math",
     "questionText" : "What is 1 + 1?",
     "correctAnswer" : "2",
@@ -15,7 +15,7 @@
     "imageUrl" : "./images/3CTransverse.jpg",
     "followupQuestions" : [ ]
   }, {
-    "id" : "generic2",
+    "id" : "majorQ",
     "type" : "major",
     "questionText" : "What is your major?",
     "correctAnswer" : "CS",
@@ -23,7 +23,7 @@
     "imageUrl" : "./images/3CTransverse.jpg",
     "followupQuestions" : [ ]
   }, {
-    "id" : "generic3",
+    "id" : "yearQ",
     "type" : "year",
     "questionText" : "What was the previous year?",
     "correctAnswer" : "2020",
@@ -31,7 +31,7 @@
     "imageUrl" : "./images/3CTransverse.jpg",
     "followupQuestions" : [ ]
   }, {
-    "id" : "generic4",
+    "id" : "googleQ",
     "type" : "google",
     "questionText" : "When was Google founded?",
     "correctAnswer" : "1998",
