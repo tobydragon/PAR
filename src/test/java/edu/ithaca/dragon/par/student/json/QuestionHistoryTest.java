@@ -163,7 +163,7 @@ public class QuestionHistoryTest {
         QuestionHistory year = new QuestionHistory("yearQ");
         year.addTimeSeen();
         year.addResponse("2021");
-        year.addResponse("2020");
+        //year.addResponse("2020");
         improving.add(year);
 
         QuestionHistory google = new QuestionHistory("googleQ");

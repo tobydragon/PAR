@@ -13,7 +13,7 @@ import java.util.List;
 public class QuestionHistorySummary {
     private List<String> questionIdsSeen;
     private List<String> questionsRespondedTo;
-    private List<String> questionsCorrect;
+    private List<String> questionsCorrectFirstTime;
     private List<String> questionsCorrectAfterIncorrect;
     private List<String> questionsIncorrect;
 
@@ -21,7 +21,7 @@ public class QuestionHistorySummary {
     public QuestionHistorySummary(Collection<QuestionHistory> questionHistoryCollection, DomainDatasource domainData){
         questionIdsSeen = buildQuestionIdsSeen(questionHistoryCollection);
         questionsRespondedTo = checkQuestionsRespondedTo(questionHistoryCollection);
-        questionsCorrect = findQuestionsCorrect(questionHistoryCollection, domainData);
+        questionsCorrectFirstTime = findQuestionsCorrectFirstTime(questionHistoryCollection, domainData);
         questionsIncorrect = findQuestionsIncorrect(questionHistoryCollection, domainData);
         questionsCorrectAfterIncorrect = findQuestionsCorrectAfterIncorrect(questionHistoryCollection, domainData);
     }
@@ -51,7 +51,7 @@ public class QuestionHistorySummary {
         return questionsRespondedList;
     }
 
-    public static List<String> findQuestionsCorrect(Collection<QuestionHistory> questionHistoryCollection, DomainDatasource domainData){
+    public static List<String> findQuestionsCorrectFirstTime(Collection<QuestionHistory> questionHistoryCollection, DomainDatasource domainData){
         List<String> correctList = new ArrayList<String>();
         List<QuestionHistory> historyOfQuestions = QuestionHistorySummary.findAllHistoriesWithResponses(questionHistoryCollection);
         
@@ -68,13 +68,20 @@ public class QuestionHistorySummary {
     public static List<String> findQuestionsIncorrect(Collection<QuestionHistory> questionHistoryCollection, DomainDatasource domainData){
         List<String> incorrectList = new ArrayList<String>();
         List<QuestionHistory> historyOfQuestions = QuestionHistorySummary.findAllHistoriesWithResponses(questionHistoryCollection);
-
         for (QuestionHistory questionHist : historyOfQuestions){
-            String correctAnswer = domainData.getQuestion(questionHist.getQuestionId()).getCorrectAnswer();
-            if (!questionHist.responses.iterator().next().getResponseText().equals(correctAnswer)){
+            boolean hasCorrectAnswer = false;
+
+            for(Response questionResponse : questionHist.responses){
+                String correctAnswer = domainData.getQuestion(questionHist.getQuestionId()).getCorrectAnswer();
+                if (questionResponse.getResponseText().equals(correctAnswer) ){
+                    hasCorrectAnswer = true;
+                }
+            }
+            if (!hasCorrectAnswer){
                 incorrectList.add(questionHist.getQuestionId());
             }
         }
+        
         return incorrectList;
     }
 
@@ -86,7 +93,7 @@ public class QuestionHistorySummary {
         for (QuestionHistory questionHist : historyOfQuestions){
             for(Response questionResponse : questionHist.responses){
                 String correctAnswer = domainData.getQuestion(questionHist.getQuestionId()).getCorrectAnswer();
-                if (questionResponse.getResponseText().equals(correctAnswer)){
+                if (questionResponse.getResponseText().equals(correctAnswer) && !questionHist.responses.get(0).getResponseText().equals(correctAnswer)){
                     correctAfterIncorrect.add(questionHist.getQuestionId()); 
                 }
             }
@@ -114,8 +121,8 @@ public class QuestionHistorySummary {
         return questionsRespondedTo;
     }
 
-    public List<String> getQuestionsCorrect() {
-        return questionsCorrect;
+    public List<String> getQuestionsCorrectFirstTime() {
+        return questionsCorrectFirstTime;
     }
 
     public List<String> getQuestionsIncorrect(){
