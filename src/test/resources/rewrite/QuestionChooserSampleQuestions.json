@@ -1,0 +1,92 @@
+[ {
+    "id" : "skyQ1",
+    "type" : "sky",
+    "questionText" : "What color is the sky?",
+    "correctAnswer" : "blue",
+    "possibleAnswers" : [ "blue", "orange" ],
+    "imageUrl" : "./images/3CTransverse.jpg",
+    "followupQuestions" : [ ]
+  }, {
+    "id" : "skyQ2",
+    "type" : "sky",
+    "questionText" : "What color is the sun?",
+    "correctAnswer" : "yellow",
+    "possibleAnswers" : [ "yellow", "red" ],
+    "imageUrl" : "./images/3CTransverse.jpg",
+    "followupQuestions" : [ ]
+
+  }, {
+    "id" : "skyQ3",
+    "type" : "sky",
+    "questionText" : "What color is a cloud?",
+    "correctAnswer" : "white/grey",
+    "possibleAnswers" : [ "white/grey", "purple" ],
+    "imageUrl" : "./images/3CTransverse.jpg",
+    "followupQuestions" : [ ]
+
+  }, {
+    "id" : "mathQ1",
+    "type" : "math",
+    "questionText" : "What is 2 + 2?",
+    "correctAnswer" : "4",
+    "possibleAnswers" : [ "2", "3", "4"],
+    "imageUrl" : "./images/3CTransverse.jpg",
+    "followupQuestions" : [ ]
+  }, {
+    "id" : "mathQ2",
+    "type" : "math",
+    "questionText" : "What is 1 + 1?",
+    "correctAnswer" : "2",
+    "possibleAnswers" : [ "2", "3", "4"],
+    "imageUrl" : "./images/3CTransverse.jpg",
+    "followupQuestions" : [ ]
+  }, {
+    "id" : "majorQ1",
+    "type" : "major",
+    "questionText" : "What is your major?",
+    "correctAnswer" : "CS",
+    "possibleAnswers" : [ "CS", "ENG", "MATH"],
+    "imageUrl" : "./images/3CTransverse.jpg",
+    "followupQuestions" : [ ]
+  }, {
+    "id" : "majorQ2",
+    "type" : "major",
+    "questionText" : "Which is a required course for a CS major?",
+    "correctAnswer" : "220",
+    "possibleAnswers" : [ "217", "356", "220"],
+    "imageUrl" : "./images/3CTransverse.jpg",
+    "followupQuestions" : [ ]
+  }, {
+    "id" : "yearQ1",
+    "type" : "year",
+    "questionText" : "What was the previous year?",
+    "correctAnswer" : "2020",
+    "possibleAnswers" : [ "2021", "2019", "2018"],
+    "imageUrl" : "./images/3CTransverse.jpg",
+    "followupQuestions" : [ ]
+  }, {
+    "id" : "yearQ2",
+    "type" : "year",
+    "questionText" : "What will next year be?",
+    "correctAnswer" : "2022",
+    "possibleAnswers" : [ "2021", "2022", "2023"],
+    "imageUrl" : "./images/3CTransverse.jpg",
+    "followupQuestions" : [ ]
+  }, {
+    "id" : "googleQ1",
+    "type" : "google",
+    "questionText" : "When was Google founded?",
+    "correctAnswer" : "1998",
+    "possibleAnswers" : [ "1996", "2001", "2005"],
+    "imageUrl" : "./images/3CTransverse.jpg",
+    "followupQuestions" : [ ]
+  }, {
+    "id" : "googleQ2",
+    "type" : "google",
+    "questionText" : "What color has never been in the Google logo?",
+    "correctAnswer" : "orange",
+    "possibleAnswers" : [ "yellow", "orange", "purple"],
+    "imageUrl" : "./images/3CTransverse.jpg",
+    "followupQuestions" : [ ]
+  }
+]
