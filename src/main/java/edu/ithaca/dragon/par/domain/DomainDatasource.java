@@ -1,6 +1,7 @@
 package edu.ithaca.dragon.par.domain;
 
 import java.util.List;
+import java.util.Set;
 
 public interface DomainDatasource {
 
@@ -11,4 +12,9 @@ public interface DomainDatasource {
      */
     Question getQuestion(String id);
 
+    Set<String> getAllConcepts();
+
+    String getConceptForAQuestion(String id);
+
+    List<Question> getQuestionsByConcept(String concept);
 }

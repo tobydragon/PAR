@@ -6,7 +6,11 @@ import edu.ithaca.dragon.util.JsonIoUtil;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
+
 
 public class DomainDatasourceJson implements  DomainDatasource{
     private final String id;
@@ -41,5 +45,41 @@ public class DomainDatasourceJson implements  DomainDatasource{
             }
         }
         throw new IllegalArgumentException("No question found, bad ID:" + id);
+    }
+
+    @Override
+    public Set<String> getAllConcepts() {
+        Set<String> concepts = new LinkedHashSet<>();
+
+        for(Question question:questions){
+            concepts.add(question.getType());
+        }
+        return concepts;
+    }
+
+    @Override
+    public String getConceptForAQuestion(String id) {
+        for (Question question: questions){
+            if (question.getId().equalsIgnoreCase(id)){
+                return question.getType();
+            }
+        }
+        throw new IllegalArgumentException("No question found, bad ID:" + id);
+    }
+
+    @Override
+    public List<Question> getQuestionsByConcept(String concept) {
+        List<Question> questionList = new ArrayList<>();
+        for (Question question: questions){
+            if (question.getType().equalsIgnoreCase(concept)){
+                questionList.add(question);
+            }
+        }
+        if(questionList.size()==0){
+            throw new IllegalArgumentException("No questions found, bad concept: "+concept);
+        }
+        else{
+            return questionList;
+        }
     }
 }
