@@ -17,7 +17,7 @@ import edu.ithaca.dragon.par.student.json.QuestionHistory;
 
 
 
-public class QuestionChooserByOrderedConcepts {
+public class QuestionChooserByOrderedConcepts implements QuestionChooser{
     //Each concept(type) has an average of last <window-size> questions which gets bucketed
     //rubric-style: unprepared,developing,competent,exemplary
     //having too few questions answered puts you automatically into unprepared
@@ -30,10 +30,15 @@ public class QuestionChooserByOrderedConcepts {
     //If a minSeen question has the same URL as last question, take that, otherwise go for first minSeen
 
     public Map<String,OrderedConceptRubric> conceptScoring;
+    public Set<String> conceptIds;
 
-    public QuestionChooserByOrderedConcepts(DomainDatasource domainDatasource){
+    public QuestionChooserByOrderedConcepts(){
         conceptScoring = new LinkedHashMap<>();
-        Set<String> concepts = domainDatasource.getAllConcepts();
+    }
+
+    public QuestionChooserByOrderedConcepts(Set<String> concepts){
+        conceptIds=concepts;
+        conceptScoring = new LinkedHashMap<>();
         String firstConcept = concepts.iterator().next();
         for(String concept:concepts){
             if(concept.equalsIgnoreCase(firstConcept)){
@@ -104,6 +109,31 @@ public class QuestionChooserByOrderedConcepts {
         else{
             return questions.get(0);
         }
+    }
+
+    public Map<String, OrderedConceptRubric> getConceptScoring() {
+        return conceptScoring;
+    }
+
+    public void setConceptScoring(Map<String, OrderedConceptRubric> conceptScoring) {
+        String firstConcept = this.conceptIds.iterator().next();
+        for(String concept:this.conceptIds){
+            if(concept.equalsIgnoreCase(firstConcept)){
+                conceptScoring.put(concept,OrderedConceptRubric.DEVELOPING);
+            }
+            else{
+                conceptScoring.put(concept,OrderedConceptRubric.UNPREPARED);
+            }
+        }
+        this.conceptScoring = conceptScoring;
+    }
+
+    public Set<String> getConceptIds() {
+        return conceptIds;
+    }
+
+    public void setConceptIds(Set<String> conceptIds) {
+        this.conceptIds = conceptIds;
     }
 
     private String getNextConcept(String currentConcept,Set<String>concepts){
@@ -195,7 +225,7 @@ public class QuestionChooserByOrderedConcepts {
     }
     public boolean calcCompetent(String concept, Collection<QuestionHistory> questionHistories, DomainDatasource domainDatasource){
         String previousConcept=getPreviousConcept(concept, domainDatasource.getAllConcepts());
-        if(previousConcept!=""&&calcExemplary(previousConcept,questionHistories,domainDatasource) && calcUnprepared(concept, questionHistories, domainDatasource)){
+        if(previousConcept!=""&&calcExemplary(previousConcept,questionHistories,domainDatasource) && (calcUnprepared(concept, questionHistories, domainDatasource)||calcDeveloping(concept, questionHistories, domainDatasource))){
             return true;
         } else{
             List<Question> questionsFromModelByConcept = getQuestionsFromStudentModelByConcept(concept, questionHistories, domainDatasource);

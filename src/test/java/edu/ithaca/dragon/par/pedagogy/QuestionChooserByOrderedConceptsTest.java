@@ -31,7 +31,7 @@ class QuestionChooserByOrderedConceptsTest{
     
     DomainDatasource domainDatasource = new DomainDatasourceJson("example","src/test/resources/rewrite/QuestionChooserSampleQuestions.json");
     StudentModelDatasourceJson studentModelDatasource = new StudentModelDatasourceJson("chooserExample", "src/test/resources/rewrite/questionChooserSampleStudents", new JsonIoHelperDefault());
-    QuestionChooserByOrderedConcepts questionChooser = new QuestionChooserByOrderedConcepts(domainDatasource);
+    QuestionChooserByOrderedConcepts questionChooser = new QuestionChooserByOrderedConcepts(domainDatasource.getAllConcepts());
 
     //new Student test
     StudentModelJson newStudentModel = studentModelDatasource.getStudentModel("newStudent");
