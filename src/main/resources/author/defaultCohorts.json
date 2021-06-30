@@ -22,7 +22,9 @@
     "domainId" : "HorseUltrasound",
     "studentIds" : [  ],
     "questionChooser" : {
-      "type" : "QuestionChooserByOrderedConcepts"
+      "type" : "QuestionChooserByOrderedConcepts",
+      "conceptIds" : [ "plane", "structure", "attachment", "zone"],
+      "conceptScores" : []
     }
   }
 
