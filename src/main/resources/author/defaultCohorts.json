@@ -1,16 +1,31 @@
-[ {
-  "id" : "random",
-  "domainId" : "HorseUltrasound",
-  "studentIds" : [ "r3", "r2", "r1" ],
-  "questionChooser" : {
-    "type" : "QuestionChooserRandom"
+{
+  "random" : {
+    "id" : "random",
+    "domainId" : "HorseUltrasound",
+    "studentIds" : [ "r1", "r2", "r3" ],
+    "questionChooser" : {
+      "type" : "QuestionChooserRandom"
+    }
+  },
+  "inOrder" : {
+    "id" : "inOrder",
+    "domainId" : "HorseUltrasound",
+    "studentIds" : [ "o1", "o2", "o3", "o4" ],
+    "questionChooser" : {
+      "type" : "QuestionChooserInOrder",
+      "questionIdsInOrder" : [ "858-structure1-./images/2ATransverse.jpg", "850-structure3-./images/Annotated2Long.jpg", "866-plane-./images/3BTransverse.jpg", "847-structure2-./images/Annotated2Long.jpg", "614-plane-./images/3CTransverse.jpg" ]
+    }
+  },
+
+  "byOrderedConcepts" : {
+    "id" : "byOrderedConcepts",
+    "domainId" : "HorseUltrasound",
+    "studentIds" : [  ],
+    "questionChooser" : {
+      "type" : "QuestionChooserByOrderedConcepts",
+      "conceptIds" : [ "plane", "structure", "attachment", "zone"],
+      "conceptScores" : []
+    }
   }
-}, {
-  "id" : "inOrder",
-  "domainId" : "HorseUltrasound",
-  "studentIds" : [ "o2", "o1", "o4", "o3" ],
-  "questionChooser" : {
-    "type" : "QuestionChooserInOrder",
-    "questionIdsInOrder" : [ "858-structure1-./images/2ATransverse.jpg", "850-structure3-./images/Annotated2Long.jpg", "866-plane-./images/3BTransverse.jpg", "847-structure2-./images/Annotated2Long.jpg", "614-plane-./images/3CTransverse.jpg" ]
-  }
-} ]
+
+}

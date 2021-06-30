@@ -11,9 +11,9 @@ class StudentModelTest {
     @Test
     public void findQuestionSeenLeastRecentlyTest(){
         StudentModelJson poor = new StudentModelJson("poor", QuestionHistoryTest.poorStudent());
-        assertEquals("generic4", poor.findQuestionSeenLeastRecently(List.of("generic0","generic1","generic2","generic3","generic4")));
-        poor.addTimeSeen("generic4", 20000L);
-        assertEquals("generic0", poor.findQuestionSeenLeastRecently(List.of("generic0","generic1","generic2","generic3","generic4")));
+        assertEquals("googleQ", poor.findQuestionSeenLeastRecently(List.of("skyQ","mathQ","majorQ","yearQ","googleQ")));
+        poor.addTimeSeen("googleQ", 20000L);
+        assertEquals("skyQ", poor.findQuestionSeenLeastRecently(List.of("skyQ","mathQ","majorQ","yearQ","googleQ")));
 
     }
 
@@ -21,10 +21,10 @@ class StudentModelTest {
     void checkTimeLastSeen() {
         StudentModelJson poor = new StudentModelJson("poor", QuestionHistoryTest.poorStudent());
 
-        assertEquals(5000L, poor.checkTimeLastSeen("generic4"));
-        assertEquals(6000L, poor.checkTimeLastSeen("generic0"));
-        assertEquals(8000L, poor.checkTimeLastSeen("generic2"));
-        assertEquals(11000L, poor.checkTimeLastSeen("generic3"));
+        assertEquals(5000L, poor.checkTimeLastSeen("googleQ"));
+        assertEquals(6000L, poor.checkTimeLastSeen("skyQ"));
+        assertEquals(8000L, poor.checkTimeLastSeen("majorQ"));
+        assertEquals(11000L, poor.checkTimeLastSeen("yearQ"));
 
     }
 }
