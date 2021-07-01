@@ -80,11 +80,9 @@ class QuestionHistorySummaryTest {
         List<String> questionsCorrect = QuestionHistorySummary.findQuestionsCorrectFirstTime(QuestionHistoryTest.SampleQuestionsEx(), data);
 
         assertEquals(5, data.getAllQuestions().size());
-        assertEquals(2, questionsCorrect.size());
+        assertEquals(1, questionsCorrect.size());
         // Sample Question 1: What color is the sky?
         assertEquals("skyQ", questionsCorrect.get(0));
-        // Sample Question 2: What is 1 + 1?
-        assertEquals("mathQ", questionsCorrect.get(1));
     }
 
     @Test
@@ -94,9 +92,7 @@ class QuestionHistorySummaryTest {
 
         assertEquals(5, data.getAllQuestions().size());
         assertEquals(1, questionsIncorrect.size());
-
-        // Sample Question 3: What is your major?
-        assertEquals("majorQ", questionsIncorrect.get(0));
+        assertEquals("mathQ", questionsIncorrect.get(0));
     }
 
     @Test
@@ -105,12 +101,10 @@ class QuestionHistorySummaryTest {
         List<String> CorrectAfterIncorrect = QuestionHistorySummary.findQuestionsCorrectAfterIncorrect(QuestionHistoryTest.SampleQuestionsEx(), data);
 
         assertEquals(5, data.getAllQuestions().size());
-        assertEquals(3, CorrectAfterIncorrect.size());
+        assertEquals(1, CorrectAfterIncorrect.size());
 
         // Sample Question 3: What is your major?
-        assertEquals("skyQ", CorrectAfterIncorrect.get(0));
-        assertEquals("mathQ", CorrectAfterIncorrect.get(1));
-        assertEquals("majorQ", CorrectAfterIncorrect.get(2));
+        assertEquals("majorQ", CorrectAfterIncorrect.get(0));
     }
 
 }
