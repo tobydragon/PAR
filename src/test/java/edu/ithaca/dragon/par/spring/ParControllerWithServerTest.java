@@ -2,8 +2,14 @@ package edu.ithaca.dragon.par.spring;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -34,27 +40,32 @@ public class ParControllerWithServerTest {
     private int port;
 
     @BeforeEach
-    void initController() throws Exception{
+    public void initController(@TempDir Path tempDir) throws Exception{
+        Path questionPoolFile = tempDir.resolve("currentQuestionPool.json");
+        Files.copy(new File("src/test/resources/rewrite/testServerData/currentQuestionPool.json").toPath(),questionPoolFile);
+        Path studentFolder = tempDir.resolve("src/test/resources/rewrite/testServerData/student");
+        Path cohortFile = tempDir.resolve("currentCohorts.json");
+        Files.copy(new File("src/test/resources/rewrite/testServerData/currentCohorts.json").toPath(),cohortFile);
         this.parController = new ParController(
             new ParServer(
                 new DomainDatasourceJson(
                     "HorseUltrasound",
+                    questionPoolFile.toString(),
                     "src/test/resources/rewrite/testServerData/currentQuestionPool.json",
-                    "src/main/resources/author/defaultQuestionPool.json",
                     new JsonIoHelperDefault()
                 ),
 
                 new StudentModelDatasourceJson(
                 "allStudents",
-                "src/test/resources/rewrite/testServerData/student",
+                studentFolder.toString(),
                 new JsonIoHelperDefault()
                 ),
 
                 //TODO: remove default users from cohort datastores once there is a viable way to add students
                 new CohortDatasourceJson(
                     "allCohorts",
+                    cohortFile.toString(),
                     "src/test/resources/rewrite/testServerData/currentCohorts.json",
-                    "src/main/resources/author/defaultCohorts.json",
                     new JsonIoHelperDefault()
                 )
             
@@ -62,9 +73,9 @@ public class ParControllerWithServerTest {
         );
     }
 
+    
     @Test
     public void contextLoads() throws Exception{
-        // assertThat(new ParController()).isNotNull();
         assertThat(this.parController).isNotNull();
     }
 
