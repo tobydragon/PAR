@@ -1,11 +1,13 @@
 package edu.ithaca.dragon.par.pedagogy;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import javafx.util.Pair;
 import java.util.Set;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import edu.ithaca.dragon.par.analysis.QuestionHistorySummary;
 import edu.ithaca.dragon.par.domain.DomainDatasource;
@@ -50,9 +52,6 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
     }
 
     public Question chooseQuestion(StudentModelInfo studentModelInfo, DomainDatasource domainDatasource){
-
-        return new Question();
-
         //Algorithm: 
         // 1. get all questions from domain datasource
         // 2. select the first concept from the list of questions to be developing, the rest are unprepared
@@ -60,56 +59,36 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
         // 4. (Once exemplary, the next concept will be updated to competent)
         // 5. from the developing and competent buckets, the question asked will be chosen based on least recently seen
         // *Test case for when first two topics are exemplary and the next 
+        
+        System.out.println("pre performance update");
+        conceptScores.stream().forEach(System.out::println);
 
-        // Set<String> concepts = domainDatasource.getAllConcepts();
-        // Collection<QuestionHistory> questionHistories = studentModelInfo.getQuestionHistories();
-        // List<Question> questions = domainDatasource.getAllQuestions();
-        // if(questionHistories.size()!=0){
-        //     for(String concept:concepts){
-        //         if(conceptScores.get(concept)!=OrderedConceptRubric.EXEMPLARY && calcExemplary(concept, questionHistories, domainDatasource)){
-        //             conceptScores.computeIfPresent(concept, (key,val) -> OrderedConceptRubric.EXEMPLARY);
-        //             String nextConcept = getNextConcept(concept, concepts);
-        //             // Does not account for if the next topic is exemplary 
-        //             // (will automatically demote the next topic to competent)
-        //             if(nextConcept!=""&&!calcCompetent(nextConcept, questionHistories, domainDatasource)){
-        //                 conceptScores.computeIfPresent(nextConcept,(key,val) -> OrderedConceptRubric.COMPETENT);
-        //             }
-        //         }
-        //         else if(conceptScores.get(concept)!=OrderedConceptRubric.COMPETENT && calcCompetent(concept, questionHistories, domainDatasource)){
-        //             conceptScores.computeIfPresent(concept, (key,val) -> OrderedConceptRubric.COMPETENT);
-        //             String nextConcept = getNextConcept(concept, concepts);
-        //             // Does not account for if the next topic is exemplary or competent
-        //             // (will automatically demote the next topic to developing)
-        //             if(nextConcept!=""&&!calcDeveloping(nextConcept, questionHistories, domainDatasource)){
-        //                 conceptScores.computeIfPresent(nextConcept,(key,val) -> OrderedConceptRubric.DEVELOPING);
-        //             }
-        //         }
-        //         else if(conceptScores.get(concept)!=OrderedConceptRubric.DEVELOPING && calcDeveloping(concept, questionHistories, domainDatasource)){
-        //             conceptScores.computeIfPresent(concept,(key,val) -> OrderedConceptRubric.DEVELOPING);
-        //         }
-        //         // TODO: must figure out when to demote to unprepared so as not to overwrite competent/exemplary updates 
-        //     }
-        //     List<Question> eligibleQuestions = new ArrayList<>();
-        //     for(Entry<String,OrderedConceptRubric> entry: conceptScoring.entrySet()){
-        //         if(entry.getValue()==OrderedConceptRubric.COMPETENT||entry.getValue()==OrderedConceptRubric.DEVELOPING){
-        //             eligibleQuestions.addAll(domainDatasource.getQuestionsByConcept(entry.getKey()));
-        //         }
-        //     }
-        //     if(eligibleQuestions.size()!=0){
-        //         List<String> eligibleQuestionIds = new ArrayList<>();
-        //         for(Question question : eligibleQuestions){
-        //             eligibleQuestionIds.add(question.getId());
-        //         }
-        //         String idOfQuestionToBeAsked = studentModelInfo.findQuestionSeenLeastRecently(eligibleQuestionIds);
-        //         return domainDatasource.getQuestion(idOfQuestionToBeAsked);
-        //     }
-        //     else{
-        //         throw new RuntimeException("No questions eligible for choosing");
-        //     }
-        // }
-        // else{
-        //     return questions.get(0);
-        // }
+        updateConceptScoresBasedOnPerformanceData(studentModelInfo, domainDatasource);
+        System.out.println("\n");
+        System.out.println("post performance update");
+        conceptScores.stream().forEach(System.out::println);
+        System.out.println("\n");
+        System.out.println("post comparative update");
+        
+        updateConceptScoresBasedOnComparativeResults();
+
+        conceptScores.stream().forEach(System.out::println);
+        System.out.println("\n");
+
+        List<Question> eligibleQuestions = new ArrayList<>();
+        for(Pair<String,OrderedConceptRubric> conceptScore:conceptScores){
+            if(conceptScore.getValue()==OrderedConceptRubric.COMPETENT || conceptScore.getValue()==OrderedConceptRubric.DEVELOPING){
+                eligibleQuestions.addAll(domainDatasource.getQuestionsByConcept(conceptScore.getKey()));
+            }
+        }
+
+        if(eligibleQuestions.size()!=0){
+            String questionIdToBeAsked = studentModelInfo.findQuestionSeenLeastRecently(eligibleQuestions.stream().map(q -> q.getId()).collect(Collectors.toList()));
+            return domainDatasource.getQuestion(questionIdToBeAsked);
+        }
+        else{
+            throw new RuntimeException("No questions eligible for choosing");
+        }
     }
 
     public List<Pair<String,OrderedConceptRubric>> getConceptScores() {
@@ -138,32 +117,6 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
         }
         setConceptScores(conceptScoresIn);
     }
-
-    private String getNextConcept(String currentConcept,Set<String>concepts){
-        Iterator<String> conceptIter = concepts.iterator();
-        String nextConcept = "";
-        while(conceptIter.hasNext()){
-            if(conceptIter.next().equalsIgnoreCase(currentConcept)){
-                if(conceptIter.hasNext()){
-                    nextConcept=conceptIter.next();
-                }
-                break;
-            }
-        } // Otherwise there is no next concept
-        return nextConcept;
-    }
-    private String getPreviousConcept(String currentConcept,Set<String>concepts){
-        Object[] conceptsArray = concepts.toArray();
-        int i=0;
-        for(Object concept:conceptsArray){
-            String conceptString = new String((String) concept);
-            if(conceptString.equalsIgnoreCase(currentConcept)&&i!=0){
-                return new String((String)conceptsArray[i-1]);
-            }
-            i++;
-        }
-        return "";
-    }
     
     public static List<Question> getQuestionsFromStudentModelByConcept(String concept, Collection<QuestionHistory> questionHistories, DomainDatasource domainDatasource){
         List<Question> questionsByConceptFromDatasource = domainDatasource.getQuestionsByConcept(concept);
@@ -177,84 +130,122 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
         }
         return questionList;
     }
-    // public boolean calcUnprepared(String concept, Collection<QuestionHistory> questionHistories, DomainDatasource domainDatasource){
-    //     String firstConcept = conceptScoring.keySet().iterator().next();
-    //     if(concept.equalsIgnoreCase(firstConcept)){
-    //         return false;
-    //     } else {
-    //         List<Question> questionsFromModelByConcept = getQuestionsFromStudentModelByConcept(concept, questionHistories, domainDatasource);
-    //         List<String> questionIdsForEverCorrect = QuestionHistorySummary.findQuestionsCorrectFirstTime(questionHistories,domainDatasource);
-    //         questionIdsForEverCorrect.addAll(QuestionHistorySummary.findQuestionsCorrectAfterIncorrect(questionHistories, domainDatasource));
-    //         for(Question question: questionsFromModelByConcept){
-    //             for(String questionId:questionIdsForEverCorrect){
-    //                 if(questionId.equalsIgnoreCase(question.getId())){
-    //                     return false;
-    //                 }
-    //             }
-    //         }
-    //         return true;
-    //     }
-    // }
-    // /**
-    //  * @param questionsFromModelByConcept
-    //  * @param questionHistories
-    //  * @param domainDatasource
-    //  * @returns true if the student has gotten at least one question correct at one point
-    //  */
-    // public boolean calcDeveloping(String concept, Collection<QuestionHistory> questionHistories, DomainDatasource domainDatasource){
-    //     String firstConcept = conceptScoring.keySet().iterator().next();
-    //     String previousConcept=getPreviousConcept(concept, domainDatasource.getAllConcepts());
-    //     if(concept.equalsIgnoreCase(firstConcept) && (calcCompetent(concept, questionHistories, domainDatasource)==false &&  calcExemplary(concept, questionHistories, domainDatasource)==false)){
-    //         return true;
-    //     }
-    //     else if(previousConcept!=""&&calcCompetent(previousConcept,questionHistories,domainDatasource) && calcUnprepared(concept, questionHistories, domainDatasource)){
-    //         return true;
-    //     }
-    //     else{
-    //         List<Question> questionsFromModelByConcept = getQuestionsFromStudentModelByConcept(concept, questionHistories, domainDatasource);
-    //         List<String> questionIdsForEverCorrect = QuestionHistorySummary.findQuestionsCorrectFirstTime(questionHistories,domainDatasource);
-    //         questionIdsForEverCorrect.addAll(QuestionHistorySummary.findQuestionsCorrectAfterIncorrect(questionHistories, domainDatasource));
 
-    //         for(Question question: questionsFromModelByConcept){
-    //             for(String questionId:questionIdsForEverCorrect){
-    //                 if(questionId.equalsIgnoreCase(question.getId())){
-    //                     return true;
-    //                 }
-    //             }
-    //         }
-    //         return false;
-    //     }
+    public void updateConceptScoresBasedOnPerformanceData(StudentModelInfo studentModelInfo,DomainDatasource domainDatasource){
+        Collection <QuestionHistory> questionHistories = studentModelInfo.getQuestionHistories();
+        int i=0;
+        for(Pair<String,OrderedConceptRubric> conceptScore:conceptScores){
+            String concept = conceptScore.getKey();
+            List<Question> conceptQuestionsSeenByStudent = getQuestionsFromStudentModelByConcept(concept,questionHistories,domainDatasource);
+            if(calcUnprepared(conceptQuestionsSeenByStudent, questionHistories, domainDatasource)){
+                conceptScores.set(i,new Pair<String,OrderedConceptRubric>(concept,OrderedConceptRubric.UNPREPARED));
+            }
+            else if(calcDeveloping(concept, conceptQuestionsSeenByStudent, questionHistories, domainDatasource)){
+                conceptScores.set(i,new Pair<String,OrderedConceptRubric>(concept,OrderedConceptRubric.DEVELOPING));            
+            }
+            else if(calcCompetent(concept, conceptQuestionsSeenByStudent, questionHistories, domainDatasource)){
+                conceptScores.set(i,new Pair<String,OrderedConceptRubric>(concept,OrderedConceptRubric.COMPETENT));
+            }
+            else{
+                conceptScores.set(i,new Pair<String,OrderedConceptRubric>(concept,OrderedConceptRubric.EXEMPLARY));
+            }
+            i++;
+        }
+    }
+
+    public void updateConceptScoresBasedOnComparativeResults(){
+        int i=0;
+        boolean isAllExemplary = true;
+        for(Pair<String,OrderedConceptRubric> conceptScore:conceptScores){
+            String concept = conceptScore.getKey();
+            if(i==0 && conceptScore.getValue()==OrderedConceptRubric.UNPREPARED){
+                conceptScores.set(i,new Pair<String,OrderedConceptRubric>(concept,OrderedConceptRubric.DEVELOPING));
+                isAllExemplary=false;
+            }
+            else if(i-1!=-1 && conceptScore.getValue()==OrderedConceptRubric.UNPREPARED){
+                Pair<String,OrderedConceptRubric> previousConceptScore = conceptScores.get(i-1);
+                if(previousConceptScore.getValue()==OrderedConceptRubric.COMPETENT || previousConceptScore.getValue()==OrderedConceptRubric.EXEMPLARY){
+                    conceptScores.set(i,new Pair<String,OrderedConceptRubric>(concept,OrderedConceptRubric.DEVELOPING));
+                }
+                isAllExemplary=false;
+            }
+            else{
+                if(conceptScore.getValue()!=OrderedConceptRubric.EXEMPLARY){
+                    isAllExemplary=false;
+                }
+            }
+            i++;
+        }
+
+        if(isAllExemplary){
+            conceptScores.stream().map(score -> new Pair<String,OrderedConceptRubric>(score.getKey(),OrderedConceptRubric.DEVELOPING));
+        }
         
-    // }
-    // public boolean calcCompetent(String concept, Collection<QuestionHistory> questionHistories, DomainDatasource domainDatasource){
-    //     String previousConcept=getPreviousConcept(concept, domainDatasource.getAllConcepts());
-    //     if(previousConcept!=""&&calcExemplary(previousConcept,questionHistories,domainDatasource) && (calcUnprepared(concept, questionHistories, domainDatasource)||calcDeveloping(concept, questionHistories, domainDatasource))){
-    //         return true;
-    //     } else{
-    //         List<Question> questionsFromModelByConcept = getQuestionsFromStudentModelByConcept(concept, questionHistories, domainDatasource);
-    //         List<String> questionIdsForEverCorrect = QuestionHistorySummary.findQuestionsCorrectFirstTime(questionHistories,domainDatasource);
-    //         questionIdsForEverCorrect.addAll(QuestionHistorySummary.findQuestionsCorrectAfterIncorrect(questionHistories, domainDatasource));
-    //         float denom = (float) domainDatasource.getQuestionsByConcept(concept).size();
-    //         float num = 0;
-    //         for(Question question: questionsFromModelByConcept){
-    //             for(String questionId:questionIdsForEverCorrect){
-    //                 if(questionId.equalsIgnoreCase(question.getId())){
-    //                     num++;
-    //                 }
-    //             }
-    //         }
-    //         if(num/denom > 0.5){
-    //             return true;
-    //         } else {return false;}
-    //     }
-    // }
-    public boolean calcExemplary(String concept, Collection<QuestionHistory> questionHistories, DomainDatasource domainDatasource){
-        List<Question> questionsFromModelByConcept = getQuestionsFromStudentModelByConcept(concept, questionHistories, domainDatasource);
+    }
+
+    public boolean calcUnprepared(List<Question> conceptQuestionsSeenByStudent, Collection<QuestionHistory> questionHistories, DomainDatasource domainDatasource){
+    
+        List<String> questionIdsForEverCorrect = QuestionHistorySummary.findQuestionsCorrectFirstTime(questionHistories,domainDatasource);
+        questionIdsForEverCorrect.addAll(QuestionHistorySummary.findQuestionsCorrectAfterIncorrect(questionHistories, domainDatasource));
+        for(Question question: conceptQuestionsSeenByStudent){
+            for(String questionId:questionIdsForEverCorrect){
+                if(questionId.equalsIgnoreCase(question.getId())){
+                    return false;
+                }
+            }
+        }
+        return true;
+    
+    }
+
+    public boolean calcDeveloping(String concept, List<Question> conceptQuestionsSeenByStudent, Collection<QuestionHistory> questionHistories, DomainDatasource domainDatasource){
+        if(calcCompetent(concept, conceptQuestionsSeenByStudent, questionHistories, domainDatasource)||calcExemplary(concept, conceptQuestionsSeenByStudent, questionHistories, domainDatasource)){
+            return false;
+        }
+        else{
+            List<String> questionIdsForEverCorrect = QuestionHistorySummary.findQuestionsCorrectFirstTime(questionHistories,domainDatasource);
+            questionIdsForEverCorrect.addAll(QuestionHistorySummary.findQuestionsCorrectAfterIncorrect(questionHistories, domainDatasource));
+
+            for(Question question: conceptQuestionsSeenByStudent){
+                for(String questionId:questionIdsForEverCorrect){
+                    if(questionId.equalsIgnoreCase(question.getId())){
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        
+        
+    }
+    public boolean calcCompetent(String concept, List<Question> conceptQuestionsSeenByStudent, Collection<QuestionHistory> questionHistories, DomainDatasource domainDatasource){
+        if(calcExemplary(concept, conceptQuestionsSeenByStudent, questionHistories, domainDatasource)){
+            return false;
+        }
+        else{
+            List<String> questionIdsForEverCorrect = QuestionHistorySummary.findQuestionsCorrectFirstTime(questionHistories,domainDatasource);
+            questionIdsForEverCorrect.addAll(QuestionHistorySummary.findQuestionsCorrectAfterIncorrect(questionHistories, domainDatasource));
+            float denom = (float) domainDatasource.getQuestionsByConcept(concept).size();
+            float num = 0;
+            for(Question question: conceptQuestionsSeenByStudent){
+                for(String questionId:questionIdsForEverCorrect){
+                    if(questionId.equalsIgnoreCase(question.getId())){
+                        num++;
+                    }
+                }
+            }
+            if(num/denom > 0.5){
+                return true;
+            } else {return false;}
+        }
+    
+    }
+    public boolean calcExemplary(String concept, List<Question> conceptQuestionsSeenByStudent, Collection<QuestionHistory> questionHistories, DomainDatasource domainDatasource){
         List<String> questionIdsForEverCorrect = QuestionHistorySummary.findQuestionsCorrectFirstTime(questionHistories,domainDatasource);
         questionIdsForEverCorrect.addAll(QuestionHistorySummary.findQuestionsCorrectAfterIncorrect(questionHistories, domainDatasource));
         int denom = domainDatasource.getQuestionsByConcept(concept).size();
         int num = 0;
-        for(Question question: questionsFromModelByConcept){
+        for(Question question: conceptQuestionsSeenByStudent){
             for(String questionId:questionIdsForEverCorrect){
                 if(questionId.equalsIgnoreCase(question.getId())){
                     num++;

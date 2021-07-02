@@ -48,11 +48,13 @@ public class DomainDatasourceJson implements  DomainDatasource{
     }
 
     @Override
-    public Set<String> getAllConcepts() {
-        Set<String> concepts = new LinkedHashSet<>();
+    public List<String> getAllConcepts() {
+        List<String> concepts = new ArrayList<>();
 
         for(Question question:questions){
-            concepts.add(question.getType());
+            if(!concepts.contains(question.getType())){
+                concepts.add(question.getType());
+            }
         }
         return concepts;
     }
