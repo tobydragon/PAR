@@ -83,8 +83,8 @@ public class StudentModelJson implements StudentModelInfo {
         return questionHistory;
     }
 
-    public Collection<QuestionHistory>  getQuestionHistories(){
-        return questionHistories.values();
+    public Map<String, QuestionHistory> getQuestionHistories(){
+        return questionHistories;
     }
 
 }
