@@ -1,6 +1,6 @@
 package edu.ithaca.dragon.par.spring;
 
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -40,7 +40,7 @@ public class ParControllerWithServerTest {
                 new DomainDatasourceJson(
                     "HorseUltrasound",
                     "src/test/resources/rewrite/testServerData/currentQuestionPool.json",
-                    "author/defaultQuestionPool.json",
+                    "src/main/resources/author/defaultQuestionPool.json",
                     new JsonIoHelperDefault()
                 ),
 
@@ -54,7 +54,7 @@ public class ParControllerWithServerTest {
                 new CohortDatasourceJson(
                     "allCohorts",
                     "src/test/resources/rewrite/testServerData/currentCohorts.json",
-                    "author/defaultCohorts.json",
+                    "src/main/resources/author/defaultCohorts.json",
                     new JsonIoHelperDefault()
                 )
             
@@ -64,14 +64,15 @@ public class ParControllerWithServerTest {
 
     @Test
     public void contextLoads() throws Exception{
-        assertNotEquals(null,  new ParController());
+        // assertThat(new ParController()).isNotNull();
+        assertThat(this.parController).isNotNull();
     }
 
 
     @Test
     public void greetingFromServerTest(){
         long start = System.currentTimeMillis();
-        assertEquals("Hello from PAR api2", this.restTemplate.getForObject("http://localhost:" + port + "/api2/", String.class));
+        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/api2/", String.class)).isEqualTo("Hello from PAR api2");
         long end = System.currentTimeMillis();
         System.out.println("\nTime it took to run in ms: "+(end-start)+"\n");
     }
