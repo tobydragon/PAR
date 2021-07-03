@@ -12,9 +12,9 @@ public interface DomainDatasource {
      */
     Question getQuestion(String id);
 
-    List<String> getAllConcepts();
+    List<String> retrieveAllConcepts();
 
-    String getConceptForAQuestion(String id);
+    String retrieveConceptForAQuestion(String id);
 
-    List<Question> getQuestionsByConcept(String concept);
+    List<Question> retrieveQuestionsByConcept(String concept);
 }

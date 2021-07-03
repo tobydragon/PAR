@@ -48,7 +48,7 @@ public class DomainDatasourceJson implements  DomainDatasource{
     }
 
     @Override
-    public List<String> getAllConcepts() {
+    public List<String> retrieveAllConcepts() {
         List<String> concepts = new ArrayList<>();
 
         for(Question question:questions){
@@ -60,7 +60,7 @@ public class DomainDatasourceJson implements  DomainDatasource{
     }
 
     @Override
-    public String getConceptForAQuestion(String id) {
+    public String retrieveConceptForAQuestion(String id) {
         for (Question question: questions){
             if (question.getId().equalsIgnoreCase(id)){
                 return question.getType();
@@ -70,7 +70,7 @@ public class DomainDatasourceJson implements  DomainDatasource{
     }
 
     @Override
-    public List<Question> getQuestionsByConcept(String concept) {
+    public List<Question> retrieveQuestionsByConcept(String concept) {
         List<Question> questionList = new ArrayList<>();
         for (Question question: questions){
             if (question.getType().equalsIgnoreCase(concept)){

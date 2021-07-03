@@ -73,7 +73,7 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
         List<Question> eligibleQuestions = new ArrayList<>();
         for(Pair<String,OrderedConceptRubric> conceptScore:conceptScores){
             if(conceptScore.getValue()==OrderedConceptRubric.COMPETENT || conceptScore.getValue()==OrderedConceptRubric.DEVELOPING){
-                eligibleQuestions.addAll(domainDatasource.getQuestionsByConcept(conceptScore.getKey()));
+                eligibleQuestions.addAll(domainDatasource.retrieveQuestionsByConcept(conceptScore.getKey()));
             }
         }
 
@@ -114,7 +114,7 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
     }
     
     public static List<Question> getQuestionsFromStudentModelByConcept(String concept, Collection<QuestionHistory> questionHistories, DomainDatasource domainDatasource){
-        List<Question> questionsByConceptFromDatasource = domainDatasource.getQuestionsByConcept(concept);
+        List<Question> questionsByConceptFromDatasource = domainDatasource.retrieveQuestionsByConcept(concept);
         List<Question> questionList = new ArrayList<>();
         for(Question question:questionsByConceptFromDatasource){
             for(QuestionHistory questionHist: questionHistories){
@@ -127,7 +127,7 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
     }
 
     public void updateConceptScoresBasedOnPerformanceData(StudentModelInfo studentModelInfo,DomainDatasource domainDatasource){
-        Collection <QuestionHistory> questionHistories = studentModelInfo.getQuestionHistories();
+        Collection <QuestionHistory> questionHistories = studentModelInfo.getQuestionHistories().values();
         int i=0;
         for(Pair<String,OrderedConceptRubric> conceptScore:conceptScores){
             String concept = conceptScore.getKey();
@@ -220,7 +220,7 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
         else{
             List<String> questionIdsForEverCorrect = QuestionHistorySummary.findQuestionsCorrectFirstTime(questionHistories,domainDatasource);
             questionIdsForEverCorrect.addAll(QuestionHistorySummary.findQuestionsCorrectAfterIncorrect(questionHistories, domainDatasource));
-            float denom = (float) domainDatasource.getQuestionsByConcept(concept).size();
+            float denom = (float) domainDatasource.retrieveQuestionsByConcept(concept).size();
             float num = 0;
             for(Question question: conceptQuestionsSeenByStudent){
                 for(String questionId:questionIdsForEverCorrect){
@@ -238,7 +238,7 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
     public boolean calcExemplary(String concept, List<Question> conceptQuestionsSeenByStudent, Collection<QuestionHistory> questionHistories, DomainDatasource domainDatasource){
         List<String> questionIdsForEverCorrect = QuestionHistorySummary.findQuestionsCorrectFirstTime(questionHistories,domainDatasource);
         questionIdsForEverCorrect.addAll(QuestionHistorySummary.findQuestionsCorrectAfterIncorrect(questionHistories, domainDatasource));
-        int denom = domainDatasource.getQuestionsByConcept(concept).size();
+        int denom = domainDatasource.retrieveQuestionsByConcept(concept).size();
         int num = 0;
         for(Question question: conceptQuestionsSeenByStudent){
             for(String questionId:questionIdsForEverCorrect){
