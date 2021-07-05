@@ -1,11 +1,8 @@
 package edu.ithaca.dragon.par.pedagogy;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Iterator;
 import javafx.util.Pair;
-import java.util.Set;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -113,7 +110,7 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
         setConceptScores(conceptScoresIn);
     }
     
-    public static List<Question> getQuestionsFromStudentModelByConcept(String concept, Collection<QuestionHistory> questionHistories, DomainDatasource domainDatasource){
+    public static List<Question> retrieveQuestionsFromStudentModelByConcept(String concept, Collection<QuestionHistory> questionHistories, DomainDatasource domainDatasource){
         List<Question> questionsByConceptFromDatasource = domainDatasource.retrieveQuestionsByConcept(concept);
         List<Question> questionList = new ArrayList<>();
         for(Question question:questionsByConceptFromDatasource){
@@ -131,7 +128,7 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
         int i=0;
         for(Pair<String,OrderedConceptRubric> conceptScore:conceptScores){
             String concept = conceptScore.getKey();
-            List<Question> conceptQuestionsSeenByStudent = getQuestionsFromStudentModelByConcept(concept,questionHistories,domainDatasource);
+            List<Question> conceptQuestionsSeenByStudent = retrieveQuestionsFromStudentModelByConcept(concept,questionHistories,domainDatasource);
             if(calcUnprepared(conceptQuestionsSeenByStudent, questionHistories, domainDatasource)){
                 conceptScores.set(i,new Pair<String,OrderedConceptRubric>(concept,OrderedConceptRubric.UNPREPARED));
             }
