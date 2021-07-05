@@ -57,15 +57,15 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
         // 5. from the developing and competent buckets, the question asked will be chosen based on least recently seen
         // *Test case for when first two topics are exemplary and the next 
         
-        conceptScores.stream().forEach(System.out::println);
+       
 
         updateConceptScoresBasedOnPerformanceData(studentModelInfo, domainDatasource);
-        conceptScores.stream().forEach(System.out::println);
+        
         
         
         updateConceptScoresBasedOnComparativeResults();
 
-        conceptScores.stream().forEach(System.out::println);
+        
 
         List<Question> eligibleQuestions = new ArrayList<>();
         for(Pair<String,OrderedConceptRubric> conceptScore:conceptScores){
