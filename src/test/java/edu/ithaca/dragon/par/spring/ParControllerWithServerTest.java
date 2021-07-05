@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import org.apache.commons.io.FileUtils;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,6 +19,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import edu.ithaca.dragon.par.ParServer;
 import edu.ithaca.dragon.par.cohort.CohortDatasourceJson;
+import edu.ithaca.dragon.par.comm.StudentAction;
 import edu.ithaca.dragon.par.domain.DomainDatasourceJson;
 import edu.ithaca.dragon.par.student.json.StudentModelDatasourceJson;
 import edu.ithaca.dragon.util.JsonIoHelperDefault;
@@ -42,10 +45,11 @@ public class ParControllerWithServerTest {
     @BeforeEach
     public void initController(@TempDir Path tempDir) throws Exception{
         Path questionPoolFile = tempDir.resolve("currentQuestionPool.json");
-        Files.copy(new File("src/test/resources/rewrite/testServerData/currentQuestionPool.json").toPath(),questionPoolFile);
-        Path studentFolder = tempDir.resolve("src/test/resources/rewrite/testServerData/student");
+        Files.copy(Paths.get("src/test/resources/rewrite/testServerData/currentQuestionPool.json"),questionPoolFile);
+        Path studentDirectory = tempDir.resolve("student");
+        FileUtils.copyDirectory(new File("src/test/resources/rewrite/testServerData/student"),studentDirectory.toFile());
         Path cohortFile = tempDir.resolve("currentCohorts.json");
-        Files.copy(new File("src/test/resources/rewrite/testServerData/currentCohorts.json").toPath(),cohortFile);
+        Files.copy(Paths.get("src/test/resources/rewrite/testServerData/currentCohorts.json"),cohortFile);
         this.parController = new ParController(
             new ParServer(
                 new DomainDatasourceJson(
@@ -56,8 +60,8 @@ public class ParControllerWithServerTest {
                 ),
 
                 new StudentModelDatasourceJson(
-                "allStudents",
-                studentFolder.toString(),
+                "allTestStudents",
+                studentDirectory.toString(),
                 new JsonIoHelperDefault()
                 ),
 
@@ -83,9 +87,21 @@ public class ParControllerWithServerTest {
     @Test
     public void greetingFromServerTest(){
         long start = System.currentTimeMillis();
-        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/api2/", String.class)).isEqualTo("Hello from PAR api2");
+        assertThat(this.parController.greeting()).isEqualTo("Hello from PAR api2");
         long end = System.currentTimeMillis();
         System.out.println("\nTime it took to run in ms: "+(end-start)+"\n");
+    }
+
+    @Test
+    public void isUserIdAvailableTest(){
+        assertThat(this.parController.isUserIdAvailable("o1")).isFalse();
+        assertThat(this.parController.isUserIdAvailable("boc1")).isTrue();
+    }
+
+    @Test
+    public void getCohortIdsTest(){
+        assertThat(this.parController.getCohortIds().contains("inOrder")).isTrue();
+        assertThat(this.parController.getCohortIds().contains("byOrderedConcepts")).isFalse();
     }
 
 
