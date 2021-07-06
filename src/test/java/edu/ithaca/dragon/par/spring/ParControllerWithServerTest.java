@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Map;
+
 import org.apache.commons.io.FileUtils;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -18,11 +20,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import edu.ithaca.dragon.par.ParServer;
+import edu.ithaca.dragon.par.cohort.Cohort;
 import edu.ithaca.dragon.par.cohort.CohortDatasourceJson;
+import edu.ithaca.dragon.par.comm.CreateStudentAction;
 import edu.ithaca.dragon.par.comm.StudentAction;
 import edu.ithaca.dragon.par.domain.DomainDatasourceJson;
+import edu.ithaca.dragon.par.domain.Question;
 import edu.ithaca.dragon.par.student.json.StudentModelDatasourceJson;
 import edu.ithaca.dragon.util.JsonIoHelperDefault;
+import edu.ithaca.dragon.util.JsonIoUtil;
 
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -42,13 +48,15 @@ public class ParControllerWithServerTest {
     @LocalServerPort 
     private int port;
 
+    private Path cohortFile;
+
     @BeforeEach
     public void initController(@TempDir Path tempDir) throws Exception{
         Path questionPoolFile = tempDir.resolve("currentQuestionPool.json");
         Files.copy(Paths.get("src/test/resources/rewrite/testServerData/currentQuestionPool.json"),questionPoolFile);
         Path studentDirectory = tempDir.resolve("student");
         FileUtils.copyDirectory(new File("src/test/resources/rewrite/testServerData/student"),studentDirectory.toFile());
-        Path cohortFile = tempDir.resolve("currentCohorts.json");
+        this.cohortFile = tempDir.resolve("currentCohorts.json");
         Files.copy(Paths.get("src/test/resources/rewrite/testServerData/currentCohorts.json"),cohortFile);
         this.parController = new ParController(
             new ParServer(
@@ -101,7 +109,23 @@ public class ParControllerWithServerTest {
     @Test
     public void getCohortIdsTest(){
         assertThat(this.parController.getCohortIds().contains("inOrder")).isTrue();
-        assertThat(this.parController.getCohortIds().contains("byOrderedConcepts")).isFalse();
+        assertThat(this.parController.getCohortIds().contains("byOutOfOrderConcepts")).isFalse();
+    }
+
+    @Test
+    public void getCurrentQuestionTest(){
+        //works with attachment removed
+        Question questionToBeAsked = this.parController.getCurrentQuestion("bocTest");
+        assertThat(questionToBeAsked.getType()).isEqualTo("plane");
+        assertThat(questionToBeAsked.getId()).isEqualTo("614-plane-./images/3CTransverse.jpg");
+    }
+
+    @Test
+    public void addNewUserTest() throws IOException{
+        // issue creating cohorts from json file when reading boc (using pair list for conceptScore)
+        this.parController.addNewUser(new CreateStudentAction("o5","inOrder"));
+        Map <String,Cohort> cohortMap = new JsonIoUtil(new JsonIoHelperDefault()).mapfromReadOnlyFile("src/test/resources/rewrite/testServerData/currentCohortsNoBoc.json", Cohort.class);
+        assertThat(cohortMap.get("inOrder").studentIds.contains("o5"));
     }
 
 
