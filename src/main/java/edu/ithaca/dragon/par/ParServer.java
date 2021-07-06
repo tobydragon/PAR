@@ -38,7 +38,7 @@ public class ParServer {
 
     public QuestionHistorySummary getQuestionHistorySummary(String studentId){    
         logger.info("QuestionHistorySummary for:" + studentId);    
-        return new QuestionHistorySummary(studentModelDatasource.getStudentModel(studentId).getQuestionHistories(), domainDatasource);
+        return new QuestionHistorySummary(studentModelDatasource.getStudentModel(studentId).getQuestionHistories().values(), domainDatasource);
     }
 
     public void addNewUser(String studentId, String cohortId){

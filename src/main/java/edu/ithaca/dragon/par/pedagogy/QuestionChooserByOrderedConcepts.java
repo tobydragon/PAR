@@ -177,8 +177,8 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
 
     public boolean calcUnprepared(List<Question> conceptQuestionsSeenByStudent, Collection<QuestionHistory> questionHistories, DomainDatasource domainDatasource){
     
-        List<String> questionIdsForEverCorrect = QuestionHistorySummary.findQuestionsCorrectFirstTime(questionHistories,domainDatasource);
-        questionIdsForEverCorrect.addAll(QuestionHistorySummary.findQuestionsCorrectAfterIncorrect(questionHistories, domainDatasource));
+        List<String> questionIdsForEverCorrect = QuestionHistorySummary.findQuestionIdsCorrectFirstTime(questionHistories,domainDatasource);
+        questionIdsForEverCorrect.addAll(QuestionHistorySummary.findQuestionIdsCorrectAfterIncorrect(questionHistories, domainDatasource));
         for(Question question: conceptQuestionsSeenByStudent){
             for(String questionId:questionIdsForEverCorrect){
                 if(questionId.equalsIgnoreCase(question.getId())){
@@ -195,8 +195,8 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
             return false;
         }
         else{
-            List<String> questionIdsForEverCorrect = QuestionHistorySummary.findQuestionsCorrectFirstTime(questionHistories,domainDatasource);
-            questionIdsForEverCorrect.addAll(QuestionHistorySummary.findQuestionsCorrectAfterIncorrect(questionHistories, domainDatasource));
+            List<String> questionIdsForEverCorrect = QuestionHistorySummary.findQuestionIdsCorrectFirstTime(questionHistories,domainDatasource);
+            questionIdsForEverCorrect.addAll(QuestionHistorySummary.findQuestionIdsCorrectAfterIncorrect(questionHistories, domainDatasource));
 
             for(Question question: conceptQuestionsSeenByStudent){
                 for(String questionId:questionIdsForEverCorrect){
@@ -215,8 +215,8 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
             return false;
         }
         else{
-            List<String> questionIdsForEverCorrect = QuestionHistorySummary.findQuestionsCorrectFirstTime(questionHistories,domainDatasource);
-            questionIdsForEverCorrect.addAll(QuestionHistorySummary.findQuestionsCorrectAfterIncorrect(questionHistories, domainDatasource));
+            List<String> questionIdsForEverCorrect = QuestionHistorySummary.findQuestionIdsCorrectFirstTime(questionHistories,domainDatasource);
+            questionIdsForEverCorrect.addAll(QuestionHistorySummary.findQuestionIdsCorrectAfterIncorrect(questionHistories, domainDatasource));
             float denom = (float) domainDatasource.retrieveQuestionsByConcept(concept).size();
             float num = 0;
             for(Question question: conceptQuestionsSeenByStudent){
@@ -233,8 +233,8 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
     
     }
     public boolean calcExemplary(String concept, List<Question> conceptQuestionsSeenByStudent, Collection<QuestionHistory> questionHistories, DomainDatasource domainDatasource){
-        List<String> questionIdsForEverCorrect = QuestionHistorySummary.findQuestionsCorrectFirstTime(questionHistories,domainDatasource);
-        questionIdsForEverCorrect.addAll(QuestionHistorySummary.findQuestionsCorrectAfterIncorrect(questionHistories, domainDatasource));
+        List<String> questionIdsForEverCorrect = QuestionHistorySummary.findQuestionIdsCorrectFirstTime(questionHistories,domainDatasource);
+        questionIdsForEverCorrect.addAll(QuestionHistorySummary.findQuestionIdsCorrectAfterIncorrect(questionHistories, domainDatasource));
         int denom = domainDatasource.retrieveQuestionsByConcept(concept).size();
         int num = 0;
         for(Question question: conceptQuestionsSeenByStudent){

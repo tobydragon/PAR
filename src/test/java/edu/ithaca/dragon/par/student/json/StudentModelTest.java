@@ -41,7 +41,7 @@ class StudentModelTest {
     public void ToAndFromJsonTest() throws IOException{
         StudentModelJson improvingStudent = new StudentModelJson("improvingStudent", QuestionHistoryTest.improvingStudent());
         DomainDatasourceSimple domainData = new DomainDatasourceSimple(JsonUtil.listFromJsonFile("src/test/resources/rewrite/SampleQuestions.json", Question.class));
-        QuestionHistorySummary qhs = new QuestionHistorySummary(improvingStudent.getQuestionHistories(), domainData);
+        QuestionHistorySummary qhs = new QuestionHistorySummary(improvingStudent.getQuestionHistories().values(), domainData);
 
         assertEquals(5, qhs.getQuestionIdsSeen().size());
         assertEquals(4, qhs.getQuestionIdsRespondedTo().size());  
