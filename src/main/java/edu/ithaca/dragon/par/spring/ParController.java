@@ -1,6 +1,7 @@
 package edu.ithaca.dragon.par.spring;
 
 import edu.ithaca.dragon.par.ParServer;
+import edu.ithaca.dragon.par.analysis.QuestionHistorySummary;
 import edu.ithaca.dragon.par.cohort.Cohort;
 import edu.ithaca.dragon.par.cohort.CohortDatasourceJson;
 import edu.ithaca.dragon.par.comm.CreateStudentAction;
@@ -79,10 +80,14 @@ public class ParController {
         return parServer.getCohortIds();
     }
 
+    @GetMapping("/getQuestionHistorySummary")
+    public QuestionHistorySummary getQuestionHistorySummary(@RequestParam String userId){
+        return parServer.getQuestionHistorySummary(userId);
+    }
+
     @PostMapping("/addNewUser")
     public void addNewUser(@RequestBody CreateStudentAction studentAction){
         parServer.addNewUser(studentAction.studentId, studentAction.cohortId);
-
     }
 
     @PostMapping("/addTimeSeen")

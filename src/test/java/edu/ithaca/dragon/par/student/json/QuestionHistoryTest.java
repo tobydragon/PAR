@@ -56,7 +56,7 @@ public class QuestionHistoryTest {
 
         QuestionHistory q2 = new QuestionHistory("mathQ");
         q2.addTimeSeen();
-        q2.addResponse("2");
+        q2.addResponse("3");
         sample.add(q2);
 
         QuestionHistory q3 = new QuestionHistory("majorQ");

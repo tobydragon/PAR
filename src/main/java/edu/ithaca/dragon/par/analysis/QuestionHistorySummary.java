@@ -12,18 +12,18 @@ import java.util.List;
 //TODO: can make these: across everyone for all types or certain type, for 1 student for all types or certain type, window size too
 public class QuestionHistorySummary {
     private List<String> questionIdsSeen;
-    private List<String> questionsRespondedTo;
-    private List<String> questionsCorrectFirstTime;
-    private List<String> questionsCorrectAfterIncorrect;
-    private List<String> questionsIncorrect;
+    private List<String> questionIdsRespondedTo;
+    private List<String> questionIdsCorrectFirstTime;
+    private List<String> questionIdsCorrectAfterIncorrect;
+    private List<String> questionIdsIncorrect;
 
 
     public QuestionHistorySummary(Collection<QuestionHistory> questionHistoryCollection, DomainDatasource domainData){
         questionIdsSeen = buildQuestionIdsSeen(questionHistoryCollection);
-        questionsRespondedTo = checkQuestionsRespondedTo(questionHistoryCollection);
-        questionsCorrectFirstTime = findQuestionsCorrectFirstTime(questionHistoryCollection, domainData);
-        questionsIncorrect = findQuestionsIncorrect(questionHistoryCollection, domainData);
-        questionsCorrectAfterIncorrect = findQuestionsCorrectAfterIncorrect(questionHistoryCollection, domainData);
+        questionIdsRespondedTo = checkQuestionIdsRespondedTo(questionHistoryCollection);
+        questionIdsCorrectFirstTime = findQuestionIdsCorrectFirstTime(questionHistoryCollection, domainData);
+        questionIdsIncorrect = findQuestionIdsIncorrect(questionHistoryCollection, domainData);
+        questionIdsCorrectAfterIncorrect = findQuestionIdsCorrectAfterIncorrect(questionHistoryCollection, domainData);
     }
 
     public static List<String> buildQuestionIdsSeen(Collection<QuestionHistory> questionHistoryCollection){
@@ -40,7 +40,7 @@ public class QuestionHistorySummary {
         return questionIdsList;
     }
 
-    public static List<String> checkQuestionsRespondedTo(Collection<QuestionHistory> questionHistoryCollection){
+    public static List<String> checkQuestionIdsRespondedTo(Collection<QuestionHistory> questionHistoryCollection){
         List<String> questionsRespondedList = new ArrayList<String>();
 
         for(QuestionHistory questionHist : questionHistoryCollection){
@@ -51,7 +51,7 @@ public class QuestionHistorySummary {
         return questionsRespondedList;
     }
 
-    public static List<String> findQuestionsCorrectFirstTime(Collection<QuestionHistory> questionHistoryCollection, DomainDatasource domainData){
+    public static List<String> findQuestionIdsCorrectFirstTime(Collection<QuestionHistory> questionHistoryCollection, DomainDatasource domainData){
         List<String> correctList = new ArrayList<String>();
         List<QuestionHistory> historyOfQuestions = QuestionHistorySummary.findAllHistoriesWithResponses(questionHistoryCollection);
         
@@ -65,7 +65,7 @@ public class QuestionHistorySummary {
         return correctList;
     }
 
-    public static List<String> findQuestionsIncorrect(Collection<QuestionHistory> questionHistoryCollection, DomainDatasource domainData){
+    public static List<String> findQuestionIdsIncorrect(Collection<QuestionHistory> questionHistoryCollection, DomainDatasource domainData){
         List<String> incorrectList = new ArrayList<String>();
         List<QuestionHistory> historyOfQuestions = QuestionHistorySummary.findAllHistoriesWithResponses(questionHistoryCollection);
         for (QuestionHistory questionHist : historyOfQuestions){
@@ -86,7 +86,7 @@ public class QuestionHistorySummary {
     }
 
 
-    public static List<String> findQuestionsCorrectAfterIncorrect(Collection<QuestionHistory> questionHistoryCollection, DomainDatasource domainData){
+    public static List<String> findQuestionIdsCorrectAfterIncorrect(Collection<QuestionHistory> questionHistoryCollection, DomainDatasource domainData){
         List<String> correctAfterIncorrect = new ArrayList<String>();
         List<QuestionHistory> historyOfQuestions = QuestionHistorySummary.findAllHistoriesWithResponses(questionHistoryCollection);
         
@@ -117,19 +117,19 @@ public class QuestionHistorySummary {
         return questionIdsSeen;
     }
 
-    public List<String> getQuestionsRespondedTo() {
-        return questionsRespondedTo;
+    public List<String> getQuestionIdsRespondedTo() {
+        return questionIdsRespondedTo;
     }
 
-    public List<String> getQuestionsCorrectFirstTime() {
-        return questionsCorrectFirstTime;
+    public List<String> getQuestionIdsCorrectFirstTime() {
+        return questionIdsCorrectFirstTime;
     }
 
-    public List<String> getQuestionsIncorrect(){
-        return questionsIncorrect;
+    public List<String> getQuestionIdsIncorrect(){
+        return questionIdsIncorrect;
     }
 
-    public List<String> getQuestionsCorrectAfterIncorrect(){
-        return questionsCorrectAfterIncorrect;
+    public List<String> getQuestionIdsCorrectAfterIncorrect(){
+        return questionIdsCorrectAfterIncorrect;
     }
 }

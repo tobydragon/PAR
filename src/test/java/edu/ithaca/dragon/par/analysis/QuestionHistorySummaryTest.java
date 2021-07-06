@@ -25,33 +25,33 @@ class QuestionHistorySummaryTest {
  
         QuestionHistorySummary poorPerformance = new QuestionHistorySummary(QuestionHistoryTest.poorStudent(), data);
         assertEquals(5, poorPerformance.getQuestionIdsSeen().size());
-        assertEquals(2, poorPerformance.getQuestionsRespondedTo().size());
-        assertEquals(0, poorPerformance.getQuestionsCorrectFirstTime().size());
-        assertEquals(2, poorPerformance.getQuestionsIncorrect().size());
-        assertEquals(3, poorPerformance.getQuestionIdsSeen().size() - poorPerformance.getQuestionsRespondedTo().size());
-        assertEquals("majorQ", poorPerformance.getQuestionsIncorrect().get(0));
-        assertEquals("yearQ", poorPerformance.getQuestionsIncorrect().get(1));
+        assertEquals(2, poorPerformance.getQuestionIdsRespondedTo().size());
+        assertEquals(0, poorPerformance.getQuestionIdsCorrectFirstTime().size());
+        assertEquals(2, poorPerformance.getQuestionIdsIncorrect().size());
+        assertEquals(3, poorPerformance.getQuestionIdsSeen().size() - poorPerformance.getQuestionIdsRespondedTo().size());
+        assertEquals("majorQ", poorPerformance.getQuestionIdsIncorrect().get(0));
+        assertEquals("yearQ", poorPerformance.getQuestionIdsIncorrect().get(1));
 
         QuestionHistorySummary strongPerformance = new QuestionHistorySummary(QuestionHistoryTest.strongStudent(), data);
         assertEquals(5, strongPerformance.getQuestionIdsSeen().size());
-        assertEquals(5, strongPerformance.getQuestionsRespondedTo().size());
-        assertEquals(5, strongPerformance.getQuestionsCorrectFirstTime().size());
-        assertEquals("skyQ", strongPerformance.getQuestionsCorrectFirstTime().get(0));
-        assertEquals("mathQ", strongPerformance.getQuestionsCorrectFirstTime().get(1));
-        assertEquals("majorQ", strongPerformance.getQuestionsCorrectFirstTime().get(2));
-        assertEquals("yearQ", strongPerformance.getQuestionsCorrectFirstTime().get(3));
-        assertEquals("googleQ", strongPerformance.getQuestionsCorrectFirstTime().get(4));
+        assertEquals(5, strongPerformance.getQuestionIdsRespondedTo().size());
+        assertEquals(5, strongPerformance.getQuestionIdsCorrectFirstTime().size());
+        assertEquals("skyQ", strongPerformance.getQuestionIdsCorrectFirstTime().get(0));
+        assertEquals("mathQ", strongPerformance.getQuestionIdsCorrectFirstTime().get(1));
+        assertEquals("majorQ", strongPerformance.getQuestionIdsCorrectFirstTime().get(2));
+        assertEquals("yearQ", strongPerformance.getQuestionIdsCorrectFirstTime().get(3));
+        assertEquals("googleQ", strongPerformance.getQuestionIdsCorrectFirstTime().get(4));
 
         QuestionHistorySummary improvingPerformance = new QuestionHistorySummary(QuestionHistoryTest.improvingStudent(), data);
         assertEquals(5, improvingPerformance.getQuestionIdsSeen().size());
-        assertEquals(4, improvingPerformance.getQuestionsRespondedTo().size());
-        assertEquals(2, improvingPerformance.getQuestionsCorrectFirstTime().size());
-        assertEquals("mathQ", improvingPerformance.getQuestionsCorrectFirstTime().get(0));
-        assertEquals("majorQ", improvingPerformance.getQuestionsCorrectFirstTime().get(1));
-        assertEquals(1, improvingPerformance.getQuestionsIncorrect().size());
-        assertEquals("yearQ", improvingPerformance.getQuestionsIncorrect().get(0));
-        assertEquals(1, improvingPerformance.getQuestionsCorrectAfterIncorrect().size());
-        assertEquals("googleQ", improvingPerformance.getQuestionsCorrectAfterIncorrect().get(0));
+        assertEquals(4, improvingPerformance.getQuestionIdsRespondedTo().size());
+        assertEquals(2, improvingPerformance.getQuestionIdsCorrectFirstTime().size());
+        assertEquals("mathQ", improvingPerformance.getQuestionIdsCorrectFirstTime().get(0));
+        assertEquals("majorQ", improvingPerformance.getQuestionIdsCorrectFirstTime().get(1));
+        assertEquals(1, improvingPerformance.getQuestionIdsIncorrect().size());
+        assertEquals("yearQ", improvingPerformance.getQuestionIdsIncorrect().get(0));
+        assertEquals(1, improvingPerformance.getQuestionIdsCorrectAfterIncorrect().size());
+        assertEquals("googleQ", improvingPerformance.getQuestionIdsCorrectAfterIncorrect().get(0));
     }
 
     @Test
@@ -67,7 +67,7 @@ class QuestionHistorySummaryTest {
 
     @Test
     public void checkQuestionsRespondedTest(){
-        List<String> questionsRespondedTo = QuestionHistorySummary.checkQuestionsRespondedTo(QuestionHistoryTest.makeExamples());
+        List<String> questionsRespondedTo = QuestionHistorySummary.checkQuestionIdsRespondedTo(QuestionHistoryTest.makeExamples());
         assertEquals(3, questionsRespondedTo.size());
         assertEquals("q1", questionsRespondedTo.get(0));
         assertEquals("q3", questionsRespondedTo.get(1));
@@ -77,40 +77,34 @@ class QuestionHistorySummaryTest {
     @Test
     public void findQuestionsCorrectTest() throws IOException{
         DomainDatasourceSimple data = new DomainDatasourceSimple(JsonUtil.listFromJsonFile("src/test/resources/rewrite/SampleQuestions.json", Question.class));
-        List<String> questionsCorrect = QuestionHistorySummary.findQuestionsCorrectFirstTime(QuestionHistoryTest.SampleQuestionsEx(), data);
+        List<String> questionsCorrect = QuestionHistorySummary.findQuestionIdsCorrectFirstTime(QuestionHistoryTest.SampleQuestionsEx(), data);
 
         assertEquals(5, data.getAllQuestions().size());
-        assertEquals(2, questionsCorrect.size());
+        assertEquals(1, questionsCorrect.size());
         // Sample Question 1: What color is the sky?
         assertEquals("skyQ", questionsCorrect.get(0));
-        // Sample Question 2: What is 1 + 1?
-        assertEquals("mathQ", questionsCorrect.get(1));
     }
 
     @Test
     public void findQuestionsIncorrectTest() throws IOException{
         DomainDatasourceSimple data = new DomainDatasourceSimple(JsonUtil.listFromJsonFile("src/test/resources/rewrite/SampleQuestions.json", Question.class));
-        List<String> questionsIncorrect = QuestionHistorySummary.findQuestionsIncorrect(QuestionHistoryTest.SampleQuestionsEx(), data);
+        List<String> questionsIncorrect = QuestionHistorySummary.findQuestionIdsIncorrect(QuestionHistoryTest.SampleQuestionsEx(), data);
 
         assertEquals(5, data.getAllQuestions().size());
         assertEquals(1, questionsIncorrect.size());
-
-        // Sample Question 3: What is your major?
-        assertEquals("majorQ", questionsIncorrect.get(0));
+        assertEquals("mathQ", questionsIncorrect.get(0));
     }
 
     @Test
     public void findQuestionsCorrectAfterIncorrectTest() throws IOException{
         DomainDatasourceSimple data = new DomainDatasourceSimple(JsonUtil.listFromJsonFile("src/test/resources/rewrite/SampleQuestions.json", Question.class));
-        List<String> CorrectAfterIncorrect = QuestionHistorySummary.findQuestionsCorrectAfterIncorrect(QuestionHistoryTest.SampleQuestionsEx(), data);
+        List<String> CorrectAfterIncorrect = QuestionHistorySummary.findQuestionIdsCorrectAfterIncorrect(QuestionHistoryTest.SampleQuestionsEx(), data);
 
         assertEquals(5, data.getAllQuestions().size());
-        assertEquals(3, CorrectAfterIncorrect.size());
+        assertEquals(1, CorrectAfterIncorrect.size());
 
         // Sample Question 3: What is your major?
-        assertEquals("skyQ", CorrectAfterIncorrect.get(0));
-        assertEquals("mathQ", CorrectAfterIncorrect.get(1));
-        assertEquals("majorQ", CorrectAfterIncorrect.get(2));
+        assertEquals("majorQ", CorrectAfterIncorrect.get(0));
     }
 
 }
