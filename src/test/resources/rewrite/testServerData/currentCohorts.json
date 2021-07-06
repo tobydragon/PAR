@@ -19,11 +19,11 @@
   "byOrderedConcepts" : {
     "id" : "byOrderedConcepts",
     "domainId" : "HorseUltrasound",
-    "studentIds" : [ ],
+    "studentIds" : [ "bocTest" ],
     "questionChooser" : {
       "type" : "QuestionChooserByOrderedConcepts",
       "conceptScores" : [ ],
-      "conceptIds" : [ "plane", "structure", "attachment", "zone" ]
+      "conceptIds" : [ "plane", "structure", "zone" ]
     }
   }
 }
