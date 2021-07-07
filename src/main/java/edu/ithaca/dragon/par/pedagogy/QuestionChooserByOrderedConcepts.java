@@ -66,7 +66,7 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
         updateConceptScoresBasedOnComparativeResults();
 
         
-
+        
         List<Question> eligibleQuestions = new ArrayList<>();
         for(Pair<String,OrderedConceptRubric> conceptScore:conceptScores){
             if(conceptScore.getValue()==OrderedConceptRubric.COMPETENT || conceptScore.getValue()==OrderedConceptRubric.DEVELOPING){
@@ -170,7 +170,7 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
         }
 
         if(isAllExemplary){
-            conceptScores.stream().map(score -> new Pair<String,OrderedConceptRubric>(score.getKey(),OrderedConceptRubric.DEVELOPING));
+            conceptScores = conceptScores.stream().map(score -> new Pair<String,OrderedConceptRubric>(score.getKey(),OrderedConceptRubric.DEVELOPING)).collect(Collectors.toList());
         }
         
     }
