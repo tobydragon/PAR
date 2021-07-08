@@ -2,7 +2,7 @@
   "random" : {
     "id" : "random",
     "domainId" : "HorseUltrasound",
-    "studentIds" : [ "r1", "r2", "r3" ],
+    "studentIds" : [ "r2", "r3", "r1" ],
     "questionChooser" : {
       "type" : "QuestionChooserRandom"
     }
@@ -16,16 +16,14 @@
       "questionIdsInOrder" : [ "858-structure1-./images/2ATransverse.jpg", "850-structure3-./images/Annotated2Long.jpg", "866-plane-./images/3BTransverse.jpg", "847-structure2-./images/Annotated2Long.jpg", "614-plane-./images/3CTransverse.jpg" ]
     }
   },
-
   "byOrderedConcepts" : {
     "id" : "byOrderedConcepts",
     "domainId" : "HorseUltrasound",
-    "studentIds" : [  ],
+    "studentIds" : [ "bocTest" ],
     "questionChooser" : {
       "type" : "QuestionChooserByOrderedConcepts",
-      "conceptIds" : [ "plane", "structure", "attachment", "zone"],
-      "conceptScores" : []
+      "conceptScores" : [ ],
+      "conceptIds" : [ "plane", "structure", "zone" ]
     }
   }
-
 }

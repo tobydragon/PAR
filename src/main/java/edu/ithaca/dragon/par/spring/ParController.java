@@ -1,6 +1,7 @@
 package edu.ithaca.dragon.par.spring;
 
 import edu.ithaca.dragon.par.ParServer;
+import edu.ithaca.dragon.par.analysis.QuestionHistorySummary;
 import edu.ithaca.dragon.par.cohort.Cohort;
 import edu.ithaca.dragon.par.cohort.CohortDatasourceJson;
 import edu.ithaca.dragon.par.comm.CreateStudentAction;
@@ -20,36 +21,40 @@ import java.util.List;
 public class ParController {
     private final ParServer parServer;
 
-    public ParController()throws IOException {
+    public ParController(ParServer parServer){
+        this.parServer=parServer;
+    }
 
-        StudentModelDatasourceJson studentModelDatasourceJson = new StudentModelDatasourceJson(
+    public ParController()throws IOException {
+        //TODO: remove default users once there is a front-end way to create new users
+        // List.of("r1", "r2", "r3", "o1", "o2", "o3", "o4").forEach((userId)-> {
+        //     if (studentModelDatasourceJson.idIsAvailable(userId)){
+        //         studentModelDatasourceJson.createNewModelForId(userId);
+        //     }
+        // });
+
+        this(
+            new ParServer(
+                new DomainDatasourceJson(
+                    "HorseUltrasound",
+                    "localData/currentQuestionPool.json",
+                    "author/defaultQuestionPool.json",
+                    new JsonIoHelperSpring()
+                ),
+
+                new StudentModelDatasourceJson(
                 "allStudents",
                 "localData/student",
                 new JsonIoHelperSpring()
-        );
-        //TODO: remove default users once there is a front-end way to create new users
-        List.of("r1", "r2", "r3", "o1", "o2", "o3", "o4").forEach((userId)-> {
-            if (studentModelDatasourceJson.idIsAvailable(userId)){
-                studentModelDatasourceJson.createNewModelForId(userId);
-            }
-        });
+                ),
 
-        parServer = new ParServer(
-            new DomainDatasourceJson(
-                "HorseUltrasound",
-                "localData/currentQuestionPool.json",
-                "author/defaultQuestionPool.json",
-                new JsonIoHelperSpring()
-            ),
-
-            studentModelDatasourceJson,
-
-            //TODO: remove default users from cohort datastores once there is a viable way to add students
-            new CohortDatasourceJson(
-                "allCohorts",
-                "localData/currentCohorts.json",
-                "author/defaultCohorts.json",
-                new JsonIoHelperSpring()
+                //TODO: remove default users from cohort datastores once there is a viable way to add students
+                new CohortDatasourceJson(
+                    "allCohorts",
+                    "localData/currentCohorts.json",
+                    "author/defaultCohorts.json",
+                    new JsonIoHelperSpring()
+                )
             )
         );
     }
@@ -75,10 +80,14 @@ public class ParController {
         return parServer.getCohortIds();
     }
 
+    @GetMapping("/getQuestionHistorySummary")
+    public QuestionHistorySummary getQuestionHistorySummary(@RequestParam String userId){
+        return parServer.getQuestionHistorySummary(userId);
+    }
+
     @PostMapping("/addNewUser")
     public void addNewUser(@RequestBody CreateStudentAction studentAction){
         parServer.addNewUser(studentAction.studentId, studentAction.cohortId);
-
     }
 
     @PostMapping("/addTimeSeen")

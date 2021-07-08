@@ -10,9 +10,9 @@ mvn test
 ps -A | grep java
 sudo kill PID
 
-tar cvzf "../dataBackup/parDataBackup-2021-02-10.tar.gz" target/localData/
+tar cvzf "../dataBackup/parDataBackup-2021-06-15.tar.gz" target/localData/
 on local:
-scp <username>@par.eastus.cloudapp.azure.com:dataBackup/parDataBackup--2021-02-10.tar.gz Downloads/
+scp <username>@par.eastus.cloudapp.azure.com:dataBackup/parDataBackup--2021-06-15.tar.gz Downloads/
     remote if clearing data:
         rm -f target/localData/*.json
         rm -f target/localData/students/*.json
