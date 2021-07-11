@@ -43,6 +43,14 @@ public class DomainDatasourceJson implements  DomainDatasource{
             if (question.getId().equalsIgnoreCase(id)){
                 return question;
             }
+            List<Question> followupQuestions = question.getFollowupQuestions();
+            if(followupQuestions.size()!=0){
+                for (Question fq : followupQuestions) {
+                    if(fq.getId().equalsIgnoreCase(id)){
+                        return fq;
+                    }
+                }
+            }
         }
         throw new IllegalArgumentException("No question found, bad ID:" + id);
     }
@@ -52,8 +60,18 @@ public class DomainDatasourceJson implements  DomainDatasource{
         List<String> concepts = new ArrayList<>();
 
         for(Question question:questions){
-            if(!concepts.contains(question.getType())){
-                concepts.add(question.getType());
+            String concept = question.getType();
+            if(!concepts.contains(concept)){
+                concepts.add(concept);
+            }
+            List<Question> followUpQuestions = question.getFollowupQuestions();
+            if(followUpQuestions.size()!=0){
+                for(Question fq:followUpQuestions){
+                    String fqConcept = fq.getType();
+                    if(!concepts.contains(fqConcept)){
+                        concepts.add(fqConcept);
+                    }
+                }
             }
         }
         return concepts;

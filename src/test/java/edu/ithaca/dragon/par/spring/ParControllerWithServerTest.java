@@ -24,6 +24,7 @@ import edu.ithaca.dragon.par.cohort.Cohort;
 import edu.ithaca.dragon.par.cohort.CohortDatasourceJson;
 import edu.ithaca.dragon.par.comm.CreateStudentAction;
 import edu.ithaca.dragon.par.comm.StudentAction;
+import edu.ithaca.dragon.par.domain.DomainDatasource;
 import edu.ithaca.dragon.par.domain.DomainDatasourceJson;
 import edu.ithaca.dragon.par.domain.Question;
 import edu.ithaca.dragon.par.student.json.StudentModelDatasourceJson;
@@ -50,6 +51,8 @@ public class ParControllerWithServerTest {
 
     private Path cohortFile;
 
+    private DomainDatasource domainDatasource;
+
     @BeforeEach
     public void initController(@TempDir Path tempDir) throws Exception{
         Path questionPoolFile = tempDir.resolve("currentQuestionPool.json");
@@ -58,14 +61,17 @@ public class ParControllerWithServerTest {
         FileUtils.copyDirectory(new File("src/test/resources/rewrite/testServerData/student"),studentDirectory.toFile());
         this.cohortFile = tempDir.resolve("currentCohorts.json");
         Files.copy(Paths.get("src/test/resources/rewrite/testServerData/currentCohorts.json"),cohortFile);
+
+        this.domainDatasource = new DomainDatasourceJson(
+            "HorseUltrasound",
+            questionPoolFile.toString(),
+            "src/test/resources/rewrite/testServerData/currentQuestionPool.json",
+            new JsonIoHelperDefault()
+        );
+
         this.parController = new ParController(
             new ParServer(
-                new DomainDatasourceJson(
-                    "HorseUltrasound",
-                    questionPoolFile.toString(),
-                    "src/test/resources/rewrite/testServerData/currentQuestionPool.json",
-                    new JsonIoHelperDefault()
-                ),
+                domainDatasource,
 
                 new StudentModelDatasourceJson(
                 "allTestStudents",
@@ -115,6 +121,7 @@ public class ParControllerWithServerTest {
     @Test
     public void getCurrentQuestionTest(){
         //works with attachment removed
+        
         Question questionToBeAsked = this.parController.getCurrentQuestion("bocTest");
         assertThat(questionToBeAsked.getType()).isEqualTo("plane");
         assertThat(questionToBeAsked.getId()).isEqualTo("614-plane-./images/3CTransverse.jpg");
@@ -122,6 +129,7 @@ public class ParControllerWithServerTest {
 
     @Test
     public void addNewUserTest() throws IOException{
+        domainDatasource.retrieveAllConcepts().stream().forEach(System.out::println);
         // issue creating cohorts from json file when reading boc (using pair list for conceptScore)
         this.parController.addNewUser(new CreateStudentAction("o5","inOrder"));
         Map <String,Cohort> cohortMap = new JsonIoUtil(new JsonIoHelperDefault()).mapfromReadOnlyFile("src/test/resources/rewrite/testServerData/currentCohortsNoBoc.json", Cohort.class);

@@ -2,6 +2,8 @@ package edu.ithaca.dragon.par.pedagogy;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
+
 import javafx.util.Pair;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,13 +38,16 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
     public QuestionChooserByOrderedConcepts(List<String> concepts){
         conceptIds=concepts;
         conceptScores = new ArrayList<>();
-        String firstConcept = concepts.iterator().next();
-        for(String concept :concepts){
-            if(concept.equalsIgnoreCase(firstConcept)){
-                conceptScores.add(new Pair<String,OrderedConceptRubric>(concept,OrderedConceptRubric.DEVELOPING));
-            }
-            else{
-                conceptScores.add(new Pair<String,OrderedConceptRubric>(concept,OrderedConceptRubric.UNPREPARED));
+        Iterator<String> conceptIter = concepts.iterator();
+        if(conceptIter.hasNext()){
+            String firstConcept = conceptIter.next();
+            for(String concept :concepts){
+                if(concept.equalsIgnoreCase(firstConcept)){
+                    conceptScores.add(new Pair<String,OrderedConceptRubric>(concept,OrderedConceptRubric.DEVELOPING));
+                }
+                else{
+                    conceptScores.add(new Pair<String,OrderedConceptRubric>(concept,OrderedConceptRubric.UNPREPARED));
+                }
             }
         }
         
@@ -57,29 +62,41 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
         // 5. from the developing and competent buckets, the question asked will be chosen based on least recently seen
         // *Test case for when first two topics are exemplary and the next 
         
-       
+        if(checkChooserConceptIdsAreInDomain(domainDatasource)){
+            List<Question> eligibleQuestions = new ArrayList<>();
 
-        updateConceptScoresBasedOnPerformanceData(studentModelInfo, domainDatasource);
-        
-        
-        
-        updateConceptScoresBasedOnComparativeResults();
+            try{
 
-        
-        
-        List<Question> eligibleQuestions = new ArrayList<>();
-        for(Pair<String,OrderedConceptRubric> conceptScore:conceptScores){
-            if(conceptScore.getValue()==OrderedConceptRubric.COMPETENT || conceptScore.getValue()==OrderedConceptRubric.DEVELOPING){
-                eligibleQuestions.addAll(domainDatasource.retrieveQuestionsByConcept(conceptScore.getKey()));
+                updateConceptScoresBasedOnPerformanceData(studentModelInfo, domainDatasource);
+                
+                
+                
+                updateConceptScoresBasedOnComparativeResults();
+
+                
+                
+                
+                for(Pair<String,OrderedConceptRubric> conceptScore:conceptScores){
+                    if(conceptScore.getValue()==OrderedConceptRubric.COMPETENT || conceptScore.getValue()==OrderedConceptRubric.DEVELOPING){
+                        eligibleQuestions.addAll(domainDatasource.retrieveQuestionsByConcept(conceptScore.getKey()));
+                    }
+                }
+
+            } catch(RuntimeException e){
+                // if(e.getMessage().contains("No questions found, bad concept")){
+                //     throw new RuntimeException("No questions found in the domain for the concept provided");
+                // }
+                // else throw new RuntimeException(e.getMessage());
             }
-        }
-
-        if(eligibleQuestions.size()!=0){
-            String questionIdToBeAsked = studentModelInfo.findQuestionSeenLeastRecently(eligibleQuestions.stream().map(q -> q.getId()).collect(Collectors.toList()));
-            return domainDatasource.getQuestion(questionIdToBeAsked);
-        }
-        else{
-            throw new RuntimeException("No questions eligible for choosing");
+            if(eligibleQuestions.size()!=0){
+                String questionIdToBeAsked = studentModelInfo.findQuestionSeenLeastRecently(eligibleQuestions.stream().map(q -> q.getId()).collect(Collectors.toList()));
+                return domainDatasource.getQuestion(questionIdToBeAsked);
+            }
+            else{
+                throw new RuntimeException("No questions eligible for choosing");
+            }
+        } else{
+            throw new RuntimeException("error: chooser concept ids do not match domain concepts");
         }
     }
 
@@ -247,6 +264,48 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
         if(num/denom ==1){
             return true;
         } else {return false;}
+    }
+
+    public boolean checkChooserConceptIdsAreInDomain(DomainDatasource domainDatasource){
+        if(conceptIds.size()==0){
+            throw new RuntimeException("error: chooser contains no concept ids");
+        }
+        List<String> domainConcepts = domainDatasource.retrieveAllConcepts();
+        for(String concept:conceptIds){
+            if(!domainConcepts.contains(concept)){
+               return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean checkNextFollowUpQuestionAtLeastDeveloping(StudentModelInfo studentModel, DomainDatasource domainDatasource, QuestionHistorySummary qhs){
+        if(studentModel.getQuestionHistories().values().size()==0){
+            return false;
+        }
+        else{
+            Question mostRecentlySeenQuestion = domainDatasource.getQuestion(qhs.getQuestionIdsSeen().get(qhs.getQuestionIdsSeen().size()-1));
+            List<Question> followUpQuestions = mostRecentlySeenQuestion.getFollowupQuestions();
+            if(followUpQuestions.size()==0){
+                return false;
+            }
+            else{
+                List<String> followUpQuestionIds = followUpQuestions.stream().map(q ->q.getId()).collect(Collectors.toList());
+                String idOfNextFollowUpQuestion = studentModel.findQuestionSeenLeastRecently(followUpQuestionIds);
+                String nextFollowUpQuestionConcept = domainDatasource.getQuestion(idOfNextFollowUpQuestion).getType();
+                OrderedConceptRubric nextFollowUpQuestionConceptScore= OrderedConceptRubric.UNPREPARED;
+                for (Pair<String,OrderedConceptRubric> conceptScore: conceptScores) {
+                    if(conceptScore.getKey().equalsIgnoreCase(nextFollowUpQuestionConcept)){
+                        nextFollowUpQuestionConceptScore = conceptScore.getValue();
+                    }
+                }
+                if(nextFollowUpQuestionConceptScore==OrderedConceptRubric.COMPETENT||nextFollowUpQuestionConceptScore==OrderedConceptRubric.DEVELOPING){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+        }
     }
     
 }

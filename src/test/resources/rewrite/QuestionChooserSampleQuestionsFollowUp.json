@@ -23,8 +23,18 @@
     "correctAnswer" : "white/grey",
     "possibleAnswers" : [ "white/grey", "purple" ],
     "imageUrl" : "./images/3CTransverse.jpg",
-    "followupQuestions" : [ ]
-
+    "followupQuestions" : [ 
+        {
+            "id" : "mathQ3",
+            "type" : "math",
+            "questionText" : "What is 1 + 2?",
+            "correctAnswer" : "3",
+            "possibleAnswers" : [ "2", "3", "4"],
+            "imageUrl" : "./images/3CTransverse.jpg",
+            "followupQuestions" : [ ]
+          
+        }
+    ]
   }, {
     "id" : "mathQ1",
     "type" : "math",

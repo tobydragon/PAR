@@ -23,7 +23,7 @@
     "questionChooser" : {
       "type" : "QuestionChooserByOrderedConcepts",
       "conceptScores" : [ ],
-      "conceptIds" : [ "plane", "structure", "zone" ]
+      "conceptIds" : [ "plane", "structure", "attachment", "zone" ]
     }
   }
 }

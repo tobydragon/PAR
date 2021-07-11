@@ -6,7 +6,6 @@
     "possibleAnswers" : [ "blue", "orange" ],
     "imageUrl" : "./images/3CTransverse.jpg",
     "followupQuestions" : [ ]
-    
   }, {
     "id" : "skyQ2",
     "type" : "sky",
@@ -39,22 +38,6 @@
     "questionText" : "What is 1 + 1?",
     "correctAnswer" : "2",
     "possibleAnswers" : [ "2", "3", "4"],
-    "imageUrl" : "./images/3CTransverse.jpg",
-    "followupQuestions" : [ ]
-  }, {
-    "id" : "majorQ1",
-    "type" : "major",
-    "questionText" : "What is your major?",
-    "correctAnswer" : "CS",
-    "possibleAnswers" : [ "CS", "ENG", "MATH"],
-    "imageUrl" : "./images/3CTransverse.jpg",
-    "followupQuestions" : [ ]
-  }, {
-    "id" : "majorQ2",
-    "type" : "major",
-    "questionText" : "Which is a required course for a CS major?",
-    "correctAnswer" : "220",
-    "possibleAnswers" : [ "217", "356", "220"],
     "imageUrl" : "./images/3CTransverse.jpg",
     "followupQuestions" : [ ]
   }, {
