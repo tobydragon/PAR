@@ -34,17 +34,19 @@ public class StudentModelDatasourceJson implements StudentModelDatasource {
     }
 
     @Override
-    public void addTimeSeen(String studentId, String questionId) {
+    public StudentModelJson addTimeSeen(String studentId, String questionId) {
         StudentModelJson studentModel =  getStudentModel(studentId);
         studentModel.addTimeSeen(questionId);
         overwriteStudentFile(studentModel);
+        return studentModel;
     }
 
     @Override
-    public void addResponse(String studentId, String questionId, String newResponseText) {
+    public StudentModelJson addResponse(String studentId, String questionId, String newResponseText) {
         StudentModelJson studentModel =  getStudentModel(studentId);
         studentModel.addResponse(questionId, newResponseText);
         overwriteStudentFile(studentModel);
+        return studentModel;
     }
 
     @Override

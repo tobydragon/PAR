@@ -10,6 +10,7 @@ import edu.ithaca.dragon.par.domain.Question;
 import edu.ithaca.dragon.par.domain.DomainDatasource;
 import edu.ithaca.dragon.par.student.StudentModelDatasource;
 import edu.ithaca.dragon.par.student.json.QuestionHistory;
+import edu.ithaca.dragon.par.student.json.StudentModelJson;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -47,14 +48,14 @@ public class ParServer {
 
     }
 
-    public void addTimeSeen(String studentId, String questionId){
+    public StudentModelJson addTimeSeen(String studentId, String questionId){
         logger.info("addTimeSeen for : "+studentId + ", " + questionId);
-        studentModelDatasource.addTimeSeen(studentId, questionId);
+        return studentModelDatasource.addTimeSeen(studentId, questionId);
     }
 
-    public void addResponse(String studentId, String questionId, String newResponseText){
+    public StudentModelJson addResponse(String studentId, String questionId, String newResponseText){
         logger.info("addResponse for : "+studentId + ", " + questionId +", "+ newResponseText);
-        studentModelDatasource.addResponse(studentId, questionId, newResponseText);
+        return studentModelDatasource.addResponse(studentId, questionId, newResponseText);
     }
 
     public boolean isUserIdAvailable(String studentId){
