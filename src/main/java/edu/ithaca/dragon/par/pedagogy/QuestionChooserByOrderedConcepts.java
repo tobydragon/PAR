@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-import javafx.util.Pair;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,7 +28,7 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
     //Find questions of the right type(s) that have the min seen count.
     //If a minSeen question has the same URL as last question, take that, otherwise go for first minSeen
 
-    public List<Pair<String,OrderedConceptRubric>> conceptScores;
+    public List<ConceptRubricPair> conceptScores;
     public List<String> conceptIds;
 
     public QuestionChooserByOrderedConcepts(){
@@ -43,10 +43,10 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
             String firstConcept = conceptIter.next();
             for(String concept :concepts){
                 if(concept.equalsIgnoreCase(firstConcept)){
-                    conceptScores.add(new Pair<String,OrderedConceptRubric>(concept,OrderedConceptRubric.DEVELOPING));
+                    conceptScores.add(new ConceptRubricPair(concept,OrderedConceptRubric.DEVELOPING));
                 }
                 else{
-                    conceptScores.add(new Pair<String,OrderedConceptRubric>(concept,OrderedConceptRubric.UNPREPARED));
+                    conceptScores.add(new ConceptRubricPair(concept,OrderedConceptRubric.UNPREPARED));
                 }
             }
         }
@@ -62,7 +62,7 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
         // 5. from the developing and competent buckets, the question asked will be chosen based on least recently seen
         // *Test case for when first two topics are exemplary and the next 
         
-        if(checkChooserConceptIdsAreInDomain(domainDatasource)){
+        if(checkAllChooserConceptIdsAreInDomain(domainDatasource)){
             List<Question> eligibleQuestions = new ArrayList<>();
 
             try{
@@ -76,9 +76,9 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
                 
                 
                 
-                for(Pair<String,OrderedConceptRubric> conceptScore:conceptScores){
-                    if(conceptScore.getValue()==OrderedConceptRubric.COMPETENT || conceptScore.getValue()==OrderedConceptRubric.DEVELOPING){
-                        eligibleQuestions.addAll(domainDatasource.retrieveQuestionsByConcept(conceptScore.getKey()));
+                for(ConceptRubricPair conceptScore:conceptScores){
+                    if(conceptScore.getScore()==OrderedConceptRubric.COMPETENT || conceptScore.getScore()==OrderedConceptRubric.DEVELOPING){
+                        eligibleQuestions.addAll(domainDatasource.retrieveQuestionsByConcept(conceptScore.getConcept()));
                     }
                 }
 
@@ -100,11 +100,11 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
         }
     }
 
-    public List<Pair<String,OrderedConceptRubric>> getConceptScores() {
+    public List<ConceptRubricPair> getConceptScores() {
         return conceptScores;
     }
 
-    public void setConceptScores(List<Pair<String,OrderedConceptRubric>> conceptScores) {
+    public void setConceptScores(List<ConceptRubricPair> conceptScores) {
         this.conceptScores = conceptScores;
     }
 
@@ -115,13 +115,13 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
     public void setConceptIds(List<String> conceptIds) {
         this.conceptIds = conceptIds;
         String firstConcept = conceptIds.iterator().next();
-        List<Pair<String,OrderedConceptRubric>>conceptScoresIn = new ArrayList<>();
+        List<ConceptRubricPair>conceptScoresIn = new ArrayList<>();
         for(String concept :conceptIds){
             if(concept.equalsIgnoreCase(firstConcept)){
-                conceptScoresIn.add(new Pair<String,OrderedConceptRubric>(concept,OrderedConceptRubric.DEVELOPING));
+                conceptScoresIn.add(new ConceptRubricPair(concept,OrderedConceptRubric.DEVELOPING));
             }
             else{
-                conceptScoresIn.add(new Pair<String,OrderedConceptRubric>(concept,OrderedConceptRubric.UNPREPARED));
+                conceptScoresIn.add(new ConceptRubricPair(concept,OrderedConceptRubric.UNPREPARED));
             }
         }
         setConceptScores(conceptScoresIn);
@@ -143,20 +143,20 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
     public void updateConceptScoresBasedOnPerformanceData(StudentModelInfo studentModelInfo,DomainDatasource domainDatasource){
         Collection <QuestionHistory> questionHistories = studentModelInfo.getQuestionHistories().values();
         int i=0;
-        for(Pair<String,OrderedConceptRubric> conceptScore:conceptScores){
-            String concept = conceptScore.getKey();
+        for(ConceptRubricPair conceptScore:conceptScores){
+            String concept = conceptScore.getConcept();
             List<Question> conceptQuestionsSeenByStudent = retrieveQuestionsFromStudentModelByConcept(concept,questionHistories,domainDatasource);
             if(calcUnprepared(conceptQuestionsSeenByStudent, questionHistories, domainDatasource)){
-                conceptScores.set(i,new Pair<String,OrderedConceptRubric>(concept,OrderedConceptRubric.UNPREPARED));
+                conceptScores.set(i,new ConceptRubricPair(concept,OrderedConceptRubric.UNPREPARED));
             }
             else if(calcDeveloping(concept, conceptQuestionsSeenByStudent, questionHistories, domainDatasource)){
-                conceptScores.set(i,new Pair<String,OrderedConceptRubric>(concept,OrderedConceptRubric.DEVELOPING));            
+                conceptScores.set(i,new ConceptRubricPair(concept,OrderedConceptRubric.DEVELOPING));            
             }
             else if(calcCompetent(concept, conceptQuestionsSeenByStudent, questionHistories, domainDatasource)){
-                conceptScores.set(i,new Pair<String,OrderedConceptRubric>(concept,OrderedConceptRubric.COMPETENT));
+                conceptScores.set(i,new ConceptRubricPair(concept,OrderedConceptRubric.COMPETENT));
             }
             else{
-                conceptScores.set(i,new Pair<String,OrderedConceptRubric>(concept,OrderedConceptRubric.EXEMPLARY));
+                conceptScores.set(i,new ConceptRubricPair(concept,OrderedConceptRubric.EXEMPLARY));
             }
             i++;
         }
@@ -165,21 +165,21 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
     public void updateConceptScoresBasedOnComparativeResults(){
         int i=0;
         boolean isAllExemplary = true;
-        for(Pair<String,OrderedConceptRubric> conceptScore:conceptScores){
-            String concept = conceptScore.getKey();
-            if(i==0 && conceptScore.getValue()==OrderedConceptRubric.UNPREPARED){
-                conceptScores.set(i,new Pair<String,OrderedConceptRubric>(concept,OrderedConceptRubric.DEVELOPING));
+        for(ConceptRubricPair conceptScore:conceptScores){
+            String concept = conceptScore.getConcept();
+            if(i==0 && conceptScore.getScore()==OrderedConceptRubric.UNPREPARED){
+                conceptScores.set(i,new ConceptRubricPair(concept,OrderedConceptRubric.DEVELOPING));
                 isAllExemplary=false;
             }
-            else if(i-1!=-1 && conceptScore.getValue()==OrderedConceptRubric.UNPREPARED){
-                Pair<String,OrderedConceptRubric> previousConceptScore = conceptScores.get(i-1);
-                if(previousConceptScore.getValue()==OrderedConceptRubric.COMPETENT || previousConceptScore.getValue()==OrderedConceptRubric.EXEMPLARY){
-                    conceptScores.set(i,new Pair<String,OrderedConceptRubric>(concept,OrderedConceptRubric.DEVELOPING));
+            else if(i-1!=-1 && conceptScore.getScore()==OrderedConceptRubric.UNPREPARED){
+                ConceptRubricPair previousConceptScore = conceptScores.get(i-1);
+                if(previousConceptScore.getScore()==OrderedConceptRubric.COMPETENT || previousConceptScore.getScore()==OrderedConceptRubric.EXEMPLARY){
+                    conceptScores.set(i,new ConceptRubricPair(concept,OrderedConceptRubric.DEVELOPING));
                 }
                 isAllExemplary=false;
             }
             else{
-                if(conceptScore.getValue()!=OrderedConceptRubric.EXEMPLARY){
+                if(conceptScore.getScore()!=OrderedConceptRubric.EXEMPLARY){
                     isAllExemplary=false;
                 }
             }
@@ -187,7 +187,7 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
         }
 
         if(isAllExemplary){
-            conceptScores = conceptScores.stream().map(score -> new Pair<String,OrderedConceptRubric>(score.getKey(),OrderedConceptRubric.DEVELOPING)).collect(Collectors.toList());
+            conceptScores = conceptScores.stream().map(score -> new ConceptRubricPair(score.getConcept(),OrderedConceptRubric.DEVELOPING)).collect(Collectors.toList());
         }
         
     }
@@ -266,7 +266,7 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
         } else {return false;}
     }
 
-    public boolean checkChooserConceptIdsAreInDomain(DomainDatasource domainDatasource){
+    public boolean checkAllChooserConceptIdsAreInDomain(DomainDatasource domainDatasource){
         if(conceptIds.size()==0){
             throw new RuntimeException("error: chooser contains no concept ids");
         }
@@ -294,9 +294,9 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
                 String idOfNextFollowUpQuestion = studentModel.findQuestionSeenLeastRecently(followUpQuestionIds);
                 String nextFollowUpQuestionConcept = domainDatasource.getQuestion(idOfNextFollowUpQuestion).getType();
                 OrderedConceptRubric nextFollowUpQuestionConceptScore= OrderedConceptRubric.UNPREPARED;
-                for (Pair<String,OrderedConceptRubric> conceptScore: conceptScores) {
-                    if(conceptScore.getKey().equalsIgnoreCase(nextFollowUpQuestionConcept)){
-                        nextFollowUpQuestionConceptScore = conceptScore.getValue();
+                for (ConceptRubricPair conceptScore: conceptScores) {
+                    if(conceptScore.getConcept().equalsIgnoreCase(nextFollowUpQuestionConcept)){
+                        nextFollowUpQuestionConceptScore = conceptScore.getScore();
                     }
                 }
                 if(nextFollowUpQuestionConceptScore==OrderedConceptRubric.COMPETENT||nextFollowUpQuestionConceptScore==OrderedConceptRubric.DEVELOPING){

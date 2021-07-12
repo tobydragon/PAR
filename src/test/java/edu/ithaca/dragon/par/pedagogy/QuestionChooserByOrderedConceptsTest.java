@@ -36,11 +36,11 @@ class QuestionChooserByOrderedConceptsTest{
 
         
 
-        assertEquals(OrderedConceptRubric.DEVELOPING,questionChooser.conceptScores.get(0).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(1).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(2).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(3).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(4).getValue());
+        assertEquals(OrderedConceptRubric.DEVELOPING,questionChooser.conceptScores.get(0).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(1).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(2).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(3).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(4).getScore());
         
 
         
@@ -51,11 +51,11 @@ class QuestionChooserByOrderedConceptsTest{
         
         assertEquals("mathQ1",questionChooser.chooseQuestion(studentModelFirstConceptCompetent,domainDatasource).getId());
 
-        assertEquals(OrderedConceptRubric.COMPETENT,questionChooser.conceptScores.get(0).getValue());
-        assertEquals(OrderedConceptRubric.DEVELOPING,questionChooser.conceptScores.get(1).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(2).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(3).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(4).getValue());
+        assertEquals(OrderedConceptRubric.COMPETENT,questionChooser.conceptScores.get(0).getScore());
+        assertEquals(OrderedConceptRubric.DEVELOPING,questionChooser.conceptScores.get(1).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(2).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(3).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(4).getScore());
         
         
 
@@ -64,42 +64,42 @@ class QuestionChooserByOrderedConceptsTest{
         StudentModelJson studentModelFirstConceptExemplary = studentModelDatasource.getStudentModel("firstConceptExemplaryStudent");
         assertEquals("mathQ1",questionChooser.chooseQuestion( studentModelFirstConceptExemplary,domainDatasource).getId());
 
-        assertEquals(OrderedConceptRubric.EXEMPLARY,questionChooser.conceptScores.get(0).getValue());
-        assertEquals(OrderedConceptRubric.DEVELOPING,questionChooser.conceptScores.get(1).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(2).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(3).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(4).getValue());
+        assertEquals(OrderedConceptRubric.EXEMPLARY,questionChooser.conceptScores.get(0).getScore());
+        assertEquals(OrderedConceptRubric.DEVELOPING,questionChooser.conceptScores.get(1).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(2).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(3).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(4).getScore());
 
         //all concepts answered correctly at least once test
         StudentModelJson studentModelLastSeenTest = studentModelDatasource.getStudentModel("allConceptsCorrectAtLeastOnce");
 
         assertEquals("skyQ3",questionChooser.chooseQuestion(studentModelLastSeenTest, domainDatasource).getId());
 
-        assertEquals(OrderedConceptRubric.COMPETENT,questionChooser.conceptScores.get(0).getValue());
-        assertEquals(OrderedConceptRubric.DEVELOPING,questionChooser.conceptScores.get(1).getValue());
-        assertEquals(OrderedConceptRubric.DEVELOPING,questionChooser.conceptScores.get(2).getValue());
-        assertEquals(OrderedConceptRubric.DEVELOPING,questionChooser.conceptScores.get(3).getValue());
-        assertEquals(OrderedConceptRubric.DEVELOPING,questionChooser.conceptScores.get(4).getValue());
+        assertEquals(OrderedConceptRubric.COMPETENT,questionChooser.conceptScores.get(0).getScore());
+        assertEquals(OrderedConceptRubric.DEVELOPING,questionChooser.conceptScores.get(1).getScore());
+        assertEquals(OrderedConceptRubric.DEVELOPING,questionChooser.conceptScores.get(2).getScore());
+        assertEquals(OrderedConceptRubric.DEVELOPING,questionChooser.conceptScores.get(3).getScore());
+        assertEquals(OrderedConceptRubric.DEVELOPING,questionChooser.conceptScores.get(4).getScore());
 
         //all concepts exemplary all w/ same time seen (makes all concepts developing)
 
         StudentModelJson studentModelAllConceptsExemplary = studentModelDatasource.getStudentModel("AllConceptsExemplary");
         assertEquals("skyQ1",questionChooser.chooseQuestion(studentModelAllConceptsExemplary,domainDatasource).getId());
 
-        assertEquals(OrderedConceptRubric.DEVELOPING,questionChooser.conceptScores.get(0).getValue());
-        assertEquals(OrderedConceptRubric.DEVELOPING,questionChooser.conceptScores.get(1).getValue());
-        assertEquals(OrderedConceptRubric.DEVELOPING,questionChooser.conceptScores.get(2).getValue());
-        assertEquals(OrderedConceptRubric.DEVELOPING,questionChooser.conceptScores.get(3).getValue());
-        assertEquals(OrderedConceptRubric.DEVELOPING,questionChooser.conceptScores.get(4).getValue());
+        assertEquals(OrderedConceptRubric.DEVELOPING,questionChooser.conceptScores.get(0).getScore());
+        assertEquals(OrderedConceptRubric.DEVELOPING,questionChooser.conceptScores.get(1).getScore());
+        assertEquals(OrderedConceptRubric.DEVELOPING,questionChooser.conceptScores.get(2).getScore());
+        assertEquals(OrderedConceptRubric.DEVELOPING,questionChooser.conceptScores.get(3).getScore());
+        assertEquals(OrderedConceptRubric.DEVELOPING,questionChooser.conceptScores.get(4).getScore());
 
         StudentModelJson studentModelAllConceptsUnprepared = studentModelDatasource.getStudentModel("AllConceptsUnprepared");
         assertEquals("skyQ2",questionChooser.chooseQuestion(studentModelAllConceptsUnprepared, domainDatasource).getId());
         
-        assertEquals(OrderedConceptRubric.DEVELOPING,questionChooser.conceptScores.get(0).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(1).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(2).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(3).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(4).getValue());
+        assertEquals(OrderedConceptRubric.DEVELOPING,questionChooser.conceptScores.get(0).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(1).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(2).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(3).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(4).getScore());
     }
 
     @Test
@@ -110,20 +110,20 @@ class QuestionChooserByOrderedConceptsTest{
 
         //new student test
 
-        assertEquals(OrderedConceptRubric.DEVELOPING,questionChooser.conceptScores.get(0).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(1).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(2).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(3).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(4).getValue());
+        assertEquals(OrderedConceptRubric.DEVELOPING,questionChooser.conceptScores.get(0).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(1).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(2).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(3).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(4).getScore());
 
         StudentModelJson newStudent = studentModelDatasource.getStudentModel("newStudent");
         questionChooser.updateConceptScoresBasedOnPerformanceData(newStudent, domainDatasource);
         
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(0).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(1).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(2).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(3).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(4).getValue());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(0).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(1).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(2).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(3).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(4).getScore());
 
 
 
@@ -132,20 +132,20 @@ class QuestionChooserByOrderedConceptsTest{
         questionChooser = new QuestionChooserByOrderedConcepts(domainDatasource.retrieveAllConcepts());
         
         
-        assertEquals(OrderedConceptRubric.DEVELOPING,questionChooser.conceptScores.get(0).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(1).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(2).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(3).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(4).getValue());
+        assertEquals(OrderedConceptRubric.DEVELOPING,questionChooser.conceptScores.get(0).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(1).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(2).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(3).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(4).getScore());
 
         StudentModelJson studentModelFirstConceptExemplary = studentModelDatasource.getStudentModel("firstConceptExemplaryStudent");
         questionChooser.updateConceptScoresBasedOnPerformanceData(studentModelFirstConceptExemplary, domainDatasource);
         
-        assertEquals(OrderedConceptRubric.EXEMPLARY,questionChooser.conceptScores.get(0).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(1).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(2).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(3).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(4).getValue());
+        assertEquals(OrderedConceptRubric.EXEMPLARY,questionChooser.conceptScores.get(0).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(1).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(2).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(3).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(4).getScore());
 
     }
 
@@ -155,41 +155,41 @@ class QuestionChooserByOrderedConceptsTest{
         StudentModelDatasourceJson studentModelDatasource = new StudentModelDatasourceJson("chooserExample", "src/test/resources/rewrite/questionChooserSampleStudents", new JsonIoHelperDefault());
         QuestionChooserByOrderedConcepts questionChooser = new QuestionChooserByOrderedConcepts(domainDatasource.retrieveAllConcepts());
 
-        assertEquals(OrderedConceptRubric.DEVELOPING,questionChooser.conceptScores.get(0).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(1).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(2).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(3).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(4).getValue());
+        assertEquals(OrderedConceptRubric.DEVELOPING,questionChooser.conceptScores.get(0).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(1).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(2).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(3).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(4).getScore());
 
         StudentModelJson newStudent = studentModelDatasource.getStudentModel("newStudent");
         questionChooser.updateConceptScoresBasedOnPerformanceData(newStudent, domainDatasource);
         questionChooser.updateConceptScoresBasedOnComparativeResults();
         
-        assertEquals(OrderedConceptRubric.DEVELOPING,questionChooser.conceptScores.get(0).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(1).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(2).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(3).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(4).getValue());
+        assertEquals(OrderedConceptRubric.DEVELOPING,questionChooser.conceptScores.get(0).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(1).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(2).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(3).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(4).getScore());
 
 
 
         questionChooser = new QuestionChooserByOrderedConcepts(domainDatasource.retrieveAllConcepts());
 
-        assertEquals(OrderedConceptRubric.DEVELOPING,questionChooser.conceptScores.get(0).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(1).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(2).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(3).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(4).getValue());
+        assertEquals(OrderedConceptRubric.DEVELOPING,questionChooser.conceptScores.get(0).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(1).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(2).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(3).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(4).getScore());
 
         StudentModelJson studentModelFirstConceptExemplary = studentModelDatasource.getStudentModel("firstConceptExemplaryStudent");
         questionChooser.updateConceptScoresBasedOnPerformanceData(studentModelFirstConceptExemplary, domainDatasource);
         questionChooser.updateConceptScoresBasedOnComparativeResults();
         
-        assertEquals(OrderedConceptRubric.EXEMPLARY,questionChooser.conceptScores.get(0).getValue());
-        assertEquals(OrderedConceptRubric.DEVELOPING,questionChooser.conceptScores.get(1).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(2).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(3).getValue());
-        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(4).getValue());
+        assertEquals(OrderedConceptRubric.EXEMPLARY,questionChooser.conceptScores.get(0).getScore());
+        assertEquals(OrderedConceptRubric.DEVELOPING,questionChooser.conceptScores.get(1).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(2).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(3).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(4).getScore());
 
     }
 
@@ -325,10 +325,10 @@ class QuestionChooserByOrderedConceptsTest{
 
         StudentModelJson firstConceptExemplaryStudentModel = studentModelDatasource.getStudentModel("firstConceptExemplaryStudent");
         assertEquals(3,QuestionChooserByOrderedConcepts.retrieveQuestionsFromStudentModelByConcept("sky", firstConceptExemplaryStudentModel.getQuestionHistories().values(), domainDatasource).size());
-        assertEquals(2,QuestionChooserByOrderedConcepts.retrieveQuestionsFromStudentModelByConcept("math", firstConceptExemplaryStudentModel.getQuestionHistories().values(), domainDatasource).size());
-        assertEquals(2,QuestionChooserByOrderedConcepts.retrieveQuestionsFromStudentModelByConcept("major", firstConceptExemplaryStudentModel.getQuestionHistories().values(), domainDatasource).size());
-        assertEquals(2,QuestionChooserByOrderedConcepts.retrieveQuestionsFromStudentModelByConcept("year", firstConceptExemplaryStudentModel.getQuestionHistories().values(), domainDatasource).size());
-        assertEquals(2,QuestionChooserByOrderedConcepts.retrieveQuestionsFromStudentModelByConcept("google", firstConceptExemplaryStudentModel.getQuestionHistories().values(), domainDatasource).size());
+        assertEquals(0,QuestionChooserByOrderedConcepts.retrieveQuestionsFromStudentModelByConcept("math", firstConceptExemplaryStudentModel.getQuestionHistories().values(), domainDatasource).size());
+        assertEquals(0,QuestionChooserByOrderedConcepts.retrieveQuestionsFromStudentModelByConcept("major", firstConceptExemplaryStudentModel.getQuestionHistories().values(), domainDatasource).size());
+        assertEquals(0,QuestionChooserByOrderedConcepts.retrieveQuestionsFromStudentModelByConcept("year", firstConceptExemplaryStudentModel.getQuestionHistories().values(), domainDatasource).size());
+        assertEquals(0,QuestionChooserByOrderedConcepts.retrieveQuestionsFromStudentModelByConcept("google", firstConceptExemplaryStudentModel.getQuestionHistories().values(), domainDatasource).size());
 
 
     }
@@ -345,7 +345,7 @@ class QuestionChooserByOrderedConceptsTest{
         conceptsExtra.add("extra");
         QuestionChooserByOrderedConcepts questionChooser = new QuestionChooserByOrderedConcepts(conceptsExtra);
         DomainDatasource domainDatasource = new DomainDatasourceJson("example","src/test/resources/rewrite/QuestionChooserSampleQuestions.json");
-        assertFalse(questionChooser.checkChooserConceptIdsAreInDomain(domainDatasource));
+        assertFalse(questionChooser.checkAllChooserConceptIdsAreInDomain(domainDatasource));
 
         // Returns true for case when chooser doesn't have all the domain's concepts 
         List<String> conceptsRemoved = new ArrayList<>();
@@ -354,7 +354,7 @@ class QuestionChooserByOrderedConceptsTest{
         conceptsRemoved.add("year");
         conceptsRemoved.add("google");
         questionChooser = new QuestionChooserByOrderedConcepts(conceptsRemoved);
-        assertTrue(questionChooser.checkChooserConceptIdsAreInDomain(domainDatasource));
+        assertTrue(questionChooser.checkAllChooserConceptIdsAreInDomain(domainDatasource));
 
 
         List<String> conceptsExact = new ArrayList<>();
@@ -364,11 +364,11 @@ class QuestionChooserByOrderedConceptsTest{
         conceptsExact.add("year");
         conceptsExact.add("google");
         questionChooser = new QuestionChooserByOrderedConcepts(conceptsExact);
-        assertTrue(questionChooser.checkChooserConceptIdsAreInDomain(domainDatasource));
+        assertTrue(questionChooser.checkAllChooserConceptIdsAreInDomain(domainDatasource));
 
         List<String> noConcepts = new ArrayList<>();
         QuestionChooserByOrderedConcepts questionChooserThrows = new QuestionChooserByOrderedConcepts(noConcepts);
-        assertThrows(RuntimeException.class, () -> questionChooserThrows.checkChooserConceptIdsAreInDomain(domainDatasource));
+        assertThrows(RuntimeException.class, () -> questionChooserThrows.checkAllChooserConceptIdsAreInDomain(domainDatasource));
 
 
     }
