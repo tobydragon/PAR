@@ -28,7 +28,7 @@ class QuestionChooserByOrderedConceptsTest{
     
         DomainDatasource domainDatasource = new DomainDatasourceJson("example","src/test/resources/rewrite/QuestionChooserSampleQuestions.json");
         StudentModelDatasourceJson studentModelDatasource = new StudentModelDatasourceJson("chooserExample", "src/test/resources/rewrite/questionChooserSampleStudents", new JsonIoHelperDefault());
-        QuestionChooserByOrderedConcepts questionChooser = new QuestionChooserByOrderedConcepts(domainDatasource.retrieveAllConcepts());
+        QuestionChooserByOrderedConcepts questionChooser = new QuestionChooserByOrderedConcepts(domainDatasource.retrieveAllConcepts(),3);
 
         //new Student test
         StudentModelJson newStudentModel = studentModelDatasource.getStudentModel("newStudent");
@@ -100,13 +100,24 @@ class QuestionChooserByOrderedConceptsTest{
         assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(2).getScore());
         assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(3).getScore());
         assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(4).getScore());
+
+        DomainDatasource domainDatasourceFQ = new DomainDatasourceJson("example","src/test/resources/rewrite/QuestionChooserSampleQuestionsFollowUp.json");
+        QuestionChooserByOrderedConcepts questionChooserFQ = new QuestionChooserByOrderedConcepts(domainDatasourceFQ.retrieveAllConcepts(),3);
+
+        //follow up question should be asked 
+        assertEquals("mathQ3",questionChooserFQ.chooseQuestion(studentModelFirstConceptCompetent, domainDatasourceFQ).getId());
+
+        //follow up question shouldn't be asked
+        StudentModelJson studentModelFirstConceptDeveloping = studentModelDatasource.getStudentModel("firstConceptDeveloping");
+        assertNotEquals("mathQ3",questionChooserFQ.chooseQuestion(studentModelFirstConceptDeveloping, domainDatasourceFQ).getId());
+
     }
 
     @Test
     public void updateConceptScoresBasedOnPerformanceDataTest() throws IOException{
         DomainDatasource domainDatasource = new DomainDatasourceJson("example","src/test/resources/rewrite/QuestionChooserSampleQuestions.json");
         StudentModelDatasourceJson studentModelDatasource = new StudentModelDatasourceJson("chooserExample", "src/test/resources/rewrite/questionChooserSampleStudents", new JsonIoHelperDefault());
-        QuestionChooserByOrderedConcepts questionChooser = new QuestionChooserByOrderedConcepts(domainDatasource.retrieveAllConcepts());
+        QuestionChooserByOrderedConcepts questionChooser = new QuestionChooserByOrderedConcepts(domainDatasource.retrieveAllConcepts(),3);
 
         //new student test
 
@@ -129,7 +140,7 @@ class QuestionChooserByOrderedConceptsTest{
 
         // first concept exemplary test
 
-        questionChooser = new QuestionChooserByOrderedConcepts(domainDatasource.retrieveAllConcepts());
+        questionChooser = new QuestionChooserByOrderedConcepts(domainDatasource.retrieveAllConcepts(),3);
         
         
         assertEquals(OrderedConceptRubric.DEVELOPING,questionChooser.conceptScores.get(0).getScore());
@@ -153,7 +164,7 @@ class QuestionChooserByOrderedConceptsTest{
     public void updateConceptScoresBasedOnComparativeResultsTest() throws IOException{
         DomainDatasource domainDatasource = new DomainDatasourceJson("example","src/test/resources/rewrite/QuestionChooserSampleQuestions.json");
         StudentModelDatasourceJson studentModelDatasource = new StudentModelDatasourceJson("chooserExample", "src/test/resources/rewrite/questionChooserSampleStudents", new JsonIoHelperDefault());
-        QuestionChooserByOrderedConcepts questionChooser = new QuestionChooserByOrderedConcepts(domainDatasource.retrieveAllConcepts());
+        QuestionChooserByOrderedConcepts questionChooser = new QuestionChooserByOrderedConcepts(domainDatasource.retrieveAllConcepts(),3);
 
         assertEquals(OrderedConceptRubric.DEVELOPING,questionChooser.conceptScores.get(0).getScore());
         assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(1).getScore());
@@ -173,7 +184,7 @@ class QuestionChooserByOrderedConceptsTest{
 
 
 
-        questionChooser = new QuestionChooserByOrderedConcepts(domainDatasource.retrieveAllConcepts());
+        questionChooser = new QuestionChooserByOrderedConcepts(domainDatasource.retrieveAllConcepts(),3);
 
         assertEquals(OrderedConceptRubric.DEVELOPING,questionChooser.conceptScores.get(0).getScore());
         assertEquals(OrderedConceptRubric.UNPREPARED,questionChooser.conceptScores.get(1).getScore());
@@ -196,7 +207,7 @@ class QuestionChooserByOrderedConceptsTest{
     @Test
     public void calcUnpreparedTest() throws IOException{
         DomainDatasource domainDatasource = new DomainDatasourceJson("example","src/test/resources/rewrite/QuestionChooserSampleQuestions.json");
-        QuestionChooserByOrderedConcepts questionChooser = new QuestionChooserByOrderedConcepts(domainDatasource.retrieveAllConcepts());
+        QuestionChooserByOrderedConcepts questionChooser = new QuestionChooserByOrderedConcepts(domainDatasource.retrieveAllConcepts(),3);
         StudentModelDatasourceJson studentModelDatasource = new StudentModelDatasourceJson("chooserExample", "src/test/resources/rewrite/questionChooserSampleStudents", new JsonIoHelperDefault());
         
         // unprepared case
@@ -228,7 +239,7 @@ class QuestionChooserByOrderedConceptsTest{
 
         DomainDatasource domainDatasource = new DomainDatasourceJson("example","src/test/resources/rewrite/QuestionChooserSampleQuestions.json");
         StudentModelDatasourceJson studentModelDatasource = new StudentModelDatasourceJson("chooserExample", "src/test/resources/rewrite/questionChooserSampleStudents", new JsonIoHelperDefault());
-        QuestionChooserByOrderedConcepts questionChooser = new QuestionChooserByOrderedConcepts(domainDatasource.retrieveAllConcepts());
+        QuestionChooserByOrderedConcepts questionChooser = new QuestionChooserByOrderedConcepts(domainDatasource.retrieveAllConcepts(),3);
         
         // developing case
         StudentModelJson studentModelFirstConceptDeveloping = studentModelDatasource.getStudentModel("firstConceptDeveloping");
@@ -259,7 +270,7 @@ class QuestionChooserByOrderedConceptsTest{
 
         DomainDatasource domainDatasource = new DomainDatasourceJson("example","src/test/resources/rewrite/QuestionChooserSampleQuestions.json");
         StudentModelDatasourceJson studentModelDatasource = new StudentModelDatasourceJson("chooserExample", "src/test/resources/rewrite/questionChooserSampleStudents", new JsonIoHelperDefault());
-        QuestionChooserByOrderedConcepts questionChooser = new QuestionChooserByOrderedConcepts(domainDatasource.retrieveAllConcepts());
+        QuestionChooserByOrderedConcepts questionChooser = new QuestionChooserByOrderedConcepts(domainDatasource.retrieveAllConcepts(),3);
         
         // competent case
         StudentModelJson studentModelFirstConceptCompetent = studentModelDatasource.getStudentModel("firstConceptCompetentStudent");
@@ -289,7 +300,7 @@ class QuestionChooserByOrderedConceptsTest{
     public void calcExemplaryTest() throws IOException{
         DomainDatasource domainDatasource = new DomainDatasourceJson("example","src/test/resources/rewrite/QuestionChooserSampleQuestions.json");
         StudentModelDatasourceJson studentModelDatasource = new StudentModelDatasourceJson("chooserExample", "src/test/resources/rewrite/questionChooserSampleStudents", new JsonIoHelperDefault());
-        QuestionChooserByOrderedConcepts questionChooser = new QuestionChooserByOrderedConcepts(domainDatasource.retrieveAllConcepts());
+        QuestionChooserByOrderedConcepts questionChooser = new QuestionChooserByOrderedConcepts(domainDatasource.retrieveAllConcepts(),3);
         
         // exemplary first concept case
         StudentModelJson studentModelFirstConceptExemplary = studentModelDatasource.getStudentModel("firstConceptExemplaryStudent");
@@ -343,7 +354,7 @@ class QuestionChooserByOrderedConceptsTest{
         conceptsExtra.add("year");
         conceptsExtra.add("google");
         conceptsExtra.add("extra");
-        QuestionChooserByOrderedConcepts questionChooser = new QuestionChooserByOrderedConcepts(conceptsExtra);
+        QuestionChooserByOrderedConcepts questionChooser = new QuestionChooserByOrderedConcepts(conceptsExtra,3);
         DomainDatasource domainDatasource = new DomainDatasourceJson("example","src/test/resources/rewrite/QuestionChooserSampleQuestions.json");
         assertFalse(questionChooser.checkAllChooserConceptIdsAreInDomain(domainDatasource));
 
@@ -353,7 +364,7 @@ class QuestionChooserByOrderedConceptsTest{
         conceptsRemoved.add("major");
         conceptsRemoved.add("year");
         conceptsRemoved.add("google");
-        questionChooser = new QuestionChooserByOrderedConcepts(conceptsRemoved);
+        questionChooser = new QuestionChooserByOrderedConcepts(conceptsRemoved,3);
         assertTrue(questionChooser.checkAllChooserConceptIdsAreInDomain(domainDatasource));
 
 
@@ -363,11 +374,11 @@ class QuestionChooserByOrderedConceptsTest{
         conceptsExact.add("major");
         conceptsExact.add("year");
         conceptsExact.add("google");
-        questionChooser = new QuestionChooserByOrderedConcepts(conceptsExact);
+        questionChooser = new QuestionChooserByOrderedConcepts(conceptsExact,3);
         assertTrue(questionChooser.checkAllChooserConceptIdsAreInDomain(domainDatasource));
 
         List<String> noConcepts = new ArrayList<>();
-        QuestionChooserByOrderedConcepts questionChooserThrows = new QuestionChooserByOrderedConcepts(noConcepts);
+        QuestionChooserByOrderedConcepts questionChooserThrows = new QuestionChooserByOrderedConcepts(noConcepts,3);
         assertThrows(RuntimeException.class, () -> questionChooserThrows.checkAllChooserConceptIdsAreInDomain(domainDatasource));
 
 
@@ -377,7 +388,7 @@ class QuestionChooserByOrderedConceptsTest{
     public void checkNextFollowUpQuestionAtLeastDeveloping() throws IOException{
         
         DomainDatasource domainDatasource = new DomainDatasourceJson("example","src/test/resources/rewrite/QuestionChooserSampleQuestionsFollowUp.json");
-        QuestionChooserByOrderedConcepts questionChooser = new QuestionChooserByOrderedConcepts(domainDatasource.retrieveAllConcepts());
+        QuestionChooserByOrderedConcepts questionChooser = new QuestionChooserByOrderedConcepts(domainDatasource.retrieveAllConcepts(),3);
         StudentModelDatasourceJson studentModelDatasource = new StudentModelDatasourceJson("chooserExample", "src/test/resources/rewrite/questionChooserSampleStudents", new JsonIoHelperDefault());
         
         StudentModelJson newStudentModel = studentModelDatasource.getStudentModel("newStudent");

@@ -38,6 +38,18 @@ public class DomainDatasourceJson implements  DomainDatasource{
         return questions;
     }
 
+    public List<Question> retrieveAllQuestionsAndFollowUps(){
+        List<Question> questionsAndFollowUps = new ArrayList<>();
+        questionsAndFollowUps.addAll(questions);
+        for (Question question : questions) {
+            List<Question> followUps = question.getFollowupQuestions();
+            if(followUps.size()!=0){
+                questionsAndFollowUps.addAll(followUps);
+            }
+        }
+        return questionsAndFollowUps;
+    }
+
     public Question getQuestion(String id){
         for (Question question: questions){
             if (question.getId().equalsIgnoreCase(id)){
@@ -93,6 +105,14 @@ public class DomainDatasourceJson implements  DomainDatasource{
         for (Question question: questions){
             if (question.getType().equalsIgnoreCase(concept)){
                 questionList.add(question);
+            }
+            List<Question> followUps = question.getFollowupQuestions();
+            if(followUps.size()>0){
+                for (Question fq : followUps) {
+                    if (fq.getType().equalsIgnoreCase(concept)){
+                        questionList.add(fq);
+                    }
+                }
             }
         }
         if(questionList.size()==0){

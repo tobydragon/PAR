@@ -120,7 +120,6 @@ public class ParControllerWithServerTest {
 
     @Test
     public void getCurrentQuestionTest(){
-        //works with attachment removed
         
         Question questionToBeAsked = this.parController.getCurrentQuestion("bocTest");
         assertThat(questionToBeAsked.getType()).isEqualTo("plane");
@@ -129,7 +128,7 @@ public class ParControllerWithServerTest {
 
     @Test
     public void addNewUserTest() throws IOException{
-        domainDatasource.retrieveAllConcepts().stream().forEach(System.out::println);
+        
         // issue creating cohorts from json file when reading boc (using pair list for conceptScore)
         this.parController.addNewUser(new CreateStudentAction("o5","inOrder"));
         Map <String,Cohort> cohortMap = new JsonIoUtil(new JsonIoHelperDefault()).mapfromReadOnlyFile("src/test/resources/rewrite/testServerData/currentCohortsNoBoc.json", Cohort.class);

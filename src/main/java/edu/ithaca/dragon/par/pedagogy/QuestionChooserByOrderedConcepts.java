@@ -30,12 +30,15 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
 
     public List<ConceptRubricPair> conceptScores;
     public List<String> conceptIds;
+    public int windowSize;
 
     public QuestionChooserByOrderedConcepts(){
         conceptScores = new ArrayList<>();
+        windowSize=3;
+
     }
 
-    public QuestionChooserByOrderedConcepts(List<String> concepts){
+    public QuestionChooserByOrderedConcepts(List<String> concepts, int windowSize){
         conceptIds=concepts;
         conceptScores = new ArrayList<>();
         Iterator<String> conceptIter = concepts.iterator();
@@ -50,6 +53,7 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
                 }
             }
         }
+        this.windowSize=windowSize;
         
     }
 
@@ -235,6 +239,9 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
             List<String> questionIdsForEverCorrect = QuestionHistorySummary.findQuestionIdsCorrectFirstTime(questionHistories,domainDatasource);
             questionIdsForEverCorrect.addAll(QuestionHistorySummary.findQuestionIdsCorrectAfterIncorrect(questionHistories, domainDatasource));
             float denom = (float) domainDatasource.retrieveQuestionsByConcept(concept).size();
+            if(denom>windowSize){
+                denom = (float) windowSize;
+            }
             float num = 0;
             for(Question question: conceptQuestionsSeenByStudent){
                 for(String questionId:questionIdsForEverCorrect){
@@ -253,6 +260,9 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
         List<String> questionIdsForEverCorrect = QuestionHistorySummary.findQuestionIdsCorrectFirstTime(questionHistories,domainDatasource);
         questionIdsForEverCorrect.addAll(QuestionHistorySummary.findQuestionIdsCorrectAfterIncorrect(questionHistories, domainDatasource));
         int denom = domainDatasource.retrieveQuestionsByConcept(concept).size();
+        if(denom>windowSize){
+            denom = windowSize;
+        }
         int num = 0;
         for(Question question: conceptQuestionsSeenByStudent){
             for(String questionId:questionIdsForEverCorrect){
@@ -307,5 +317,15 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
             }
         }
     }
+
+    public int getWindowSize() {
+        return windowSize;
+    }
+
+    public void setWindowSize(int windowSize) {
+        this.windowSize = windowSize;
+    }
+
+    
     
 }
