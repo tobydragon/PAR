@@ -20,6 +20,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import edu.ithaca.dragon.par.ParServer;
+import edu.ithaca.dragon.par.analysis.QuestionHistorySummary;
 import edu.ithaca.dragon.par.cohort.Cohort;
 import edu.ithaca.dragon.par.cohort.CohortDatasourceJson;
 import edu.ithaca.dragon.par.comm.CreateStudentAction;
@@ -118,6 +119,15 @@ public class ParControllerWithServerTest {
         Question questionToBeAsked = this.parController.getCurrentQuestion("bocTest");
         assertThat(questionToBeAsked.getType()).isEqualTo("plane");
         assertThat(questionToBeAsked.getId()).isEqualTo("614-plane-./images/3CTransverse.jpg");
+    }
+
+    @Test
+    public void getQuestionHistorySummaryTest(){
+        QuestionHistorySummary qhs = this.parController.getQuestionHistorySummary("o1");
+        assertThat(qhs.getQuestionIdsSeen().size()).isEqualTo(4);
+        assertThat(qhs.getQuestionIdsRespondedTo().size()).isEqualTo(3);
+        assertThat(qhs.getQuestionIdsIncorrect().contains("850-structure3-./images/Annotated2Long.jpg"));
+
     }
 
     @Test

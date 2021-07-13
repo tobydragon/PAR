@@ -47,15 +47,15 @@ public class ParServer {
         cohortDatasource.addStudentToCohort(cohortId, studentId);
 
     }
-
-    public StudentModelJson addTimeSeen(String studentId, String questionId){
+    //TODO: Return a Boolean for addTimeSeen and addResponse
+    public void addTimeSeen(String studentId, String questionId){
         logger.info("addTimeSeen for : "+studentId + ", " + questionId);
-        return studentModelDatasource.addTimeSeen(studentId, questionId);
+        studentModelDatasource.addTimeSeen(studentId, questionId);
     }
 
-    public StudentModelJson addResponse(String studentId, String questionId, String newResponseText){
+    public void addResponse(String studentId, String questionId, String newResponseText){
         logger.info("addResponse for : "+studentId + ", " + questionId +", "+ newResponseText);
-        return studentModelDatasource.addResponse(studentId, questionId, newResponseText);
+        studentModelDatasource.addResponse(studentId, questionId, newResponseText);
     }
 
     public boolean isUserIdAvailable(String studentId){
