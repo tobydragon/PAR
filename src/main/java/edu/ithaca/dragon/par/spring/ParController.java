@@ -86,8 +86,15 @@ public class ParController {
     }
 
     @PostMapping("/addNewUser")
-    public void addNewUser(@RequestBody CreateStudentAction studentAction){
-        parServer.addNewUser(studentAction.studentId, studentAction.cohortId);
+    public Boolean addNewUser(@RequestBody CreateStudentAction studentAction){
+        try{
+            parServer.addNewUser(studentAction.studentId, studentAction.cohortId);
+            return true;
+        }
+        catch(IllegalArgumentException e){
+            e.printStackTrace();
+            return false;
+        }
     }
 
     //TODO: Write test for bad student id

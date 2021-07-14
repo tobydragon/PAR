@@ -139,6 +139,11 @@ public class ParControllerWithServerTest {
         this.parController.addNewUser(new CreateStudentAction("o5","inOrder"));
         Map <String,Cohort> cohortMap = new JsonIoUtil(new JsonIoHelperDefault()).mapfromReadOnlyFile("src/test/resources/rewrite/testServerData/currentCohortsNoBoc.json", Cohort.class);
         assertThat(cohortMap.get("inOrder").studentIds.contains("o5"));
+
+        // testing new and existing studentId
+        assertFalse(this.parController.addNewUser(new CreateStudentAction("o5","inOrder")));
+        assertTrue(this.parController.addNewUser(new CreateStudentAction("o7","inOrder")));
+        assertThat(cohortMap.get("inOrder").studentIds.contains("o7"));
     }
 
     @Test
@@ -146,6 +151,13 @@ public class ParControllerWithServerTest {
         // testing invalid and valid studentId
         assertFalse(this.parController.addTimeSeen(new StudentAction("o7", "850-structure3-./images/Annotated2Long.jpg")));
         assertTrue(this.parController.addTimeSeen(new StudentAction("o1", "850-structure3-./images/Annotated2Long.jpg")));
+    }
+
+    @Test
+    public void addResponseTest(){
+        // testing invalid and valid studentId
+        assertFalse(this.parController.addResponse(new StudentResponseAction("o7", "850-structure3-./images/Annotated2Long.jpg", "response1")));
+        assertTrue(this.parController.addResponse(new StudentResponseAction("o1", "850-structure3-./images/Annotated2Long.jpg", "response2")));
     }
 
 }
