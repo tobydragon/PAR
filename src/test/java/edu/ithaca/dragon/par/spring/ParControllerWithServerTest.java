@@ -1,6 +1,9 @@
 package edu.ithaca.dragon.par.spring;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,6 +28,7 @@ import edu.ithaca.dragon.par.cohort.Cohort;
 import edu.ithaca.dragon.par.cohort.CohortDatasourceJson;
 import edu.ithaca.dragon.par.comm.CreateStudentAction;
 import edu.ithaca.dragon.par.comm.StudentAction;
+import edu.ithaca.dragon.par.comm.StudentResponseAction;
 import edu.ithaca.dragon.par.domain.DomainDatasourceJson;
 import edu.ithaca.dragon.par.domain.Question;
 import edu.ithaca.dragon.par.student.json.StudentModelDatasourceJson;
@@ -123,11 +127,10 @@ public class ParControllerWithServerTest {
 
     @Test
     public void getQuestionHistorySummaryTest(){
-        QuestionHistorySummary qhs = this.parController.getQuestionHistorySummary("o1");
-        assertThat(qhs.getQuestionIdsSeen().size()).isEqualTo(4);
-        assertThat(qhs.getQuestionIdsRespondedTo().size()).isEqualTo(3);
-        assertThat(qhs.getQuestionIdsIncorrect().contains("850-structure3-./images/Annotated2Long.jpg"));
-
+        QuestionHistorySummary o1Hist = this.parController.getQuestionHistorySummary("o1");
+        assertThat(o1Hist.getQuestionIdsSeen().size()).isEqualTo(4);
+        assertThat(o1Hist.getQuestionIdsRespondedTo().size()).isEqualTo(3);
+        assertThat(o1Hist.getQuestionIdsIncorrect().contains("850-structure3-./images/Annotated2Long.jpg"));
     }
 
     @Test
@@ -138,5 +141,11 @@ public class ParControllerWithServerTest {
         assertThat(cohortMap.get("inOrder").studentIds.contains("o5"));
     }
 
+    @Test
+    public void addTimeSeenTest() {
+        // testing invalid and valid studentId
+        assertFalse(this.parController.addTimeSeen(new StudentAction("o7", "850-structure3-./images/Annotated2Long.jpg")));
+        assertTrue(this.parController.addTimeSeen(new StudentAction("o1", "850-structure3-./images/Annotated2Long.jpg")));
+    }
 
 }

@@ -47,7 +47,7 @@ public class ParServer {
         cohortDatasource.addStudentToCohort(cohortId, studentId);
 
     }
-    //TODO: Return a Boolean for addTimeSeen and addResponse
+
     public void addTimeSeen(String studentId, String questionId){
         logger.info("addTimeSeen for : "+studentId + ", " + questionId);
         studentModelDatasource.addTimeSeen(studentId, questionId);
