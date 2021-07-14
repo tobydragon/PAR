@@ -28,31 +28,16 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
     //Find questions of the right type(s) that have the min seen count.
     //If a minSeen question has the same URL as last question, take that, otherwise go for first minSeen
 
-    public List<ConceptRubricPair> conceptScores;
     public List<String> conceptIds;
     public int windowSize;
 
     public QuestionChooserByOrderedConcepts(){
-        conceptScores = new ArrayList<>();
         windowSize=3;
 
     }
 
     public QuestionChooserByOrderedConcepts(List<String> concepts, int windowSize){
         conceptIds=concepts;
-        conceptScores = new ArrayList<>();
-        Iterator<String> conceptIter = concepts.iterator();
-        if(conceptIter.hasNext()){
-            String firstConcept = conceptIter.next();
-            for(String concept :concepts){
-                if(concept.equalsIgnoreCase(firstConcept)){
-                    conceptScores.add(new ConceptRubricPair(concept,OrderedConceptRubric.DEVELOPING));
-                }
-                else{
-                    conceptScores.add(new ConceptRubricPair(concept,OrderedConceptRubric.UNPREPARED));
-                }
-            }
-        }
         this.windowSize=windowSize;
         
     }
@@ -69,32 +54,26 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
         if(checkAllChooserConceptIdsAreInDomain(domainDatasource)){
             List<Question> eligibleQuestions = new ArrayList<>();
 
-            try{
+            List<ConceptRubricPair> conceptScores = createConceptScores(studentModelInfo,domainDatasource);
 
-                updateConceptScoresBasedOnPerformanceData(studentModelInfo, domainDatasource);
-                
-                
-                
-                updateConceptScoresBasedOnComparativeResults();
-
-                
-                
-                
-                for(ConceptRubricPair conceptScore:conceptScores){
-                    if(conceptScore.getScore()==OrderedConceptRubric.COMPETENT || conceptScore.getScore()==OrderedConceptRubric.DEVELOPING){
-                        eligibleQuestions.addAll(domainDatasource.retrieveQuestionsByConcept(conceptScore.getConcept()));
-                    }
+            for(ConceptRubricPair conceptScore:conceptScores){
+                if(conceptScore.getScore()==OrderedConceptRubric.COMPETENT || conceptScore.getScore()==OrderedConceptRubric.DEVELOPING){
+                    eligibleQuestions.addAll(domainDatasource.retrieveQuestionsByConcept(conceptScore.getConcept()));
                 }
-
-            } catch(RuntimeException e){
-                // if(e.getMessage().contains("No questions found, bad concept")){
-                //     throw new RuntimeException("No questions found in the domain for the concept provided");
-                // }
-                // else throw new RuntimeException(e.getMessage());
             }
+
+        
             if(eligibleQuestions.size()!=0){
                 String questionIdToBeAsked = studentModelInfo.findQuestionSeenLeastRecently(eligibleQuestions.stream().map(q -> q.getId()).collect(Collectors.toList()));
-                return domainDatasource.getQuestion(questionIdToBeAsked);
+                Question qToBeAsked = domainDatasource.getQuestion(questionIdToBeAsked);
+                if(!hasUnpreparedFollowUpQuestions(conceptScores, qToBeAsked)){
+                    return qToBeAsked;
+                }
+                else{
+                    List<Question> followUpsWithUnpreparedRemoved = qToBeAsked.getFollowupQuestions().stream().filter(fq -> findScoreByConcept(conceptScores, fq.getType())!=OrderedConceptRubric.UNPREPARED).collect(Collectors.toList());
+                    Question qCopy = new Question(qToBeAsked, followUpsWithUnpreparedRemoved);
+                    return qCopy;
+                }
             }
             else{
                 throw new RuntimeException("No questions eligible for choosing");
@@ -104,31 +83,12 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
         }
     }
 
-    public List<ConceptRubricPair> getConceptScores() {
-        return conceptScores;
-    }
-
-    public void setConceptScores(List<ConceptRubricPair> conceptScores) {
-        this.conceptScores = conceptScores;
-    }
-
     public List<String> getConceptIds() {
         return conceptIds;
     }
 
     public void setConceptIds(List<String> conceptIds) {
         this.conceptIds = conceptIds;
-        String firstConcept = conceptIds.iterator().next();
-        List<ConceptRubricPair>conceptScoresIn = new ArrayList<>();
-        for(String concept :conceptIds){
-            if(concept.equalsIgnoreCase(firstConcept)){
-                conceptScoresIn.add(new ConceptRubricPair(concept,OrderedConceptRubric.DEVELOPING));
-            }
-            else{
-                conceptScoresIn.add(new ConceptRubricPair(concept,OrderedConceptRubric.UNPREPARED));
-            }
-        }
-        setConceptScores(conceptScoresIn);
     }
     
     public static List<Question> retrieveQuestionsFromStudentModelByConcept(String concept, Collection<QuestionHistory> questionHistories, DomainDatasource domainDatasource){
@@ -144,13 +104,48 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
         return questionList;
     }
 
-    public void updateConceptScoresBasedOnPerformanceData(StudentModelInfo studentModelInfo,DomainDatasource domainDatasource){
+    public List<ConceptRubricPair> createConceptScores(StudentModelInfo studentModelInfo, DomainDatasource domainDatasource){
+        List<ConceptRubricPair> conceptScores = new ArrayList<>();
+        if(conceptIds.size()>0){
+            int i=0;
+            for (String concept : conceptIds) {
+                if(i==0){
+                    conceptScores.add(new ConceptRubricPair(concept, OrderedConceptRubric.DEVELOPING));
+                }else{
+                    conceptScores.add(new ConceptRubricPair(concept, OrderedConceptRubric.UNPREPARED));
+                }
+                i++;
+            }
+            updateConceptScoresBasedOnPerformanceData(conceptScores, studentModelInfo, domainDatasource);
+            conceptScores = updateConceptScoresBasedOnComparativeResults(conceptScores);
+        }
+        return conceptScores;
+    }
+
+    public OrderedConceptRubric findScoreByConcept(List<ConceptRubricPair>conceptScores, String concept){
+
+        List<OrderedConceptRubric> scoreListSize1 = conceptScores.stream().filter(cs ->cs.getConcept().equalsIgnoreCase(concept))
+            .map(conceptScore -> conceptScore.getScore())
+            .collect(Collectors.toList());
+
+        if(scoreListSize1.size()>1){
+            throw new RuntimeException("error: duplicate concepts in scoring list");
+        }
+        else{
+            return scoreListSize1.get(0);
+        }
+    }
+
+    public void updateConceptScoresBasedOnPerformanceData(List<ConceptRubricPair> conceptScores, StudentModelInfo studentModelInfo,DomainDatasource domainDatasource){
         Collection <QuestionHistory> questionHistories = studentModelInfo.getQuestionHistories().values();
         int i=0;
         for(ConceptRubricPair conceptScore:conceptScores){
             String concept = conceptScore.getConcept();
             List<Question> conceptQuestionsSeenByStudent = retrieveQuestionsFromStudentModelByConcept(concept,questionHistories,domainDatasource);
-            if(calcUnprepared(conceptQuestionsSeenByStudent, questionHistories, domainDatasource)){
+            if(domainDatasource.retrieveQuestionsByConcept(concept).size()==0){
+                conceptScores.set(i,new ConceptRubricPair(concept,OrderedConceptRubric.UNASSESSABLE));
+            }
+            else if(calcUnprepared(conceptQuestionsSeenByStudent, questionHistories, domainDatasource)){
                 conceptScores.set(i,new ConceptRubricPair(concept,OrderedConceptRubric.UNPREPARED));
             }
             else if(calcDeveloping(concept, conceptQuestionsSeenByStudent, questionHistories, domainDatasource)){
@@ -166,9 +161,11 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
         }
     }
 
-    public void updateConceptScoresBasedOnComparativeResults(){
+    public List<ConceptRubricPair> updateConceptScoresBasedOnComparativeResults(List<ConceptRubricPair> conceptScores){
         int i=0;
         boolean isAllExemplary = true;
+        conceptScores = conceptScores.stream().filter(cs -> cs.getScore()!=OrderedConceptRubric.UNASSESSABLE).collect(Collectors.toList());
+        
         for(ConceptRubricPair conceptScore:conceptScores){
             String concept = conceptScore.getConcept();
             if(i==0 && conceptScore.getScore()==OrderedConceptRubric.UNPREPARED){
@@ -193,6 +190,8 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
         if(isAllExemplary){
             conceptScores = conceptScores.stream().map(score -> new ConceptRubricPair(score.getConcept(),OrderedConceptRubric.DEVELOPING)).collect(Collectors.toList());
         }
+
+        return conceptScores;
         
     }
 
@@ -289,33 +288,20 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
         return true;
     }
 
-    public boolean checkNextFollowUpQuestionAtLeastDeveloping(StudentModelInfo studentModel, DomainDatasource domainDatasource, QuestionHistorySummary qhs){
-        if(studentModel.getQuestionHistories().values().size()==0){
+    public boolean hasUnpreparedFollowUpQuestions(List<ConceptRubricPair> conceptScores, Question qToBeAsked){
+        List<Question> followUps = qToBeAsked.getFollowupQuestions();
+        if(followUps.size()==0){
+            return false;
+        }else{
+            for (Question fq : followUps) {
+                if(findScoreByConcept(conceptScores, fq.getType())==OrderedConceptRubric.UNPREPARED){
+                    return true;
+                }
+            }
             return false;
         }
-        else{
-            Question mostRecentlySeenQuestion = domainDatasource.getQuestion(qhs.getQuestionIdsSeen().get(qhs.getQuestionIdsSeen().size()-1));
-            List<Question> followUpQuestions = mostRecentlySeenQuestion.getFollowupQuestions();
-            if(followUpQuestions.size()==0){
-                return false;
-            }
-            else{
-                List<String> followUpQuestionIds = followUpQuestions.stream().map(q ->q.getId()).collect(Collectors.toList());
-                String idOfNextFollowUpQuestion = studentModel.findQuestionSeenLeastRecently(followUpQuestionIds);
-                String nextFollowUpQuestionConcept = domainDatasource.getQuestion(idOfNextFollowUpQuestion).getType();
-                OrderedConceptRubric nextFollowUpQuestionConceptScore= OrderedConceptRubric.UNPREPARED;
-                for (ConceptRubricPair conceptScore: conceptScores) {
-                    if(conceptScore.getConcept().equalsIgnoreCase(nextFollowUpQuestionConcept)){
-                        nextFollowUpQuestionConceptScore = conceptScore.getScore();
-                    }
-                }
-                if(nextFollowUpQuestionConceptScore==OrderedConceptRubric.COMPETENT||nextFollowUpQuestionConceptScore==OrderedConceptRubric.DEVELOPING){
-                    return true;
-                }else{
-                    return false;
-                }
-            }
-        }
+
+        
     }
 
     public int getWindowSize() {

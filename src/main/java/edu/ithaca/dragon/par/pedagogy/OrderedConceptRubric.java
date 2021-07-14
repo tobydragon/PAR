@@ -4,5 +4,6 @@ enum OrderedConceptRubric{
     UNPREPARED,
     DEVELOPING,
     COMPETENT,
-    EXEMPLARY;
+    EXEMPLARY,
+    UNASSESSABLE;
 }

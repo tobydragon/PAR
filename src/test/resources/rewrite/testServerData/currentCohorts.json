@@ -22,8 +22,8 @@
     "studentIds" : [ "bocTest" ],
     "questionChooser" : {
       "type" : "QuestionChooserByOrderedConcepts",
-      "conceptScores" : [ ],
-      "conceptIds" : [ "plane", "structure", "attachment", "zone" ]
+      "conceptIds" : [ "plane", "structure", "attachment", "zone" ],
+      "windowSize" : 3
     }
   }
 }
