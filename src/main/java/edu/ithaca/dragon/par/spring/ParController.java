@@ -35,10 +35,17 @@ public class ParController {
 
         this(
             new ParServer(
+                // new DomainDatasourceJson(
+                //     "HorseUltrasound",
+                //     "localData/currentQuestionPool.json",
+                //     "author/defaultQuestionPool.json",
+                //     new JsonIoHelperSpring()
+                // ),
+
                 new DomainDatasourceJson(
-                    "HorseUltrasound",
-                    "localData/currentQuestionPool.json",
-                    "author/defaultQuestionPool.json",
+                    "contentFor220",
+                    "localData/220QuestionPool.json",
+                    "author/default220QuestionPool.json",
                     new JsonIoHelperSpring()
                 ),
 
@@ -49,10 +56,17 @@ public class ParController {
                 ),
 
                 //TODO: remove default users from cohort datastores once there is a viable way to add students
+                // new CohortDatasourceJson(
+                //     "allCohorts",
+                //     "localData/currentCohorts.json",
+                //     "author/defaultCohorts.json",
+                //     new JsonIoHelperSpring()
+                // )
+
                 new CohortDatasourceJson(
                     "allCohorts",
-                    "localData/currentCohorts.json",
-                    "author/defaultCohorts.json",
+                    "localData/220Cohorts.json",
+                    "author/default220Cohorts.json",
                     new JsonIoHelperSpring()
                 )
             )
