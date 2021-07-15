@@ -1,5 +1,7 @@
 package edu.ithaca.dragon.par.student;
 
+import edu.ithaca.dragon.par.student.json.StudentModelJson;
+
 public interface StudentModelDatasource {
 
     boolean idIsAvailable(String studentId);

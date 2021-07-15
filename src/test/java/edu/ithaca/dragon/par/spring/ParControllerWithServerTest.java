@@ -1,6 +1,9 @@
 package edu.ithaca.dragon.par.spring;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,11 +23,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import edu.ithaca.dragon.par.ParServer;
+import edu.ithaca.dragon.par.analysis.QuestionHistorySummary;
 import edu.ithaca.dragon.par.cohort.Cohort;
 import edu.ithaca.dragon.par.cohort.CohortDatasourceJson;
 import edu.ithaca.dragon.par.comm.CreateStudentAction;
 import edu.ithaca.dragon.par.comm.StudentAction;
 import edu.ithaca.dragon.par.domain.DomainDatasource;
+import edu.ithaca.dragon.par.comm.StudentResponseAction;
 import edu.ithaca.dragon.par.domain.DomainDatasourceJson;
 import edu.ithaca.dragon.par.domain.Question;
 import edu.ithaca.dragon.par.student.json.StudentModelDatasourceJson;
@@ -172,13 +177,39 @@ public class ParControllerWithServerTest {
     }
 
     @Test
+    public void getQuestionHistorySummaryTest(){
+        QuestionHistorySummary o1Hist = this.parController.getQuestionHistorySummary("o1");
+        assertThat(o1Hist.getQuestionIdsSeen().size()).isEqualTo(4);
+        assertThat(o1Hist.getQuestionIdsRespondedTo().size()).isEqualTo(3);
+        assertThat(o1Hist.getQuestionIdsIncorrect().contains("850-structure3-./images/Annotated2Long.jpg"));
+    }
+
+    @Test
     public void addNewUserTest() throws IOException{
         
         // issue creating cohorts from json file when reading boc (using pair list for conceptScore)
         this.parController.addNewUser(new CreateStudentAction("o5","inOrder"));
         Map <String,Cohort> cohortMap = new JsonIoUtil(new JsonIoHelperDefault()).mapfromReadOnlyFile("src/test/resources/rewrite/testServerData/currentCohortsNoBoc.json", Cohort.class);
         assertThat(cohortMap.get("inOrder").studentIds.contains("o5"));
+
+        // testing new and existing studentId
+        assertFalse(this.parController.addNewUser(new CreateStudentAction("o5","inOrder")));
+        assertTrue(this.parController.addNewUser(new CreateStudentAction("o7","inOrder")));
+        assertThat(cohortMap.get("inOrder").studentIds.contains("o7"));
     }
 
+    @Test
+    public void addTimeSeenTest() {
+        // testing invalid and valid studentId
+        assertFalse(this.parController.addTimeSeen(new StudentAction("o7", "850-structure3-./images/Annotated2Long.jpg")));
+        assertTrue(this.parController.addTimeSeen(new StudentAction("o1", "850-structure3-./images/Annotated2Long.jpg")));
+    }
+
+    @Test
+    public void addResponseTest(){
+        // testing invalid and valid studentId
+        assertFalse(this.parController.addResponse(new StudentResponseAction("o7", "850-structure3-./images/Annotated2Long.jpg", "response1")));
+        assertTrue(this.parController.addResponse(new StudentResponseAction("o1", "850-structure3-./images/Annotated2Long.jpg", "response2")));
+    }
 
 }

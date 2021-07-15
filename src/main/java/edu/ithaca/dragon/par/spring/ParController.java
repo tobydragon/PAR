@@ -86,17 +86,39 @@ public class ParController {
     }
 
     @PostMapping("/addNewUser")
-    public void addNewUser(@RequestBody CreateStudentAction studentAction){
-        parServer.addNewUser(studentAction.studentId, studentAction.cohortId);
+    public Boolean addNewUser(@RequestBody CreateStudentAction studentAction){
+        try{
+            parServer.addNewUser(studentAction.studentId, studentAction.cohortId);
+            return true;
+        }
+        catch(IllegalArgumentException e){
+            e.printStackTrace();
+            return false;
+        }
     }
 
+    //TODO: Write test for bad student id
     @PostMapping("/addTimeSeen")
-    public void addTimeSeen(@RequestBody StudentAction studentAction){
-        parServer.addTimeSeen(studentAction.studentId, studentAction.questionId);
+    public Boolean addTimeSeen(@RequestBody StudentAction studentAction){
+        try{
+            parServer.addTimeSeen(studentAction.studentId, studentAction.questionId);
+            return true;
+        }
+        catch(IllegalArgumentException e){
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @PostMapping("/addResponse")
-    public void addResponse(@RequestBody StudentResponseAction studentResponseAction){
-        parServer.addResponse(studentResponseAction.studentId, studentResponseAction.questionId, studentResponseAction.responseText);
+    public Boolean addResponse(@RequestBody StudentResponseAction studentResponseAction){
+        try{
+            parServer.addResponse(studentResponseAction.studentId, studentResponseAction.questionId, studentResponseAction.responseText);
+            return true;
+        }
+        catch(IllegalArgumentException e){
+            e.printStackTrace();
+            return false;
+        }
     }
 }

@@ -10,6 +10,7 @@ import edu.ithaca.dragon.par.domain.Question;
 import edu.ithaca.dragon.par.domain.DomainDatasource;
 import edu.ithaca.dragon.par.student.StudentModelDatasource;
 import edu.ithaca.dragon.par.student.json.QuestionHistory;
+import edu.ithaca.dragon.par.student.json.StudentModelJson;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
