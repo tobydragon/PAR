@@ -17,13 +17,13 @@
       }
     },
     "220byOrderedConcepts" : {
-      "id" : "byOrderedConcepts",
+      "id" : "220byOrderedConcepts",
       "domainId" : "contentFor220",
       "studentIds" : [ ],
       "questionChooser" : {
         "type" : "QuestionChooserByOrderedConcepts",
-        "conceptIds" : [ "arrays", "linkedNodes", "arrayQueues", "linkedQueues" ],
-        "conceptScores" : []
+        "conceptIds" : [ "InterfaceUML","Queue","Big-O","arrays", "linkedNodes", "arrayQueues", "linkedQueues" ],
+        "windowSize" : 3
       }
     }
   }

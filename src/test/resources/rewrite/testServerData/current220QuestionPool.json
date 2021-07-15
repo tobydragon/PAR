@@ -60,7 +60,7 @@
     "questionText" : "Arrays in Java are dynamic, expanding as new items are added.",
     "correctAnswer" : "false",
     "possibleAnswers" : [ "true", "false" ],
-    "imageUrl" : "./images/3CTransverse.jpg",
+    "imageUrl" : "./images/220/Arrays.jpg",
     "followupQuestions" : [ ]
   },
   {
@@ -69,16 +69,16 @@
     "questionText" : "What is the time complexity of accessing an element at a specified index in an array?",
     "correctAnswer" : "O(1)",
     "possibleAnswers" : [ "O(1)","O(N)", "O(N^2)" ],
-    "imageUrl" : "./images/3CTransverse.jpg",
+    "imageUrl" : "./images/220/Arrays.jpg",
     "followupQuestions" : [ ]
   },
   {
     "id" : "ArrayQ3",
     "type" : "Array",
     "questionText" : "What is the time complexity of inserting an element at the end of an array, assuming it's not full?",
-    "correctAnswer" : "O(1)",
+    "correctAnswer" : "O(N)",
     "possibleAnswers" : [ "O(1)","O(N)", "O(N^2)" ],
-    "imageUrl" : "./images/3CTransverse.jpg",
+    "imageUrl" : "./images/220/Arrays.jpg",
     "followupQuestions" : [ ]
   },
   {
@@ -87,16 +87,16 @@
     "questionText" : "Accessing an element has the same time complexity as searching for an element.",
     "correctAnswer" : "false",
     "possibleAnswers" : [ "true", "false" ],
-    "imageUrl" : "./images/3CTransverse.jpg",
+    "imageUrl" : "./images/220/LinkedNodes.jpg",
     "followupQuestions" : [ ]
   },
   {
     "id" : "LinkedNodeQ2",
     "type" : "LinkedNode",
     "questionText" : "What is the time complexity of inserting an element?",
-    "correctAnswer" : "O(N)",
+    "correctAnswer" : "O(1)",
     "possibleAnswers" : [ "O(1)","O(N)" ],
-    "imageUrl" : "./images/3CTransverse.jpg",
+    "imageUrl" : "./images/220/LinkedNodes.jpg",
     "followupQuestions" : [ ]
   },
   {
@@ -105,7 +105,7 @@
     "questionText" : "The time complexity of inserting an element at the beginning is the same as inserting at the end.",
     "correctAnswer" : "false",
     "possibleAnswers" : [ "true","false" ],
-    "imageUrl" : "./images/3CTransverse.jpg",
+    "imageUrl" : "./images/220/LinkedNodes.jpg",
     "followupQuestions" : [ ]
   },
 
@@ -115,7 +115,7 @@
     "questionText" : "What happens when you enqueue a new item?",
     "correctAnswer" : "overflow",
     "possibleAnswers" : [ "underflow", "overflow", "nothing" ],
-    "imageUrl" : "./images/3CTransverse.jpg",
+    "imageUrl" : "./images/220/Arrays.jpg",
     "followupQuestions" : [ ]
   },
   {
@@ -124,7 +124,7 @@
     "questionText" : "If the time complexity of enqueuing at the front is O(1), then dequeuing must be?",
     "correctAnswer" : "O(N)",
     "possibleAnswers" : [ "O(1)", "O(N)" ],
-    "imageUrl" : "./images/3CTransverse.jpg",
+    "imageUrl" : "./images/220/Arrays.jpg",
     "followupQuestions" : [ ]
   },
   {
@@ -133,16 +133,16 @@
     "questionText" : "If the time complexity of dequeuing at the front is O(1), then dequeuing must be?",
     "correctAnswer" : "O(N)",
     "possibleAnswers" : [ "O(1)", "O(N)" ],
-    "imageUrl" : "./images/3CTransverse.jpg",
+    "imageUrl" : "./images/220/Arrays.jpg",
     "followupQuestions" : [ ]
   },
   {
     "id" : "LinkedQueueQ1",
     "type" : "LinkedQueue",
     "questionText" : "What is the big-O of enqueuing at the end?",
-    "correctAnswer" : "O(N)",
+    "correctAnswer" : "O(1)",
     "possibleAnswers" : [ "O(1)", "O(N)", "O(logN)" ],
-    "imageUrl" : "./images/3CTransverse.jpg",
+    "imageUrl" : "./images/220/LinkedNodes.jpg",
     "followupQuestions" : [ ]
   },
   {
@@ -151,7 +151,7 @@
     "questionText" : "What is the big-O of dequeuing at the front?",
     "correctAnswer" : "O(1)",
     "possibleAnswers" : [ "O(1)", "O(N)", "O(logN)" ],
-    "imageUrl" : "./images/3CTransverse.jpg",
+    "imageUrl" : "./images/220/LinkedNodes.jpg",
     "followupQuestions" : [ ]
   },
   {
@@ -160,7 +160,7 @@
     "questionText" : "According to the diagram, which item is dequeued first?",
     "correctAnswer" : "18",
     "possibleAnswers" : [ "18", "8" ],
-    "imageUrl" : "./images/3CTransverse.jpg",
+    "imageUrl" : "./images/220/LinkedNodes.jpg",
     "followupQuestions" : [ ]
   },
   {
@@ -169,7 +169,7 @@
     "questionText" : "Searching through a LinkedQueue results in O(1) time complexity.",
     "correctAnswer" : "false",
     "possibleAnswers" : [ "true", "false"],
-    "imageUrl" : "./images/3CTransverse.jpg",
+    "imageUrl" : "./images/220/LinkedNodes.jpg",
     "followupQuestions" : [ ]
   }
 
