@@ -13,7 +13,7 @@
       "studentIds" : [ "o1", "o2", "o3", "o4" ],
       "questionChooser" : {
         "type" : "QuestionChooserInOrder",
-        "questionIdsInOrder" : [ "ArrayQ1", "ArrayQ2","LinkedNodeQ1", "LinkedNodeQ2", "LinkedQueueQ1", "LinkedQueueQ3" ]
+        "questionIdsInOrder" : [ "ArrayQ1", "ArrayQ2","LinkedNodeQ1", "LinkedNodeQ2", "LinkedQueueQ1", "ArrayQueueQ2" ]
       }
     },
     "220byOrderedConcepts" : {

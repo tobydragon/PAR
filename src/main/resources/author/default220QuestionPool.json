@@ -61,15 +61,15 @@
   "correctAnswer" : "O(N)",
   "possibleAnswers" : [ "O(1)" ],
   "imageUrl" : "./images/220/Arrays.jpg",
-  "followupQuestions" : [ ]
-}, {
-  "id" : "ArrayQueueQ3",
-  "type" : "arrayQueues",
-  "questionText" : "If the time complexity of dequeuing at the front is O(1), then enqueuing must be?",
-  "correctAnswer" : "O(N)",
-  "possibleAnswers" : [ "O(1)" ],
-  "imageUrl" : "./images/220/Arrays.jpg",
-  "followupQuestions" : [ ]
+  "followupQuestions" : [ {
+    "id" : "ArrayQueueQ3",
+    "type" : "arrayQueues",
+    "questionText" : "If the time complexity of dequeuing at the front is O(1), then enqueuing must be?",
+    "correctAnswer" : "O(N)",
+    "possibleAnswers" : [ "O(1)" ],
+    "imageUrl" : "./images/220/Arrays.jpg",
+    "followupQuestions" : [ ]
+  } ]
 }, {
   "id" : "LinkedQueueQ1",
   "type" : "linkedQueues",
@@ -95,7 +95,7 @@
   "imageUrl" : "./images/220/LinkedNodes.jpg",
   "followupQuestions" : [ ]
 }, {
-  "id" : "LinkedQueueQ3",
+  "id" : "LinkedQueueQ4",
   "type" : "linkedQueues",
   "questionText" : "Which item is dequeued first, according to diagram?",
   "correctAnswer" : "False",
