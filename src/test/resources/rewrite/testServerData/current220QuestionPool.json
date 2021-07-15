@@ -1,0 +1,177 @@
+[
+  {
+    "id" : "InterfaceUMLQ1",
+    "type" : "InterfaceUML",
+    "questionText" : "Which arrow best represents a class that implements an interface?",
+    "correctAnswer" : "Implementation",
+    "possibleAnswers" : [ "Implementation", "Association", "Aggregation","Inheritance" ],
+    "imageUrl" : "./images/3CTransverse.jpg",
+    "followupQuestions" : []
+  },
+  {
+    "id" : "QueueQ0",
+    "type" : "Queue",
+    "questionText" : "A Queue is a(n)...",
+    "correctAnswer" : "abstract datatype",
+    "possibleAnswers" : [ "abstract datatype", "data structure" ],
+    "imageUrl" : "./images/3CTransverse.jpg",
+    "followupQuestions" : []
+  },
+  {
+    "id" : "QueueQ0.5",
+    "type" : "Queue",
+    "questionText" : "Which real life situation best represents how a Queue works?",
+    "correctAnswer" : "getting on/getting off a waitlist",
+    "possibleAnswers" : [ "getting on/getting off a waitlist", "putting clothes in/taking clothes out of a laundry basket" ],
+    "imageUrl" : "./images/3CTransverse.jpg",
+    "followupQuestions" : []
+  },
+  {
+    "id" : "QueueQ1",
+    "type" : "Queue",
+    "questionText" : "Which order are items stored in a Queue?",
+    "correctAnswer" : "First-In, First-Out (FIFO)",
+    "possibleAnswers" : [ "Last-In, First-Out (LIFO)", "First-In, First-Out (FIFO)" ],
+    "imageUrl" : "./images/3CTransverse.jpg",
+    "followupQuestions" : [
+      {
+        "id" : "Big-OQ0",
+        "type" : "Big-O",
+        "questionText" : "When evaluating the Big-O of enqueuing or dequeuing, what is Big-O describing?",
+        "correctAnswer" : "time complexity",
+        "possibleAnswers" : [ "space complexity", "time complexity" ],
+        "imageUrl" : "./images/3CTransverse.jpg",
+        "followupQuestions" : [ ]
+      }
+     ]
+  },
+  {
+    "id" : "Big-OQ1",
+    "type" : "Big-O",
+    "questionText" : "The Big-O notation represents...",
+    "correctAnswer" : "worst case",
+    "possibleAnswers" : [ "best case", "average case", "worst case" ],
+    "imageUrl" : "./images/3CTransverse.jpg",
+    "followupQuestions" : [ ]
+  },
+  {
+    "id" : "ArrayQ1",
+    "type" : "Array",
+    "questionText" : "Arrays in Java are dynamic, expanding as new items are added.",
+    "correctAnswer" : "false",
+    "possibleAnswers" : [ "true", "false" ],
+    "imageUrl" : "./images/3CTransverse.jpg",
+    "followupQuestions" : [ ]
+  },
+  {
+    "id" : "ArrayQ2",
+    "type" : "Array",
+    "questionText" : "What is the time complexity of accessing an element at a specified index in an array?",
+    "correctAnswer" : "O(1)",
+    "possibleAnswers" : [ "O(1)","O(N)", "O(N^2)" ],
+    "imageUrl" : "./images/3CTransverse.jpg",
+    "followupQuestions" : [ ]
+  },
+  {
+    "id" : "ArrayQ3",
+    "type" : "Array",
+    "questionText" : "What is the time complexity of inserting an element at the end of an array, assuming it's not full?",
+    "correctAnswer" : "O(1)",
+    "possibleAnswers" : [ "O(1)","O(N)", "O(N^2)" ],
+    "imageUrl" : "./images/3CTransverse.jpg",
+    "followupQuestions" : [ ]
+  },
+  {
+    "id" : "LinkedNodeQ1",
+    "type" : "LinkedNode",
+    "questionText" : "Accessing an element has the same time complexity as searching for an element.",
+    "correctAnswer" : "false",
+    "possibleAnswers" : [ "true", "false" ],
+    "imageUrl" : "./images/3CTransverse.jpg",
+    "followupQuestions" : [ ]
+  },
+  {
+    "id" : "LinkedNodeQ2",
+    "type" : "LinkedNode",
+    "questionText" : "What is the time complexity of inserting an element?",
+    "correctAnswer" : "O(N)",
+    "possibleAnswers" : [ "O(1)","O(N)" ],
+    "imageUrl" : "./images/3CTransverse.jpg",
+    "followupQuestions" : [ ]
+  },
+  {
+    "id" : "LinkedNodeQ3",
+    "type" : "LinkedNode",
+    "questionText" : "The time complexity of inserting an element at the beginning is the same as inserting at the end.",
+    "correctAnswer" : "false",
+    "possibleAnswers" : [ "true","false" ],
+    "imageUrl" : "./images/3CTransverse.jpg",
+    "followupQuestions" : [ ]
+  },
+
+  {
+    "id" : "ArrayQueueQ1",
+    "type" : "ArrayQueue",
+    "questionText" : "What happens when you enqueue a new item?",
+    "correctAnswer" : "overflow",
+    "possibleAnswers" : [ "underflow", "overflow", "nothing" ],
+    "imageUrl" : "./images/3CTransverse.jpg",
+    "followupQuestions" : [ ]
+  },
+  {
+    "id" : "ArrayQueueQ2",
+    "type" : "ArrayQueue",
+    "questionText" : "If the time complexity of enqueuing at the front is O(1), then dequeuing must be?",
+    "correctAnswer" : "O(N)",
+    "possibleAnswers" : [ "O(1)", "O(N)" ],
+    "imageUrl" : "./images/3CTransverse.jpg",
+    "followupQuestions" : [ ]
+  },
+  {
+    "id" : "ArrayQueueQ3",
+    "type" : "ArrayQueue",
+    "questionText" : "If the time complexity of dequeuing at the front is O(1), then dequeuing must be?",
+    "correctAnswer" : "O(N)",
+    "possibleAnswers" : [ "O(1)", "O(N)" ],
+    "imageUrl" : "./images/3CTransverse.jpg",
+    "followupQuestions" : [ ]
+  },
+  {
+    "id" : "LinkedQueueQ1",
+    "type" : "LinkedQueue",
+    "questionText" : "What is the big-O of enqueuing at the end?",
+    "correctAnswer" : "O(N)",
+    "possibleAnswers" : [ "O(1)", "O(N)", "O(logN)" ],
+    "imageUrl" : "./images/3CTransverse.jpg",
+    "followupQuestions" : [ ]
+  },
+  {
+    "id" : "LinkedQueueQ2",
+    "type" : "LinkedQueue",
+    "questionText" : "What is the big-O of dequeuing at the front?",
+    "correctAnswer" : "O(1)",
+    "possibleAnswers" : [ "O(1)", "O(N)", "O(logN)" ],
+    "imageUrl" : "./images/3CTransverse.jpg",
+    "followupQuestions" : [ ]
+  },
+  {
+    "id" : "LinkedQueueQ3",
+    "type" : "LinkedQueue",
+    "questionText" : "According to the diagram, which item is dequeued first?",
+    "correctAnswer" : "18",
+    "possibleAnswers" : [ "18", "8" ],
+    "imageUrl" : "./images/3CTransverse.jpg",
+    "followupQuestions" : [ ]
+  },
+  {
+    "id" : "LinkedQueueQ4",
+    "type" : "LinkedQueue",
+    "questionText" : "Searching through a LinkedQueue results in O(1) time complexity.",
+    "correctAnswer" : "false",
+    "possibleAnswers" : [ "true", "false"],
+    "imageUrl" : "./images/3CTransverse.jpg",
+    "followupQuestions" : [ ]
+  }
+
+
+]

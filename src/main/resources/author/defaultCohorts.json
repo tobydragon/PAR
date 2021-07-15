@@ -24,7 +24,7 @@
     "questionChooser" : {
       "type" : "QuestionChooserByOrderedConcepts",
       "conceptIds" : [ "plane", "structure", "attachment", "zone"],
-      "conceptScores" : []
+      "windowSize" : 3
     }
   }
 

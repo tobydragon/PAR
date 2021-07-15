@@ -25,5 +25,15 @@
       "conceptIds" : [ "plane", "structure", "attachment", "zone" ],
       "windowSize" : 3
     }
+  },
+  "byOrderedConcepts220" : {
+    "id" : "byOrderedConcepts220",
+    "domainId" : "Comp220",
+    "studentIds" : [ "comp220Test", "comp220Test1" ],
+    "questionChooser" : {
+      "type" : "QuestionChooserByOrderedConcepts",
+      "conceptIds" : [ "InterfaceUML", "Queue", "Big-O","Array","LinkedNode","ArrayQueue","LinkedQueue" ],
+      "windowSize" : 3
+    }
   }
 }
