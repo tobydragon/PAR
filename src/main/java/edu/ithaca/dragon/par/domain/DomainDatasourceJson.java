@@ -86,14 +86,6 @@ public class DomainDatasourceJson implements  DomainDatasource{
             if (question.getType().equalsIgnoreCase(concept)){
                 questionList.add(question);
             }
-            // List<Question> followUps = question.getFollowupQuestions();
-            // if(followUps.size()>0){
-            //     for (Question fq : followUps) {
-            //         if (fq.getType().equalsIgnoreCase(concept)){
-            //             questionList.add(fq);
-            //         }
-            //     }
-            // }
         }
         
         return questionList;

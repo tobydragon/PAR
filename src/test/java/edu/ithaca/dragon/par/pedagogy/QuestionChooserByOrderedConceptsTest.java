@@ -122,6 +122,27 @@ class QuestionChooserByOrderedConceptsTest{
         assertEquals(OrderedConceptRubric.UNPREPARED,conceptScores2.get(3).getScore());
         assertEquals(OrderedConceptRubric.UNPREPARED,conceptScores2.get(4).getScore());
 
+        // Does follow up question affect concept score
+        List<ConceptRubricPair> conceptScores3 = new ArrayList<>();
+        conceptScores3.add(new ConceptRubricPair("sky",OrderedConceptRubric.DEVELOPING));
+        conceptScores3.add(new ConceptRubricPair("math",OrderedConceptRubric.UNPREPARED));
+        conceptScores3.add(new ConceptRubricPair("major",OrderedConceptRubric.UNPREPARED));
+        conceptScores3.add(new ConceptRubricPair("year",OrderedConceptRubric.UNPREPARED));
+        conceptScores3.add(new ConceptRubricPair("google",OrderedConceptRubric.UNPREPARED));
+        
+        
+        // followup question results in exception thrown for invalid question id
+        StudentModelJson firstConceptFQAnswered = studentModelDatasource.getStudentModel("firstConceptFQAnswered");
+        QuestionChooserByOrderedConcepts questionChooser1 = new QuestionChooserByOrderedConcepts(domainDatasource.retrieveAllConcepts(),3);
+        assertThrows(IllegalArgumentException.class, () -> questionChooser1.updateConceptScoresBasedOnPerformanceData(conceptScores3, firstConceptFQAnswered, domainDatasource));
+
+        // assertEquals(OrderedConceptRubric.COMPETENT,conceptScores3.get(0).getScore());
+        // assertEquals(OrderedConceptRubric.DEVELOPING,conceptScores3.get(1).getScore());
+        // assertEquals(OrderedConceptRubric.UNPREPARED,conceptScores3.get(2).getScore());
+        // assertEquals(OrderedConceptRubric.UNPREPARED,conceptScores3.get(3).getScore());
+        // assertEquals(OrderedConceptRubric.UNPREPARED,conceptScores3.get(4).getScore());
+
+
     }
 
     @Test
@@ -357,30 +378,49 @@ class QuestionChooserByOrderedConceptsTest{
         
         DomainDatasource domainDatasource = new DomainDatasourceJson("example","src/test/resources/rewrite/QuestionChooserSampleQuestionsFollowUp.json");
         QuestionChooserByOrderedConcepts questionChooser = new QuestionChooserByOrderedConcepts(domainDatasource.retrieveAllConcepts(),3);
-        StudentModelDatasourceJson studentModelDatasource = new StudentModelDatasourceJson("chooserExample", "src/test/resources/rewrite/questionChooserSampleStudents", new JsonIoHelperDefault());
         
-        // StudentModelJson newStudentModel = studentModelDatasource.getStudentModel("newStudent");
-        // QuestionHistorySummary qhs = new QuestionHistorySummary(newStudentModel.getQuestionHistories().values(), domainDatasource);
-        // assertFalse(questionChooser.checkNextFollowUpQuestionAtLeastDeveloping(newStudentModel, domainDatasource, qhs));
+        List<ConceptRubricPair> conceptScores1 = new ArrayList<>();
+        conceptScores1.add(new ConceptRubricPair("sky",OrderedConceptRubric.DEVELOPING));
+        conceptScores1.add(new ConceptRubricPair("math",OrderedConceptRubric.UNPREPARED));
+        conceptScores1.add(new ConceptRubricPair("major",OrderedConceptRubric.UNPREPARED));
+        conceptScores1.add(new ConceptRubricPair("year",OrderedConceptRubric.UNPREPARED));
+        conceptScores1.add(new ConceptRubricPair("google",OrderedConceptRubric.UNPREPARED));
 
-        // StudentModelJson fqUnprepared = studentModelDatasource.getStudentModel("firstConceptDeveloping");
-        // qhs = new QuestionHistorySummary(fqUnprepared.getQuestionHistories().values(), domainDatasource);
-        // questionChooser.updateConceptScoresBasedOnPerformanceData(fqUnprepared, domainDatasource);
-        // questionChooser.updateConceptScoresBasedOnComparativeResults();
-        // assertFalse(questionChooser.checkNextFollowUpQuestionAtLeastDeveloping(fqUnprepared, domainDatasource, qhs));
-        
-        
-        // StudentModelJson fqDeveloping = studentModelDatasource.getStudentModel("firstConceptCompetentStudent");
-        // qhs = new QuestionHistorySummary(fqDeveloping.getQuestionHistories().values(), domainDatasource);
-        // questionChooser.updateConceptScoresBasedOnPerformanceData(fqDeveloping, domainDatasource);
-        // questionChooser.updateConceptScoresBasedOnComparativeResults();
-        // assertTrue(questionChooser.checkNextFollowUpQuestionAtLeastDeveloping(fqDeveloping, domainDatasource, qhs));
+        // Question w/ no followup
+        assertFalse(questionChooser.hasUnpreparedFollowUpQuestions(conceptScores1,domainDatasource.getQuestion("skyQ1")));
 
-        // StudentModelJson fqDeveloping2 = studentModelDatasource.getStudentModel("firstConceptExemplaryStudent");
-        // qhs = new QuestionHistorySummary(fqDeveloping2 .getQuestionHistories().values(), domainDatasource);
-        // questionChooser.updateConceptScoresBasedOnPerformanceData(fqDeveloping2 , domainDatasource);
-        // questionChooser.updateConceptScoresBasedOnComparativeResults();
-        // assertTrue(questionChooser.checkNextFollowUpQuestionAtLeastDeveloping( fqDeveloping2, domainDatasource, qhs));
+        // Question w/ followup unprepared
+        assertTrue(questionChooser.hasUnpreparedFollowUpQuestions(conceptScores1, domainDatasource.getQuestion("skyQ3")));
+        
+        // Question w/ followup prepared
+        conceptScores1.set(1,new ConceptRubricPair("math",OrderedConceptRubric.DEVELOPING));
+        assertFalse(questionChooser.hasUnpreparedFollowUpQuestions(conceptScores1, domainDatasource.getQuestion("skyQ3")));
+
+    }
+
+    @Test
+    public void findScoreByConceptTest(){
+        List<ConceptRubricPair> conceptScores1 = new ArrayList<>();
+        conceptScores1.add(new ConceptRubricPair("sky",OrderedConceptRubric.DEVELOPING));
+        conceptScores1.add(new ConceptRubricPair("math",OrderedConceptRubric.UNPREPARED));
+        conceptScores1.add(new ConceptRubricPair("major",OrderedConceptRubric.UNPREPARED));
+        conceptScores1.add(new ConceptRubricPair("year",OrderedConceptRubric.UNPREPARED));
+        conceptScores1.add(new ConceptRubricPair("google",OrderedConceptRubric.UNPREPARED));
+
+        // first concept
+        assertEquals(OrderedConceptRubric.DEVELOPING,QuestionChooserByOrderedConcepts.findScoreByConcept(conceptScores1, "sky"));
+        
+        // last concept
+        assertEquals(OrderedConceptRubric.UNPREPARED,QuestionChooserByOrderedConcepts.findScoreByConcept(conceptScores1, "google"));
+
+        // duplicate concept
+        conceptScores1.add(new ConceptRubricPair("google",OrderedConceptRubric.UNPREPARED));
+        assertThrows(RuntimeException.class, () -> QuestionChooserByOrderedConcepts.findScoreByConcept(conceptScores1, "google"));
+
+        // concept not in conceptScores
+        assertThrows(RuntimeException.class, () -> QuestionChooserByOrderedConcepts.findScoreByConcept(conceptScores1, "notFound"));
+
+
     }
     
 }

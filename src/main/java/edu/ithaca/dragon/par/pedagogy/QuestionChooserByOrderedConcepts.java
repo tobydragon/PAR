@@ -122,7 +122,7 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
         return conceptScores;
     }
 
-    public OrderedConceptRubric findScoreByConcept(List<ConceptRubricPair>conceptScores, String concept){
+    public static OrderedConceptRubric findScoreByConcept(List<ConceptRubricPair>conceptScores, String concept){
 
         List<OrderedConceptRubric> scoreListSize1 = conceptScores.stream().filter(cs ->cs.getConcept().equalsIgnoreCase(concept))
             .map(conceptScore -> conceptScore.getScore())
@@ -130,6 +130,9 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
 
         if(scoreListSize1.size()>1){
             throw new RuntimeException("error: duplicate concepts in scoring list");
+        }
+        else if(scoreListSize1.size()<1){
+            throw new RuntimeException("error: concept not found in list");
         }
         else{
             return scoreListSize1.get(0);
