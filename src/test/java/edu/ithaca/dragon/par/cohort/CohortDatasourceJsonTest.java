@@ -19,7 +19,7 @@ public class CohortDatasourceJsonTest {
         CohortDatasourceJson sample1 = new CohortDatasourceJson(
             "allCohorts",
             tempDir.toString() + "/sampleCohorts.json",
-            "src/test/resources/rewrite/sampleCohorts.json",
+            "src/test/resources/rewrite/SampleCohorts.json",
             new JsonIoHelperDefault()
         );
 

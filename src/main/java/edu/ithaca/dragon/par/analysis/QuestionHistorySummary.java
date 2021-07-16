@@ -12,18 +12,18 @@ import java.util.List;
 //TODO: can make these: across everyone for all types or certain type, for 1 student for all types or certain type, window size too
 public class QuestionHistorySummary {
     private List<String> questionIdsSeen;
-    private List<String> questionsRespondedTo;
-    private List<String> questionsCorrect;
-    private List<String> questionsCorrectAfterIncorrect;
-    private List<String> questionsIncorrect;
+    private List<String> questionIdsRespondedTo;
+    private List<String> questionIdsCorrectFirstTime;
+    private List<String> questionIdsCorrectAfterIncorrect;
+    private List<String> questionIdsIncorrect;
 
 
     public QuestionHistorySummary(Collection<QuestionHistory> questionHistoryCollection, DomainDatasource domainData){
         questionIdsSeen = buildQuestionIdsSeen(questionHistoryCollection);
-        questionsRespondedTo = checkQuestionsRespondedTo(questionHistoryCollection);
-        questionsCorrect = findQuestionsCorrect(questionHistoryCollection, domainData);
-        questionsIncorrect = findQuestionsIncorrect(questionHistoryCollection, domainData);
-        questionsCorrectAfterIncorrect = findQuestionsCorrectAfterIncorrect(questionHistoryCollection, domainData);
+        questionIdsRespondedTo = checkQuestionIdsRespondedTo(questionHistoryCollection);
+        questionIdsCorrectFirstTime = findQuestionIdsCorrectFirstTime(questionHistoryCollection, domainData);
+        questionIdsIncorrect = findQuestionIdsIncorrect(questionHistoryCollection, domainData);
+        questionIdsCorrectAfterIncorrect = findQuestionIdsCorrectAfterIncorrect(questionHistoryCollection, domainData);
     }
 
     public static List<String> buildQuestionIdsSeen(Collection<QuestionHistory> questionHistoryCollection){
@@ -40,7 +40,7 @@ public class QuestionHistorySummary {
         return questionIdsList;
     }
 
-    public static List<String> checkQuestionsRespondedTo(Collection<QuestionHistory> questionHistoryCollection){
+    public static List<String> checkQuestionIdsRespondedTo(Collection<QuestionHistory> questionHistoryCollection){
         List<String> questionsRespondedList = new ArrayList<String>();
 
         for(QuestionHistory questionHist : questionHistoryCollection){
@@ -51,7 +51,7 @@ public class QuestionHistorySummary {
         return questionsRespondedList;
     }
 
-    public static List<String> findQuestionsCorrect(Collection<QuestionHistory> questionHistoryCollection, DomainDatasource domainData){
+    public static List<String> findQuestionIdsCorrectFirstTime(Collection<QuestionHistory> questionHistoryCollection, DomainDatasource domainData){
         List<String> correctList = new ArrayList<String>();
         List<QuestionHistory> historyOfQuestions = QuestionHistorySummary.findAllHistoriesWithResponses(questionHistoryCollection);
         
@@ -65,28 +65,35 @@ public class QuestionHistorySummary {
         return correctList;
     }
 
-    public static List<String> findQuestionsIncorrect(Collection<QuestionHistory> questionHistoryCollection, DomainDatasource domainData){
+    public static List<String> findQuestionIdsIncorrect(Collection<QuestionHistory> questionHistoryCollection, DomainDatasource domainData){
         List<String> incorrectList = new ArrayList<String>();
         List<QuestionHistory> historyOfQuestions = QuestionHistorySummary.findAllHistoriesWithResponses(questionHistoryCollection);
-
         for (QuestionHistory questionHist : historyOfQuestions){
-            String correctAnswer = domainData.getQuestion(questionHist.getQuestionId()).getCorrectAnswer();
-            if (!questionHist.responses.iterator().next().getResponseText().equals(correctAnswer)){
+            boolean hasCorrectAnswer = false;
+
+            for(Response questionResponse : questionHist.responses){
+                String correctAnswer = domainData.getQuestion(questionHist.getQuestionId()).getCorrectAnswer();
+                if (questionResponse.getResponseText().equals(correctAnswer) ){
+                    hasCorrectAnswer = true;
+                }
+            }
+            if (!hasCorrectAnswer){
                 incorrectList.add(questionHist.getQuestionId());
             }
         }
+        
         return incorrectList;
     }
 
 
-    public static List<String> findQuestionsCorrectAfterIncorrect(Collection<QuestionHistory> questionHistoryCollection, DomainDatasource domainData){
+    public static List<String> findQuestionIdsCorrectAfterIncorrect(Collection<QuestionHistory> questionHistoryCollection, DomainDatasource domainData){
         List<String> correctAfterIncorrect = new ArrayList<String>();
         List<QuestionHistory> historyOfQuestions = QuestionHistorySummary.findAllHistoriesWithResponses(questionHistoryCollection);
         
         for (QuestionHistory questionHist : historyOfQuestions){
             for(Response questionResponse : questionHist.responses){
                 String correctAnswer = domainData.getQuestion(questionHist.getQuestionId()).getCorrectAnswer();
-                if (questionResponse.getResponseText().equals(correctAnswer)){
+                if (questionResponse.getResponseText().equals(correctAnswer) && !questionHist.responses.get(0).getResponseText().equals(correctAnswer)){
                     correctAfterIncorrect.add(questionHist.getQuestionId()); 
                 }
             }
@@ -110,19 +117,19 @@ public class QuestionHistorySummary {
         return questionIdsSeen;
     }
 
-    public List<String> getQuestionsRespondedTo() {
-        return questionsRespondedTo;
+    public List<String> getQuestionIdsRespondedTo() {
+        return questionIdsRespondedTo;
     }
 
-    public List<String> getQuestionsCorrect() {
-        return questionsCorrect;
+    public List<String> getQuestionIdsCorrectFirstTime() {
+        return questionIdsCorrectFirstTime;
     }
 
-    public List<String> getQuestionsIncorrect(){
-        return questionsIncorrect;
+    public List<String> getQuestionIdsIncorrect(){
+        return questionIdsIncorrect;
     }
 
-    public List<String> getQuestionsCorrectAfterIncorrect(){
-        return questionsCorrectAfterIncorrect;
+    public List<String> getQuestionIdsCorrectAfterIncorrect(){
+        return questionIdsCorrectAfterIncorrect;
     }
 }

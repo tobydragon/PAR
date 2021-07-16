@@ -1,0 +1,12 @@
+{
+    "studentId" : "firstConceptDeveloping",
+    "questionHistories" : { 
+        "skyQ1" : {
+          "questionId" : "skyQ1",
+          "timesSeen" : [ 1623971804511 ],
+          "responses" : [ {"responseText" : "blue",
+            "millSeconds" : 1623988888888} ]
+        }
+    }
+    
+}

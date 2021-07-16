@@ -1,7 +1,16 @@
 package edu.ithaca.dragon.par.student.json;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
+import edu.ithaca.dragon.par.analysis.QuestionHistorySummary;
+import edu.ithaca.dragon.par.domain.DomainDatasourceJson;
+import edu.ithaca.dragon.par.domain.DomainDatasourceSimple;
+import edu.ithaca.dragon.par.domain.Question;
+import edu.ithaca.dragon.util.JsonUtil;
+
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -26,5 +35,20 @@ class StudentModelTest {
         assertEquals(8000L, poor.checkTimeLastSeen("majorQ"));
         assertEquals(11000L, poor.checkTimeLastSeen("yearQ"));
 
+    }
+
+    @Test
+    public void ToAndFromJsonTest() throws IOException{
+        StudentModelJson improvingStudent = new StudentModelJson("improvingStudent", QuestionHistoryTest.improvingStudent());
+        DomainDatasourceSimple domainData = new DomainDatasourceSimple(JsonUtil.listFromJsonFile("src/test/resources/rewrite/SampleQuestions.json", Question.class));
+        QuestionHistorySummary qhs = new QuestionHistorySummary(improvingStudent.getQuestionHistories().values(), domainData);
+
+        assertEquals(5, qhs.getQuestionIdsSeen().size());
+        assertEquals(4, qhs.getQuestionIdsRespondedTo().size());  
+        assertTrue(qhs.getQuestionIdsCorrectFirstTime().contains("mathQ"));
+        assertTrue(qhs.getQuestionIdsCorrectFirstTime().contains("majorQ"));
+
+        
+        
     }
 }

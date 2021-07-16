@@ -32,12 +32,14 @@ public class StudentModelDatasourceJson implements StudentModelDatasource {
         }
         return false;
     }
+    //TODO: Acknowledge studentId
 
     @Override
     public void addTimeSeen(String studentId, String questionId) {
         StudentModelJson studentModel =  getStudentModel(studentId);
         studentModel.addTimeSeen(questionId);
         overwriteStudentFile(studentModel);
+
     }
 
     @Override
@@ -70,7 +72,7 @@ public class StudentModelDatasourceJson implements StudentModelDatasource {
                 if (studentModel != null) {
                     studentMap.put(studentId, studentModel);
                 } else {
-                    throw new IllegalArgumentException("No student model for id:" + studentId);
+                    throw new IllegalArgumentException("StudentModel file unable to load for ID: " + studentId);
                 }
             }
             catch(IOException e){

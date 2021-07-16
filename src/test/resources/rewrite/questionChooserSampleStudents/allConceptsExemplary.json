@@ -1,0 +1,72 @@
+{
+    "studentId" : "allConceptsExemplary",
+    "questionHistories" : { 
+        "skyQ1" : {
+          "questionId" : "skyQ1",
+          "timesSeen" : [ 1623971804511 ],
+          "responses" : [ {"responseText" : "blue",
+            "millSeconds" : 1623988888888} ]
+        },
+        "skyQ2" : {
+          "questionId" : "skyQ2",
+          "timesSeen" : [ 1623971804511 ],
+          "responses" : [ {"responseText" : "yellow",
+            "millSeconds" : 1623988888888} ]
+        }, 
+        "skyQ3" : {
+          "questionId" : "skyQ3",
+          "timesSeen" : [ 1623971804511 ],
+          "responses" : [ {"responseText" : "white/grey",
+            "millSeconds" : 1623988888888} ]
+        },
+        "mathQ1" : {
+          "questionId" : "mathQ1",
+          "timesSeen" : [ 1623971804511 ],
+          "responses" : [ {"responseText" : "4",
+            "millSeconds" : 1623988888888} ]
+        },
+        "mathQ2" : {
+          "questionId" : "mathQ2",
+          "timesSeen" : [ 1623971804511 ],
+          "responses" : [ {"responseText" : "2",
+            "millSeconds" : 1623988888888} ]
+        },
+        "majorQ1" : {
+          "questionId" : "majorQ1",
+          "timesSeen" : [ 1623971804511 ],
+          "responses" : [ {"responseText" : "CS",
+            "millSeconds" : 1623988888888} ]
+        },
+        "majorQ2" : {
+          "questionId" : "majorQ2",
+          "timesSeen" : [ 1623971804511 ],
+          "responses" : [ {"responseText" : "220",
+            "millSeconds" : 1623988888888} ]
+        },
+        "yearQ1" : {
+          "questionId" : "yearQ1",
+          "timesSeen" : [ 1623971804511 ],
+          "responses" : [ {"responseText" : "2020",
+            "millSeconds" : 1623988888888} ]
+        },
+        "yearQ2" : {
+          "questionId" : "yearQ2",
+          "timesSeen" : [ 1623971804511 ],
+          "responses" : [ {"responseText" : "2022",
+              "millSeconds" : 1623988888888} ]
+        },
+        "googleQ1" : {
+          "questionId" : "googleQ1",
+          "timesSeen" : [ 1623971804511 ],
+          "responses" : [ {"responseText" : "1998",
+            "millSeconds" : 1623988888888} ]
+        },
+        "googleQ2" : {
+          "questionId" : "googleQ2",
+          "timesSeen" : [ 1623971804511 ],
+          "responses" : [ {"responseText" : "orange",
+            "millSeconds" : 1623988888888} ]
+        }
+    }
+    
+}

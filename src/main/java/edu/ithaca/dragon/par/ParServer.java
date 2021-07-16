@@ -1,12 +1,17 @@
 package edu.ithaca.dragon.par;
 
+import java.util.Collection;
 import java.util.List;
 
+import edu.ithaca.dragon.par.analysis.QuestionHistorySummary;
 import edu.ithaca.dragon.par.cohort.Cohort;
 import edu.ithaca.dragon.par.cohort.CohortDatasource;
 import edu.ithaca.dragon.par.domain.Question;
 import edu.ithaca.dragon.par.domain.DomainDatasource;
 import edu.ithaca.dragon.par.student.StudentModelDatasource;
+import edu.ithaca.dragon.par.student.json.QuestionHistory;
+import edu.ithaca.dragon.par.student.json.StudentModelJson;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -30,6 +35,11 @@ public class ParServer {
 
     public List<String> getCohortIds(){
         return cohortDatasource.getCohortIds();
+    }
+
+    public QuestionHistorySummary getQuestionHistorySummary(String studentId){    
+        logger.info("QuestionHistorySummary for:" + studentId);    
+        return new QuestionHistorySummary(studentModelDatasource.getStudentModel(studentId).getQuestionHistories().values(), domainDatasource);
     }
 
     public void addNewUser(String studentId, String cohortId){
