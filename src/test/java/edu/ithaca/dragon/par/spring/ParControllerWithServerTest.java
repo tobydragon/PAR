@@ -97,12 +97,10 @@ public class ParControllerWithServerTest {
         );
     }
 
-    
     @Test
     public void contextLoads() throws Exception{
         assertThat(this.parController).isNotNull();
     }
-
 
     @Test
     public void greetingFromServerTest(){
@@ -122,58 +120,6 @@ public class ParControllerWithServerTest {
     public void getCohortIdsTest(){
         assertThat(this.parController.getCohortIds().contains("inOrder")).isTrue();
         assertThat(this.parController.getCohortIds().contains("byOutOfOrderConcepts")).isFalse();
-    }
-
-    @Test
-    public void getCurrentQuestionTest(@TempDir Path tempDir) throws IOException{
-        
-        Question questionToBeAsked1 = this.parController.getCurrentQuestion("bocTest");
-        assertThat(questionToBeAsked1.getType()).isEqualTo("plane");
-        assertThat(questionToBeAsked1.getId()).isEqualTo("614-plane-./images/3CTransverse.jpg");
-
-        Path questionPoolFile = tempDir.resolve("current220QuestionPool.json");
-        Files.copy(Paths.get("src/test/resources/rewrite/testServerData/current220QuestionPool.json"),questionPoolFile);
-        Path studentDirectory = tempDir.resolve("student");
-        FileUtils.copyDirectory(new File("src/test/resources/rewrite/testServerData/student"),studentDirectory.toFile());
-        
-        
-
-        ParController parController220 = new ParController(
-            new ParServer(
-                new DomainDatasourceJson(
-                "Comp220",
-                questionPoolFile.toString(),
-                "src/test/resources/rewrite/testServerData/current220QuestionPool.json",
-                new JsonIoHelperDefault()
-                ),
-
-                new StudentModelDatasourceJson(
-                "allTestStudents",
-                studentDirectory.toString(),
-                new JsonIoHelperDefault()
-                ),
-
-                //TODO: remove default users from cohort datastores once there is a viable way to add students
-                new CohortDatasourceJson(
-                    "allCohorts",
-                    cohortFile.toString(),
-                    "src/test/resources/rewrite/testServerData/currentCohorts.json",
-                    new JsonIoHelperDefault()
-                )
-            
-            )
-        );
-        
-        Question questionToBeAsked2 = parController220.getCurrentQuestion("comp220Test");
-        assertThat(questionToBeAsked2.getType()).isEqualTo("Queue");
-        assertThat(questionToBeAsked2.getId()).isEqualTo("QueueQ1");
-        assertThat(questionToBeAsked2.getFollowupQuestions().size()).isEqualTo(1);
-
-        Question questionToBeAsked3 = parController220.getCurrentQuestion("comp220Test1");
-        assertThat(questionToBeAsked3.getType()).isEqualTo("Queue");
-        assertThat(questionToBeAsked3.getId()).isEqualTo("QueueQ1");
-        assertThat(questionToBeAsked3.getFollowupQuestions().size()).isEqualTo(0);
-
     }
 
     @Test
@@ -212,4 +158,53 @@ public class ParControllerWithServerTest {
         assertTrue(this.parController.addResponse(new StudentResponseAction("o1", "850-structure3-./images/Annotated2Long.jpg", "response2")));
     }
 
+    @Test
+    public void getCurrentQuestionTest(@TempDir Path tempDir) throws IOException{
+        
+        Question questionToBeAsked1 = this.parController.getCurrentQuestion("bocTest");
+        assertThat(questionToBeAsked1.getType()).isEqualTo("plane");
+        assertThat(questionToBeAsked1.getId()).isEqualTo("614-plane-./images/3CTransverse.jpg");
+
+        Path questionPoolFile = tempDir.resolve("current220QuestionPool.json");
+        Files.copy(Paths.get("src/test/resources/rewrite/testServerData/current220QuestionPool.json"),questionPoolFile);
+        Path studentDirectory = tempDir.resolve("student");
+        FileUtils.copyDirectory(new File("src/test/resources/rewrite/testServerData/student"),studentDirectory.toFile());
+        
+        ParController parController220 = new ParController(
+            new ParServer(
+                new DomainDatasourceJson(
+                "Comp220",
+                questionPoolFile.toString(),
+                "src/test/resources/rewrite/testServerData/current220QuestionPool.json",
+                new JsonIoHelperDefault()
+                ),
+
+                new StudentModelDatasourceJson(
+                "allTestStudents",
+                studentDirectory.toString(),
+                new JsonIoHelperDefault()
+                ),
+
+                //TODO: remove default users from cohort datastores once there is a viable way to add students
+                new CohortDatasourceJson(
+                    "allCohorts",
+                    cohortFile.toString(),
+                    "src/test/resources/rewrite/testServerData/currentCohorts.json",
+                    new JsonIoHelperDefault()
+                )
+            
+            )
+        );
+        
+        Question questionToBeAsked2 = parController220.getCurrentQuestion("comp220Test");
+        assertThat(questionToBeAsked2.getType()).isEqualTo("Queue");
+        assertThat(questionToBeAsked2.getId()).isEqualTo("QueueQ1");
+        assertThat(questionToBeAsked2.getFollowupQuestions().size()).isEqualTo(1);
+
+        Question questionToBeAsked3 = parController220.getCurrentQuestion("comp220Test1");
+        assertThat(questionToBeAsked3.getType()).isEqualTo("Queue");
+        assertThat(questionToBeAsked3.getId()).isEqualTo("QueueQ1");
+        assertThat(questionToBeAsked3.getFollowupQuestions().size()).isEqualTo(0);
+
+    }
 }
