@@ -39,15 +39,31 @@ public class DomainDatasourceJson implements  DomainDatasource{
     }
     //TODO: For Loop --> Recursive call
     //Base Case: If there is no follow-up, return top level
+    //Recursion: Check the length of follow-up question
 
     public Question getQuestion(String id){
         for (Question question: questions){
-            if (question.getId().equalsIgnoreCase(id)){
-                return question;
+            Question potentialFollowUp = getQuestionRecursive(id, question);
+            if (potentialFollowUp != null){
+                return potentialFollowUp;
             }
         }
         throw new IllegalArgumentException("No question found, bad ID:" + id);
+    }
 
+    public static Question getQuestionRecursive(String id, Question question){
+        if (question.getId().equalsIgnoreCase(id)){
+            return question;
+        }
+        else{
+            for (Question followUp : question.getFollowupQuestions()){
+                Question potentialFollowUp = getQuestionRecursive(id, followUp);
+                if (potentialFollowUp != null){
+                    return potentialFollowUp;
+                }
+            }
+            return null;
+        }
     }
 
     @Override

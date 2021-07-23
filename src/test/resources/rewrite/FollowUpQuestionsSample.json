@@ -1,0 +1,54 @@
+[{
+    "id" : "skyQ",
+    "type" : "sky",
+    "questionText" : "What color is the sky?",
+    "correctAnswer" : "blue",
+    "possibleAnswers" : [ "blue", "orange" ],
+    "imageUrl" : "./images/3CTransverse.jpg",
+    "followupQuestions" : [ ]
+  }, {
+    "id" : "mathQ1",
+    "type" : "math",
+    "questionText" : "mathQ1",
+    "correctAnswer" : "2",
+    "possibleAnswers" : [ "2", "3", "4"],
+    "imageUrl" : "./images/3CTransverse.jpg",
+    "followupQuestions" : [ 
+        {
+            "id" : "mathFQ1",
+            "type" : "math",
+            "questionText" : "mathFQ1",
+            "correctAnswer" : "2",
+            "possibleAnswers" : [ "2", "3", "4"],
+            "imageUrl" : "./images/3CTransverse.jpg",
+            "followupQuestions" : [ 
+                {
+                "id" : "mathFFQ1",
+                "type" : "math",
+                "questionText" : "mathFFQ1",
+                "correctAnswer" : "2",
+                "possibleAnswers" : [ "2", "3", "4"],
+                "imageUrl" : "./images/3CTransverse.jpg",
+                "followupQuestions" : [ ]
+              }]
+          }, 
+          {
+            "id" : "mathFQ2",
+            "type" : "math",
+            "questionText" : "mathFQ2",
+            "correctAnswer" : "2",
+            "possibleAnswers" : [ "2", "3", "4"],
+            "imageUrl" : "./images/3CTransverse.jpg",
+            "followupQuestions" : [ ]
+          }
+    ]
+  }, {
+    "id" : "majorQ",
+    "type" : "major",
+    "questionText" : "What is your major?",
+    "correctAnswer" : "CS",
+    "possibleAnswers" : [ "CS", "ENG", "MATH"],
+    "imageUrl" : "./images/3CTransverse.jpg",
+    "followupQuestions" : [ ]
+  }
+]
