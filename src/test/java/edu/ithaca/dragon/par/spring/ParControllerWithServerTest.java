@@ -17,10 +17,7 @@ import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import edu.ithaca.dragon.par.ParServer;
 import edu.ithaca.dragon.par.analysis.QuestionHistorySummary;
@@ -36,23 +33,10 @@ import edu.ithaca.dragon.par.student.json.StudentModelDatasourceJson;
 import edu.ithaca.dragon.util.JsonIoHelperDefault;
 import edu.ithaca.dragon.util.JsonIoUtil;
 
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.web.server.LocalServerPort;
-
-
-
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest (webEnvironment = WebEnvironment.RANDOM_PORT)
+// @SpringBootTest (webEnvironment = WebEnvironment.RANDOM_PORT)
 public class ParControllerWithServerTest {
     
     private ParController parController;
-
-    @Autowired
-    private TestRestTemplate restTemplate;
-
-    @LocalServerPort 
-    private int port;
 
     private Path cohortFile;
 
