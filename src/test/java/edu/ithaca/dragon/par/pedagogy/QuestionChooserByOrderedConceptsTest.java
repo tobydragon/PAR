@@ -132,15 +132,18 @@ class QuestionChooserByOrderedConceptsTest{
         
         
         // followup question results in exception thrown for invalid question id
+        DomainDatasource domainDatasource2 = new DomainDatasourceJson("example","src/test/resources/rewrite/QuestionChooserSampleQuestionsFollowUp.json");
         StudentModelJson firstConceptFQAnswered = studentModelDatasource.getStudentModel("firstConceptFQAnswered");
-        QuestionChooserByOrderedConcepts questionChooser1 = new QuestionChooserByOrderedConcepts(domainDatasource.retrieveAllConcepts(),3);
-        assertThrows(IllegalArgumentException.class, () -> questionChooser1.updateConceptScoresBasedOnPerformanceData(conceptScores3, firstConceptFQAnswered, domainDatasource));
+        QuestionChooserByOrderedConcepts questionChooser1 = new QuestionChooserByOrderedConcepts(domainDatasource2.retrieveAllConcepts(),3);
+        // assertThrows(IllegalArgumentException.class, () -> questionChooser1.updateConceptScoresBasedOnPerformanceData(conceptScores3, firstConceptFQAnswered, domainDatasource));
 
-        // assertEquals(OrderedConceptRubric.COMPETENT,conceptScores3.get(0).getScore());
-        // assertEquals(OrderedConceptRubric.DEVELOPING,conceptScores3.get(1).getScore());
-        // assertEquals(OrderedConceptRubric.UNPREPARED,conceptScores3.get(2).getScore());
-        // assertEquals(OrderedConceptRubric.UNPREPARED,conceptScores3.get(3).getScore());
-        // assertEquals(OrderedConceptRubric.UNPREPARED,conceptScores3.get(4).getScore());
+        questionChooser1.updateConceptScoresBasedOnPerformanceData(conceptScores3,firstConceptFQAnswered, domainDatasource2);
+        
+        assertEquals(OrderedConceptRubric.COMPETENT,conceptScores3.get(0).getScore());
+        assertEquals(OrderedConceptRubric.DEVELOPING,conceptScores3.get(1).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,conceptScores3.get(2).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,conceptScores3.get(3).getScore());
+        assertEquals(OrderedConceptRubric.UNPREPARED,conceptScores3.get(4).getScore());
 
 
     }
