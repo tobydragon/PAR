@@ -8,4 +8,5 @@ public class StudentAction {
         this.studentId = studentId;
         this.questionId = questionId;
     }
+    public StudentAction(){}
 }

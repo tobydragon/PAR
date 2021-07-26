@@ -11,4 +11,6 @@ public class StudentResponseAction {
         this.responseText = responseText;
     }
 
+    public StudentResponseAction(){}
+
 }
