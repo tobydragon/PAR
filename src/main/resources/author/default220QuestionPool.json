@@ -7,21 +7,21 @@
   "imageUrl" : "./images/220/UML.jpg",
   "followupQuestions" : [ ]
 }, {
+  "id" : "InterfaceUMLQ2",
+  "type" : "InterfaceUML",
+  "questionText" : "Which interface does a Queue implement?",
+  "correctAnswer" : "Queue",
+  "possibleAnswers" : [ "Collections", "Iterables", "Queue" ],
+  "imageUrl" : "./images/220/UML.jpg",
+  "followupQuestions" : [ ]
+}, {
   "id" : "QueueQ1",
   "type" : "Queue",
   "questionText" : "A Queue is a(n)...",
   "correctAnswer" : "abstract datatype",
   "possibleAnswers" : [ "abstract datatype", "data structure" ],
   "imageUrl" : "./images/220/QueueVStack.jpg",
-  "followupQuestions" : [ {
-    "id" : "InterfaceUMLQ2",
-    "type" : "InterfaceUML",
-    "questionText" : "Which interface does a Queue implement?",
-    "correctAnswer" : "Queue",
-    "possibleAnswers" : [ "Collections", "Iterables", "Queue" ],
-    "imageUrl" : "./images/220/UML.jpg",
-    "followupQuestions" : [ ]
-  } ]
+  "followupQuestions" : [ ]
 }, {
   "id" : "QueueQ2",
   "type" : "Queue",
@@ -38,7 +38,7 @@
   "possibleAnswers" : [ "Last-In, First-Out (LIFO)", "First-In, First-Out (FIFO)" ],
   "imageUrl" : "./images/220/QueueVStack.jpg",
   "followupQuestions" : [ {
-    "id" : "Big-OQ1",
+    "id" : "Big-OQ0",
     "type" : "Big-O",
     "questionText" : "When evaluating the Big-O of enqueuing or dequeuing, what is Big-O describing?",
     "correctAnswer" : "time complexity",
@@ -47,7 +47,7 @@
     "followupQuestions" : [ ]
   } ]
 }, {
-  "id" : "Big-OQ2",
+  "id" : "Big-OQ1",
   "type" : "Big-O",
   "questionText" : "The Big-O notation represents...",
   "correctAnswer" : "worst case",
@@ -55,13 +55,29 @@
   "imageUrl" : "./images/3CTransverse.jpg",
   "followupQuestions" : [ ]
 }, {
+  "id" : "Big-OQ2",
+  "type" : "Big-O",
+  "questionText" : "Which of the following represents the most optimal performance possible?",
+  "correctAnswer" : "O(1)",
+  "possibleAnswers" : [ "O(log N)", "O(1)", "O(N)" ],
+  "imageUrl" : "./images/3CTransverse.jpg",
+  "followupQuestions" : [ ]
+}, {
   "id" : "ArrayQ1",
   "type" : "arrays",
-  "questionText" : "True or False. Arrays in Java are dynamic by default.",
+  "questionText" : "Are Arrays in Java are dynamic by default?",
   "correctAnswer" : "False",
   "possibleAnswers" : [ "True", "False" ],
   "imageUrl" : "./images/220/Arrays.jpg",
-  "followupQuestions" : [ ]
+  "followupQuestions" : [ {
+    "id" : "ArrayQueueQ0",
+    "type" : "arrayQueues",
+    "questionText" : "What should happen when you enqueue a new item?",
+    "correctAnswer" : "Overflow",
+    "possibleAnswers" : [ "Overflow", "Underflow", "Nothing" ],
+    "imageUrl" : "./images/220/Arrays.jpg",
+    "followupQuestions" : [ ]
+  } ]
 }, {
   "id" : "ArrayQ2",
   "type" : "arrays",
@@ -77,15 +93,31 @@
   "correctAnswer" : "O(N)",
   "possibleAnswers" : [ "O(N)", "O(1)", "O(N^2)" ],
   "imageUrl" : "./images/220/Arrays.jpg",
-  "followupQuestions" : [ {
-    "id" : "ArrayQueueQ1",
-    "type" : "arrayQueues",
-    "questionText" : "What happens when you enqueue a new item?",
-    "correctAnswer" : "Overflow",
-    "possibleAnswers" : [ "Overflow", "Underflow", "Nothing" ],
-    "imageUrl" : "./images/220/Arrays.jpg",
-    "followupQuestions" : [ ]
-  } ]
+  "followupQuestions" : [ ]
+}, {
+  "id" : "ArrayQueueQ1",
+  "type" : "arrayQueues",
+  "questionText" : "If time complexity of enqueuing at the front is O(1), then dequeuing must be?",
+  "correctAnswer" : "O(N)",
+  "possibleAnswers" : [ "O(1)", "O(N)" ],
+  "imageUrl" : "./images/220/Arrays.jpg",
+  "followupQuestions" : [ ]
+}, {
+  "id" : "ArrayQueueQ2",
+  "type" : "arrayQueues",
+  "questionText" : "If the time complexity of dequeuing at the front is O(1), then enqueuing at the end must be?",
+  "correctAnswer" : "O(N)",
+  "possibleAnswers" : [ "O(1)", "O(N)" ],
+  "imageUrl" : "./images/220/Arrays.jpg",
+  "followupQuestions" : [ ]
+}, {
+  "id" : "ArrayQueueQ3",
+  "type" : "arrayQueues",
+  "questionText" : "In both situations, are the items are shifted in the array after enqueuing / dequeuing?",
+  "correctAnswer" : "True",
+  "possibleAnswers" : [ "True", "False" ],
+  "imageUrl" : "./images/220/Arrays.jpg",
+  "followupQuestions" : [ ]
 }, {
   "id" : "LinkedNodeQ1",
   "type" : "linkedNodes",
@@ -101,65 +133,25 @@
   "correctAnswer" : "O(1)",
   "possibleAnswers" : [ "O(N)", "O(1)", "O(N^2)" ],
   "imageUrl" : "./images/220/LinkedNodes.jpg",
-  "followupQuestions" : [ ]
-}, {
-  "id" : "LinkedNodeQ3",
-  "type" : "linkedNodes",
-  "questionText" : "The big-O of inserting an element at the front is same as inserting at the end.",
-  "correctAnswer" : "False",
-  "possibleAnswers" : [ "True", "False" ],
-  "imageUrl" : "./images/220/LinkedNodes.jpg",
-  "followupQuestions" : [ ]
-}, {
-  "id" : "ArrayQueueQ2",
-  "type" : "arrayQueues",
-  "questionText" : "If time complexity of enqueuing at the front is O(1), then dequeuing must be?",
-  "correctAnswer" : "O(N)",
-  "possibleAnswers" : [ "O(1)", "O(N)" ],
-  "imageUrl" : "./images/220/Arrays.jpg",
   "followupQuestions" : [ {
-    "id" : "ArrayQueueQ3",
-    "type" : "arrayQueues",
-    "questionText" : "If the time complexity of dequeuing at the front is O(1), then enqueuing must be?",
-    "correctAnswer" : "O(N)",
-    "possibleAnswers" : [ "O(1)", "O(N)" ],
-    "imageUrl" : "./images/220/Arrays.jpg",
+    "id" : "Big-OQ3",
+    "type" : "Big-O",
+    "questionText" : "The big-O of inserting an element at the front is same as inserting at the end.",
+    "correctAnswer" : "False",
+    "possibleAnswers" : [ "True", "False" ],
+    "imageUrl" : "./images/220/LinkedNodes.jpg",
     "followupQuestions" : [ ]
   } ]
 }, {
   "id" : "LinkedQueueQ1",
   "type" : "linkedQueues",
-  "questionText" : "What is the big-O of enqueuing at the end?",
-  "correctAnswer" : "O(1)",
-  "possibleAnswers" : [ "O(N)", "O(1)", "O(log N)" ],
+  "questionText" : "In which order were the items enqueued, according to diagram?",
+  "correctAnswer" : "18, 5, 2, 20, 8",
+  "possibleAnswers" : [ "18, 5, 2, 20, 8", "8, 20, 2, 5, 18" ],
   "imageUrl" : "./images/220/LinkedNodes.jpg",
-  "followupQuestions" : [ {
-    "id" : "LinkedQueueQ2",
-    "type" : "linkedQueues",
-    "questionText" : "What is the big-O of dequeuing at the front?",
-    "correctAnswer" : "O(1)",
-    "possibleAnswers" : [ "O(N)", "O(log n)", "O(1)" ],
-    "imageUrl" : "./images/220/LinkedNodes.jpg",
-    "followupQuestions" : [ {
-      "id" : "LinkedQueueQ3",
-      "type" : "linkedQueues",
-      "questionText" : "Which item is dequeued first, according to diagram?",
-      "correctAnswer" : "18",
-      "possibleAnswers" : [ "18", "8" ],
-      "imageUrl" : "./images/220/LinkedNodes.jpg",
-      "followupQuestions" : [ ]
-    }, {
-      "id" : "LinkedQueueQ4",
-      "type" : "linkedQueues",
-      "questionText" : "In which order were the items enqueued, according to diagram?",
-      "correctAnswer" : "18, 5, 2, 20, 8",
-      "possibleAnswers" : [ "18, 5, 2, 20, 8", "8, 20, 2, 5, 18" ],
-      "imageUrl" : "./images/220/LinkedNodes.jpg",
-      "followupQuestions" : [ ]
-    }]
-  } ]
+  "followupQuestions" : []
 }, {
-  "id" : "LinkedQueueQ5",
+  "id" : "LinkedQueueQ2",
   "type" : "linkedQueues",
   "questionText" : "True or False. Searching through a LinkedList results in O(1) time complexity?",
   "correctAnswer" : "False",
