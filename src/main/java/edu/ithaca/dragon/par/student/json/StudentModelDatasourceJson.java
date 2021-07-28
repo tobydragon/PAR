@@ -43,7 +43,7 @@ public class StudentModelDatasourceJson implements StudentModelDatasource {
     }
 
     @Override
-    public void addResponse(String studentId, String questionId, String newResponseText) {
+    public synchronized void addResponse(String studentId, String questionId, String newResponseText) {
         StudentModelJson studentModel =  getStudentModel(studentId);
         studentModel.addResponse(questionId, newResponseText);
         overwriteStudentFile(studentModel);

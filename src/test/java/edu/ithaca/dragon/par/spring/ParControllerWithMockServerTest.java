@@ -10,7 +10,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import edu.ithaca.dragon.par.ParServer;
-import edu.ithaca.dragon.par.spring.StressTestActionsForUserWorker;
+import edu.ithaca.dragon.par.spring.StressTestAddNewUserForUserWorker;
 import edu.ithaca.dragon.par.cohort.Cohort;
 import edu.ithaca.dragon.par.cohort.CohortDatasourceJson;
 import edu.ithaca.dragon.par.comm.CreateStudentAction;
@@ -324,7 +324,7 @@ public class ParControllerWithMockServerTest {
 
     }
     @Test
-    public void stressActionsForUserTestSameQuestion() throws JsonProcessingException, Exception{
+    public void stressAddNewUserForUserTestSameQuestion() throws JsonProcessingException, Exception{
         int numActionsThreads = 10;
         int numRunIter = 1000;
         List<Thread> actionsForStudentThreads = new ArrayList<>(numActionsThreads);
@@ -336,7 +336,7 @@ public class ParControllerWithMockServerTest {
         StudentModelJson studentModel = (StudentModelJson) studentModelDatasourceConcurrent.getStudentModel(studentId);
 
         for (int i=0;i<numActionsThreads;i++){
-            Thread actionsThread = new Thread(new StressTestActionsForUserWorker("614-plane-./images/3CTransverse.jpg", studentModel.studentId, mockMvcConcurrent,numRunIter));
+            Thread actionsThread = new Thread(new StressTestAddNewUserForUserWorker("614-plane-./images/3CTransverse.jpg", studentModel.studentId, mockMvcConcurrent,numRunIter));
             actionsForStudentThreads.add(actionsThread);
             actionsThread.start();
         }
@@ -358,15 +358,17 @@ public class ParControllerWithMockServerTest {
         List<String> studentModelQuestionResponses = studentModel.getQuestionHistories().get("614-plane-./images/3CTransverse.jpg").responses.stream().map(r -> r.getResponseText()).collect(Collectors.toList());
         int expectedSize = numActionsThreads*numRunIter;
         assertThat(studentModelQuestionResponses.size()).isEqualTo(expectedSize);
-        for(int i=0;i<expectedSize;i++){
-            assertThat(studentModelQuestionResponses.get(i)).isEqualTo("response"+i%numRunIter);
-        }
         assertThat(studentModel.getQuestionHistories().get("614-plane-./images/3CTransverse.jpg").timesSeen.size()).isEqualTo(numActionsThreads*numRunIter);
+        for(int i=0;i<expectedSize;i++){
+            String expectedText = "response"+i%numRunIter;
+            assertThat(studentModelQuestionResponses.stream().filter(rText -> rText.equalsIgnoreCase(expectedText))).isEqualTo(numActionsThreads);
+        }
 
     }
 
     @Test
-    public void stressActionsForUserTestRandomQuestions() throws JsonProcessingException, Exception{
+    public void stressAddTimeSeenAddResponseForUserTestRandomQuestions() throws JsonProcessingException, Exception{
+        // TODO: This test passes inconsistently. It is broken even when passing 
         int numActionsThreads = 20;
         int numRunIter = 100;
         List<Thread> actionsForStudentThreads = new ArrayList<>(numActionsThreads);
@@ -380,7 +382,7 @@ public class ParControllerWithMockServerTest {
         for (int i=0;i<numActionsThreads;i++){
             List<String> domainQuestionIds = domainDatasource.getAllQuestions().stream().map(q->q.getId()).collect(Collectors.toList());
             String questionId = domainQuestionIds.get(r.nextInt(domainQuestionIds.size()));
-            Thread actionsThread = new Thread(new StressTestActionsForUserWorker(questionId, studentId,mockMvcConcurrent,numRunIter));
+            Thread actionsThread = new Thread(new StressTestAddNewUserForUserWorker(questionId, studentId,mockMvcConcurrent,numRunIter));
             actionsForStudentThreads.add(actionsThread);
             actionsThread.start();
         }
@@ -415,13 +417,13 @@ public class ParControllerWithMockServerTest {
     }
 
     @Test
-    public void stressUsersForActionSameCohortTest() throws Exception{
+    public void stressUsersForAddNewUserSameCohortTest() throws Exception{
         int numUserThreads = 10;
         int numRunIter = 100;
         List<Thread> studentsForActionThreads = new ArrayList<>(numUserThreads);
 
         for (int i=0;i<numUserThreads;i++){
-            Thread userThread = new Thread(new StressTestUsersForActionWorker("random", mockMvcConcurrent, i, numRunIter));
+            Thread userThread = new Thread(new StressTestUsersForAddTimeSeenAddResponseWorker("random", mockMvcConcurrent, i, numRunIter));
             studentsForActionThreads.add(userThread);
             userThread.start();
         }
@@ -449,7 +451,6 @@ public class ParControllerWithMockServerTest {
         for (String studentId : studentIds) {
             MvcResult invalidUserId = this.mockMvcConcurrent.perform(get("/api2/isUserIdAvailable?idToCheck="+studentId)).andExpect(status().isOk()).andReturn();
             assertFalse(Boolean.valueOf(invalidUserId.getResponse().getContentAsString()));
-            assertThat(studentModelDatasourceConcurrent.getStudentModel(studentId).getQuestionHistories().size()).isEqualTo(1);
         }
     }
 

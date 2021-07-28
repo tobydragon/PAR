@@ -42,7 +42,7 @@ public class ParServer {
         return new QuestionHistorySummary(studentModelDatasource.getStudentModel(studentId).getQuestionHistories().values(), domainDatasource);
     }
 
-    public void addNewUser(String studentId, String cohortId){
+    public synchronized void addNewUser(String studentId, String cohortId){
         studentModelDatasource.createNewModelForId(studentId);
         cohortDatasource.addStudentToCohort(cohortId, studentId);
 
