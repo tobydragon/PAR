@@ -48,7 +48,7 @@ public class ParServer {
 
     }
 
-    public void addTimeSeen(String studentId, String questionId){
+    public synchronized void addTimeSeen(String studentId, String questionId){
         logger.info("addTimeSeen for : "+studentId + ", " + questionId);
         studentModelDatasource.addTimeSeen(studentId, questionId);
     }
