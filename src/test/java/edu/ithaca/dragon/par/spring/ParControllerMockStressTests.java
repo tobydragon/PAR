@@ -142,8 +142,6 @@ public class ParControllerMockStressTests {
 
     @Test
     public void stressAddTimeSeenAddResponseForUserTestRandomQuestions() throws JsonProcessingException, Exception{
-        // TODO: This test passes inconsistently. It is broken even when passing 
-        // This test passes consistently
         int numActionsThreads = 20;
         int numRunIter = 1000;
         List<Thread> actionsForStudentThreads = new ArrayList<>(numActionsThreads);
