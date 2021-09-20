@@ -273,7 +273,7 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
                 }
             }
         }
-        if(num/denom ==1){
+        if(num/(float)denom > 0.75){
             return true;
         } else {return false;}
     }
