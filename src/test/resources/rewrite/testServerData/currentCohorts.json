@@ -29,7 +29,7 @@
   "byOrderedConcepts220" : {
     "id" : "byOrderedConcepts220",
     "domainId" : "Comp220",
-    "studentIds" : [ "comp220Test", "comp220Test1" ],
+    "studentIds" : [ "comp220Test", "comp220Test1", "comp220Test2" ],
     "questionChooser" : {
       "type" : "QuestionChooserByOrderedConcepts",
       "conceptIds" : [ "InterfaceUML", "Queue", "Big-O","Array","LinkedNode","ArrayQueue","LinkedQueue" ],
