@@ -19,6 +19,12 @@
           "responses" : [ {"responseText" : "white/grey",
             "millSeconds" : 1623988888888} ]
         },
+        "skyQ4" : {
+          "questionId" : "skyQ4",
+          "timesSeen" : [ 1623971804511 ],
+          "responses" : [ {"responseText" : "precipitation",
+            "millSeconds" : 1623988888888} ]
+        },
         "mathQ1" : {
           "questionId" : "mathQ1",
           "timesSeen" : [ 1623971804511 ],

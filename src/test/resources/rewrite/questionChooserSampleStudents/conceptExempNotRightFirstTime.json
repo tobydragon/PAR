@@ -1,0 +1,33 @@
+{
+    "studentId" : "conceptExempNotRightFirstTime",
+    "questionHistories" : { 
+      "skyQ1" : {
+        "questionId" : "skyQ1",
+        "timesSeen" : [ 1623971804511 ],
+        "responses" : [ {"responseText" : "orange",
+            "millSeconds" : 1623977777777}, {"responseText" : "blue",
+          "millSeconds" : 1623988888888} ]
+      },
+      "skyQ2" : {
+        "questionId" : "skyQ2",
+        "timesSeen" : [ 1623999999999 ],
+        "responses" : [ {"responseText" : "red",
+            "millSeconds" : 16239999999999}, {"responseText" : "yellow",
+          "millSeconds" : 1624000000005} ]
+      },
+      "skyQ3" : {
+        "questionId" : "skyQ3",
+        "timesSeen" : [ 1624000000105 ],
+        "responses" : [ {"responseText" : "purple",
+            "millSeconds" : 16239999999999}, {"responseText" : "white/grey",
+          "millSeconds" : 1624000000005} ]
+      },
+      "skyQ4" : {
+        "questionId" : "skyQ4",
+        "timesSeen" : [ 1624000000105 ],
+        "responses" : [ {"responseText" : "perspiration",
+            "millSeconds" : 16239999999999}, {"responseText" : "precipitation",
+          "millSeconds" : 1624000000005} ]
+      }
+    }
+  }

@@ -26,6 +26,15 @@
     "followupQuestions" : [ ]
 
   }, {
+    "id" : "skyQ4",
+    "type" : "sky",
+    "questionText" : "What's the scientific term for water falling from the sky'?",
+    "correctAnswer" : "precipitation",
+    "possibleAnswers" : [ "rain", "perspiration", "precipitation" ],
+    "imageUrl" : "./images/3CTransverse.jpg",
+    "followupQuestions" : [ ]
+
+  },{
     "id" : "mathQ1",
     "type" : "math",
     "questionText" : "What is 2 + 2?",

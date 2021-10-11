@@ -262,6 +262,7 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
         List<String> questionIdsForEverCorrect = QuestionHistorySummary.findQuestionIdsCorrectFirstTime(questionHistories,domainDatasource);
         questionIdsForEverCorrect.addAll(QuestionHistorySummary.findQuestionIdsCorrectAfterIncorrect(questionHistories, domainDatasource));
         int denom = domainDatasource.retrieveQuestionsByConcept(concept).size();
+        System.out.println("denom: "+denom);
         if(denom>windowSize){
             denom = windowSize;
         }
@@ -273,6 +274,7 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
                 }
             }
         }
+        System.out.println(num/(float)denom);
         if(num/(float)denom > 0.75){
             return true;
         } else {return false;}

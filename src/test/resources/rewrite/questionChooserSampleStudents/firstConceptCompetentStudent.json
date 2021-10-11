@@ -10,7 +10,7 @@
     "skyQ2" : {
       "questionId" : "skyQ2",
       "timesSeen" : [ 1623999999999 ],
-      "responses" : [ {"responseText" : "red",
+      "responses" : [ {"responseText" : "yellow",
         "millSeconds" : 1624000000005} ]
     },
     "skyQ3" : {
