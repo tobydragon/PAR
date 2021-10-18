@@ -438,5 +438,16 @@ class QuestionChooserByOrderedConceptsTest{
 
 
     }
+
+    @Test
+    public void changeConceptTest() throws IOException{
+        DomainDatasource domainDatasource = new DomainDatasourceJson("example","src/test/resources/rewrite/EquineUltrasoundSampleQuestions.json");
+        StudentModelDatasourceJson studentModelDatasource = new StudentModelDatasourceJson("chooserExample", "src/test/resources/rewrite/questionChooserSampleStudents", new JsonIoHelperDefault());
+        // window size is equal to 4
+        QuestionChooserByOrderedConcepts questionChooser = new QuestionChooserByOrderedConcepts(domainDatasource.retrieveAllConcepts(),windowSize);
+        StudentModelJson competentConceptChange = studentModelDatasource.getStudentModel("changeConceptTest");
+        Question q = questionChooser.chooseQuestion(competentConceptChange, domainDatasource);
+        assertEquals("StructureQ1",q.getId());
+    }
     
 }
