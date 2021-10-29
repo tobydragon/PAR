@@ -37,7 +37,7 @@ public class QCCCBWTest {
 
         //first concept exemplary, with one q unanswered test
         StudentModelJson studentModelFirstConceptCompetent = studentModelDatasource.getStudentModel("firstConceptCompetentStudent");
-        assertEquals(1+numMathQs,questionChooser.chooseQuestions(studentModelFirstConceptCompetent,domainDatasource).size());
+        assertEquals(numMathQs,questionChooser.chooseQuestions(studentModelFirstConceptCompetent,domainDatasource).size());
 
 
         //first concept exemplary test
