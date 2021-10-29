@@ -7,5 +7,6 @@ import edu.ithaca.dragon.par.student.json.QuestionHistory;
 
 public interface StudentModelInfo {
     String findQuestionSeenLeastRecently( List<String> questionIdsToCheck);
+    List<String> findQuestionsSeenLeastRecently( List<String> questionIdsToCheck);
     Map<String, QuestionHistory> getQuestionHistories();
 }

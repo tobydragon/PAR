@@ -27,6 +27,20 @@ class StudentModelTest {
     }
 
     @Test
+    public void findQuestionsSeenLeastRecentlyTest(){
+        StudentModelJson poor = new StudentModelJson("poor", QuestionHistoryTest.poorStudent());
+        List<String> leastSeenQs = poor.findQuestionsSeenLeastRecently(List.of("skyQ","mathQ","majorQ","yearQ","googleQ"));
+        assertEquals(1,leastSeenQs.size());
+        assertEquals("googleQ", leastSeenQs.get(0));
+        poor.addTimeSeen("googleQ", 20000L);
+        leastSeenQs = poor.findQuestionsSeenLeastRecently(List.of("skyQ","mathQ","majorQ","yearQ","googleQ"));
+        assertEquals(1,leastSeenQs.size());
+        assertTrue(leastSeenQs.contains("skyQ"));
+        
+        
+    }
+
+    @Test
     void checkTimeLastSeen() {
         StudentModelJson poor = new StudentModelJson("poor", QuestionHistoryTest.poorStudent());
 

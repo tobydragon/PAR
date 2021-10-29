@@ -3,6 +3,7 @@ package edu.ithaca.dragon.par.student.json;
 import edu.ithaca.dragon.par.student.StudentModelInfo;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class StudentModelJson implements StudentModelInfo {
     public String studentId;
@@ -68,6 +69,35 @@ public class StudentModelJson implements StudentModelInfo {
                 }
             }
             return leastRecentQuestionSoFar;
+        }
+        else {
+            throw new IllegalArgumentException("empty questionIdsToCheck List");
+        }
+    }
+
+    public List<String> findQuestionsSeenLeastRecently( List<String> questionIdsToCheck){
+        if (questionIdsToCheck.size() >0) {
+            List<String> idsOfLeastRecent = new ArrayList<>();
+            //List<String> ids = new ArrayList<>();
+            idsOfLeastRecent = questionIdsToCheck.stream().filter(val -> checkTimeLastSeen(val)==0).collect(Collectors.toList());
+            if(idsOfLeastRecent.size()>0){
+                return idsOfLeastRecent;
+            }
+            else{
+                // long currTimestamp = new Date().getTime();
+                // long timeElapsedForLeastRecent = currTimestamp - checkTimeLastSeen(questionIdsToCheck.get(0));
+                // for (String questionId : questionIdsToCheck) {
+                //     long timeElapsed = currTimestamp - checkTimeLastSeen(questionId);
+                //     if (timeElapsed > timeElapsedForLeastRecent) {
+                //         timeElapsedForLeastRecent = timeElapsed;
+                //     }
+                // }
+                // long leastRecentTime = timeElapsedForLeastRecent;
+                // idsOfLeastRecent = questionIdsToCheck.stream().filter(x -> checkTimeLastSeen(x)==leastRecentTime).collect(Collectors.toList());
+                idsOfLeastRecent.add(findQuestionSeenLeastRecently(questionIdsToCheck));
+                return idsOfLeastRecent;
+            }
+            
         }
         else {
             throw new IllegalArgumentException("empty questionIdsToCheck List");

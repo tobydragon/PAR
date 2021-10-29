@@ -40,4 +40,8 @@ public class QuestionHistory {
     public String getQuestionId() {
         return questionId;
     }
+
+    public List<Long> getTimesSeen(){
+        return timesSeen;
+    }
 }
