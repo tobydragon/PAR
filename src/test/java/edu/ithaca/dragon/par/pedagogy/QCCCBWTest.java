@@ -35,12 +35,12 @@ public class QCCCBWTest {
         int numGoogleQs = domainDatasource.getAllQuestions().stream().filter(x -> x.getType().equals("google")).collect(Collectors.toList()).size();
         assertEquals(numSkyQs,questionChooser.chooseQuestions(newStudentModel,domainDatasource).size());
 
-        //first concept exemplary, with one q unanswered test
+        //first concept competent
         StudentModelJson studentModelFirstConceptCompetent = studentModelDatasource.getStudentModel("firstConceptCompetentStudent");
-        assertEquals(numMathQs,questionChooser.chooseQuestions(studentModelFirstConceptCompetent,domainDatasource).size());
+        assertEquals(numMathQs+1,questionChooser.chooseQuestions(studentModelFirstConceptCompetent,domainDatasource).size());
 
 
-        //first concept exemplary test
+        //first concept exemplary test, with one q unanswered test
         StudentModelJson studentModelFirstConceptExemplary = studentModelDatasource.getStudentModel("firstConceptExemplaryStudent");
         assertEquals(numMathQs,questionChooser.chooseQuestions( studentModelFirstConceptExemplary,domainDatasource).size());
 
@@ -51,6 +51,7 @@ public class QCCCBWTest {
 
     }
 
+    @Test
     public void updateConceptScoresBasedOnPerformanceDataTest() throws IOException{
         DomainDatasource domainDatasource = new DomainDatasourceJson("example","src/test/resources/rewrite/QuestionChooserSampleQuestions.json");
         StudentModelDatasourceJson studentModelDatasource = new StudentModelDatasourceJson("chooserExample", "src/test/resources/rewrite/questionChooserSampleStudents", new JsonIoHelperDefault());
