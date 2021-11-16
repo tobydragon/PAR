@@ -154,7 +154,13 @@ public class QuestionChooserChangeConceptByWindow implements QuestionChooser{
         int i=0;
         for(ConceptRubricPair conceptScore:conceptScores){
             String concept = conceptScore.getConcept();
+            // Only score most recent questions equal to the window size
+            // Makes it possible for students to go down in score
             List<Question> conceptQuestionsSeenByStudent = retrieveQuestionsFromStudentModelByConcept(concept,questionHistories,domainDatasource);
+            int numConceptQuestionsSeenByStudent = conceptQuestionsSeenByStudent.size();
+            if(numConceptQuestionsSeenByStudent>windowSize){
+                conceptQuestionsSeenByStudent = conceptQuestionsSeenByStudent.subList(numConceptQuestionsSeenByStudent-windowSize,numConceptQuestionsSeenByStudent);
+            }
             if(domainDatasource.retrieveQuestionsByConcept(concept).size()==0){
                 conceptScores.set(i,new ConceptRubricPair(concept,OrderedConceptRubric.UNASSESSABLE));
             }
