@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import edu.ithaca.dragon.par.analysis.QuestionHistorySummary;
@@ -17,6 +18,7 @@ import edu.ithaca.dragon.par.student.json.QuestionHistory;
 
 
 public class QuestionChooserChangeConceptByWindow implements QuestionChooser{
+    Random rand = new Random();
     //Each concept(type) has an average of last <window-size> questions which gets bucketed
     //rubric-style: unprepared,developing,competent,exemplary
     //having too few questions answered puts you automatically into unprepared
@@ -42,7 +44,19 @@ public class QuestionChooserChangeConceptByWindow implements QuestionChooser{
         
     }
     public Question chooseQuestion(StudentModelInfo studentModelInfo, DomainDatasource domainDatasource){
-        return null;
+        
+        //reused random question chooser code
+        //could be piped instead
+        
+        List<Question> questions = chooseQuestions(studentModelInfo, domainDatasource);
+        if(questions.size()>0){
+            return questions.get((int)(Math.random()*questions.size()));
+        }
+        else{
+            List<String> answers = new ArrayList<>();
+            answers.add("End");
+            return new Question("EndQ","Hi, if you're seeing this, it means you've scored exemplary on all course concepts and are now finished. Congrats! If you'd like the chance to practice more concepts with this system, create a new user anytime.","Finished","End",answers,"./images/PartyHat.jpeg");
+        }
     }
     public List<Question> chooseQuestions(StudentModelInfo studentModelInfo, DomainDatasource domainDatasource){
         //Algorithm: 
@@ -87,7 +101,12 @@ public class QuestionChooserChangeConceptByWindow implements QuestionChooser{
             //     return eligibleQuestions;
             // }
             List<String> eligibleIds = eligibleQuestions.stream().map(x -> x.getId()).collect(Collectors.toList()); 
-            return studentModelInfo.findQuestionsSeenLeastRecently(eligibleIds).stream().map(val -> domainDatasource.getQuestion(val)).collect(Collectors.toList());
+            if(eligibleIds.size()>0){
+                return studentModelInfo.findQuestionsSeenLeastRecently(eligibleIds).stream().map(val -> domainDatasource.getQuestion(val)).collect(Collectors.toList());
+            }
+            else{
+                return new ArrayList<Question>();
+            }
         } else{
             throw new RuntimeException("error: chooser concept ids do not match domain concepts");
         }
@@ -182,32 +201,21 @@ public class QuestionChooserChangeConceptByWindow implements QuestionChooser{
 
     public List<ConceptRubricPair> updateConceptScoresBasedOnComparativeResults(List<ConceptRubricPair> conceptScores){
         int i=0;
-        boolean isAllExemplary = true;
         conceptScores = conceptScores.stream().filter(cs -> cs.getScore()!=OrderedConceptRubric.UNASSESSABLE).collect(Collectors.toList());
         
         for(ConceptRubricPair conceptScore:conceptScores){
             String concept = conceptScore.getConcept();
             if(i==0 && conceptScore.getScore()==OrderedConceptRubric.UNPREPARED){
                 conceptScores.set(i,new ConceptRubricPair(concept,OrderedConceptRubric.DEVELOPING));
-                isAllExemplary=false;
             }
             else if(i-1!=-1 && conceptScore.getScore()==OrderedConceptRubric.UNPREPARED){
                 ConceptRubricPair previousConceptScore = conceptScores.get(i-1);
                 if(previousConceptScore.getScore()==OrderedConceptRubric.COMPETENT || previousConceptScore.getScore()==OrderedConceptRubric.EXEMPLARY){
                     conceptScores.set(i,new ConceptRubricPair(concept,OrderedConceptRubric.DEVELOPING));
                 }
-                isAllExemplary=false;
             }
-            else{
-                if(conceptScore.getScore()!=OrderedConceptRubric.EXEMPLARY){
-                    isAllExemplary=false;
-                }
-            }
+            
             i++;
-        }
-
-        if(isAllExemplary){
-            conceptScores = conceptScores.stream().map(score -> new ConceptRubricPair(score.getConcept(),OrderedConceptRubric.DEVELOPING)).collect(Collectors.toList());
         }
 
         return conceptScores;

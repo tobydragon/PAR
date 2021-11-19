@@ -25,5 +25,15 @@
         "conceptIds" : [ "InterfaceUML","Queue","Big-O","arrays", "linkedNodes", "arrayQueues", "linkedQueues" ],
         "windowSize" : 3
       }
+    },
+    "220changeConceptByWindow" : {
+      "id" : "220changeConceptByWindow",
+      "domainId" : "contentFor220",
+      "studentIds" : [],
+      "questionChooser" : {
+        "type" : "QuestionChooserChangeConceptByWindow",
+        "conceptIds" : ["InterfaceUML", "Queue", "Big-O", "arrays", "linkedNodes", "arrayQueues", "linkedQueues"],
+        "windowSize" : 4
+      }
     }
   }

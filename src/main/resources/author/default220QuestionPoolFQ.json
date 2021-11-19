@@ -29,7 +29,15 @@
   "correctAnswer" : "First-In, First-Out (FIFO)",
   "possibleAnswers" : [ "Last-In, First-Out (LIFO)", "First-In, First-Out (FIFO)" ],
   "imageUrl" : "./images/3CTransverse.jpg",
-  "followupQuestions" : []
+  "followupQuestions" : [ {
+    "id" : "Big-OQ0",
+    "type" : "Big-O",
+    "questionText" : "When evaluating the Big-O of enqueuing or dequeuing, what is Big-O describing?",
+    "correctAnswer" : "time complexity",
+    "possibleAnswers" : [ "space complexity", "time complexity" ],
+    "imageUrl" : "./images/3CTransverse.jpg",
+    "followupQuestions" : [ ]
+  } ]
 }, {
   "id" : "Big-OQ1",
   "type" : "Big-O",
@@ -61,7 +69,15 @@
   "correctAnswer" : "O(N)",
   "possibleAnswers" : [ "O(N)", "O(1)", "O(N^2)" ],
   "imageUrl" : "./images/220/Arrays.jpg",
-  "followupQuestions" : [ ]
+  "followupQuestions" : [ {
+    "id" : "ArrayQueueQ1",
+    "type" : "arrayQueues",
+    "questionText" : "What happens when you enqueue a new item?",
+    "correctAnswer" : "Overflow",
+    "possibleAnswers" : [ "Overflow", "Underflow", "Nothing" ],
+    "imageUrl" : "./images/220/Arrays.jpg",
+    "followupQuestions" : [ ]
+  } ]
 }, {
   "id" : "LinkedNodeQ1",
   "type" : "linkedNodes",
@@ -93,7 +109,15 @@
   "correctAnswer" : "O(N)",
   "possibleAnswers" : [ "O(1)", "O(N)" ],
   "imageUrl" : "./images/220/Arrays.jpg",
-  "followupQuestions" : [ ]
+  "followupQuestions" : [ {
+    "id" : "ArrayQueueQ3",
+    "type" : "arrayQueues",
+    "questionText" : "If the time complexity of dequeuing at the front is O(1), then enqueuing must be?",
+    "correctAnswer" : "O(N)",
+    "possibleAnswers" : [ "O(1)", "O(N)" ],
+    "imageUrl" : "./images/220/Arrays.jpg",
+    "followupQuestions" : [ ]
+  } ]
 }, {
   "id" : "LinkedQueueQ1",
   "type" : "linkedQueues",
@@ -101,7 +125,15 @@
   "correctAnswer" : "O(1)",
   "possibleAnswers" : [ "O(N)", "O(1)", "O(log N)" ],
   "imageUrl" : "./images/220/LinkedNodes.jpg",
-  "followupQuestions" : [ ]
+  "followupQuestions" : [ {
+    "id" : "LinkedQueueQ2",
+    "type" : "linkedQueues",
+    "questionText" : "What is the big-O of dequeuing at the front?",
+    "correctAnswer" : "O(1)",
+    "possibleAnswers" : [ "O(N)", "O(log n)", "O(1)" ],
+    "imageUrl" : "./images/220/LinkedNodes.jpg",
+    "followupQuestions" : [ ]
+  } ]
 }, {
   "id" : "LinkedQueueQ3",
   "type" : "linkedQueues",

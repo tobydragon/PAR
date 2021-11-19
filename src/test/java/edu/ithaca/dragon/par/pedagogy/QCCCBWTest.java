@@ -45,9 +45,15 @@ public class QCCCBWTest {
         assertEquals(numMathQs,questionChooser.chooseQuestions( studentModelFirstConceptExemplary,domainDatasource).size());
 
 
-        //all concepts exemplary all w/ same time seen (makes all concepts developing)
+        //all concepts exemplary all w/ same time seen (does not make all concepts developing, end is reached)
         StudentModelJson studentModelAllConceptsExemplary = studentModelDatasource.getStudentModel("AllConceptsExemplary");
-        assertEquals(1,questionChooser.chooseQuestions(studentModelAllConceptsExemplary,domainDatasource).size());
+        List<Question> questions = questionChooser.chooseQuestions(studentModelAllConceptsExemplary,domainDatasource);
+        assertEquals(0,questions.size());
+
+        //Final Question test
+        Question q = questionChooser.chooseQuestion(studentModelAllConceptsExemplary,domainDatasource);
+        assertEquals("EndQ",q.getId());
+
 
     }
 
