@@ -44,8 +44,8 @@ public class ParController {
 
                 new DomainDatasourceJson(
                     "contentFor220",
-                    "localData/220QuestionPool.json",
-                    "author/default220QuestionPool.json",
+                    "localData/220MapQuestionPool.json",
+                    "author/default220MapQuestionPool.json",
                     new JsonIoHelperSpring()
                 ),
 

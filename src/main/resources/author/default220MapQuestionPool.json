@@ -1,0 +1,497 @@
+[
+    {
+        "id" : "InterfaceQ1",
+        "type" : "Interface",
+        "questionText" : "From these options what must an interface include?",
+        "correctAnswer" : "A. comments on pre/post conditions and/or side effects",
+        "possibleAnswers" : [ "A. comments on pre/post conditions and/or side effects", "B. local variable types", "C. data structures used internally","A and B","B and C","A and C","All of the above", "None of the above"],
+        "imageUrl" : "./images/3CTransverse.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "InterfaceQ2",
+        "type" : "Interface",
+        "questionText" : "From these options what must an interface include?",
+        "correctAnswer" : "B and C",
+        "possibleAnswers" : [ "A. return variable name", "B. return type", "C. number of parameters","A and B","B and C","A and C","All of the above", "None of the above"],
+        "imageUrl" : "./images/3CTransverse.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "InterfaceQ3",
+        "type" : "Interface",
+        "questionText" : "From these options what must an interface include?",
+        "correctAnswer" : "C. function name",
+        "possibleAnswers" : [ "A. constructors", "B. function body", "C. function name","A and B","B and C","A and C","All of the above", "None of the above"],
+        "imageUrl" : "./images/3CTransverse.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "InterfaceQ4",
+        "type" : "Interface",
+        "questionText" : "From these options what must an interface include?",
+        "correctAnswer" : "B. parameter types",
+        "possibleAnswers" : [ "A. speed of execution", "B. parameter types", "C. local variable names","A and B","B and C","A and C","All of the above", "None of the above"],
+        "imageUrl" : "./images/3CTransverse.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "InterfaceQ5",
+        "type" : "Interface",
+        "questionText" : "Which of the following options correctly instantiates a map?",
+        "correctAnswer" : "D and E",
+        "possibleAnswers" : [ "A. Map<int,String> m = new HashMap<>();", "B. Map<Int,String> m = new HashMap<>();", "C. Map<Integer,String> m = new Map<>();","D. Map<Integer,String> m = new HashMap<>();", "E. Map<String,Integer> m = new HashMap<>();","A and B","B and C","A, B, C","C and D","C, D, E", "D and E","A,B,C,D","All of the above", "None of the above"],
+        "imageUrl" : "./images/3CTransverse.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "InterfaceQ6",
+        "type" : "Interface",
+        "questionText" : "Which of the following is the correct output?",
+        "correctAnswer" : "16 1 5 null",
+        "possibleAnswers" : [ "16 28 5 error code","16 1 5 error code", "16 28 5 false","16 1 5 false","16 28 5 null","16 1 5 null", "None of the above"],
+        "imageUrl" : "./images/PutsAndGets1.png",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "InterfaceQ8",
+        "type" : "Interface",
+        "questionText" : "Which of the following is the correct output?",
+        "correctAnswer" : "10 22 17 null null",
+        "possibleAnswers" : [ "10 1 5 error code","10 22 5 error code", "10 22 17 error code","10 1 5 false false","10 22 5 false false","10 22 17 false false","10 1 5 null null","10 22 5 null null","10 22 17 null null", "None of the above"],
+        "imageUrl" : "./images/PutsAndGets2.png",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "InterfaceQ7",
+        "type" : "Interface",
+        "questionText" : "Which of the following is the correct output?",
+        "correctAnswer" : "None of the above",
+        "possibleAnswers" : [ "error code","false false Eartha Aziz", "false false Eartha Pat", "null null Eartha Aziz","None of the above"],
+        "imageUrl" : "./images/PutsAndGets3.png",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "ListMapQ1",
+        "type" : "ListMap",
+        "questionText" : "Which of the following are abstract data types?",
+        "correctAnswer" : "A. List",
+        "possibleAnswers" : [ "A. List", "B. ArrayList", "C. LinkedList","A and B","B and C","A and C","All of the above", "None of the above"],
+        "imageUrl" : "./images/3CTransverse.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "ListMapQ2",
+        "type" : "ListMap",
+        "questionText" : "Which of the following are data structures?",
+        "correctAnswer" : "B and C",
+        "possibleAnswers" : [ "A. List", "B. ArrayList", "C. LinkedList","A and B","B and C","A and C","All of the above", "None of the above"],
+        "imageUrl" : "./images/3CTransverse.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "ListMapQ3",
+        "type" : "ListMap",
+        "questionText" : "What's the most efficient appending can be for ArrayList and LinkedList?",
+        "correctAnswer" : "AL: o(1); LL: o(1)",
+        "possibleAnswers" : [ "AL: o(N); LL: o(1)", "AL: o(1); LL: o(1)","AL: o(N); LL: o(N)","AL: o(1); LL: o(N)"],
+        "imageUrl" : "./images/3CTransverse.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "ListMapQ4",
+        "type" : "ListMap",
+        "questionText" : "What's the most efficient removal can be for ArrayList and LinkedList?",
+        "correctAnswer" : "AL: o(N); LL: o(N)",
+        "possibleAnswers" : [ "AL: o(N); LL: o(1)", "AL: o(1); LL: o(1)","AL: o(N); LL: o(N)","AL: o(1); LL: o(N)"],
+        "imageUrl" : "./images/3CTransverse.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "ListMapQ5",
+        "type" : "ListMap",
+        "questionText" : "What's the most efficient insertion can be for ArrayList and LinkedList?",
+        "correctAnswer" : "AL: o(N); LL: o(N)",
+        "possibleAnswers" : [ "AL: o(N); LL: o(1)", "AL: o(1); LL: o(1)","AL: o(N); LL: o(N)","AL: o(1); LL: o(N)"],
+        "imageUrl" : "./images/3CTransverse.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "ListMapQ6",
+        "type" : "ListMap",
+        "questionText" : "What will be the big-O of putting for ListMap using parallel list, a list of key-value pairs and a sorted list",
+        "correctAnswer" : "PL: o(1), KV: o(1), SL: o(N)",
+        "possibleAnswers" : [ "PL: o(1), KV: o(N), SL: o(1)", "PL: o(N), KV: o(N), SL: o(1)", "PL: o(1), KV: o(1), SL: o(N)","PL: o(1), KV: o(N), SL: o(N)","PL: o(N), KV: o(N), SL: o(N)","PL: o(1), KV: o(1), SL: o(1)"],
+        "imageUrl" : "./images/3CTransverse.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "ListMapQ7",
+        "type" : "ListMap",
+        "questionText" : "At what index will Sherry, 24 be put?",
+        "correctAnswer" : "6",
+        "possibleAnswers" : [ "0","1","2","3","4","5","6","error: duplicate key", "error: duplicate value", "nowhere: value at 2 will be updated"],
+        "imageUrl" : "./images/LMKVP.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "ListMapQ8",
+        "type" : "ListMap",
+        "questionText" : "At what index will Sherry, 24 be put?",
+        "correctAnswer" : "5",
+        "possibleAnswers" : [ "0","1","2","3","4","5","6","error: duplicate key", "error: duplicate value", "nowhere: value at 2 will be updated"],
+        "imageUrl" : "./images/sorted.png",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "ListMapQ9",
+        "type" : "ListMap",
+        "questionText" : "At what index will Boris, 9 be put?",
+        "correctAnswer" : "nowhere: value at 1 will be updated",
+        "possibleAnswers" : [ "0","1","2","3","4","5","6","error: duplicate key", "error: duplicate value", "nowhere: value at 1 will be updated"],
+        "imageUrl" : "./images/sorted.png",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "ListMapQ10",
+        "type" : "ListMap",
+        "questionText" : "What will be the big-O of getting for ListMap using parallel list, a list of key-value pairs and a sorted list",
+        "correctAnswer" : "PL: o(N), KV: o(N), SL: o(logN)",
+        "possibleAnswers" : [ "PL: o(logN), KV: o(N), SL: o(logN)", "PL: o(N), KV: o(N), SL: o(logN)", "PL: o(logN), KV: o(logN), SL: o(N)","PL: o(logN), KV: o(N), SL: o(N)","PL: o(N), KV: o(N), SL: o(N)","PL: o(logN), KV: o(logN), SL: o(logN)"],
+        "imageUrl" : "./images/3CTransverse.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "ListMapQ11",
+        "type" : "ListMap",
+        "questionText" : "What happens when a get of Keith is called?",
+        "correctAnswer" : "null is returned",
+        "possibleAnswers" : ["false is returned","-1 is returned","null is returned","error is thrown: key isn't in the map"],
+        "imageUrl" : "./images/sorted.png",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "ListMapQ12",
+        "type" : "ListMap",
+        "questionText" : "How many entries are checked to see if Keith is in the map?",
+        "correctAnswer" : "6",
+        "possibleAnswers" : ["6","0","5","2","1"],
+        "imageUrl" : "./images/3CTransverse.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "ListMapQ13",
+        "type" : "ListMap",
+        "questionText" : "How many entries are checked to see if Keith is in the map?",
+        "correctAnswer" : "2",
+        "possibleAnswers" : ["6","0","5","2","1"],
+        "imageUrl" : "./images/sorted.png",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "ListMapQ14",
+        "type" : "ListMap",
+        "questionText" : "What happens when a get of 24 is called?",
+        "correctAnswer" : "null is returned",
+        "possibleAnswers" : ["false is returned","-1 is returned","null is returned","error: key isn't in the map", "error: type mismatch"],
+        "imageUrl" : "./images/sorted.png",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "ListMapQ15",
+        "type" : "ListMap",
+        "questionText" : "What happens when a get of Boris is called?",
+        "correctAnswer" : "11 is returned",
+        "possibleAnswers" : ["-1 is returned","1 is returned","11 is returned","error is thrown: key isn't in the map", "error: type mismatch"],
+        "imageUrl" : "./images/sorted.png",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "ListMapQ16",
+        "type" : "ListMap",
+        "questionText" : "How many entries are checked to see if Boris is in the map?",
+        "correctAnswer" : "2",
+        "possibleAnswers" : ["6","1","5","2","0"],
+        "imageUrl" : "./images/sorted.png",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "ListMapQ17",
+        "type" : "ListMap",
+        "questionText" : "How many entries are checked to see if Boris is in the map?",
+        "correctAnswer" : "2",
+        "possibleAnswers" : ["6","1","5","2","0"],
+        "imageUrl" : "./images/3CTransverse.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "TreeMapQ1",
+        "type" : "TreeMap",
+        "questionText" : "What's the term for the first node in a BST?",
+        "correctAnswer" : "root",
+        "possibleAnswers" : [ "first node","parent","root","start","child"],
+        "imageUrl" : "./images/3CTransverse.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "TreeMapQ2",
+        "type" : "TreeMap",
+        "questionText" : "What's true about all BSTs that isn't true about all trees?",
+        "correctAnswer" : "A and C",
+        "possibleAnswers" : [ "A. each parent node has at most two children","B. they're self-balancing","C. each child has only one parent","A and B","B and C","A and C","All of the above", "None of the above"],
+        "imageUrl" : "./images/3CTransverse.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "TreeMapQ3",
+        "type" : "TreeMap",
+        "questionText" : "If the key of the entry being added is the same as an entry in the TreeMap, what happens?",
+        "correctAnswer" : "The original entry is found, and the value it holds is updated",
+        "possibleAnswers" : [ "The original entry is deleted and replaced with the new one", "The original entry is found, and the value it holds is updated", "The new entry is discarded, you can’t have two entries with the same key in a map", "The new entry is added to the map as a child node of the original entry"],
+        "imageUrl" : "./images/3CTransverse.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "TreeMapQ4",
+        "type" : "TreeMap",
+        "questionText" : "Where will 5: Leigh be put?",
+        "correctAnswer" : "right of 3: Dev as a child of 3: Dev",
+        "possibleAnswers" : [ "left of 7: Dana where 1: Max is","left of 9: Lin as another child of 7: Dana","left of 9: Lin as a child of 9: Lin","right of 1: Max where 3: Dev is","right of 3: Dev as a child of 3: Dev","left of 3: Dev as a child of 3: Dev","it will take the place of 7: Dana","error: duplicate key", "error: duplicate value", "nowhere: the value with 5 will be updated to Leigh, nowhere: the value with Leigh will be updated to 5"],
+        "imageUrl" : "./images/TreeMapIS.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "TreeMapQ5",
+        "type" : "TreeMap",
+        "questionText" : "Where will 10: Dev be put?",
+        "correctAnswer" : "left of 12: Shane as a child of 12: Shane",
+        "possibleAnswers" : [ "left of 9: Lin as a child of 9: Lin","right of 9: Lin as another child of 7: Dana","left of 12: Shane as a child of 12: Shane","right of 7: Dana where 9: Lin is","right of 12: Shane as a child of 12: Shane","right of 9: Lin where 12: Shane is","it will take the place of 7: Dana","error: duplicate key", "error: duplicate value", "nowhere: the value with 10 will be updated to Dev, nowhere: the value with Dev will be updated to 10"],
+        "imageUrl" : "./images/TreeMapIS.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "TreeMapQ6",
+        "type" : "TreeMap",
+        "questionText" : "Where will 7: Carter be put?",
+        "correctAnswer" : "nowhere: the value with 7 will be updated to Carter",
+        "possibleAnswers" : [ "left of 7: Dana where 1: Max is","left of 9: Lin as another child of 7: Dana","left of 9: Lin as a child of 9: Lin","right of 1: Max where 3: Dev is","right of 3: Dev as a child of 3: Dev","left of 3: Dev as a child of 3: Dev","it will take the place of 7: Dana","error: duplicate key", "error: duplicate value", "nowhere: the value with 7 will be updated to Carter, nowhere: the value with Carter will be updated to 7"],
+        "imageUrl" : "./images/TreeMapIS.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "TreeMapQ7",
+        "type" : "TreeMap",
+        "questionText" : "What's the efficiency of getting using a Tree Map?",
+        "correctAnswer" : "o(log N)",
+        "possibleAnswers" : ["o(N*N)","o(1)","o(N)","o(Nlog N)","o(log N)"],
+        "imageUrl" : "./images/3CTransverse.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "TreeMapQ8",
+        "type" : "TreeMap",
+        "questionText" : "How many checks will be made when calling a get of 5?",
+        "correctAnswer" : "4: checks root, 1:Max, 3:Dev, null",
+        "possibleAnswers" : ["6: all nodes will be checked","0: type mismatch","3: checks root, 1:Max, 3:Dev","4: checks root, 1:Max, 3:Dev, null","1: checks root"],
+        "imageUrl" : "./images/3CTransverse.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "TreeMapQ9",
+        "type" : "TreeMap",
+        "questionText" : "How many checks will be made when calling a get of 12?",
+        "correctAnswer" : "3: checks root, 9:Lin, 12:Shane",
+        "possibleAnswers" : ["6: all nodes will be checked","3: checks root, 9:Lin, 12:Shane","0: type mismatch","2: checks root, 9:Lin","1: checks root"],
+        "imageUrl" : "./images/3CTransverse.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "TreeMapQ10",
+        "type" : "TreeMap",
+        "questionText" : "How many checks will be made when calling a get of Shane?",
+        "correctAnswer" : "0: type mismatch",
+        "possibleAnswers" : ["6: all nodes will be checked","3: checks root, 9:Lin, 12:Shane","0: type mismatch","2: checks root, 9:Lin","1: checks root"],
+        "imageUrl" : "./images/3CTransverse.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "TreeMapQ11",
+        "type" : "TreeMap",
+        "questionText" : "What are the data types of the key-value pairs?",
+        "correctAnswer" : "Integer, String",
+        "possibleAnswers" : [ "int, int", "Integer, Integer", "Integer, String", "int, String", "String, Integer", "String, int", "String, String", "There are no pairs (this is a BST that’s not powering a Map)"],
+        "imageUrl" : "./images/3CTransverse.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "TreeMapQ12",
+        "type" : "TreeMap",
+        "questionText" : "What are the data types of the key-value pairs?",
+        "correctAnswer" : "String, String",
+        "possibleAnswers" : [ "int, int", "Integer, Integer", "Integer, String", "int, String", "String, Integer", "String, int", "String, String", "There are no pairs (this is a BST that’s not powering a Map)"],
+        "imageUrl" : "./images/3CTransverse.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "TreeMapQ13",
+        "type" : "TreeMap",
+        "questionText" : "What are the data types of the key-value pairs?",
+        "correctAnswer" : "There are no pairs (this is a BST that's not powering a Map)",
+        "possibleAnswers" : [ "int, int", "Integer, Integer", "Integer, String", "int, String", "String, Integer", "String, int", "String, String", "There are no pairs (this is a BST that’s not powering a Map)"],
+        "imageUrl" : "./images/3CTransverse.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "TreeMapQ14",
+        "type" : "TreeMap",
+        "questionText" : "What are the data types of the key-value pairs?",
+        "correctAnswer" : "Integer, Integer",
+        "possibleAnswers" : [ "int, int", "Integer, Integer", "Integer, String", "int, String", "String, Integer", "String, int", "String, String", "There are no pairs (this is a BST that’s not powering a Map)"],
+        "imageUrl" : "./images/3CTransverse.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "HashMapQ1",
+        "type" : "HashMap",
+        "questionText" : "What's 0 mod 5?",
+        "correctAnswer" : "0",
+        "possibleAnswers" : [ "1","0","5","Undefined"],
+        "imageUrl" : "./images/3CTransverse.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "HashMapQ2",
+        "type" : "HashMap",
+        "questionText" : "What's 8 mod 0?",
+        "correctAnswer" : "Undefined",
+        "possibleAnswers" : [ "1","0","8","Undefined"],
+        "imageUrl" : "./images/3CTransverse.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "HashMapQ3",
+        "type" : "HashMap",
+        "questionText" : "What's 7 mod 3?",
+        "correctAnswer" : "1",
+        "possibleAnswers" : [ "4","7","1","3"],
+        "imageUrl" : "./images/3CTransverse.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "HashMapQ4",
+        "type" : "HashMap",
+        "questionText" : "What's 4 mod 11?",
+        "correctAnswer" : "4",
+        "possibleAnswers" : [ "3","7","4","11"],
+        "imageUrl" : "./images/3CTransverse.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "HashMapQ5",
+        "type" : "HashMap",
+        "questionText" : "At what index does 27: Trent get put?",
+        "correctAnswer" : "3",
+        "possibleAnswers" : [ "1","2","3","0","4","5","error: index is out of bounds"],
+        "imageUrl" : "./images/3CTransverse.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "HashMapQ6",
+        "type" : "HashMap",
+        "questionText" : "At what index does 29: Sandy get put?",
+        "correctAnswer" : "5",
+        "possibleAnswers" : [ "1","2","3","0","4","5"],
+        "imageUrl" : "./images/3CTransverse.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "HashMapQ7",
+        "type" : "HashMap",
+        "questionText" : "At what index does 11: Daria get put?",
+        "correctAnswer" : "5",
+        "possibleAnswers" : [ "1","2","3","0","4","5", "error: duplicate key", "error: duplicate value"],
+        "imageUrl" : "./images/3CTransverse.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "HashMapQ8",
+        "type" : "HashMap",
+        "questionText" : "At what index does 1: Jake get put?",
+        "correctAnswer" : "1",
+        "possibleAnswers" : [ "1", "2","3","0","4","5","error: invalid key"],
+        "imageUrl" : "./images/3CTransverse.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "HashMapQ9",
+        "type" : "HashMap",
+        "questionText" : "What's the efficiency of getting using a Hash Map?",
+        "correctAnswer" : "o(1)",
+        "possibleAnswers" : ["o(N*N)","o(1)","o(N)","o(Nlog N)","o(log N)"],
+        "imageUrl" : "./images/3CTransverse.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "HashMapQ10",
+        "type" : "HashMap",
+        "questionText" : "How many checks will be made when calling a get of 22?",
+        "correctAnswer" : "1",
+        "possibleAnswers" : ["0","1","2","6","5"],
+        "imageUrl" : "./images/3CTransverse.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "HashMapQ11",
+        "type" : "HashMap",
+        "questionText" : "How many checks will be made when calling a get of Heather?",
+        "correctAnswer" : "0: type mismatch",
+        "possibleAnswers" : ["0: key not present","0: type mismatch","1","2","6","5"],
+        "imageUrl" : "./images/3CTransverse.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "HashMapQ12",
+        "type" : "HashMap",
+        "questionText" : "How many checks will be made when calling a get of 24?",
+        "correctAnswer" : "4",
+        "possibleAnswers" : ["0","3","2","4","5","6"],
+        "imageUrl" : "./images/3CTransverse.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "ComparisonQ1",
+        "type" : "Comparison",
+        "questionText" : "Which is the worst to use when the map will hold around a hundred values and the most common operation is putting?",
+        "correctAnswer" : "TreeMap, o(logN)",
+        "possibleAnswers" : [ "ListMap, o(N)", "HashMap, o(logN)", "TreeMap, o(N)", "TreeMap, o(logN)"],
+        "imageUrl" : "./images/3CTransverse.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "ComparisonQ2",
+        "type" : "Comparison",
+        "questionText" : "Which is the worst to use when the map will hold around a million values and the most common operation is putting?",
+        "correctAnswer" : "ListMap, o(N)",
+        "possibleAnswers" : [ "ListMap, o(N)", "HashMap, o(logN)", "TreeMap, o(N)", "TreeMap, o(logN)"],
+        "imageUrl" : "./images/3CTransverse.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "ComparisonQ3",
+        "type" : "Comparison",
+        "questionText" : "Which is the worst to use when the map will hold around a hundred values and the most common operation is pulling?",
+        "correctAnswer" : "TreeMap, o(logN)",
+        "possibleAnswers" : [ "ListMap, o(N)", "HashMap, o(logN)", "TreeMap, o(N)", "TreeMap, o(logN)"],
+        "imageUrl" : "./images/3CTransverse.jpg",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "ComparisonQ4",
+        "type" : "Comparison",
+        "questionText" : "Which is the worst to use when the map will hold around a million values and the most common operation is pulling?",
+        "correctAnswer" : "ListMap, o(N)",
+        "possibleAnswers" : [ "ListMap, o(N)", "HashMap, o(logN)", "TreeMap, o(N)", "TreeMap, o(logN)"],
+        "imageUrl" : "./images/3CTransverse.jpg",
+        "followupQuestions" : []
+    }
+]
