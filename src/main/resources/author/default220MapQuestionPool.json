@@ -131,7 +131,7 @@
         "questionText" : "At what index will Sherry, 24 be put?",
         "correctAnswer" : "6",
         "possibleAnswers" : [ "0","1","2","3","4","5","6","error: duplicate key", "error: duplicate value", "nowhere: value at 2 will be updated"],
-        "imageUrl" : "./images/LMKVP.jpg",
+        "imageUrl" : "./images/LM.png",
         "followupQuestions" : []
     },
     {
@@ -176,7 +176,7 @@
         "questionText" : "How many entries are checked to see if Keith is in the map?",
         "correctAnswer" : "6",
         "possibleAnswers" : ["6","0","5","2","1"],
-        "imageUrl" : "./images/3CTransverse.jpg",
+        "imageUrl" : "./images/LM.png",
         "followupQuestions" : []
     },
     {
@@ -221,7 +221,34 @@
         "questionText" : "How many entries are checked to see if Boris is in the map?",
         "correctAnswer" : "2",
         "possibleAnswers" : ["6","1","5","2","0"],
-        "imageUrl" : "./images/3CTransverse.jpg",
+        "imageUrl" : "./images/LM.png",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "ListMapQ18",
+        "type" : "ListMap",
+        "questionText" : "What happens when Aswat is removed?",
+        "correctAnswer" : "all entries after Aswat shift up one index, entry is returned",
+        "possibleAnswers" : [ "all entries after Aswat shift up one index, entry is returned", "all entries after Aswat shift up one index, \"Aswat\" is returned", "all entries after Aswat shift up one index, 8 is returned", "all entries before Aswat shift down one index, \"Aswat\" is returned","all entries before Aswat shift down one index, 8 is returned","all entries before Aswat shift down one index, entry is returned","the entry at index 3 is null", "the entry at index 4 is null" ],
+        "imageUrl" : "./images/LM.png",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "ListMapQ19",
+        "type" : "ListMap",
+        "questionText" : "What happens when Logan is removed?",
+        "correctAnswer" : "Logan is just removed with the entry returned",
+        "possibleAnswers" : [ "all entries before Logan shift down one index, \"Logan\" is returned","all entries before Logan shift down one index, 8 is returned","all entries before Logan shift down one index, entry is returned","Logan is just removed with \"Logan\" returned","Logan is just removed with 17 returned","Logan is just removed with the entry returned","the entry at index 5 is null", "the entry at index 6 is null" ],
+        "imageUrl" : "./images/LM.png",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "ListMapQ20",
+        "type" : "ListMap",
+        "questionText" : "What happens when Dawn is removed?",
+        "correctAnswer" : "all entries after Dawn shift up one index, entry is returned",
+        "possibleAnswers" : [ "all entries after Dawn shift up one index, \"Dawn\" is returned", "all entries after Dawn shift up one index, 24 is returned","all entries after Dawn shift up one index, entry is returned","Dawn is just removed with \"Dawn\" returned","Dawn is just removed with 24 returned","Dawn is just removed with the entry returned","the entry at index 0 is null", "the entry at index 1 is null" ],
+        "imageUrl" : "./images/LM.png",
         "followupQuestions" : []
     },
     {
@@ -257,7 +284,7 @@
         "questionText" : "Where will 5: Leigh be put?",
         "correctAnswer" : "right of 3: Dev as a child of 3: Dev",
         "possibleAnswers" : [ "left of 7: Dana where 1: Max is","left of 9: Lin as another child of 7: Dana","left of 9: Lin as a child of 9: Lin","right of 1: Max where 3: Dev is","right of 3: Dev as a child of 3: Dev","left of 3: Dev as a child of 3: Dev","it will take the place of 7: Dana","error: duplicate key", "error: duplicate value", "nowhere: the value with 5 will be updated to Leigh, nowhere: the value with Leigh will be updated to 5"],
-        "imageUrl" : "./images/TreeMapIS.jpg",
+        "imageUrl" : "./images/IntStrTM.png",
         "followupQuestions" : []
     },
     {
@@ -266,7 +293,7 @@
         "questionText" : "Where will 10: Dev be put?",
         "correctAnswer" : "left of 12: Shane as a child of 12: Shane",
         "possibleAnswers" : [ "left of 9: Lin as a child of 9: Lin","right of 9: Lin as another child of 7: Dana","left of 12: Shane as a child of 12: Shane","right of 7: Dana where 9: Lin is","right of 12: Shane as a child of 12: Shane","right of 9: Lin where 12: Shane is","it will take the place of 7: Dana","error: duplicate key", "error: duplicate value", "nowhere: the value with 10 will be updated to Dev, nowhere: the value with Dev will be updated to 10"],
-        "imageUrl" : "./images/TreeMapIS.jpg",
+        "imageUrl" : "./images/IntStrTM.png",
         "followupQuestions" : []
     },
     {
@@ -275,7 +302,7 @@
         "questionText" : "Where will 7: Carter be put?",
         "correctAnswer" : "nowhere: the value with 7 will be updated to Carter",
         "possibleAnswers" : [ "left of 7: Dana where 1: Max is","left of 9: Lin as another child of 7: Dana","left of 9: Lin as a child of 9: Lin","right of 1: Max where 3: Dev is","right of 3: Dev as a child of 3: Dev","left of 3: Dev as a child of 3: Dev","it will take the place of 7: Dana","error: duplicate key", "error: duplicate value", "nowhere: the value with 7 will be updated to Carter, nowhere: the value with Carter will be updated to 7"],
-        "imageUrl" : "./images/TreeMapIS.jpg",
+        "imageUrl" : "./images/IntStrTM.png",
         "followupQuestions" : []
     },
     {
@@ -293,7 +320,7 @@
         "questionText" : "How many checks will be made when calling a get of 5?",
         "correctAnswer" : "4: checks root, 1:Max, 3:Dev, null",
         "possibleAnswers" : ["6: all nodes will be checked","0: type mismatch","3: checks root, 1:Max, 3:Dev","4: checks root, 1:Max, 3:Dev, null","1: checks root"],
-        "imageUrl" : "./images/3CTransverse.jpg",
+        "imageUrl" : "./images/IntStrTM.png",
         "followupQuestions" : []
     },
     {
@@ -302,7 +329,7 @@
         "questionText" : "How many checks will be made when calling a get of 12?",
         "correctAnswer" : "3: checks root, 9:Lin, 12:Shane",
         "possibleAnswers" : ["6: all nodes will be checked","3: checks root, 9:Lin, 12:Shane","0: type mismatch","2: checks root, 9:Lin","1: checks root"],
-        "imageUrl" : "./images/3CTransverse.jpg",
+        "imageUrl" : "./images/IntStrTM.png",
         "followupQuestions" : []
     },
     {
@@ -311,7 +338,7 @@
         "questionText" : "How many checks will be made when calling a get of Shane?",
         "correctAnswer" : "0: type mismatch",
         "possibleAnswers" : ["6: all nodes will be checked","3: checks root, 9:Lin, 12:Shane","0: type mismatch","2: checks root, 9:Lin","1: checks root"],
-        "imageUrl" : "./images/3CTransverse.jpg",
+        "imageUrl" : "./images/IntStrTM.png",
         "followupQuestions" : []
     },
     {
@@ -320,7 +347,7 @@
         "questionText" : "What are the data types of the key-value pairs?",
         "correctAnswer" : "Integer, String",
         "possibleAnswers" : [ "int, int", "Integer, Integer", "Integer, String", "int, String", "String, Integer", "String, int", "String, String", "There are no pairs (this is a BST that’s not powering a Map)"],
-        "imageUrl" : "./images/3CTransverse.jpg",
+        "imageUrl" : "./images/IntStrTM.png",
         "followupQuestions" : []
     },
     {
@@ -329,7 +356,7 @@
         "questionText" : "What are the data types of the key-value pairs?",
         "correctAnswer" : "String, String",
         "possibleAnswers" : [ "int, int", "Integer, Integer", "Integer, String", "int, String", "String, Integer", "String, int", "String, String", "There are no pairs (this is a BST that’s not powering a Map)"],
-        "imageUrl" : "./images/3CTransverse.jpg",
+        "imageUrl" : "./images/StrStrTM.png",
         "followupQuestions" : []
     },
     {
@@ -338,7 +365,7 @@
         "questionText" : "What are the data types of the key-value pairs?",
         "correctAnswer" : "There are no pairs (this is a BST that's not powering a Map)",
         "possibleAnswers" : [ "int, int", "Integer, Integer", "Integer, String", "int, String", "String, Integer", "String, int", "String, String", "There are no pairs (this is a BST that’s not powering a Map)"],
-        "imageUrl" : "./images/3CTransverse.jpg",
+        "imageUrl" : "./images/BST.png",
         "followupQuestions" : []
     },
     {
@@ -347,7 +374,106 @@
         "questionText" : "What are the data types of the key-value pairs?",
         "correctAnswer" : "Integer, Integer",
         "possibleAnswers" : [ "int, int", "Integer, Integer", "Integer, String", "int, String", "String, Integer", "String, int", "String, String", "There are no pairs (this is a BST that’s not powering a Map)"],
-        "imageUrl" : "./images/3CTransverse.jpg",
+        "imageUrl" : "./images/IntIntTM.png",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "TreeMapQ15",
+        "type" : "TreeMap",
+        "questionText" : "What is the height of the tree after putting 8?",
+        "correctAnswer" : "4",
+        "possibleAnswers" : [ "0", "1", "2", "3", "4","5"],
+        "imageUrl" : "./images/BST.png",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "TreeMapQ16",
+        "type" : "TreeMap",
+        "questionText" : "What is the height of the tree after putting 25?",
+        "correctAnswer" : "5",
+        "possibleAnswers" : [ "0", "1", "2", "3", "4","5"],
+        "imageUrl" : "./images/BST.png",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "TreeMapQ17",
+        "type" : "TreeMap",
+        "questionText" : "What is the height of the tree after putting 13?",
+        "correctAnswer" : "4",
+        "possibleAnswers" : [ "0", "1", "2", "3", "4","5"],
+        "imageUrl" : "./images/BST.png",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "TreeMapQ18",
+        "type" : "TreeMap",
+        "questionText" : "What is the height of the tree after removing 9?",
+        "correctAnswer" : "4",
+        "possibleAnswers" : [ "0", "1", "2", "3", "4","5"],
+        "imageUrl" : "./images/BST.png",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "TreeMapQ19",
+        "type" : "TreeMap",
+        "questionText" : "What is the height of the tree after removing 6?",
+        "correctAnswer" : "4",
+        "possibleAnswers" : [ "0", "1", "2", "3", "4","5"],
+        "imageUrl" : "./images/BST.png",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "TreeMapQ19",
+        "type" : "TreeMap",
+        "questionText" : "What is the height of the tree after removing 26?",
+        "correctAnswer" : "3",
+        "possibleAnswers" : [ "0", "1", "2", "3", "4","5"],
+        "imageUrl" : "./images/BST.png",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "TreeMapQ20",
+        "type" : "TreeMap",
+        "questionText" : "Is the tree balanced? If not, how should it be fixed?",
+        "correctAnswer" : "no, 22 should switch with 19",
+        "possibleAnswers" : [ "yes", "no, 6 should be the root", "no, 19 should be the root", "no, 22 should switch with 26", "no, 22 should switch with 19"],
+        "imageUrl" : "./images/BST.png",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "TreeMapQ21",
+        "type" : "TreeMap",
+        "questionText" : "What happens when 7:Dana is removed?",
+        "correctAnswer" : "3:Dev becomes the new root",
+        "possibleAnswers" : [ "nothing, the root can't be removed", "nothing, the tree map now has two roots", "1:Max becomes the new root","3:Dev becomes the new root","9:Lin becomes the new root" ],
+        "imageUrl" : "./images/IntStrTM.png",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "TreeMapQ22",
+        "type" : "TreeMap",
+        "questionText" : "What happens when 12:Shane is removed?",
+        "correctAnswer" : "nothing, the node is just removed",
+        "possibleAnswers" : [ "nothing, the node can't be removed", "nothing, the node is just removed","3:Dev becomes the new root", "9:Lin becomes the new root" ],
+        "imageUrl" : "./images/IntStrTM.png",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "TreeMapQ23",
+        "type" : "TreeMap",
+        "questionText" : "What happens when 1:Max is removed?",
+        "correctAnswer" : "0:Brock takes the place of 1:Max",
+        "possibleAnswers" : [ "nothing, the node can't be removed", "nothing, the node is just removed","3:Dev becomes the new root", "9:Lin becomes the new root", "0:Brock takes the place of 1:Max", "3:Dev takes the place of 1:Max" ],
+        "imageUrl" : "./images/IntStrTM.png",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "TreeMapQ24",
+        "type" : "TreeMap",
+        "questionText" : "What happens when root is removed?",
+        "correctAnswer" : "nothing, the node does not exist",
+        "possibleAnswers" : [ "nothing, the node can't be removed", "nothing, the node is just removed","nothing, the node does not exist","the tree map is deleted", "7:Dana is removed", "3:Dev becomes the new root", "9:Lin becomes the new root" ],
+        "imageUrl" : "./images/IntStrTM.png",
         "followupQuestions" : []
     },
     {
@@ -392,7 +518,7 @@
         "questionText" : "At what index does 27: Trent get put?",
         "correctAnswer" : "3",
         "possibleAnswers" : [ "1","2","3","0","4","5","error: index is out of bounds"],
-        "imageUrl" : "./images/3CTransverse.jpg",
+        "imageUrl" : "./images/HM.png",
         "followupQuestions" : []
     },
     {
@@ -401,7 +527,7 @@
         "questionText" : "At what index does 29: Sandy get put?",
         "correctAnswer" : "5",
         "possibleAnswers" : [ "1","2","3","0","4","5"],
-        "imageUrl" : "./images/3CTransverse.jpg",
+        "imageUrl" : "./images/HM.png",
         "followupQuestions" : []
     },
     {
@@ -410,7 +536,7 @@
         "questionText" : "At what index does 11: Daria get put?",
         "correctAnswer" : "5",
         "possibleAnswers" : [ "1","2","3","0","4","5", "error: duplicate key", "error: duplicate value"],
-        "imageUrl" : "./images/3CTransverse.jpg",
+        "imageUrl" : "./images/HM.png",
         "followupQuestions" : []
     },
     {
@@ -419,13 +545,13 @@
         "questionText" : "At what index does 1: Jake get put?",
         "correctAnswer" : "1",
         "possibleAnswers" : [ "1", "2","3","0","4","5","error: invalid key"],
-        "imageUrl" : "./images/3CTransverse.jpg",
+        "imageUrl" : "./images/HM.png",
         "followupQuestions" : []
     },
     {
         "id" : "HashMapQ9",
         "type" : "HashMap",
-        "questionText" : "What's the efficiency of getting using a Hash Map?",
+        "questionText" : "What's the efficiency of get using a Hash Map?",
         "correctAnswer" : "o(1)",
         "possibleAnswers" : ["o(N*N)","o(1)","o(N)","o(Nlog N)","o(log N)"],
         "imageUrl" : "./images/3CTransverse.jpg",
@@ -437,7 +563,7 @@
         "questionText" : "How many checks will be made when calling a get of 22?",
         "correctAnswer" : "1",
         "possibleAnswers" : ["0","1","2","6","5"],
-        "imageUrl" : "./images/3CTransverse.jpg",
+        "imageUrl" : "./images/HM.png",
         "followupQuestions" : []
     },
     {
@@ -446,7 +572,7 @@
         "questionText" : "How many checks will be made when calling a get of Heather?",
         "correctAnswer" : "0: type mismatch",
         "possibleAnswers" : ["0: key not present","0: type mismatch","1","2","6","5"],
-        "imageUrl" : "./images/3CTransverse.jpg",
+        "imageUrl" : "./images/HM.png",
         "followupQuestions" : []
     },
     {
@@ -455,7 +581,43 @@
         "questionText" : "How many checks will be made when calling a get of 24?",
         "correctAnswer" : "4",
         "possibleAnswers" : ["0","3","2","4","5","6"],
-        "imageUrl" : "./images/3CTransverse.jpg",
+        "imageUrl" : "./images/HM.png",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "HashMapQ13",
+        "type" : "HashMap",
+        "questionText" : "What happens to the hash map after 11: Quinn is removed?",
+        "correctAnswer" : "nothing, 11:Quinn is just removed",
+        "possibleAnswers" : ["nothing, the node can't be removed", "nothing, 11:Quinn is just removed","nothing, node updates to 11:null", "nothing, node updates to null:Quinn"],
+        "imageUrl" : "./images/HM.png",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "HashMapQ14",
+        "type" : "HashMap",
+        "questionText" : "What happens to the hash map after 22: Daria is removed?",
+        "correctAnswer" : "nothing, 22:Daria is just removed",
+        "possibleAnswers" : ["nothing, the node can't be removed", "the size of the arraylist is reduced by 1","nothing, 22:Daria is just removed","nothing, node updates to 22:null", "nothing, node updates to null:Daria"],
+        "imageUrl" : "./images/HM.png",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "HashMapQ15",
+        "type" : "HashMap",
+        "questionText" : "What happens to the hash map after 6: Alex is removed?",
+        "correctAnswer" : "12:Simone takes the place of 6:Alex",
+        "possibleAnswers" : ["nothing, the node can't be removed", "nothing, 6:Alex is just removed","nothing, node updates to 6:null", "nothing, node updates to null:Alex", "the size of the arraylist is reduced by 1", "the arraylist remains unchanged, but 12:Simone and 30:Kevin are also removed", "12:Simone takes the place of 6:Alex"],
+        "imageUrl" : "./images/HM.png",
+        "followupQuestions" : []
+    },
+    {
+        "id" : "HashMapQ16",
+        "type" : "HashMap",
+        "questionText" : "What happens to the hash map after 12: Simone is removed?",
+        "correctAnswer" : "30:Kevin takes the place of 12:Simone",
+        "possibleAnswers" : ["nothing, the node can't be removed", "nothing, 12:Simone is just removed","nothing, node updates to 12:null", "nothing, node updates to null:Simone", "the size of the arraylist is reduced by 1","30:Kevin takes the place of 12:Simone", "the arraylist remains unchanged, but 30:Kevin is also removed"],
+        "imageUrl" : "./images/HM.png",
         "followupQuestions" : []
     },
     {

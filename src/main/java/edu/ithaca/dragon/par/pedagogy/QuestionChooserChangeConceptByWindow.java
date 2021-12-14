@@ -34,7 +34,7 @@ public class QuestionChooserChangeConceptByWindow implements QuestionChooser{
     public int windowSize;
 
     public QuestionChooserChangeConceptByWindow(){
-        windowSize=3;
+        windowSize=4;
 
     }
 

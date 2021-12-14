@@ -13,7 +13,7 @@
       "studentIds" : [ "o1", "o2", "o3", "o4" ],
       "questionChooser" : {
         "type" : "QuestionChooserInOrder",
-        "questionIdsInOrder" : [ "ArrayQ1", "ArrayQ2","LinkedNodeQ1", "LinkedNodeQ2", "LinkedQueueQ1", "ArrayQueueQ2" ]
+        "questionIdsInOrder" : [ "InterfaceQ1", "InterfaceQ2","InterfaceQ3","InterfaceQ4","InterfaceQ5","InterfaceQ6","InterfaceQ7","InterfaceQ8","ListMapQ1","ListMapQ2","ListMapQ3", "ListMapQ4","ListMapQ5","ListMapQ6","ListMapQ7","ListMapQ8","ListMapQ9","ListMapQ10","ListMapQ11","ListMapQ12","ListMapQ13","ListMapQ14","ListMapQ15","ListMapQ16","ListMapQ17","ListMapQ18","ListMapQ19","ListMapQ20","TreeMapQ1", "TreeMapQ2","TreeMapQ3","TreeMapQ4","TreeMapQ5","TreeMapQ6","TreeMapQ7","TreeMapQ8","TreeMapQ9","TreeMapQ10","TreeMapQ11","TreeMapQ12","TreeMapQ13","TreeMapQ13","TreeMapQ14","TreeMapQ15","TreeMapQ16","TreeMapQ17","TreeMapQ18","TreeMapQ19","TreeMapQ20","TreeMapQ21","TreeMapQ22","TreeMapQ23", "TreeMapQ24","HashMapQ1","HashMapQ2","HashMapQ3","HashMapQ4","HashMapQ5","HashMapQ6","HashMapQ7","HashMapQ8","HashMapQ9","HashMapQ10","HashMapQ11","HashMapQ12","HashMapQ13","HashMapQ14","HashMapQ15","HashMapQ16","ComparisonQ1","ComparisonQ2","ComparisonQ3","ComparisonQ4"]
       }
     },
     "220byOrderedConcepts" : {
@@ -22,8 +22,8 @@
       "studentIds" : [ ],
       "questionChooser" : {
         "type" : "QuestionChooserByOrderedConcepts",
-        "conceptIds" : [ "InterfaceUML","Queue","Big-O","arrays", "linkedNodes", "arrayQueues", "linkedQueues" ],
-        "windowSize" : 3
+        "conceptIds" : [ "Interface", "ListMap", "TreeMap", "HashMap", "Comparison" ],
+        "windowSize" : 4
       }
     },
     "220changeConceptByWindow" : {
@@ -32,7 +32,7 @@
       "studentIds" : [],
       "questionChooser" : {
         "type" : "QuestionChooserChangeConceptByWindow",
-        "conceptIds" : ["InterfaceUML", "Queue", "Big-O", "arrays", "linkedNodes", "arrayQueues", "linkedQueues"],
+        "conceptIds" : ["Interface", "ListMap", "TreeMap", "HashMap", "Comparison"],
         "windowSize" : 4
       }
     }

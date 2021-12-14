@@ -32,7 +32,7 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
     public int windowSize;
 
     public QuestionChooserByOrderedConcepts(){
-        windowSize=3;
+        windowSize=4;
 
     }
 
