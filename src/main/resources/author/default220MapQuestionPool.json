@@ -5,7 +5,7 @@
         "questionText" : "From these options what must an interface include?",
         "correctAnswer" : "A. comments on pre/post conditions and/or side effects",
         "possibleAnswers" : [ "A. comments on pre/post conditions and/or side effects", "B. local variable types", "C. data structures used internally","A and B","B and C","A and C","All of the above", "None of the above"],
-        "imageUrl" : "./images/3CTransverse.jpg",
+        "imageUrl" : "./images/ImageNA.png",
         "followupQuestions" : []
     },
     {
@@ -14,7 +14,7 @@
         "questionText" : "From these options what must an interface include?",
         "correctAnswer" : "B and C",
         "possibleAnswers" : [ "A. return variable name", "B. return type", "C. number of parameters","A and B","B and C","A and C","All of the above", "None of the above"],
-        "imageUrl" : "./images/3CTransverse.jpg",
+        "imageUrl" : "./images/ImageNA.png",
         "followupQuestions" : []
     },
     {
@@ -23,7 +23,7 @@
         "questionText" : "From these options what must an interface include?",
         "correctAnswer" : "C. function name",
         "possibleAnswers" : [ "A. constructors", "B. function body", "C. function name","A and B","B and C","A and C","All of the above", "None of the above"],
-        "imageUrl" : "./images/3CTransverse.jpg",
+        "imageUrl" : "./images/ImageNA.png",
         "followupQuestions" : []
     },
     {
@@ -32,7 +32,7 @@
         "questionText" : "From these options what must an interface include?",
         "correctAnswer" : "B. parameter types",
         "possibleAnswers" : [ "A. speed of execution", "B. parameter types", "C. local variable names","A and B","B and C","A and C","All of the above", "None of the above"],
-        "imageUrl" : "./images/3CTransverse.jpg",
+        "imageUrl" : "./images/ImageNA.png",
         "followupQuestions" : []
     },
     {
@@ -41,7 +41,7 @@
         "questionText" : "Which of the following options correctly instantiates a map?",
         "correctAnswer" : "D and E",
         "possibleAnswers" : [ "A. Map<int,String> m = new HashMap<>();", "B. Map<Int,String> m = new HashMap<>();", "C. Map<Integer,String> m = new Map<>();","D. Map<Integer,String> m = new HashMap<>();", "E. Map<String,Integer> m = new HashMap<>();","A and B","B and C","A, B, C","C and D","C, D, E", "D and E","A,B,C,D","All of the above", "None of the above"],
-        "imageUrl" : "./images/3CTransverse.jpg",
+        "imageUrl" : "./images/ImageNA.png",
         "followupQuestions" : []
     },
     {
@@ -77,7 +77,7 @@
         "questionText" : "Which of the following are abstract data types?",
         "correctAnswer" : "A. List",
         "possibleAnswers" : [ "A. List", "B. ArrayList", "C. LinkedList","A and B","B and C","A and C","All of the above", "None of the above"],
-        "imageUrl" : "./images/3CTransverse.jpg",
+        "imageUrl" : "./images/ImageNA.png",
         "followupQuestions" : []
     },
     {
@@ -86,7 +86,7 @@
         "questionText" : "Which of the following are data structures?",
         "correctAnswer" : "B and C",
         "possibleAnswers" : [ "A. List", "B. ArrayList", "C. LinkedList","A and B","B and C","A and C","All of the above", "None of the above"],
-        "imageUrl" : "./images/3CTransverse.jpg",
+        "imageUrl" : "./images/ImageNA.png",
         "followupQuestions" : []
     },
     {
@@ -95,7 +95,7 @@
         "questionText" : "What's the most efficient appending can be for ArrayList and LinkedList?",
         "correctAnswer" : "AL: o(1); LL: o(1)",
         "possibleAnswers" : [ "AL: o(N); LL: o(1)", "AL: o(1); LL: o(1)","AL: o(N); LL: o(N)","AL: o(1); LL: o(N)"],
-        "imageUrl" : "./images/3CTransverse.jpg",
+        "imageUrl" : "./images/ImageNA.png",
         "followupQuestions" : []
     },
     {
@@ -104,7 +104,7 @@
         "questionText" : "What's the most efficient removal can be for ArrayList and LinkedList?",
         "correctAnswer" : "AL: o(N); LL: o(N)",
         "possibleAnswers" : [ "AL: o(N); LL: o(1)", "AL: o(1); LL: o(1)","AL: o(N); LL: o(N)","AL: o(1); LL: o(N)"],
-        "imageUrl" : "./images/3CTransverse.jpg",
+        "imageUrl" : "./images/ImageNA.png",
         "followupQuestions" : []
     },
     {
@@ -113,7 +113,7 @@
         "questionText" : "What's the most efficient insertion can be for ArrayList and LinkedList?",
         "correctAnswer" : "AL: o(N); LL: o(N)",
         "possibleAnswers" : [ "AL: o(N); LL: o(1)", "AL: o(1); LL: o(1)","AL: o(N); LL: o(N)","AL: o(1); LL: o(N)"],
-        "imageUrl" : "./images/3CTransverse.jpg",
+        "imageUrl" : "./images/ImageNA.png",
         "followupQuestions" : []
     },
     {
@@ -122,7 +122,7 @@
         "questionText" : "What will be the big-O of putting for ListMap using parallel list, a list of key-value pairs and a sorted list",
         "correctAnswer" : "PL: o(1), KV: o(1), SL: o(N)",
         "possibleAnswers" : [ "PL: o(1), KV: o(N), SL: o(1)", "PL: o(N), KV: o(N), SL: o(1)", "PL: o(1), KV: o(1), SL: o(N)","PL: o(1), KV: o(N), SL: o(N)","PL: o(N), KV: o(N), SL: o(N)","PL: o(1), KV: o(1), SL: o(1)"],
-        "imageUrl" : "./images/3CTransverse.jpg",
+        "imageUrl" : "./images/ImageNA.png",
         "followupQuestions" : []
     },
     {
@@ -158,7 +158,7 @@
         "questionText" : "What will be the big-O of getting for ListMap using parallel list, a list of key-value pairs and a sorted list",
         "correctAnswer" : "PL: o(N), KV: o(N), SL: o(logN)",
         "possibleAnswers" : [ "PL: o(logN), KV: o(N), SL: o(logN)", "PL: o(N), KV: o(N), SL: o(logN)", "PL: o(logN), KV: o(logN), SL: o(N)","PL: o(logN), KV: o(N), SL: o(N)","PL: o(N), KV: o(N), SL: o(N)","PL: o(logN), KV: o(logN), SL: o(logN)"],
-        "imageUrl" : "./images/3CTransverse.jpg",
+        "imageUrl" : "./images/ImageNA.png",
         "followupQuestions" : []
     },
     {
@@ -257,7 +257,7 @@
         "questionText" : "What's the term for the first node in a BST?",
         "correctAnswer" : "root",
         "possibleAnswers" : [ "first node","parent","root","start","child"],
-        "imageUrl" : "./images/3CTransverse.jpg",
+        "imageUrl" : "./images/ImageNA.png",
         "followupQuestions" : []
     },
     {
@@ -266,7 +266,7 @@
         "questionText" : "What's true about all BSTs that isn't true about all trees?",
         "correctAnswer" : "A and C",
         "possibleAnswers" : [ "A. each parent node has at most two children","B. they're self-balancing","C. each child has only one parent","A and B","B and C","A and C","All of the above", "None of the above"],
-        "imageUrl" : "./images/3CTransverse.jpg",
+        "imageUrl" : "./images/ImageNA.png",
         "followupQuestions" : []
     },
     {
@@ -275,7 +275,7 @@
         "questionText" : "If the key of the entry being added is the same as an entry in the TreeMap, what happens?",
         "correctAnswer" : "The original entry is found, and the value it holds is updated",
         "possibleAnswers" : [ "The original entry is deleted and replaced with the new one", "The original entry is found, and the value it holds is updated", "The new entry is discarded, you can’t have two entries with the same key in a map", "The new entry is added to the map as a child node of the original entry"],
-        "imageUrl" : "./images/3CTransverse.jpg",
+        "imageUrl" : "./images/ImageNA.png",
         "followupQuestions" : []
     },
     {
@@ -311,7 +311,7 @@
         "questionText" : "What's the efficiency of getting using a Tree Map?",
         "correctAnswer" : "o(log N)",
         "possibleAnswers" : ["o(N*N)","o(1)","o(N)","o(Nlog N)","o(log N)"],
-        "imageUrl" : "./images/3CTransverse.jpg",
+        "imageUrl" : "./images/ImageNA.png",
         "followupQuestions" : []
     },
     {
@@ -482,7 +482,7 @@
         "questionText" : "What's 0 mod 5?",
         "correctAnswer" : "0",
         "possibleAnswers" : [ "1","0","5","Undefined"],
-        "imageUrl" : "./images/3CTransverse.jpg",
+        "imageUrl" : "./images/ImageNA.png",
         "followupQuestions" : []
     },
     {
@@ -491,7 +491,7 @@
         "questionText" : "What's 8 mod 0?",
         "correctAnswer" : "Undefined",
         "possibleAnswers" : [ "1","0","8","Undefined"],
-        "imageUrl" : "./images/3CTransverse.jpg",
+        "imageUrl" : "./images/ImageNA.png",
         "followupQuestions" : []
     },
     {
@@ -500,7 +500,7 @@
         "questionText" : "What's 7 mod 3?",
         "correctAnswer" : "1",
         "possibleAnswers" : [ "4","7","1","3"],
-        "imageUrl" : "./images/3CTransverse.jpg",
+        "imageUrl" : "./images/ImageNA.png",
         "followupQuestions" : []
     },
     {
@@ -509,7 +509,7 @@
         "questionText" : "What's 4 mod 11?",
         "correctAnswer" : "4",
         "possibleAnswers" : [ "3","7","4","11"],
-        "imageUrl" : "./images/3CTransverse.jpg",
+        "imageUrl" : "./images/ImageNA.png",
         "followupQuestions" : []
     },
     {
@@ -554,7 +554,7 @@
         "questionText" : "What's the efficiency of get using a Hash Map?",
         "correctAnswer" : "o(1)",
         "possibleAnswers" : ["o(N*N)","o(1)","o(N)","o(Nlog N)","o(log N)"],
-        "imageUrl" : "./images/3CTransverse.jpg",
+        "imageUrl" : "./images/ImageNA.png",
         "followupQuestions" : []
     },
     {
@@ -626,7 +626,7 @@
         "questionText" : "Which is the worst to use when the map will hold around a hundred values and the most common operation is putting?",
         "correctAnswer" : "TreeMap, o(logN)",
         "possibleAnswers" : [ "ListMap, o(N)", "HashMap, o(logN)", "TreeMap, o(N)", "TreeMap, o(logN)"],
-        "imageUrl" : "./images/3CTransverse.jpg",
+        "imageUrl" : "./images/ImageNA.png",
         "followupQuestions" : []
     },
     {
@@ -635,7 +635,7 @@
         "questionText" : "Which is the worst to use when the map will hold around a million values and the most common operation is putting?",
         "correctAnswer" : "ListMap, o(N)",
         "possibleAnswers" : [ "ListMap, o(N)", "HashMap, o(logN)", "TreeMap, o(N)", "TreeMap, o(logN)"],
-        "imageUrl" : "./images/3CTransverse.jpg",
+        "imageUrl" : "./images/ImageNA.png",
         "followupQuestions" : []
     },
     {
@@ -644,7 +644,7 @@
         "questionText" : "Which is the worst to use when the map will hold around a hundred values and the most common operation is pulling?",
         "correctAnswer" : "TreeMap, o(logN)",
         "possibleAnswers" : [ "ListMap, o(N)", "HashMap, o(logN)", "TreeMap, o(N)", "TreeMap, o(logN)"],
-        "imageUrl" : "./images/3CTransverse.jpg",
+        "imageUrl" : "./images/ImageNA.png",
         "followupQuestions" : []
     },
     {
@@ -653,7 +653,7 @@
         "questionText" : "Which is the worst to use when the map will hold around a million values and the most common operation is pulling?",
         "correctAnswer" : "ListMap, o(N)",
         "possibleAnswers" : [ "ListMap, o(N)", "HashMap, o(logN)", "TreeMap, o(N)", "TreeMap, o(logN)"],
-        "imageUrl" : "./images/3CTransverse.jpg",
+        "imageUrl" : "./images/ImageNA.png",
         "followupQuestions" : []
     }
 ]
