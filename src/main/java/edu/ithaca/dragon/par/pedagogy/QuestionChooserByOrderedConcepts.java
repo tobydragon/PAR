@@ -82,14 +82,6 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
             throw new RuntimeException("error: chooser concept ids do not match domain concepts");
         }
     }
-
-    public List<String> getConceptIds() {
-        return conceptIds;
-    }
-
-    public void setConceptIds(List<String> conceptIds) {
-        this.conceptIds = conceptIds;
-    }
     
     public static List<Question> retrieveQuestionsFromStudentModelByConcept(String concept, Collection<QuestionHistory> questionHistories, DomainDatasource domainDatasource){
         List<Question> questionsByConceptFromDatasource = domainDatasource.retrieveQuestionsByConcept(concept);
@@ -316,7 +308,13 @@ public class QuestionChooserByOrderedConcepts implements QuestionChooser{
     public void setWindowSize(int windowSize) {
         this.windowSize = windowSize;
     }
+    public List<String> getConceptIds() {
+        return conceptIds;
+    }
 
+    public void setConceptIds(List<String> conceptIds) {
+        this.conceptIds = conceptIds;
+    }
     
     
 }
